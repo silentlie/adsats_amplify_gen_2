@@ -9,9 +9,25 @@ import 'amplify_outputs.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 
 Future<void> main() async {
+  Future<void> configureAmplify() async {
+    try {
+      await Amplify.addPlugins([
+        AmplifyAuthCognito(),
+        AmplifyAPI(
+          options: APIPluginOptions(
+            modelProvider: ModelProvider.instance,
+          ),
+        ),
+      ]);
+      await Amplify.configure(amplifyConfig);
+      safePrint('Successfully configured');
+    } on Exception catch (e) {
+      safePrint('Error configuring Amplify: $e');
+    }
+  }
   try {
     WidgetsFlutterBinding.ensureInitialized();
-    await _configureAmplify();
+    await configureAmplify();
     setPathUrlStrategy();
     runApp(const MyApp());
   } on AmplifyException catch (e) {
@@ -19,22 +35,7 @@ Future<void> main() async {
   }
 }
 
-Future<void> _configureAmplify() async {
-  try {
-    await Amplify.addPlugins([
-      AmplifyAuthCognito(),
-      AmplifyAPI(
-        options: APIPluginOptions(
-          modelProvider: ModelProvider.instance,
-        ),
-      ),
-    ]);
-    await Amplify.configure(amplifyConfig);
-    safePrint('Successfully configured');
-  } on Exception catch (e) {
-    safePrint('Error configuring Amplify: $e');
-  }
-}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

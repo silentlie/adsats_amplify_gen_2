@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
+import { addUserToGroup } from "./add-user-to-group/resource"
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -13,6 +14,15 @@ const schema = a.schema({
       isDone: a.boolean(),
     })
     .authorization((allow) => [allow.owner()]),
+  addUserToGroup: a
+    .mutation()
+    .arguments({
+      userId: a.string().required(),
+      groupName: a.string().required(),
+    })
+    .authorization((allow) => [allow.group("ADMINS")])
+    .handler(a.handler.function(addUserToGroup))
+    .returns(a.json())
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -34,21 +44,7 @@ Actions or Pages Router? Review how to generate Data clients for those use
 cases: https://docs.amplify.aws/gen2/build-a-backend/data/connect-to-API/
 =========================================================================*/
 
-/*
-"use client"
-import { generateClient } from "aws-amplify/data";
-import type { Schema } from "@/amplify/data/resource";
-
-const client = generateClient<Schema>() // use this Data client for CRUDL requests
-*/
-
 /*== STEP 3 ===============================================================
 Fetch records from the database and use them in your frontend component.
 (THIS SNIPPET WILL ONLY WORK IN THE FRONTEND CODE FILE.)
 =========================================================================*/
-
-/* For example, in a React component, you can use this snippet in your
-  function's RETURN statement */
-// const { data: todos } = await client.models.Todo.list()
-
-// return <ul>{todos.map(todo => <li key={todo.id}>{todo.content}</li>)}</ul>
