@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
@@ -25,6 +27,7 @@ Future<void> main() async {
       safePrint('Error configuring Amplify: $e');
     }
   }
+
   try {
     WidgetsFlutterBinding.ensureInitialized();
     await configureAmplify();
@@ -34,8 +37,6 @@ Future<void> main() async {
     runApp(Text("Error configuring Amplify: ${e.message}"));
   }
 }
-
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -68,11 +69,81 @@ class TodoScreen extends StatefulWidget {
 
 class _TodoScreenState extends State<TodoScreen> {
   List<Todo> _todos = [];
-
+  StreamSubscription<GraphQLResponse<Todo>>? subscription;
+  StreamSubscription<GraphQLResponse<Todo>>? onUpdatesubscription;
+  StreamSubscription<GraphQLResponse<Todo>>? onDeletesubscription;
   @override
   void initState() {
     super.initState();
     _refreshTodos();
+    _subscribe();
+  }
+
+  @override
+  void dispose() {
+    _unsubscribe();
+    super.dispose();
+  }
+
+  void _subscribe() {
+    final subscriptionRequest = ModelSubscriptions.onCreate(Todo.classType);
+    final onUpdateSubscriptionRequest =
+        ModelSubscriptions.onUpdate(Todo.classType);
+    final onDeleteSubscriptionRequest =
+        ModelSubscriptions.onDelete(Todo.classType);
+    final Stream<GraphQLResponse<Todo>> operation = Amplify.API.subscribe(
+      subscriptionRequest,
+      onEstablished: () => safePrint('Subscription established'),
+    );
+    final Stream<GraphQLResponse<Todo>> onUpdateoperation =
+        Amplify.API.subscribe(
+      onUpdateSubscriptionRequest,
+      onEstablished: () => safePrint('Subscription onUpdate established'),
+    );
+    final Stream<GraphQLResponse<Todo>> onDeleteoperation =
+        Amplify.API.subscribe(
+      onDeleteSubscriptionRequest,
+      onEstablished: () => safePrint('Subscription onDelete established'),
+    );
+    subscription = operation.listen(
+      (event) {
+        safePrint('Subscription event data received: ${event.data}');
+        setState(() {
+          _todos.add(event.data!);
+        });
+      },
+      onError: (Object e) => safePrint('Error in subscription stream: $e'),
+    );
+    onUpdatesubscription = onUpdateoperation.listen(
+      (event) {
+        safePrint('Subscription onUpdate event data received: ${event.data}');
+        setState(() {
+          int index = _todos.indexWhere((todo) => todo.id == event.data!.id);
+          _todos[index] = event.data!;
+        });
+      },
+      onError: (Object e) =>
+          safePrint('Error in subscription onUpdate stream: $e'),
+    );
+    onDeletesubscription = onDeleteoperation.listen(
+      (event) {
+        safePrint('Subscription onDelete event data received: ${event.data}');
+        setState(() {
+          _todos.removeWhere((todo) => todo.equals(event.data!));
+        });
+      },
+      onError: (Object e) =>
+          safePrint('Error in subscription onDelete stream: $e'),
+    );
+  }
+
+  void _unsubscribe() {
+    subscription?.cancel();
+    subscription = null;
+    onUpdatesubscription?.cancel();
+    onUpdatesubscription = null;
+    onDeletesubscription?.cancel();
+    onDeletesubscription = null;
   }
 
   Future<void> _refreshTodos() async {
@@ -111,8 +182,9 @@ class _TodoScreenState extends State<TodoScreen> {
           } else {
             safePrint('Creating Todo successful.');
           }
-          _refreshTodos();
+          // _refreshTodos();
         },
+        tooltip: 'Add todo',
       ),
       body: _todos.isEmpty == true
           ? const Center(
@@ -136,7 +208,7 @@ class _TodoScreenState extends State<TodoScreen> {
                         safePrint('Updating Todo failed. ${response.errors}');
                       } else {
                         safePrint('Updating Todo successful.');
-                        await _refreshTodos();
+                        // await _refreshTodos();
                         return true;
                       }
                     }
@@ -155,7 +227,7 @@ class _TodoScreenState extends State<TodoScreen> {
                         safePrint('Updating Todo failed. ${response.errors}');
                       } else {
                         safePrint('Updating Todo successful.');
-                        await _refreshTodos();
+                        // await _refreshTodos();
                       }
                     },
                   ),
