@@ -1,6 +1,9 @@
 import { defineAuth } from "@aws-amplify/backend";
 import { listUsers } from "../data/list-users/resource";
-import { postConfirmation } from "./post-confirmation/resouce";
+import { createUser } from "../data/create-user/resource";
+import { deleteUser } from "../data/delete-user/resouce";
+import { enableUser } from "../data/enable-user/resouce";
+import { disableUser } from "../data/disable-user/resouce";
 
 /**
  * Define and configure your auth resource
@@ -28,11 +31,11 @@ export const auth = defineAuth({
       required: true,
     },
   },
-  groups: ["admins"],
   access: (allow) => [
     allow.resource(listUsers).to(["listUsers"]),
+    allow.resource(createUser).to(["createUser"]),
+    allow.resource(deleteUser).to(["deleteUser"]),
+    allow.resource(enableUser).to(["enableUser"]),
+    allow.resource(disableUser).to(["disableUser"]),
   ],
-  triggers: {
-    postConfirmation,
-  },
 });

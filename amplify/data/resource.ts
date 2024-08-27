@@ -1,6 +1,8 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 import { listUsers } from "./list-users/resource";
-import { postConfirmation } from "../auth/post-confirmation/resouce";
+import { createUser } from "./create-user/resource";
+import { deleteUser } from "./delete-user/resouce";
+import { enableUser } from "./enable-user/resouce";
 
 const schema = a
   .schema({
@@ -12,8 +14,31 @@ const schema = a
         paginationToken: a.string(),
         filter: a.string(),
       })
-      .authorization((allow) => [allow.authenticated()])
       .handler(a.handler.function(listUsers))
+      .returns(a.json()),
+    createUser: a
+      .mutation()
+      .arguments({
+        id: a.id().required(),
+        email: a.email().required(),
+        name: a.string().required(),
+        temporaryPassword: a.string().required(),
+      })
+      .handler(a.handler.function(createUser))
+      .returns(a.json()),
+    deleteUser: a
+      .mutation()
+      .arguments({
+        id: a.id().required(),
+      })
+      .handler(a.handler.function(deleteUser))
+      .returns(a.json()),
+    enableUser: a
+      .mutation()
+      .arguments({
+        id: a.id().required(),
+      })
+      .handler(a.handler.function(enableUser))
       .returns(a.json()),
     Staff: a
       .model({
@@ -28,11 +53,7 @@ const schema = a
         roles: a.hasMany("RoleStaff", "staffId"),
         subcategories: a.hasMany("StaffSubcategory", "staffId"),
       })
-      .secondaryIndexes((index) => [index("email")])
-      .authorization((allow) => [
-        allow.authenticated().to(["read"]),
-        allow.groups(["admins"]),
-      ]),
+      .secondaryIndexes((index) => [index("email")]),
     Category: a
       .model({
         name: a.string().required(),
@@ -40,11 +61,7 @@ const schema = a
         description: a.string(),
         subcategories: a.hasMany("Subcategory", "categoryId"),
       })
-      .secondaryIndexes((index) => [index("name")])
-      .authorization((allow) => [
-        allow.authenticated().to(["read"]),
-        allow.groups(["admins"]),
-      ]),
+      .secondaryIndexes((index) => [index("name")]),
     Subcategory: a
       .model({
         name: a.string().required(),
@@ -55,11 +72,7 @@ const schema = a
         documents: a.hasMany("Document", "subcategoryId"),
         staff: a.hasMany("StaffSubcategory", "subcategoryId"),
       })
-      .secondaryIndexes((index) => [index("name")])
-      .authorization((allow) => [
-        allow.authenticated().to(["read"]),
-        allow.groups(["admins"]),
-      ]),
+      .secondaryIndexes((index) => [index("name")]),
     Document: a
       .model({
         name: a.string().required(),
@@ -70,11 +83,7 @@ const schema = a
         staff: a.belongsTo("Staff", "staffId"),
         aircraft: a.hasMany("AircraftDocument", "documentId"),
       })
-      .secondaryIndexes((index) => [index("name")])
-      .authorization((allow) => [
-        allow.authenticated().to(["create", "read", "update"]),
-        allow.groups(["admins"]),
-      ]),
+      .secondaryIndexes((index) => [index("name")]),
     Role: a
       .model({
         name: a.string().required(),
@@ -82,81 +91,46 @@ const schema = a
         description: a.string(),
         staff: a.hasMany("RoleStaff", "roleId"),
       })
-      .secondaryIndexes((index) => [index("name")])
-      .authorization((allow) => [
-        allow.authenticated().to(["read"]),
-        allow.groups(["admins"]),
-      ]),
-    RoleStaff: a
-      .model({
-        roleId: a.id().required(),
-        staffId: a.id().required(),
-        role: a.belongsTo("Role", "roleId"),
-        staff: a.belongsTo("Staff", "staffId"),
-      })
-      .authorization((allow) => [
-        allow.authenticated().to(["read"]),
-        allow.groups(["admins"]),
-      ]),
-    StaffSubcategory: a
-      .model({
-        accessLevel: a.integer().required(),
-        subcategoryId: a.id().required(),
-        staffId: a.id().required(),
-        subcategory: a.belongsTo("Subcategory", "subcategoryId"),
-        staff: a.belongsTo("Staff", "staffId"),
-      })
-      .authorization((allow) => [
-        allow.authenticated().to(["read"]),
-        allow.groups(["admins"]),
-      ]),
-    Aircraft: a
-      .model({
-        name: a.string().required(),
-        archived: a.boolean().required().default(false),
-        description: a.string(),
-        staff: a.hasMany("AircraftStaff", "aircraftId"),
-        document: a.hasMany("AircraftDocument", "aircraftId"),
-        notices: a.hasMany("AircraftNotice", "aircraftId"),
-      })
-      .secondaryIndexes((index) => [index("name")])
-      .authorization((allow) => [
-        allow.authenticated().to(["read"]),
-        allow.groups(["admins"]),
-      ]),
-    AircraftStaff: a
-      .model({
-        aircraftId: a.id().required(),
-        staffId: a.id().required(),
-        aircraft: a.belongsTo("Aircraft", "aircraftId"),
-        staff: a.belongsTo("Staff", "staffId"),
-      })
-      .authorization((allow) => [
-        allow.authenticated().to(["read"]),
-        allow.groups(["admins"]),
-      ]),
-    AircraftDocument: a
-      .model({
-        aircraftId: a.id().required(),
-        documentId: a.id().required(),
-        aircraft: a.belongsTo("Aircraft", "aircraftId"),
-        document: a.belongsTo("Document", "documentId"),
-      })
-      .authorization((allow) => [
-        allow.authenticated().to(["create", "read", "update"]),
-        allow.groups(["admins"]),
-      ]),
-    AircraftNotice: a
-      .model({
-        aircraftId: a.id().required(),
-        noticeId: a.id().required(),
-        aircraft: a.belongsTo("Aircraft", "aircraftId"),
-        notice: a.belongsTo("Notice", "noticeId"),
-      })
-      .authorization((allow) => [
-        allow.authenticated().to(["create", "read", "update"]),
-        allow.groups(["admins"]),
-      ]),
+      .secondaryIndexes((index) => [index("name")]),
+    RoleStaff: a.model({
+      roleId: a.id().required(),
+      staffId: a.id().required(),
+      role: a.belongsTo("Role", "roleId"),
+      staff: a.belongsTo("Staff", "staffId"),
+    }),
+    StaffSubcategory: a.model({
+      accessLevel: a.integer().required(),
+      subcategoryId: a.id().required(),
+      staffId: a.id().required(),
+      subcategory: a.belongsTo("Subcategory", "subcategoryId"),
+      staff: a.belongsTo("Staff", "staffId"),
+    }),
+    Aircraft: a.model({
+      name: a.string().required(),
+      archived: a.boolean().required().default(false),
+      description: a.string(),
+      staff: a.hasMany("AircraftStaff", "aircraftId"),
+      document: a.hasMany("AircraftDocument", "aircraftId"),
+      notices: a.hasMany("AircraftNotice", "aircraftId"),
+    }),
+    AircraftStaff: a.model({
+      aircraftId: a.id().required(),
+      staffId: a.id().required(),
+      aircraft: a.belongsTo("Aircraft", "aircraftId"),
+      staff: a.belongsTo("Staff", "staffId"),
+    }),
+    AircraftDocument: a.model({
+      aircraftId: a.id().required(),
+      documentId: a.id().required(),
+      aircraft: a.belongsTo("Aircraft", "aircraftId"),
+      document: a.belongsTo("Document", "documentId"),
+    }),
+    AircraftNotice: a.model({
+      aircraftId: a.id().required(),
+      noticeId: a.id().required(),
+      aircraft: a.belongsTo("Aircraft", "aircraftId"),
+      notice: a.belongsTo("Notice", "noticeId"),
+    }),
     Notice: a
       .model({
         subject: a.string().required(),
@@ -172,38 +146,21 @@ const schema = a
         aircraft: a.hasMany("AircraftNotice", "noticeId"),
         documents: a.hasMany("NoticeDocument", "noticeId"),
       })
-      .secondaryIndexes((index) => [index("subject")])
-      .authorization((allow) => [
-        allow.authenticated().to(["create", "read", "update"]),
-        allow.groups(["admins"]),
-      ]),
-    Notification: a
-      .model({
-        read_at: a.datetime(),
-        noticeId: a.id().required(),
-        staffId: a.id().required(),
-        notice: a.belongsTo("Notice", "noticeId"),
-        staff: a.belongsTo("Staff", "staffId"),
-      })
-      .authorization((allow) => [
-        allow.authenticated().to(["create", "read", "update"]),
-        allow.groups(["admins"]),
-      ]),
-    NoticeDocument: a
-      .model({
-        noticeId: a.id().required(),
-        notices: a.belongsTo("Notice", "noticeId"),
-        name: a.string().required(),
-      })
-      .authorization((allow) => [
-        allow.authenticated().to(["create", "read", "update"]),
-        allow.groups(["admins"]),
-      ]),
+      .secondaryIndexes((index) => [index("subject")]),
+    Notification: a.model({
+      read_at: a.datetime(),
+      noticeId: a.id().required(),
+      staffId: a.id().required(),
+      notice: a.belongsTo("Notice", "noticeId"),
+      staff: a.belongsTo("Staff", "staffId"),
+    }),
+    NoticeDocument: a.model({
+      noticeId: a.id().required(),
+      notices: a.belongsTo("Notice", "noticeId"),
+      name: a.string().required(),
+    }),
   })
-  .authorization((allow) => [
-    allow.authenticated(),
-    allow.resource(postConfirmation),
-  ]);
+  .authorization((allow) => [allow.authenticated()]);
 
 export type Schema = ClientSchema<typeof schema>;
 
