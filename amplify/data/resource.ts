@@ -1,5 +1,6 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 import { listUsers } from "./list-users/resource";
+import { postConfirmation } from "../auth/post-confirmation/resouce";
 
 const schema = a
   .schema({
@@ -199,7 +200,10 @@ const schema = a
         allow.groups(["admins"]),
       ]),
   })
-  .authorization((allow) => [allow.authenticated()]);
+  .authorization((allow) => [
+    allow.authenticated(),
+    allow.resource(postConfirmation),
+  ]);
 
 export type Schema = ClientSchema<typeof schema>;
 
