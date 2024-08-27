@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
           request: echoRequest,
         )
         .response;
-    safePrint(response);
+    print(response);
 
     Map<String, dynamic> jsonMap = json.decode(response.data!);
     print(jsonMap);
