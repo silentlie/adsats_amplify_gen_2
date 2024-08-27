@@ -20,15 +20,43 @@
 // ignore_for_file: public_member_api_docs, annotate_overrides, dead_code, dead_codepublic_member_api_docs, depend_on_referenced_packages, file_names, library_private_types_in_public_api, no_leading_underscores_for_library_prefixes, no_leading_underscores_for_local_identifiers, non_constant_identifier_names, null_check_on_nullable_type_parameter, override_on_non_overriding_member, prefer_adjacent_string_concatenation, prefer_const_constructors, prefer_if_null_operators, prefer_interpolation_to_compose_strings, slash_for_doc_comments, sort_child_properties_last, unnecessary_const, unnecessary_constructor_name, unnecessary_late, unnecessary_new, unnecessary_null_aware_assignments, unnecessary_nullable_for_final_variable_declarations, unnecessary_string_interpolations, use_build_context_synchronously
 
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
-import 'Todo.dart';
+import 'Aircraft.dart';
+import 'AircraftDocument.dart';
+import 'AircraftNotice.dart';
+import 'AircraftStaff.dart';
+import 'Category.dart';
+import 'Document.dart';
+import 'Notice.dart';
+import 'NoticeDocument.dart';
+import 'Notification.dart';
+import 'Role.dart';
+import 'RoleStaff.dart';
+import 'Staff.dart';
+import 'StaffSubcategory.dart';
+import 'Subcategory.dart';
 
-export 'Todo.dart';
+export 'Aircraft.dart';
+export 'AircraftDocument.dart';
+export 'AircraftNotice.dart';
+export 'AircraftStaff.dart';
+export 'Category.dart';
+export 'Document.dart';
+export 'Notice.dart';
+export 'NoticeDocument.dart';
+export 'NoticeStatus.dart';
+export 'NoticeType.dart';
+export 'Notification.dart';
+export 'Role.dart';
+export 'RoleStaff.dart';
+export 'Staff.dart';
+export 'StaffSubcategory.dart';
+export 'Subcategory.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "09200caedfd23819d9d69aa5c7a7459a";
+  String version = "3812b68c7d4d6b3e92f1e57f565bebfe";
   @override
-  List<amplify_core.ModelSchema> modelSchemas = [Todo.schema];
+  List<amplify_core.ModelSchema> modelSchemas = [Aircraft.schema, AircraftDocument.schema, AircraftNotice.schema, AircraftStaff.schema, Category.schema, Document.schema, Notice.schema, NoticeDocument.schema, Notification.schema, Role.schema, RoleStaff.schema, Staff.schema, StaffSubcategory.schema, Subcategory.schema];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [];
   static final ModelProvider _instance = ModelProvider();
@@ -37,8 +65,34 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
   
   amplify_core.ModelType getModelTypeByModelName(String modelName) {
     switch(modelName) {
-      case "Todo":
-        return Todo.classType;
+      case "Aircraft":
+        return Aircraft.classType;
+      case "AircraftDocument":
+        return AircraftDocument.classType;
+      case "AircraftNotice":
+        return AircraftNotice.classType;
+      case "AircraftStaff":
+        return AircraftStaff.classType;
+      case "Category":
+        return Category.classType;
+      case "Document":
+        return Document.classType;
+      case "Notice":
+        return Notice.classType;
+      case "NoticeDocument":
+        return NoticeDocument.classType;
+      case "Notification":
+        return Notification.classType;
+      case "Role":
+        return Role.classType;
+      case "RoleStaff":
+        return RoleStaff.classType;
+      case "Staff":
+        return Staff.classType;
+      case "StaffSubcategory":
+        return StaffSubcategory.classType;
+      case "Subcategory":
+        return Subcategory.classType;
       default:
         throw Exception("Failed to find model in model provider for model name: " + modelName);
     }

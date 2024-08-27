@@ -93,7 +93,6 @@ const schema = a
         role: a.belongsTo("Role", "roleId"),
         staff: a.belongsTo("Staff", "staffId"),
       })
-      .identifier(["staffId", "roleId"])
       .authorization((allow) => [
         allow.authenticated().to(["read"]),
         allow.groups(["admins"]),
@@ -106,7 +105,6 @@ const schema = a
         subcategory: a.belongsTo("Subcategory", "subcategoryId"),
         staff: a.belongsTo("Staff", "staffId"),
       })
-      .identifier(["staffId", "subcategoryId"])
       .authorization((allow) => [
         allow.authenticated().to(["read"]),
         allow.groups(["admins"]),
@@ -132,7 +130,6 @@ const schema = a
         aircraft: a.belongsTo("Aircraft", "aircraftId"),
         staff: a.belongsTo("Staff", "staffId"),
       })
-      .identifier(["staffId", "aircraftId"])
       .authorization((allow) => [
         allow.authenticated().to(["read"]),
         allow.groups(["admins"]),
@@ -144,7 +141,6 @@ const schema = a
         aircraft: a.belongsTo("Aircraft", "aircraftId"),
         document: a.belongsTo("Document", "documentId"),
       })
-      .identifier(["documentId", "aircraftId"])
       .authorization((allow) => [
         allow.authenticated().to(["create", "read", "update"]),
         allow.groups(["admins"]),
@@ -156,7 +152,6 @@ const schema = a
         aircraft: a.belongsTo("Aircraft", "aircraftId"),
         notice: a.belongsTo("Notice", "noticeId"),
       })
-      .identifier(["noticeId", "aircraftId"])
       .authorization((allow) => [
         allow.authenticated().to(["create", "read", "update"]),
         allow.groups(["admins"]),
@@ -189,7 +184,6 @@ const schema = a
         notice: a.belongsTo("Notice", "noticeId"),
         staff: a.belongsTo("Staff", "staffId"),
       })
-      .identifier(["noticeId", "staffId"])
       .authorization((allow) => [
         allow.authenticated().to(["create", "read", "update"]),
         allow.groups(["admins"]),
@@ -200,7 +194,6 @@ const schema = a
         notices: a.belongsTo("Notice", "noticeId"),
         name: a.string().required(),
       })
-      .identifier(["noticeId", "name"])
       .authorization((allow) => [
         allow.authenticated().to(["create", "read", "update"]),
         allow.groups(["admins"]),

@@ -22,12 +22,12 @@
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-/** This is an auto generated class representing the Todo type in your schema. */
-class Todo extends amplify_core.Model {
-  static const classType = const _TodoModelType();
+/** This is an auto generated class representing the AircraftDocument type in your schema. */
+class AircraftDocument extends amplify_core.Model {
+  static const classType = const _AircraftDocumentModelType();
   final String id;
-  final String? _content;
-  final bool? _isDone;
+  final Aircraft? _aircraft;
+  final Document? _document;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -39,16 +39,16 @@ class Todo extends amplify_core.Model {
   @override
   String getId() => id;
 
-  TodoModelIdentifier get modelIdentifier {
-    return TodoModelIdentifier(id: id);
+  AircraftDocumentModelIdentifier get modelIdentifier {
+    return AircraftDocumentModelIdentifier(id: id);
   }
 
-  String? get content {
-    return _content;
+  Aircraft? get aircraft {
+    return _aircraft;
   }
 
-  bool? get isDone {
-    return _isDone;
+  Document? get document {
+    return _document;
   }
 
   amplify_core.TemporalDateTime? get createdAt {
@@ -59,18 +59,19 @@ class Todo extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const Todo._internal(
-      {required this.id, content, isDone, createdAt, updatedAt})
-      : _content = content,
-        _isDone = isDone,
+  const AircraftDocument._internal(
+      {required this.id, aircraft, document, createdAt, updatedAt})
+      : _aircraft = aircraft,
+        _document = document,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Todo({String? id, String? content, bool? isDone}) {
-    return Todo._internal(
+  factory AircraftDocument(
+      {String? id, Aircraft? aircraft, Document? document}) {
+    return AircraftDocument._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
-        content: content,
-        isDone: isDone);
+        aircraft: aircraft,
+        document: document);
   }
 
   bool equals(Object other) {
@@ -80,10 +81,10 @@ class Todo extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Todo &&
+    return other is AircraftDocument &&
         id == other.id &&
-        _content == other._content &&
-        _isDone == other._isDone;
+        _aircraft == other._aircraft &&
+        _document == other._document;
   }
 
   @override
@@ -93,11 +94,14 @@ class Todo extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("Todo {");
+    buffer.write("AircraftDocument {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("content=" + "$_content" + ", ");
-    buffer.write(
-        "isDone=" + (_isDone != null ? _isDone.toString() : "null") + ", ");
+    buffer.write("aircraft=" +
+        (_aircraft != null ? _aircraft.toString() : "null") +
+        ", ");
+    buffer.write("document=" +
+        (_document != null ? _document.toString() : "null") +
+        ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
@@ -108,25 +112,38 @@ class Todo extends amplify_core.Model {
     return buffer.toString();
   }
 
-  Todo copyWith({String? content, bool? isDone}) {
-    return Todo._internal(
+  AircraftDocument copyWith({Aircraft? aircraft, Document? document}) {
+    return AircraftDocument._internal(
         id: id,
-        content: content ?? this.content,
-        isDone: isDone ?? this.isDone);
+        aircraft: aircraft ?? this.aircraft,
+        document: document ?? this.document);
   }
 
-  Todo copyWithModelFieldValues(
-      {ModelFieldValue<String?>? content, ModelFieldValue<bool?>? isDone}) {
-    return Todo._internal(
+  AircraftDocument copyWithModelFieldValues(
+      {ModelFieldValue<Aircraft?>? aircraft,
+      ModelFieldValue<Document?>? document}) {
+    return AircraftDocument._internal(
         id: id,
-        content: content == null ? this.content : content.value,
-        isDone: isDone == null ? this.isDone : isDone.value);
+        aircraft: aircraft == null ? this.aircraft : aircraft.value,
+        document: document == null ? this.document : document.value);
   }
 
-  Todo.fromJson(Map<String, dynamic> json)
+  AircraftDocument.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _content = json['content'],
-        _isDone = json['isDone'],
+        _aircraft = json['aircraft'] != null
+            ? json['aircraft']['serializedData'] != null
+                ? Aircraft.fromJson(new Map<String, dynamic>.from(
+                    json['aircraft']['serializedData']))
+                : Aircraft.fromJson(
+                    new Map<String, dynamic>.from(json['aircraft']))
+            : null,
+        _document = json['document'] != null
+            ? json['document']['serializedData'] != null
+                ? Document.fromJson(new Map<String, dynamic>.from(
+                    json['document']['serializedData']))
+                : Document.fromJson(
+                    new Map<String, dynamic>.from(json['document']))
+            : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -136,36 +153,51 @@ class Todo extends amplify_core.Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'content': _content,
-        'isDone': _isDone,
+        'aircraft': _aircraft?.toJson(),
+        'document': _document?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
   Map<String, Object?> toMap() => {
         'id': id,
-        'content': _content,
-        'isDone': _isDone,
+        'aircraft': _aircraft,
+        'document': _document,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
 
-  static final amplify_core.QueryModelIdentifier<TodoModelIdentifier>
-      MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<TodoModelIdentifier>();
+  static final amplify_core
+      .QueryModelIdentifier<AircraftDocumentModelIdentifier> MODEL_IDENTIFIER =
+      amplify_core.QueryModelIdentifier<AircraftDocumentModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
-  static final CONTENT = amplify_core.QueryField(fieldName: "content");
-  static final ISDONE = amplify_core.QueryField(fieldName: "isDone");
+  static final AIRCRAFT = amplify_core.QueryField(
+      fieldName: "aircraft",
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'Aircraft'));
+  static final DOCUMENT = amplify_core.QueryField(
+      fieldName: "document",
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'Document'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Todo";
-    modelSchemaDefinition.pluralName = "Todos";
+    modelSchemaDefinition.name = "AircraftDocument";
+    modelSchemaDefinition.pluralName = "AircraftDocuments";
 
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
-          authStrategy: amplify_core.AuthStrategy.OWNER,
-          ownerField: "owner",
-          identityClaim: "cognito:username",
+          authStrategy: amplify_core.AuthStrategy.PRIVATE,
+          operations: const [
+            amplify_core.ModelOperation.CREATE,
+            amplify_core.ModelOperation.READ,
+            amplify_core.ModelOperation.UPDATE
+          ]),
+      amplify_core.AuthRule(
+          authStrategy: amplify_core.AuthStrategy.GROUPS,
+          groupClaim: "cognito:groups",
+          groups: const ["admins"],
           provider: amplify_core.AuthRuleProvider.USERPOOLS,
           operations: const [
             amplify_core.ModelOperation.CREATE,
@@ -177,17 +209,17 @@ class Todo extends amplify_core.Model {
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Todo.CONTENT,
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
+        key: AircraftDocument.AIRCRAFT,
         isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
+        targetNames: ['aircraftId'],
+        ofModelName: 'Aircraft'));
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Todo.ISDONE,
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
+        key: AircraftDocument.DOCUMENT,
         isRequired: false,
-        ofType:
-            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)));
+        targetNames: ['documentId'],
+        ofModelName: 'Document'));
 
     modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
@@ -207,29 +239,31 @@ class Todo extends amplify_core.Model {
   });
 }
 
-class _TodoModelType extends amplify_core.ModelType<Todo> {
-  const _TodoModelType();
+class _AircraftDocumentModelType
+    extends amplify_core.ModelType<AircraftDocument> {
+  const _AircraftDocumentModelType();
 
   @override
-  Todo fromJson(Map<String, dynamic> jsonData) {
-    return Todo.fromJson(jsonData);
+  AircraftDocument fromJson(Map<String, dynamic> jsonData) {
+    return AircraftDocument.fromJson(jsonData);
   }
 
   @override
   String modelName() {
-    return 'Todo';
+    return 'AircraftDocument';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [Todo] in your schema.
+ * of [AircraftDocument] in your schema.
  */
-class TodoModelIdentifier implements amplify_core.ModelIdentifier<Todo> {
+class AircraftDocumentModelIdentifier
+    implements amplify_core.ModelIdentifier<AircraftDocument> {
   final String id;
 
-  /** Create an instance of TodoModelIdentifier using [id] the primary key. */
-  const TodoModelIdentifier({required this.id});
+  /** Create an instance of AircraftDocumentModelIdentifier using [id] the primary key. */
+  const AircraftDocumentModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -244,7 +278,7 @@ class TodoModelIdentifier implements amplify_core.ModelIdentifier<Todo> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'TodoModelIdentifier(id: $id)';
+  String toString() => 'AircraftDocumentModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -252,7 +286,7 @@ class TodoModelIdentifier implements amplify_core.ModelIdentifier<Todo> {
       return true;
     }
 
-    return other is TodoModelIdentifier && id == other.id;
+    return other is AircraftDocumentModelIdentifier && id == other.id;
   }
 
   @override
