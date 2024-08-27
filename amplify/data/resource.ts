@@ -3,6 +3,7 @@ import { listUsers } from "./list-users/resource";
 import { createUser } from "./create-user/resource";
 import { deleteUser } from "./delete-user/resouce";
 import { enableUser } from "./enable-user/resouce";
+import { disableUser } from "./disable-user/resouce";
 
 const schema = a
   .schema({
@@ -39,6 +40,13 @@ const schema = a
         id: a.id().required(),
       })
       .handler(a.handler.function(enableUser))
+      .returns(a.json()),
+    disableUser: a
+      .mutation()
+      .arguments({
+        id: a.id().required(),
+      })
+      .handler(a.handler.function(disableUser))
       .returns(a.json()),
     Staff: a
       .model({
