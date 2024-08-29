@@ -23,7 +23,7 @@ final router = GoRouter(
                 return MyScaffold(child: child);
               } else {
                 return Text(
-                    'Error authNotifier.fetchCognitoAuthSession() : ${snapshot.error}');
+                    'Error access denied, user status: ${snapshot.data!}');
               }
             } else {
               return const Placeholder();

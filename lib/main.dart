@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/auth/sign_in_widget.dart';
 import 'package:adsats_amplify_gen_2/route/router.dart';
+import 'package:adsats_amplify_gen_2/theme/theme_notifier.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
@@ -53,6 +53,11 @@ class MyApp extends StatelessWidget {
             return AuthNotifier();
           },
         ),
+        ChangeNotifierProvider(
+          create: (context) {
+            return ThemeNotifier();
+          },
+        )
       ],
       builder: (context, child) {
         return Authenticator(
@@ -67,9 +72,9 @@ class MyApp extends StatelessWidget {
           child: MaterialApp.router(
             title: "ADSATS - Aviation Document Storage and Tracking System",
             builder: Authenticator.builder(),
-            // theme: lightMode,
-            // darkTheme: darkMode,
-            // themeMode: Provider.of<ThemeNotifier>(context).themeMode,
+            theme: lightMode,
+            darkTheme: darkMode,
+            themeMode: Provider.of<ThemeNotifier>(context).themeMode,
             debugShowMaterialGrid: false,
             routerConfig: router,
             debugShowCheckedModeBanner: false,
@@ -78,42 +83,4 @@ class MyApp extends StatelessWidget {
       },
     );
   }
-}
-
-Future<void> testAPI() async {
-  const graphQLDocument = '''
-      query ListUsers(
-        \$attributesToGet: [String!],
-        \$limit: Int,
-        \$paginationToken: String,
-        \$filter: String
-      ) {
-        listUsers(
-          attributesToGet: \$attributesToGet,
-          limit: \$limit,
-          paginationToken: \$paginationToken,
-          filter: \$filter
-        )
-      }
-    ''';
-
-  final echoRequest = GraphQLRequest<String>(
-    document: graphQLDocument,
-    variables: <String, dynamic>{
-      "attributesToGet": null,
-      "limit": null,
-      "paginationToken": null,
-      "filter": null,
-    },
-  );
-
-  final response = await Amplify.API
-      .query(
-        request: echoRequest,
-      )
-      .response;
-  // print(response);
-
-  Map<String, dynamic> jsonMap = json.decode(response.data!);
-  debugPrint(jsonMap.toString());
 }

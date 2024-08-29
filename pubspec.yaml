@@ -19,6 +19,7 @@ dependencies:
   go_router: ^14.2.7
   flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
+  shared_preferences: ^2.3.2
 
 
 dev_dependencies:
