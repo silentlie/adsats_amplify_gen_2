@@ -27,22 +27,21 @@ class AuthNotifier with ChangeNotifier {
           id = response.toJson()["userSub"].toString();
         },
       );
-      await Amplify.API
+      final response = await Amplify.API
           .query(
             request: ModelQueries.get(
               Staff.classType,
               StaffModelIdentifier(id: id),
             ),
           )
-          .response
-          .then(
-        (response) {
-          user = response.data!;
-        },
-      );
+          .response;
+      if (response.data == null) {
+        return false;
+      }
+      user = response.data!;
       await _queryUserDetails(id);
       _validateRoles();
-      return isSignedIn && !user.archived!;
+      return isSignedIn;
     } on SignedOutException catch (e) {
       debugPrint(
         'Error SignedOutException while retrieving auth session: ${e.message}',

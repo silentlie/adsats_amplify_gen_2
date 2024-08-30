@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/auth/sign_in_widget.dart';
 import 'package:adsats_amplify_gen_2/route/router.dart';
 import 'package:adsats_amplify_gen_2/theme/theme_notifier.dart';

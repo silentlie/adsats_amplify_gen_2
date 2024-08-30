@@ -1,4 +1,9 @@
-import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
+import 'package:adsats_amplify_gen_2/auth/sign_out_button_widget.dart';
+import 'package:adsats_amplify_gen_2/route/compliance_route/compliance_widget.dart';
+import 'package:adsats_amplify_gen_2/route/help_route/help_widget.dart';
+import 'package:adsats_amplify_gen_2/route/profile_route/profile_widget.dart';
+import 'package:adsats_amplify_gen_2/route/training_route/training_widget.dart';
 import 'package:adsats_amplify_gen_2/scaffold/scaffod_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -22,8 +27,14 @@ final router = GoRouter(
               if (snapshot.data!) {
                 return MyScaffold(child: child);
               } else {
-                return Text(
-                    'Error access denied, user status: ${snapshot.data!}');
+                return Column(
+                  children: [
+                    Text(
+                      'Error access denied, user status: ${snapshot.data!}',
+                    ),
+                    const SignOutButtonWidget(),
+                  ],
+                );
               }
             } else {
               return const Placeholder();
@@ -40,14 +51,14 @@ final router = GoRouter(
         //   path: '/add-a-document',
         //   builder: (context, state) => const AddADocument(),
         // ),
-        // GoRoute(
-        //   path: '/profile',
-        //   builder: (context, state) => const ProfileWidget(),
-        // ),
-        // GoRoute(
-        //   path: '/help',
-        //   builder: (context, state) => const HelpWidget(),
-        // ),
+        GoRoute(
+          path: '/profile',
+          builder: (context, state) => const ProfileWidget(),
+        ),
+        GoRoute(
+          path: '/help',
+          builder: (context, state) => const HelpWidget(),
+        ),
         // GoRoute(
         //   path: '/settings',
         //   builder: (context, state) => const SettingsWidget(),
@@ -77,14 +88,14 @@ final router = GoRouter(
         //     ),
         //   ],
         // ),
-        // GoRoute(
-        //   path: '/compliance',
-        //   builder: (context, state) => const ComplianceWidget(),
-        // ),
-        // GoRoute(
-        //   path: '/training',
-        //   builder: (context, state) => const TrainingWidget(),
-        // ),
+        GoRoute(
+          path: '/compliance',
+          builder: (context, state) => const ComplianceWidget(),
+        ),
+        GoRoute(
+          path: '/training',
+          builder: (context, state) => const TrainingWidget(),
+        ),
         // GoRoute(
         //   path: '/send-notices',
         //   builder: (context, state) => const SendNotices(),

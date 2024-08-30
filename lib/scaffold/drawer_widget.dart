@@ -1,8 +1,7 @@
-import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
+import 'package:adsats_amplify_gen_2/auth/sign_out_button_widget.dart';
 import 'package:adsats_amplify_gen_2/default_logo_widget.dart';
 import 'package:adsats_amplify_gen_2/models/to_string.dart';
-import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -10,19 +9,9 @@ import 'package:provider/provider.dart';
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
-  Future<void> signOutCurrentUser() async {
-    final result = await Amplify.Auth.signOut();
-    if (result is CognitoCompleteSignOut) {
-      // debugPrint('Sign out completed successfully');
-    } else if (result is CognitoFailedSignOut) {
-      debugPrint('Error signing user out: ${result.exception.message}');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
-    // Access color scheme
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
     AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
     return Drawer(
       child: ListView(
@@ -65,21 +54,7 @@ class MyDrawer extends StatelessWidget {
               );
             },
           ),
-          ElevatedButton(
-            onPressed: () {
-              // confirm before logout?
-              signOutCurrentUser();
-            },
-            // Change button background color
-            style: ButtonStyle(
-              backgroundColor:
-                  WidgetStateProperty.all<Color>(colorScheme.secondary),
-            ),
-            child: Text(
-              'Log out',
-              style: TextStyle(color: colorScheme.onSecondary),
-            ),
-          ),
+          SignOutButtonWidget(),
         ],
       ),
     );
