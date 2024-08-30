@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
@@ -54,7 +53,7 @@ class MyDrawer extends StatelessWidget {
               );
             },
           ),
-          SignOutButtonWidget(),
+          const SignOutButtonWidget(),
         ],
       ),
     );

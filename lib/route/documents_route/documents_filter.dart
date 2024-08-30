@@ -1,0 +1,120 @@
+part of 'documents_widget.dart';
+
+class DocumentsFilter {
+  String search;
+  bool? archived;
+  List<Subcategory> subcategories;
+  DateTimeRange? createdAt;
+
+  DocumentsFilter(
+      {this.search = "",
+      this.archived,
+      this.subcategories = const [],
+      this.createdAt});
+
+  DocumentsFilter copyWith({
+    String? search,
+    bool? archived,
+    List<Subcategory>? subcategories,
+    DateTimeRange? createdAt,
+  }) {
+    return DocumentsFilter(
+      search: search ?? this.search,
+      archived: archived ?? this.archived,
+      subcategories: subcategories ?? this.subcategories,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {};
+  }
+
+  Widget getFilterWidget(BuildContext context, Function fetchRawData) {
+    DocumentsFilter temp = DocumentsFilter();
+    return ElevatedButton(
+      onPressed: () {
+        showDialog(
+          context: context,
+          builder: (context) {
+            AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
+            return AlertDialog.adaptive(
+              title: const Text('Filter By:'),
+              content: Container(
+                // max width of filter column
+                constraints: const BoxConstraints(maxWidth: 400, minWidth: 400),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    MultiSelect(
+                      buttonText: const Text("Filter by subcategories"),
+                      title: const Text("Filter by subcategories"),
+                      items: authNotifier.subcategories.keys.map(
+                        (entry) {
+                          return MultiSelectItem(
+                            entry,
+                            entry.name,
+                          );
+                        },
+                      ).toList(),
+                      onConfirm: (selectedOptions) {
+                        temp.subcategories =
+                            List<Subcategory>.from(selectedOptions);
+                      },
+                      initialValue: subcategories,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      child: DropdownMenu(
+                        dropdownMenuEntries: const [
+                          DropdownMenuEntry(value: false, label: "False"),
+                          DropdownMenuEntry(value: true, label: "True"),
+                          DropdownMenuEntry(value: null, label: "All"),
+                        ],
+                        onSelected: (value) {
+                          temp.archived = value;
+                        },
+                        initialSelection: archived,
+                        expandedInsets: EdgeInsets.zero,
+                        requestFocusOnTap: false,
+                        hintText: "Archived",
+                        label: const Text(
+                          "Archived",
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(8),
+                      child: DateTimeRangePicker(
+                        filter: temp,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                // cancel
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: const Text('Cancel'),
+                ),
+                // apply
+                TextButton(
+                  onPressed: () {
+                    archived = temp.archived;
+                    subcategories = temp.subcategories;
+                    createdAt = temp.createdAt;
+                    fetchRawData();
+                    Navigator.pop(context, 'Apply');
+                  },
+                  child: const Text('Apply'),
+                )
+              ],
+            );
+          },
+        );
+      },
+      child: const Text("Filter By"),
+    );
+  }
+}

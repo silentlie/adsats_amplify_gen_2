@@ -48,58 +48,48 @@ const schema = a
       })
       .handler(a.handler.function(disableUser))
       .returns(a.json()),
-    Staff: a
-      .model({
-        id: a.string().required(),
-        name: a.string().required(),
-        email: a.email().required(),
-        archived: a.boolean().required().default(false),
-        documents: a.hasMany("Document", "staffId"),
-        notices: a.hasMany("Notice", "staffId"),
-        notifications: a.hasMany("Notification", "staffId"),
-        aircraft: a.hasMany("AircraftStaff", "staffId"),
-        roles: a.hasMany("RoleStaff", "staffId"),
-        subcategories: a.hasMany("StaffSubcategory", "staffId"),
-      })
-      .secondaryIndexes((index) => [index("email")]),
-    Category: a
-      .model({
-        name: a.string().required(),
-        archived: a.boolean().required().default(false),
-        description: a.string(),
-        subcategories: a.hasMany("Subcategory", "categoryId"),
-      })
-      .secondaryIndexes((index) => [index("name")]),
-    Subcategory: a
-      .model({
-        name: a.string().required(),
-        archived: a.boolean().required().default(false),
-        description: a.string(),
-        categoryId: a.id().required(),
-        category: a.belongsTo("Category", "categoryId"),
-        documents: a.hasMany("Document", "subcategoryId"),
-        staff: a.hasMany("StaffSubcategory", "subcategoryId"),
-      })
-      .secondaryIndexes((index) => [index("name")]),
-    Document: a
-      .model({
-        name: a.string().required(),
-        archived: a.boolean().required().default(false),
-        subcategoryId: a.id(),
-        subcategory: a.belongsTo("Subcategory", "subcategoryId"),
-        staffId: a.id(),
-        staff: a.belongsTo("Staff", "staffId"),
-        aircraft: a.hasMany("AircraftDocument", "documentId"),
-      })
-      .secondaryIndexes((index) => [index("name")]),
-    Role: a
-      .model({
-        name: a.string().required(),
-        archived: a.boolean().required().default(false),
-        description: a.string(),
-        staff: a.hasMany("RoleStaff", "roleId"),
-      })
-      .secondaryIndexes((index) => [index("name")]),
+    Staff: a.model({
+      id: a.string().required(),
+      name: a.string().required(),
+      email: a.email().required(),
+      archived: a.boolean().required().default(false),
+      documents: a.hasMany("Document", "staffId"),
+      notices: a.hasMany("Notice", "staffId"),
+      notifications: a.hasMany("Notification", "staffId"),
+      aircraft: a.hasMany("AircraftStaff", "staffId"),
+      roles: a.hasMany("RoleStaff", "staffId"),
+      subcategories: a.hasMany("StaffSubcategory", "staffId"),
+    }),
+    Category: a.model({
+      name: a.string().required(),
+      archived: a.boolean().required().default(false),
+      description: a.string(),
+      subcategories: a.hasMany("Subcategory", "categoryId"),
+    }),
+    Subcategory: a.model({
+      name: a.string().required(),
+      archived: a.boolean().required().default(false),
+      description: a.string(),
+      categoryId: a.id().required(),
+      category: a.belongsTo("Category", "categoryId"),
+      documents: a.hasMany("Document", "subcategoryId"),
+      staff: a.hasMany("StaffSubcategory", "subcategoryId"),
+    }),
+    Document: a.model({
+      name: a.string().required(),
+      archived: a.boolean().required().default(false),
+      subcategoryId: a.id(),
+      subcategory: a.belongsTo("Subcategory", "subcategoryId"),
+      staffId: a.id(),
+      staff: a.belongsTo("Staff", "staffId"),
+      aircraft: a.hasMany("AircraftDocument", "documentId"),
+    }),
+    Role: a.model({
+      name: a.string().required(),
+      archived: a.boolean().required().default(false),
+      description: a.string(),
+      staff: a.hasMany("RoleStaff", "roleId"),
+    }),
     RoleStaff: a.model({
       roleId: a.id().required(),
       staffId: a.id().required(),
@@ -139,22 +129,20 @@ const schema = a
       aircraft: a.belongsTo("Aircraft", "aircraftId"),
       notice: a.belongsTo("Notice", "noticeId"),
     }),
-    Notice: a
-      .model({
-        subject: a.string().required(),
-        type: a.enum(["Notice_to_Crew", "Safety_notice", "Hazard_report"]),
-        status: a.enum(["Draft", "Open", "Pending", "Resolved"]),
-        archived: a.boolean().required().default(false),
-        details: a.json().required(),
-        noticed_at: a.datetime(),
-        deadline_at: a.datetime(),
-        staffId: a.id(),
-        author: a.belongsTo("Staff", "staffId"),
-        recipients: a.hasMany("Notification", "noticeId"),
-        aircraft: a.hasMany("AircraftNotice", "noticeId"),
-        documents: a.hasMany("NoticeDocument", "noticeId"),
-      })
-      .secondaryIndexes((index) => [index("subject")]),
+    Notice: a.model({
+      subject: a.string().required(),
+      type: a.enum(["Notice_to_Crew", "Safety_notice", "Hazard_report"]),
+      status: a.enum(["Draft", "Open", "Pending", "Resolved"]),
+      archived: a.boolean().required().default(false),
+      details: a.json().required(),
+      noticed_at: a.datetime(),
+      deadline_at: a.datetime(),
+      staffId: a.id(),
+      author: a.belongsTo("Staff", "staffId"),
+      recipients: a.hasMany("Notification", "noticeId"),
+      aircraft: a.hasMany("AircraftNotice", "noticeId"),
+      documents: a.hasMany("NoticeDocument", "noticeId"),
+    }),
     Notification: a.model({
       read_at: a.datetime(),
       noticeId: a.id().required(),

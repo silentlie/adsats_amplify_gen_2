@@ -22,7 +22,7 @@ String? mapToString<K, V>(Map<K, V> input) {
   if (input.isEmpty) return null; // Handle empty maps
 
   if (K == Subcategory) {
-    return (input.keys as List<Subcategory>)
+    return List<Subcategory>.from(input.keys)
         .map((e) => e.name)
         .toList()
         .join(', ');

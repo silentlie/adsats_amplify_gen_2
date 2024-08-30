@@ -1,6 +1,8 @@
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/auth/sign_out_button_widget.dart';
 import 'package:adsats_amplify_gen_2/route/compliance_route/compliance_widget.dart';
+import 'package:adsats_amplify_gen_2/route/documents_route/add_a_document/add_a_document_widget.dart';
+import 'package:adsats_amplify_gen_2/route/documents_route/documents_widget.dart';
 import 'package:adsats_amplify_gen_2/route/help_route/help_widget.dart';
 import 'package:adsats_amplify_gen_2/route/profile_route/profile_widget.dart';
 import 'package:adsats_amplify_gen_2/route/training_route/training_widget.dart';
@@ -16,11 +18,15 @@ final router = GoRouter(
     ShellRoute(
       builder: (context, state, child) {
         AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
+        if (authNotifier.isSignedIn) {
+          authNotifier.fetchCognitoAuthSession();
+          return MyScaffold(child: child);
+        }
         return FutureBuilder(
           future: authNotifier.fetchCognitoAuthSession(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator.adaptive());
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else if (snapshot.hasData) {
@@ -45,12 +51,12 @@ final router = GoRouter(
       routes: [
         GoRoute(
           path: '/documents',
-          builder: (context, state) => const Placeholder(),
+          builder: (context, state) => const DocumentsWidget(),
         ),
-        // GoRoute(
-        //   path: '/add-a-document',
-        //   builder: (context, state) => const AddADocument(),
-        // ),
+        GoRoute(
+          path: '/add-a-document',
+          builder: (context, state) => const AddADocumentWidget(),
+        ),
         GoRoute(
           path: '/profile',
           builder: (context, state) => const ProfileWidget(),

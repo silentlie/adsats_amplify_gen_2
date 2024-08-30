@@ -7,7 +7,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 class AuthNotifier with ChangeNotifier {
-  late bool isSignedIn;
+  bool isSignedIn = false;
   late String id;
   late Staff user;
   bool isAdmin = false;
@@ -61,6 +61,7 @@ class AuthNotifier with ChangeNotifier {
   }
 
   Future<void> _queryUserDetails(String id) async {
+    // TODO need to rewrite this
     const document = '''
     query GetStaffDetails(\$id: String!) {
       getStaff(id: \$id) {
@@ -119,9 +120,15 @@ class AuthNotifier with ChangeNotifier {
     }
     Map<String, dynamic> jsonMap = json.decode(response.data);
 
+    // TODO: need to change to map
     // Helper function to populate a list from JSON
-    void populateList<T>(String key, List<T> targetList,
-        T Function(Map<String, dynamic>) fromJson) {
+    void populateList<T>(
+      String key,
+      List<T> targetList,
+      T Function(Map<String, dynamic>) fromJson,
+    ) {
+      targetList.clear();
+
       final items = List<Map<String, dynamic>>.from(
         jsonMap['getStaff'][key]['items'],
       );
@@ -146,17 +153,18 @@ class AuthNotifier with ChangeNotifier {
       jsonMap['getStaff']['subcategories']['items'],
     );
     for (var json in subcategoriesJson) {
-      subcategories[Subcategory.fromJson(json['subcategory'])] =
-          json['accessLevel'];
+      subcategories[Subcategory.fromJson(
+        json['subcategory'],
+      )] = json['accessLevel'];
     }
   }
 
   void _validateRoles() {
     isAdmin = roles.any((role) {
-      return role.id == "57773f09-e69a-4783-bee7-53fd2c864ac8";
+      return role.id == "b297e54e-720e-4164-8df9-29c2af3035af";
     });
     isEditor = roles.any((role) {
-      return role.id == "7af4e6f7-a6d3-460f-a6df-e830ef6e31dc";
+      return role.id == "0fcda9a3-0676-4092-85a3-cea0a780b63a";
     });
   }
 }
