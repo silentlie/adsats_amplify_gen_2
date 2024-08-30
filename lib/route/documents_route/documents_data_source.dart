@@ -100,14 +100,14 @@ class DocumentsDataSource extends MyDataTableSource {
         ),
         DataCell(
           Center(
-            child: getActions(index),
+            child: getActions(document),
           ),
         ),
       ],
     );
   }
 
-  Widget getActions(int index) {
+  Widget getActions(Document document) {
     AuthNotifier authNotifier = Provider.of<AuthNotifier>(
       _context,
       listen: false,
@@ -116,9 +116,7 @@ class DocumentsDataSource extends MyDataTableSource {
       menuChildren: [
         IconButton(
           onPressed: () async {
-            // TODO document download
-            // Uri genUrl = await getFileUrl();
-            // launchUrl(genUrl);
+            await getFileUrl(document);
           },
           icon: const Icon(Icons.remove_red_eye_outlined),
           tooltip: 'View',

@@ -2,7 +2,7 @@ part of 'documents_widget.dart';
 
 Future<void> getFileUrl(Document document) async {
   try {
-    String pathStr = "${document.name}_${document.id}";
+    String pathStr = "documents/${document.id}_${document.name}";
 
     final result = await Amplify.Storage.getUrl(
       path: StoragePath.fromString(pathStr),
@@ -64,7 +64,7 @@ Future<void> uploadFile(
     // Concurrently upload the file and create AircraftDocument entries
     final fileUploadFuture = Amplify.Storage.uploadFile(
       localFile: AWSFile.fromStream(file.readStream!, size: file.size),
-      path: StoragePath.fromString("${file.name}_$id"),
+      path: StoragePath.fromString("documents/${id}_${file.name}"),
       onProgress: (progress) {
         // Optional debug print for progress
         debugPrint('Fraction completed: ${progress.fractionCompleted}');
