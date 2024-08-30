@@ -100,3 +100,33 @@ Future<void> uploadFile(
     debugPrint('General Error: $e');
   }
 }
+
+Future<void> archive(Document document) async {
+  try {
+    final newDocument = document.copyWith(archived: !document.archived);
+    final request = ModelMutations.update(newDocument);
+    final response = await Amplify.API.mutate(request: request).response;
+    debugPrint('Response: $response');
+  } catch (e) {
+    debugPrint('General Error: $e');
+  }
+}
+
+Future<void> delete(Document document) async {
+  try {
+    final request = ModelMutations.deleteById(
+      Document.classType,
+      DocumentModelIdentifier(id: document.id),
+    );
+    final response = await Amplify.API.mutate(request: request).response;
+    debugPrint('Response: $response');
+    final result = await Amplify.Storage.remove(
+      path: StoragePath.fromString('documents/${document.id}_${document.name}'),
+    ).result;
+    debugPrint('Removed file: ${result.removedItem.path}');
+  } on StorageException catch (e) {
+    debugPrint(e.message);
+  } catch (e) {
+    debugPrint('General Error: $e');
+  }
+}

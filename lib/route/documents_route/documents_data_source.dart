@@ -119,27 +119,22 @@ class DocumentsDataSource extends MyDataTableSource {
             await getFileUrl(document);
           },
           icon: const Icon(Icons.remove_red_eye_outlined),
-          tooltip: 'View',
         ),
         if (authNotifier.isAdmin || authNotifier.isEditor)
           IconButton(
             onPressed: () async {
-              // TODO: document archive
-              // await archive();
+              await archive(document);
               fetchRawData();
             },
             icon: const Icon(Icons.archive_outlined),
-            tooltip: 'Archive',
           ),
         if (authNotifier.isAdmin)
           IconButton(
             onPressed: () async {
-              // TODO: document delete
-              // await delete();
+              await delete(document);
               fetchRawData();
             },
             icon: const Icon(Icons.delete_outline),
-            tooltip: 'Delete',
           ),
       ],
       builder: (context, controller, child) {
