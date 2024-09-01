@@ -49,7 +49,7 @@ const schema = a
       .handler(a.handler.function(disableUser))
       .returns(a.json()),
     Staff: a.model({
-      id: a.string().required(),
+      id: a.id().required(),
       name: a.string().required(),
       email: a.email().required(),
       archived: a.boolean().required().default(false),

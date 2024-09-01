@@ -45,7 +45,6 @@ class _AddADocumentState extends State<AddADocument> {
   @override
   Widget build(BuildContext context) {
     AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
-    subcategory = authNotifier.subcategories.keys.firstOrNull;
     staff = authNotifier.user;
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Column(
@@ -70,11 +69,11 @@ class _AddADocumentState extends State<AddADocument> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: DropdownMenu(
-                  dropdownMenuEntries: authNotifier.subcategories.keys.map(
+                  dropdownMenuEntries: staff?.subcategories?.map(
                     (e) {
-                      return DropdownMenuEntry(value: e, label: e.name);
+                      return DropdownMenuEntry(value: e.subcategory, label: e.subcategory!.name);
                     },
-                  ).toList(),
+                  ).toList()?? [],
                   inputDecorationTheme: const InputDecorationTheme(
                     border: OutlineInputBorder(),
                   ),
@@ -85,7 +84,7 @@ class _AddADocumentState extends State<AddADocument> {
                   label: const Text("Choose a subcategory"),
                   leadingIcon: const Icon(Icons.search),
                   onSelected: (value) {
-                    subcategory = value;
+                    subcategory = value as Subcategory;
                   },
                   initialSelection: subcategory,
                   expandedInsets: EdgeInsets.zero,
@@ -96,11 +95,11 @@ class _AddADocumentState extends State<AddADocument> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: MultiSelect(
-                  items: authNotifier.aircraft.map(
+                  items: staff?.aircraft?.map(
                     (e) {
-                      return MultiSelectItem(e, e.name);
+                      return MultiSelectItem(e.aircraft, e.aircraft!.name);
                     },
-                  ).toList(),
+                  ).toList() ?? [],
                   onConfirm: (selectedOptions) {
                     aircraft = List<Aircraft>.from(selectedOptions);
                   },
@@ -170,6 +169,7 @@ class _AddADocumentState extends State<AddADocument> {
                 child: const Text("Pick file"),
               ),
             ),
+            const SizedBox(width: 10),
             ElevatedButton.icon(
               onPressed: () {
                 if (filePickerResult == null) {

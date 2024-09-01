@@ -95,19 +95,19 @@ class MyDrawerHeader extends StatelessWidget {
         ),
         Center(
           child: Text(
-            'Roles: ${listToString(authNotifier.roles)}',
+            'Roles: ${listToString(authNotifier.user.roles ?? [])}',
             textAlign: TextAlign.center,
           ),
         ),
         Center(
           child: Text(
-            'Aircraft: ${listToString(authNotifier.aircraft)}',
+            'Aircraft: ${listToString(authNotifier.user.aircraft ?? [])}',
             textAlign: TextAlign.center,
           ),
         ),
         Center(
           child: Text(
-            'Subcategories: ${mapToString(authNotifier.subcategories)}',
+            'Subcategories: ${listToString(authNotifier.user.subcategories ?? [])}',
             textAlign: TextAlign.center,
           ),
         ),

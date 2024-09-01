@@ -1,6 +1,6 @@
 part of 'documents_widget.dart';
 
-class DocumentsDataSource extends MyDataTableSource {
+class DocumentsDataSource extends DataTableSource {
   static bool _isInitialize = false;
 
   static final List<Document> _data = [];
@@ -11,46 +11,26 @@ class DocumentsDataSource extends MyDataTableSource {
 
   DocumentsDataSource(this._context) {
     if (!_isInitialize) {
+      _filter.archived = false;
+      _filter.subcategories = Provider.of<AuthNotifier>(_context)
+              .user
+              .subcategories
+              ?.map(
+                (e) => e.subcategory!,
+              )
+              .toList() ??
+          [];
       fetchRawData();
     }
   }
 
   @override
-  get columns {
-    return <DataColumn2>[
-      DataColumn2(
-        label: getCenterText("File name"),
-        size: ColumnSize.L,
-      ),
-      DataColumn2(
-        label: getCenterText("Aircraft"),
-        size: ColumnSize.S,
-      ),
-      DataColumn2(
-        label: getCenterText("Subcategory"),
-        size: ColumnSize.L,
-      ),
-      DataColumn2(
-        label: getCenterText("Category"),
-        size: ColumnSize.S,
-      ),
-      DataColumn2(
-        label: getCenterText("Archived"),
-        fixedWidth: 100,
-      ),
-      DataColumn2(
-        label: getCenterText("Upload date"),
-        fixedWidth: 100,
-      ),
-      DataColumn2(
-        label: getCenterText("Action"),
-        fixedWidth: 80,
-      ),
-    ];
-  }
+  int get rowCount => _data.length;
 
   @override
-  int get rowCount => _data.length;
+  bool get isRowCountApproximate => false;
+  @override
+  int get selectedRowCount => 0;
 
   @override
   DataRow2 getRow(int index) {
@@ -197,9 +177,13 @@ class DocumentsDataSource extends MyDataTableSource {
         throw Exception('No data returned from API');
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
-      final documents = List<Map<String, dynamic>>.from(
-        jsonMap["listDocuments"]["items"],
-      );
+      final listDocuments = jsonMap["listDocuments"];
+      final List<Map<String, dynamic>> documents;
+      listDocuments == null
+          ? documents = []
+          : documents = List<Map<String, dynamic>>.from(
+              jsonMap["listDocuments"]["items"],
+            );
       _data.clear();
       for (var document in documents) {
         _data.add(Document.fromJson(document));
@@ -215,7 +199,6 @@ class DocumentsDataSource extends MyDataTableSource {
     }
   }
 
-  @override
   get header {
     return ListTile(
       contentPadding: const EdgeInsets.only(),
@@ -262,19 +245,15 @@ class DocumentsDataSource extends MyDataTableSource {
     );
   }
 
-  // Function to generate a dynamic filter based on a list of subcategory IDs
-  Map<String, dynamic> createDynamicFilter(List<String> subcategoryIds) {
-    if (subcategoryIds.isEmpty) {
-      return {}; // Return an empty filter if no subcategory IDs are provided
-    }
-
-    // Create the 'or' filter with multiple 'eq' conditions for subcategoryId
-    List<Map<String, dynamic>> orConditions = subcategoryIds.map((id) {
-      return {
-        "subcategoryId": {"eq": id}
-      };
-    }).toList();
-
-    return {"or": orConditions};
+  void sort<T>(
+      Comparable<T> Function(Document document) getField, bool ascending) {
+    _data.sort((a, b) {
+      final aValue = getField(a);
+      final bValue = getField(b);
+      return ascending
+          ? Comparable.compare(aValue, bValue)
+          : Comparable.compare(bValue, aValue);
+    });
+    notifyListeners();
   }
 }

@@ -27,11 +27,30 @@ class DocumentsFilter {
   }
 
   Map<String, dynamic> toJson() {
-    return {};
+    Map<String, dynamic> result = {
+      "name": {"contains": search},
+    };
+    archived != null ? result["archived"] = {"eq": archived} : null;
+    createdAt != null
+        ? result["createdAt"] = {
+            "between": [
+              createdAt!.start.toIso8601String(),
+              createdAt!.end.toIso8601String(),
+            ]
+          }
+        : null;
+    result["or"] = subcategories.map(
+      (e) {
+        return {
+          "subcategoryId": {"eq": e.id}
+        };
+      },
+    ).toList();
+    return result;
   }
 
   Widget getFilterWidget(BuildContext context, Function fetchRawData) {
-    DocumentsFilter temp = DocumentsFilter();
+    DocumentsFilter temp = this;
     return ElevatedButton(
       onPressed: () {
         showDialog(
@@ -49,14 +68,15 @@ class DocumentsFilter {
                     MultiSelect(
                       buttonText: const Text("Filter by subcategories"),
                       title: const Text("Filter by subcategories"),
-                      items: authNotifier.subcategories.keys.map(
-                        (entry) {
-                          return MultiSelectItem(
-                            entry,
-                            entry.name,
-                          );
-                        },
-                      ).toList(),
+                      items: authNotifier.user.subcategories?.map(
+                            (entry) {
+                              return MultiSelectItem(
+                                entry.subcategory,
+                                entry.subcategory!.name,
+                              );
+                            },
+                          ).toList() ??
+                          [],
                       onConfirm: (selectedOptions) {
                         temp.subcategories =
                             List<Subcategory>.from(selectedOptions);
@@ -116,5 +136,10 @@ class DocumentsFilter {
       },
       child: const Text("Filter By"),
     );
+  }
+
+  @override
+  String toString() {
+    return toJson().toString();
   }
 }

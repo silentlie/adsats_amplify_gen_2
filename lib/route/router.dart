@@ -28,7 +28,12 @@ final router = GoRouter(
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator.adaptive());
             } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
+              return Column(
+                children: [
+                  Text('Error: ${snapshot.error}'),
+                  const SignOutButtonWidget(),
+                ],
+              );
             } else if (snapshot.hasData) {
               if (snapshot.data!) {
                 return MyScaffold(child: child);
