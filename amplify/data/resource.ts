@@ -143,7 +143,7 @@ const schema = a
       aircraft: a.hasMany("AircraftNotice", "noticeId"),
       documents: a.hasMany("NoticeDocument", "noticeId"),
     }),
-    Notification: a.model({
+    NoticeStaff: a.model({
       read_at: a.datetime(),
       noticeId: a.id().required(),
       staffId: a.id().required(),
