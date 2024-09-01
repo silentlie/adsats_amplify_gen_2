@@ -1,8 +1,9 @@
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/auth/sign_out_button_widget.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/compliance_route/compliance_widget.dart';
-import 'package:adsats_amplify_gen_2/route/documents_route/add_a_document/add_a_document_widget.dart';
-import 'package:adsats_amplify_gen_2/route/documents_route/documents_widget.dart';
+import 'package:adsats_amplify_gen_2/route/document_route/add_a_document/add_a_document_widget.dart';
+import 'package:adsats_amplify_gen_2/route/document_route/document_widget.dart';
 import 'package:adsats_amplify_gen_2/route/help_route/help_widget.dart';
 import 'package:adsats_amplify_gen_2/route/profile_route/profile_widget.dart';
 import 'package:adsats_amplify_gen_2/route/training_route/training_widget.dart';
@@ -56,7 +57,7 @@ final router = GoRouter(
       routes: [
         GoRoute(
           path: '/documents',
-          builder: (context, state) => const DocumentsWidget(),
+          builder: (context, state) => const DocumentWidget(),
         ),
         GoRoute(
           path: '/add-a-document',
@@ -78,27 +79,16 @@ final router = GoRouter(
         //   path: '/resetPassword',
         //   builder: (context, state) => const CustomResetPasswordForm(),
         // ),
-        // GoRoute(
-        //   path: '/sms',
-        //   builder: (context, state) => const SMSWidget(),
-        //   routes: [
-        //     GoRoute(
-        //       path: ':notice_id',
-        //       builder: (context, state) {
-        //         String? noticeID = state.pathParameters["notice_id"];
-        //         if (noticeID != null && noticeID.isNotEmpty) {
-        //           int? parsedID = int.tryParse(noticeID);
-        //           if (parsedID != null) {
-        //             return SpecificNoticeWidget(
-        //               documentID: parsedID,
-        //             );
-        //           }
-        //         }
-        //         return const Placeholder();
-        //       },
-        //     ),
-        //   ],
-        // ),
+        GoRoute(
+          path: '/sms',
+          builder: (context, state) {
+            if (state.extra == null) {
+              return const Placeholder();
+            }
+            Notice notice = state.extra as Notice;
+            return Text(notice.toString());
+          },
+        ),
         GoRoute(
           path: '/compliance',
           builder: (context, state) => const ComplianceWidget(),
