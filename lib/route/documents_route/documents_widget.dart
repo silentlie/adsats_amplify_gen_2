@@ -5,8 +5,8 @@ import 'package:adsats_amplify_gen_2/helper/multi_select.dart';
 import 'package:adsats_amplify_gen_2/helper/mutable_date_time_range.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
-import 'package:adsats_amplify_gen_2/route/document_route/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/route/document_route/helper/s3.dart';
+import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/route/documents_route/helper/s3.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,12 +15,12 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:data_table_2/data_table_2.dart';
 
-part 'document_data_source.dart';
-part 'document_filter.dart';
+part 'documents_data_source.dart';
+part 'documents_filter.dart';
 part 'search_bar_widget.dart';
 
-class DocumentWidget extends StatelessWidget {
-  const DocumentWidget({
+class DocumentsWidget extends StatelessWidget {
+  const DocumentsWidget({
     super.key,
   });
   @override
@@ -28,23 +28,26 @@ class DocumentWidget extends StatelessWidget {
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 1536.0),
-        child: const DocumentDataTable2(),
+        child: const DocumentsDataTable2(),
       ),
     );
   }
 }
 
-class DocumentDataTable2 extends StatefulWidget {
-  const DocumentDataTable2({super.key});
+class DocumentsDataTable2 extends StatefulWidget {
+  const DocumentsDataTable2({super.key});
   @override
-  State<DocumentDataTable2> createState() => _DocumentDataTable2State();
+  State<DocumentsDataTable2> createState() => _DocumentsDataTable2State();
 }
 
-class _DocumentDataTable2State extends State<DocumentDataTable2> {
+class _DocumentsDataTable2State extends State<DocumentsDataTable2> {
   late DocumentsDataSource dataSource;
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   bool _sortAscending = false;
   int _sortColumnIndex = 5;
+  Comparable Function(Document document) getField = (document) {
+    return document.createdAt!;
+  };
 
   get columns {
     return <DataColumn2>[
@@ -55,9 +58,9 @@ class _DocumentDataTable2State extends State<DocumentDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            dataSource.sort((document) {
+            getField = (document) {
               return document.name;
-            }, ascending);
+            };
           });
         },
       ),
@@ -68,9 +71,9 @@ class _DocumentDataTable2State extends State<DocumentDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            dataSource.sort((document) {
+            getField = (document) {
               return document.aircraft.hashCode;
-            }, ascending);
+            };
           });
         },
       ),
@@ -81,9 +84,9 @@ class _DocumentDataTable2State extends State<DocumentDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            dataSource.sort((document) {
+            getField = (document) {
               return document.subcategory.hashCode;
-            }, ascending);
+            };
           });
         },
       ),
@@ -94,9 +97,9 @@ class _DocumentDataTable2State extends State<DocumentDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            dataSource.sort((document) {
-              return document.subcategory!.category.hashCode;
-            }, ascending);
+            getField = (document) {
+              return document.subcategory?.category.hashCode ?? double.infinity;
+            };
           });
         },
       ),
@@ -107,9 +110,9 @@ class _DocumentDataTable2State extends State<DocumentDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            dataSource.sort((document) {
+            getField = (document) {
               return document.archived.hashCode;
-            }, ascending);
+            };
           });
         },
       ),
@@ -120,9 +123,9 @@ class _DocumentDataTable2State extends State<DocumentDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            dataSource.sort((document) {
+            getField = (document) {
               return document.createdAt!;
-            }, ascending);
+            };
           });
         },
       ),
@@ -133,9 +136,9 @@ class _DocumentDataTable2State extends State<DocumentDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            dataSource.sort((document) {
+            getField = (document) {
               return document.hashCode;
-            }, ascending);
+            };
           });
         },
       ),
@@ -144,9 +147,27 @@ class _DocumentDataTable2State extends State<DocumentDataTable2> {
 
   @override
   Widget build(BuildContext context) {
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     dataSource = DocumentsDataSource(context);
+    if (DocumentsDataSource.isInitialize) {
+      return builder(context, dataSource);
+    }
+    return FutureBuilder(
+      future: dataSource.fetchRawData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator.adaptive());
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          return builder(context, dataSource);
+        }
+      },
+    );
+  }
 
+  Widget builder(BuildContext context, DocumentsDataSource dataSource) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    dataSource.sort(getField, _sortAscending);
     return PaginatedDataTable2(
       columns: columns,
       source: dataSource,

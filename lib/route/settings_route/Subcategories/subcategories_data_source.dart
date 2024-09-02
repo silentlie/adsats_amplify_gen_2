@@ -1,26 +1,17 @@
-part of 'document_widget.dart';
+part of 'subcategories_widget.dart';
 
-class DocumentsDataSource extends DataTableSource {
-  static bool _isInitialize = false;
+class SubcategoriesDataSource extends DataTableSource {
+  static bool isInitialize = false;
 
-  static final List<Document> _data = [];
+  static final List<Subcategory> _data = [];
 
-  static final DocumentsFilter _filter = DocumentsFilter();
+  static final SettingsFilter _filter = SettingsFilter();
 
   final BuildContext _context;
 
-  DocumentsDataSource(this._context) {
-    if (!_isInitialize) {
+  SubcategoriesDataSource(this._context) {
+    if (!isInitialize) {
       _filter.archived = false;
-      _filter.subcategories = Provider.of<AuthNotifier>(_context)
-              .user
-              .subcategories
-              ?.map(
-                (e) => e.subcategory!,
-              )
-              .toList() ??
-          [];
-      fetchRawData();
     }
   }
 
@@ -29,28 +20,24 @@ class DocumentsDataSource extends DataTableSource {
 
   @override
   bool get isRowCountApproximate => false;
+
   @override
   int get selectedRowCount => 0;
 
   @override
   DataRow2 getRow(int index) {
-    final document = _data[index];
+    final subcategory = _data[index];
     return DataRow2.byIndex(
       index: index,
       cells: [
         DataCell(
-          getCenterText(document.name),
+          getCenterText(subcategory.name),
         ),
         DataCell(
-          getCenterText(
-            document.aircraft?.map((e) => e.aircraft?.name).join(', ') ?? "",
-          ),
+          getCenterText(subcategory.description ?? ""),
         ),
         DataCell(
-          getCenterText(document.subcategory?.name ?? ""),
-        ),
-        DataCell(
-          getCenterText(document.subcategory?.category?.name ?? ""),
+          getCenterText(subcategory.category?.name ?? ""),
         ),
         DataCell(
           Center(
@@ -61,61 +48,56 @@ class DocumentsDataSource extends DataTableSource {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(20),
                 // maybe make it follow color scheme
-                color: document.archived ? Colors.grey : Colors.blue.shade600,
+                color:
+                    subcategory.archived ? Colors.grey : Colors.blue.shade600,
               ),
               child: Center(
-                child: Text(document.archived ? "Yes" : "No"),
+                child: Text(subcategory.archived ? "Yes" : "No"),
               ),
             ),
           ),
         ),
         DataCell(
           getCenterText(
-            document.createdAt != null
+            subcategory.createdAt != null
                 ? DateFormat('dd/MM/yyyy').format(
-                    document.createdAt!.getDateTimeInUtc(),
+                    subcategory.createdAt!.getDateTimeInUtc(),
                   )
                 : "",
           ),
         ),
         DataCell(
           Center(
-            child: getActions(document),
+            child: getActions(subcategory),
           ),
         ),
       ],
     );
   }
 
-  Widget getActions(Document document) {
-    AuthNotifier authNotifier = Provider.of<AuthNotifier>(
-      _context,
-      listen: false,
-    );
+  Widget getActions(Subcategory subcategory) {
     return MenuAnchor(
       menuChildren: [
         IconButton(
           onPressed: () async {
-            await getFileUrl(document);
+            // await getFileUrl(aircraft);
           },
-          icon: const Icon(Icons.remove_red_eye_outlined),
+          icon: const Icon(Icons.edit_outlined),
         ),
-        if (authNotifier.isAdmin || authNotifier.isEditor)
-          IconButton(
-            onPressed: () async {
-              await archive(document);
-              fetchRawData();
-            },
-            icon: const Icon(Icons.archive_outlined),
-          ),
-        if (authNotifier.isAdmin)
-          IconButton(
-            onPressed: () async {
-              await delete(document);
-              fetchRawData();
-            },
-            icon: const Icon(Icons.delete_outline),
-          ),
+        IconButton(
+          onPressed: () async {
+            // await archive(aircraft);
+            fetchRawData();
+          },
+          icon: const Icon(Icons.archive_outlined),
+        ),
+        IconButton(
+          onPressed: () async {
+            // await delete(aircraft);
+            fetchRawData();
+          },
+          icon: const Icon(Icons.delete_outline),
+        ),
       ],
       builder: (context, controller, child) {
         return IconButton(
@@ -128,7 +110,7 @@ class DocumentsDataSource extends DataTableSource {
           },
           icon: const Icon(
             Icons.more_vert,
-            size: 20,
+            // size: 20,
           ),
         );
       },
@@ -137,30 +119,41 @@ class DocumentsDataSource extends DataTableSource {
 
   Future<void> fetchRawData() async {
     const graphQLDocument = '''
-      query ListDocuments(\$filter: ModelDocumentFilterInput) {
-        listDocuments(filter: \$filter) {
+      query ListSubcategories(\$filter: ModelSubcategoryFilterInput) {
+        listSubcategories(filter: \$filter) {
           items {
             id
             name
-            subcategory {
+            description
+            archived
+            createdAt
+            updatedAt
+            category {
               id
               name
-              category {
-                id
-                name
-              }
+              description
+              archived
+              createdAt
+              updatedAt
             }
-            aircraft {
+            staff {
               items {
                 id
-                aircraft {
+                accessLevel
+                createdAt
+                subcategoryId
+                updatedAt
+                staffId
+                staff {
                   id
                   name
+                  email
+                  updatedAt
+                  createdAt
+                  archived
                 }
               }
             }
-            createdAt
-            archived
           }
         }
       }
@@ -177,23 +170,22 @@ class DocumentsDataSource extends DataTableSource {
         throw Exception('No data returned from API');
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
-      final listDocuments = jsonMap["listDocuments"];
-      final List<Map<String, dynamic>> documents;
-      listDocuments == null
-          ? documents = []
-          : documents = List<Map<String, dynamic>>.from(
-              jsonMap["listDocuments"]["items"],
+      final listSubcategories = jsonMap["listSubcategories"];
+      final List<Map<String, dynamic>> subcategories;
+      listSubcategories == null
+          ? subcategories = []
+          : subcategories = List<Map<String, dynamic>>.from(
+              jsonMap["listSubcategories"]["items"],
             );
       _data.clear();
-      for (var document in documents) {
-        _data.add(Document.fromJson(document));
+      for (var subcategory in subcategories) {
+        _data.add(Subcategory.fromJson(subcategory));
       }
-      _isInitialize = true;
+      isInitialize = true;
       notifyListeners();
-      debugPrint("did call fetchRawData");
     } on Exception catch (e) {
       debugPrint(
-        'Error Exception while retrieving documents: $e',
+        'Error Exception while retrieving subcategories: $e',
       );
       rethrow;
     }
@@ -203,7 +195,7 @@ class DocumentsDataSource extends DataTableSource {
     return ListTile(
       contentPadding: const EdgeInsets.only(),
       leading: const Text(
-        "Documents",
+        "Subcategories",
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
@@ -221,16 +213,16 @@ class DocumentsDataSource extends DataTableSource {
               },
               icon: const Icon(Icons.refresh),
             ),
-            ElevatedButton.icon(
-              onPressed: () {
-                _context.go('/add-a-document');
-              },
-              label: const Text('Add a document'),
-              icon: const Icon(
-                Icons.add,
-                size: 25,
-              ),
-            ),
+            // ElevatedButton.icon(
+            //   onPressed: () {
+            //     _context.go('/add-a-document');
+            //   },
+            //   label: const Text('Add a document'),
+            //   icon: const Icon(
+            //     Icons.add,
+            //     size: 25,
+            //   ),
+            // ),
             const SizedBox(
               width: 10,
             ),
@@ -245,8 +237,8 @@ class DocumentsDataSource extends DataTableSource {
     );
   }
 
-  void sort<T>(
-      Comparable<T> Function(Document document) getField, bool ascending) {
+  void sort<T>(Comparable<T> Function(Subcategory subcategory) getField,
+      bool ascending) {
     _data.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);

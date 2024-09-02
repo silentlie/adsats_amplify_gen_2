@@ -249,22 +249,12 @@ class Role extends amplify_core.Model {
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PRIVATE,
-          operations: const [amplify_core.ModelOperation.READ]),
-      amplify_core.AuthRule(
-          authStrategy: amplify_core.AuthStrategy.GROUPS,
-          groupClaim: "cognito:groups",
-          groups: const ["admins"],
-          provider: amplify_core.AuthRuleProvider.USERPOOLS,
           operations: const [
             amplify_core.ModelOperation.CREATE,
             amplify_core.ModelOperation.UPDATE,
             amplify_core.ModelOperation.DELETE,
             amplify_core.ModelOperation.READ
           ])
-    ];
-
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["name"], name: "rolesByName")
     ];
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());

@@ -28,7 +28,7 @@ import 'Category.dart';
 import 'Document.dart';
 import 'Notice.dart';
 import 'NoticeDocument.dart';
-import 'Notification.dart';
+import 'NoticeStaff.dart';
 import 'Role.dart';
 import 'RoleStaff.dart';
 import 'Staff.dart';
@@ -43,9 +43,9 @@ export 'Category.dart';
 export 'Document.dart';
 export 'Notice.dart';
 export 'NoticeDocument.dart';
+export 'NoticeStaff.dart';
 export 'NoticeStatus.dart';
 export 'NoticeType.dart';
-export 'Notification.dart';
 export 'Role.dart';
 export 'RoleStaff.dart';
 export 'Staff.dart';
@@ -54,17 +54,32 @@ export 'Subcategory.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "3812b68c7d4d6b3e92f1e57f565bebfe";
+  String version = "323393b395112159046e062b5941508b";
   @override
-  List<amplify_core.ModelSchema> modelSchemas = [Aircraft.schema, AircraftDocument.schema, AircraftNotice.schema, AircraftStaff.schema, Category.schema, Document.schema, Notice.schema, NoticeDocument.schema, Notification.schema, Role.schema, RoleStaff.schema, Staff.schema, StaffSubcategory.schema, Subcategory.schema];
+  List<amplify_core.ModelSchema> modelSchemas = [
+    Aircraft.schema,
+    AircraftDocument.schema,
+    AircraftNotice.schema,
+    AircraftStaff.schema,
+    Category.schema,
+    Document.schema,
+    Notice.schema,
+    NoticeDocument.schema,
+    NoticeStaff.schema,
+    Role.schema,
+    RoleStaff.schema,
+    Staff.schema,
+    StaffSubcategory.schema,
+    Subcategory.schema
+  ];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [];
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
-  
+
   amplify_core.ModelType getModelTypeByModelName(String modelName) {
-    switch(modelName) {
+    switch (modelName) {
       case "Aircraft":
         return Aircraft.classType;
       case "AircraftDocument":
@@ -81,8 +96,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return Notice.classType;
       case "NoticeDocument":
         return NoticeDocument.classType;
-      case "Notification":
-        return Notification.classType;
+      case "NoticeStaff":
+        return NoticeStaff.classType;
       case "Role":
         return Role.classType;
       case "RoleStaff":
@@ -94,11 +109,12 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
       case "Subcategory":
         return Subcategory.classType;
       default:
-        throw Exception("Failed to find model in model provider for model name: " + modelName);
+        throw Exception(
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }
-
 
 class ModelFieldValue<T> {
   const ModelFieldValue.value(this.value);

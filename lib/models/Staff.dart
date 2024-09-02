@@ -32,7 +32,7 @@ class Staff extends amplify_core.Model {
   final bool? _archived;
   final List<Document>? _documents;
   final List<Notice>? _notices;
-  final List<Notification>? _notifications;
+  final List<NoticeStaff>? _notifications;
   final List<AircraftStaff>? _aircraft;
   final List<RoleStaff>? _roles;
   final List<StaffSubcategory>? _subcategories;
@@ -77,8 +77,17 @@ class Staff extends amplify_core.Model {
     }
   }
 
-  bool? get archived {
-    return _archived;
+  bool get archived {
+    try {
+      return _archived!;
+    } catch (e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   List<Document>? get documents {
@@ -89,7 +98,7 @@ class Staff extends amplify_core.Model {
     return _notices;
   }
 
-  List<Notification>? get notifications {
+  List<NoticeStaff>? get notifications {
     return _notifications;
   }
 
@@ -117,7 +126,7 @@ class Staff extends amplify_core.Model {
       {required this.id,
       required name,
       required email,
-      archived,
+      required archived,
       documents,
       notices,
       notifications,
@@ -142,10 +151,10 @@ class Staff extends amplify_core.Model {
       {String? id,
       required String name,
       required String email,
-      bool? archived,
+      required bool archived,
       List<Document>? documents,
       List<Notice>? notices,
-      List<Notification>? notifications,
+      List<NoticeStaff>? notifications,
       List<AircraftStaff>? aircraft,
       List<RoleStaff>? roles,
       List<StaffSubcategory>? subcategories}) {
@@ -159,7 +168,7 @@ class Staff extends amplify_core.Model {
             : documents,
         notices: notices != null ? List<Notice>.unmodifiable(notices) : notices,
         notifications: notifications != null
-            ? List<Notification>.unmodifiable(notifications)
+            ? List<NoticeStaff>.unmodifiable(notifications)
             : notifications,
         aircraft: aircraft != null
             ? List<AircraftStaff>.unmodifiable(aircraft)
@@ -220,7 +229,7 @@ class Staff extends amplify_core.Model {
       bool? archived,
       List<Document>? documents,
       List<Notice>? notices,
-      List<Notification>? notifications,
+      List<NoticeStaff>? notifications,
       List<AircraftStaff>? aircraft,
       List<RoleStaff>? roles,
       List<StaffSubcategory>? subcategories}) {
@@ -240,10 +249,10 @@ class Staff extends amplify_core.Model {
   Staff copyWithModelFieldValues(
       {ModelFieldValue<String>? name,
       ModelFieldValue<String>? email,
-      ModelFieldValue<bool?>? archived,
+      ModelFieldValue<bool>? archived,
       ModelFieldValue<List<Document>?>? documents,
       ModelFieldValue<List<Notice>?>? notices,
-      ModelFieldValue<List<Notification>?>? notifications,
+      ModelFieldValue<List<NoticeStaff>?>? notifications,
       ModelFieldValue<List<AircraftStaff>?>? aircraft,
       ModelFieldValue<List<RoleStaff>?>? roles,
       ModelFieldValue<List<StaffSubcategory>?>? subcategories}) {
@@ -302,13 +311,13 @@ class Staff extends amplify_core.Model {
                 ? (json['notifications']['items'] as List)
                     .where((e) => e != null)
                     .map((e) =>
-                        Notification.fromJson(new Map<String, dynamic>.from(e)))
+                        NoticeStaff.fromJson(new Map<String, dynamic>.from(e)))
                     .toList()
                 : null)
             : (json['notifications'] is List
                 ? (json['notifications'] as List)
                     .where((e) => e?['serializedData'] != null)
-                    .map((e) => Notification.fromJson(
+                    .map((e) => NoticeStaff.fromJson(
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
                 : null),
@@ -372,7 +381,7 @@ class Staff extends amplify_core.Model {
         'documents': _documents?.map((Document? e) => e?.toJson()).toList(),
         'notices': _notices?.map((Notice? e) => e?.toJson()).toList(),
         'notifications':
-            _notifications?.map((Notification? e) => e?.toJson()).toList(),
+            _notifications?.map((NoticeStaff? e) => e?.toJson()).toList(),
         'aircraft': _aircraft?.map((AircraftStaff? e) => e?.toJson()).toList(),
         'roles': _roles?.map((RoleStaff? e) => e?.toJson()).toList(),
         'subcategories':
@@ -417,7 +426,7 @@ class Staff extends amplify_core.Model {
       fieldName: "notifications",
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Notification'));
+          ofModelName: 'NoticeStaff'));
   static final AIRCRAFT = amplify_core.QueryField(
       fieldName: "aircraft",
       fieldType: amplify_core.ModelFieldType(
@@ -441,12 +450,6 @@ class Staff extends amplify_core.Model {
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PRIVATE,
-          operations: const [amplify_core.ModelOperation.READ]),
-      amplify_core.AuthRule(
-          authStrategy: amplify_core.AuthStrategy.GROUPS,
-          groupClaim: "cognito:groups",
-          groups: const ["admins"],
-          provider: amplify_core.AuthRuleProvider.USERPOOLS,
           operations: const [
             amplify_core.ModelOperation.CREATE,
             amplify_core.ModelOperation.UPDATE,
@@ -456,8 +459,7 @@ class Staff extends amplify_core.Model {
     ];
 
     modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(fields: const ["id"], name: null),
-      amplify_core.ModelIndex(fields: const ["email"], name: "staffByEmail")
+      amplify_core.ModelIndex(fields: const ["id"], name: null)
     ];
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
@@ -476,7 +478,7 @@ class Staff extends amplify_core.Model {
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: Staff.ARCHIVED,
-        isRequired: false,
+        isRequired: true,
         ofType:
             amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)));
 
@@ -495,8 +497,8 @@ class Staff extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
         key: Staff.NOTIFICATIONS,
         isRequired: false,
-        ofModelName: 'Notification',
-        associatedKey: Notification.STAFF));
+        ofModelName: 'NoticeStaff',
+        associatedKey: NoticeStaff.STAFF));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
         key: Staff.AIRCRAFT,

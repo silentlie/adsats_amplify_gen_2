@@ -1,28 +1,29 @@
-part of 'document_widget.dart';
 
-class DocumentsFilter {
+import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
+import 'package:adsats_amplify_gen_2/helper/mutable_date_time_range.dart';
+import 'package:flutter/material.dart';
+
+part 'search_bar_widget.dart';
+
+class SettingsFilter {
   String search;
   bool? archived;
-  List<Subcategory> subcategories;
   MutableDateTimeRange createdAt;
 
-  DocumentsFilter({
+  SettingsFilter({
     this.search = "",
     this.archived,
-    this.subcategories = const [],
     MutableDateTimeRange? createdAt,
   }) : createdAt = createdAt ?? MutableDateTimeRange();
 
-  DocumentsFilter copyWith({
+  SettingsFilter copyWith({
     String? search,
     bool? archived,
-    List<Subcategory>? subcategories,
     MutableDateTimeRange? createdAt,
   }) {
-    return DocumentsFilter(
+    return SettingsFilter(
       search: search ?? this.search,
       archived: archived ?? this.archived,
-      subcategories: subcategories ?? this.subcategories,
       createdAt: createdAt ?? this.createdAt,
     );
   }
@@ -35,50 +36,40 @@ class DocumentsFilter {
     createdAt.dateTimeRange != null
         ? result["createdAt"] = {"between": createdAt.toIso8601String()}
         : null;
-    result["or"] = subcategories.map(
-      (e) {
-        return {
-          "subcategoryId": {"eq": e.id}
-        };
-      },
-    ).toList();
     return result;
   }
 
   Widget getFilterWidget(BuildContext context, Function fetchRawData) {
-    DocumentsFilter temp = this;
+    SettingsFilter temp = this;
     return ElevatedButton(
       onPressed: () {
         showDialog(
           context: context,
           builder: (context) {
-            AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
             return AlertDialog.adaptive(
               title: const Text('Filter By:'),
+              actions: [
+                // cancel
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: const Text('Cancel'),
+                ),
+                // apply
+                TextButton(
+                  onPressed: () {
+                    archived = temp.archived;
+                    createdAt = temp.createdAt;
+                    fetchRawData();
+                    Navigator.pop(context, 'Apply');
+                  },
+                  child: const Text('Apply'),
+                )
+              ],
               content: Container(
-                // max width of filter column
                 constraints: const BoxConstraints(maxWidth: 400, minWidth: 400),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    MultiSelect(
-                      buttonText: const Text("Filter by subcategories"),
-                      title: const Text("Filter by subcategories"),
-                      items: authNotifier.user.subcategories?.map(
-                            (entry) {
-                              return MultiSelectItem(
-                                entry.subcategory,
-                                entry.subcategory!.name,
-                              );
-                            },
-                          ).toList() ??
-                          [],
-                      onConfirm: (selectedOptions) {
-                        temp.subcategories =
-                            List<Subcategory>.from(selectedOptions);
-                      },
-                      initialValue: subcategories,
-                    ),
                     Container(
                       padding: const EdgeInsets.all(8),
                       child: DropdownMenu(
@@ -108,24 +99,6 @@ class DocumentsFilter {
                   ],
                 ),
               ),
-              actions: [
-                // cancel
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'Cancel'),
-                  child: const Text('Cancel'),
-                ),
-                // apply
-                TextButton(
-                  onPressed: () {
-                    archived = temp.archived;
-                    subcategories = temp.subcategories;
-                    createdAt = temp.createdAt;
-                    fetchRawData();
-                    Navigator.pop(context, 'Apply');
-                  },
-                  child: const Text('Apply'),
-                )
-              ],
             );
           },
         );

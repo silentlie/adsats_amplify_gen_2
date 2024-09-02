@@ -22,9 +22,9 @@
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-/** This is an auto generated class representing the Notification type in your schema. */
-class Notification extends amplify_core.Model {
-  static const classType = const _NotificationModelType();
+/** This is an auto generated class representing the NoticeStaff type in your schema. */
+class NoticeStaff extends amplify_core.Model {
+  static const classType = const _NoticeStaffModelType();
   final String id;
   final amplify_core.TemporalDateTime? _read_at;
   final Notice? _notice;
@@ -40,8 +40,8 @@ class Notification extends amplify_core.Model {
   @override
   String getId() => id;
 
-  NotificationModelIdentifier get modelIdentifier {
-    return NotificationModelIdentifier(id: id);
+  NoticeStaffModelIdentifier get modelIdentifier {
+    return NoticeStaffModelIdentifier(id: id);
   }
 
   amplify_core.TemporalDateTime? get read_at {
@@ -64,7 +64,7 @@ class Notification extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const Notification._internal(
+  const NoticeStaff._internal(
       {required this.id, read_at, notice, staff, createdAt, updatedAt})
       : _read_at = read_at,
         _notice = notice,
@@ -72,12 +72,12 @@ class Notification extends amplify_core.Model {
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Notification(
+  factory NoticeStaff(
       {String? id,
       amplify_core.TemporalDateTime? read_at,
       Notice? notice,
       Staff? staff}) {
-    return Notification._internal(
+    return NoticeStaff._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
         read_at: read_at,
         notice: notice,
@@ -91,7 +91,7 @@ class Notification extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Notification &&
+    return other is NoticeStaff &&
         id == other.id &&
         _read_at == other._read_at &&
         _notice == other._notice &&
@@ -105,7 +105,7 @@ class Notification extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("Notification {");
+    buffer.write("NoticeStaff {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write(
         "read_at=" + (_read_at != null ? _read_at.format() : "null") + ", ");
@@ -123,27 +123,27 @@ class Notification extends amplify_core.Model {
     return buffer.toString();
   }
 
-  Notification copyWith(
+  NoticeStaff copyWith(
       {amplify_core.TemporalDateTime? read_at, Notice? notice, Staff? staff}) {
-    return Notification._internal(
+    return NoticeStaff._internal(
         id: id,
         read_at: read_at ?? this.read_at,
         notice: notice ?? this.notice,
         staff: staff ?? this.staff);
   }
 
-  Notification copyWithModelFieldValues(
+  NoticeStaff copyWithModelFieldValues(
       {ModelFieldValue<amplify_core.TemporalDateTime?>? read_at,
       ModelFieldValue<Notice?>? notice,
       ModelFieldValue<Staff?>? staff}) {
-    return Notification._internal(
+    return NoticeStaff._internal(
         id: id,
         read_at: read_at == null ? this.read_at : read_at.value,
         notice: notice == null ? this.notice : notice.value,
         staff: staff == null ? this.staff : staff.value);
   }
 
-  Notification.fromJson(Map<String, dynamic> json)
+  NoticeStaff.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _read_at = json['read_at'] != null
             ? amplify_core.TemporalDateTime.fromString(json['read_at'])
@@ -185,9 +185,9 @@ class Notification extends amplify_core.Model {
         'updatedAt': _updatedAt
       };
 
-  static final amplify_core.QueryModelIdentifier<NotificationModelIdentifier>
+  static final amplify_core.QueryModelIdentifier<NoticeStaffModelIdentifier>
       MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<NotificationModelIdentifier>();
+      amplify_core.QueryModelIdentifier<NoticeStaffModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final READ_AT = amplify_core.QueryField(fieldName: "read_at");
   static final NOTICE = amplify_core.QueryField(
@@ -202,22 +202,12 @@ class Notification extends amplify_core.Model {
           ofModelName: 'Staff'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Notification";
-    modelSchemaDefinition.pluralName = "Notifications";
+    modelSchemaDefinition.name = "NoticeStaff";
+    modelSchemaDefinition.pluralName = "NoticeStaffs";
 
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
           authStrategy: amplify_core.AuthStrategy.PRIVATE,
-          operations: const [
-            amplify_core.ModelOperation.CREATE,
-            amplify_core.ModelOperation.READ,
-            amplify_core.ModelOperation.UPDATE
-          ]),
-      amplify_core.AuthRule(
-          authStrategy: amplify_core.AuthStrategy.GROUPS,
-          groupClaim: "cognito:groups",
-          groups: const ["admins"],
-          provider: amplify_core.AuthRuleProvider.USERPOOLS,
           operations: const [
             amplify_core.ModelOperation.CREATE,
             amplify_core.ModelOperation.UPDATE,
@@ -229,19 +219,19 @@ class Notification extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Notification.READ_AT,
+        key: NoticeStaff.READ_AT,
         isRequired: false,
         ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.dateTime)));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: Notification.NOTICE,
+        key: NoticeStaff.NOTICE,
         isRequired: false,
         targetNames: ['noticeId'],
         ofModelName: 'Notice'));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: Notification.STAFF,
+        key: NoticeStaff.STAFF,
         isRequired: false,
         targetNames: ['staffId'],
         ofModelName: 'Staff'));
@@ -264,30 +254,30 @@ class Notification extends amplify_core.Model {
   });
 }
 
-class _NotificationModelType extends amplify_core.ModelType<Notification> {
-  const _NotificationModelType();
+class _NoticeStaffModelType extends amplify_core.ModelType<NoticeStaff> {
+  const _NoticeStaffModelType();
 
   @override
-  Notification fromJson(Map<String, dynamic> jsonData) {
-    return Notification.fromJson(jsonData);
+  NoticeStaff fromJson(Map<String, dynamic> jsonData) {
+    return NoticeStaff.fromJson(jsonData);
   }
 
   @override
   String modelName() {
-    return 'Notification';
+    return 'NoticeStaff';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [Notification] in your schema.
+ * of [NoticeStaff] in your schema.
  */
-class NotificationModelIdentifier
-    implements amplify_core.ModelIdentifier<Notification> {
+class NoticeStaffModelIdentifier
+    implements amplify_core.ModelIdentifier<NoticeStaff> {
   final String id;
 
-  /** Create an instance of NotificationModelIdentifier using [id] the primary key. */
-  const NotificationModelIdentifier({required this.id});
+  /** Create an instance of NoticeStaffModelIdentifier using [id] the primary key. */
+  const NoticeStaffModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -302,7 +292,7 @@ class NotificationModelIdentifier
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'NotificationModelIdentifier(id: $id)';
+  String toString() => 'NoticeStaffModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -310,7 +300,7 @@ class NotificationModelIdentifier
       return true;
     }
 
-    return other is NotificationModelIdentifier && id == other.id;
+    return other is NoticeStaffModelIdentifier && id == other.id;
   }
 
   @override

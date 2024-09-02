@@ -1,4 +1,4 @@
-part of 'document_widget.dart';
+part of 'documents_widget.dart';
 
 class SearchBarWidget extends StatefulWidget {
   const SearchBarWidget(

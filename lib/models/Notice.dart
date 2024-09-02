@@ -35,7 +35,7 @@ class Notice extends amplify_core.Model {
   final amplify_core.TemporalDateTime? _noticed_at;
   final amplify_core.TemporalDateTime? _deadline_at;
   final Staff? _author;
-  final List<Notification>? _recipients;
+  final List<NoticeStaff>? _recipients;
   final List<AircraftNotice>? _aircraft;
   final List<NoticeDocument>? _documents;
   final amplify_core.TemporalDateTime? _createdAt;
@@ -112,7 +112,7 @@ class Notice extends amplify_core.Model {
     return _author;
   }
 
-  List<Notification>? get recipients {
+  List<NoticeStaff>? get recipients {
     return _recipients;
   }
 
@@ -171,7 +171,7 @@ class Notice extends amplify_core.Model {
       amplify_core.TemporalDateTime? noticed_at,
       amplify_core.TemporalDateTime? deadline_at,
       Staff? author,
-      List<Notification>? recipients,
+      List<NoticeStaff>? recipients,
       List<AircraftNotice>? aircraft,
       List<NoticeDocument>? documents}) {
     return Notice._internal(
@@ -185,7 +185,7 @@ class Notice extends amplify_core.Model {
         deadline_at: deadline_at,
         author: author,
         recipients: recipients != null
-            ? List<Notification>.unmodifiable(recipients)
+            ? List<NoticeStaff>.unmodifiable(recipients)
             : recipients,
         aircraft: aircraft != null
             ? List<AircraftNotice>.unmodifiable(aircraft)
@@ -264,7 +264,7 @@ class Notice extends amplify_core.Model {
       amplify_core.TemporalDateTime? noticed_at,
       amplify_core.TemporalDateTime? deadline_at,
       Staff? author,
-      List<Notification>? recipients,
+      List<NoticeStaff>? recipients,
       List<AircraftNotice>? aircraft,
       List<NoticeDocument>? documents}) {
     return Notice._internal(
@@ -291,7 +291,7 @@ class Notice extends amplify_core.Model {
       ModelFieldValue<amplify_core.TemporalDateTime?>? noticed_at,
       ModelFieldValue<amplify_core.TemporalDateTime?>? deadline_at,
       ModelFieldValue<Staff?>? author,
-      ModelFieldValue<List<Notification>?>? recipients,
+      ModelFieldValue<List<NoticeStaff>?>? recipients,
       ModelFieldValue<List<AircraftNotice>?>? aircraft,
       ModelFieldValue<List<NoticeDocument>?>? documents}) {
     return Notice._internal(
@@ -335,13 +335,13 @@ class Notice extends amplify_core.Model {
                 ? (json['recipients']['items'] as List)
                     .where((e) => e != null)
                     .map((e) =>
-                        Notification.fromJson(new Map<String, dynamic>.from(e)))
+                        NoticeStaff.fromJson(new Map<String, dynamic>.from(e)))
                     .toList()
                 : null)
             : (json['recipients'] is List
                 ? (json['recipients'] as List)
                     .where((e) => e?['serializedData'] != null)
-                    .map((e) => Notification.fromJson(
+                    .map((e) => NoticeStaff.fromJson(
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
                 : null),
@@ -393,7 +393,7 @@ class Notice extends amplify_core.Model {
         'deadline_at': _deadline_at?.format(),
         'author': _author?.toJson(),
         'recipients':
-            _recipients?.map((Notification? e) => e?.toJson()).toList(),
+            _recipients?.map((NoticeStaff? e) => e?.toJson()).toList(),
         'aircraft': _aircraft?.map((AircraftNotice? e) => e?.toJson()).toList(),
         'documents':
             _documents?.map((NoticeDocument? e) => e?.toJson()).toList(),
@@ -438,7 +438,7 @@ class Notice extends amplify_core.Model {
       fieldName: "recipients",
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Notification'));
+          ofModelName: 'NoticeStaff'));
   static final AIRCRAFT = amplify_core.QueryField(
       fieldName: "aircraft",
       fieldType: amplify_core.ModelFieldType(
@@ -459,25 +459,10 @@ class Notice extends amplify_core.Model {
           authStrategy: amplify_core.AuthStrategy.PRIVATE,
           operations: const [
             amplify_core.ModelOperation.CREATE,
-            amplify_core.ModelOperation.READ,
-            amplify_core.ModelOperation.UPDATE
-          ]),
-      amplify_core.AuthRule(
-          authStrategy: amplify_core.AuthStrategy.GROUPS,
-          groupClaim: "cognito:groups",
-          groups: const ["admins"],
-          provider: amplify_core.AuthRuleProvider.USERPOOLS,
-          operations: const [
-            amplify_core.ModelOperation.CREATE,
             amplify_core.ModelOperation.UPDATE,
             amplify_core.ModelOperation.DELETE,
             amplify_core.ModelOperation.READ
           ])
-    ];
-
-    modelSchemaDefinition.indexes = [
-      amplify_core.ModelIndex(
-          fields: const ["subject"], name: "noticesBySubject")
     ];
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
@@ -533,8 +518,8 @@ class Notice extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
         key: Notice.RECIPIENTS,
         isRequired: false,
-        ofModelName: 'Notification',
-        associatedKey: Notification.NOTICE));
+        ofModelName: 'NoticeStaff',
+        associatedKey: NoticeStaff.NOTICE));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
         key: Notice.AIRCRAFT,

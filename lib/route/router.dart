@@ -2,10 +2,11 @@ import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/auth/sign_out_button_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/compliance_route/compliance_widget.dart';
-import 'package:adsats_amplify_gen_2/route/document_route/add_a_document/add_a_document_widget.dart';
-import 'package:adsats_amplify_gen_2/route/document_route/document_widget.dart';
+import 'package:adsats_amplify_gen_2/route/documents_route/add_a_document/add_a_document_widget.dart';
+import 'package:adsats_amplify_gen_2/route/documents_route/documents_widget.dart';
 import 'package:adsats_amplify_gen_2/route/help_route/help_widget.dart';
 import 'package:adsats_amplify_gen_2/route/profile_route/profile_widget.dart';
+import 'package:adsats_amplify_gen_2/route/settings_route/settings_widget.dart';
 import 'package:adsats_amplify_gen_2/route/training_route/training_widget.dart';
 import 'package:adsats_amplify_gen_2/scaffold/scaffod_widget.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,7 @@ final router = GoRouter(
       routes: [
         GoRoute(
           path: '/documents',
-          builder: (context, state) => const DocumentWidget(),
+          builder: (context, state) => const DocumentsWidget(),
         ),
         GoRoute(
           path: '/add-a-document',
@@ -71,10 +72,10 @@ final router = GoRouter(
           path: '/help',
           builder: (context, state) => const HelpWidget(),
         ),
-        // GoRoute(
-        //   path: '/settings',
-        //   builder: (context, state) => const SettingsWidget(),
-        // ),
+        GoRoute(
+          path: '/settings',
+          builder: (context, state) => const SettingsWidget(),
+        ),
         // GoRoute(
         //   path: '/resetPassword',
         //   builder: (context, state) => const CustomResetPasswordForm(),
