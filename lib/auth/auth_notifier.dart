@@ -46,7 +46,7 @@ class AuthNotifier with ChangeNotifier {
 
   Future<void> _queryUserDetails(String id) async {
     const document = '''
-    query GetStaffDetails(\$id: String!) {
+    query GetStaffDetails(\$id: ID!) {
       getStaff(id: \$id) {
         archived
         createdAt
@@ -147,7 +147,7 @@ class AuthNotifier with ChangeNotifier {
         )
         .response;
     if (response.data == null) {
-      throw Exception('No data returned from API');
+      throw Exception('No data returned from API while query user details');
     }
     Map<String, dynamic> jsonMap = json.decode(response.data);
     user = Staff.fromJson(jsonMap['getStaff']);

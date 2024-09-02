@@ -20,7 +20,6 @@ const schema = a
     createUser: a
       .mutation()
       .arguments({
-        id: a.id().required(),
         email: a.email().required(),
         name: a.string().required(),
         temporaryPassword: a.string().required(),
