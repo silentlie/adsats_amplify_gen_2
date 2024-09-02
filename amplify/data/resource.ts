@@ -139,7 +139,7 @@ const schema = a
       deadline_at: a.datetime(),
       staffId: a.id(),
       author: a.belongsTo("Staff", "staffId"),
-      recipients: a.hasMany("Notification", "noticeId"),
+      recipients: a.hasMany("NoticeStaff", "noticeId"),
       aircraft: a.hasMany("AircraftNotice", "noticeId"),
       documents: a.hasMany("NoticeDocument", "noticeId"),
     }),
