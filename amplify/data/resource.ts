@@ -55,7 +55,7 @@ const schema = a
       archived: a.boolean().required().default(false),
       documents: a.hasMany("Document", "staffId"),
       notices: a.hasMany("Notice", "staffId"),
-      notifications: a.hasMany("Notification", "staffId"),
+      notifications: a.hasMany("NoticeStaff", "staffId"),
       aircraft: a.hasMany("AircraftStaff", "staffId"),
       roles: a.hasMany("RoleStaff", "staffId"),
       subcategories: a.hasMany("StaffSubcategory", "staffId"),
