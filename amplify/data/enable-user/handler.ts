@@ -6,7 +6,7 @@ import {
 import type { Schema } from "../resource";
 import { env } from "$amplify/env/enable-user";
 
-type Handler = Schema["createUser"]["functionHandler"];
+type Handler = Schema["enableUser"]["functionHandler"];
 const client = new CognitoIdentityProviderClient();
 
 export const handler: Handler = async (event) => {

@@ -6,7 +6,7 @@ import {
 import type { Schema } from "../resource";
 import { env } from "$amplify/env/delete-user";
 
-type Handler = Schema["createUser"]["functionHandler"];
+type Handler = Schema["deleteUser"]["functionHandler"];
 const client = new CognitoIdentityProviderClient();
 
 export const handler: Handler = async (event) => {
