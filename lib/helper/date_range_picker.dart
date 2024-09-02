@@ -2,8 +2,10 @@ import 'package:adsats_amplify_gen_2/helper/mutable_date_time_range.dart';
 import 'package:flutter/material.dart';
 
 class DateTimeRangePicker extends StatefulWidget {
-  const DateTimeRangePicker({super.key, required this.timeRange});
+  const DateTimeRangePicker(
+      {super.key, required this.timeRange, this.text = "Select a date range"});
   final MutableDateTimeRange timeRange;
+  final String text;
 
   @override
   State<DateTimeRangePicker> createState() => _DateTimeRangePickerState();
@@ -41,7 +43,7 @@ class _DateTimeRangePickerState extends State<DateTimeRangePicker> {
       },
       child: Text(
         _dateTimeRange == null
-            ? "Select a date range"
+            ? widget.text
             : widget.timeRange.toDateRangeString(),
       ),
     );

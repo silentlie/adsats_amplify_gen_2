@@ -1,18 +1,19 @@
-part of 'aircraft_widget.dart';
+part of 'outbox_widget.dart';
 
-class AircraftDataSource extends DataTableSource {
+class OutboxDataSource extends DataTableSource {
   static bool isInitialize = false;
 
-  static final List<Aircraft> _data = [];
+  static final List<Notice> _data = [];
 
-  static final SettingsFilter _filter = SettingsFilter();
+  late final NoticesFilter _filter;
 
   final BuildContext _context;
 
-  AircraftDataSource(this._context) {
-    if (!isInitialize) {
-      _filter.archived = false;
-    }
+  OutboxDataSource(this._context) {
+    _filter = NoticesFilter(
+      staffId: Provider.of<AuthNotifier>(_context).user.id,
+      archived: false,
+    );
   }
 
   @override
@@ -26,15 +27,29 @@ class AircraftDataSource extends DataTableSource {
 
   @override
   DataRow2 getRow(int index) {
-    final aircraft = _data[index];
+    final notice = _data[index];
     return DataRow2.byIndex(
       index: index,
       cells: [
         DataCell(
-          getCenterText(aircraft.name),
+          getCenterText(notice.subject),
         ),
         DataCell(
-          getCenterText(aircraft.description ?? ""),
+          getCenterText(notice.type!.name.replaceAll('_', ' ')),
+        ),
+        DataCell(
+          getCenterText(notice.status?.name ?? ""),
+        ),
+        DataCell(
+          getCenterText(notice.aircraft
+                  ?.map(
+                    (e) {
+                      return e.aircraft!.name;
+                    },
+                  )
+                  .toList()
+                  .join(', ') ??
+              ""),
         ),
         DataCell(
           Center(
@@ -45,33 +60,42 @@ class AircraftDataSource extends DataTableSource {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(20),
                 // maybe make it follow color scheme
-                color: aircraft.archived ? Colors.grey : Colors.blue.shade600,
+                color: notice.archived ? Colors.grey : Colors.blue.shade600,
               ),
               child: Center(
-                child: Text(aircraft.archived ? "Yes" : "No"),
+                child: Text(notice.archived ? "Yes" : "No"),
               ),
             ),
           ),
         ),
         DataCell(
           getCenterText(
-            aircraft.createdAt != null
+            notice.createdAt != null
                 ? DateFormat('dd/MM/yyyy').format(
-                    aircraft.createdAt!.getDateTimeInUtc(),
+                    notice.noticed_at!.getDateTimeInUtc(),
+                  )
+                : "",
+          ),
+        ),
+        DataCell(
+          getCenterText(
+            notice.createdAt != null
+                ? DateFormat('dd/MM/yyyy').format(
+                    notice.deadline_at!.getDateTimeInUtc(),
                   )
                 : "",
           ),
         ),
         DataCell(
           Center(
-            child: getActions(aircraft),
+            child: getActions(notice),
           ),
         ),
       ],
     );
   }
 
-  Widget getActions(Aircraft aircraft) {
+  Widget getActions(Notice notice) {
     //TODO: add function
     return MenuAnchor(
       menuChildren: [
@@ -116,32 +140,71 @@ class AircraftDataSource extends DataTableSource {
 
   Future<void> fetchRawData() async {
     const graphQLDocument = '''
-      query ListAircraft(\$filter: ModelAircraftFilterInput) {
-        listAircraft(filter: \$filter) {
+      query ListNotices(\$filter: ModelNoticeFilterInput) {
+        listNotices(filter: \$filter) {
           items {
             id
-            name
-            description
-            createdAt
+            subject
+            type
+            status
+            details
             archived
-            updatedAt
-            staff {
+            noticed_at
+            deadline_at
+            createdAt
+            staffId
+            author {
+              id
+              email
+              updatedAt
+              name
+              createdAt
+              archived
+            }
+            documents {
+              items {
+                updatedAt
+                noticeId
+                name
+                id
+                createdAt
+              }
+            }
+            aircraft {
               items {
                 aircraftId
                 createdAt
+                id
+                noticeId
+                updatedAt
+                aircraft {
+                  updatedAt
+                  name
+                  id
+                  description
+                  createdAt
+                  archived
+                }
+              }
+            }
+            recipients {
+              items {
                 staffId
                 updatedAt
+                read_at
+                noticeId
                 id
                 staff {
                   archived
                   createdAt
                   id
-                  email
                   name
+                  email
                   updatedAt
                 }
               }
             }
+            updatedAt
           }
         }
       }
@@ -151,30 +214,29 @@ class AircraftDataSource extends DataTableSource {
       document: graphQLDocument,
       variables: {"filter": _filter.toJson()},
     );
-
     try {
       final response = await Amplify.API.query(request: request).response;
       if (response.data == null) {
         throw Exception('No data returned from API');
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
-      final listAircraft = jsonMap["listAircraft"];
-      final List<Map<String, dynamic>> aircraft;
-      listAircraft == null
-          ? aircraft = []
-          : aircraft = List<Map<String, dynamic>>.from(
-              jsonMap["listAircraft"]["items"],
+      final listNotices = jsonMap["listNotices"];
+      final List<Map<String, dynamic>> notices;
+      listNotices == null
+          ? notices = []
+          : notices = List<Map<String, dynamic>>.from(
+              jsonMap["listNotices"]["items"],
             );
       _data.clear();
-      for (var aircraft in aircraft) {
-        _data.add(Aircraft.fromJson(aircraft));
+      for (var notices in notices) {
+        _data.add(Notice.fromJson(notices));
       }
       isInitialize = true;
       notifyListeners();
       debugPrint("did call fetchRawData");
     } on Exception catch (e) {
       debugPrint(
-        'Error Exception while retrieving aircraft: $e',
+        'Error Exception while retrieving notices: $e',
       );
       rethrow;
     }
@@ -184,7 +246,7 @@ class AircraftDataSource extends DataTableSource {
     return ListTile(
       contentPadding: const EdgeInsets.only(),
       leading: const Text(
-        "Aircraft",
+        "Outbox",
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
@@ -227,8 +289,7 @@ class AircraftDataSource extends DataTableSource {
     );
   }
 
-  void sort<T>(
-      Comparable<T> Function(Aircraft aircraft) getField, bool ascending) {
+  void sort<T>(Comparable<T> Function(Notice notice) getField, bool ascending) {
     _data.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);

@@ -7,6 +7,7 @@ import 'package:adsats_amplify_gen_2/route/documents_route/documents_widget.dart
 import 'package:adsats_amplify_gen_2/route/help_route/help_widget.dart';
 import 'package:adsats_amplify_gen_2/route/profile_route/profile_widget.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/settings_widget.dart';
+import 'package:adsats_amplify_gen_2/route/sms_route/sms_widget.dart';
 import 'package:adsats_amplify_gen_2/route/training_route/training_widget.dart';
 import 'package:adsats_amplify_gen_2/scaffold/scaffod_widget.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +85,7 @@ final router = GoRouter(
           path: '/sms',
           builder: (context, state) {
             if (state.extra == null) {
-              return const Placeholder();
+              return const SMSWidget();
             }
             Notice notice = state.extra as Notice;
             return Text(notice.toString());

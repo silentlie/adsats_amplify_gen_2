@@ -67,7 +67,7 @@ class DocumentsFilter {
                       items: authNotifier.user.subcategories?.map(
                             (entry) {
                               return MultiSelectItem(
-                                entry.subcategory,
+                                entry.subcategory!,
                                 entry.subcategory!.name,
                               );
                             },
@@ -116,14 +116,16 @@ class DocumentsFilter {
                 ),
                 TextButton(
                   onPressed: () {
-                    temp.archived = false;
-                    temp.subcategories = authNotifier.user.subcategories
+                    archived = false;
+                    subcategories = authNotifier.user.subcategories
                             ?.map(
                               (e) => e.subcategory!,
                             )
                             .toList() ??
                         [];
-                    temp.createdAt = MutableDateTimeRange();
+                    createdAt = MutableDateTimeRange();
+                    fetchRawData();
+                    Navigator.pop(context, 'Apply');
                   },
                   child: const Text("Reset filter"),
                 ),
