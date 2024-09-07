@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/auth/sign_out_button_widget.dart';
 import 'package:adsats_amplify_gen_2/default_logo_widget.dart';
-import 'package:adsats_amplify_gen_2/models/to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -67,8 +67,7 @@ class MyDrawerHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AuthNotifier authNotifier =
-        Provider.of<AuthNotifier>(context, listen: false);
+    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
     Widget? avatar;
     avatar = const DefaultLogoWidget();
     return Column(

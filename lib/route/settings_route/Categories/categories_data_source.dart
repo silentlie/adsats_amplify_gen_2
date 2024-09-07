@@ -3,20 +3,20 @@ part of 'categories_widget.dart';
 class CategoriesDataSource extends DataTableSource {
   static bool isInitialize = false;
 
-  static final List<Category> _data = [];
+  static final List<Category> data = [];
 
-  static final SettingsFilter _filter = SettingsFilter();
+  static final SettingsFilter filter = SettingsFilter();
 
-  final BuildContext _context;
+  final BuildContext context;
 
-  CategoriesDataSource(this._context) {
+  CategoriesDataSource(this.context) {
     if (!isInitialize) {
-      _filter.archived = false;
+      filter.archived = false;
     }
   }
 
   @override
-  int get rowCount => _data.length;
+  int get rowCount => data.length;
 
   @override
   bool get isRowCountApproximate => false;
@@ -26,38 +26,49 @@ class CategoriesDataSource extends DataTableSource {
 
   @override
   DataRow2 getRow(int index) {
-    final category = _data[index];
-    return DataRow2.byIndex(index: index,cells: [
-      DataCell(getCenterText(category.name),),
-      DataCell(getCenterText(category.description ?? ""),),
-      DataCell(Center(
-          child: Container(
-            width: 60,
-            height: 20,
-            decoration: BoxDecoration(
-              shape: BoxShape.rectangle,
-              borderRadius: BorderRadius.circular(20),
-              // maybe make it follow color scheme
-              color: category.archived ? Colors.grey : Colors.blue.shade600,
-            ),
-            child: Center(
-              child: Text(category.archived ? "Yes" : "No"),
+    final category = data[index];
+    return DataRow2.byIndex(
+      index: index,
+      cells: [
+        DataCell(
+          getCenterText(category.name),
+        ),
+        DataCell(
+          getCenterText(category.description ?? ""),
+        ),
+        DataCell(
+          Center(
+            child: Container(
+              width: 60,
+              height: 20,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(20),
+                // maybe make it follow color scheme
+                color: category.archived ? Colors.grey : Colors.blue.shade600,
+              ),
+              child: Center(
+                child: Text(category.archived ? "Yes" : "No"),
+              ),
             ),
           ),
-        ),),
-      DataCell(getCenterText(
-          category.createdAt != null
-              ? DateFormat('dd/MM/yyyy').format(
-                  category.createdAt!.getDateTimeInUtc(),
-                )
-              : "",
-        ),),
-      DataCell(
+        ),
+        DataCell(
+          getCenterText(
+            category.createdAt != null
+                ? DateFormat('dd/MM/yyyy').format(
+                    category.createdAt!.getDateTimeInUtc(),
+                  )
+                : "",
+          ),
+        ),
+        DataCell(
           Center(
             child: getActions(category),
           ),
         ),
-    ],);
+      ],
+    );
   }
 
   Widget getActions(Category category) {
@@ -65,20 +76,25 @@ class CategoriesDataSource extends DataTableSource {
       menuChildren: [
         IconButton(
           onPressed: () async {
-            // await getFileUrl(aircraft);
+            showDialog(
+              context: context,
+              builder: (context) {
+                return categoryWidget(context, category: category);
+              },
+            );
           },
           icon: const Icon(Icons.edit_outlined),
         ),
         IconButton(
           onPressed: () async {
-            // await archive(aircraft);
+            await update(category.copyWith(archived: !category.archived));
             fetchRawData();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            // await delete(aircraft);
+            await delete(category);
             fetchRawData();
           },
           icon: const Icon(Icons.delete_outline),
@@ -131,7 +147,7 @@ class CategoriesDataSource extends DataTableSource {
 
     final request = GraphQLRequest<String>(
       document: graphQLDocument,
-      variables: {"filter": _filter.toJson()},
+      variables: {"filter": filter.toJson()},
     );
 
     try {
@@ -147,9 +163,9 @@ class CategoriesDataSource extends DataTableSource {
           : categories = List<Map<String, dynamic>>.from(
               jsonMap["listCategories"]["items"],
             );
-      _data.clear();
+      data.clear();
       for (var category in categories) {
-        _data.add(Category.fromJson(category));
+        data.add(Category.fromJson(category));
       }
       isInitialize = true;
       notifyListeners();
@@ -183,32 +199,38 @@ class CategoriesDataSource extends DataTableSource {
               },
               icon: const Icon(Icons.refresh),
             ),
-            // ElevatedButton.icon(
-            //   onPressed: () {
-            //     _context.go('/add-a-document');
-            //   },
-            //   label: const Text('Add a document'),
-            //   icon: const Icon(
-            //     Icons.add,
-            //     size: 25,
-            //   ),
-            // ),
+            ElevatedButton.icon(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return categoryWidget(context);
+                  },
+                );
+              },
+              label: const Text('Add a category'),
+              icon: const Icon(
+                Icons.add,
+                size: 25,
+              ),
+            ),
             const SizedBox(
               width: 10,
             ),
-            _filter.getFilterWidget(_context, fetchRawData),
+            filter.getFilterWidget(context, fetchRawData),
             const SizedBox(
               width: 10,
             ),
-            SearchBarWidget(filter: _filter, fetchRawData: fetchRawData)
+            SearchBarWidget(filter: filter, fetchRawData: fetchRawData)
           ],
         ),
       ),
     );
   }
 
-  void sort<T>(Comparable<T> Function(Category category) getField, bool ascending) {
-    _data.sort((a, b) {
+  void sort<T>(
+      Comparable<T> Function(Category category) getField, bool ascending) {
+    data.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);
       return ascending
@@ -216,5 +238,112 @@ class CategoriesDataSource extends DataTableSource {
           : Comparable.compare(bValue, aValue);
     });
     notifyListeners();
+  }
+
+  Widget categoryWidget(BuildContext context, {Category? category}) {
+    String name = category?.name ?? "";
+    String description = category?.description ?? "";
+    bool archived = category?.archived ?? false;
+    final formKey = GlobalKey<FormState>();
+    return AlertDialog.adaptive(
+      title: category != null
+          ? Text('Editing ${category.name}')
+          : const Text('Add a category'),
+      content: Form(
+        key: formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Category Name',
+                ),
+                onChanged: (value) {
+                  name = value;
+                },
+                initialValue: name,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter category name';
+                  }
+                  return null;
+                },
+              ),
+            ),
+            Container(
+              constraints: const BoxConstraints(maxWidth: 666),
+              padding: const EdgeInsets.all(8),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Description of the category',
+                ),
+                initialValue: description,
+                onChanged: (value) {
+                  description = value;
+                },
+                maxLines: 4,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: DropdownMenu(
+                dropdownMenuEntries: const [
+                  DropdownMenuEntry(value: false, label: "False"),
+                  DropdownMenuEntry(value: true, label: "True"),
+                ],
+                onSelected: (value) {
+                  archived = value!;
+                },
+                initialSelection: archived,
+                expandedInsets: EdgeInsets.zero,
+                requestFocusOnTap: false,
+                hintText: "Archived",
+                label: const Text(
+                  "Archived",
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Cancel'),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () async {
+            if (formKey.currentState!.validate()) {
+              formKey.currentState!.save();
+              Category newCategory = category?.copyWith(
+                    name: name,
+                    archived: archived,
+                    description: description,
+                  ) ??
+                  Category(
+                    name: name,
+                    archived: archived,
+                    description: description,
+                  );
+              if (category != null) {
+                await Future.wait([
+                  update(newCategory),
+                ]);
+              } else {
+                await create(newCategory);
+              }
+              if (!context.mounted) return;
+              fetchRawData();
+              Navigator.pop(context, 'Apply');
+            }
+          },
+          child: const Text('Apply'),
+        ),
+      ],
+    );
   }
 }

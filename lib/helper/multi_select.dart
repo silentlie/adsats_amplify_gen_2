@@ -17,7 +17,8 @@ class MultiSelect extends StatelessWidget {
   final Widget? title;
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 666),
       padding: const EdgeInsets.all(8.0),
       child: MultiSelectDialogField(
         decoration: BoxDecoration(

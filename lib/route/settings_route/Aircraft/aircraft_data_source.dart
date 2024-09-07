@@ -72,25 +72,29 @@ class AircraftDataSource extends DataTableSource {
   }
 
   Widget getActions(Aircraft aircraft) {
-    //TODO: add function
     return MenuAnchor(
       menuChildren: [
         IconButton(
           onPressed: () async {
-            // await getFileUrl(aircraft);
+            showDialog(
+              context: _context,
+              builder: (context) {
+                return aircraftWidget(context, aircraft: aircraft);
+              },
+            );
           },
           icon: const Icon(Icons.edit_outlined),
         ),
         IconButton(
           onPressed: () async {
-            // await archive(aircraft);
+            await update(aircraft.copyWith(archived: !aircraft.archived));
             fetchRawData();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            // await delete(aircraft);
+            await delete(aircraft);
             fetchRawData();
           },
           icon: const Icon(Icons.delete_outline),
@@ -202,17 +206,21 @@ class AircraftDataSource extends DataTableSource {
               },
               icon: const Icon(Icons.refresh),
             ),
-            // TODO add new
-            // ElevatedButton.icon(
-            //   onPressed: () {
-            //     _context.go('/add-a-document');
-            //   },
-            //   label: const Text('Add a document'),
-            //   icon: const Icon(
-            //     Icons.add,
-            //     size: 25,
-            //   ),
-            // ),
+            ElevatedButton.icon(
+              onPressed: () {
+                showDialog(
+                  context: _context,
+                  builder: (context) {
+                    return aircraftWidget(context);
+                  },
+                );
+              },
+              label: const Text('Add an aircraft'),
+              icon: const Icon(
+                Icons.add,
+                size: 25,
+              ),
+            ),
             const SizedBox(
               width: 10,
             ),
@@ -237,5 +245,138 @@ class AircraftDataSource extends DataTableSource {
           : Comparable.compare(bValue, aValue);
     });
     notifyListeners();
+  }
+
+  Widget aircraftWidget(BuildContext context, {Aircraft? aircraft}) {
+    String name = aircraft?.name ?? "";
+    String description = aircraft?.description ?? "";
+    bool archived = aircraft?.archived ?? false;
+    List<AircraftStaff> staff = aircraft?.staff ?? [];
+    final formKey = GlobalKey<FormState>();
+    return AlertDialog.adaptive(
+      title: aircraft != null
+          ? Text('Editing ${aircraft.name}')
+          : const Text('Add an aircraft'),
+      content: Form(
+        key: formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Aircraft Name',
+                ),
+                onChanged: (value) {
+                  name = value;
+                },
+                initialValue: name,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter aircraft name';
+                  }
+                  return null;
+                },
+              ),
+            ),
+            Container(
+              constraints: const BoxConstraints(maxWidth: 666),
+              padding: const EdgeInsets.all(8),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Description of the aircraft',
+                ),
+                initialValue: description,
+                onChanged: (value) {
+                  description = value;
+                },
+                maxLines: 4,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: DropdownMenu(
+                dropdownMenuEntries: const [
+                  DropdownMenuEntry(value: false, label: "False"),
+                  DropdownMenuEntry(value: true, label: "True"),
+                ],
+                onSelected: (value) {
+                  archived = value!;
+                },
+                initialSelection: archived,
+                expandedInsets: EdgeInsets.zero,
+                requestFocusOnTap: false,
+                hintText: "Archived",
+                label: const Text(
+                  "Archived",
+                ),
+              ),
+            ),
+            if (aircraft != null)
+              MultiSelect(
+                onConfirm: (p0) {
+                  staff = List<Staff>.from(p0).map(
+                    (e) {
+                      return AircraftStaff(aircraft: aircraft, staff: e);
+                    },
+                  ).toList();
+                },
+                items: Provider.of<AuthNotifier>(
+                  context,
+                  listen: false,
+                ).staff.map(
+                  (e) {
+                    return MultiSelectItem(e, e.name);
+                  },
+                ).toList(),
+                initialValue: staff.map(
+                  (e) {
+                    return e.staff!;
+                  },
+                ).toList(),
+              ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Cancel'),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () async {
+            if (formKey.currentState!.validate()) {
+              formKey.currentState!.save();
+              Aircraft newAircraft = aircraft?.copyWith(
+                    name: name,
+                    archived: archived,
+                    description: description,
+                  ) ??
+                  Aircraft(
+                    name: name,
+                    archived: archived,
+                    description: description,
+                  );
+              if (aircraft != null) {
+                await Future.wait([
+                  deleteAircraftStaff(aircraft.staff ?? []),
+                  createAircraftStaff(staff),
+                  update(newAircraft),
+                ]);
+              } else {
+                await create(newAircraft);
+              }
+              if (!context.mounted) return;
+              fetchRawData();
+              Navigator.pop(context, 'Apply');
+            }
+          },
+          child: const Text('Apply'),
+        ),
+      ],
+    );
   }
 }

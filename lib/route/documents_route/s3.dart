@@ -23,8 +23,9 @@ Future<void> getFileUrl(Document document) async {
     // debugPrint('url: ${result.url}');
     launchUrl(result.url);
   } on StorageException catch (e) {
-    debugPrint(e.message);
-    rethrow;
+    debugPrint('get document url in s3 failed: ${e.message}');
+  } catch (e) {
+    debugPrint('Unknown Error: $e');
   }
 }
 
@@ -95,16 +96,14 @@ Future<void> uploadFile(
       fileUploadFuture,
       ...aircraftDocumentFutures,
     ]);
-
-    // The file upload result is the first in the results list
     debugPrint(
         'Successfully uploaded file: ${results.first!.uploadedItem.path}');
   } on StorageException catch (e) {
     debugPrint('Storage Exception: ${e.message} ,${e.recoverySuggestion}');
   } on ApiException catch (e) {
-    debugPrint('API Exception: POST request failed: $e');
+    debugPrint('API Exception: POST request failed: ${e.message}');
   } catch (e) {
-    debugPrint('General Error: $e');
+    debugPrint('Unknown Error: $e');
   }
 }
 
@@ -113,9 +112,15 @@ Future<void> archive(Document document) async {
     final newDocument = document.copyWith(archived: !document.archived);
     final request = ModelMutations.update(newDocument);
     final response = await Amplify.API.mutate(request: request).response;
-    debugPrint('Response: $response');
+    final data = response.data;
+    if (data == null) {
+      debugPrint('errors: ${response.errors}');
+      return;
+    }
+  } on ApiException catch (e) {
+    debugPrint('archive document failed: ${e.message}');
   } catch (e) {
-    debugPrint('General Error: $e');
+    debugPrint('Unknown Error: $e');
   }
 }
 
@@ -126,14 +131,22 @@ Future<void> delete(Document document) async {
       DocumentModelIdentifier(id: document.id),
     );
     final response = await Amplify.API.mutate(request: request).response;
-    debugPrint('Response: $response');
-    final result = await Amplify.Storage.remove(
+    final data = response.data;
+    if (data == null) {
+      debugPrint('errors: ${response.errors}');
+      return;
+    }
+    // final result =
+    await Amplify.Storage.remove(
       path: StoragePath.fromString('documents/${document.id}_${document.name}'),
     ).result;
-    debugPrint('Removed file: ${result.removedItem.path}');
+    // print('Removed file: ${result.removedItem.path}');
   } on StorageException catch (e) {
-    debugPrint(e.message);
+    debugPrint('delete document in s3 failed: ${e.message}');
+  }
+  on ApiException catch (e) {
+    debugPrint('delete document in graphQL/Appsync failed: ${e.message}');
   } catch (e) {
-    debugPrint('General Error: $e');
+    debugPrint('Unknown Error: $e');
   }
 }

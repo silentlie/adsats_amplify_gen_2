@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/models/Subcategory.dart';
+import 'package:adsats_amplify_gen_2/route/settings_route/Categories/categories_widget.dart';
+import 'package:adsats_amplify_gen_2/route/settings_route/Subcategories/subcategory_api.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/settings_filter.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/amplify_flutter.dart' hide Category;
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

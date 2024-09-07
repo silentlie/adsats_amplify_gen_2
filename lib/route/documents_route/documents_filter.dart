@@ -57,7 +57,7 @@ class DocumentsFilter {
               title: const Text('Filter By:'),
               content: Container(
                 // max width of filter column
-                constraints: const BoxConstraints(maxWidth: 400, minWidth: 400),
+                constraints: const BoxConstraints(maxWidth: 400),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

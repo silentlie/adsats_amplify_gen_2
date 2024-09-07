@@ -80,20 +80,25 @@ class SubcategoriesDataSource extends DataTableSource {
       menuChildren: [
         IconButton(
           onPressed: () async {
-            // await getFileUrl(aircraft);
+            showDialog(
+              context: _context,
+              builder: (context) {
+                return subcategoryWidget(context, subcategory: subcategory);
+              },
+            );
           },
           icon: const Icon(Icons.edit_outlined),
         ),
         IconButton(
           onPressed: () async {
-            // await archive(aircraft);
+            await update(subcategory.copyWith(archived: !subcategory.archived));
             fetchRawData();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            // await delete(aircraft);
+            await delete(subcategory);
             fetchRawData();
           },
           icon: const Icon(Icons.delete_outline),
@@ -213,16 +218,21 @@ class SubcategoriesDataSource extends DataTableSource {
               },
               icon: const Icon(Icons.refresh),
             ),
-            // ElevatedButton.icon(
-            //   onPressed: () {
-            //     _context.go('/add-a-document');
-            //   },
-            //   label: const Text('Add a document'),
-            //   icon: const Icon(
-            //     Icons.add,
-            //     size: 25,
-            //   ),
-            // ),
+            ElevatedButton.icon(
+              onPressed: () {
+                showDialog(
+                  context: _context,
+                  builder: (context) {
+                    return subcategoryWidget(context);
+                  },
+                );
+              },
+              label: const Text('Add an subcategory'),
+              icon: const Icon(
+                Icons.add,
+                size: 25,
+              ),
+            ),
             const SizedBox(
               width: 10,
             ),
@@ -247,5 +257,156 @@ class SubcategoriesDataSource extends DataTableSource {
           : Comparable.compare(bValue, aValue);
     });
     notifyListeners();
+  }
+
+  Widget subcategoryWidget(BuildContext context, {Subcategory? subcategory}) {
+    if (!CategoriesDataSource.isInitialize) {
+      CategoriesDataSource(context).fetchRawData();
+    }
+    Category? category;
+    String name = subcategory?.name ?? "";
+    String description = subcategory?.description ?? "";
+    bool archived = subcategory?.archived ?? false;
+    final formKey = GlobalKey<FormState>();
+    return AlertDialog.adaptive(
+      title: subcategory != null
+          ? Text('Editing ${subcategory.name}')
+          : const Text('Add a subcategory'),
+      content: Form(
+        key: formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            FutureBuilder(
+              future: CategoriesDataSource(context).fetchRawData(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                      child: CircularProgressIndicator.adaptive());
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  category = subcategory == null
+                      ? CategoriesDataSource.data.first
+                      : CategoriesDataSource.data.where(
+                          (element) {
+                            return element.modelIdentifier ==
+                                subcategory.category!.modelIdentifier;
+                          },
+                        ).first;
+                  return Container(
+                    padding: const EdgeInsets.all(8),
+                    child: DropdownMenu(
+                      dropdownMenuEntries: CategoriesDataSource.data.map(
+                        (e) {
+                          return DropdownMenuEntry(value: e, label: e.name);
+                        },
+                      ).toList(),
+                      onSelected: (value) {
+                        category = value!;
+                      },
+                      initialSelection: category,
+                      expandedInsets: EdgeInsets.zero,
+                      requestFocusOnTap: false,
+                      hintText: "Category",
+                      label: const Text(
+                        "Category",
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Subcategory Name',
+                ),
+                onChanged: (value) {
+                  name = value;
+                },
+                initialValue: name,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter subcategory name';
+                  }
+                  return null;
+                },
+              ),
+            ),
+            Container(
+              constraints: const BoxConstraints(maxWidth: 666),
+              padding: const EdgeInsets.all(8),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Description of the subcategory',
+                ),
+                initialValue: description,
+                onChanged: (value) {
+                  description = value;
+                },
+                maxLines: 4,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: DropdownMenu(
+                dropdownMenuEntries: const [
+                  DropdownMenuEntry(value: false, label: "False"),
+                  DropdownMenuEntry(value: true, label: "True"),
+                ],
+                onSelected: (value) {
+                  archived = value!;
+                },
+                initialSelection: archived,
+                expandedInsets: EdgeInsets.zero,
+                requestFocusOnTap: false,
+                hintText: "Archived",
+                label: const Text(
+                  "Archived",
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Cancel'),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () async {
+            if (formKey.currentState!.validate()) {
+              formKey.currentState!.save();
+              Subcategory newSubcategory = subcategory?.copyWith(
+                      name: name,
+                      archived: archived,
+                      description: description,
+                      category: category!) ??
+                  Subcategory(
+                      name: name,
+                      archived: archived,
+                      description: description,
+                      category: category!);
+              if (subcategory != null) {
+                await Future.wait([
+                  update(newSubcategory),
+                ]);
+              } else {
+                await create(newSubcategory);
+              }
+              if (!context.mounted) return;
+              fetchRawData();
+              Navigator.pop(context, 'Apply');
+            }
+          },
+          child: const Text('Apply'),
+        ),
+      ],
+    );
   }
 }

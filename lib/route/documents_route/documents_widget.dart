@@ -6,7 +6,7 @@ import 'package:adsats_amplify_gen_2/helper/mutable_date_time_range.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/route/documents_route/helper/s3.dart';
+import 'package:adsats_amplify_gen_2/route/documents_route/s3.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

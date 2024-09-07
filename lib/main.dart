@@ -70,6 +70,8 @@ class MyApp extends StatelessWidget {
             }
           },
           child: MaterialApp.router(
+            // TODO: add handling error messages
+            scaffoldMessengerKey: GlobalKey(),
             title: "ADSATS - Aviation Document Storage and Tracking System",
             builder: Authenticator.builder(),
             theme: lightMode,
