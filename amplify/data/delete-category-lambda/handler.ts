@@ -1,5 +1,5 @@
 import type { Schema } from "../resource";
-import { env } from "$amplify/env/delete-category";
+import { env } from "$amplify/env/delete-category-lambda";
 import { generateClient } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
 import { deleteCategory, deleteSubcategory } from "../graphql/mutations";
