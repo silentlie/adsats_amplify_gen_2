@@ -15,8 +15,9 @@
   "devDependencies": {
     "@aws-amplify/backend": "^1.1.1",
     "@aws-amplify/backend-cli": "^1.2.5",
+    "@aws-lambda-powertools/logger": "^2.7.0",
     "@aws-sdk/client-cognito-identity-provider": "^3.637.0",
-    "@types/aws-lambda": "^8.10.143",
+    "@types/aws-lambda": "^8.10.145",
     "aws-cdk": "^2.154.1",
     "aws-cdk-lib": "^2.154.1",
     "constructs": "^10.3.0",

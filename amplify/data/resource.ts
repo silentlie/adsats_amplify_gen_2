@@ -4,9 +4,17 @@ import { createUser } from "./create-user/resource";
 import { deleteUser } from "./delete-user/resouce";
 import { enableUser } from "./enable-user/resouce";
 import { disableUser } from "./disable-user/resouce";
+import { deleteCategoryLambda } from "./delete-category-lambda/resource";
 
 const schema = a
   .schema({
+    deleteCategoryLambda: a
+      .mutation()
+      .arguments({
+        categoryId: a.id().required(),
+      })
+      .handler(a.handler.function(deleteCategoryLambda))
+      .returns(a.json()),
     listUsers: a
       .query()
       .arguments({
@@ -155,7 +163,10 @@ const schema = a
       name: a.string().required(),
     }),
   })
-  .authorization((allow) => [allow.authenticated()]);
+  .authorization((allow) => [
+    allow.authenticated(),
+    allow.resource(deleteCategoryLambda),
+  ]);
 
 export type Schema = ClientSchema<typeof schema>;
 

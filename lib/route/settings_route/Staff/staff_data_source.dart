@@ -102,20 +102,25 @@ class StaffDataSource extends DataTableSource {
       menuChildren: [
         IconButton(
           onPressed: () async {
-            // await getFileUrl(aircraft);
+            showDialog(
+              context: _context,
+              builder: (context) {
+                return staffWidget(context, staff: staff);
+              },
+            );
           },
           icon: const Icon(Icons.edit_outlined),
         ),
         IconButton(
           onPressed: () async {
-            // await archive(aircraft);
+            await update(staff.copyWith(archived: !staff.archived));
             fetchRawData();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            // await delete(aircraft);
+            await delete(staff);
             fetchRawData();
           },
           icon: const Icon(Icons.delete_outline),
@@ -262,16 +267,21 @@ class StaffDataSource extends DataTableSource {
               },
               icon: const Icon(Icons.refresh),
             ),
-            // ElevatedButton.icon(
-            //   onPressed: () {
-            //     _context.go('/add-a-document');
-            //   },
-            //   label: const Text('Add a document'),
-            //   icon: const Icon(
-            //     Icons.add,
-            //     size: 25,
-            //   ),
-            // ),
+            ElevatedButton.icon(
+              onPressed: () {
+                showDialog(
+                  context: _context,
+                  builder: (context) {
+                    return staffWidget(context);
+                  },
+                );
+              },
+              label: const Text('Add an staff'),
+              icon: const Icon(
+                Icons.add,
+                size: 25,
+              ),
+            ),
             const SizedBox(
               width: 10,
             ),
@@ -295,5 +305,111 @@ class StaffDataSource extends DataTableSource {
           : Comparable.compare(bValue, aValue);
     });
     notifyListeners();
+  }
+
+  Widget staffWidget(BuildContext context, {Staff? staff}) {
+    String name = staff?.name ?? "";
+    String email = staff?.email ?? "";
+    bool archived = staff?.archived ?? false;
+    final formKey = GlobalKey<FormState>();
+    return AlertDialog.adaptive(
+      title: staff != null
+          ? Text('Editing ${staff.name}')
+          : const Text('Add a staff'),
+      content: Form(
+        key: formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Staff Name',
+                ),
+                onChanged: (value) {
+                  name = value;
+                },
+                initialValue: name,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter staff name';
+                  }
+                  return null;
+                },
+              ),
+            ),
+            Container(
+              constraints: const BoxConstraints(maxWidth: 666),
+              padding: const EdgeInsets.all(8),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Email of the staff',
+                ),
+                initialValue: email,
+                onChanged: (value) {
+                  email = value;
+                },
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: DropdownMenu(
+                dropdownMenuEntries: const [
+                  DropdownMenuEntry(value: false, label: "False"),
+                  DropdownMenuEntry(value: true, label: "True"),
+                ],
+                onSelected: (value) {
+                  archived = value!;
+                },
+                initialSelection: archived,
+                expandedInsets: EdgeInsets.zero,
+                requestFocusOnTap: false,
+                hintText: "Archived",
+                label: const Text(
+                  "Archived",
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, 'Cancel'),
+          child: const Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () async {
+            if (formKey.currentState!.validate()) {
+              formKey.currentState!.save();
+              Staff newStaff = staff?.copyWith(
+                    name: name,
+                    archived: archived,
+                    email: email,
+                  ) ??
+                  Staff(
+                    name: name,
+                    archived: archived,
+                    email: email,
+                  );
+              if (staff != null) {
+                await Future.wait([
+                  update(newStaff),
+                ]);
+              } else {
+                await create(newStaff);
+              }
+              if (!context.mounted) return;
+              fetchRawData();
+              Navigator.pop(context, 'Apply');
+            }
+          },
+          child: const Text('Apply'),
+        ),
+      ],
+    );
   }
 }
