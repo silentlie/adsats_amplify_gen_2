@@ -1,5 +1,4 @@
 import { defineAuth } from "@aws-amplify/backend";
-import { listUsers } from "../data/list-users/resource";
 import { createUser } from "../data/create-user/resource";
 import { deleteUser } from "../data/delete-user/resouce";
 import { enableUser } from "../data/enable-user/resouce";
@@ -32,7 +31,6 @@ export const auth = defineAuth({
     },
   },
   access: (allow) => [
-    allow.resource(listUsers).to(["listUsers"]),
     allow.resource(createUser).to(["createUser"]),
     allow.resource(deleteUser).to(["deleteUser"]),
     allow.resource(enableUser).to(["enableUser"]),

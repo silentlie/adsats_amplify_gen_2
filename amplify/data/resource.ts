@@ -1,5 +1,4 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
-import { listUsers } from "./list-users/resource";
 import { createUser } from "./create-user/resource";
 import { deleteUser } from "./delete-user/resouce";
 import { enableUser } from "./enable-user/resouce";
@@ -14,16 +13,6 @@ const schema = a
         categoryId: a.id().required(),
       })
       .handler(a.handler.function(deleteCategoryLambda))
-      .returns(a.json()),
-    listUsers: a
-      .query()
-      .arguments({
-        attributesToGet: a.string().required().array(),
-        limit: a.integer(),
-        paginationToken: a.string(),
-        filter: a.string(),
-      })
-      .handler(a.handler.function(listUsers))
       .returns(a.json()),
     createUser: a
       .mutation()

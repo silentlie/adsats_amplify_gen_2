@@ -2588,14 +2588,6 @@ export type DeleteCategoryMutation = {
   } | null,
 };
 
-export type DeleteCategoryLambdaMutationVariables = {
-  categoryId: string,
-};
-
-export type DeleteCategoryLambdaMutation = {
-  deleteCategoryLambda?: string | null,
-};
-
 export type DeleteDocumentMutationVariables = {
   condition?: ModelDocumentConditionInput | null,
   input: DeleteDocumentInput,

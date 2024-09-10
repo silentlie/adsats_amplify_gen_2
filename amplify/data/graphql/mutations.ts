@@ -675,13 +675,6 @@ export const deleteCategory = /* GraphQL */ `mutation DeleteCategory(
   APITypes.DeleteCategoryMutationVariables,
   APITypes.DeleteCategoryMutation
 >;
-export const deleteCategoryLambda = /* GraphQL */ `mutation DeleteCategoryLambda($categoryId: ID!) {
-  deleteCategoryLambda(categoryId: $categoryId)
-}
-` as GeneratedMutation<
-  APITypes.DeleteCategoryLambdaMutationVariables,
-  APITypes.DeleteCategoryLambdaMutation
->;
 export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
   $condition: ModelDocumentConditionInput
   $input: DeleteDocumentInput!
