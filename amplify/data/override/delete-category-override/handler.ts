@@ -49,6 +49,8 @@ export const handler: Handler = async (event) => {
     },
   });
   subcategoriesResult.data.listSubcategories.items.map((subcategory) =>
+  {
+    console.log(`Deleting subcategory with id: ${subcategory.id}`);
     promises.push(
       client.graphql({
         query: deleteSubcategoryOverride,
@@ -56,8 +58,9 @@ export const handler: Handler = async (event) => {
           subcategoryId: subcategory.id,
         },
       }),
-    ),
+    )},
   );
+  console.log(`Deleting category with id: ${categoryId}`);
   promises.push(
     client.graphql({
       query: deleteCategory,
