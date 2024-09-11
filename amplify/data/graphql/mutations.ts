@@ -675,6 +675,13 @@ export const deleteCategory = /* GraphQL */ `mutation DeleteCategory(
   APITypes.DeleteCategoryMutationVariables,
   APITypes.DeleteCategoryMutation
 >;
+export const deleteCategoryOverride = /* GraphQL */ `mutation DeleteCategoryOverride($categoryId: ID!) {
+  deleteCategoryOverride(categoryId: $categoryId)
+}
+` as GeneratedMutation<
+  APITypes.DeleteCategoryOverrideMutationVariables,
+  APITypes.DeleteCategoryOverrideMutation
+>;
 export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
   $condition: ModelDocumentConditionInput
   $input: DeleteDocumentInput!
@@ -1004,6 +1011,13 @@ export const deleteSubcategory = /* GraphQL */ `mutation DeleteSubcategory(
 ` as GeneratedMutation<
   APITypes.DeleteSubcategoryMutationVariables,
   APITypes.DeleteSubcategoryMutation
+>;
+export const deleteSubcategoryOverride = /* GraphQL */ `mutation DeleteSubcategoryOverride($subcategoryId: ID!) {
+  deleteSubcategoryOverride(subcategoryId: $subcategoryId)
+}
+` as GeneratedMutation<
+  APITypes.DeleteSubcategoryOverrideMutationVariables,
+  APITypes.DeleteSubcategoryOverrideMutation
 >;
 export const deleteUser = /* GraphQL */ `mutation DeleteUser($id: ID!) {
   deleteUser(id: $id)

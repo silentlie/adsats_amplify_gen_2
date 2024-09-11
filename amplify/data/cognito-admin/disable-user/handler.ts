@@ -3,7 +3,7 @@ import {
   AdminDisableUserCommand,
   AdminDisableUserCommandInput,
 } from "@aws-sdk/client-cognito-identity-provider";
-import type { Schema } from "../resource";
+import type { Schema } from "../../resource";
 import { env } from "$amplify/env/enable-user";
 
 type Handler = Schema["disableUser"]["functionHandler"];

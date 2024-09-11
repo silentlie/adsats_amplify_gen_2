@@ -1,9 +1,9 @@
-import type { Schema } from "../resource";
-import { env } from "$amplify/env/delete-category-lambda";
+import type { Schema } from "../../resource";
+import { env } from "$amplify/env/delete-category-override";
 import { generateClient } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
-import { deleteCategory, deleteSubcategory } from "../graphql/mutations";
-import { listSubcategories } from "../graphql/queries";
+import { deleteCategory, deleteSubcategoryOverride } from "../../graphql/mutations";
+import { listSubcategories } from "../../graphql/queries";
 
 Amplify.configure(
   {
@@ -33,7 +33,7 @@ Amplify.configure(
   },
 );
 
-type Handler = Schema["deleteCategoryLambda"]["functionHandler"];
+type Handler = Schema["deleteCategoryOverride"]["functionHandler"];
 const client = generateClient<Schema>();
 
 export const handler: Handler = async (event) => {
@@ -47,12 +47,10 @@ export const handler: Handler = async (event) => {
   const subcategories = subcategoriesResult.data.listSubcategories.items || [];
   const deleteSubcategoryPromises = subcategories.map((subcategory) =>
     client.graphql({
-      query: deleteSubcategory,
+      query: deleteSubcategoryOverride,
       variables: {
-        input: {
-          id: subcategory.id,
-        },
-      },
+        subcategoryId: subcategory.id,
+      }
     }),
   );
   await Promise.all(deleteSubcategoryPromises);

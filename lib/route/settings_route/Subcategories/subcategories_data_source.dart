@@ -123,49 +123,8 @@ class SubcategoriesDataSource extends DataTableSource {
   }
 
   Future<void> fetchRawData() async {
-    const graphQLDocument = '''
-      query ListSubcategories(\$filter: ModelSubcategoryFilterInput) {
-        listSubcategories(filter: \$filter) {
-          items {
-            id
-            name
-            description
-            archived
-            createdAt
-            updatedAt
-            category {
-              id
-              name
-              description
-              archived
-              createdAt
-              updatedAt
-            }
-            staff {
-              items {
-                id
-                accessLevel
-                createdAt
-                subcategoryId
-                updatedAt
-                staffId
-                staff {
-                  id
-                  name
-                  email
-                  updatedAt
-                  createdAt
-                  archived
-                }
-              }
-            }
-          }
-        }
-      }
-    ''';
-
     final request = GraphQLRequest<String>(
-      document: graphQLDocument,
+      document: listSubcategories,
       variables: {"filter": _filter.toJson()},
     );
 

@@ -1930,17 +1930,6 @@ export type ListSubcategoriesQuery = {
   } | null,
 };
 
-export type ListUsersQueryVariables = {
-  attributesToGet?: Array< string > | null,
-  filter?: string | null,
-  limit?: number | null,
-  paginationToken?: string | null,
-};
-
-export type ListUsersQuery = {
-  listUsers?: string | null,
-};
-
 export type CreateAircraftMutationVariables = {
   condition?: ModelAircraftConditionInput | null,
   input: CreateAircraftInput,
@@ -2588,6 +2577,14 @@ export type DeleteCategoryMutation = {
   } | null,
 };
 
+export type DeleteCategoryOverrideMutationVariables = {
+  categoryId: string,
+};
+
+export type DeleteCategoryOverrideMutation = {
+  deleteCategoryOverride?: string | null,
+};
+
 export type DeleteDocumentMutationVariables = {
   condition?: ModelDocumentConditionInput | null,
   input: DeleteDocumentInput,
@@ -2907,6 +2904,14 @@ export type DeleteSubcategoryMutation = {
     } | null,
     updatedAt: string,
   } | null,
+};
+
+export type DeleteSubcategoryOverrideMutationVariables = {
+  subcategoryId: string,
+};
+
+export type DeleteSubcategoryOverrideMutation = {
+  deleteSubcategoryOverride?: string | null,
 };
 
 export type DeleteUserMutationVariables = {

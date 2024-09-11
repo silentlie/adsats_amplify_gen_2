@@ -780,17 +780,3 @@ export const listSubcategories = /* GraphQL */ `query ListSubcategories(
   APITypes.ListSubcategoriesQueryVariables,
   APITypes.ListSubcategoriesQuery
 >;
-export const listUsers = /* GraphQL */ `query ListUsers(
-  $attributesToGet: [String!]
-  $filter: String
-  $limit: Int
-  $paginationToken: String
-) {
-  listUsers(
-    attributesToGet: $attributesToGet
-    filter: $filter
-    limit: $limit
-    paginationToken: $paginationToken
-  )
-}
-` as GeneratedQuery<APITypes.ListUsersQueryVariables, APITypes.ListUsersQuery>;

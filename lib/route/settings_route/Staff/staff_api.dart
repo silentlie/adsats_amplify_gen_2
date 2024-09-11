@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -10,22 +11,9 @@ Future<String> createUser(
   String name,
   String tempPassword,
 ) async {
-  const document = '''
-    mutation CreateUser(
-      \$email: AWSEmail!,
-      \$name: String!
-      \$temporaryPassword: String!
-    ) {
-      createUser(
-        email: \$email,
-        name: \$name,
-        temporaryPassword: \$temporaryPassword
-      )
-    }
-  ''';
   final response = await Amplify.API
       .query(
-          request: GraphQLRequest(document: document, variables: {
+          request: GraphQLRequest(document: createUserAdmin, variables: {
         "email": email,
         "name": name,
         "temporaryPassword": tempPassword,
@@ -41,19 +29,10 @@ Future<String> createUser(
   return id;
 }
 
-Future<void> diableUser(String id) async {
-  const document = '''
-    mutation DisableUser(
-      \$id: ID!,
-    ) {
-      disableUser(
-        id: \$id,
-      )
-    }
-  ''';
+Future<void> disableUser(String id) async {
   final response = await Amplify.API
       .query(
-          request: GraphQLRequest(document: document, variables: {
+          request: GraphQLRequest(document: disableUserAdmin, variables: {
         "id": id,
       }))
       .response;
@@ -65,18 +44,9 @@ Future<void> diableUser(String id) async {
 }
 
 Future<void> enableUser(String id) async {
-  const document = '''
-    mutation EnableUser(
-      \$id: ID!,
-    ) {
-      enableUser(
-        id: \$id,
-      )
-    }
-  ''';
   final response = await Amplify.API
       .query(
-          request: GraphQLRequest(document: document, variables: {
+          request: GraphQLRequest(document: enableUserAdmin, variables: {
         "id": id,
       }))
       .response;
@@ -88,18 +58,9 @@ Future<void> enableUser(String id) async {
 }
 
 Future<void> deleteUser(String id) async {
-  const document = '''
-    mutation DeleteUser(
-      \$id: ID!,
-    ) {
-      deleteUser(
-        id: \$id,
-      )
-    }
-  ''';
   final response = await Amplify.API
       .query(
-          request: GraphQLRequest(document: document, variables: {
+          request: GraphQLRequest(document: deleteUserAdmin, variables: {
         "id": id,
       }))
       .response;

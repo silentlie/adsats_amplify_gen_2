@@ -1,8 +1,8 @@
 import { defineAuth } from "@aws-amplify/backend";
-import { createUser } from "../data/create-user/resource";
-import { deleteUser } from "../data/delete-user/resouce";
-import { enableUser } from "../data/enable-user/resouce";
-import { disableUser } from "../data/disable-user/resouce";
+import { createUser } from "../data/cognito-admin/create-user/resource";
+import { deleteUser } from "../data/cognito-admin/delete-user/resouce";
+import { enableUser } from "../data/cognito-admin/enable-user/resouce";
+import { disableUser } from "../data/cognito-admin/disable-user/resouce";
 
 /**
  * Define and configure your auth resource

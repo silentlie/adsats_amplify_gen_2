@@ -1,18 +1,59 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
-import { createUser } from "./create-user/resource";
-import { deleteUser } from "./delete-user/resouce";
-import { enableUser } from "./enable-user/resouce";
-import { disableUser } from "./disable-user/resouce";
-import { deleteCategoryLambda } from "./delete-category-lambda/resource";
+import { createUser } from "./cognito-admin/create-user/resource";
+import { deleteUser } from "./cognito-admin/delete-user/resouce";
+import { enableUser } from "./cognito-admin/enable-user/resouce";
+import { disableUser } from "./cognito-admin/disable-user/resouce";
+import { deleteCategoryOverride } from "./override/delete-category-override/resource";
+import { deleteSubcategoryOverride } from "./override/delete-subcategory-override/resource";
+import { deleteStaffOverride } from "./override/delete-staff-override/resouce";
+import { deleteRoleOverride } from "./override/delete-role-override/resource";
+import { deleteAircraftOverride } from "./override/delete-aricraft-override/resource";
+import { deleteDocumentOverride } from "./override/delete-document-override/resouce";
 
 const schema = a
   .schema({
-    deleteCategoryLambda: a
+    deleteDocumentOverride: a
+      .mutation()
+      .arguments({
+        documentId: a.id().required(),
+        documentName: a.string().required(),
+      })
+      .handler(a.handler.function(deleteDocumentOverride))
+      .returns(a.json()),
+    deleteAircraftOverride: a
+      .mutation()
+      .arguments({
+        aircraftId: a.id().required(),
+      })
+      .handler(a.handler.function(deleteAircraftOverride))
+      .returns(a.json()),
+    deleteRoleOverride: a
+      .mutation()
+      .arguments({
+        roleId: a.id().required(),
+      })
+      .handler(a.handler.function(deleteRoleOverride))
+      .returns(a.json()),
+    deleteStaffOverride: a
+      .mutation()
+      .arguments({
+        staffId: a.id().required(),
+      })
+      .handler(a.handler.function(deleteStaffOverride))
+      .returns(a.json()),
+    deleteSubcategoryOverride: a
+      .mutation()
+      .arguments({
+        subcategoryId: a.id().required(),
+      })
+      .handler(a.handler.function(deleteSubcategoryOverride))
+      .returns(a.json()),
+    deleteCategoryOverride: a
       .mutation()
       .arguments({
         categoryId: a.id().required(),
       })
-      .handler(a.handler.function(deleteCategoryLambda))
+      .handler(a.handler.function(deleteCategoryOverride))
       .returns(a.json()),
     createUser: a
       .mutation()
@@ -154,7 +195,12 @@ const schema = a
   })
   .authorization((allow) => [
     allow.authenticated(),
-    allow.resource(deleteCategoryLambda),
+    allow.resource(deleteCategoryOverride),
+    allow.resource(deleteSubcategoryOverride),
+    allow.resource(deleteStaffOverride),
+    allow.resource(deleteRoleOverride),
+    allow.resource(deleteAircraftOverride),
+    allow.resource(deleteDocumentOverride),
   ]);
 
 export type Schema = ClientSchema<typeof schema>;

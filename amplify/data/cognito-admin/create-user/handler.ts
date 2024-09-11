@@ -3,7 +3,7 @@ import {
   AdminCreateUserCommand,
   AdminCreateUserCommandInput,
 } from "@aws-sdk/client-cognito-identity-provider";
-import type { Schema } from "../resource";
+import type { Schema } from "../../resource";
 import { env } from "$amplify/env/create-user";
 
 type Handler = Schema["createUser"]["functionHandler"];
