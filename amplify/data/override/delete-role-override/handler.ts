@@ -1,36 +1,37 @@
 import type { Schema } from "../../resource";
-import { env } from "$amplify/env/delete-role-override";
+// import { env } from "$amplify/env/delete-role-override";
 import { generateClient, GraphQLResult } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
 import { deleteRole, deleteRoleStaff } from "../../graphql/mutations";
 import { listRoleStaffs } from "../../graphql/queries";
-Amplify.configure(
-  {
-    API: {
-      GraphQL: {
-        endpoint: env.AMPLIFY_DATA_GRAPHQL_ENDPOINT,
-        region: env.AWS_REGION,
-        defaultAuthMode: "iam",
-      },
-    },
-  },
-  {
-    Auth: {
-      credentialsProvider: {
-        getCredentialsAndIdentityId: async () => ({
-          credentials: {
-            accessKeyId: env.AWS_ACCESS_KEY_ID,
-            secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
-            sessionToken: env.AWS_SESSION_TOKEN,
-          },
-        }),
-        clearCredentialsAndIdentityId: () => {
-          /* noop */
-        },
-      },
-    },
-  },
-);
+
+// Amplify.configure(
+//   {
+//     API: {
+//       GraphQL: {
+//         endpoint: env.AMPLIFY_DATA_GRAPHQL_ENDPOINT,
+//         region: env.AWS_REGION,
+//         defaultAuthMode: "iam",
+//       },
+//     },
+//   },
+//   {
+//     Auth: {
+//       credentialsProvider: {
+//         getCredentialsAndIdentityId: async () => ({
+//           credentials: {
+//             accessKeyId: env.AWS_ACCESS_KEY_ID,
+//             secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+//             sessionToken: env.AWS_SESSION_TOKEN,
+//           },
+//         }),
+//         clearCredentialsAndIdentityId: () => {
+//           /* noop */
+//         },
+//       },
+//     },
+//   },
+// );
 
 type Handler = Schema["deleteRoleOverride"]["functionHandler"];
 const client = generateClient<Schema>();
