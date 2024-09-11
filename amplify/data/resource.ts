@@ -213,7 +213,7 @@ const schema = a
   .authorization((allow) => [
     allow.authenticated(),
     allow.resource(deleteCategoryOverride),
-    // allow.resource(deleteSubcategoryOverride),
+    allow.resource(deleteSubcategoryOverride),
     // allow.resource(deleteStaffOverride),
     // allow.resource(deleteRoleOverride),
     // allow.resource(deleteAircraftOverride),
