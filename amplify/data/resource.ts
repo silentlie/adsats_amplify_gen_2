@@ -217,7 +217,7 @@ const schema = a
     allow.resource(deleteStaffOverride),
     allow.resource(deleteRoleOverride),
     allow.resource(deleteAircraftOverride),
-    // allow.resource(deleteDocumentOverride),
+    allow.resource(deleteDocumentOverride),
     // allow.resource(deleteNoticeDocumentOverride),
     // allow.resource(deleteNoticeOverride),
   ]);
