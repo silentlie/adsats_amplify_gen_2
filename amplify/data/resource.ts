@@ -9,9 +9,26 @@ import { deleteStaffOverride } from "./override/delete-staff-override/resouce";
 import { deleteRoleOverride } from "./override/delete-role-override/resource";
 import { deleteAircraftOverride } from "./override/delete-aricraft-override/resource";
 import { deleteDocumentOverride } from "./override/delete-document-override/resouce";
+import { deleteNoticeDocumentOverride } from "./override/delete-notice-document-override/resource";
+import { deleteNoticeOverride } from "./override/delete-notice-override/resource";
 
 const schema = a
   .schema({
+    deleteNoticeOverride: a
+      .mutation()
+      .arguments({
+        noticeId: a.id().required(),
+      })
+      .handler(a.handler.function(deleteNoticeOverride))
+      .returns(a.json()),
+    deleteNoticeDocumentOverride: a
+      .mutation()
+      .arguments({
+        noticeDocumentId: a.id().required(),
+        noticeDocumentName: a.string().required(),
+      })
+      .handler(a.handler.function(deleteNoticeDocumentOverride))
+      .returns(a.json()),
     deleteDocumentOverride: a
       .mutation()
       .arguments({
@@ -201,6 +218,8 @@ const schema = a
     allow.resource(deleteRoleOverride),
     allow.resource(deleteAircraftOverride),
     allow.resource(deleteDocumentOverride),
+    allow.resource(deleteNoticeDocumentOverride),
+    allow.resource(deleteNoticeOverride),
   ]);
 
 export type Schema = ClientSchema<typeof schema>;

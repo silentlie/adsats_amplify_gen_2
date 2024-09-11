@@ -618,6 +618,13 @@ export const deleteAircraftNotice = /* GraphQL */ `mutation DeleteAircraftNotice
   APITypes.DeleteAircraftNoticeMutationVariables,
   APITypes.DeleteAircraftNoticeMutation
 >;
+export const deleteAircraftOverride = /* GraphQL */ `mutation DeleteAircraftOverride($aircraftId: ID!) {
+  deleteAircraftOverride(aircraftId: $aircraftId)
+}
+` as GeneratedMutation<
+  APITypes.DeleteAircraftOverrideMutationVariables,
+  APITypes.DeleteAircraftOverrideMutation
+>;
 export const deleteAircraftStaff = /* GraphQL */ `mutation DeleteAircraftStaff(
   $condition: ModelAircraftStaffConditionInput
   $input: DeleteAircraftStaffInput!
@@ -724,6 +731,13 @@ export const deleteDocument = /* GraphQL */ `mutation DeleteDocument(
   APITypes.DeleteDocumentMutationVariables,
   APITypes.DeleteDocumentMutation
 >;
+export const deleteDocumentOverride = /* GraphQL */ `mutation DeleteDocumentOverride($documentId: ID!, $documentName: String!) {
+  deleteDocumentOverride(documentId: $documentId, documentName: $documentName)
+}
+` as GeneratedMutation<
+  APITypes.DeleteDocumentOverrideMutationVariables,
+  APITypes.DeleteDocumentOverrideMutation
+>;
 export const deleteNotice = /* GraphQL */ `mutation DeleteNotice(
   $condition: ModelNoticeConditionInput
   $input: DeleteNoticeInput!
@@ -799,6 +813,26 @@ export const deleteNoticeDocument = /* GraphQL */ `mutation DeleteNoticeDocument
   APITypes.DeleteNoticeDocumentMutationVariables,
   APITypes.DeleteNoticeDocumentMutation
 >;
+export const deleteNoticeDocumentOverride = /* GraphQL */ `mutation DeleteNoticeDocumentOverride(
+  $noticeDocumentId: ID!
+  $noticeDocumentName: String!
+) {
+  deleteNoticeDocumentOverride(
+    noticeDocumentId: $noticeDocumentId
+    noticeDocumentName: $noticeDocumentName
+  )
+}
+` as GeneratedMutation<
+  APITypes.DeleteNoticeDocumentOverrideMutationVariables,
+  APITypes.DeleteNoticeDocumentOverrideMutation
+>;
+export const deleteNoticeOverride = /* GraphQL */ `mutation DeleteNoticeOverride($noticeId: ID!) {
+  deleteNoticeOverride(noticeId: $noticeId)
+}
+` as GeneratedMutation<
+  APITypes.DeleteNoticeOverrideMutationVariables,
+  APITypes.DeleteNoticeOverrideMutation
+>;
 export const deleteNoticeStaff = /* GraphQL */ `mutation DeleteNoticeStaff(
   $condition: ModelNoticeStaffConditionInput
   $input: DeleteNoticeStaffInput!
@@ -861,6 +895,13 @@ export const deleteRole = /* GraphQL */ `mutation DeleteRole(
 ` as GeneratedMutation<
   APITypes.DeleteRoleMutationVariables,
   APITypes.DeleteRoleMutation
+>;
+export const deleteRoleOverride = /* GraphQL */ `mutation DeleteRoleOverride($roleId: ID!) {
+  deleteRoleOverride(roleId: $roleId)
+}
+` as GeneratedMutation<
+  APITypes.DeleteRoleOverrideMutationVariables,
+  APITypes.DeleteRoleOverrideMutation
 >;
 export const deleteRoleStaff = /* GraphQL */ `mutation DeleteRoleStaff(
   $condition: ModelRoleStaffConditionInput
@@ -938,6 +979,13 @@ export const deleteStaff = /* GraphQL */ `mutation DeleteStaff(
 ` as GeneratedMutation<
   APITypes.DeleteStaffMutationVariables,
   APITypes.DeleteStaffMutation
+>;
+export const deleteStaffOverride = /* GraphQL */ `mutation DeleteStaffOverride($staffId: ID!) {
+  deleteStaffOverride(staffId: $staffId)
+}
+` as GeneratedMutation<
+  APITypes.DeleteStaffOverrideMutationVariables,
+  APITypes.DeleteStaffOverrideMutation
 >;
 export const deleteStaffSubcategory = /* GraphQL */ `mutation DeleteStaffSubcategory(
   $condition: ModelStaffSubcategoryConditionInput

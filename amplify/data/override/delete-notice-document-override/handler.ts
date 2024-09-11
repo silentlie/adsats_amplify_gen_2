@@ -1,12 +1,10 @@
 import type { Schema } from "../../resource";
-import { env } from "$amplify/env/delete-subcategory-override";
+import { env } from "$amplify/env/delete-notice-document-override";
 import { generateClient } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
-import {
-  deleteStaffSubcategory,
-  deleteSubcategory,
-} from "../../graphql/mutations";
-import { listStaffSubcategories } from "../../graphql/queries";
+import { remove } from "aws-amplify/storage";
+import { deleteNoticeDocument } from "../../graphql/mutations";
+
 Amplify.configure(
   {
     API: {
@@ -15,6 +13,10 @@ Amplify.configure(
         region: env.AWS_REGION,
         defaultAuthMode: "iam",
       },
+    },
+    storage: {
+      aws_region: env.AWS_REGION,
+      bucket_name: env.ADSATS_S_3_BUCKET_NAME,
     },
   },
   {
@@ -35,39 +37,25 @@ Amplify.configure(
   },
 );
 
-type Handler = Schema["deleteSubcategoryOverride"]["functionHandler"];
+type Handler = Schema["deleteNoticeDocumentOverride"]["functionHandler"];
 const client = generateClient<Schema>();
 
 export const handler: Handler = async (event) => {
-  const { subcategoryId } = event.arguments;
+  const { noticeDocumentId, noticeDocumentName } = event.arguments;
   const promises: Promise<any>[] = [];
-  const staffSubcategoriesResult = await client.graphql({
-    query: listStaffSubcategories,
-    variables: {
-      filter: {
-        subcategoryId: { eq: subcategoryId },
-      },
-    },
-  });
-  staffSubcategoriesResult.data.listStaffSubcategories.items.map(
-    (staffSubcategory) =>
-      promises.push(
-        client.graphql({
-          query: deleteStaffSubcategory,
-          variables: {
-            input: { id: staffSubcategory.id },
-          },
-        }),
-      ),
+  console.log(
+    `Deleting noticeDocument in s3: ${noticeDocumentId}/${noticeDocumentName}`,
   );
   promises.push(
+    remove({
+      path: `noticeDocuments/${noticeDocumentId}/${noticeDocumentName}`,
+    }),
+  );
+  console.log(`Deleting noticeDocument with id: ${noticeDocumentId}`);
+  promises.push(
     client.graphql({
-      query: deleteSubcategory,
-      variables: {
-        input: {
-          id: subcategoryId,
-        },
-      },
+      query: deleteNoticeDocument,
+      variables: { input: { id: noticeDocumentId } },
     }),
   );
   const result = await Promise.all(promises);

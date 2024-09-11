@@ -1,6 +1,6 @@
 import type { Schema } from "../../resource";
 import { env } from "$amplify/env/delete-document-override";
-import { generateClient, GraphQLResult } from "aws-amplify/data";
+import { generateClient } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
 import { remove } from "aws-amplify/storage";
 import {
@@ -46,7 +46,7 @@ const client = generateClient<Schema>();
 
 export const handler: Handler = async (event) => {
   const { documentId, documentName } = event.arguments;
-  const promises: Promise<GraphQLResult<any>>[] = [];
+  const promises: Promise<any>[] = [];
   const aircraftDocumentsResult = await client.graphql({
     query: listAircraftDocuments,
     variables: { filter: { documentId: { eq: documentId } } },
@@ -62,6 +62,12 @@ export const handler: Handler = async (event) => {
       );
     },
   );
+  console.log(`Deleting document in s3: ${documentId}/${documentName}`);
+  promises.push(
+    remove({
+      path: `documents/${documentId}/${documentName}`,
+    }),
+  );
   console.log(`Deleting document with id: ${documentId}`);
   promises.push(
     client.graphql({
@@ -70,9 +76,5 @@ export const handler: Handler = async (event) => {
     }),
   );
   const result = await Promise.all(promises);
-  console.log(`Deleting document in s3: ${documentId}/${documentName}`);
-  await remove({
-    path: "documents/${documentId}/${documentName}",
-  });
   return result[result.length - 1];
 };

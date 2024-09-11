@@ -2522,6 +2522,14 @@ export type DeleteAircraftNoticeMutation = {
   } | null,
 };
 
+export type DeleteAircraftOverrideMutationVariables = {
+  aircraftId: string,
+};
+
+export type DeleteAircraftOverrideMutation = {
+  deleteAircraftOverride?: string | null,
+};
+
 export type DeleteAircraftStaffMutationVariables = {
   condition?: ModelAircraftStaffConditionInput | null,
   input: DeleteAircraftStaffInput,
@@ -2626,6 +2634,15 @@ export type DeleteDocumentMutation = {
   } | null,
 };
 
+export type DeleteDocumentOverrideMutationVariables = {
+  documentId: string,
+  documentName: string,
+};
+
+export type DeleteDocumentOverrideMutation = {
+  deleteDocumentOverride?: string | null,
+};
+
 export type DeleteNoticeMutationVariables = {
   condition?: ModelNoticeConditionInput | null,
   input: DeleteNoticeInput,
@@ -2699,6 +2716,23 @@ export type DeleteNoticeDocumentMutation = {
   } | null,
 };
 
+export type DeleteNoticeDocumentOverrideMutationVariables = {
+  noticeDocumentId: string,
+  noticeDocumentName: string,
+};
+
+export type DeleteNoticeDocumentOverrideMutation = {
+  deleteNoticeDocumentOverride?: string | null,
+};
+
+export type DeleteNoticeOverrideMutationVariables = {
+  noticeId: string,
+};
+
+export type DeleteNoticeOverrideMutation = {
+  deleteNoticeOverride?: string | null,
+};
+
 export type DeleteNoticeStaffMutationVariables = {
   condition?: ModelNoticeStaffConditionInput | null,
   input: DeleteNoticeStaffInput,
@@ -2758,6 +2792,14 @@ export type DeleteRoleMutation = {
     } | null,
     updatedAt: string,
   } | null,
+};
+
+export type DeleteRoleOverrideMutationVariables = {
+  roleId: string,
+};
+
+export type DeleteRoleOverrideMutation = {
+  deleteRoleOverride?: string | null,
 };
 
 export type DeleteRoleStaffMutationVariables = {
@@ -2833,6 +2875,14 @@ export type DeleteStaffMutation = {
     } | null,
     updatedAt: string,
   } | null,
+};
+
+export type DeleteStaffOverrideMutationVariables = {
+  staffId: string,
+};
+
+export type DeleteStaffOverrideMutation = {
+  deleteStaffOverride?: string | null,
 };
 
 export type DeleteStaffSubcategoryMutationVariables = {

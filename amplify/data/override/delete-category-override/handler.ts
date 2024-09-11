@@ -2,7 +2,10 @@ import type { Schema } from "../../resource";
 import { env } from "$amplify/env/delete-category-override";
 import { generateClient } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
-import { deleteCategory, deleteSubcategoryOverride } from "../../graphql/mutations";
+import {
+  deleteCategory,
+  deleteSubcategoryOverride,
+} from "../../graphql/mutations";
 import { listSubcategories } from "../../graphql/queries";
 
 Amplify.configure(
@@ -38,29 +41,33 @@ const client = generateClient<Schema>();
 
 export const handler: Handler = async (event) => {
   const { categoryId } = event.arguments;
+  const promises: Promise<any>[] = [];
   const subcategoriesResult = await client.graphql({
     query: listSubcategories,
     variables: {
       filter: { categoryId: { eq: categoryId } },
     },
   });
-  const subcategories = subcategoriesResult.data.listSubcategories.items || [];
-  const deleteSubcategoryPromises = subcategories.map((subcategory) =>
+  subcategoriesResult.data.listSubcategories.items.map((subcategory) =>
+    promises.push(
+      client.graphql({
+        query: deleteSubcategoryOverride,
+        variables: {
+          subcategoryId: subcategory.id,
+        },
+      }),
+    ),
+  );
+  promises.push(
     client.graphql({
-      query: deleteSubcategoryOverride,
+      query: deleteCategory,
       variables: {
-        subcategoryId: subcategory.id,
-      }
+        input: {
+          id: categoryId,
+        },
+      },
     }),
   );
-  await Promise.all(deleteSubcategoryPromises);
-  const deleteResult = await client.graphql({
-    query: deleteCategory,
-    variables: {
-      input: {
-        id: categoryId,
-      },
-    },
-  });
-  return deleteResult;
+  const result = await Promise.all(promises);
+  return result[result.length - 1];
 };
