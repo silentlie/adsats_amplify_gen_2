@@ -219,7 +219,7 @@ const schema = a
     allow.resource(deleteAircraftOverride),
     allow.resource(deleteDocumentOverride),
     allow.resource(deleteNoticeDocumentOverride),
-    // allow.resource(deleteNoticeOverride),
+    allow.resource(deleteNoticeOverride),
   ]);
 
 export type Schema = ClientSchema<typeof schema>;
