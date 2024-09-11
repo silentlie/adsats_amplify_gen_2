@@ -213,13 +213,13 @@ const schema = a
   .authorization((allow) => [
     allow.authenticated(),
     allow.resource(deleteCategoryOverride),
-    allow.resource(deleteSubcategoryOverride),
-    allow.resource(deleteStaffOverride),
-    allow.resource(deleteRoleOverride),
-    allow.resource(deleteAircraftOverride),
-    allow.resource(deleteDocumentOverride),
-    allow.resource(deleteNoticeDocumentOverride),
-    allow.resource(deleteNoticeOverride),
+    // allow.resource(deleteSubcategoryOverride),
+    // allow.resource(deleteStaffOverride),
+    // allow.resource(deleteRoleOverride),
+    // allow.resource(deleteAircraftOverride),
+    // allow.resource(deleteDocumentOverride),
+    // allow.resource(deleteNoticeDocumentOverride),
+    // allow.resource(deleteNoticeOverride),
   ]);
 
 export type Schema = ClientSchema<typeof schema>;
