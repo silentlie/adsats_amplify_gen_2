@@ -145,88 +145,19 @@ class StaffDataSource extends DataTableSource {
   }
 
   Future<void> fetchRawData() async {
-    const graphQLDocument = '''
-      query ListStaff(\$filter: ModelStaffFilterInput) {
-        listStaff(filter: \$filter) {
-          items {
-            id
-            name
-            email
-            aircraft {
-              items {
-                aircraftId
-                createdAt
-                id
-                staffId
-                updatedAt
-                aircraft {
-                  archived
-                  createdAt
-                  description
-                  id
-                  name
-                  updatedAt
-                }
-              }
-            }
-            roles {
-              items {
-                id
-                createdAt
-                staffId
-                updatedAt
-                roleId
-                role {
-                  archived
-                  createdAt
-                  description
-                  name
-                  id
-                  updatedAt
-                }
-              }
-            }
-            createdAt
-            archived
-            subcategories {
-              items {
-                accessLevel
-                createdAt
-                id
-                staffId
-                subcategoryId
-                updatedAt
-                subcategory {
-                  archived
-                  categoryId
-                  createdAt
-                  description
-                  id
-                  name
-                  updatedAt
-                }
-              }
-            }
-            updatedAt
-          }
-        }
-      }
-    ''';
-
-    final request = GraphQLRequest<String>(
-      document: graphQLDocument,
-      variables: {"filter": _filter.toJson()},
-    );
-
     try {
+      final request = GraphQLRequest<String>(
+        document: listStaff,
+        variables: {"filter": _filter.toJson()},
+      );
       final response = await Amplify.API.query(request: request).response;
       if (response.data == null) {
         throw Exception('No data returned from API');
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
-      final listStaff = jsonMap["listStaff"];
+      final listStaffResult = jsonMap["listStaff"];
       final List<Map<String, dynamic>> staff;
-      listStaff == null
+      listStaffResult == null
           ? staff = []
           : staff = List<Map<String, dynamic>>.from(
               jsonMap["listStaff"]["items"],

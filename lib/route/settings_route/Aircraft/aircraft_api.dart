@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -37,14 +38,16 @@ Future<void> update(Aircraft aircraft) async {
 
 Future<void> delete(Aircraft aircraft) async {
   try {
-    final request = ModelMutations.delete(aircraft);
+    final request = GraphQLRequest<String>(
+      document: deleteAircraftOverride,
+      variables: {"aircraftId": aircraft.id},
+    );
     final response = await Amplify.API.mutate(request: request).response;
     final data = response.data;
     if (data == null) {
       debugPrint('errors: ${response.errors}');
       return;
     }
-    await deleteAircraftStaff(aircraft.staff ?? []);
     // print('Delete aircraft result: $data');
   } on ApiException catch (e) {
     debugPrint('Delete aircraft failed: $e');

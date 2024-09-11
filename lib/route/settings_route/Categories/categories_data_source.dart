@@ -119,46 +119,19 @@ class CategoriesDataSource extends DataTableSource {
   }
 
   Future<void> fetchRawData() async {
-    const graphQLDocument = '''
-      query ListCategories(\$filter: ModelCategoryFilterInput) {
-        listCategories(filter: \$filter) {
-          items {
-            id
-            name
-            description
-            createdAt
-            archived
-            updatedAt
-            subcategories {
-              items {
-                archived
-                categoryId
-                createdAt
-                description
-                id
-                name
-                updatedAt
-              }
-            }
-          }
-        }
-      }
-    ''';
-
-    final request = GraphQLRequest<String>(
-      document: graphQLDocument,
-      variables: {"filter": filter.toJson()},
-    );
-
     try {
+      final request = GraphQLRequest<String>(
+        document: listCategories,
+        variables: {"filter": filter.toJson()},
+      );
       final response = await Amplify.API.query(request: request).response;
       if (response.data == null) {
         throw Exception('No data returned from API');
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
-      final listCategories = jsonMap["listCategories"];
+      final listCategoriesResult = jsonMap["listCategories"];
       final List<Map<String, dynamic>> categories;
-      listCategories == null
+      listCategoriesResult == null
           ? categories = []
           : categories = List<Map<String, dynamic>>.from(
               jsonMap["listCategories"]["items"],

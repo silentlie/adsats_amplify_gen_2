@@ -8,6 +8,42 @@ mutation DeleteSubcategoryOverride(\$subcategoryId: ID!) {
   deleteSubcategoryOverride(subcategoryId: \$subcategoryId)
 }
 ''';
+const deleteRoleOverride = '''
+mutation DeleteRoleOverride(\$roleId: ID!) {
+  deleteRoleOverride(roleId: \$roleId)
+}
+''';
+const deleteAircraftOverride = '''
+mutation DeleteAircraftOverride(\$aircraftId: ID!) {
+  deleteAircraftOverride(aircraftId: \$aircraftId)
+}
+''';
+const deleteStaffOverride = '''
+mutation DeleteStaffOverride(\$staffId: ID!) {
+  deleteStaffOverride(staffId: \$staffId)
+}
+''';
+const deleteDocumentOverride = '''
+mutation DeleteDocumentOverride(\$documentId: ID!, \$documentName: String!) {
+  deleteDocumentOverride(documentId: \$documentId, documentName: \$documentName)
+}
+''';
+const deleteNoticeOverride = '''
+mutation DeleteNoticeOverride(\$noticeId: ID!) {
+  deleteNoticeOverride(noticeId: \$noticeId)
+}
+''';
+const deleteNoticeDocumentOverride = '''
+mutation DeleteNoticeDocumentOverride(
+  \$noticeDocumentId: ID!
+  \$noticeDocumentName: String!
+) {
+  deleteNoticeDocumentOverride(
+    noticeDocumentId: \$noticeDocumentId
+    noticeDocumentName: \$noticeDocumentName
+  )
+}
+''';
 const createUserAdmin = '''
 mutation CreateUser(
   \$email: AWSEmail!,

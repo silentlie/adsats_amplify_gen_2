@@ -119,44 +119,19 @@ class RolesDataSource extends DataTableSource {
   }
 
   Future<void> fetchRawData() async {
-    const graphQLDocument = '''
-      query ListRoles(\$filter: ModelRoleFilterInput) {
-        listRoles(filter: \$filter) {
-          items {
-            id
-            name
-            description
-            createdAt
-            archived
-            updatedAt
-            staff {
-              items {
-                createdAt
-                id
-                roleId
-                staffId
-                updatedAt
-              }
-            }
-          }
-        }
-      }
-    ''';
-
-    final request = GraphQLRequest<String>(
-      document: graphQLDocument,
-      variables: {"filter": _filter.toJson()},
-    );
-
     try {
+      final request = GraphQLRequest<String>(
+        document: listRoles,
+        variables: {"filter": _filter.toJson()},
+      );
       final response = await Amplify.API.query(request: request).response;
       if (response.data == null) {
         throw Exception('No data returned from API');
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
-      final listRoles = jsonMap["listRoles"];
+      final listRolesResult = jsonMap["listRoles"];
       final List<Map<String, dynamic>> roles;
-      listRoles == null
+      listRolesResult == null
           ? roles = []
           : roles = List<Map<String, dynamic>>.from(
               jsonMap["listRoles"]["items"],

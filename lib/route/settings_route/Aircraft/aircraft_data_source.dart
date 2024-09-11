@@ -119,52 +119,19 @@ class AircraftDataSource extends DataTableSource {
   }
 
   Future<void> fetchRawData() async {
-    const graphQLDocument = '''
-      query ListAircraft(\$filter: ModelAircraftFilterInput) {
-        listAircraft(filter: \$filter) {
-          items {
-            id
-            name
-            description
-            createdAt
-            archived
-            updatedAt
-            staff {
-              items {
-                aircraftId
-                createdAt
-                staffId
-                updatedAt
-                id
-                staff {
-                  archived
-                  createdAt
-                  id
-                  email
-                  name
-                  updatedAt
-                }
-              }
-            }
-          }
-        }
-      }
-    ''';
-
-    final request = GraphQLRequest<String>(
-      document: graphQLDocument,
-      variables: {"filter": _filter.toJson()},
-    );
-
     try {
+      final request = GraphQLRequest<String>(
+        document: listAircraft,
+        variables: {"filter": _filter.toJson()},
+      );
       final response = await Amplify.API.query(request: request).response;
       if (response.data == null) {
         throw Exception('No data returned from API');
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
-      final listAircraft = jsonMap["listAircraft"];
+      final listAircraftResult = jsonMap["listAircraft"];
       final List<Map<String, dynamic>> aircraft;
-      listAircraft == null
+      listAircraftResult == null
           ? aircraft = []
           : aircraft = List<Map<String, dynamic>>.from(
               jsonMap["listAircraft"]["items"],

@@ -123,20 +123,19 @@ class SubcategoriesDataSource extends DataTableSource {
   }
 
   Future<void> fetchRawData() async {
-    final request = GraphQLRequest<String>(
-      document: listSubcategories,
-      variables: {"filter": _filter.toJson()},
-    );
-
     try {
+      final request = GraphQLRequest<String>(
+        document: listSubcategories,
+        variables: {"filter": _filter.toJson()},
+      );
       final response = await Amplify.API.query(request: request).response;
       if (response.data == null) {
         throw Exception('No data returned from API');
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
-      final listSubcategories = jsonMap["listSubcategories"];
+      final listSubcategoriesResult = jsonMap["listSubcategories"];
       final List<Map<String, dynamic>> subcategories;
-      listSubcategories == null
+      listSubcategoriesResult == null
           ? subcategories = []
           : subcategories = List<Map<String, dynamic>>.from(
               jsonMap["listSubcategories"]["items"],
