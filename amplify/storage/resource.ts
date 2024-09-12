@@ -1,6 +1,6 @@
 import { defineStorage } from "@aws-amplify/backend";
-import { deleteDocumentOverride } from "../data/override/delete-document-override/resouce";
-import { deleteNoticeDocumentOverride } from "../data/override/delete-notice-document-override/resource";
+import { deleteDocumentOverride } from "../data/override/delete/delete-document-override/resouce";
+import { deleteNoticeDocumentOverride } from "../data/override/delete/delete-notice-document-override/resource";
 
 export const storage = defineStorage({
   name: "adsatsS3",

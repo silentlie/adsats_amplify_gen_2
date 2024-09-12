@@ -3,17 +3,42 @@ import { createUser } from "./cognito-admin/create-user/resource";
 import { deleteUser } from "./cognito-admin/delete-user/resouce";
 import { enableUser } from "./cognito-admin/enable-user/resouce";
 import { disableUser } from "./cognito-admin/disable-user/resouce";
-import { deleteCategoryOverride } from "./override/delete-category-override/resource";
-import { deleteSubcategoryOverride } from "./override/delete-subcategory-override/resource";
-import { deleteStaffOverride } from "./override/delete-staff-override/resouce";
-import { deleteRoleOverride } from "./override/delete-role-override/resource";
-import { deleteAircraftOverride } from "./override/delete-aricraft-override/resource";
-import { deleteDocumentOverride } from "./override/delete-document-override/resouce";
-import { deleteNoticeDocumentOverride } from "./override/delete-notice-document-override/resource";
-import { deleteNoticeOverride } from "./override/delete-notice-override/resource";
+import { deleteCategoryOverride } from "./override/delete/delete-category-override/resource";
+import { deleteSubcategoryOverride } from "./override/delete/delete-subcategory-override/resource";
+import { deleteStaffOverride } from "./override/delete/delete-staff-override/resouce";
+import { deleteRoleOverride } from "./override/delete/delete-role-override/resource";
+import { deleteAircraftOverride } from "./override/delete/delete-aricraft-override/resource";
+import { deleteDocumentOverride } from "./override/delete/delete-document-override/resouce";
+import { deleteNoticeDocumentOverride } from "./override/delete/delete-notice-document-override/resource";
+import { deleteNoticeOverride } from "./override/delete/delete-notice-override/resource";
+import { createStaffOverride } from "./override/create/create-staff-override/resource";
+import { createAircraftOverride } from "./override/create/create-aircraft-override/resource";
 
 const schema = a
   .schema({
+    createAircraftOverride: a
+      .mutation()
+      .arguments({
+        name: a.string().required(),
+        description: a.email().required(),
+        archived: a.boolean().required(),
+        staff: a.id().required().array(),
+      })
+      .handler(a.handler.function(createAircraftOverride))
+      .returns(a.json()),
+    createStaffOverride: a
+      .mutation()
+      .arguments({
+        name: a.string().required(),
+        email: a.email().required(),
+        archived: a.boolean().required(),
+        aircraft: a.id().required().array(),
+        roles: a.id().required().array(),
+        subcategories: a.id().required().array(),
+        accessLevels: a.integer().required().array(),
+      })
+      .handler(a.handler.function(createStaffOverride))
+      .returns(a.json()),
     deleteNoticeOverride: a
       .mutation()
       .arguments({
@@ -220,6 +245,8 @@ const schema = a
     allow.resource(deleteDocumentOverride),
     allow.resource(deleteNoticeDocumentOverride),
     allow.resource(deleteNoticeOverride),
+    allow.resource(createStaffOverride),
+    allow.resource(createAircraftOverride),
   ]);
 
 export type Schema = ClientSchema<typeof schema>;

@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 Future<void> getFileUrl(Document document) async {
   try {
-    String pathStr = "documents/${document.id}_${document.name}";
+    String pathStr = "documents/${document.id}/${document.name}";
 
     final result = await Amplify.Storage.getUrl(
       path: StoragePath.fromString(pathStr),

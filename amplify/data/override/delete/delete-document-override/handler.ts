@@ -1,4 +1,4 @@
-import type { Schema } from "../../resource";
+import type { Schema } from "../../../resource";
 import { env } from "$amplify/env/delete-document-override";
 import { generateClient } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
@@ -6,8 +6,8 @@ import { remove } from "aws-amplify/storage";
 import {
   deleteDocument,
   deleteAircraftDocument,
-} from "../../graphql/mutations";
-import { listAircraftDocuments } from "../../graphql/queries";
+} from "../../../graphql/mutations";
+import { listAircraftDocuments } from "../../../graphql/queries";
 
 Amplify.configure(
   {

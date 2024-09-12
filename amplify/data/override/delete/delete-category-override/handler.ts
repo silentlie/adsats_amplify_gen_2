@@ -1,12 +1,12 @@
-import type { Schema } from "../../resource";
+import type { Schema } from "../../../resource";
 import { env } from "$amplify/env/delete-category-override";
 import { generateClient } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
 import {
   deleteCategory,
   deleteSubcategoryOverride,
-} from "../../graphql/mutations";
-import { listSubcategories } from "../../graphql/queries";
+} from "../../../graphql/mutations";
+import { listSubcategories } from "../../../graphql/queries";
 
 Amplify.configure(
   {

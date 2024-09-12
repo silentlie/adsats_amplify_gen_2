@@ -1,9 +1,9 @@
-import type { Schema } from "../../resource";
+import type { Schema } from "../../../resource";
 import { env } from "$amplify/env/delete-notice-document-override";
 import { generateClient } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
 import { remove } from "aws-amplify/storage";
-import { deleteNoticeDocument } from "../../graphql/mutations";
+import { deleteNoticeDocument } from "../../../graphql/mutations";
 
 Amplify.configure(
   {

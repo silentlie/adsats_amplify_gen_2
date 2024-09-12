@@ -1,9 +1,9 @@
-import type { Schema } from "../../resource";
+import type { Schema } from "../../../resource";
 import { env } from "$amplify/env/delete-role-override";
 import { generateClient, GraphQLResult } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
-import { deleteRole, deleteRoleStaff } from "../../graphql/mutations";
-import { listRoleStaffs } from "../../graphql/queries";
+import { deleteRole, deleteRoleStaff } from "../../../graphql/mutations";
+import { listRoleStaffs } from "../../../graphql/queries";
 
 Amplify.configure(
   {

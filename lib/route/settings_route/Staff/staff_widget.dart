@@ -57,7 +57,7 @@ class _StaffDataTable2State extends State<StaffDataTable2> {
         },
       ),
       DataColumn2(
-        label: getCenterText("Description"),
+        label: getCenterText("Aircraft"),
         size: ColumnSize.L,
         onSort: (columnIndex, ascending) {
           setState(() {
@@ -70,7 +70,7 @@ class _StaffDataTable2State extends State<StaffDataTable2> {
         },
       ),
       DataColumn2(
-        label: getCenterText("Description"),
+        label: getCenterText("Roles"),
         size: ColumnSize.L,
         onSort: (columnIndex, ascending) {
           setState(() {

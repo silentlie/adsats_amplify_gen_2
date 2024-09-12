@@ -1,4 +1,4 @@
-import type { Schema } from "../../resource";
+import type { Schema } from "../../../resource";
 import { env } from "$amplify/env/delete-staff-override";
 import { generateClient, GraphQLResult } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
@@ -9,13 +9,13 @@ import {
   deleteAircraftStaff,
   deleteNoticeStaff,
   deleteUser,
-} from "../../graphql/mutations";
+} from "../../../graphql/mutations";
 import {
   listAircraftStaffs,
   listNoticeStaffs,
   listRoleStaffs,
   listStaffSubcategories,
-} from "../../graphql/queries";
+} from "../../../graphql/queries";
 
 Amplify.configure(
   {
