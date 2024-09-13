@@ -1,12 +1,11 @@
 import type { Schema } from "../../../resource";
-import { env } from "$amplify/env/delete-category-override";
+import { env } from "$amplify/env/create-document-override";
 import { generateClient } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
 import {
-  deleteCategory,
-  deleteSubcategoryOverride,
+  createAircraftDocument,
+  createDocument,
 } from "../../../graphql/mutations";
-import { listSubcategories } from "../../../graphql/queries";
 
 Amplify.configure(
   {
@@ -36,40 +35,39 @@ Amplify.configure(
   },
 );
 
-type Handler = Schema["deleteCategoryOverride"]["functionHandler"];
+type Handler = Schema["createDocumentOverride"]["functionHandler"];
 const client = generateClient<Schema>();
 
 export const handler: Handler = async (event) => {
-  const { categoryId } = event.arguments;
+  const { name, staffId, subcategoryId, archived, aircraft } = event.arguments;
   const promises: Promise<any>[] = [];
-  const subcategoriesResult = await client.graphql({
-    query: listSubcategories,
+  console.log(`create document with name: ${name}`);
+  const documentResult = await client.graphql({
+    query: createDocument,
     variables: {
-      filter: { categoryId: { eq: categoryId } },
+      input: {
+        name: name,
+        archived: archived,
+        staffId: staffId,
+        subcategoryId: subcategoryId,
+      },
     },
   });
-  subcategoriesResult.data.listSubcategories.items.map((subcategory) => {
-    console.log(`Deleting subcategory with id: ${subcategory.id}`);
+  const documentId = documentResult.data.createDocument.id;
+  aircraft?.forEach((aircraftId) => {
+    console.log(`create AircraftDocument with documentId: ${documentId}`);
     promises.push(
       client.graphql({
-        query: deleteSubcategoryOverride,
+        query: createAircraftDocument,
         variables: {
-          subcategoryId: subcategory.id,
+          input: {
+            aircraftId: aircraftId,
+            documentId: documentId,
+          },
         },
       }),
     );
   });
-  console.log(`Deleting category with id: ${categoryId}`);
-  promises.push(
-    client.graphql({
-      query: deleteCategory,
-      variables: {
-        input: {
-          id: categoryId,
-        },
-      },
-    }),
-  );
-  const result = await Promise.all(promises);
-  return result[result.length - 1];
+  await Promise.all(promises);
+  return documentResult;
 };

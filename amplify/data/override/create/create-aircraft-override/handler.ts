@@ -2,7 +2,10 @@ import type { Schema } from "../../../resource";
 import { env } from "$amplify/env/create-aircraft-override";
 import { generateClient } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
-import { createAircraft, createAircraftStaff } from "../../../graphql/mutations";
+import {
+  createAircraft,
+  createAircraftStaff,
+} from "../../../graphql/mutations";
 
 Amplify.configure(
   {
@@ -36,13 +39,9 @@ type Handler = Schema["createAircraftOverride"]["functionHandler"];
 const client = generateClient<Schema>();
 
 export const handler: Handler = async (event) => {
-  const {
-    name,
-    description,
-    archived,
-    staff,
-  } = event.arguments;
+  const { name, description, archived, staff } = event.arguments;
   const promises: Promise<any>[] = [];
+  console.log(`create aircraft with name: ${name}`);
   const aircraftResult = await client.graphql({
     query: createAircraft,
     variables: {
@@ -50,12 +49,12 @@ export const handler: Handler = async (event) => {
         name: name,
         description: description,
         archived: archived,
-      }
-    }
+      },
+    },
   });
   const aircraftId = aircraftResult.data.createAircraft.id;
   staff?.forEach((staffId) => {
-    console.log(`create AircraftStaff with aircraftId: ${aircraftId}`);
+    console.log(`create AircraftStaff with staffId: ${staffId}`);
     promises.push(
       client.graphql({
         query: createAircraftStaff,

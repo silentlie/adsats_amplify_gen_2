@@ -1,13 +1,8 @@
 import type { Schema } from "../../../resource";
-import { env } from "$amplify/env/delete-category-override";
+import { env } from "$amplify/env/create-role-override";
 import { generateClient } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
-import {
-  deleteCategory,
-  deleteSubcategoryOverride,
-} from "../../../graphql/mutations";
-import { listSubcategories } from "../../../graphql/queries";
-
+import { createRole, createRoleStaff } from "../../../graphql/mutations";
 Amplify.configure(
   {
     API: {
@@ -36,40 +31,38 @@ Amplify.configure(
   },
 );
 
-type Handler = Schema["deleteCategoryOverride"]["functionHandler"];
+type Handler = Schema["createRoleOverride"]["functionHandler"];
 const client = generateClient<Schema>();
 
 export const handler: Handler = async (event) => {
-  const { categoryId } = event.arguments;
+  const { name, description, archived, staff } = event.arguments;
   const promises: Promise<any>[] = [];
-  const subcategoriesResult = await client.graphql({
-    query: listSubcategories,
+  console.log(`create role with name: ${name}`);
+  const roleResult = await client.graphql({
+    query: createRole,
     variables: {
-      filter: { categoryId: { eq: categoryId } },
+      input: {
+        name: name,
+        description: description,
+        archived: archived,
+      },
     },
   });
-  subcategoriesResult.data.listSubcategories.items.map((subcategory) => {
-    console.log(`Deleting subcategory with id: ${subcategory.id}`);
+  const roleId = roleResult.data.createRole.id;
+  staff?.forEach((staffId) => {
+    console.log(`create RoleStaff with staffId: ${staffId}`);
     promises.push(
       client.graphql({
-        query: deleteSubcategoryOverride,
+        query: createRoleStaff,
         variables: {
-          subcategoryId: subcategory.id,
+          input: {
+            roleId: roleId,
+            staffId: staffId,
+          },
         },
       }),
     );
   });
-  console.log(`Deleting category with id: ${categoryId}`);
-  promises.push(
-    client.graphql({
-      query: deleteCategory,
-      variables: {
-        input: {
-          id: categoryId,
-        },
-      },
-    }),
-  );
-  const result = await Promise.all(promises);
-  return result[result.length - 1];
+  await Promise.all(promises);
+  return roleResult;
 };

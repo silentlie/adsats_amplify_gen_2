@@ -1,14 +1,11 @@
 import type { Schema } from "../../../resource";
-import { env } from "$amplify/env/create-staff-override";
+import { env } from "$amplify/env/create-subcategory-override";
 import { generateClient } from "aws-amplify/data";
 import { Amplify } from "aws-amplify";
 import {
-  createAircraftStaff,
-  createRoleStaff,
-  createStaff,
   createStaffSubcategory,
+  createSubcategory,
 } from "../../../graphql/mutations";
-
 Amplify.configure(
   {
     API: {
@@ -37,63 +34,29 @@ Amplify.configure(
   },
 );
 
-type Handler = Schema["createStaffOverride"]["functionHandler"];
+type Handler = Schema["createSubcategoryOverride"]["functionHandler"];
 const client = generateClient<Schema>();
 
 export const handler: Handler = async (event) => {
-  const {
-    name,
-    email,
-    archived,
-    aircraft,
-    roles,
-    subcategories,
-    accessLevels,
-  } = event.arguments;
+  const { categoryId, name, description, archived, staff, accessLevels } =
+    event.arguments;
   const promises: Promise<any>[] = [];
-  console.log(`create Staff with email: ${email}`);
-  const staffResult = await client.graphql({
-    query: createStaff,
+  console.log(`create subcategory with name: ${name}`);
+  const subcategoryResult = await client.graphql({
+    query: createSubcategory,
     variables: {
       input: {
+        categoryId: categoryId,
         name: name,
-        email: email,
+        description: description,
         archived: archived,
       },
     },
   });
-  const staffId = staffResult.data.createStaff.id;
-  aircraft?.forEach((aircraftId) => {
-    console.log(`create AircraftStaff with aircraftId: ${aircraftId}`);
-    promises.push(
-      client.graphql({
-        query: createAircraftStaff,
-        variables: {
-          input: {
-            aircraftId: aircraftId,
-            staffId: staffId,
-          },
-        },
-      }),
-    );
-  });
-  roles?.forEach((roleId) => {
-    console.log(`create AircraftStaff with roleId: ${roleId}`);
-    promises.push(
-      client.graphql({
-        query: createRoleStaff,
-        variables: {
-          input: {
-            roleId: roleId,
-            staffId: staffId,
-          },
-        },
-      }),
-    );
-  });
-  const staffSubcategories = combineLists(subcategories, accessLevels);
-  staffSubcategories?.forEach((accessLevel, subcategoryId) => {
-    console.log(`create StaffSubcategory with subcategoryId: ${subcategoryId}`);
+  const subcategoryId = subcategoryResult.data.createSubcategory.id;
+  const staffSubcategories = combineLists(staff, accessLevels);
+  staffSubcategories?.forEach((accessLevel, staffId) => {
+    console.log(`create StaffSubcategory with staffId: ${staffId}`);
     promises.push(
       client.graphql({
         query: createStaffSubcategory,
@@ -108,7 +71,7 @@ export const handler: Handler = async (event) => {
     );
   });
   await Promise.all(promises);
-  return staffResult;
+  return subcategoryResult;
 };
 
 function assert(condition: boolean, message: string): void {

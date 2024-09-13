@@ -37,28 +37,28 @@ type Handler = Schema["deleteRoleOverride"]["functionHandler"];
 const client = generateClient<Schema>();
 
 export const handler: Handler = async (event) => {
-    const { roleId } = event.arguments;
-    const promises: Promise<GraphQLResult<any>>[] = [];
-    const roleStaffsResult = await client.graphql({
-      query: listRoleStaffs,
-      variables: { filter: { roleId: { eq: roleId } } },
-    });
-    roleStaffsResult.data.listRoleStaffs.items.forEach((roleStaff) => {
-      console.log(`Deleting RoleStaff with id: ${roleStaff.id}`);
-      promises.push(
-        client.graphql({
-          query: deleteRoleStaff,
-          variables: { input: { id: roleStaff.id } },
-        }),
-      );
-    });
-    console.log(`Deleting role with id: ${roleId}`);
+  const { roleId } = event.arguments;
+  const promises: Promise<GraphQLResult<any>>[] = [];
+  const roleStaffsResult = await client.graphql({
+    query: listRoleStaffs,
+    variables: { filter: { roleId: { eq: roleId } } },
+  });
+  roleStaffsResult.data.listRoleStaffs.items.forEach((roleStaff) => {
+    console.log(`Deleting RoleStaff with id: ${roleStaff.id}`);
     promises.push(
       client.graphql({
-        query: deleteRole,
-        variables: { input: { id: roleId } },
+        query: deleteRoleStaff,
+        variables: { input: { id: roleStaff.id } },
       }),
     );
-    const result = await Promise.all(promises);
-    return result[result.length - 1];
+  });
+  console.log(`Deleting role with id: ${roleId}`);
+  promises.push(
+    client.graphql({
+      query: deleteRole,
+      variables: { input: { id: roleId } },
+    }),
+  );
+  const result = await Promise.all(promises);
+  return result[result.length - 1];
 };
