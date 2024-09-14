@@ -51,12 +51,17 @@ export const handler: Handler = async (event) => {
   });
   staffSubcategoriesResult.data.listStaffSubcategories.items.map(
     (staffSubcategory) => {
-      console.log(`Deleting StaffSubcategory with id: ${staffSubcategory.id}`);
+      console.log(
+        `Deleting StaffSubcategory with staffId: ${staffSubcategory.staffId}, subcategoryId: ${staffSubcategory.subcategoryId}`,
+      );
       promises.push(
         client.graphql({
           query: deleteStaffSubcategory,
           variables: {
-            input: { id: staffSubcategory.id },
+            input: {
+              staffId: staffSubcategory.staffId,
+              subcategoryId: staffSubcategory.subcategoryId,
+            },
           },
         }),
       );

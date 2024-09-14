@@ -44,11 +44,18 @@ export const handler: Handler = async (event) => {
     variables: { filter: { roleId: { eq: roleId } } },
   });
   roleStaffsResult.data.listRoleStaffs.items.forEach((roleStaff) => {
-    console.log(`Deleting RoleStaff with id: ${roleStaff.id}`);
+    console.log(
+      `Deleting RoleStaff with staffId: ${roleStaff.staffId}, roleId: ${roleStaff.roleId}`,
+    );
     promises.push(
       client.graphql({
         query: deleteRoleStaff,
-        variables: { input: { id: roleStaff.id } },
+        variables: {
+          input: {
+            staffId: roleStaff.staffId,
+            roleId: roleStaff.roleId,
+          },
+        },
       }),
     );
   });

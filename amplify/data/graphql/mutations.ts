@@ -65,7 +65,6 @@ export const createAircraftDocument = /* GraphQL */ `mutation CreateAircraftDocu
       __typename
     }
     documentId
-    id
     updatedAt
     __typename
   }
@@ -90,7 +89,6 @@ export const createAircraftNotice = /* GraphQL */ `mutation CreateAircraftNotice
     }
     aircraftId
     createdAt
-    id
     notice {
       archived
       createdAt
@@ -114,6 +112,23 @@ export const createAircraftNotice = /* GraphQL */ `mutation CreateAircraftNotice
   APITypes.CreateAircraftNoticeMutationVariables,
   APITypes.CreateAircraftNoticeMutation
 >;
+export const createAircraftOverride = /* GraphQL */ `mutation CreateAircraftOverride(
+  $archived: Boolean!
+  $description: String!
+  $name: String!
+  $staff: [ID!]
+) {
+  createAircraftOverride(
+    archived: $archived
+    description: $description
+    name: $name
+    staff: $staff
+  )
+}
+` as GeneratedMutation<
+  APITypes.CreateAircraftOverrideMutationVariables,
+  APITypes.CreateAircraftOverrideMutation
+>;
 export const createAircraftStaff = /* GraphQL */ `mutation CreateAircraftStaff(
   $condition: ModelAircraftStaffConditionInput
   $input: CreateAircraftStaffInput!
@@ -130,7 +145,6 @@ export const createAircraftStaff = /* GraphQL */ `mutation CreateAircraftStaff(
     }
     aircraftId
     createdAt
-    id
     staff {
       archived
       createdAt
@@ -213,6 +227,25 @@ export const createDocument = /* GraphQL */ `mutation CreateDocument(
   APITypes.CreateDocumentMutationVariables,
   APITypes.CreateDocumentMutation
 >;
+export const createDocumentOverride = /* GraphQL */ `mutation CreateDocumentOverride(
+  $aircraft: [ID!]
+  $archived: Boolean!
+  $name: String!
+  $staffId: ID!
+  $subcategoryId: ID!
+) {
+  createDocumentOverride(
+    aircraft: $aircraft
+    archived: $archived
+    name: $name
+    staffId: $staffId
+    subcategoryId: $subcategoryId
+  )
+}
+` as GeneratedMutation<
+  APITypes.CreateDocumentOverrideMutationVariables,
+  APITypes.CreateDocumentOverrideMutation
+>;
 export const createNotice = /* GraphQL */ `mutation CreateNotice(
   $condition: ModelNoticeConditionInput
   $input: CreateNoticeInput!
@@ -288,13 +321,43 @@ export const createNoticeDocument = /* GraphQL */ `mutation CreateNoticeDocument
   APITypes.CreateNoticeDocumentMutationVariables,
   APITypes.CreateNoticeDocumentMutation
 >;
+export const createNoticeOverride = /* GraphQL */ `mutation CreateNoticeOverride(
+  $aircraft: [ID!]
+  $archived: Boolean!
+  $deadline_at: AWSDateTime
+  $details: AWSJSON!
+  $documents: [String!]
+  $noticed_at: AWSDateTime
+  $recipients: [ID!]
+  $staffId: ID
+  $status: CreateNoticeOverrideStatus
+  $subject: String!
+  $type: CreateNoticeOverrideType
+) {
+  createNoticeOverride(
+    aircraft: $aircraft
+    archived: $archived
+    deadline_at: $deadline_at
+    details: $details
+    documents: $documents
+    noticed_at: $noticed_at
+    recipients: $recipients
+    staffId: $staffId
+    status: $status
+    subject: $subject
+    type: $type
+  )
+}
+` as GeneratedMutation<
+  APITypes.CreateNoticeOverrideMutationVariables,
+  APITypes.CreateNoticeOverrideMutation
+>;
 export const createNoticeStaff = /* GraphQL */ `mutation CreateNoticeStaff(
   $condition: ModelNoticeStaffConditionInput
   $input: CreateNoticeStaffInput!
 ) {
   createNoticeStaff(condition: $condition, input: $input) {
     createdAt
-    id
     notice {
       archived
       createdAt
@@ -351,13 +414,29 @@ export const createRole = /* GraphQL */ `mutation CreateRole(
   APITypes.CreateRoleMutationVariables,
   APITypes.CreateRoleMutation
 >;
+export const createRoleOverride = /* GraphQL */ `mutation CreateRoleOverride(
+  $archived: Boolean!
+  $description: String!
+  $name: String!
+  $staff: [ID!]
+) {
+  createRoleOverride(
+    archived: $archived
+    description: $description
+    name: $name
+    staff: $staff
+  )
+}
+` as GeneratedMutation<
+  APITypes.CreateRoleOverrideMutationVariables,
+  APITypes.CreateRoleOverrideMutation
+>;
 export const createRoleStaff = /* GraphQL */ `mutation CreateRoleStaff(
   $condition: ModelRoleStaffConditionInput
   $input: CreateRoleStaffInput!
 ) {
   createRoleStaff(condition: $condition, input: $input) {
     createdAt
-    id
     role {
       archived
       createdAt
@@ -428,6 +507,29 @@ export const createStaff = /* GraphQL */ `mutation CreateStaff(
   APITypes.CreateStaffMutationVariables,
   APITypes.CreateStaffMutation
 >;
+export const createStaffOverride = /* GraphQL */ `mutation CreateStaffOverride(
+  $accessLevels: [Int!]
+  $aircraft: [ID!]
+  $archived: Boolean!
+  $email: AWSEmail!
+  $name: String!
+  $roles: [ID!]
+  $subcategories: [ID!]
+) {
+  createStaffOverride(
+    accessLevels: $accessLevels
+    aircraft: $aircraft
+    archived: $archived
+    email: $email
+    name: $name
+    roles: $roles
+    subcategories: $subcategories
+  )
+}
+` as GeneratedMutation<
+  APITypes.CreateStaffOverrideMutationVariables,
+  APITypes.CreateStaffOverrideMutation
+>;
 export const createStaffSubcategory = /* GraphQL */ `mutation CreateStaffSubcategory(
   $condition: ModelStaffSubcategoryConditionInput
   $input: CreateStaffSubcategoryInput!
@@ -435,7 +537,6 @@ export const createStaffSubcategory = /* GraphQL */ `mutation CreateStaffSubcate
   createStaffSubcategory(condition: $condition, input: $input) {
     accessLevel
     createdAt
-    id
     staff {
       archived
       createdAt
@@ -500,6 +601,27 @@ export const createSubcategory = /* GraphQL */ `mutation CreateSubcategory(
 ` as GeneratedMutation<
   APITypes.CreateSubcategoryMutationVariables,
   APITypes.CreateSubcategoryMutation
+>;
+export const createSubcategoryOverride = /* GraphQL */ `mutation CreateSubcategoryOverride(
+  $accessLevels: [Int!]
+  $archived: Boolean!
+  $categoryId: ID!
+  $description: String!
+  $name: String!
+  $staff: [ID!]
+) {
+  createSubcategoryOverride(
+    accessLevels: $accessLevels
+    archived: $archived
+    categoryId: $categoryId
+    description: $description
+    name: $name
+    staff: $staff
+  )
+}
+` as GeneratedMutation<
+  APITypes.CreateSubcategoryOverrideMutationVariables,
+  APITypes.CreateSubcategoryOverrideMutation
 >;
 export const createUser = /* GraphQL */ `mutation CreateUser(
   $email: AWSEmail!
@@ -569,7 +691,6 @@ export const deleteAircraftDocument = /* GraphQL */ `mutation DeleteAircraftDocu
       __typename
     }
     documentId
-    id
     updatedAt
     __typename
   }
@@ -594,7 +715,6 @@ export const deleteAircraftNotice = /* GraphQL */ `mutation DeleteAircraftNotice
     }
     aircraftId
     createdAt
-    id
     notice {
       archived
       createdAt
@@ -641,7 +761,6 @@ export const deleteAircraftStaff = /* GraphQL */ `mutation DeleteAircraftStaff(
     }
     aircraftId
     createdAt
-    id
     staff {
       archived
       createdAt
@@ -839,7 +958,6 @@ export const deleteNoticeStaff = /* GraphQL */ `mutation DeleteNoticeStaff(
 ) {
   deleteNoticeStaff(condition: $condition, input: $input) {
     createdAt
-    id
     notice {
       archived
       createdAt
@@ -909,7 +1027,6 @@ export const deleteRoleStaff = /* GraphQL */ `mutation DeleteRoleStaff(
 ) {
   deleteRoleStaff(condition: $condition, input: $input) {
     createdAt
-    id
     role {
       archived
       createdAt
@@ -994,7 +1111,6 @@ export const deleteStaffSubcategory = /* GraphQL */ `mutation DeleteStaffSubcate
   deleteStaffSubcategory(condition: $condition, input: $input) {
     accessLevel
     createdAt
-    id
     staff {
       archived
       createdAt
@@ -1145,7 +1261,6 @@ export const updateAircraftDocument = /* GraphQL */ `mutation UpdateAircraftDocu
       __typename
     }
     documentId
-    id
     updatedAt
     __typename
   }
@@ -1170,7 +1285,6 @@ export const updateAircraftNotice = /* GraphQL */ `mutation UpdateAircraftNotice
     }
     aircraftId
     createdAt
-    id
     notice {
       archived
       createdAt
@@ -1210,7 +1324,6 @@ export const updateAircraftStaff = /* GraphQL */ `mutation UpdateAircraftStaff(
     }
     aircraftId
     createdAt
-    id
     staff {
       archived
       createdAt
@@ -1374,7 +1487,6 @@ export const updateNoticeStaff = /* GraphQL */ `mutation UpdateNoticeStaff(
 ) {
   updateNoticeStaff(condition: $condition, input: $input) {
     createdAt
-    id
     notice {
       archived
       createdAt
@@ -1437,7 +1549,6 @@ export const updateRoleStaff = /* GraphQL */ `mutation UpdateRoleStaff(
 ) {
   updateRoleStaff(condition: $condition, input: $input) {
     createdAt
-    id
     role {
       archived
       createdAt
@@ -1465,6 +1576,13 @@ export const updateRoleStaff = /* GraphQL */ `mutation UpdateRoleStaff(
 ` as GeneratedMutation<
   APITypes.UpdateRoleStaffMutationVariables,
   APITypes.UpdateRoleStaffMutation
+>;
+export const updateRoleStaffOverride = /* GraphQL */ `mutation UpdateRoleStaffOverride($id: ID!, $staff: [ID!]!) {
+  updateRoleStaffOverride(id: $id, staff: $staff)
+}
+` as GeneratedMutation<
+  APITypes.UpdateRoleStaffOverrideMutationVariables,
+  APITypes.UpdateRoleStaffOverrideMutation
 >;
 export const updateStaff = /* GraphQL */ `mutation UpdateStaff(
   $condition: ModelStaffConditionInput
@@ -1515,7 +1633,6 @@ export const updateStaffSubcategory = /* GraphQL */ `mutation UpdateStaffSubcate
   updateStaffSubcategory(condition: $condition, input: $input) {
     accessLevel
     createdAt
-    id
     staff {
       archived
       createdAt
@@ -1544,6 +1661,25 @@ export const updateStaffSubcategory = /* GraphQL */ `mutation UpdateStaffSubcate
 ` as GeneratedMutation<
   APITypes.UpdateStaffSubcategoryMutationVariables,
   APITypes.UpdateStaffSubcategoryMutation
+>;
+export const updateStaffSubcategoryOverride = /* GraphQL */ `mutation UpdateStaffSubcategoryOverride(
+  $accessLevels: [Int!]!
+  $staff: [ID!]
+  $staffId: ID
+  $subcategories: [ID!]
+  $subcategoryId: ID
+) {
+  updateStaffSubcategoryOverride(
+    accessLevels: $accessLevels
+    staff: $staff
+    staffId: $staffId
+    subcategories: $subcategories
+    subcategoryId: $subcategoryId
+  )
+}
+` as GeneratedMutation<
+  APITypes.UpdateStaffSubcategoryOverrideMutationVariables,
+  APITypes.UpdateStaffSubcategoryOverrideMutation
 >;
 export const updateSubcategory = /* GraphQL */ `mutation UpdateSubcategory(
   $condition: ModelSubcategoryConditionInput

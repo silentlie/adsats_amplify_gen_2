@@ -53,11 +53,18 @@ export const handler: Handler = async (event) => {
   });
   aircraftDocumentsResult.data.listAircraftDocuments.items.forEach(
     (aircraftDocument) => {
-      console.log(`Deleting AircraftDocument with id: ${aircraftDocument.id}`);
+      console.log(
+        `Deleting AircraftDocument with aircraftId: ${aircraftDocument.aircraftId}, documentId: ${aircraftDocument.documentId}`,
+      );
       promises.push(
         client.graphql({
           query: deleteAircraftDocument,
-          variables: { input: { id: aircraftDocument.id } },
+          variables: {
+            input: {
+              aircraftId: aircraftDocument.aircraftId,
+              documentId: aircraftDocument.documentId,
+            },
+          },
         }),
       );
     },

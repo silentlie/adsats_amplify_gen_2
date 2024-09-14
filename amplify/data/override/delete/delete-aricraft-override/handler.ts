@@ -65,33 +65,54 @@ export const handler: Handler = async (event) => {
     ]);
   aircraftNoticesResult.data.listAircraftNotices.items.forEach(
     (aircraftNotice) => {
-      console.log(`Deleting AircraftNotice with id: ${aircraftNotice.id}`);
+      console.log(
+        `Deleting AircraftNotice with aircraftId: ${aircraftNotice.aircraftId}, noticeId: ${aircraftNotice.noticeId}`,
+      );
       promises.push(
         client.graphql({
           query: deleteAircraftNotice,
-          variables: { input: { id: aircraftNotice.id } },
+          variables: {
+            input: {
+              aircraftId: aircraftNotice.aircraftId,
+              noticeId: aircraftNotice.noticeId,
+            },
+          },
         }),
       );
     },
   );
   aircraftDocumentsResult.data.listAircraftDocuments.items.forEach(
     (aircraftDocument) => {
-      console.log(`Deleting AircraftDocument with id: ${aircraftDocument.id}`);
+      console.log(
+        `Deleting AircraftDocument with aircraftId: ${aircraftDocument.aircraftId}, documentId: ${aircraftDocument.documentId}`,
+      );
       promises.push(
         client.graphql({
           query: deleteAircraftDocument,
-          variables: { input: { id: aircraftDocument.id } },
+          variables: {
+            input: {
+              aircraftId: aircraftDocument.aircraftId,
+              documentId: aircraftDocument.documentId,
+            },
+          },
         }),
       );
     },
   );
   aircraftStaffsResult.data.listAircraftStaffs.items.forEach(
     (aircraftStaff) => {
-      console.log(`Deleting AircraftStaff with id: ${aircraftStaff.id}`);
+      console.log(
+        `Deleting AircraftStaff with aircraftId: ${aircraftStaff.aircraftId}, staffId: ${aircraftStaff.staffId}`,
+      );
       promises.push(
         client.graphql({
           query: deleteAircraftStaff,
-          variables: { input: { id: aircraftStaff.id } },
+          variables: {
+            input: {
+              aircraftId: aircraftStaff.aircraftId,
+              staffId: aircraftStaff.staffId,
+            },
+          },
         }),
       );
     },

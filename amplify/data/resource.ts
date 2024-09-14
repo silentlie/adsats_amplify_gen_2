@@ -17,9 +17,31 @@ import { createRoleOverride } from "./override/create/create-role-override/resou
 import { createSubcategoryOverride } from "./override/create/create-subcategory-override/resource";
 import { createDocumentOverride } from "./override/create/create-document-override/resource";
 import { createNoticeOverride } from "./override/create/create-notice-override/resource";
+import { updateRoleStaffOverride } from "./override/update/update-role-staff-override/resource";
+import { updateStaffSubcategoryOverride } from "./override/update/update-staff-subcategory-override/resource";
 
 const schema = a
   .schema({
+    updateStaffSubcategoryOverride: a
+      .mutation()
+      .arguments({
+        compareKey: a.enum(["STAFF", "SUBCATEGORY"]),
+        id: a.id().required(),
+        ids: a.id().required().array().required(),
+        accessLevels: a.integer().required().array().required(),
+      })
+      .handler(a.handler.function(updateStaffSubcategoryOverride))
+      .returns(a.json()),
+
+    updateRoleStaffOverride: a
+      .mutation()
+      .arguments({
+        compareKey: a.enum(["STAFF", "ROLE"]),
+        id: a.id().required(),
+        ids: a.id().required().array().required(),
+      })
+      .handler(a.handler.function(updateRoleStaffOverride))
+      .returns(a.json()),
     createNoticeOverride: a
       .mutation()
       .arguments({
@@ -30,7 +52,7 @@ const schema = a
         details: a.json().required(),
         noticed_at: a.datetime(),
         deadline_at: a.datetime(),
-        staffId: a.id(),
+        staffId: a.id().required(),
         recipients: a.id().required().array(),
         aircraft: a.id().required().array(),
         documents: a.string().required().array(),
@@ -223,19 +245,23 @@ const schema = a
       description: a.string(),
       staff: a.hasMany("RoleStaff", "roleId"),
     }),
-    RoleStaff: a.model({
-      roleId: a.id().required(),
-      staffId: a.id().required(),
-      role: a.belongsTo("Role", "roleId"),
-      staff: a.belongsTo("Staff", "staffId"),
-    }),
-    StaffSubcategory: a.model({
-      accessLevel: a.integer().required(),
-      subcategoryId: a.id().required(),
-      staffId: a.id().required(),
-      subcategory: a.belongsTo("Subcategory", "subcategoryId"),
-      staff: a.belongsTo("Staff", "staffId"),
-    }),
+    RoleStaff: a
+      .model({
+        roleId: a.id().required(),
+        staffId: a.id().required(),
+        role: a.belongsTo("Role", "roleId"),
+        staff: a.belongsTo("Staff", "staffId"),
+      })
+      .identifier(["roleId", "staffId"]),
+    StaffSubcategory: a
+      .model({
+        accessLevel: a.integer().required(),
+        subcategoryId: a.id().required(),
+        staffId: a.id().required(),
+        subcategory: a.belongsTo("Subcategory", "subcategoryId"),
+        staff: a.belongsTo("Staff", "staffId"),
+      })
+      .identifier(["staffId", "subcategoryId"]),
     Aircraft: a.model({
       name: a.string().required(),
       archived: a.boolean().required().default(false),
@@ -244,24 +270,30 @@ const schema = a
       document: a.hasMany("AircraftDocument", "aircraftId"),
       notices: a.hasMany("AircraftNotice", "aircraftId"),
     }),
-    AircraftStaff: a.model({
-      aircraftId: a.id().required(),
-      staffId: a.id().required(),
-      aircraft: a.belongsTo("Aircraft", "aircraftId"),
-      staff: a.belongsTo("Staff", "staffId"),
-    }),
-    AircraftDocument: a.model({
-      aircraftId: a.id().required(),
-      documentId: a.id().required(),
-      aircraft: a.belongsTo("Aircraft", "aircraftId"),
-      document: a.belongsTo("Document", "documentId"),
-    }),
-    AircraftNotice: a.model({
-      aircraftId: a.id().required(),
-      noticeId: a.id().required(),
-      aircraft: a.belongsTo("Aircraft", "aircraftId"),
-      notice: a.belongsTo("Notice", "noticeId"),
-    }),
+    AircraftStaff: a
+      .model({
+        aircraftId: a.id().required(),
+        staffId: a.id().required(),
+        aircraft: a.belongsTo("Aircraft", "aircraftId"),
+        staff: a.belongsTo("Staff", "staffId"),
+      })
+      .identifier(["aircraftId", "staffId"]),
+    AircraftDocument: a
+      .model({
+        aircraftId: a.id().required(),
+        documentId: a.id().required(),
+        aircraft: a.belongsTo("Aircraft", "aircraftId"),
+        document: a.belongsTo("Document", "documentId"),
+      })
+      .identifier(["aircraftId", "documentId"]),
+    AircraftNotice: a
+      .model({
+        aircraftId: a.id().required(),
+        noticeId: a.id().required(),
+        aircraft: a.belongsTo("Aircraft", "aircraftId"),
+        notice: a.belongsTo("Notice", "noticeId"),
+      })
+      .identifier(["aircraftId", "noticeId"]),
     Notice: a.model({
       subject: a.string().required(),
       type: a.enum(["Notice_to_Crew", "Safety_notice", "Hazard_report"]),
@@ -276,13 +308,15 @@ const schema = a
       aircraft: a.hasMany("AircraftNotice", "noticeId"),
       documents: a.hasMany("NoticeDocument", "noticeId"),
     }),
-    NoticeStaff: a.model({
-      read_at: a.datetime(),
-      noticeId: a.id().required(),
-      staffId: a.id().required(),
-      notice: a.belongsTo("Notice", "noticeId"),
-      staff: a.belongsTo("Staff", "staffId"),
-    }),
+    NoticeStaff: a
+      .model({
+        read_at: a.datetime(),
+        noticeId: a.id().required(),
+        staffId: a.id().required(),
+        notice: a.belongsTo("Notice", "noticeId"),
+        staff: a.belongsTo("Staff", "staffId"),
+      })
+      .identifier(["noticeId", "staffId"]),
     NoticeDocument: a.model({
       noticeId: a.id().required(),
       notices: a.belongsTo("Notice", "noticeId"),
@@ -305,6 +339,8 @@ const schema = a
     allow.resource(createSubcategoryOverride),
     allow.resource(createDocumentOverride),
     allow.resource(createNoticeOverride),
+    allow.resource(updateRoleStaffOverride),
+    allow.resource(updateStaffSubcategoryOverride),
   ]);
 
 export type Schema = ClientSchema<typeof schema>;

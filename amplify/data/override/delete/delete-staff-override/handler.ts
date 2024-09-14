@@ -76,40 +76,68 @@ export const handler: Handler = async (event) => {
   ]);
   staffSubcategoriesResult.data.listStaffSubcategories.items.forEach(
     (staffSubcategory) => {
-      console.log(`Deleting StaffSubcategory with id: ${staffSubcategory.id}`);
+      console.log(
+        `Deleting StaffSubcategory with staffId: ${staffSubcategory.staffId}, subcategoryId: ${staffSubcategory.subcategoryId}`,
+      );
       promises.push(
         client.graphql({
           query: deleteStaffSubcategory,
-          variables: { input: { id: staffSubcategory.id } },
+          variables: {
+            input: {
+              staffId: staffSubcategory.staffId,
+              subcategoryId: staffSubcategory.subcategoryId,
+            },
+          },
         }),
       );
     },
   );
   roleStaffsResult.data.listRoleStaffs.items.forEach((roleStaff) => {
-    console.log(`Deleting RoleStaff with id: ${roleStaff.id}`);
+    console.log(
+      `Deleting RoleStaff with staffId: ${roleStaff.staffId}, roleId: ${roleStaff.roleId}`,
+    );
     promises.push(
       client.graphql({
         query: deleteRoleStaff,
-        variables: { input: { id: roleStaff.id } },
+        variables: {
+          input: {
+            staffId: roleStaff.staffId,
+            roleId: roleStaff.roleId,
+          },
+        },
       }),
     );
   });
   noticeStaffsResult.data.listNoticeStaffs.items.forEach((noticeStaff) => {
-    console.log(`Deleting NoticeStaff with id: ${noticeStaff.id}`);
+    console.log(
+      `Deleting NoticeStaff with staffId: ${noticeStaff.staffId}, noticeId: ${noticeStaff.noticeId}`,
+    );
     promises.push(
       client.graphql({
         query: deleteNoticeStaff,
-        variables: { input: { id: noticeStaff.id } },
+        variables: {
+          input: {
+            staffId: noticeStaff.staffId,
+            noticeId: noticeStaff.noticeId,
+          },
+        },
       }),
     );
   });
   aircraftStaffsResult.data.listAircraftStaffs.items.forEach(
     (aircraftStaff) => {
-      console.log(`Deleting AircraftStaff with id: ${aircraftStaff.id}`);
+      console.log(
+        `Deleting AircraftStaff with aircraftId: ${aircraftStaff.aircraftId}, staffId: ${aircraftStaff.staffId}`,
+      );
       promises.push(
         client.graphql({
           query: deleteAircraftStaff,
-          variables: { input: { id: aircraftStaff.id } },
+          variables: {
+            input: {
+              aircraftId: aircraftStaff.aircraftId,
+              staffId: aircraftStaff.staffId,
+            },
+          },
         }),
       );
     },

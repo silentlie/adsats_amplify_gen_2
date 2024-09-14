@@ -61,7 +61,6 @@ export const onCreateAircraftDocument = /* GraphQL */ `subscription OnCreateAirc
       __typename
     }
     documentId
-    id
     updatedAt
     __typename
   }
@@ -85,7 +84,6 @@ export const onCreateAircraftNotice = /* GraphQL */ `subscription OnCreateAircra
     }
     aircraftId
     createdAt
-    id
     notice {
       archived
       createdAt
@@ -124,7 +122,6 @@ export const onCreateAircraftStaff = /* GraphQL */ `subscription OnCreateAircraf
     }
     aircraftId
     createdAt
-    id
     staff {
       archived
       createdAt
@@ -277,7 +274,6 @@ export const onCreateNoticeStaff = /* GraphQL */ `subscription OnCreateNoticeSta
 ) {
   onCreateNoticeStaff(filter: $filter) {
     createdAt
-    id
     notice {
       archived
       createdAt
@@ -334,7 +330,6 @@ export const onCreateRole = /* GraphQL */ `subscription OnCreateRole($filter: Mo
 export const onCreateRoleStaff = /* GraphQL */ `subscription OnCreateRoleStaff($filter: ModelSubscriptionRoleStaffFilterInput) {
   onCreateRoleStaff(filter: $filter) {
     createdAt
-    id
     role {
       archived
       createdAt
@@ -408,7 +403,6 @@ export const onCreateStaffSubcategory = /* GraphQL */ `subscription OnCreateStaf
   onCreateStaffSubcategory(filter: $filter) {
     accessLevel
     createdAt
-    id
     staff {
       archived
       createdAt
@@ -526,7 +520,6 @@ export const onDeleteAircraftDocument = /* GraphQL */ `subscription OnDeleteAirc
       __typename
     }
     documentId
-    id
     updatedAt
     __typename
   }
@@ -550,7 +543,6 @@ export const onDeleteAircraftNotice = /* GraphQL */ `subscription OnDeleteAircra
     }
     aircraftId
     createdAt
-    id
     notice {
       archived
       createdAt
@@ -589,7 +581,6 @@ export const onDeleteAircraftStaff = /* GraphQL */ `subscription OnDeleteAircraf
     }
     aircraftId
     createdAt
-    id
     staff {
       archived
       createdAt
@@ -742,7 +733,6 @@ export const onDeleteNoticeStaff = /* GraphQL */ `subscription OnDeleteNoticeSta
 ) {
   onDeleteNoticeStaff(filter: $filter) {
     createdAt
-    id
     notice {
       archived
       createdAt
@@ -799,7 +789,6 @@ export const onDeleteRole = /* GraphQL */ `subscription OnDeleteRole($filter: Mo
 export const onDeleteRoleStaff = /* GraphQL */ `subscription OnDeleteRoleStaff($filter: ModelSubscriptionRoleStaffFilterInput) {
   onDeleteRoleStaff(filter: $filter) {
     createdAt
-    id
     role {
       archived
       createdAt
@@ -873,7 +862,6 @@ export const onDeleteStaffSubcategory = /* GraphQL */ `subscription OnDeleteStaf
   onDeleteStaffSubcategory(filter: $filter) {
     accessLevel
     createdAt
-    id
     staff {
       archived
       createdAt
@@ -991,7 +979,6 @@ export const onUpdateAircraftDocument = /* GraphQL */ `subscription OnUpdateAirc
       __typename
     }
     documentId
-    id
     updatedAt
     __typename
   }
@@ -1015,7 +1002,6 @@ export const onUpdateAircraftNotice = /* GraphQL */ `subscription OnUpdateAircra
     }
     aircraftId
     createdAt
-    id
     notice {
       archived
       createdAt
@@ -1054,7 +1040,6 @@ export const onUpdateAircraftStaff = /* GraphQL */ `subscription OnUpdateAircraf
     }
     aircraftId
     createdAt
-    id
     staff {
       archived
       createdAt
@@ -1207,7 +1192,6 @@ export const onUpdateNoticeStaff = /* GraphQL */ `subscription OnUpdateNoticeSta
 ) {
   onUpdateNoticeStaff(filter: $filter) {
     createdAt
-    id
     notice {
       archived
       createdAt
@@ -1264,7 +1248,6 @@ export const onUpdateRole = /* GraphQL */ `subscription OnUpdateRole($filter: Mo
 export const onUpdateRoleStaff = /* GraphQL */ `subscription OnUpdateRoleStaff($filter: ModelSubscriptionRoleStaffFilterInput) {
   onUpdateRoleStaff(filter: $filter) {
     createdAt
-    id
     role {
       archived
       createdAt
@@ -1338,7 +1321,6 @@ export const onUpdateStaffSubcategory = /* GraphQL */ `subscription OnUpdateStaf
   onUpdateStaffSubcategory(filter: $filter) {
     accessLevel
     createdAt
-    id
     staff {
       archived
       createdAt

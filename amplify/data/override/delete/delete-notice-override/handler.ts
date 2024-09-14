@@ -80,21 +80,35 @@ export const handler: Handler = async (event) => {
     },
   );
   noticeStaffsResult.data.listNoticeStaffs.items.forEach((noticeStaff) => {
-    console.log(`Deleting noticeStaff with id: ${noticeStaff.id}`);
+    console.log(
+      `Deleting NoticeStaff with staffId: ${noticeStaff.staffId}, noticeId: ${noticeStaff.noticeId}`,
+    );
     promises.push(
       client.graphql({
         query: deleteNoticeStaff,
-        variables: { input: { id: noticeStaff.id } },
+        variables: {
+          input: {
+            staffId: noticeStaff.staffId,
+            noticeId: noticeStaff.noticeId,
+          },
+        },
       }),
     );
   });
   aircraftNoticesResult.data.listAircraftNotices.items.forEach(
     (aircraftNotice) => {
-      console.log(`Deleting aircraftNotice with id: ${aircraftNotice.id}`);
+      console.log(
+        `Deleting AircraftNotice with aircraftId: ${aircraftNotice.aircraftId}, noticeId: ${aircraftNotice.noticeId}`,
+      );
       promises.push(
         client.graphql({
           query: deleteAircraftNotice,
-          variables: { input: { id: aircraftNotice.id } },
+          variables: {
+            input: {
+              aircraftId: aircraftNotice.aircraftId,
+              noticeId: aircraftNotice.noticeId,
+            },
+          },
         }),
       );
     },
