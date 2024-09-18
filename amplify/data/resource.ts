@@ -19,9 +19,40 @@ import { createDocumentOverride } from "./override/create/create-document-overri
 import { createNoticeOverride } from "./override/create/create-notice-override/resource";
 import { updateRoleStaffOverride } from "./override/update/update-role-staff-override/resource";
 import { updateStaffSubcategoryOverride } from "./override/update/update-staff-subcategory-override/resource";
+import { updateAircraftStaffOverride } from "./override/update/update-aircraft-staff-override/resource";
+import { updateAircraftNoticeOverride } from "./override/update/update-aircraft-notice-override/resource";
+import { updateNoticeStaffOverride } from "./override/update/update-notice-staff-override/resource";
 
 const schema = a
   .schema({
+    updateNoticeStaffOverride: a
+      .mutation()
+      .arguments({
+        noticeId: a.id().required(),
+        staffIds: a.id().required().array(),
+        aircraftIds: a.id().required().array(),
+        roleIds: a.id().required().array(),
+      })
+      .handler(a.handler.function(updateNoticeStaffOverride))
+      .returns(a.json()),
+    updateAircraftNoticeOverride: a
+      .mutation()
+      .arguments({
+        compareKey: a.enum(["NOTICE", "AIRCRAFT"]),
+        id: a.id().required(),
+        ids: a.id().required().array().required(),
+      })
+      .handler(a.handler.function(updateAircraftNoticeOverride))
+      .returns(a.json()),
+    updateAircraftStaffOverride: a
+      .mutation()
+      .arguments({
+        compareKey: a.enum(["STAFF", "AIRCRAFT"]),
+        id: a.id().required(),
+        ids: a.id().required().array().required(),
+      })
+      .handler(a.handler.function(updateAircraftStaffOverride))
+      .returns(a.json()),
     updateStaffSubcategoryOverride: a
       .mutation()
       .arguments({
@@ -32,7 +63,6 @@ const schema = a
       })
       .handler(a.handler.function(updateStaffSubcategoryOverride))
       .returns(a.json()),
-
     updateRoleStaffOverride: a
       .mutation()
       .arguments({
@@ -341,6 +371,9 @@ const schema = a
     allow.resource(createNoticeOverride),
     allow.resource(updateRoleStaffOverride),
     allow.resource(updateStaffSubcategoryOverride),
+    allow.resource(updateAircraftStaffOverride),
+    allow.resource(updateAircraftNoticeOverride),
+    allow.resource(updateNoticeStaffOverride),
   ]);
 
 export type Schema = ClientSchema<typeof schema>;
