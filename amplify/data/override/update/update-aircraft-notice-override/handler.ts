@@ -37,64 +37,64 @@ type Handler = Schema["updateAircraftNoticeOverride"]["functionHandler"];
 const client = generateClient<Schema>();
 
 export const handler: Handler = async (event) => {
-  const { compareKey, id, ids } = event.arguments;
-  const promises: Promise<any>[] = [];
-  const filter =
-    compareKey === "NOTICE"
-      ? { aircraftId: { eq: id } }
-      : { noticeId: { eq: id } };
-  const aircraftNoticesResult = await client.graphql({
-    query: listAircraftNotices,
-    variables: {
-      filter: filter,
-    },
-  });
-  const oldRecords = aircraftNoticesResult.data.listAircraftNotices.items;
-  const oldIds = new Set(
-    oldRecords.map((oldRecord) =>
-      compareKey === "NOTICE" ? oldRecord.noticeId : oldRecord.aircraftId,
-    ),
-  );
-  const newIds = new Set(ids);
+  // const { compareKey, id, ids } = event.arguments;
+  // const promises: Promise<any>[] = [];
+  // const filter =
+  //   compareKey === "NOTICE"
+  //     ? { aircraftId: { eq: id } }
+  //     : { noticeId: { eq: id } };
+  // const aircraftNoticesResult = await client.graphql({
+  //   query: listAircraftNotices,
+  //   variables: {
+  //     filter: filter,
+  //   },
+  // });
+  // const oldRecords = aircraftNoticesResult.data.listAircraftNotices.items;
+  // const oldIds = new Set(
+  //   oldRecords.map((oldRecord) =>
+  //     compareKey === "NOTICE" ? oldRecord.noticeId : oldRecord.aircraftId,
+  //   ),
+  // );
+  // const newIds = new Set(ids);
 
-  newIds.forEach((compareId) => {
-    if (!oldIds.has(compareId)) {
-      console.log(
-        `Creating new record with id: ${id} and compareId: ${compareId}`,
-      );
-      promises.push(
-        client.graphql({
-          query: createAircraftNotice,
-          variables: {
-            input:
-              compareKey === "NOTICE"
-                ? { noticeId: compareId, aircraftId: id }
-                : { aircraftId: compareId, noticeId: id },
-          },
-        }),
-      );
-    }
-  });
-  oldRecords.forEach((oldRecord) => {
-    const compareId =
-      compareKey === "NOTICE" ? oldRecord.noticeId : oldRecord.aircraftId;
-    if (!newIds.has(compareId)) {
-      console.log(
-        `Deleting old record with noticeId: ${oldRecord.noticeId} and aircraftId: ${oldRecord.aircraftId}`,
-      );
-      promises.push(
-        client.graphql({
-          query: deleteAircraftNotice,
-          variables: {
-            input: {
-              noticeId: oldRecord.noticeId,
-              aircraftId: oldRecord.aircraftId,
-            },
-          },
-        }),
-      );
-    }
-  });
-  const result = await Promise.all(promises);
-  return result;
+  // newIds.forEach((compareId) => {
+  //   if (!oldIds.has(compareId)) {
+  //     console.log(
+  //       `Creating new record with id: ${id} and compareId: ${compareId}`,
+  //     );
+  //     promises.push(
+  //       client.graphql({
+  //         query: createAircraftNotice,
+  //         variables: {
+  //           input:
+  //             compareKey === "NOTICE"
+  //               ? { noticeId: compareId, aircraftId: id }
+  //               : { aircraftId: compareId, noticeId: id },
+  //         },
+  //       }),
+  //     );
+  //   }
+  // });
+  // oldRecords.forEach((oldRecord) => {
+  //   const compareId =
+  //     compareKey === "NOTICE" ? oldRecord.noticeId : oldRecord.aircraftId;
+  //   if (!newIds.has(compareId)) {
+  //     console.log(
+  //       `Deleting old record with noticeId: ${oldRecord.noticeId} and aircraftId: ${oldRecord.aircraftId}`,
+  //     );
+  //     promises.push(
+  //       client.graphql({
+  //         query: deleteAircraftNotice,
+  //         variables: {
+  //           input: {
+  //             noticeId: oldRecord.noticeId,
+  //             aircraftId: oldRecord.aircraftId,
+  //           },
+  //         },
+  //       }),
+  //     );
+  //   }
+  // });
+  // const result = await Promise.all(promises);
+  return {};
 };

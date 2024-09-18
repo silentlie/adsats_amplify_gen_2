@@ -142,7 +142,7 @@ class AircraftDataSource extends DataTableSource {
       }
       isInitialize = true;
       notifyListeners();
-      debugPrint("did call fetchRawData");
+      // debugPrint("did call fetchRawData");
     } on Exception catch (e) {
       debugPrint(
         'Error Exception while retrieving aircraft: $e',
@@ -331,7 +331,7 @@ class AircraftDataSource extends DataTableSource {
                 await Future.wait([
                   deleteAircraftStaff(aircraft.staff ?? []),
                   createAircraftStaff(staff),
-                  update(newAircraft),
+                  if (aircraft != newAircraft) update(newAircraft),
                 ]);
               } else {
                 await create(newAircraft);

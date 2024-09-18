@@ -40,6 +40,8 @@ export 'AircraftDocument.dart';
 export 'AircraftNotice.dart';
 export 'AircraftStaff.dart';
 export 'Category.dart';
+export 'CreateNoticeOverrideStatus.dart';
+export 'CreateNoticeOverrideType.dart';
 export 'Document.dart';
 export 'Notice.dart';
 export 'NoticeDocument.dart';
@@ -51,6 +53,10 @@ export 'RoleStaff.dart';
 export 'Staff.dart';
 export 'StaffSubcategory.dart';
 export 'Subcategory.dart';
+export 'UpdateAircraftNoticeOverrideCompareKey.dart';
+export 'UpdateAircraftStaffOverrideCompareKey.dart';
+export 'UpdateRoleStaffOverrideCompareKey.dart';
+export 'UpdateStaffSubcategoryOverrideCompareKey.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override

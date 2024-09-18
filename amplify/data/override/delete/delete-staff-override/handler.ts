@@ -84,8 +84,9 @@ export const handler: Handler = async (event) => {
           query: deleteStaffSubcategory,
           variables: {
             input: {
-              staffId: staffSubcategory.staffId,
-              subcategoryId: staffSubcategory.subcategoryId,
+              // staffId: staffSubcategory.staffId,
+              // subcategoryId: staffSubcategory.subcategoryId,
+              id: staffSubcategory.id,
             },
           },
         }),
@@ -101,8 +102,9 @@ export const handler: Handler = async (event) => {
         query: deleteRoleStaff,
         variables: {
           input: {
-            staffId: roleStaff.staffId,
-            roleId: roleStaff.roleId,
+            // staffId: roleStaff.staffId,
+            // roleId: roleStaff.roleId,
+            id: roleStaff.id,
           },
         },
       }),
@@ -117,8 +119,9 @@ export const handler: Handler = async (event) => {
         query: deleteNoticeStaff,
         variables: {
           input: {
-            staffId: noticeStaff.staffId,
-            noticeId: noticeStaff.noticeId,
+            // staffId: noticeStaff.staffId,
+            // noticeId: noticeStaff.noticeId,
+            id: noticeStaff.id,
           },
         },
       }),
@@ -134,8 +137,9 @@ export const handler: Handler = async (event) => {
           query: deleteAircraftStaff,
           variables: {
             input: {
-              aircraftId: aircraftStaff.aircraftId,
-              staffId: aircraftStaff.staffId,
+              // aircraftId: aircraftStaff.aircraftId,
+              // staffId: aircraftStaff.staffId,
+              id: aircraftStaff.id,
             },
           },
         }),

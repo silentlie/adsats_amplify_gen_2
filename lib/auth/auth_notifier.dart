@@ -53,7 +53,7 @@ class AuthNotifier with ChangeNotifier {
     final response = await Amplify.API
         .query(
           request: GraphQLRequest(
-            document: getStaff,
+            document: getStaffDetails,
             variables: {
               "id": id,
             },
@@ -69,10 +69,10 @@ class AuthNotifier with ChangeNotifier {
 
   void _validateRoles() {
     isAdmin = user.roles!.any((role) {
-      return role.role!.id == "b297e54e-720e-4164-8df9-29c2af3035af";
+      return role.role!.name == "Admin";
     });
     isEditor = user.roles!.any((role) {
-      return role.role!.id == "0fcda9a3-0676-4092-85a3-cea0a780b63a";
+      return role.role!.id == "Editor";
     });
   }
 

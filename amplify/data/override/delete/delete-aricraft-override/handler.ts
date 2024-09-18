@@ -73,8 +73,9 @@ export const handler: Handler = async (event) => {
           query: deleteAircraftNotice,
           variables: {
             input: {
-              aircraftId: aircraftNotice.aircraftId,
-              noticeId: aircraftNotice.noticeId,
+              // aircraftId: aircraftNotice.aircraftId,
+              // noticeId: aircraftNotice.noticeId,
+              id: aircraftNotice.id,
             },
           },
         }),
@@ -91,8 +92,9 @@ export const handler: Handler = async (event) => {
           query: deleteAircraftDocument,
           variables: {
             input: {
-              aircraftId: aircraftDocument.aircraftId,
-              documentId: aircraftDocument.documentId,
+              // aircraftId: aircraftDocument.aircraftId,
+              // documentId: aircraftDocument.documentId,
+              id: aircraftDocument.id,
             },
           },
         }),
@@ -109,8 +111,9 @@ export const handler: Handler = async (event) => {
           query: deleteAircraftStaff,
           variables: {
             input: {
-              aircraftId: aircraftStaff.aircraftId,
-              staffId: aircraftStaff.staffId,
+              // aircraftId: aircraftStaff.aircraftId,
+              // staffId: aircraftStaff.staffId,
+              id: aircraftStaff.id
             },
           },
         }),

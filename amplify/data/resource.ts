@@ -275,21 +275,19 @@ const schema = a
       description: a.string(),
       staff: a.hasMany("RoleStaff", "roleId"),
     }),
-    RoleStaff: a
-      .model({
-        roleId: a.id().required(),
-        staffId: a.id().required(),
-        role: a.belongsTo("Role", "roleId"),
-        staff: a.belongsTo("Staff", "staffId"),
-      }),
-    StaffSubcategory: a
-      .model({
-        accessLevel: a.integer().required(),
-        subcategoryId: a.id().required(),
-        staffId: a.id().required(),
-        subcategory: a.belongsTo("Subcategory", "subcategoryId"),
-        staff: a.belongsTo("Staff", "staffId"),
-      }),
+    RoleStaff: a.model({
+      roleId: a.id().required(),
+      staffId: a.id().required(),
+      role: a.belongsTo("Role", "roleId"),
+      staff: a.belongsTo("Staff", "staffId"),
+    }),
+    StaffSubcategory: a.model({
+      accessLevel: a.integer().required(),
+      subcategoryId: a.id().required(),
+      staffId: a.id().required(),
+      subcategory: a.belongsTo("Subcategory", "subcategoryId"),
+      staff: a.belongsTo("Staff", "staffId"),
+    }),
     Aircraft: a.model({
       name: a.string().required(),
       archived: a.boolean().required().default(false),
@@ -298,27 +296,24 @@ const schema = a
       document: a.hasMany("AircraftDocument", "aircraftId"),
       notices: a.hasMany("AircraftNotice", "aircraftId"),
     }),
-    AircraftStaff: a
-      .model({
-        aircraftId: a.id().required(),
-        staffId: a.id().required(),
-        aircraft: a.belongsTo("Aircraft", "aircraftId"),
-        staff: a.belongsTo("Staff", "staffId"),
-      }),
-    AircraftDocument: a
-      .model({
-        aircraftId: a.id().required(),
-        documentId: a.id().required(),
-        aircraft: a.belongsTo("Aircraft", "aircraftId"),
-        document: a.belongsTo("Document", "documentId"),
-      }),
-    AircraftNotice: a
-      .model({
-        aircraftId: a.id().required(),
-        noticeId: a.id().required(),
-        aircraft: a.belongsTo("Aircraft", "aircraftId"),
-        notice: a.belongsTo("Notice", "noticeId"),
-      }),
+    AircraftStaff: a.model({
+      aircraftId: a.id().required(),
+      staffId: a.id().required(),
+      aircraft: a.belongsTo("Aircraft", "aircraftId"),
+      staff: a.belongsTo("Staff", "staffId"),
+    }),
+    AircraftDocument: a.model({
+      aircraftId: a.id().required(),
+      documentId: a.id().required(),
+      aircraft: a.belongsTo("Aircraft", "aircraftId"),
+      document: a.belongsTo("Document", "documentId"),
+    }),
+    AircraftNotice: a.model({
+      aircraftId: a.id().required(),
+      noticeId: a.id().required(),
+      aircraft: a.belongsTo("Aircraft", "aircraftId"),
+      notice: a.belongsTo("Notice", "noticeId"),
+    }),
     Notice: a.model({
       subject: a.string().required(),
       type: a.enum(["Notice_to_Crew", "Safety_notice", "Hazard_report"]),
@@ -333,14 +328,15 @@ const schema = a
       aircraft: a.hasMany("AircraftNotice", "noticeId"),
       documents: a.hasMany("NoticeDocument", "noticeId"),
     }),
-    NoticeStaff: a
-      .model({
-        read_at: a.datetime(),
-        noticeId: a.id().required(),
-        staffId: a.id().required(),
-        notice: a.belongsTo("Notice", "noticeId"),
-        staff: a.belongsTo("Staff", "staffId"),
-      }),
+NoticeStaff: a
+  .model({
+    read_at: a.datetime(),
+    noticeId: a.id().required(),
+    staffId: a.id().required(),
+    notice: a.belongsTo("Notice", "noticeId"),
+    staff: a.belongsTo("Staff", "staffId"),
+  })
+  .identifier(["noticeId", "staffId"]),
     NoticeDocument: a.model({
       noticeId: a.id().required(),
       notices: a.belongsTo("Notice", "noticeId"),

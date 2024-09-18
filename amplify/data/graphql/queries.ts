@@ -35,8 +35,8 @@ export const getAircraft = /* GraphQL */ `query GetAircraft($id: ID!) {
   APITypes.GetAircraftQueryVariables,
   APITypes.GetAircraftQuery
 >;
-export const getAircraftDocument = /* GraphQL */ `query GetAircraftDocument($aircraftId: ID!, $documentId: ID!) {
-  getAircraftDocument(aircraftId: $aircraftId, documentId: $documentId) {
+export const getAircraftDocument = /* GraphQL */ `query GetAircraftDocument($id: ID!) {
+  getAircraftDocument(id: $id) {
     aircraft {
       archived
       createdAt
@@ -59,6 +59,7 @@ export const getAircraftDocument = /* GraphQL */ `query GetAircraftDocument($air
       __typename
     }
     documentId
+    id
     updatedAt
     __typename
   }
@@ -67,8 +68,8 @@ export const getAircraftDocument = /* GraphQL */ `query GetAircraftDocument($air
   APITypes.GetAircraftDocumentQueryVariables,
   APITypes.GetAircraftDocumentQuery
 >;
-export const getAircraftNotice = /* GraphQL */ `query GetAircraftNotice($aircraftId: ID!, $noticeId: ID!) {
-  getAircraftNotice(aircraftId: $aircraftId, noticeId: $noticeId) {
+export const getAircraftNotice = /* GraphQL */ `query GetAircraftNotice($id: ID!) {
+  getAircraftNotice(id: $id) {
     aircraft {
       archived
       createdAt
@@ -80,6 +81,7 @@ export const getAircraftNotice = /* GraphQL */ `query GetAircraftNotice($aircraf
     }
     aircraftId
     createdAt
+    id
     notice {
       archived
       createdAt
@@ -103,8 +105,8 @@ export const getAircraftNotice = /* GraphQL */ `query GetAircraftNotice($aircraf
   APITypes.GetAircraftNoticeQueryVariables,
   APITypes.GetAircraftNoticeQuery
 >;
-export const getAircraftStaff = /* GraphQL */ `query GetAircraftStaff($aircraftId: ID!, $staffId: ID!) {
-  getAircraftStaff(aircraftId: $aircraftId, staffId: $staffId) {
+export const getAircraftStaff = /* GraphQL */ `query GetAircraftStaff($id: ID!) {
+  getAircraftStaff(id: $id) {
     aircraft {
       archived
       createdAt
@@ -116,6 +118,7 @@ export const getAircraftStaff = /* GraphQL */ `query GetAircraftStaff($aircraftI
     }
     aircraftId
     createdAt
+    id
     staff {
       archived
       createdAt
@@ -258,9 +261,10 @@ export const getNoticeDocument = /* GraphQL */ `query GetNoticeDocument($id: ID!
   APITypes.GetNoticeDocumentQueryVariables,
   APITypes.GetNoticeDocumentQuery
 >;
-export const getNoticeStaff = /* GraphQL */ `query GetNoticeStaff($noticeId: ID!, $staffId: ID!) {
-  getNoticeStaff(noticeId: $noticeId, staffId: $staffId) {
+export const getNoticeStaff = /* GraphQL */ `query GetNoticeStaff($id: ID!) {
+  getNoticeStaff(id: $id) {
     createdAt
+    id
     notice {
       archived
       createdAt
@@ -311,9 +315,10 @@ export const getRole = /* GraphQL */ `query GetRole($id: ID!) {
   }
 }
 ` as GeneratedQuery<APITypes.GetRoleQueryVariables, APITypes.GetRoleQuery>;
-export const getRoleStaff = /* GraphQL */ `query GetRoleStaff($roleId: ID!, $staffId: ID!) {
-  getRoleStaff(roleId: $roleId, staffId: $staffId) {
+export const getRoleStaff = /* GraphQL */ `query GetRoleStaff($id: ID!) {
+  getRoleStaff(id: $id) {
     createdAt
+    id
     role {
       archived
       createdAt
@@ -378,10 +383,11 @@ export const getStaff = /* GraphQL */ `query GetStaff($id: ID!) {
   }
 }
 ` as GeneratedQuery<APITypes.GetStaffQueryVariables, APITypes.GetStaffQuery>;
-export const getStaffSubcategory = /* GraphQL */ `query GetStaffSubcategory($staffId: ID!, $subcategoryId: ID!) {
-  getStaffSubcategory(staffId: $staffId, subcategoryId: $subcategoryId) {
+export const getStaffSubcategory = /* GraphQL */ `query GetStaffSubcategory($id: ID!) {
+  getStaffSubcategory(id: $id) {
     accessLevel
     createdAt
+    id
     staff {
       archived
       createdAt
@@ -468,25 +474,16 @@ export const listAircraft = /* GraphQL */ `query ListAircraft(
   APITypes.ListAircraftQuery
 >;
 export const listAircraftDocuments = /* GraphQL */ `query ListAircraftDocuments(
-  $aircraftId: ID
-  $documentId: ModelIDKeyConditionInput
   $filter: ModelAircraftDocumentFilterInput
   $limit: Int
   $nextToken: String
-  $sortDirection: ModelSortDirection
 ) {
-  listAircraftDocuments(
-    aircraftId: $aircraftId
-    documentId: $documentId
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-  ) {
+  listAircraftDocuments(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       aircraftId
       createdAt
       documentId
+      id
       updatedAt
       __typename
     }
@@ -499,24 +496,15 @@ export const listAircraftDocuments = /* GraphQL */ `query ListAircraftDocuments(
   APITypes.ListAircraftDocumentsQuery
 >;
 export const listAircraftNotices = /* GraphQL */ `query ListAircraftNotices(
-  $aircraftId: ID
   $filter: ModelAircraftNoticeFilterInput
   $limit: Int
   $nextToken: String
-  $noticeId: ModelIDKeyConditionInput
-  $sortDirection: ModelSortDirection
 ) {
-  listAircraftNotices(
-    aircraftId: $aircraftId
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    noticeId: $noticeId
-    sortDirection: $sortDirection
-  ) {
+  listAircraftNotices(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       aircraftId
       createdAt
+      id
       noticeId
       updatedAt
       __typename
@@ -530,24 +518,15 @@ export const listAircraftNotices = /* GraphQL */ `query ListAircraftNotices(
   APITypes.ListAircraftNoticesQuery
 >;
 export const listAircraftStaffs = /* GraphQL */ `query ListAircraftStaffs(
-  $aircraftId: ID
   $filter: ModelAircraftStaffFilterInput
   $limit: Int
   $nextToken: String
-  $sortDirection: ModelSortDirection
-  $staffId: ModelIDKeyConditionInput
 ) {
-  listAircraftStaffs(
-    aircraftId: $aircraftId
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    sortDirection: $sortDirection
-    staffId: $staffId
-  ) {
+  listAircraftStaffs(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       aircraftId
       createdAt
+      id
       staffId
       updatedAt
       __typename
@@ -633,20 +612,11 @@ export const listNoticeStaffs = /* GraphQL */ `query ListNoticeStaffs(
   $filter: ModelNoticeStaffFilterInput
   $limit: Int
   $nextToken: String
-  $noticeId: ID
-  $sortDirection: ModelSortDirection
-  $staffId: ModelIDKeyConditionInput
 ) {
-  listNoticeStaffs(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    noticeId: $noticeId
-    sortDirection: $sortDirection
-    staffId: $staffId
-  ) {
+  listNoticeStaffs(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       createdAt
+      id
       noticeId
       read_at
       staffId
@@ -693,20 +663,11 @@ export const listRoleStaffs = /* GraphQL */ `query ListRoleStaffs(
   $filter: ModelRoleStaffFilterInput
   $limit: Int
   $nextToken: String
-  $roleId: ID
-  $sortDirection: ModelSortDirection
-  $staffId: ModelIDKeyConditionInput
 ) {
-  listRoleStaffs(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-    roleId: $roleId
-    sortDirection: $sortDirection
-    staffId: $staffId
-  ) {
+  listRoleStaffs(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       createdAt
+      id
       roleId
       staffId
       updatedAt
@@ -772,21 +733,16 @@ export const listStaffSubcategories = /* GraphQL */ `query ListStaffSubcategorie
   $filter: ModelStaffSubcategoryFilterInput
   $limit: Int
   $nextToken: String
-  $sortDirection: ModelSortDirection
-  $staffId: ID
-  $subcategoryId: ModelIDKeyConditionInput
 ) {
   listStaffSubcategories(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
-    sortDirection: $sortDirection
-    staffId: $staffId
-    subcategoryId: $subcategoryId
   ) {
     items {
       accessLevel
       createdAt
+      id
       staffId
       subcategoryId
       updatedAt

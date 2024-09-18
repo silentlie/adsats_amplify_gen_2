@@ -28,6 +28,7 @@ export type AircraftDocument = {
   createdAt: string,
   document?: Document | null,
   documentId: string,
+  id: string,
   updatedAt: string,
 };
 
@@ -72,6 +73,7 @@ export type AircraftStaff = {
   aircraft?: Aircraft | null,
   aircraftId: string,
   createdAt: string,
+  id: string,
   staff?: Staff | null,
   staffId: string,
   updatedAt: string,
@@ -119,6 +121,7 @@ export type AircraftNotice = {
   aircraft?: Aircraft | null,
   aircraftId: string,
   createdAt: string,
+  id: string,
   notice?: Notice | null,
   noticeId: string,
   updatedAt: string,
@@ -149,6 +152,7 @@ export type ModelNoticeStaffConnection = {
 export type NoticeStaff = {
   __typename: "NoticeStaff",
   createdAt: string,
+  id: string,
   notice?: Notice | null,
   noticeId: string,
   read_at?: string | null,
@@ -181,6 +185,7 @@ export type ModelRoleStaffConnection = {
 export type RoleStaff = {
   __typename: "RoleStaff",
   createdAt: string,
+  id: string,
   role?: Role | null,
   roleId: string,
   staff?: Staff | null,
@@ -209,6 +214,7 @@ export type StaffSubcategory = {
   __typename: "StaffSubcategory",
   accessLevel: number,
   createdAt: string,
+  id: string,
   staff?: Staff | null,
   staffId: string,
   subcategory?: Subcategory | null,
@@ -328,16 +334,6 @@ export type ModelAircraftConnection = {
   nextToken?: string | null,
 };
 
-export type ModelIDKeyConditionInput = {
-  beginsWith?: string | null,
-  between?: Array< string | null > | null,
-  eq?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  le?: string | null,
-  lt?: string | null,
-};
-
 export type ModelAircraftDocumentFilterInput = {
   aircraftId?: ModelIDInput | null,
   and?: Array< ModelAircraftDocumentFilterInput | null > | null,
@@ -348,12 +344,6 @@ export type ModelAircraftDocumentFilterInput = {
   or?: Array< ModelAircraftDocumentFilterInput | null > | null,
   updatedAt?: ModelStringInput | null,
 };
-
-export enum ModelSortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
-}
-
 
 export type ModelAircraftNoticeFilterInput = {
   aircraftId?: ModelIDInput | null,
@@ -499,6 +489,12 @@ export type ModelStaffFilterInput = {
   updatedAt?: ModelStringInput | null,
 };
 
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+
 export type ModelStaffConnection = {
   __typename: "ModelStaffConnection",
   items:  Array<Staff | null >,
@@ -561,8 +557,10 @@ export type CreateAircraftInput = {
 };
 
 export type ModelAircraftDocumentConditionInput = {
+  aircraftId?: ModelIDInput | null,
   and?: Array< ModelAircraftDocumentConditionInput | null > | null,
   createdAt?: ModelStringInput | null,
+  documentId?: ModelIDInput | null,
   not?: ModelAircraftDocumentConditionInput | null,
   or?: Array< ModelAircraftDocumentConditionInput | null > | null,
   updatedAt?: ModelStringInput | null,
@@ -571,31 +569,38 @@ export type ModelAircraftDocumentConditionInput = {
 export type CreateAircraftDocumentInput = {
   aircraftId: string,
   documentId: string,
+  id?: string | null,
 };
 
 export type ModelAircraftNoticeConditionInput = {
+  aircraftId?: ModelIDInput | null,
   and?: Array< ModelAircraftNoticeConditionInput | null > | null,
   createdAt?: ModelStringInput | null,
   not?: ModelAircraftNoticeConditionInput | null,
+  noticeId?: ModelIDInput | null,
   or?: Array< ModelAircraftNoticeConditionInput | null > | null,
   updatedAt?: ModelStringInput | null,
 };
 
 export type CreateAircraftNoticeInput = {
   aircraftId: string,
+  id?: string | null,
   noticeId: string,
 };
 
 export type ModelAircraftStaffConditionInput = {
+  aircraftId?: ModelIDInput | null,
   and?: Array< ModelAircraftStaffConditionInput | null > | null,
   createdAt?: ModelStringInput | null,
   not?: ModelAircraftStaffConditionInput | null,
   or?: Array< ModelAircraftStaffConditionInput | null > | null,
+  staffId?: ModelIDInput | null,
   updatedAt?: ModelStringInput | null,
 };
 
 export type CreateAircraftStaffInput = {
   aircraftId: string,
+  id?: string | null,
   staffId: string,
 };
 
@@ -700,12 +705,15 @@ export type ModelNoticeStaffConditionInput = {
   and?: Array< ModelNoticeStaffConditionInput | null > | null,
   createdAt?: ModelStringInput | null,
   not?: ModelNoticeStaffConditionInput | null,
+  noticeId?: ModelIDInput | null,
   or?: Array< ModelNoticeStaffConditionInput | null > | null,
   read_at?: ModelStringInput | null,
+  staffId?: ModelIDInput | null,
   updatedAt?: ModelStringInput | null,
 };
 
 export type CreateNoticeStaffInput = {
+  id?: string | null,
   noticeId: string,
   read_at?: string | null,
   staffId: string,
@@ -734,10 +742,13 @@ export type ModelRoleStaffConditionInput = {
   createdAt?: ModelStringInput | null,
   not?: ModelRoleStaffConditionInput | null,
   or?: Array< ModelRoleStaffConditionInput | null > | null,
+  roleId?: ModelIDInput | null,
+  staffId?: ModelIDInput | null,
   updatedAt?: ModelStringInput | null,
 };
 
 export type CreateRoleStaffInput = {
+  id?: string | null,
   roleId: string,
   staffId: string,
 };
@@ -766,11 +777,14 @@ export type ModelStaffSubcategoryConditionInput = {
   createdAt?: ModelStringInput | null,
   not?: ModelStaffSubcategoryConditionInput | null,
   or?: Array< ModelStaffSubcategoryConditionInput | null > | null,
+  staffId?: ModelIDInput | null,
+  subcategoryId?: ModelIDInput | null,
   updatedAt?: ModelStringInput | null,
 };
 
 export type CreateStaffSubcategoryInput = {
   accessLevel: number,
+  id?: string | null,
   staffId: string,
   subcategoryId: string,
 };
@@ -800,18 +814,15 @@ export type DeleteAircraftInput = {
 };
 
 export type DeleteAircraftDocumentInput = {
-  aircraftId: string,
-  documentId: string,
+  id: string,
 };
 
 export type DeleteAircraftNoticeInput = {
-  aircraftId: string,
-  noticeId: string,
+  id: string,
 };
 
 export type DeleteAircraftStaffInput = {
-  aircraftId: string,
-  staffId: string,
+  id: string,
 };
 
 export type DeleteCategoryInput = {
@@ -831,8 +842,7 @@ export type DeleteNoticeDocumentInput = {
 };
 
 export type DeleteNoticeStaffInput = {
-  noticeId: string,
-  staffId: string,
+  id: string,
 };
 
 export type DeleteRoleInput = {
@@ -840,8 +850,7 @@ export type DeleteRoleInput = {
 };
 
 export type DeleteRoleStaffInput = {
-  roleId: string,
-  staffId: string,
+  id: string,
 };
 
 export type DeleteStaffInput = {
@@ -849,8 +858,7 @@ export type DeleteStaffInput = {
 };
 
 export type DeleteStaffSubcategoryInput = {
-  staffId: string,
-  subcategoryId: string,
+  id: string,
 };
 
 export type DeleteSubcategoryInput = {
@@ -865,13 +873,15 @@ export type UpdateAircraftInput = {
 };
 
 export type UpdateAircraftDocumentInput = {
-  aircraftId: string,
-  documentId: string,
+  aircraftId?: string | null,
+  documentId?: string | null,
+  id: string,
 };
 
 export type UpdateAircraftNoticeInput = {
-  aircraftId: string,
-  noticeId: string,
+  aircraftId?: string | null,
+  id: string,
+  noticeId?: string | null,
 };
 
 export enum UpdateAircraftNoticeOverrideCompareKey {
@@ -881,8 +891,9 @@ export enum UpdateAircraftNoticeOverrideCompareKey {
 
 
 export type UpdateAircraftStaffInput = {
-  aircraftId: string,
-  staffId: string,
+  aircraftId?: string | null,
+  id: string,
+  staffId?: string | null,
 };
 
 export enum UpdateAircraftStaffOverrideCompareKey {
@@ -925,9 +936,10 @@ export type UpdateNoticeDocumentInput = {
 };
 
 export type UpdateNoticeStaffInput = {
-  noticeId: string,
+  id: string,
+  noticeId?: string | null,
   read_at?: string | null,
-  staffId: string,
+  staffId?: string | null,
 };
 
 export type UpdateRoleInput = {
@@ -938,8 +950,9 @@ export type UpdateRoleInput = {
 };
 
 export type UpdateRoleStaffInput = {
-  roleId: string,
-  staffId: string,
+  id: string,
+  roleId?: string | null,
+  staffId?: string | null,
 };
 
 export enum UpdateRoleStaffOverrideCompareKey {
@@ -957,8 +970,9 @@ export type UpdateStaffInput = {
 
 export type UpdateStaffSubcategoryInput = {
   accessLevel?: number | null,
-  staffId: string,
-  subcategoryId: string,
+  id: string,
+  staffId?: string | null,
+  subcategoryId?: string | null,
 };
 
 export enum UpdateStaffSubcategoryOverrideCompareKey {
@@ -1207,8 +1221,7 @@ export type GetAircraftQuery = {
 };
 
 export type GetAircraftDocumentQueryVariables = {
-  aircraftId: string,
-  documentId: string,
+  id: string,
 };
 
 export type GetAircraftDocumentQuery = {
@@ -1236,13 +1249,13 @@ export type GetAircraftDocumentQuery = {
       updatedAt: string,
     } | null,
     documentId: string,
+    id: string,
     updatedAt: string,
   } | null,
 };
 
 export type GetAircraftNoticeQueryVariables = {
-  aircraftId: string,
-  noticeId: string,
+  id: string,
 };
 
 export type GetAircraftNoticeQuery = {
@@ -1259,6 +1272,7 @@ export type GetAircraftNoticeQuery = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -1279,8 +1293,7 @@ export type GetAircraftNoticeQuery = {
 };
 
 export type GetAircraftStaffQueryVariables = {
-  aircraftId: string,
-  staffId: string,
+  id: string,
 };
 
 export type GetAircraftStaffQuery = {
@@ -1297,6 +1310,7 @@ export type GetAircraftStaffQuery = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,
@@ -1443,14 +1457,14 @@ export type GetNoticeDocumentQuery = {
 };
 
 export type GetNoticeStaffQueryVariables = {
-  noticeId: string,
-  staffId: string,
+  id: string,
 };
 
 export type GetNoticeStaffQuery = {
   getNoticeStaff?:  {
     __typename: "NoticeStaff",
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -1502,14 +1516,14 @@ export type GetRoleQuery = {
 };
 
 export type GetRoleStaffQueryVariables = {
-  roleId: string,
-  staffId: string,
+  id: string,
 };
 
 export type GetRoleStaffQuery = {
   getRoleStaff?:  {
     __typename: "RoleStaff",
     createdAt: string,
+    id: string,
     role?:  {
       __typename: "Role",
       archived: boolean,
@@ -1575,8 +1589,7 @@ export type GetStaffQuery = {
 };
 
 export type GetStaffSubcategoryQueryVariables = {
-  staffId: string,
-  subcategoryId: string,
+  id: string,
 };
 
 export type GetStaffSubcategoryQuery = {
@@ -1584,6 +1597,7 @@ export type GetStaffSubcategoryQuery = {
     __typename: "StaffSubcategory",
     accessLevel: number,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,
@@ -1666,12 +1680,9 @@ export type ListAircraftQuery = {
 };
 
 export type ListAircraftDocumentsQueryVariables = {
-  aircraftId?: string | null,
-  documentId?: ModelIDKeyConditionInput | null,
   filter?: ModelAircraftDocumentFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
-  sortDirection?: ModelSortDirection | null,
 };
 
 export type ListAircraftDocumentsQuery = {
@@ -1682,6 +1693,7 @@ export type ListAircraftDocumentsQuery = {
       aircraftId: string,
       createdAt: string,
       documentId: string,
+      id: string,
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
@@ -1689,12 +1701,9 @@ export type ListAircraftDocumentsQuery = {
 };
 
 export type ListAircraftNoticesQueryVariables = {
-  aircraftId?: string | null,
   filter?: ModelAircraftNoticeFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
-  noticeId?: ModelIDKeyConditionInput | null,
-  sortDirection?: ModelSortDirection | null,
 };
 
 export type ListAircraftNoticesQuery = {
@@ -1704,6 +1713,7 @@ export type ListAircraftNoticesQuery = {
       __typename: "AircraftNotice",
       aircraftId: string,
       createdAt: string,
+      id: string,
       noticeId: string,
       updatedAt: string,
     } | null >,
@@ -1712,12 +1722,9 @@ export type ListAircraftNoticesQuery = {
 };
 
 export type ListAircraftStaffsQueryVariables = {
-  aircraftId?: string | null,
   filter?: ModelAircraftStaffFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  staffId?: ModelIDKeyConditionInput | null,
 };
 
 export type ListAircraftStaffsQuery = {
@@ -1727,6 +1734,7 @@ export type ListAircraftStaffsQuery = {
       __typename: "AircraftStaff",
       aircraftId: string,
       createdAt: string,
+      id: string,
       staffId: string,
       updatedAt: string,
     } | null >,
@@ -1804,9 +1812,6 @@ export type ListNoticeStaffsQueryVariables = {
   filter?: ModelNoticeStaffFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
-  noticeId?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  staffId?: ModelIDKeyConditionInput | null,
 };
 
 export type ListNoticeStaffsQuery = {
@@ -1815,6 +1820,7 @@ export type ListNoticeStaffsQuery = {
     items:  Array< {
       __typename: "NoticeStaff",
       createdAt: string,
+      id: string,
       noticeId: string,
       read_at?: string | null,
       staffId: string,
@@ -1855,9 +1861,6 @@ export type ListRoleStaffsQueryVariables = {
   filter?: ModelRoleStaffFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
-  roleId?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  staffId?: ModelIDKeyConditionInput | null,
 };
 
 export type ListRoleStaffsQuery = {
@@ -1866,6 +1869,7 @@ export type ListRoleStaffsQuery = {
     items:  Array< {
       __typename: "RoleStaff",
       createdAt: string,
+      id: string,
       roleId: string,
       staffId: string,
       updatedAt: string,
@@ -1924,9 +1928,6 @@ export type ListStaffSubcategoriesQueryVariables = {
   filter?: ModelStaffSubcategoryFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
-  sortDirection?: ModelSortDirection | null,
-  staffId?: string | null,
-  subcategoryId?: ModelIDKeyConditionInput | null,
 };
 
 export type ListStaffSubcategoriesQuery = {
@@ -1936,6 +1937,7 @@ export type ListStaffSubcategoriesQuery = {
       __typename: "StaffSubcategory",
       accessLevel: number,
       createdAt: string,
+      id: string,
       staffId: string,
       subcategoryId: string,
       updatedAt: string,
@@ -2026,6 +2028,7 @@ export type CreateAircraftDocumentMutation = {
       updatedAt: string,
     } | null,
     documentId: string,
+    id: string,
     updatedAt: string,
   } | null,
 };
@@ -2049,6 +2052,7 @@ export type CreateAircraftNoticeMutation = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -2098,6 +2102,7 @@ export type CreateAircraftStaffMutation = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,
@@ -2286,6 +2291,7 @@ export type CreateNoticeStaffMutation = {
   createNoticeStaff?:  {
     __typename: "NoticeStaff",
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -2357,6 +2363,7 @@ export type CreateRoleStaffMutation = {
   createRoleStaff?:  {
     __typename: "RoleStaff",
     createdAt: string,
+    id: string,
     role?:  {
       __typename: "Role",
       archived: boolean,
@@ -2446,6 +2453,7 @@ export type CreateStaffSubcategoryMutation = {
     __typename: "StaffSubcategory",
     accessLevel: number,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,
@@ -2588,6 +2596,7 @@ export type DeleteAircraftDocumentMutation = {
       updatedAt: string,
     } | null,
     documentId: string,
+    id: string,
     updatedAt: string,
   } | null,
 };
@@ -2611,6 +2620,7 @@ export type DeleteAircraftNoticeMutation = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -2657,6 +2667,7 @@ export type DeleteAircraftStaffMutation = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,
@@ -2849,6 +2860,7 @@ export type DeleteNoticeStaffMutation = {
   deleteNoticeStaff?:  {
     __typename: "NoticeStaff",
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -2917,6 +2929,7 @@ export type DeleteRoleStaffMutation = {
   deleteRoleStaff?:  {
     __typename: "RoleStaff",
     createdAt: string,
+    id: string,
     role?:  {
       __typename: "Role",
       archived: boolean,
@@ -3000,6 +3013,7 @@ export type DeleteStaffSubcategoryMutation = {
     __typename: "StaffSubcategory",
     accessLevel: number,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,
@@ -3151,6 +3165,7 @@ export type UpdateAircraftDocumentMutation = {
       updatedAt: string,
     } | null,
     documentId: string,
+    id: string,
     updatedAt: string,
   } | null,
 };
@@ -3174,6 +3189,7 @@ export type UpdateAircraftNoticeMutation = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -3222,6 +3238,7 @@ export type UpdateAircraftStaffMutation = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,
@@ -3390,6 +3407,7 @@ export type UpdateNoticeStaffMutation = {
   updateNoticeStaff?:  {
     __typename: "NoticeStaff",
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -3461,6 +3479,7 @@ export type UpdateRoleStaffMutation = {
   updateRoleStaff?:  {
     __typename: "RoleStaff",
     createdAt: string,
+    id: string,
     role?:  {
       __typename: "Role",
       archived: boolean,
@@ -3546,6 +3565,7 @@ export type UpdateStaffSubcategoryMutation = {
     __typename: "StaffSubcategory",
     accessLevel: number,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,
@@ -3674,6 +3694,7 @@ export type OnCreateAircraftDocumentSubscription = {
       updatedAt: string,
     } | null,
     documentId: string,
+    id: string,
     updatedAt: string,
   } | null,
 };
@@ -3696,6 +3717,7 @@ export type OnCreateAircraftNoticeSubscription = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -3733,6 +3755,7 @@ export type OnCreateAircraftStaffSubscription = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,
@@ -3886,6 +3909,7 @@ export type OnCreateNoticeStaffSubscription = {
   onCreateNoticeStaff?:  {
     __typename: "NoticeStaff",
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -3944,6 +3968,7 @@ export type OnCreateRoleStaffSubscription = {
   onCreateRoleStaff?:  {
     __typename: "RoleStaff",
     createdAt: string,
+    id: string,
     role?:  {
       __typename: "Role",
       archived: boolean,
@@ -4017,6 +4042,7 @@ export type OnCreateStaffSubcategorySubscription = {
     __typename: "StaffSubcategory",
     accessLevel: number,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,
@@ -4133,6 +4159,7 @@ export type OnDeleteAircraftDocumentSubscription = {
       updatedAt: string,
     } | null,
     documentId: string,
+    id: string,
     updatedAt: string,
   } | null,
 };
@@ -4155,6 +4182,7 @@ export type OnDeleteAircraftNoticeSubscription = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -4192,6 +4220,7 @@ export type OnDeleteAircraftStaffSubscription = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,
@@ -4345,6 +4374,7 @@ export type OnDeleteNoticeStaffSubscription = {
   onDeleteNoticeStaff?:  {
     __typename: "NoticeStaff",
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -4403,6 +4433,7 @@ export type OnDeleteRoleStaffSubscription = {
   onDeleteRoleStaff?:  {
     __typename: "RoleStaff",
     createdAt: string,
+    id: string,
     role?:  {
       __typename: "Role",
       archived: boolean,
@@ -4476,6 +4507,7 @@ export type OnDeleteStaffSubcategorySubscription = {
     __typename: "StaffSubcategory",
     accessLevel: number,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,
@@ -4592,6 +4624,7 @@ export type OnUpdateAircraftDocumentSubscription = {
       updatedAt: string,
     } | null,
     documentId: string,
+    id: string,
     updatedAt: string,
   } | null,
 };
@@ -4614,6 +4647,7 @@ export type OnUpdateAircraftNoticeSubscription = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -4651,6 +4685,7 @@ export type OnUpdateAircraftStaffSubscription = {
     } | null,
     aircraftId: string,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,
@@ -4804,6 +4839,7 @@ export type OnUpdateNoticeStaffSubscription = {
   onUpdateNoticeStaff?:  {
     __typename: "NoticeStaff",
     createdAt: string,
+    id: string,
     notice?:  {
       __typename: "Notice",
       archived: boolean,
@@ -4862,6 +4898,7 @@ export type OnUpdateRoleStaffSubscription = {
   onUpdateRoleStaff?:  {
     __typename: "RoleStaff",
     createdAt: string,
+    id: string,
     role?:  {
       __typename: "Role",
       archived: boolean,
@@ -4935,6 +4972,7 @@ export type OnUpdateStaffSubcategorySubscription = {
     __typename: "StaffSubcategory",
     accessLevel: number,
     createdAt: string,
+    id: string,
     staff?:  {
       __typename: "Staff",
       archived: boolean,

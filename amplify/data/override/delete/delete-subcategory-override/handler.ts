@@ -59,8 +59,9 @@ export const handler: Handler = async (event) => {
           query: deleteStaffSubcategory,
           variables: {
             input: {
-              staffId: staffSubcategory.staffId,
-              subcategoryId: staffSubcategory.subcategoryId,
+              // staffId: staffSubcategory.staffId,
+              // subcategoryId: staffSubcategory.subcategoryId,
+              id: staffSubcategory.id,
             },
           },
         }),

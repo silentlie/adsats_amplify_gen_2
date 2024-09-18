@@ -88,8 +88,9 @@ export const handler: Handler = async (event) => {
         query: deleteNoticeStaff,
         variables: {
           input: {
-            staffId: noticeStaff.staffId,
-            noticeId: noticeStaff.noticeId,
+            // staffId: noticeStaff.staffId,
+            // noticeId: noticeStaff.noticeId,
+            id: noticeStaff.id,
           },
         },
       }),
@@ -105,8 +106,9 @@ export const handler: Handler = async (event) => {
           query: deleteAircraftNotice,
           variables: {
             input: {
-              aircraftId: aircraftNotice.aircraftId,
-              noticeId: aircraftNotice.noticeId,
+              // aircraftId: aircraftNotice.aircraftId,
+              // noticeId: aircraftNotice.noticeId,
+              id: aircraftNotice.id,
             },
           },
         }),

@@ -136,38 +136,8 @@ class DocumentsDataSource extends DataTableSource {
   }
 
   Future<void> fetchRawData() async {
-    const graphQLDocument = '''
-      query ListDocuments(\$filter: ModelDocumentFilterInput) {
-        listDocuments(filter: \$filter) {
-          items {
-            id
-            name
-            subcategory {
-              id
-              name
-              category {
-                id
-                name
-              }
-            }
-            aircraft {
-              items {
-                id
-                aircraft {
-                  id
-                  name
-                }
-              }
-            }
-            createdAt
-            archived
-          }
-        }
-      }
-    ''';
-
     final request = GraphQLRequest<String>(
-      document: graphQLDocument,
+      document: listDocuments,
       variables: {"filter": _filter.toJson()},
     );
 
@@ -190,7 +160,7 @@ class DocumentsDataSource extends DataTableSource {
       }
       isInitialize = true;
       notifyListeners();
-      debugPrint("did call fetchRawData");
+      // debugPrint("did call fetchRawData");
     } on Exception catch (e) {
       debugPrint(
         'Error Exception while retrieving documents: $e',

@@ -127,8 +127,8 @@ class StaffSubcategory extends amplify_core.Model {
     buffer.write("subcategory=" +
         (_subcategory != null ? _subcategory.toString() : "null") +
         ", ");
-    buffer
-        .write("staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
+    buffer.write(
+        "staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt.format() : "null") +
         ", ");

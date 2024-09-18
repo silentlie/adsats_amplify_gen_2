@@ -52,8 +52,9 @@ export const handler: Handler = async (event) => {
         query: deleteRoleStaff,
         variables: {
           input: {
-            staffId: roleStaff.staffId,
-            roleId: roleStaff.roleId,
+            // staffId: roleStaff.staffId,
+            // roleId: roleStaff.roleId,
+            id: roleStaff.id,
           },
         },
       }),

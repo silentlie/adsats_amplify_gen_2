@@ -65,6 +65,7 @@ export const createAircraftDocument = /* GraphQL */ `mutation CreateAircraftDocu
       __typename
     }
     documentId
+    id
     updatedAt
     __typename
   }
@@ -89,6 +90,7 @@ export const createAircraftNotice = /* GraphQL */ `mutation CreateAircraftNotice
     }
     aircraftId
     createdAt
+    id
     notice {
       archived
       createdAt
@@ -145,6 +147,7 @@ export const createAircraftStaff = /* GraphQL */ `mutation CreateAircraftStaff(
     }
     aircraftId
     createdAt
+    id
     staff {
       archived
       createdAt
@@ -358,6 +361,7 @@ export const createNoticeStaff = /* GraphQL */ `mutation CreateNoticeStaff(
 ) {
   createNoticeStaff(condition: $condition, input: $input) {
     createdAt
+    id
     notice {
       archived
       createdAt
@@ -437,6 +441,7 @@ export const createRoleStaff = /* GraphQL */ `mutation CreateRoleStaff(
 ) {
   createRoleStaff(condition: $condition, input: $input) {
     createdAt
+    id
     role {
       archived
       createdAt
@@ -537,6 +542,7 @@ export const createStaffSubcategory = /* GraphQL */ `mutation CreateStaffSubcate
   createStaffSubcategory(condition: $condition, input: $input) {
     accessLevel
     createdAt
+    id
     staff {
       archived
       createdAt
@@ -691,6 +697,7 @@ export const deleteAircraftDocument = /* GraphQL */ `mutation DeleteAircraftDocu
       __typename
     }
     documentId
+    id
     updatedAt
     __typename
   }
@@ -715,6 +722,7 @@ export const deleteAircraftNotice = /* GraphQL */ `mutation DeleteAircraftNotice
     }
     aircraftId
     createdAt
+    id
     notice {
       archived
       createdAt
@@ -761,6 +769,7 @@ export const deleteAircraftStaff = /* GraphQL */ `mutation DeleteAircraftStaff(
     }
     aircraftId
     createdAt
+    id
     staff {
       archived
       createdAt
@@ -958,6 +967,7 @@ export const deleteNoticeStaff = /* GraphQL */ `mutation DeleteNoticeStaff(
 ) {
   deleteNoticeStaff(condition: $condition, input: $input) {
     createdAt
+    id
     notice {
       archived
       createdAt
@@ -1027,6 +1037,7 @@ export const deleteRoleStaff = /* GraphQL */ `mutation DeleteRoleStaff(
 ) {
   deleteRoleStaff(condition: $condition, input: $input) {
     createdAt
+    id
     role {
       archived
       createdAt
@@ -1111,6 +1122,7 @@ export const deleteStaffSubcategory = /* GraphQL */ `mutation DeleteStaffSubcate
   deleteStaffSubcategory(condition: $condition, input: $input) {
     accessLevel
     createdAt
+    id
     staff {
       archived
       createdAt
@@ -1261,6 +1273,7 @@ export const updateAircraftDocument = /* GraphQL */ `mutation UpdateAircraftDocu
       __typename
     }
     documentId
+    id
     updatedAt
     __typename
   }
@@ -1285,6 +1298,7 @@ export const updateAircraftNotice = /* GraphQL */ `mutation UpdateAircraftNotice
     }
     aircraftId
     createdAt
+    id
     notice {
       archived
       createdAt
@@ -1335,6 +1349,7 @@ export const updateAircraftStaff = /* GraphQL */ `mutation UpdateAircraftStaff(
     }
     aircraftId
     createdAt
+    id
     staff {
       archived
       createdAt
@@ -1509,6 +1524,7 @@ export const updateNoticeStaff = /* GraphQL */ `mutation UpdateNoticeStaff(
 ) {
   updateNoticeStaff(condition: $condition, input: $input) {
     createdAt
+    id
     notice {
       archived
       createdAt
@@ -1588,6 +1604,7 @@ export const updateRoleStaff = /* GraphQL */ `mutation UpdateRoleStaff(
 ) {
   updateRoleStaff(condition: $condition, input: $input) {
     createdAt
+    id
     role {
       archived
       createdAt
@@ -1676,6 +1693,7 @@ export const updateStaffSubcategory = /* GraphQL */ `mutation UpdateStaffSubcate
   updateStaffSubcategory(condition: $condition, input: $input) {
     accessLevel
     createdAt
+    id
     staff {
       archived
       createdAt

@@ -41,108 +41,108 @@ type Handler = Schema["updateStaffSubcategoryOverride"]["functionHandler"];
 const client = generateClient<Schema>();
 
 export const handler: Handler = async (event) => {
-  const { compareKey, id, ids, accessLevels } = event.arguments;
-  let promises: Promise<any>[] = [];
-  const filter =
-    compareKey === "STAFF"
-      ? { subcategoryId: { eq: id } }
-      : { staffId: { eq: id } };
-  const staffSubcategoriesResult = await client.graphql({
-    query: listStaffSubcategories,
-    variables: {
-      filter: filter,
-    },
-  });
-  const oldRecords = staffSubcategoriesResult.data.listStaffSubcategories.items;
-  const oldRecordsMap = new Map(
-    oldRecords.map((oldRecord) => {
-      return compareKey === "STAFF"
-        ? [oldRecord.staffId, oldRecord]
-        : [oldRecord.subcategoryId, oldRecord];
-    }),
-  );
-  const newRecordsMap = new Map(
-    ids.map((compareId, index) => [compareId, accessLevels[index]]),
-  );
-  newRecordsMap.forEach((accessLevel, compareId) => {
-    const oldRecord = oldRecordsMap.get(compareId);
-    if (oldRecord) {
-      if (accessLevel === 0) {
-        console.log(
-          `Deleting old record with staffId: ${oldRecord.staffId} and subcategoryId: ${oldRecord.subcategoryId} (accessLevel 0)`,
-        );
-        promises.push(
-          client.graphql({
-            query: deleteStaffSubcategory,
-            variables: {
-              input: {
-                staffId: oldRecord.staffId,
-                subcategoryId: oldRecord.subcategoryId,
-              },
-            },
-          }),
-        );
-      } else if (oldRecord.accessLevel !== accessLevel) {
-        console.log(
-          `Updating old record with staffId: ${oldRecord.staffId} and subcategoryId: ${oldRecord.subcategoryId}, new accessLevel: ${accessLevel}`,
-        );
-        promises.push(
-          client.graphql({
-            query: updateStaffSubcategory,
-            variables: {
-              input: {
-                staffId: oldRecord.staffId,
-                subcategoryId: oldRecord.subcategoryId,
-                accessLevel: accessLevel,
-              },
-            },
-          }),
-        );
-      }
-      oldRecordsMap.delete(compareId);
-    } else if (accessLevel !== 0) {
-      console.log(
-        `Creating new record with id: ${id} and compareId: ${compareId}, accessLevel: ${accessLevel}`,
-      );
-      promises.push(
-        client.graphql({
-          query: createStaffSubcategory,
-          variables: {
-            input:
-              compareKey === "STAFF"
-                ? {
-                    staffId: compareId,
-                    accessLevel: accessLevel,
-                    subcategoryId: id,
-                  }
-                : {
-                    subcategoryId: compareId,
-                    accessLevel: accessLevel,
-                    staffId: id,
-                  },
-          },
-        }),
-      );
-    }
-  });
+  // const { compareKey, id, ids, accessLevels } = event.arguments;
+  // let promises: Promise<any>[] = [];
+  // const filter =
+  //   compareKey === "STAFF"
+  //     ? { subcategoryId: { eq: id } }
+  //     : { staffId: { eq: id } };
+  // const staffSubcategoriesResult = await client.graphql({
+  //   query: listStaffSubcategories,
+  //   variables: {
+  //     filter: filter,
+  //   },
+  // });
+  // const oldRecords = staffSubcategoriesResult.data.listStaffSubcategories.items;
+  // const oldRecordsMap = new Map(
+  //   oldRecords.map((oldRecord) => {
+  //     return compareKey === "STAFF"
+  //       ? [oldRecord.staffId, oldRecord]
+  //       : [oldRecord.subcategoryId, oldRecord];
+  //   }),
+  // );
+  // const newRecordsMap = new Map(
+  //   ids.map((compareId, index) => [compareId, accessLevels[index]]),
+  // );
+  // newRecordsMap.forEach((accessLevel, compareId) => {
+  //   const oldRecord = oldRecordsMap.get(compareId);
+  //   if (oldRecord) {
+  //     if (accessLevel === 0) {
+  //       console.log(
+  //         `Deleting old record with staffId: ${oldRecord.staffId} and subcategoryId: ${oldRecord.subcategoryId} (accessLevel 0)`,
+  //       );
+  //       promises.push(
+  //         client.graphql({
+  //           query: deleteStaffSubcategory,
+  //           variables: {
+  //             input: {
+  //               staffId: oldRecord.staffId,
+  //               subcategoryId: oldRecord.subcategoryId,
+  //             },
+  //           },
+  //         }),
+  //       );
+  //     } else if (oldRecord.accessLevel !== accessLevel) {
+  //       console.log(
+  //         `Updating old record with staffId: ${oldRecord.staffId} and subcategoryId: ${oldRecord.subcategoryId}, new accessLevel: ${accessLevel}`,
+  //       );
+  //       promises.push(
+  //         client.graphql({
+  //           query: updateStaffSubcategory,
+  //           variables: {
+  //             input: {
+  //               staffId: oldRecord.staffId,
+  //               subcategoryId: oldRecord.subcategoryId,
+  //               accessLevel: accessLevel,
+  //             },
+  //           },
+  //         }),
+  //       );
+  //     }
+  //     oldRecordsMap.delete(compareId);
+  //   } else if (accessLevel !== 0) {
+  //     console.log(
+  //       `Creating new record with id: ${id} and compareId: ${compareId}, accessLevel: ${accessLevel}`,
+  //     );
+  //     promises.push(
+  //       client.graphql({
+  //         query: createStaffSubcategory,
+  //         variables: {
+  //           input:
+  //             compareKey === "STAFF"
+  //               ? {
+  //                   staffId: compareId,
+  //                   accessLevel: accessLevel,
+  //                   subcategoryId: id,
+  //                 }
+  //               : {
+  //                   subcategoryId: compareId,
+  //                   accessLevel: accessLevel,
+  //                   staffId: id,
+  //                 },
+  //         },
+  //       }),
+  //     );
+  //   }
+  // });
 
-  oldRecordsMap.forEach((oldRecord) => {
-    console.log(
-      `Deleting old record with staffId: ${oldRecord.staffId} and subcategoryId: ${oldRecord.subcategoryId} (not appear in new records)`,
-    );
-    promises.push(
-      client.graphql({
-        query: deleteStaffSubcategory,
-        variables: {
-          input: {
-            staffId: oldRecord.staffId,
-            subcategoryId: oldRecord.subcategoryId,
-          },
-        },
-      }),
-    );
-  });
+  // oldRecordsMap.forEach((oldRecord) => {
+  //   console.log(
+  //     `Deleting old record with staffId: ${oldRecord.staffId} and subcategoryId: ${oldRecord.subcategoryId} (not appear in new records)`,
+  //   );
+  //   promises.push(
+  //     client.graphql({
+  //       query: deleteStaffSubcategory,
+  //       variables: {
+  //         input: {
+  //           staffId: oldRecord.staffId,
+  //           subcategoryId: oldRecord.subcategoryId,
+  //         },
+  //       },
+  //     }),
+  //   );
+  // });
 
-  const result = await Promise.all(promises);
-  return result;
+  // const result = await Promise.all(promises);
+  return {};
 };

@@ -1,3 +1,16 @@
+const updateRoleStaffOverride = '''
+mutation UpdateRoleStaffOverride(
+  \$compareKey: UpdateRoleStaffOverrideCompareKey
+  \$id: ID!
+  \$ids: [ID!]!
+) {
+  updateRoleStaffOverride(
+    compareKey: \$compareKey,
+    id: \$id,
+    ids: \$ids
+  )
+}
+''';
 const deleteCategoryOverride = '''
 mutation DeleteCategoryOverride(\$categoryId: ID!) {
   deleteCategoryOverride(categoryId: \$categoryId)
@@ -24,8 +37,14 @@ mutation DeleteStaffOverride(\$staffId: ID!) {
 }
 ''';
 const deleteDocumentOverride = '''
-mutation DeleteDocumentOverride(\$documentId: ID!, \$documentName: String!) {
-  deleteDocumentOverride(documentId: \$documentId, documentName: \$documentName)
+mutation DeleteDocumentOverride(
+  \$documentId: ID!,
+  \$documentName: String!
+) {
+  deleteDocumentOverride(
+    documentId: \$documentId,
+    documentName: \$documentName
+  )
 }
 ''';
 const deleteNoticeOverride = '''

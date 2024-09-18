@@ -61,8 +61,9 @@ export const handler: Handler = async (event) => {
           query: deleteAircraftDocument,
           variables: {
             input: {
-              aircraftId: aircraftDocument.aircraftId,
-              documentId: aircraftDocument.documentId,
+              // aircraftId: aircraftDocument.aircraftId,
+              // documentId: aircraftDocument.documentId,
+              id: aircraftDocument.id,
             },
           },
         }),

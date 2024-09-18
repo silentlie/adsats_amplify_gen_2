@@ -37,60 +37,69 @@ type Handler = Schema["updateRoleStaffOverride"]["functionHandler"];
 const client = generateClient<Schema>();
 
 export const handler: Handler = async (event) => {
-  const { compareKey, id, ids } = event.arguments;
-  const promises: Promise<any>[] = [];
-  const filter =
-    compareKey === "STAFF" ? { roleId: { eq: id } } : { staffId: { eq: id } };
-  const roleStaffsResult = await client.graphql({
-    query: listRoleStaffs,
-    variables: {
-      filter: filter,
-    },
-  });
-  const oldRecords = roleStaffsResult.data.listRoleStaffs.items;
-  const oldIds = new Set(
-    oldRecords.map((oldRecord) =>
-      compareKey === "STAFF" ? oldRecord.staffId : oldRecord.roleId,
-    ),
-  );
-  const newIds = new Set(ids);
+  // const { compareKey, id, ids } = event.arguments;
+  // const promises: Promise<any>[] = [];
+  // console.log(compareKey);
+  // console.log(compareKey == "STAFF");
+  // console.log(id);
+  // console.log(ids);
+  // console.log(typeof ids);
+  // const filter =
+  //   compareKey === "STAFF" ? { roleId: { eq: id } } : { staffId: { eq: id } };
+  // const roleStaffsResult = await client.graphql({
+  //   query: listRoleStaffs,
+  //   variables: {
+  //     filter: filter,
+  //   },
+  // });
+  // const oldRecords = roleStaffsResult.data.listRoleStaffs.items;
+  // const oldIds = new Set(
+  //   oldRecords.map((oldRecord) =>
+  //     compareKey === "STAFF" ? oldRecord.staffId : oldRecord.roleId,
+  //   ),
+  // );
+  // const newIds = new Set(ids);
 
-  newIds.forEach((compareId) => {
-    if (!oldIds.has(compareId)) {
-      console.log(
-        `Creating new record with id: ${id} and compareId: ${compareId}`,
-      );
-      promises.push(
-        client.graphql({
-          query: createRoleStaff,
-          variables: {
-            input:
-              compareKey === "STAFF"
-                ? { staffId: compareId, roleId: id }
-                : { roleId: compareId, staffId: id },
-          },
-        }),
-      );
-    }
-  });
+  // newIds.forEach((compareId) => {
+  //   if (!oldIds.has(compareId)) {
+  //     console.log(
+  //       `Creating new record with id: ${id} and compareId: ${compareId}`,
+  //     );
+  //     promises.push(
+  //       client.graphql({
+  //         query: createRoleStaff,
+  //         variables: {
+  //           input:
+  //             compareKey === "STAFF"
+  //               ? { staffId: compareId, roleId: id }
+  //               : { roleId: compareId, staffId: id },
+  //         },
+  //       }),
+  //     );
+  //   }
+  // });
 
-  oldRecords.forEach((oldRecord) => {
-    const compareId =
-      compareKey === "STAFF" ? oldRecord.staffId : oldRecord.roleId;
-    if (!newIds.has(compareId)) {
-      console.log(
-        `Deleting old record with staffId: ${oldRecord.staffId} and roleId: ${oldRecord.roleId}`,
-      );
-      promises.push(
-        client.graphql({
-          query: deleteRoleStaff,
-          variables: {
-            input: { staffId: oldRecord.staffId, roleId: oldRecord.roleId },
-          },
-        }),
-      );
-    }
-  });
-  const result = await Promise.all(promises);
-  return result;
+  // oldRecords.forEach((oldRecord) => {
+  //   const compareId =
+  //     compareKey === "STAFF" ? oldRecord.staffId : oldRecord.roleId;
+  //   if (!newIds.has(compareId)) {
+  //     console.log(
+  //       `Deleting old record with staffId: ${oldRecord.staffId} and roleId: ${oldRecord.roleId}`,
+  //     );
+  //     promises.push(
+  //       client.graphql({
+  //         query: deleteRoleStaff,
+  //         variables: {
+  //           input: {
+  //             // staffId: oldRecord.staffId,
+  //             // roleId: oldRecord.roleId,
+  //             id: oldRecord.id,
+  //           },
+  //         },
+  //       }),
+  //     );
+  //   }
+  // });
+  // const result = await Promise.all(promises);
+  return {};
 };

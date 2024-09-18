@@ -134,7 +134,7 @@ class RolesDataSource extends DataTableSource {
       listRolesResult == null
           ? roles = []
           : roles = List<Map<String, dynamic>>.from(
-              jsonMap["listRoles"]["items"],
+              listRolesResult["items"],
             );
       _data.clear();
       for (var role in roles) {
@@ -216,7 +216,9 @@ class RolesDataSource extends DataTableSource {
     String name = role?.name ?? "";
     String description = role?.description ?? "";
     bool archived = role?.archived ?? false;
-    List<RoleStaff> staff = role?.staff ?? [];
+    List<String> oldStaffIds =
+        role?.staff?.map((e) => e.staff!.id).toList() ?? [];
+    List<String> newStaffIds = oldStaffIds;
     final formKey = GlobalKey<FormState>();
     return AlertDialog.adaptive(
       title: role != null
@@ -283,25 +285,17 @@ class RolesDataSource extends DataTableSource {
             if (role != null)
               MultiSelect(
                 onConfirm: (p0) {
-                  staff = List<Staff>.from(p0).map(
-                    (e) {
-                      return RoleStaff(role: role, staff: e);
-                    },
-                  ).toList();
+                  newStaffIds = List<String>.from(p0);
                 },
                 items: Provider.of<AuthNotifier>(
                   context,
                   listen: false,
                 ).staff.map(
                   (e) {
-                    return MultiSelectItem(e, e.name);
+                    return MultiSelectItem(e.id, e.name);
                   },
                 ).toList(),
-                initialValue: staff.map(
-                  (e) {
-                    return e.staff!;
-                  },
-                ).toList(),
+                initialValue: oldStaffIds,
               ),
           ],
         ),
@@ -327,9 +321,8 @@ class RolesDataSource extends DataTableSource {
                   );
               if (role != null) {
                 await Future.wait([
-                  deleteRoleStaff(role.staff ?? []),
-                  createRoleStaff(staff),
-                  update(newRole),
+                  updateRoleStaff(newRole.id, newStaffIds, oldStaffIds),
+                  if (role == newRole) update(newRole),
                 ]);
               } else {
                 await create(newRole);
