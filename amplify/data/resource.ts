@@ -282,7 +282,11 @@ const schema = a
         role: a.belongsTo("Role", "roleId"),
         staff: a.belongsTo("Staff", "staffId"),
       })
-      .identifier(["roleId", "staffId"]),
+      .identifier(["roleId", "staffId"])
+      .secondaryIndexes((index) => [
+        index("roleId").sortKeys(["staffId"]),
+        index("staffId").sortKeys(["roleId"]),
+      ]),
     StaffSubcategory: a
       .model({
         accessLevel: a.integer().required(),
@@ -291,7 +295,11 @@ const schema = a
         subcategory: a.belongsTo("Subcategory", "subcategoryId"),
         staff: a.belongsTo("Staff", "staffId"),
       })
-      .identifier(["staffId", "subcategoryId"]),
+      .identifier(["staffId", "subcategoryId"])
+      .secondaryIndexes((index) => [
+        index("subcategoryId").sortKeys(["staffId"]),
+        index("staffId").sortKeys(["subcategoryId"]),
+      ]),
     Aircraft: a.model({
       name: a.string().required(),
       archived: a.boolean().required().default(false),
@@ -307,7 +315,11 @@ const schema = a
         aircraft: a.belongsTo("Aircraft", "aircraftId"),
         staff: a.belongsTo("Staff", "staffId"),
       })
-      .identifier(["aircraftId", "staffId"]),
+      .identifier(["aircraftId", "staffId"])
+      .secondaryIndexes((index) => [
+        index("aircraftId").sortKeys(["staffId"]),
+        index("staffId").sortKeys(["aircraftId"]),
+      ]),
     AircraftDocument: a
       .model({
         aircraftId: a.id().required(),
@@ -315,7 +327,11 @@ const schema = a
         aircraft: a.belongsTo("Aircraft", "aircraftId"),
         document: a.belongsTo("Document", "documentId"),
       })
-      .identifier(["aircraftId", "documentId"]),
+      .identifier(["aircraftId", "documentId"])
+      .secondaryIndexes((index) => [
+        index("aircraftId").sortKeys(["documentId"]),
+        index("documentId").sortKeys(["aircraftId"]),
+      ]),
     AircraftNotice: a
       .model({
         aircraftId: a.id().required(),
@@ -323,7 +339,11 @@ const schema = a
         aircraft: a.belongsTo("Aircraft", "aircraftId"),
         notice: a.belongsTo("Notice", "noticeId"),
       })
-      .identifier(["aircraftId", "noticeId"]),
+      .identifier(["aircraftId", "noticeId"])
+      .secondaryIndexes((index) => [
+        index("aircraftId").sortKeys(["noticeId"]),
+        index("noticeId").sortKeys(["aircraftId"]),
+      ]),
     Notice: a.model({
       subject: a.string().required(),
       type: a.enum(["Notice_to_Crew", "Safety_notice", "Hazard_report"]),
@@ -346,7 +366,11 @@ const schema = a
         notice: a.belongsTo("Notice", "noticeId"),
         staff: a.belongsTo("Staff", "staffId"),
       })
-      .identifier(["noticeId", "staffId"]),
+      .identifier(["noticeId", "staffId"])
+      .secondaryIndexes((index) => [
+        index("staffId").sortKeys(["noticeId"]),
+        index("noticeId").sortKeys(["staffId"]),
+      ]),
     NoticeDocument: a.model({
       noticeId: a.id().required(),
       notices: a.belongsTo("Notice", "noticeId"),

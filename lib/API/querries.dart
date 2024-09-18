@@ -134,3 +134,61 @@ query ListStaff(\$filter: ModelStaffFilterInput) {
   }
 }
 ''';
+const getStaff = '''
+query GetStaffDetails(\$id: ID!) {
+  getStaff(id: \$id) {
+    archived
+    email
+    id
+    name
+    aircraft {
+      id
+      items {
+        aircraft {
+          name
+          id
+          archived
+        }
+      }
+    }
+    roles {
+      id
+      items {
+        role {
+          id
+          name
+          archived
+        }
+      }
+    }
+    subcategories {
+      items {
+        accessLevel
+        subcategory {
+          name
+          id
+          archived
+          category {
+            name
+            id
+            archived
+          }
+        }
+      }
+    }
+    notifications(filter: {read_at: {attributeExists: false}}) {
+      items {
+        read_at
+        notice {
+          id
+          archived
+          deadline_at
+          type
+          subject
+          status
+        }
+      }
+    }
+  }
+}
+''';

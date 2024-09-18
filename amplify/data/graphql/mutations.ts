@@ -329,7 +329,7 @@ export const createNoticeOverride = /* GraphQL */ `mutation CreateNoticeOverride
   $documents: [String!]
   $noticed_at: AWSDateTime
   $recipients: [ID!]
-  $staffId: ID
+  $staffId: ID!
   $status: CreateNoticeOverrideStatus
   $subject: String!
   $type: CreateNoticeOverrideType
@@ -1308,6 +1308,17 @@ export const updateAircraftNotice = /* GraphQL */ `mutation UpdateAircraftNotice
   APITypes.UpdateAircraftNoticeMutationVariables,
   APITypes.UpdateAircraftNoticeMutation
 >;
+export const updateAircraftNoticeOverride = /* GraphQL */ `mutation UpdateAircraftNoticeOverride(
+  $compareKey: UpdateAircraftNoticeOverrideCompareKey
+  $id: ID!
+  $ids: [ID!]!
+) {
+  updateAircraftNoticeOverride(compareKey: $compareKey, id: $id, ids: $ids)
+}
+` as GeneratedMutation<
+  APITypes.UpdateAircraftNoticeOverrideMutationVariables,
+  APITypes.UpdateAircraftNoticeOverrideMutation
+>;
 export const updateAircraftStaff = /* GraphQL */ `mutation UpdateAircraftStaff(
   $condition: ModelAircraftStaffConditionInput
   $input: UpdateAircraftStaffInput!
@@ -1341,6 +1352,17 @@ export const updateAircraftStaff = /* GraphQL */ `mutation UpdateAircraftStaff(
 ` as GeneratedMutation<
   APITypes.UpdateAircraftStaffMutationVariables,
   APITypes.UpdateAircraftStaffMutation
+>;
+export const updateAircraftStaffOverride = /* GraphQL */ `mutation UpdateAircraftStaffOverride(
+  $compareKey: UpdateAircraftStaffOverrideCompareKey
+  $id: ID!
+  $ids: [ID!]!
+) {
+  updateAircraftStaffOverride(compareKey: $compareKey, id: $id, ids: $ids)
+}
+` as GeneratedMutation<
+  APITypes.UpdateAircraftStaffOverrideMutationVariables,
+  APITypes.UpdateAircraftStaffOverrideMutation
 >;
 export const updateCategory = /* GraphQL */ `mutation UpdateCategory(
   $condition: ModelCategoryConditionInput
@@ -1521,6 +1543,23 @@ export const updateNoticeStaff = /* GraphQL */ `mutation UpdateNoticeStaff(
   APITypes.UpdateNoticeStaffMutationVariables,
   APITypes.UpdateNoticeStaffMutation
 >;
+export const updateNoticeStaffOverride = /* GraphQL */ `mutation UpdateNoticeStaffOverride(
+  $aircraftIds: [ID!]
+  $noticeId: ID!
+  $roleIds: [ID!]
+  $staffIds: [ID!]
+) {
+  updateNoticeStaffOverride(
+    aircraftIds: $aircraftIds
+    noticeId: $noticeId
+    roleIds: $roleIds
+    staffIds: $staffIds
+  )
+}
+` as GeneratedMutation<
+  APITypes.UpdateNoticeStaffOverrideMutationVariables,
+  APITypes.UpdateNoticeStaffOverrideMutation
+>;
 export const updateRole = /* GraphQL */ `mutation UpdateRole(
   $condition: ModelRoleConditionInput
   $input: UpdateRoleInput!
@@ -1577,8 +1616,12 @@ export const updateRoleStaff = /* GraphQL */ `mutation UpdateRoleStaff(
   APITypes.UpdateRoleStaffMutationVariables,
   APITypes.UpdateRoleStaffMutation
 >;
-export const updateRoleStaffOverride = /* GraphQL */ `mutation UpdateRoleStaffOverride($id: ID!, $staff: [ID!]!) {
-  updateRoleStaffOverride(id: $id, staff: $staff)
+export const updateRoleStaffOverride = /* GraphQL */ `mutation UpdateRoleStaffOverride(
+  $compareKey: UpdateRoleStaffOverrideCompareKey
+  $id: ID!
+  $ids: [ID!]!
+) {
+  updateRoleStaffOverride(compareKey: $compareKey, id: $id, ids: $ids)
 }
 ` as GeneratedMutation<
   APITypes.UpdateRoleStaffOverrideMutationVariables,
@@ -1664,17 +1707,15 @@ export const updateStaffSubcategory = /* GraphQL */ `mutation UpdateStaffSubcate
 >;
 export const updateStaffSubcategoryOverride = /* GraphQL */ `mutation UpdateStaffSubcategoryOverride(
   $accessLevels: [Int!]!
-  $staff: [ID!]
-  $staffId: ID
-  $subcategories: [ID!]
-  $subcategoryId: ID
+  $compareKey: UpdateStaffSubcategoryOverrideCompareKey
+  $id: ID!
+  $ids: [ID!]!
 ) {
   updateStaffSubcategoryOverride(
     accessLevels: $accessLevels
-    staff: $staff
-    staffId: $staffId
-    subcategories: $subcategories
-    subcategoryId: $subcategoryId
+    compareKey: $compareKey
+    id: $id
+    ids: $ids
   )
 }
 ` as GeneratedMutation<

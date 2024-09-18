@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
@@ -49,101 +50,10 @@ class AuthNotifier with ChangeNotifier {
   }
 
   Future<void> _queryUserDetails(String id) async {
-    const document = '''
-    query GetStaffDetails(\$id: ID!) {
-      getStaff(id: \$id) {
-        archived
-        createdAt
-        email
-        id
-        name
-        updatedAt
-        aircraft {
-          items {
-            aircraftId
-            createdAt
-            id
-            staffId
-            updatedAt
-            aircraft {
-              updatedAt
-              name
-              id
-              description
-              createdAt
-              archived
-            }
-          }
-        }
-        roles {
-          items {
-            id
-            roleId
-            staffId
-            createdAt
-            updatedAt
-            role {
-              id
-              name
-              description
-              createdAt
-              archived
-              updatedAt
-            }
-          }
-        }
-        subcategories {
-          items {
-            updatedAt
-            subcategoryId
-            staffId
-            id
-            createdAt
-            accessLevel
-            subcategory {
-              updatedAt
-              name
-              id
-              description
-              createdAt
-              categoryId
-              archived
-              category {
-                updatedAt
-                name
-                id
-                description
-                createdAt
-                archived
-              }
-            }
-          }
-        }
-        notifications(filter: {read_at: {attributeExists: false}}) {
-          items {
-            createdAt
-            id
-            noticeId
-            read_at
-            staffId
-            updatedAt
-            notice {
-              id
-              archived
-              deadline_at
-              type
-              subject
-              status
-            }
-          }
-        }
-      }
-    }
-    ''';
     final response = await Amplify.API
         .query(
           request: GraphQLRequest(
-            document: document,
+            document: getStaff,
             variables: {
               "id": id,
             },

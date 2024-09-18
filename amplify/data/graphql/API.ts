@@ -874,10 +874,22 @@ export type UpdateAircraftNoticeInput = {
   noticeId: string,
 };
 
+export enum UpdateAircraftNoticeOverrideCompareKey {
+  AIRCRAFT = "AIRCRAFT",
+  NOTICE = "NOTICE",
+}
+
+
 export type UpdateAircraftStaffInput = {
   aircraftId: string,
   staffId: string,
 };
+
+export enum UpdateAircraftStaffOverrideCompareKey {
+  AIRCRAFT = "AIRCRAFT",
+  STAFF = "STAFF",
+}
+
 
 export type UpdateCategoryInput = {
   archived?: boolean | null,
@@ -930,6 +942,12 @@ export type UpdateRoleStaffInput = {
   staffId: string,
 };
 
+export enum UpdateRoleStaffOverrideCompareKey {
+  ROLE = "ROLE",
+  STAFF = "STAFF",
+}
+
+
 export type UpdateStaffInput = {
   archived?: boolean | null,
   email?: string | null,
@@ -942,6 +960,12 @@ export type UpdateStaffSubcategoryInput = {
   staffId: string,
   subcategoryId: string,
 };
+
+export enum UpdateStaffSubcategoryOverrideCompareKey {
+  STAFF = "STAFF",
+  SUBCATEGORY = "SUBCATEGORY",
+}
+
 
 export type UpdateSubcategoryInput = {
   archived?: boolean | null,
@@ -2243,7 +2267,7 @@ export type CreateNoticeOverrideMutationVariables = {
   documents?: Array< string > | null,
   noticed_at?: string | null,
   recipients?: Array< string > | null,
-  staffId?: string | null,
+  staffId: string,
   status?: CreateNoticeOverrideStatus | null,
   subject: string,
   type?: CreateNoticeOverrideType | null,
@@ -3169,6 +3193,16 @@ export type UpdateAircraftNoticeMutation = {
   } | null,
 };
 
+export type UpdateAircraftNoticeOverrideMutationVariables = {
+  compareKey?: UpdateAircraftNoticeOverrideCompareKey | null,
+  id: string,
+  ids: Array< string >,
+};
+
+export type UpdateAircraftNoticeOverrideMutation = {
+  updateAircraftNoticeOverride?: string | null,
+};
+
 export type UpdateAircraftStaffMutationVariables = {
   condition?: ModelAircraftStaffConditionInput | null,
   input: UpdateAircraftStaffInput,
@@ -3200,6 +3234,16 @@ export type UpdateAircraftStaffMutation = {
     staffId: string,
     updatedAt: string,
   } | null,
+};
+
+export type UpdateAircraftStaffOverrideMutationVariables = {
+  compareKey?: UpdateAircraftStaffOverrideCompareKey | null,
+  id: string,
+  ids: Array< string >,
+};
+
+export type UpdateAircraftStaffOverrideMutation = {
+  updateAircraftStaffOverride?: string | null,
 };
 
 export type UpdateCategoryMutationVariables = {
@@ -3376,6 +3420,17 @@ export type UpdateNoticeStaffMutation = {
   } | null,
 };
 
+export type UpdateNoticeStaffOverrideMutationVariables = {
+  aircraftIds?: Array< string > | null,
+  noticeId: string,
+  roleIds?: Array< string > | null,
+  staffIds?: Array< string > | null,
+};
+
+export type UpdateNoticeStaffOverrideMutation = {
+  updateNoticeStaffOverride?: string | null,
+};
+
 export type UpdateRoleMutationVariables = {
   condition?: ModelRoleConditionInput | null,
   input: UpdateRoleInput,
@@ -3431,8 +3486,9 @@ export type UpdateRoleStaffMutation = {
 };
 
 export type UpdateRoleStaffOverrideMutationVariables = {
+  compareKey?: UpdateRoleStaffOverrideCompareKey | null,
   id: string,
-  staff: Array< string >,
+  ids: Array< string >,
 };
 
 export type UpdateRoleStaffOverrideMutation = {
@@ -3517,10 +3573,9 @@ export type UpdateStaffSubcategoryMutation = {
 
 export type UpdateStaffSubcategoryOverrideMutationVariables = {
   accessLevels: Array< number >,
-  staff?: Array< string > | null,
-  staffId?: string | null,
-  subcategories?: Array< string > | null,
-  subcategoryId?: string | null,
+  compareKey?: UpdateStaffSubcategoryOverrideCompareKey | null,
+  id: string,
+  ids: Array< string >,
 };
 
 export type UpdateStaffSubcategoryOverrideMutation = {
