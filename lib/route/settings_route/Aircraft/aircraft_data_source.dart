@@ -88,14 +88,14 @@ class AircraftDataSource extends DataTableSource {
         IconButton(
           onPressed: () async {
             await update(aircraft.copyWith(archived: !aircraft.archived));
-            fetchRawData();
+            await fetchRawData();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            await delete(aircraft);
-            fetchRawData();
+            await deleteAicraft(aircraft);
+            await fetchRawData();
           },
           icon: const Icon(Icons.delete_outline),
         ),
@@ -125,8 +125,8 @@ class AircraftDataSource extends DataTableSource {
         variables: {"filter": _filter.toJson()},
       );
       final response = await Amplify.API.query(request: request).response;
-      if (response.data == null) {
-        throw Exception('No data returned from API');
+      if (response.errors.isNotEmpty) {
+        throw response.errors.first;
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
       final listAircraftResult = jsonMap["listAircraft"];
@@ -218,7 +218,7 @@ class AircraftDataSource extends DataTableSource {
     String name = aircraft?.name ?? "";
     String description = aircraft?.description ?? "";
     bool archived = aircraft?.archived ?? false;
-    List<AircraftStaff> staff = aircraft?.staff ?? [];
+    List<Staff> staff = aircraft?.staff?.map((e) => e.staff!).toList() ?? [];
     final formKey = GlobalKey<FormState>();
     return AlertDialog.adaptive(
       title: aircraft != null
@@ -282,29 +282,20 @@ class AircraftDataSource extends DataTableSource {
                 ),
               ),
             ),
-            if (aircraft != null)
-              MultiSelect(
-                onConfirm: (p0) {
-                  staff = List<Staff>.from(p0).map(
-                    (e) {
-                      return AircraftStaff(aircraft: aircraft, staff: e);
-                    },
-                  ).toList();
+            MultiSelect(
+              onConfirm: (p0) {
+                staff = List<Staff>.from(p0);
+              },
+              items: Provider.of<AuthNotifier>(
+                context,
+                listen: false,
+              ).staff.map(
+                (e) {
+                  return MultiSelectItem(e, e.name);
                 },
-                items: Provider.of<AuthNotifier>(
-                  context,
-                  listen: false,
-                ).staff.map(
-                  (e) {
-                    return MultiSelectItem(e, e.name);
-                  },
-                ).toList(),
-                initialValue: staff.map(
-                  (e) {
-                    return e.staff!;
-                  },
-                ).toList(),
-              ),
+              ).toList(),
+              initialValue: staff,
+            ),
           ],
         ),
       ),
@@ -329,15 +320,15 @@ class AircraftDataSource extends DataTableSource {
                   );
               if (aircraft != null) {
                 await Future.wait([
-                  deleteAircraftStaff(aircraft.staff ?? []),
-                  createAircraftStaff(staff),
+                  updateAircraftStaff(newAircraft, staff),
                   if (aircraft != newAircraft) update(newAircraft),
                 ]);
               } else {
-                await create(newAircraft);
+                newAircraft = await create(newAircraft);
+                await updateAircraftStaff(newAircraft, staff);
               }
+              await fetchRawData();
               if (!context.mounted) return;
-              fetchRawData();
               Navigator.pop(context, 'Apply');
             }
           },

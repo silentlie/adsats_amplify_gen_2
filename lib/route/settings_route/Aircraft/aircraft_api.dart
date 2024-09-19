@@ -1,93 +1,64 @@
+import 'dart:convert';
+
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
+import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-Future<void> create(Aircraft aircraft) async {
-  try {
-    final request = ModelMutations.create(aircraft);
-    final response = await Amplify.API.mutate(request: request).response;
-
-    final data = response.data;
-    if (data == null) {
-      debugPrint('errors: ${response.errors}');
-      return;
-    }
-    // print('Add aircraft result: ${data.name}');
-  } on ApiException catch (e) {
-    debugPrint('Add aircraft failed: $e');
-  }
-}
-
-Future<void> update(Aircraft aircraft) async {
-  try {
-    final request = ModelMutations.update(aircraft);
-    final response = await Amplify.API.mutate(request: request).response;
-
-    final data = response.data;
-    if (data == null) {
-      debugPrint('errors: ${response.errors}');
-      return;
-    }
-    // print('Update aircraft result: $data');
-  } on ApiException catch (e) {
-    debugPrint('Update aircraft failed: $e');
-  }
-}
-
-Future<void> delete(Aircraft aircraft) async {
+Future<Aircraft> deleteAicraft(Aircraft aircraft) async {
   try {
     final request = GraphQLRequest<String>(
-      document: deleteAircraftOverride,
-      variables: {"aircraftId": aircraft.id},
+      document: getAircraftDetails,
+      variables: {"id": aircraft.id},
     );
-    final response = await Amplify.API.mutate(request: request).response;
-    final data = response.data;
-    if (data == null) {
-      debugPrint('errors: ${response.errors}');
-      return;
+    final response = await Amplify.API.query(request: request).response;
+    if (response.errors.isNotEmpty) {
+      throw response.errors.first;
     }
-    // print('Delete aircraft result: $data');
+    Map<String, dynamic> jsonMap = json.decode(response.data!);
+    Aircraft returnAircraft = Aircraft.fromJson(jsonMap["getAircraft"]);
+    final List<Future> futures = [];
+    returnAircraft.staff?.forEach(
+      (aircraftStaff) => futures.add(delete(aircraftStaff)),
+    );
+    returnAircraft.document?.forEach(
+      (aircraftDocument) => futures.add(delete(aircraftDocument)),
+    );
+    returnAircraft.notices?.forEach(
+      (aircraftNotice) => futures.add(delete(aircraftNotice)),
+    );
+    futures.add(delete(aircraft));
+    Future.wait(futures);
+    return returnAircraft;
   } on ApiException catch (e) {
-    debugPrint('Delete aircraft failed: $e');
+    debugPrint('ApiExecption: delete Aircraft with ${aircraft.id} failed: $e');
+    rethrow;
+  } on Exception catch (e) {
+    debugPrint(
+        'Dart Exception: delete Aircraft with ${aircraft.id} failed: $e');
+    rethrow;
   }
 }
 
-Future<void> createAircraftStaff(List<AircraftStaff> staffList) async {
+Future<void> updateAircraftStaff(Aircraft aircraft, List<Staff> staff) async {
   try {
-    final futures = staffList.map((staff) async {
-      final request = ModelMutations.create(staff);
-      final response = await Amplify.API.mutate(request: request).response;
-
-      final createdAircraftStaff = response.data;
-      if (createdAircraftStaff == null) {
-        debugPrint('Error creating aircraft staff: ${response.errors}');
-        return;
+    final List<Future> futures = [];
+    final oldRecords = aircraft.staff ?? [];
+    final Map<String, AircraftStaff> oldMap = {
+      for (var oldRecord in oldRecords) oldRecord.staff!.id: oldRecord
+    };
+    for (var newStaff in staff) {
+      final oldRecord = oldMap.remove(newStaff.id);
+      if (oldRecord == null) {
+        futures.add(create(AircraftStaff(aircraft: aircraft, staff: newStaff)));
       }
-    }).toList();
-
+    }
+    for (var oldRecord in oldMap.values) {
+      futures.add(delete(oldRecord));
+    }
     await Future.wait(futures);
   } on ApiException catch (e) {
-    debugPrint('Create aircraft staff failed: $e');
-  }
-}
-
-Future<void> deleteAircraftStaff(List<AircraftStaff> staffList) async {
-  try {
-    final futures = staffList.map((staff) async {
-      final request = ModelMutations.delete(staff);
-      final response = await Amplify.API.mutate(request: request).response;
-
-      final deletedAircraftStaff = response.data;
-      if (deletedAircraftStaff == null) {
-        debugPrint('Error deleting aircraft staff: ${response.errors}');
-        return;
-      }
-    }).toList();
-
-    await Future.wait(futures);
-  } on ApiException catch (e) {
-    debugPrint('Delete aircraft staff failed: $e');
+    debugPrint('update role staff failed: $e');
   }
 }

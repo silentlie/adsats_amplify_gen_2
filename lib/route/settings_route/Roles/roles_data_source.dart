@@ -125,8 +125,8 @@ class RolesDataSource extends DataTableSource {
         variables: {"filter": _filter.toJson()},
       );
       final response = await Amplify.API.query(request: request).response;
-      if (response.data == null) {
-        throw Exception('No data returned from API');
+      if (response.errors.isNotEmpty) {
+        throw response.errors.first;
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
       final listRolesResult = jsonMap["listRoles"];
@@ -216,9 +216,7 @@ class RolesDataSource extends DataTableSource {
     String name = role?.name ?? "";
     String description = role?.description ?? "";
     bool archived = role?.archived ?? false;
-    List<String> oldStaffIds =
-        role?.staff?.map((e) => e.staff!.id).toList() ?? [];
-    List<String> newStaffIds = oldStaffIds;
+    List<Staff> staff = role?.staff?.map((e) => e.staff!).toList() ?? [];
     final formKey = GlobalKey<FormState>();
     return AlertDialog.adaptive(
       title: role != null
@@ -282,21 +280,20 @@ class RolesDataSource extends DataTableSource {
                 ),
               ),
             ),
-            if (role != null)
-              MultiSelect(
-                onConfirm: (p0) {
-                  newStaffIds = List<String>.from(p0);
+            MultiSelect(
+              onConfirm: (p0) {
+                staff = List<Staff>.from(p0);
+              },
+              items: Provider.of<AuthNotifier>(
+                context,
+                listen: false,
+              ).staff.map(
+                (e) {
+                  return MultiSelectItem(e, e.name);
                 },
-                items: Provider.of<AuthNotifier>(
-                  context,
-                  listen: false,
-                ).staff.map(
-                  (e) {
-                    return MultiSelectItem(e.id, e.name);
-                  },
-                ).toList(),
-                initialValue: oldStaffIds,
-              ),
+              ).toList(),
+              initialValue: staff,
+            ),
           ],
         ),
       ),
@@ -321,14 +318,14 @@ class RolesDataSource extends DataTableSource {
                   );
               if (role != null) {
                 await Future.wait([
-                  updateRoleStaff(newRole.id, newStaffIds, oldStaffIds),
+                  updateRoleStaff(role, staff),
                   if (role == newRole) update(newRole),
                 ]);
               } else {
                 await create(newRole);
               }
+              await fetchRawData();
               if (!context.mounted) return;
-              fetchRawData();
               Navigator.pop(context, 'Apply');
             }
           },

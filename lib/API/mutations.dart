@@ -1,13 +1,120 @@
-const updateRoleStaffOverride = '''
-mutation UpdateRoleStaffOverride(
-  \$compareKey: UpdateRoleStaffOverrideCompareKey
-  \$id: ID!
-  \$ids: [ID!]!
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter/material.dart';
+
+const createNoticeOverride = '''
+mutation CreateNoticeOverride(
+  \$aircraft: [ID!]
+  \$archived: Boolean!
+  \$deadline_at: AWSDateTime
+  \$details: AWSJSON!
+  \$documents: [String!]
+  \$noticed_at: AWSDateTime
+  \$recipients: [ID!]
+  \$staffId: ID!
+  \$status: CreateNoticeOverrideStatus
+  \$subject: String!
+  \$type: CreateNoticeOverrideType
 ) {
-  updateRoleStaffOverride(
-    compareKey: \$compareKey,
-    id: \$id,
-    ids: \$ids
+  createNoticeOverride(
+    aircraft: \$aircraft
+    archived: \$archived
+    deadline_at: \$deadline_at
+    details: \$details
+    documents: \$documents
+    noticed_at: \$noticed_at
+    recipients: \$recipients
+    staffId: \$staffId
+    status: \$status
+    subject: \$subject
+    type: \$type
+  )
+}
+''';
+const createDocumentOverride = '''
+mutation CreateDocumentOverride(
+  \$aircraft: [ID!]
+  \$archived: Boolean!
+  \$name: String!
+  \$staffId: ID!
+  \$subcategoryId: ID!
+) {
+  createDocumentOverride(
+    aircraft: \$aircraft
+    archived: \$archived
+    name: \$name
+    staffId: \$staffId
+    subcategoryId: \$subcategoryId
+  )
+}
+''';
+const createStaffOverride = '''
+mutation CreateStaffOverride(
+  \$accessLevels: [Int!]
+  \$aircraft: [ID!]
+  \$archived: Boolean!
+  \$email: AWSEmail!
+  \$name: String!
+  \$roles: [ID!]
+  \$subcategories: [ID!]
+) {
+  createStaffOverride(
+    accessLevels: \$accessLevels
+    aircraft: \$aircraft
+    archived: \$archived
+    email: \$email
+    name: \$name
+    roles: \$roles
+    subcategories: \$subcategories
+  )
+}
+''';
+const createSubcategoryOverride = '''
+mutation CreateSubcategoryOverride(
+  \$accessLevels: [Int!]
+  \$archived: Boolean!
+  \$categoryId: ID!
+  \$description: String!
+  \$name: String!
+  \$staff: [ID!]
+) {
+  createSubcategoryOverride(
+    accessLevels: \$accessLevels
+    archived: \$archived
+    categoryId: \$categoryId
+    description: \$description
+    name: \$name
+    staff: \$staff
+  )
+}
+''';
+const createRoleOverride = '''
+mutation createRoleOverride(
+  \$archived: Boolean!
+  \$description: String!
+  \$name: String!
+  \$staff: [ID!]
+) {
+  createRoleOverride(
+    archived: \$archived
+    description: \$description
+    name: \$name
+    staff: \$staff
+  )
+}
+''';
+const createAircraftOverride = '''
+mutation CreateAircraftOverride(
+  \$archived: Boolean!
+  \$description: String!
+  \$name: String!
+  \$staff: [ID!]
+) {
+  createAircraftOverride(
+    archived: \$archived
+    description: \$description
+    name: \$name
+    staff: \$staff
   )
 }
 ''';
@@ -91,3 +198,59 @@ mutation DisableUser(\$id: ID!) {
   disableUser(id: \$id)
 }
 ''';
+Future<T> create<T extends Model>(T model) async {
+  try {
+    final request = ModelMutations.create(model);
+    final response = await Amplify.API.query(request: request).response;
+    if (response.errors.isNotEmpty) {
+      throw response.errors.first;
+    }
+    return response.data as T;
+  } on ApiException catch (e) {
+    debugPrint(
+        'ApiExecption: create ${model.runtimeType} with ${model.modelIdentifier} failed: $e');
+    rethrow;
+  } on Exception catch (e) {
+    debugPrint(
+        'Dart Exception: create ${model.runtimeType} with ${model.modelIdentifier}failed: $e');
+    rethrow;
+  }
+}
+
+Future<T> update<T extends Model>(T model) async {
+  try {
+    final request = ModelMutations.update(model);
+    final response = await Amplify.API.query(request: request).response;
+    if (response.errors.isNotEmpty) {
+      throw response.errors.first;
+    }
+    return response.data as T;
+  } on ApiException catch (e) {
+    debugPrint(
+        'ApiExecption: update ${model.runtimeType} with ${model.modelIdentifier} failed: $e');
+    rethrow;
+  } on Exception catch (e) {
+    debugPrint(
+        'Dart Exception: update ${model.runtimeType} with ${model.modelIdentifier}failed: $e');
+    rethrow;
+  }
+}
+
+Future<T> delete<T extends Model>(T model) async {
+  try {
+    final request = ModelMutations.delete(model);
+    final response = await Amplify.API.query(request: request).response;
+    if (response.errors.isNotEmpty) {
+      throw response.errors.first;
+    }
+    return response.data as T;
+  } on ApiException catch (e) {
+    debugPrint(
+        'ApiExecption: delete ${model.runtimeType} with ${model.modelIdentifier} failed: $e');
+    rethrow;
+  } on Exception catch (e) {
+    debugPrint(
+        'Dart Exception: delete ${model.runtimeType} with ${model.modelIdentifier}failed: $e');
+    rethrow;
+  }
+}

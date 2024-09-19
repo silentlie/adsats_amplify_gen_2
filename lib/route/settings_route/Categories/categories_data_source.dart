@@ -125,8 +125,8 @@ class CategoriesDataSource extends DataTableSource {
         variables: {"filter": filter.toJson()},
       );
       final response = await Amplify.API.query(request: request).response;
-      if (response.data == null) {
-        throw Exception('No data returned from API');
+      if (response.errors.isNotEmpty) {
+        throw response.errors.first;
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
       final listCategoriesResult = jsonMap["listCategories"];
@@ -309,8 +309,8 @@ class CategoriesDataSource extends DataTableSource {
               } else {
                 await create(newCategory);
               }
+              await fetchRawData();
               if (!context.mounted) return;
-              fetchRawData();
               Navigator.pop(context, 'Apply');
             }
           },

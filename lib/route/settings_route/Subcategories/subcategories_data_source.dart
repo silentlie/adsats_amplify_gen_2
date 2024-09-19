@@ -129,8 +129,8 @@ class SubcategoriesDataSource extends DataTableSource {
         variables: {"filter": _filter.toJson()},
       );
       final response = await Amplify.API.query(request: request).response;
-      if (response.data == null) {
-        throw Exception('No data returned from API');
+      if (response.errors.isNotEmpty) {
+        throw response.errors.first;
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
       final listSubcategoriesResult = jsonMap["listSubcategories"];
@@ -225,6 +225,7 @@ class SubcategoriesDataSource extends DataTableSource {
     String name = subcategory?.name ?? "";
     String description = subcategory?.description ?? "";
     bool archived = subcategory?.archived ?? false;
+    List<StaffSubcategory> staffSubcategory = subcategory?.staff ?? [];
     final formKey = GlobalKey<FormState>();
     return AlertDialog.adaptive(
       title: subcategory != null
@@ -327,6 +328,24 @@ class SubcategoriesDataSource extends DataTableSource {
                   "Archived",
                 ),
               ),
+            ),
+            FutureBuilder(
+              future: list(Staff.classType),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                      child: CircularProgressIndicator.adaptive());
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.hasData) {
+                  final allStaff = snapshot.data as List<Staff>;
+
+                  // TODO: add subcategories staff
+                  return const Placeholder();
+                } else {
+                  return const Placeholder();
+                }
+              },
             ),
           ],
         ),

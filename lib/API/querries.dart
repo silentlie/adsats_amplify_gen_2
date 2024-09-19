@@ -1,3 +1,7 @@
+import 'package:amplify_api/amplify_api.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter/material.dart';
+
 const listSubcategories = '''
 query ListSubcategories(\$filter: ModelSubcategoryFilterInput) {
   listSubcategories(filter: \$filter) {
@@ -20,6 +24,7 @@ query ListSubcategories(\$filter: ModelSubcategoryFilterInput) {
             id
             name
             email
+            archived
           }
         }
       }
@@ -40,6 +45,7 @@ query ListCategories(\$filter: ModelCategoryFilterInput) {
       subcategories {
         items {
           id
+          name
         }
       }
     }
@@ -62,6 +68,8 @@ query ListAircraft(\$filter: ModelAircraftFilterInput) {
           staff {
             id
             name
+            email
+            archived
           }
         }
       }
@@ -85,6 +93,8 @@ query ListRoles(\$filter: ModelRoleFilterInput) {
           staff {
             id
             name
+            email
+            archived
           }
         }
       }
@@ -125,6 +135,35 @@ query ListStaff(\$filter: ModelStaffFilterInput) {
           accessLevel
           id
           subcategory {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}
+''';
+const listDocuments = '''
+query ListDocuments(\$filter: ModelDocumentFilterInput) {
+  listDocuments(filter: \$filter) {
+    items {
+      id
+      name
+      createdAt
+      archived
+      subcategory {
+        id
+        name
+        category {
+          id
+          name
+        }
+      }
+      aircraft {
+        items {
+          id
+          aircraft {
             id
             name
           }
@@ -189,32 +228,64 @@ query GetStaffDetails(\$id: ID!) {
   }
 }
 ''';
-const listDocuments = '''
-query ListDocuments(\$filter: ModelDocumentFilterInput) {
-  listDocuments(filter: \$filter) {
-    items {
-      id
-      name
-      createdAt
-      archived
-      subcategory {
+const getAircraftDetails = '''
+query GetStaffDetails(\$id: ID!) {
+  getAircraft(id: \$id) {
+    id
+    document {
+      items {
         id
-        name
-        category {
-          id
-          name
-        }
       }
-      aircraft {
-        items {
-          id
-          aircraft {
-            id
-            name
-          }
-        }
+    }
+    notices {
+      items {
+        id
+      }
+    }
+    staff {
+      items {
+        id
       }
     }
   }
 }
 ''';
+Future<List<T>> list<T extends Model>(
+  ModelType<T> modelType, {
+  QueryPredicate<Model>? where,
+}) async {
+  try {
+    final request = ModelQueries.list(modelType, where: where);
+    final response = await Amplify.API.query(request: request).response;
+    if (response.errors.isNotEmpty) {
+      throw response.errors.first;
+    }
+    return response.data?.items.cast<T>() ?? [];
+  } on ApiException catch (e) {
+    debugPrint('ApiExecption: list $modelType failed: $e');
+    rethrow;
+  } on Exception catch (e) {
+    debugPrint('Dart Exception: list $modelType failed: $e');
+    rethrow;
+  }
+}
+
+Future<T?> get<T extends Model>(
+  ModelType<T> modelType,
+  ModelIdentifier<T> modelIdentifier,
+) async {
+  try {
+    final request = ModelQueries.get(modelType, modelIdentifier);
+    final response = await Amplify.API.query(request: request).response;
+    if (response.errors.isNotEmpty) {
+      throw response.errors.first;
+    }
+    return response.data as T;
+  } on ApiException catch (e) {
+    debugPrint('ApiExecption: get $modelType failed: $e');
+    rethrow;
+  } on Exception catch (e) {
+    debugPrint('Dart Exception: get $modelType failed: $e');
+    rethrow;
+  }
+}

@@ -24,9 +24,8 @@ Future<String> createUser(
       )
       .response;
   Map<String, dynamic> responseJson = jsonDecode(response.data);
-  final errors = List<Map<String, dynamic>>.from(responseJson["errors"]);
-  if (errors.isNotEmpty) {
-    throw errors.first["message"];
+  if (response.errors.isNotEmpty) {
+    throw response.errors.first;
   }
   String id = json.decode(responseJson["createUser"])["User"]["Username"];
   return id;
@@ -39,10 +38,8 @@ Future<void> disableUser(String id) async {
         "id": id,
       }))
       .response;
-  Map<String, dynamic> responseJson = jsonDecode(response.data);
-  final errors = List<Map<String, dynamic>>.from(responseJson["errors"]);
-  if (errors.isNotEmpty) {
-    throw errors.first["message"];
+  if (response.errors.isNotEmpty) {
+    throw response.errors.first;
   }
 }
 
@@ -53,26 +50,22 @@ Future<void> enableUser(String id) async {
         "id": id,
       }))
       .response;
-  Map<String, dynamic> responseJson = jsonDecode(response.data);
-  final errors = List<Map<String, dynamic>>.from(responseJson["errors"]);
-  if (errors.isNotEmpty) {
-    throw errors.first["message"];
+  if (response.errors.isNotEmpty) {
+    throw response.errors.first;
   }
 }
 
-// Future<void> deleteUser(String id) async {
-//   final response = await Amplify.API
-//       .query(
-//           request: GraphQLRequest(document: deleteUserAdmin, variables: {
-//         "id": id,
-//       }))
-//       .response;
-//   Map<String, dynamic> responseJson = jsonDecode(response.data);
-//   final errors = List<Map<String, dynamic>>.from(responseJson["errors"]);
-//   if (errors.isNotEmpty) {
-//     throw errors.first["message"];
-//   }
-// }
+Future<void> deleteUser(String id) async {
+  final response = await Amplify.API
+      .query(
+          request: GraphQLRequest(document: deleteUserAdmin, variables: {
+        "id": id,
+      }))
+      .response;
+  if (response.errors.isNotEmpty) {
+    throw response.errors.first;
+  }
+}
 
 Future<void> create(Staff staff) async {
   try {

@@ -143,8 +143,8 @@ class DocumentsDataSource extends DataTableSource {
 
     try {
       final response = await Amplify.API.query(request: request).response;
-      if (response.data == null) {
-        throw Exception('No data returned from API');
+      if (response.errors.isNotEmpty) {
+        throw response.errors.first;
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
       final listDocuments = jsonMap["listDocuments"];
