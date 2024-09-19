@@ -88,14 +88,14 @@ class RolesDataSource extends DataTableSource {
         IconButton(
           onPressed: () async {
             await update(role.copyWith(archived: !role.archived));
-            fetchRawData();
+            await fetchRawData();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            await delete(role);
-            fetchRawData();
+            await deleteRole(role);
+            await fetchRawData();
           },
           icon: const Icon(Icons.delete_outline),
         ),
@@ -142,11 +142,11 @@ class RolesDataSource extends DataTableSource {
       }
       isInitialize = true;
       notifyListeners();
+      // debugPrint("did call fetchRawData");
+    } on ApiException catch (e) {
+      debugPrint('ApiExecption: fetchRawData Role failed: $e');
     } on Exception catch (e) {
-      debugPrint(
-        'Error Exception while retrieving roles: $e',
-      );
-      rethrow;
+      debugPrint('Dart Exception: fetchRawData Role failed: $e');
     }
   }
 
@@ -280,19 +280,31 @@ class RolesDataSource extends DataTableSource {
                 ),
               ),
             ),
-            MultiSelect(
-              onConfirm: (p0) {
-                staff = List<Staff>.from(p0);
+            FutureBuilder(
+              future: list(Staff.classType),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                      child: CircularProgressIndicator.adaptive());
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.hasData) {
+                  final allStaff = snapshot.data as List<Staff>;
+                  return MultiSelect(
+                    onConfirm: (p0) {
+                      staff = List<Staff>.from(p0);
+                    },
+                    items: allStaff.map(
+                      (e) {
+                        return MultiSelectItem(e, e.name);
+                      },
+                    ).toList(),
+                    initialValue: staff,
+                  );
+                } else {
+                  return const Placeholder();
+                }
               },
-              items: Provider.of<AuthNotifier>(
-                context,
-                listen: false,
-              ).staff.map(
-                (e) {
-                  return MultiSelectItem(e, e.name);
-                },
-              ).toList(),
-              initialValue: staff,
             ),
           ],
         ),
@@ -319,10 +331,11 @@ class RolesDataSource extends DataTableSource {
               if (role != null) {
                 await Future.wait([
                   updateRoleStaff(role, staff),
-                  if (role == newRole) update(newRole),
+                  if (role != newRole) update(newRole),
                 ]);
               } else {
-                await create(newRole);
+                newRole = await create(newRole);
+                await updateRoleStaff(newRole, staff);
               }
               await fetchRawData();
               if (!context.mounted) return;

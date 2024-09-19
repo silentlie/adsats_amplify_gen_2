@@ -92,14 +92,14 @@ class SubcategoriesDataSource extends DataTableSource {
         IconButton(
           onPressed: () async {
             await update(subcategory.copyWith(archived: !subcategory.archived));
-            fetchRawData();
+            await fetchRawData();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            await delete(subcategory);
-            fetchRawData();
+            await deleteSubcategory(subcategory);
+            await fetchRawData();
           },
           icon: const Icon(Icons.delete_outline),
         ),
@@ -225,7 +225,7 @@ class SubcategoriesDataSource extends DataTableSource {
     String name = subcategory?.name ?? "";
     String description = subcategory?.description ?? "";
     bool archived = subcategory?.archived ?? false;
-    List<StaffSubcategory> staffSubcategory = subcategory?.staff ?? [];
+    List<StaffSubcategory> staffSubcategories = subcategory?.staff ?? [];
     final formKey = GlobalKey<FormState>();
     return AlertDialog.adaptive(
       title: subcategory != null
@@ -237,26 +237,22 @@ class SubcategoriesDataSource extends DataTableSource {
           mainAxisSize: MainAxisSize.min,
           children: [
             FutureBuilder(
-              future: CategoriesDataSource(context).fetchRawData(),
+              future: list(Category.classType),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
-                      child: CircularProgressIndicator.adaptive());
+                    child: CircularProgressIndicator.adaptive(),
+                  );
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else {
                   category = subcategory == null
-                      ? CategoriesDataSource.data.first
-                      : CategoriesDataSource.data.where(
-                          (element) {
-                            return element.modelIdentifier ==
-                                subcategory.category!.modelIdentifier;
-                          },
-                        ).first;
+                      ? snapshot.data!.firstOrNull
+                      : subcategory.category;
                   return Container(
                     padding: const EdgeInsets.all(8),
                     child: DropdownMenu(
-                      dropdownMenuEntries: CategoriesDataSource.data.map(
+                      dropdownMenuEntries: snapshot.data!.map(
                         (e) {
                           return DropdownMenuEntry(value: e, label: e.name);
                         },
@@ -339,9 +335,77 @@ class SubcategoriesDataSource extends DataTableSource {
                   return Text('Error: ${snapshot.error}');
                 } else if (snapshot.hasData) {
                   final allStaff = snapshot.data as List<Staff>;
+                  return StatefulBuilder(
+                    builder: (context, setState) {
+                      return Column(
+                        children: [
+                          MultiSelect(
+                            onConfirm: (options) {
+                              setState(() {
+                                List<Staff> selectedStaff =
+                                    List<Staff>.from(options);
+                                staffSubcategories.removeWhere(
+                                  (staffSubcategory) => !selectedStaff
+                                      .contains(staffSubcategory.staff),
+                                );
+                                for (var staff in selectedStaff) {
+                                  if (!staffSubcategories
+                                      .any((s) => s.staff == staff)) {
+                                    staffSubcategories.add(StaffSubcategory(
+                                      accessLevel: 1,
+                                      staff: staff,
+                                      subcategory: subcategory,
+                                    ));
+                                  }
+                                }
+                              });
+                            },
+                            items: allStaff.map((e) {
+                              return MultiSelectItem(e, e.name);
+                            }).toList(),
+                            initialValue:
+                                staffSubcategories.map((e) => e.staff).toList(),
+                          ),
+                          ...staffSubcategories.map(
+                            (staffSubcategory) {
+                              return Container(
+                                padding: const EdgeInsets.all(8),
+                                child: DropdownMenu(
+                                  dropdownMenuEntries: const [
+                                    DropdownMenuEntry(
+                                      value: 1,
+                                      label: "Read-only",
+                                    ),
+                                    DropdownMenuEntry(
+                                      value: 2,
+                                      label: "Full-access",
+                                    ),
+                                  ],
+                                  onSelected: (value) {
+                                    final updatedSubcategory =
+                                        staffSubcategory.copyWith(
+                                      accessLevel: value as int,
+                                    );
 
-                  // TODO: add subcategories staff
-                  return const Placeholder();
+                                    final index = staffSubcategories
+                                        .indexOf(staffSubcategory);
+                                    staffSubcategories[index] =
+                                        updatedSubcategory;
+                                  },
+                                  initialSelection:
+                                      staffSubcategory.accessLevel,
+                                  expandedInsets: EdgeInsets.zero,
+                                  requestFocusOnTap: false,
+                                  hintText: staffSubcategory.staff!.name,
+                                  label: Text(staffSubcategory.staff!.name),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 } else {
                   return const Placeholder();
                 }
@@ -371,13 +435,13 @@ class SubcategoriesDataSource extends DataTableSource {
                       category: category!);
               if (subcategory != null) {
                 await Future.wait([
-                  update(newSubcategory),
+                  if (newSubcategory != subcategory) update(newSubcategory),
                 ]);
               } else {
                 await create(newSubcategory);
               }
+              await fetchRawData();
               if (!context.mounted) return;
-              fetchRawData();
               Navigator.pop(context, 'Apply');
             }
           },
@@ -385,5 +449,26 @@ class SubcategoriesDataSource extends DataTableSource {
         ),
       ],
     );
+  }
+
+  List<StaffSubcategory> checkStaffSubcategories(
+    Subcategory subcategory,
+    List<StaffSubcategory> staffSubcategories,
+    List<Staff> staff,
+  ) {
+    for (var staffSubcategory in staffSubcategories) {
+      if (!staff.contains(staffSubcategory.staff)) {
+        staffSubcategories.remove(staffSubcategory);
+        staff.remove(staffSubcategory.staff);
+      }
+    }
+    for (var staff in staff) {
+      staffSubcategories.add(StaffSubcategory(
+        accessLevel: 1,
+        staff: staff,
+        subcategory: subcategory,
+      ));
+    }
+    return staffSubcategories;
   }
 }

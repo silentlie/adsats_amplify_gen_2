@@ -88,14 +88,14 @@ class CategoriesDataSource extends DataTableSource {
         IconButton(
           onPressed: () async {
             await update(category.copyWith(archived: !category.archived));
-            fetchRawData();
+            await fetchRawData();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            await delete(category);
-            fetchRawData();
+            await deleteCetegory(category);
+            await fetchRawData();
           },
           icon: const Icon(Icons.delete_outline),
         ),
@@ -142,11 +142,11 @@ class CategoriesDataSource extends DataTableSource {
       }
       isInitialize = true;
       notifyListeners();
+      // debugPrint("did call fetchRawData");
+    } on ApiException catch (e) {
+      debugPrint('ApiExecption: fetchRawData Category failed: $e');
     } on Exception catch (e) {
-      debugPrint(
-        'Error Exception while retrieving categories: $e',
-      );
-      rethrow;
+      debugPrint('Dart Exception: fetchRawData Category failed: $e');
     }
   }
 
@@ -304,7 +304,7 @@ class CategoriesDataSource extends DataTableSource {
                   );
               if (category != null) {
                 await Future.wait([
-                  update(newCategory),
+                  if (newCategory != category) update(newCategory),
                 ]);
               } else {
                 await create(newCategory);

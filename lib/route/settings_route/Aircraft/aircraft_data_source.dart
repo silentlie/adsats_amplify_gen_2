@@ -143,11 +143,10 @@ class AircraftDataSource extends DataTableSource {
       isInitialize = true;
       notifyListeners();
       // debugPrint("did call fetchRawData");
+    } on ApiException catch (e) {
+      debugPrint('ApiExecption: fetchRawData Aircraft failed: $e');
     } on Exception catch (e) {
-      debugPrint(
-        'Error Exception while retrieving aircraft: $e',
-      );
-      rethrow;
+      debugPrint('Dart Exception: fetchRawData Aircraft failed: $e');
     }
   }
 
@@ -282,19 +281,31 @@ class AircraftDataSource extends DataTableSource {
                 ),
               ),
             ),
-            MultiSelect(
-              onConfirm: (p0) {
-                staff = List<Staff>.from(p0);
+            FutureBuilder(
+              future: list(Staff.classType),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                      child: CircularProgressIndicator.adaptive());
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.hasData) {
+                  final allStaff = snapshot.data as List<Staff>;
+                  return MultiSelect(
+                    onConfirm: (p0) {
+                      staff = List<Staff>.from(p0);
+                    },
+                    items: allStaff.map(
+                      (e) {
+                        return MultiSelectItem(e, e.name);
+                      },
+                    ).toList(),
+                    initialValue: staff,
+                  );
+                } else {
+                  return const Placeholder();
+                }
               },
-              items: Provider.of<AuthNotifier>(
-                context,
-                listen: false,
-              ).staff.map(
-                (e) {
-                  return MultiSelectItem(e, e.name);
-                },
-              ).toList(),
-              initialValue: staff,
             ),
           ],
         ),

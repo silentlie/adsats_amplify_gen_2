@@ -15,6 +15,8 @@ query ListSubcategories(\$filter: ModelSubcategoryFilterInput) {
       category {
         id
         name
+        description
+        archived
       }
       staff {
         items {
@@ -229,9 +231,8 @@ query GetStaffDetails(\$id: ID!) {
 }
 ''';
 const getAircraftDetails = '''
-query GetStaffDetails(\$id: ID!) {
+query GetAircraftDetails(\$id: ID!) {
   getAircraft(id: \$id) {
-    id
     document {
       items {
         id
@@ -242,6 +243,17 @@ query GetStaffDetails(\$id: ID!) {
         id
       }
     }
+    staff {
+      items {
+        id
+      }
+    }
+  }
+}
+''';
+const getSubcategoryDetails = '''
+query GetSubcategoryDetails(\$id: ID!) {
+  getSubcategory(id: \$id) {
     staff {
       items {
         id
