@@ -328,15 +328,13 @@ const schema = a
       aircraft: a.hasMany("AircraftNotice", "noticeId"),
       documents: a.hasMany("NoticeDocument", "noticeId"),
     }),
-NoticeStaff: a
-  .model({
-    read_at: a.datetime(),
-    noticeId: a.id().required(),
-    staffId: a.id().required(),
-    notice: a.belongsTo("Notice", "noticeId"),
-    staff: a.belongsTo("Staff", "staffId"),
-  })
-  .identifier(["noticeId", "staffId"]),
+    NoticeStaff: a.model({
+      read_at: a.datetime(),
+      noticeId: a.id().required(),
+      staffId: a.id().required(),
+      notice: a.belongsTo("Notice", "noticeId"),
+      staff: a.belongsTo("Staff", "staffId"),
+    }),
     NoticeDocument: a.model({
       noticeId: a.id().required(),
       notices: a.belongsTo("Notice", "noticeId"),
