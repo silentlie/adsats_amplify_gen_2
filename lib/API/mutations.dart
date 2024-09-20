@@ -200,6 +200,7 @@ mutation DisableUser(\$id: ID!) {
 ''';
 Future<T> create<T extends Model>(T model) async {
   try {
+    print("creating $model");
     final request = ModelMutations.create(model);
     final response = await Amplify.API.query(request: request).response;
     if (response.errors.isNotEmpty) {
@@ -219,6 +220,7 @@ Future<T> create<T extends Model>(T model) async {
 
 Future<T> update<T extends Model>(T model) async {
   try {
+    print("updating $model");
     final request = ModelMutations.update(model);
     final response = await Amplify.API.query(request: request).response;
     if (response.errors.isNotEmpty) {
@@ -238,6 +240,7 @@ Future<T> update<T extends Model>(T model) async {
 
 Future<T> delete<T extends Model>(T model) async {
   try {
+    print("deleting $model");
     final request = ModelMutations.delete(model);
     final response = await Amplify.API.query(request: request).response;
     if (response.errors.isNotEmpty) {

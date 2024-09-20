@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,6 @@ class AuthNotifier with ChangeNotifier {
   late Staff user;
   bool isAdmin = false;
   bool isEditor = false;
-  List<Staff> staff = [];
 
   Future<bool> fetchCognitoAuthSession() async {
     try {
@@ -24,10 +22,7 @@ class AuthNotifier with ChangeNotifier {
           return response.toJson()["userSub"].toString();
         },
       );
-      await Future.wait([
-        _queryUserDetails(id),
-        listStaff(),
-      ]);
+      await _queryUserDetails(id);
       _validateRoles();
       _validateSubcategories();
       return isSignedIn;
@@ -53,7 +48,7 @@ class AuthNotifier with ChangeNotifier {
     final response = await Amplify.API
         .query(
           request: GraphQLRequest(
-            document: getStaffDetails,
+            document: getStaff,
             variables: {
               "id": id,
             },
@@ -83,15 +78,5 @@ class AuthNotifier with ChangeNotifier {
         return element.accessLevel == 1 || element.accessLevel == 2;
       },
     ).toList());
-  }
-
-  Future<void> listStaff() async {
-    final request = ModelQueries.list(Staff.classType);
-    final response = await Amplify.API.query(request: request).response;
-
-    if (response.errors.isNotEmpty) {
-      debugPrint('errors: ${response.errors}');
-    }
-    staff = List<Staff>.from(response.data!.items);
   }
 }

@@ -335,8 +335,10 @@ class AircraftDataSource extends DataTableSource {
                   if (aircraft != newAircraft) update(newAircraft),
                 ]);
               } else {
-                newAircraft = await create(newAircraft);
-                await updateAircraftStaff(newAircraft, staff);
+                await Future.wait([
+                  create(newAircraft),
+                  updateAircraftStaff(newAircraft, staff),
+                ]);
               }
               await fetchRawData();
               if (!context.mounted) return;

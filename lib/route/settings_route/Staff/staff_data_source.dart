@@ -113,15 +113,21 @@ class StaffDataSource extends DataTableSource {
         ),
         IconButton(
           onPressed: () async {
-            await update(staff.copyWith(archived: !staff.archived));
-            fetchRawData();
+            await Future.wait([
+              update(staff.copyWith(archived: !staff.archived)),
+              !staff.archived ? enableUser(staff.id) : disableUser(staff.id),
+            ]);
+            await fetchRawData();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            await delete(staff);
-            fetchRawData();
+            await Future.wait([
+              deleteStaff(staff),
+              deleteUser(staff.id),
+            ]);
+            await fetchRawData();
           },
           icon: const Icon(Icons.delete_outline),
         ),
@@ -168,11 +174,11 @@ class StaffDataSource extends DataTableSource {
       }
       isInitialize = true;
       notifyListeners();
+      // debugPrint("did call fetchRawData");
+    } on ApiException catch (e) {
+      debugPrint('ApiExecption: fetchRawData Aircraft failed: $e');
     } on Exception catch (e) {
-      debugPrint(
-        'Error Exception while retrieving staff: $e',
-      );
-      rethrow;
+      debugPrint('Dart Exception: fetchRawData Aircraft failed: $e');
     }
   }
 
@@ -242,6 +248,25 @@ class StaffDataSource extends DataTableSource {
     String name = staff?.name ?? "";
     String email = staff?.email ?? "";
     bool archived = staff?.archived ?? false;
+    List<Aircraft> aircraft = staff?.aircraft
+            ?.map(
+              (e) => e.aircraft!,
+            )
+            .toList() ??
+        [];
+    List<Role> roles = staff?.roles
+            ?.map(
+              (e) => e.role!,
+            )
+            .toList() ??
+        [];
+    Map<Subcategory, StaffSubcategory> staffSubcategories = {
+      for (var staffSubcategory in staff?.subcategories ?? <StaffSubcategory>[])
+        staffSubcategory.subcategory!: staffSubcategory
+    };
+    for (var subcategory in staffSubcategories.keys) {
+      print(subcategory);
+    }
     final formKey = GlobalKey<FormState>();
     return AlertDialog.adaptive(
       title: staff != null
@@ -249,62 +274,188 @@ class StaffDataSource extends DataTableSource {
           : const Text('Add a staff'),
       content: Form(
         key: formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Staff Name',
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Staff Name',
+                  ),
+                  onChanged: (value) {
+                    name = value;
+                  },
+                  initialValue: name,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter staff name';
+                    }
+                    return null;
+                  },
                 ),
-                onChanged: (value) {
-                  name = value;
-                },
-                initialValue: name,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter staff name';
+              ),
+              Container(
+                constraints: const BoxConstraints(maxWidth: 666),
+                padding: const EdgeInsets.all(8),
+                child: TextFormField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Email of the staff',
+                  ),
+                  initialValue: email,
+                  onChanged: (value) {
+                    email = value;
+                  },
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(8),
+                child: DropdownMenu(
+                  dropdownMenuEntries: const [
+                    DropdownMenuEntry(value: false, label: "False"),
+                    DropdownMenuEntry(value: true, label: "True"),
+                  ],
+                  onSelected: (value) {
+                    archived = value!;
+                  },
+                  initialSelection: archived,
+                  expandedInsets: EdgeInsets.zero,
+                  requestFocusOnTap: false,
+                  hintText: "Archived",
+                  label: const Text(
+                    "Archived",
+                  ),
+                ),
+              ),
+              FutureBuilder(
+                future: list(Aircraft.classType),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                        child: CircularProgressIndicator.adaptive());
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    final allAircraft = snapshot.data!.cast<Aircraft>();
+                    return MultiSelect(
+                      onConfirm: (options) {
+                        aircraft = options.cast<Aircraft>();
+                      },
+                      items: allAircraft.map(
+                        (e) {
+                          return MultiSelectItem(e, e.name);
+                        },
+                      ).toList(),
+                      initialValue: aircraft,
+                    );
+                  } else {
+                    return const Placeholder();
                   }
-                  return null;
                 },
               ),
-            ),
-            Container(
-              constraints: const BoxConstraints(maxWidth: 666),
-              padding: const EdgeInsets.all(8),
-              child: TextFormField(
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Email of the staff',
-                ),
-                initialValue: email,
-                onChanged: (value) {
-                  email = value;
+              FutureBuilder(
+                future: list(Role.classType),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                        child: CircularProgressIndicator.adaptive());
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    final allRoles = snapshot.data!.cast<Role>();
+                    return MultiSelect(
+                      onConfirm: (options) {
+                        roles = options.cast<Role>();
+                      },
+                      items: allRoles.map(
+                        (e) {
+                          return MultiSelectItem(e, e.name);
+                        },
+                      ).toList(),
+                      initialValue: roles,
+                    );
+                  } else {
+                    return const Placeholder();
+                  }
                 },
               ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(8),
-              child: DropdownMenu(
-                dropdownMenuEntries: const [
-                  DropdownMenuEntry(value: false, label: "False"),
-                  DropdownMenuEntry(value: true, label: "True"),
-                ],
-                onSelected: (value) {
-                  archived = value!;
+              FutureBuilder(
+                future: list(Subcategory.classType),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                        child: CircularProgressIndicator.adaptive());
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (snapshot.hasData) {
+                    final allSubcategories = snapshot.data!.cast<Subcategory>();
+                    return StatefulBuilder(
+                      builder: (context, setState) => Column(
+                        children: [
+                          MultiSelect(
+                            onConfirm: (options) {
+                              staffSubcategories = {
+                                for (var newSubcategory
+                                    in options.cast<Subcategory>())
+                                  newSubcategory:
+                                      staffSubcategories[newSubcategory] ??
+                                          StaffSubcategory(
+                                            accessLevel: 1,
+                                            subcategory: newSubcategory,
+                                            staff: staff,
+                                          )
+                              };
+                              setState(() {});
+                            },
+                            items: allSubcategories.map(
+                              (e) {
+                                print(e);
+                                return MultiSelectItem(e, e.name);
+                              },
+                            ).toList(),
+                            initialValue: staffSubcategories.keys.toList(),
+                          ),
+                          ...staffSubcategories.entries.map(
+                            (entry) => Container(
+                              padding: const EdgeInsets.all(8),
+                              child: DropdownMenu(
+                                dropdownMenuEntries: const [
+                                  DropdownMenuEntry(
+                                    value: 1,
+                                    label: "Read-only",
+                                  ),
+                                  DropdownMenuEntry(
+                                    value: 2,
+                                    label: "Full-access",
+                                  ),
+                                ],
+                                onSelected: (value) {
+                                  staffSubcategories[entry.key] =
+                                      entry.value.copyWith(
+                                    accessLevel: value as int,
+                                  );
+                                },
+                                initialSelection: entry.value.accessLevel,
+                                expandedInsets: EdgeInsets.zero,
+                                requestFocusOnTap: false,
+                                hintText: entry.key.name,
+                                label: Text(entry.key.name),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    return const Placeholder();
+                  }
                 },
-                initialSelection: archived,
-                expandedInsets: EdgeInsets.zero,
-                requestFocusOnTap: false,
-                hintText: "Archived",
-                label: const Text(
-                  "Archived",
-                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       actions: [
@@ -316,22 +467,36 @@ class StaffDataSource extends DataTableSource {
           onPressed: () async {
             if (formKey.currentState!.validate()) {
               formKey.currentState!.save();
-              Staff newStaff = staff?.copyWith(
-                    name: name,
-                    archived: archived,
-                    email: email,
-                  ) ??
-                  Staff(
-                    name: name,
-                    archived: archived,
-                    email: email,
-                  );
               if (staff != null) {
+                Staff newStaff = staff.copyWith(
+                  // name: name,
+                  archived: archived,
+                  // email: email,
+                );
                 await Future.wait([
-                  update(newStaff),
+                  if (newStaff != staff) update(newStaff),
+                  updateAircraftStaff(newStaff, aircraft),
+                  updateRoleStaff(newStaff, roles),
+                  updateStaffSubcategory(newStaff, staffSubcategories),
                 ]);
               } else {
-                await create(newStaff);
+                String id = await createUser(
+                  name: name,
+                  email: email,
+                  tempPassword: "LM00r3??",
+                );
+                Staff newStaff = Staff(
+                  id: id,
+                  name: name,
+                  archived: archived,
+                  email: email,
+                );
+                await Future.wait([
+                  create(newStaff),
+                  updateAircraftStaff(newStaff, aircraft),
+                  updateRoleStaff(newStaff, roles),
+                  updateStaffSubcategory(newStaff, staffSubcategories),
+                ]);
               }
               if (!context.mounted) return;
               fetchRawData();

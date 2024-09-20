@@ -10,7 +10,7 @@ Future<Role> deleteRole(Role role) async {
       (roleStaff) => futures.add(delete(roleStaff)),
     );
     futures.add(delete(role));
-    Future.wait(futures);
+    await Future.wait(futures);
     return role;
   } on ApiException catch (e) {
     debugPrint('ApiExecption: delete Role with ${role.id} failed: $e');

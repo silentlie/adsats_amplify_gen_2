@@ -120,6 +120,8 @@ query ListStaff(\$filter: ModelStaffFilterInput) {
           aircraft {
             id
             name
+            archived
+            description
           }
         }
       }
@@ -129,6 +131,8 @@ query ListStaff(\$filter: ModelStaffFilterInput) {
           role {
             name
             id
+            archived
+            description
           }
         }
       }
@@ -139,6 +143,14 @@ query ListStaff(\$filter: ModelStaffFilterInput) {
           subcategory {
             id
             name
+            archived
+            description
+            category {
+              id
+              name
+              archived
+              description
+            }
           }
         }
       }
@@ -175,8 +187,8 @@ query ListDocuments(\$filter: ModelDocumentFilterInput) {
   }
 }
 ''';
-const getStaffDetails = '''
-query GetStaffDetails(\$id: ID!) {
+const getStaff = '''
+query GetStaff(\$id: ID!) {
   getStaff(id: \$id) {
     id
     name
@@ -230,9 +242,37 @@ query GetStaffDetails(\$id: ID!) {
   }
 }
 ''';
+const getStaffDetails = '''
+query GetStaffDetails(\$id: ID!) {
+  getStaff(id: \$id) {
+    id
+    aircraft {
+      items {
+        id
+      }
+    }
+    roles {
+      items {
+        id
+      }
+    }
+    subcategories {
+      items {
+        id
+      }
+    }
+    notifications {
+      items {
+        id
+      }
+    }
+  }
+}
+''';
 const getAircraftDetails = '''
 query GetAircraftDetails(\$id: ID!) {
   getAircraft(id: \$id) {
+    id
     document {
       items {
         id
@@ -254,6 +294,7 @@ query GetAircraftDetails(\$id: ID!) {
 const getSubcategoryDetails = '''
 query GetSubcategoryDetails(\$id: ID!) {
   getSubcategory(id: \$id) {
+    id
     staff {
       items {
         id

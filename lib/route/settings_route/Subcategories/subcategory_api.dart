@@ -76,7 +76,7 @@ Future<void> updateStaffSubcategory(
     debugPrint('ApiExecption: update StaffSubcategory failed: $e');
     rethrow;
   } on Exception catch (e) {
-    debugPrint('Dart Exception: delete StaffSubcategory failed: $e');
+    debugPrint('Dart Exception: update StaffSubcategory failed: $e');
     rethrow;
   }
 }
