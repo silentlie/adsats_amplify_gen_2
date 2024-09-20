@@ -115,7 +115,7 @@ class StaffDataSource extends DataTableSource {
           onPressed: () async {
             await Future.wait([
               update(staff.copyWith(archived: !staff.archived)),
-              !staff.archived ? enableUser(staff.id) : disableUser(staff.id),
+              staff.archived ? enableUser(staff.id) : disableUser(staff.id),
             ]);
             await fetchRawData();
           },
@@ -264,9 +264,6 @@ class StaffDataSource extends DataTableSource {
       for (var staffSubcategory in staff?.subcategories ?? <StaffSubcategory>[])
         staffSubcategory.subcategory!: staffSubcategory
     };
-    for (var subcategory in staffSubcategories.keys) {
-      print(subcategory);
-    }
     final formKey = GlobalKey<FormState>();
     return AlertDialog.adaptive(
       title: staff != null
@@ -412,7 +409,6 @@ class StaffDataSource extends DataTableSource {
                             },
                             items: allSubcategories.map(
                               (e) {
-                                print(e);
                                 return MultiSelectItem(e, e.name);
                               },
                             ).toList(),
