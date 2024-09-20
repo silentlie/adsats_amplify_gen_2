@@ -225,7 +225,8 @@ class SubcategoriesDataSource extends DataTableSource {
     String name = subcategory?.name ?? "";
     String description = subcategory?.description ?? "";
     bool archived = subcategory?.archived ?? false;
-    List<StaffSubcategory> staffSubcategories = subcategory?.staff ?? [];
+    List<StaffSubcategory> staffSubcategories =
+        List.of(subcategory?.staff ?? []);
     final formKey = GlobalKey<FormState>();
     return AlertDialog.adaptive(
       title: subcategory != null
@@ -382,15 +383,12 @@ class SubcategoriesDataSource extends DataTableSource {
                                     ),
                                   ],
                                   onSelected: (value) {
-                                    final updatedSubcategory =
-                                        staffSubcategory.copyWith(
-                                      accessLevel: value as int,
-                                    );
-
                                     final index = staffSubcategories
                                         .indexOf(staffSubcategory);
                                     staffSubcategories[index] =
-                                        updatedSubcategory;
+                                        staffSubcategory.copyWith(
+                                      accessLevel: value as int,
+                                    );
                                   },
                                   initialSelection:
                                       staffSubcategory.accessLevel,
@@ -436,6 +434,7 @@ class SubcategoriesDataSource extends DataTableSource {
               if (subcategory != null) {
                 await Future.wait([
                   if (newSubcategory != subcategory) update(newSubcategory),
+                  updateStaffSubcategory(subcategory.staff!, staffSubcategories)
                 ]);
               } else {
                 await create(newSubcategory);
@@ -449,26 +448,5 @@ class SubcategoriesDataSource extends DataTableSource {
         ),
       ],
     );
-  }
-
-  List<StaffSubcategory> checkStaffSubcategories(
-    Subcategory subcategory,
-    List<StaffSubcategory> staffSubcategories,
-    List<Staff> staff,
-  ) {
-    for (var staffSubcategory in staffSubcategories) {
-      if (!staff.contains(staffSubcategory.staff)) {
-        staffSubcategories.remove(staffSubcategory);
-        staff.remove(staffSubcategory.staff);
-      }
-    }
-    for (var staff in staff) {
-      staffSubcategories.add(StaffSubcategory(
-        accessLevel: 1,
-        staff: staff,
-        subcategory: subcategory,
-      ));
-    }
-    return staffSubcategories;
   }
 }
