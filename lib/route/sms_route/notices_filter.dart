@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 part 'search_bar_widget.dart';
 
 class NoticesFilter {
-  String staffId;
+  Staff staff;
   String search;
   NoticeType? type;
   NoticeStatus? status;
@@ -15,7 +15,7 @@ class NoticesFilter {
   MutableDateTimeRange deadlineAt;
 
   NoticesFilter({
-    required this.staffId,
+    required this.staff,
     this.search = "",
     this.type,
     this.status,
@@ -34,7 +34,7 @@ class NoticesFilter {
     MutableDateTimeRange? deadlineAt,
   }) {
     return NoticesFilter(
-      staffId: staffId,
+      staff: staff,
       search: search ?? this.search,
       type: type ?? this.type,
       status: status ?? this.status,
@@ -46,7 +46,7 @@ class NoticesFilter {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> result = {
-      "staffId": {"eq": staffId},
+      "staffId": {"eq": staff.id},
       "subject": {"contains": search},
     };
     archived != null ? result["archived"] = {"eq": archived} : null;

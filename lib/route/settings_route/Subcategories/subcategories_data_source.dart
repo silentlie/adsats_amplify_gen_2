@@ -1,22 +1,22 @@
 part of 'subcategories_widget.dart';
 
 class SubcategoriesDataSource extends DataTableSource {
-  static bool isInitialize = false;
+  final List<Subcategory> data = [];
 
-  static final List<Subcategory> _data = [];
+  final SettingsFilter filter;
 
-  static final SettingsFilter _filter = SettingsFilter();
+  final BuildContext context;
 
-  final BuildContext _context;
+  final VoidCallback rebuild;
 
-  SubcategoriesDataSource(this._context) {
-    if (!isInitialize) {
-      _filter.archived = false;
-    }
-  }
+  SubcategoriesDataSource({
+    required this.context,
+    required this.rebuild,
+    required this.filter,
+  });
 
   @override
-  int get rowCount => _data.length;
+  int get rowCount => data.length;
 
   @override
   bool get isRowCountApproximate => false;
@@ -26,7 +26,7 @@ class SubcategoriesDataSource extends DataTableSource {
 
   @override
   DataRow2 getRow(int index) {
-    final subcategory = _data[index];
+    final subcategory = data[index];
     return DataRow2.byIndex(
       index: index,
       cells: [
@@ -81,7 +81,7 @@ class SubcategoriesDataSource extends DataTableSource {
         IconButton(
           onPressed: () async {
             showDialog(
-              context: _context,
+              context: context,
               builder: (context) {
                 return subcategoryWidget(context, subcategory: subcategory);
               },
@@ -92,14 +92,14 @@ class SubcategoriesDataSource extends DataTableSource {
         IconButton(
           onPressed: () async {
             await update(subcategory.copyWith(archived: !subcategory.archived));
-            await fetchRawData();
+            rebuild();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
             await deleteSubcategory(subcategory);
-            await fetchRawData();
+            rebuild();
           },
           icon: const Icon(Icons.delete_outline),
         ),
@@ -126,7 +126,7 @@ class SubcategoriesDataSource extends DataTableSource {
     try {
       final request = GraphQLRequest<String>(
         document: listSubcategories,
-        variables: {"filter": _filter.toJson()},
+        variables: {"filter": filter.toJson()},
       );
       final response = await Amplify.API.query(request: request).response;
       if (response.errors.isNotEmpty) {
@@ -140,74 +140,22 @@ class SubcategoriesDataSource extends DataTableSource {
           : subcategories = List<Map<String, dynamic>>.from(
               jsonMap["listSubcategories"]["items"],
             );
-      _data.clear();
+      data.clear();
       for (var subcategory in subcategories) {
-        _data.add(Subcategory.fromJson(subcategory));
+        data.add(Subcategory.fromJson(subcategory));
       }
-      isInitialize = true;
-      notifyListeners();
+      // notifyListeners();
+      // debugPrint("did call fetchRawData");
+    } on ApiException catch (e) {
+      debugPrint('ApiExecption: fetchRawData Subcategory failed: $e');
     } on Exception catch (e) {
-      debugPrint(
-        'Error Exception while retrieving subcategories: $e',
-      );
-      rethrow;
+      debugPrint('Dart Exception: fetchRawData Subcategory failed: $e');
     }
-  }
-
-  get header {
-    return ListTile(
-      contentPadding: const EdgeInsets.only(),
-      leading: const Text(
-        "Subcategories",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      title: SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: 5),
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                fetchRawData();
-              },
-              icon: const Icon(Icons.refresh),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                showDialog(
-                  context: _context,
-                  builder: (context) {
-                    return subcategoryWidget(context);
-                  },
-                );
-              },
-              label: const Text('Add an subcategory'),
-              icon: const Icon(
-                Icons.add,
-                size: 25,
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            _filter.getFilterWidget(_context, fetchRawData),
-            const SizedBox(
-              width: 10,
-            ),
-            SearchBarWidget(filter: _filter, fetchRawData: fetchRawData)
-          ],
-        ),
-      ),
-    );
   }
 
   void sort<T>(Comparable<T> Function(Subcategory subcategory) getField,
       bool ascending) {
-    _data.sort((a, b) {
+    data.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);
       return ascending
@@ -218,9 +166,6 @@ class SubcategoriesDataSource extends DataTableSource {
   }
 
   Widget subcategoryWidget(BuildContext context, {Subcategory? subcategory}) {
-    if (!CategoriesDataSource.isInitialize) {
-      CategoriesDataSource(context).fetchRawData();
-    }
     Category? category;
     String name = subcategory?.name ?? "";
     String description = subcategory?.description ?? "";
@@ -365,8 +310,9 @@ class SubcategoriesDataSource extends DataTableSource {
                               items: allStaff.map((e) {
                                 return MultiSelectItem(e, e.name);
                               }).toList(),
-                              initialValue:
-                                  staffSubcategories.map((e) => e.staff).toList(),
+                              initialValue: staffSubcategories
+                                  .map((e) => e.staff)
+                                  .toList(),
                             ),
                             ...staffSubcategories.map(
                               (staffSubcategory) {
@@ -450,7 +396,7 @@ class SubcategoriesDataSource extends DataTableSource {
                           .toList()),
                 ]);
               }
-              await fetchRawData();
+              rebuild();
               if (!context.mounted) return;
               Navigator.pop(context, 'Apply');
             }

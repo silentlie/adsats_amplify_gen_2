@@ -1,9 +1,7 @@
 part of 'inbox_widget.dart';
 
 class InboxDataSource extends DataTableSource {
-  static bool isInitialize = false;
-
-  static final List<Notice> _data = [];
+  final List<Notice> _data = [];
 
   late final NoticesFilter _filter;
 
@@ -11,7 +9,7 @@ class InboxDataSource extends DataTableSource {
 
   InboxDataSource(this._context) {
     _filter = NoticesFilter(
-      staffId: Provider.of<AuthNotifier>(_context).user.id,
+      staff: Provider.of<AuthNotifier>(_context).user,
       archived: false,
     );
   }
@@ -139,106 +137,39 @@ class InboxDataSource extends DataTableSource {
   }
 
   Future<void> fetchRawData() async {
-    const graphQLDocument = '''
-      query ListNotices(\$filter: ModelNoticeFilterInput) {
-        listNotices(filter: \$filter) {
-          items {
-            id
-            subject
-            type
-            status
-            details
-            archived
-            noticed_at
-            deadline_at
-            createdAt
-            staffId
-            author {
-              id
-              email
-              updatedAt
-              name
-              createdAt
-              archived
-            }
-            documents {
-              items {
-                updatedAt
-                noticeId
-                name
-                id
-                createdAt
-              }
-            }
-            aircraft {
-              items {
-                aircraftId
-                createdAt
-                id
-                noticeId
-                updatedAt
-                aircraft {
-                  updatedAt
-                  name
-                  id
-                  description
-                  createdAt
-                  archived
-                }
-              }
-            }
-            recipients {
-              items {
-                staffId
-                updatedAt
-                read_at
-                noticeId
-                id
-                staff {
-                  archived
-                  createdAt
-                  id
-                  name
-                  email
-                  updatedAt
-                }
-              }
-            }
-            updatedAt
-          }
-        }
-      }
-    ''';
-
     final request = GraphQLRequest<String>(
-      document: graphQLDocument,
-      variables: {"filter": _filter.toJson()},
+      document: listInbox,
+      variables: {
+        "filter": {
+          "staffId": {"eq": _filter.staff.id}
+        }
+      },
     );
     try {
+      final noticeIds = await list(NoticeStaff.classType,
+          where: NoticeStaff.STAFF.eq(_filter.staff.id));
       final response = await Amplify.API.query(request: request).response;
       if (response.errors.isNotEmpty) {
         throw response.errors.first;
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
-      final listNotices = jsonMap["listNotices"];
-      final List<Map<String, dynamic>> notices;
-      listNotices == null
-          ? notices = []
-          : notices = List<Map<String, dynamic>>.from(
-              jsonMap["listNotices"]["items"],
+      final listNoticeStaffs = jsonMap["listNoticeStaffs"];
+      final List<Map<String, dynamic>> noticeStaffs;
+      listNoticeStaffs == null
+          ? noticeStaffs = []
+          : noticeStaffs = List<Map<String, dynamic>>.from(
+              listNoticeStaffs["items"],
             );
       _data.clear();
-      for (var notices in notices) {
-        _data.add(Notice.fromJson(notices));
+      for (var noticeStaff in noticeStaffs) {
+        _data.add(NoticeStaff.fromJson(noticeStaff).notice!);
       }
-      isInitialize = true;
       notifyListeners();
-      debugPrint("did call fetchRawData");
+      // debugPrint("did call fetchRawData");
+    } on ApiException catch (e) {
+      debugPrint('ApiExecption: fetchRawData Inbox failed: $e');
     } on Exception catch (e) {
-      debugPrint(
-        'Error Exception while retrieving notices: $e',
-      );
-      rethrow;
+      debugPrint('Dart Exception: fetchRawData Inbox failed: $e');
     }
   }
 

@@ -1,19 +1,19 @@
 part of 'categories_widget.dart';
 
 class CategoriesDataSource extends DataTableSource {
-  static bool isInitialize = false;
+  final List<Category> data = [];
 
-  static final List<Category> data = [];
-
-  static final SettingsFilter filter = SettingsFilter();
+  final SettingsFilter filter;
 
   final BuildContext context;
 
-  CategoriesDataSource(this.context) {
-    if (!isInitialize) {
-      filter.archived = false;
-    }
-  }
+  final VoidCallback rebuild;
+
+  CategoriesDataSource({
+    required this.context,
+    required this.filter,
+    required this.rebuild,
+  });
 
   @override
   int get rowCount => data.length;
@@ -88,14 +88,14 @@ class CategoriesDataSource extends DataTableSource {
         IconButton(
           onPressed: () async {
             await update(category.copyWith(archived: !category.archived));
-            await fetchRawData();
+            rebuild();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
             await deleteCetegory(category);
-            await fetchRawData();
+            rebuild();
           },
           icon: const Icon(Icons.delete_outline),
         ),
@@ -140,8 +140,7 @@ class CategoriesDataSource extends DataTableSource {
       for (var category in categories) {
         data.add(Category.fromJson(category));
       }
-      isInitialize = true;
-      notifyListeners();
+      // notifyListeners();
       // debugPrint("did call fetchRawData");
     } on ApiException catch (e) {
       debugPrint('ApiExecption: fetchRawData Category failed: $e');
@@ -150,59 +149,10 @@ class CategoriesDataSource extends DataTableSource {
     }
   }
 
-  get header {
-    return ListTile(
-      contentPadding: const EdgeInsets.only(),
-      leading: const Text(
-        "Categories",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      title: SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: 5),
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                fetchRawData();
-              },
-              icon: const Icon(Icons.refresh),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return categoryWidget(context);
-                  },
-                );
-              },
-              label: const Text('Add a category'),
-              icon: const Icon(
-                Icons.add,
-                size: 25,
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            filter.getFilterWidget(context, fetchRawData),
-            const SizedBox(
-              width: 10,
-            ),
-            SearchBarWidget(filter: filter, fetchRawData: fetchRawData)
-          ],
-        ),
-      ),
-    );
-  }
-
   void sort<T>(
-      Comparable<T> Function(Category category) getField, bool ascending) {
+    Comparable<T> Function(Category category) getField,
+    bool ascending,
+  ) {
     data.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);
@@ -247,7 +197,6 @@ class CategoriesDataSource extends DataTableSource {
               ),
             ),
             Container(
-              constraints: const BoxConstraints(maxWidth: 666),
               padding: const EdgeInsets.all(8),
               child: TextFormField(
                 decoration: const InputDecoration(
@@ -309,7 +258,7 @@ class CategoriesDataSource extends DataTableSource {
               } else {
                 await create(newCategory);
               }
-              await fetchRawData();
+              rebuild();
               if (!context.mounted) return;
               Navigator.pop(context, 'Apply');
             }

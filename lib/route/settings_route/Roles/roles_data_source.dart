@@ -1,22 +1,22 @@
 part of 'roles_widget.dart';
 
 class RolesDataSource extends DataTableSource {
-  static bool isInitialize = false;
+  final List<Role> data = [];
 
-  static final List<Role> _data = [];
+  final SettingsFilter filter;
 
-  static final SettingsFilter _filter = SettingsFilter();
+  final BuildContext context;
 
-  final BuildContext _context;
+  final VoidCallback rebuild;
 
-  RolesDataSource(this._context) {
-    if (!isInitialize) {
-      _filter.archived = false;
-    }
-  }
+  RolesDataSource({
+    required this.context,
+    required this.filter,
+    required this.rebuild,
+  });
 
   @override
-  int get rowCount => _data.length;
+  int get rowCount => data.length;
 
   @override
   bool get isRowCountApproximate => false;
@@ -26,7 +26,7 @@ class RolesDataSource extends DataTableSource {
 
   @override
   DataRow2 getRow(int index) {
-    final role = _data[index];
+    final role = data[index];
     return DataRow2.byIndex(
       index: index,
       cells: [
@@ -77,7 +77,7 @@ class RolesDataSource extends DataTableSource {
         IconButton(
           onPressed: () async {
             showDialog(
-              context: _context,
+              context: context,
               builder: (context) {
                 return roleWidget(context, role: role);
               },
@@ -88,14 +88,14 @@ class RolesDataSource extends DataTableSource {
         IconButton(
           onPressed: () async {
             await update(role.copyWith(archived: !role.archived));
-            await fetchRawData();
+            rebuild();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
             await deleteRole(role);
-            await fetchRawData();
+            rebuild();
           },
           icon: const Icon(Icons.delete_outline),
         ),
@@ -122,7 +122,7 @@ class RolesDataSource extends DataTableSource {
     try {
       final request = GraphQLRequest<String>(
         document: listRoles,
-        variables: {"filter": _filter.toJson()},
+        variables: {"filter": filter.toJson()},
       );
       final response = await Amplify.API.query(request: request).response;
       if (response.errors.isNotEmpty) {
@@ -136,12 +136,11 @@ class RolesDataSource extends DataTableSource {
           : roles = List<Map<String, dynamic>>.from(
               listRolesResult["items"],
             );
-      _data.clear();
+      data.clear();
       for (var role in roles) {
-        _data.add(Role.fromJson(role));
+        data.add(Role.fromJson(role));
       }
-      isInitialize = true;
-      notifyListeners();
+      // notifyListeners();
       // debugPrint("did call fetchRawData");
     } on ApiException catch (e) {
       debugPrint('ApiExecption: fetchRawData Role failed: $e');
@@ -150,59 +149,8 @@ class RolesDataSource extends DataTableSource {
     }
   }
 
-  get header {
-    return ListTile(
-      contentPadding: const EdgeInsets.only(),
-      leading: const Text(
-        "Roles",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      title: SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: 5),
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                fetchRawData();
-              },
-              icon: const Icon(Icons.refresh),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                showDialog(
-                  context: _context,
-                  builder: (context) {
-                    return roleWidget(context);
-                  },
-                );
-              },
-              label: const Text('Add an role'),
-              icon: const Icon(
-                Icons.add,
-                size: 25,
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            _filter.getFilterWidget(_context, fetchRawData),
-            const SizedBox(
-              width: 10,
-            ),
-            SearchBarWidget(filter: _filter, fetchRawData: fetchRawData)
-          ],
-        ),
-      ),
-    );
-  }
-
   void sort<T>(Comparable<T> Function(Role role) getField, bool ascending) {
-    _data.sort((a, b) {
+    data.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);
       return ascending
@@ -337,7 +285,7 @@ class RolesDataSource extends DataTableSource {
                 newRole = await create(newRole);
                 await updateRoleStaff(newRole, staff);
               }
-              await fetchRawData();
+              rebuild();
               if (!context.mounted) return;
               Navigator.pop(context, 'Apply');
             }

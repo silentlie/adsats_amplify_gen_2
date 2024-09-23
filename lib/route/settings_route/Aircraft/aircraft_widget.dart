@@ -23,13 +23,74 @@ class AircraftDataTable2 extends StatefulWidget {
 }
 
 class _AircraftDataTable2State extends State<AircraftDataTable2> {
-  late AircraftDataSource dataSource;
+  late AircraftDataSource dataSource = AircraftDataSource(
+    context: context,
+    filter: filter,
+    rebuild: rebuild,
+  );
+  final SettingsFilter filter = SettingsFilter(archived: false);
+  bool isInitialize = false;
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   bool _sortAscending = false;
   int _sortColumnIndex = 3;
   Comparable Function(Aircraft aircraft) getField = (aircraft) {
     return aircraft.createdAt!;
   };
+
+  get header {
+    return ListTile(
+      contentPadding: const EdgeInsets.only(),
+      leading: const Text(
+        "Aircraft",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      title: SingleChildScrollView(
+        padding: const EdgeInsets.only(bottom: 5),
+        scrollDirection: Axis.horizontal,
+        reverse: true,
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: rebuild,
+              icon: const Icon(Icons.refresh),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return dataSource.aircraftWidget(context);
+                  },
+                );
+              },
+              label: const Text('Add an aircraft'),
+              icon: const Icon(
+                Icons.add,
+                size: 25,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            filter.getFilterWidget(context, rebuild),
+            const SizedBox(
+              width: 10,
+            ),
+            SearchBarWidget(
+              onSubmitted: (value) {
+                filter.search = value;
+                rebuild();
+              },
+              initialValue: filter.search,
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
   get columns {
     return <DataColumn2>[
@@ -73,7 +134,7 @@ class _AircraftDataTable2State extends State<AircraftDataTable2> {
         },
       ),
       DataColumn2(
-        label: getCenterText("Upload date"),
+        label: getCenterText("Created at"),
         fixedWidth: 100,
         onSort: (columnIndex, ascending) {
           setState(() {
@@ -103,10 +164,10 @@ class _AircraftDataTable2State extends State<AircraftDataTable2> {
 
   @override
   Widget build(BuildContext context) {
-    dataSource = AircraftDataSource(context);
-    if (AircraftDataSource.isInitialize) {
+    if (isInitialize) {
       return builder(context, dataSource);
     }
+    isInitialize = true;
     return FutureBuilder(
       future: dataSource.fetchRawData(),
       builder: (context, snapshot) {
@@ -119,6 +180,10 @@ class _AircraftDataTable2State extends State<AircraftDataTable2> {
         }
       },
     );
+  }
+
+  void rebuild() {
+    setState(() => isInitialize = false);
   }
 
   Widget builder(BuildContext context, AircraftDataSource dataSource) {
@@ -147,7 +212,7 @@ class _AircraftDataTable2State extends State<AircraftDataTable2> {
       onPageChanged: (rowIndex) {
         // debugPrint((rowIndex / _rowsPerPage).toString());
       },
-      header: dataSource.header,
+      header: header,
       dataRowHeight: 62,
       showCheckboxColumn: false,
       // dynamic change rows per page based on height of screen

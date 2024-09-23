@@ -11,7 +11,7 @@ class OutboxDataSource extends DataTableSource {
 
   OutboxDataSource(this._context) {
     _filter = NoticesFilter(
-      staffId: Provider.of<AuthNotifier>(_context).user.id,
+      staff: Provider.of<AuthNotifier>(_context).user,
       archived: false,
     );
   }

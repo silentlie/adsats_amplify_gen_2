@@ -18,7 +18,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     const AircraftDataTable2(),
     const RolesDataTable2(),
     const StaffDataTable2(),
-    const CategoriesDataTale2(),
+    const CategoriesDataTable2(),
     const SubcategoriesDataTable2(),
   ];
 

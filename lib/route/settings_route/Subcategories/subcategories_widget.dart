@@ -5,7 +5,6 @@ import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/helper/multi_select.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/Categories/categories_widget.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/Subcategories/subcategory_api.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/settings_filter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart' hide Category;
@@ -25,13 +24,74 @@ class SubcategoriesDataTable2 extends StatefulWidget {
 }
 
 class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
-  late SubcategoriesDataSource dataSource;
+  late SubcategoriesDataSource dataSource = SubcategoriesDataSource(
+    context: context,
+    rebuild: rebuild,
+    filter: filter,
+  );
+  final SettingsFilter filter = SettingsFilter(archived: false);
+  bool isInitialize = false;
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   bool _sortAscending = true;
   int _sortColumnIndex = 3;
   Comparable Function(Subcategory subcategory) getField = (subcategory) {
     return subcategory.createdAt!;
   };
+
+  get header {
+    return ListTile(
+      contentPadding: const EdgeInsets.only(),
+      leading: const Text(
+        "Subcategories",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      title: SingleChildScrollView(
+        padding: const EdgeInsets.only(bottom: 5),
+        scrollDirection: Axis.horizontal,
+        reverse: true,
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: rebuild,
+              icon: const Icon(Icons.refresh),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return dataSource.subcategoryWidget(context);
+                  },
+                );
+              },
+              label: const Text('Add an subcategory'),
+              icon: const Icon(
+                Icons.add,
+                size: 25,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            filter.getFilterWidget(context, rebuild),
+            const SizedBox(
+              width: 10,
+            ),
+            SearchBarWidget(
+              onSubmitted: (value) {
+                filter.search = value;
+                rebuild();
+              },
+              initialValue: filter.search,
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
   get columns {
     return <DataColumn2>[
@@ -88,7 +148,7 @@ class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
         },
       ),
       DataColumn2(
-        label: getCenterText("Upload date"),
+        label: getCenterText("Created at"),
         fixedWidth: 100,
         onSort: (columnIndex, ascending) {
           setState(() {
@@ -118,10 +178,10 @@ class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
 
   @override
   Widget build(BuildContext context) {
-    dataSource = SubcategoriesDataSource(context);
-    if (SubcategoriesDataSource.isInitialize) {
+    if (isInitialize) {
       return builder(context, dataSource);
     }
+    isInitialize = true;
     return FutureBuilder(
       future: dataSource.fetchRawData(),
       builder: (context, snapshot) {
@@ -134,6 +194,10 @@ class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
         }
       },
     );
+  }
+
+  void rebuild() {
+    setState(() => isInitialize = false);
   }
 
   Widget builder(BuildContext context, SubcategoriesDataSource dataSource) {
@@ -162,7 +226,7 @@ class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
       onPageChanged: (rowIndex) {
         // debugPrint((rowIndex / _rowsPerPage).toString());
       },
-      header: dataSource.header,
+      header: header,
       dataRowHeight: 62,
       showCheckboxColumn: false,
       // dynamic change rows per page based on height of screen

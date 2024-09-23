@@ -70,10 +70,12 @@ class _AddADocumentState extends State<AddADocument> {
                 padding: const EdgeInsets.all(8.0),
                 child: DropdownMenu(
                   dropdownMenuEntries: staff?.subcategories?.map(
-                    (e) {
-                      return DropdownMenuEntry(value: e.subcategory, label: e.subcategory!.name);
-                    },
-                  ).toList()?? [],
+                        (e) {
+                          return DropdownMenuEntry(
+                              value: e.subcategory, label: e.subcategory!.name);
+                        },
+                      ).toList() ??
+                      [],
                   inputDecorationTheme: const InputDecorationTheme(
                     border: OutlineInputBorder(),
                   ),
@@ -96,10 +98,11 @@ class _AddADocumentState extends State<AddADocument> {
                 padding: const EdgeInsets.all(8.0),
                 child: MultiSelect(
                   items: staff?.aircraft?.map(
-                    (e) {
-                      return MultiSelectItem(e.aircraft, e.aircraft!.name);
-                    },
-                  ).toList() ?? [],
+                        (e) {
+                          return MultiSelectItem(e.aircraft, e.aircraft!.name);
+                        },
+                      ).toList() ??
+                      [],
                   onConfirm: (selectedOptions) {
                     aircraft = List<Aircraft>.from(selectedOptions);
                   },
@@ -189,8 +192,16 @@ class _AddADocumentState extends State<AddADocument> {
                         ),
                         // apply
                         TextButton(
-                          onPressed: () {
-                            upload(context);
+                          onPressed: () async {
+                            await uploadFiles(
+                              filePickerResult!,
+                              staff!,
+                              subcategory!,
+                              aircraft,
+                            );
+                            if (!context.mounted) return;
+                            Navigator.pop(context, 'Apply');
+                            context.go('/documents');
                           },
                           child: const Text('Confirm'),
                         )
@@ -217,15 +228,5 @@ class _AddADocumentState extends State<AddADocument> {
         )
       ],
     );
-  }
-
-  void upload(BuildContext context) {
-    try {
-      uploadFiles(filePickerResult!, staff!, subcategory!, aircraft);
-      Navigator.pop(context, 'Apply');
-      context.go('/documents');
-    } on Exception catch (e) {
-      debugPrint("document upload exception: $e");
-    }
   }
 }

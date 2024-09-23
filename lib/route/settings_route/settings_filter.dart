@@ -1,9 +1,8 @@
-
 import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/helper/mutable_date_time_range.dart';
 import 'package:flutter/material.dart';
 
-part 'search_bar_widget.dart';
+part '../../helper/search_bar_widget.dart';
 
 class SettingsFilter {
   String search;
@@ -39,7 +38,7 @@ class SettingsFilter {
     return result;
   }
 
-  Widget getFilterWidget(BuildContext context, Function fetchRawData) {
+  Widget getFilterWidget(BuildContext context, VoidCallback rebuild) {
     SettingsFilter temp = this;
     return ElevatedButton(
       onPressed: () {
@@ -59,7 +58,7 @@ class SettingsFilter {
                   onPressed: () {
                     archived = temp.archived;
                     createdAt = temp.createdAt;
-                    fetchRawData();
+                    rebuild();
                     Navigator.pop(context, 'Apply');
                   },
                   child: const Text('Apply'),

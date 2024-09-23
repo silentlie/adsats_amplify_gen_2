@@ -23,13 +23,74 @@ class StaffDataTable2 extends StatefulWidget {
 }
 
 class _StaffDataTable2State extends State<StaffDataTable2> {
-  late StaffDataSource dataSource;
+  late StaffDataSource dataSource = StaffDataSource(
+    context: context,
+    filter: filter,
+    rebuild: rebuild,
+  );
+  final SettingsFilter filter = SettingsFilter(archived: false);
+  bool isInitialize = false;
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   bool _sortAscending = true;
   int _sortColumnIndex = 3;
   Comparable Function(Staff staff) getField = (staff) {
     return staff.createdAt!;
   };
+
+  get header {
+    return ListTile(
+      contentPadding: const EdgeInsets.only(),
+      leading: const Text(
+        "Staff",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      title: SingleChildScrollView(
+        padding: const EdgeInsets.only(bottom: 5),
+        scrollDirection: Axis.horizontal,
+        reverse: true,
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: rebuild,
+              icon: const Icon(Icons.refresh),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return dataSource.staffWidget(context);
+                  },
+                );
+              },
+              label: const Text('Add an staff'),
+              icon: const Icon(
+                Icons.add,
+                size: 25,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            filter.getFilterWidget(context, rebuild),
+            const SizedBox(
+              width: 10,
+            ),
+            SearchBarWidget(
+              onSubmitted: (value) {
+                filter.search = value;
+                rebuild();
+              },
+              initialValue: filter.search,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   get columns {
     return <DataColumn2>[
@@ -99,7 +160,7 @@ class _StaffDataTable2State extends State<StaffDataTable2> {
         },
       ),
       DataColumn2(
-        label: getCenterText("Upload date"),
+        label: getCenterText("Created at"),
         fixedWidth: 100,
         onSort: (columnIndex, ascending) {
           setState(() {
@@ -129,10 +190,10 @@ class _StaffDataTable2State extends State<StaffDataTable2> {
 
   @override
   Widget build(BuildContext context) {
-    dataSource = StaffDataSource(context);
-    if (StaffDataSource.isInitialize) {
+    if (isInitialize) {
       return builder(context, dataSource);
     }
+    isInitialize = true;
     return FutureBuilder(
       future: dataSource.fetchRawData(),
       builder: (context, snapshot) {
@@ -145,6 +206,10 @@ class _StaffDataTable2State extends State<StaffDataTable2> {
         }
       },
     );
+  }
+
+  void rebuild() {
+    setState(() => isInitialize = false);
   }
 
   Widget builder(BuildContext context, StaffDataSource dataSource) {
@@ -173,7 +238,7 @@ class _StaffDataTable2State extends State<StaffDataTable2> {
       onPageChanged: (rowIndex) {
         // debugPrint((rowIndex / _rowsPerPage).toString());
       },
-      header: dataSource.header,
+      header: header,
       dataRowHeight: 62,
       showCheckboxColumn: false,
       // dynamic change rows per page based on height of screen

@@ -2,6 +2,113 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
+const graphQLDocument = '''
+query ListNotices(\$filter: ModelNoticeFilterInput) {
+  listNotices(filter: \$filter) {
+    items {
+      id
+      type
+      subject
+      status
+      archived
+      noticed_at
+      deadline_at
+      createdAt
+      author {
+        id
+        name
+      }
+      aircraft {
+        items {
+          id
+          aircraft {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}
+''';
+const listInbox = '''
+query listInbox(\$filter: ModelNoticeStaffFilterInput) {
+  listNoticeStaffs(filter: \$filter) {
+    items {
+      id
+      notice {
+        id
+        type
+        subject
+        status
+        archived
+        noticed_at
+        deadline_at
+        createdAt
+        author {
+          id
+          name
+        }
+        aircraft {
+          items {
+            id
+            aircraft {
+              id
+              name
+            }
+          }
+        }
+      }
+      read_at
+    }
+  }
+}
+''';
+const getNoticeDetails = '''
+query GetNoticeDetails(\$id: ID!) {
+  getNotice(id: \$id) {
+    type
+    subject
+    status
+    archived
+    noticed_at
+    deadline_at
+    details
+    author {
+      id
+      name
+    }
+    aircraft {
+      items {
+        id
+        aircraft {
+          id
+          name
+          archived
+          description
+        }
+      }
+    }
+    documents {
+      items {
+        id
+        name
+      }
+    }
+    recipients {
+      items {
+        id
+        staff {
+          id
+          name
+          email
+          archived
+        }
+      }
+    }
+  }
+}
+''';
 const listSubcategories = '''
 query ListSubcategories(\$filter: ModelSubcategoryFilterInput) {
   listSubcategories(filter: \$filter) {
