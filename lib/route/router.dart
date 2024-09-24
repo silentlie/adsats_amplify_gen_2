@@ -75,7 +75,13 @@ final router = GoRouter(
         ),
         GoRoute(
           path: '/settings',
-          builder: (context, state) => const SettingsWidget(),
+          builder: (context, state) {
+            AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
+            if (!authNotifier.isAdmin) {
+              context.go('/documents');
+            }
+            return const SettingsWidget();
+          },
         ),
         // GoRoute(
         //   path: '/resetPassword',

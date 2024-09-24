@@ -1,4 +1,4 @@
-part of '../route/settings_route/settings_filter.dart';
+import 'package:flutter/material.dart';
 
 class SearchBarWidget extends StatefulWidget {
   const SearchBarWidget({

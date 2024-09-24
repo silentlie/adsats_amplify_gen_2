@@ -113,7 +113,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               child: Center(
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 1500),
-                  child: _pages[_selectedIndex],
+                  child: IndexedStack(
+                    index: _selectedIndex,
+                    children: _pages,
+                  ),
                 ),
               ),
             ),

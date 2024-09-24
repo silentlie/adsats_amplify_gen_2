@@ -140,7 +140,6 @@ class RolesDataSource extends DataTableSource {
       for (var role in roles) {
         data.add(Role.fromJson(role));
       }
-      // notifyListeners();
       // debugPrint("did call fetchRawData");
     } on ApiException catch (e) {
       debugPrint('ApiExecption: fetchRawData Role failed: $e');

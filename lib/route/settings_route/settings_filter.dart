@@ -1,24 +1,21 @@
 import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
-import 'package:adsats_amplify_gen_2/helper/mutable_date_time_range.dart';
 import 'package:flutter/material.dart';
-
-part '../../helper/search_bar_widget.dart';
 
 class SettingsFilter {
   String search;
   bool? archived;
-  MutableDateTimeRange createdAt;
+  DateTimeRange? createdAt;
 
   SettingsFilter({
     this.search = "",
     this.archived,
-    MutableDateTimeRange? createdAt,
-  }) : createdAt = createdAt ?? MutableDateTimeRange();
+    this.createdAt,
+  });
 
   SettingsFilter copyWith({
     String? search,
     bool? archived,
-    MutableDateTimeRange? createdAt,
+    DateTimeRange? createdAt,
   }) {
     return SettingsFilter(
       search: search ?? this.search,
@@ -32,8 +29,11 @@ class SettingsFilter {
       "name": {"contains": search},
     };
     archived != null ? result["archived"] = {"eq": archived} : null;
-    createdAt.dateTimeRange != null
-        ? result["createdAt"] = {"between": createdAt.toIso8601String()}
+    createdAt != null
+        ? result["createdAt"] = {
+            "between":
+                "${createdAt!.start.toIso8601String()},${createdAt!.end.toIso8601String()}"
+          }
         : null;
     return result;
   }
@@ -52,6 +52,15 @@ class SettingsFilter {
                 TextButton(
                   onPressed: () => Navigator.pop(context, 'Cancel'),
                   child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    archived = false;
+                    createdAt = null;
+                    rebuild();
+                    Navigator.pop(context, 'Apply');
+                  },
+                  child: const Text("Reset filter"),
                 ),
                 // apply
                 TextButton(
@@ -92,7 +101,8 @@ class SettingsFilter {
                     Container(
                       padding: const EdgeInsets.all(8),
                       child: DateTimeRangePicker(
-                        timeRange: temp.createdAt,
+                        onSubmitted: (value) => temp.createdAt = value,
+                        initialDateRange: temp.createdAt,
                       ),
                     ),
                   ],

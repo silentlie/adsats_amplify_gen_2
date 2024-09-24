@@ -140,7 +140,6 @@ class AircraftDataSource extends DataTableSource {
       for (var aircraft in aircraft) {
         data.add(Aircraft.fromJson(aircraft));
       }
-      // notifyListeners();
       // debugPrint("did call fetchRawData");
     } on ApiException catch (e) {
       debugPrint('ApiExecption: fetchRawData Aircraft failed: $e');

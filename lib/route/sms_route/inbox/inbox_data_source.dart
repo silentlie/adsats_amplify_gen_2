@@ -1,21 +1,25 @@
 part of 'inbox_widget.dart';
 
 class InboxDataSource extends DataTableSource {
-  final List<Notice> _data = [];
+  final List<Notice> data = [];
 
-  late final NoticesFilter _filter;
+  final NoticesFilter filter;
 
-  final BuildContext _context;
+  final BuildContext context;
 
-  InboxDataSource(this._context) {
-    _filter = NoticesFilter(
-      staff: Provider.of<AuthNotifier>(_context).user,
-      archived: false,
-    );
+  final VoidCallback rebuild;
+
+  InboxDataSource({
+    required this.context,
+    required this.filter,
+    required this.rebuild,
+  }) {
+    filter.staff = Provider.of<AuthNotifier>(context).user;
+    filter.archived = false;
   }
 
   @override
-  int get rowCount => _data.length;
+  int get rowCount => data.length;
 
   @override
   bool get isRowCountApproximate => false;
@@ -25,7 +29,7 @@ class InboxDataSource extends DataTableSource {
 
   @override
   DataRow2 getRow(int index) {
-    final notice = _data[index];
+    final notice = data[index];
     return DataRow2.byIndex(
       index: index,
       cells: [
@@ -68,7 +72,7 @@ class InboxDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            notice.createdAt != null
+            notice.noticed_at != null
                 ? DateFormat('dd/MM/yyyy').format(
                     notice.noticed_at!.getDateTimeInUtc(),
                   )
@@ -77,7 +81,7 @@ class InboxDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            notice.createdAt != null
+            notice.deadline_at != null
                 ? DateFormat('dd/MM/yyyy').format(
                     notice.deadline_at!.getDateTimeInUtc(),
                   )
@@ -94,26 +98,25 @@ class InboxDataSource extends DataTableSource {
   }
 
   Widget getActions(Notice notice) {
-    //TODO: add function
     return MenuAnchor(
       menuChildren: [
         IconButton(
           onPressed: () async {
-            // await getFileUrl(aircraft);
+            context.go('/sms', extra: notice);
           },
           icon: const Icon(Icons.edit_outlined),
         ),
         IconButton(
           onPressed: () async {
-            // await archive(aircraft);
-            fetchRawData();
+            await update(notice.copyWith(archived: !notice.archived));
+            rebuild();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            // await delete(aircraft);
-            fetchRawData();
+            await delete(notice);
+            rebuild();
           },
           icon: const Icon(Icons.delete_outline),
         ),
@@ -137,34 +140,32 @@ class InboxDataSource extends DataTableSource {
   }
 
   Future<void> fetchRawData() async {
-    final request = GraphQLRequest<String>(
-      document: listInbox,
-      variables: {
-        "filter": {
-          "staffId": {"eq": _filter.staff.id}
-        }
-      },
-    );
     try {
-      final noticeIds = await list(NoticeStaff.classType,
-          where: NoticeStaff.STAFF.eq(_filter.staff.id));
+      final noticeIds = await list(
+        NoticeStaff.classType,
+        where: NoticeStaff.STAFF.eq(filter.staff.id),
+      );
+      final filterJson = filter.toJson();
+      filterJson["or"] = noticeIds
+          .map(
+            (e) => {
+              "id": {"eq": e.notice!.id}
+            },
+          )
+          .toList();
+      final request = GraphQLRequest<String>(
+        document: listNotices,
+        variables: {"filter": filterJson},
+      );
       final response = await Amplify.API.query(request: request).response;
       if (response.errors.isNotEmpty) {
         throw response.errors.first;
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
-      final listNoticeStaffs = jsonMap["listNoticeStaffs"];
-      final List<Map<String, dynamic>> noticeStaffs;
-      listNoticeStaffs == null
-          ? noticeStaffs = []
-          : noticeStaffs = List<Map<String, dynamic>>.from(
-              listNoticeStaffs["items"],
-            );
-      _data.clear();
-      for (var noticeStaff in noticeStaffs) {
-        _data.add(NoticeStaff.fromJson(noticeStaff).notice!);
+      data.clear();
+      for (var notices in jsonMap["listNotices"]["items"]) {
+        data.add(Notice.fromJson(notices));
       }
-      notifyListeners();
       // debugPrint("did call fetchRawData");
     } on ApiException catch (e) {
       debugPrint('ApiExecption: fetchRawData Inbox failed: $e');
@@ -173,55 +174,8 @@ class InboxDataSource extends DataTableSource {
     }
   }
 
-  get header {
-    return ListTile(
-      contentPadding: const EdgeInsets.only(),
-      leading: const Text(
-        "Inbox",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      title: SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: 5),
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                fetchRawData();
-              },
-              icon: const Icon(Icons.refresh),
-            ),
-            // TODO add new
-            // ElevatedButton.icon(
-            //   onPressed: () {
-            //     _context.go('/add-a-document');
-            //   },
-            //   label: const Text('Add a document'),
-            //   icon: const Icon(
-            //     Icons.add,
-            //     size: 25,
-            //   ),
-            // ),
-            const SizedBox(
-              width: 10,
-            ),
-            _filter.getFilterWidget(_context, fetchRawData),
-            const SizedBox(
-              width: 10,
-            ),
-            SearchBarWidget(filter: _filter, fetchRawData: fetchRawData)
-          ],
-        ),
-      ),
-    );
-  }
-
   void sort<T>(Comparable<T> Function(Notice notice) getField, bool ascending) {
-    _data.sort((a, b) {
+    data.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);
       return ascending

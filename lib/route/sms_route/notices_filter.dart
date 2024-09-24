@@ -1,9 +1,6 @@
 import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
-import 'package:adsats_amplify_gen_2/helper/mutable_date_time_range.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:flutter/material.dart';
-
-part 'search_bar_widget.dart';
 
 class NoticesFilter {
   Staff staff;
@@ -11,27 +8,26 @@ class NoticesFilter {
   NoticeType? type;
   NoticeStatus? status;
   bool? archived;
-  MutableDateTimeRange noticedAt;
-  MutableDateTimeRange deadlineAt;
+  DateTimeRange? noticedAt;
+  DateTimeRange? deadlineAt;
 
   NoticesFilter({
-    required this.staff,
+    Staff? staff,
     this.search = "",
     this.type,
     this.status,
     this.archived,
-    MutableDateTimeRange? noticedAt,
-    MutableDateTimeRange? deadlineAt,
-  })  : noticedAt = noticedAt ?? MutableDateTimeRange(),
-        deadlineAt = deadlineAt ?? MutableDateTimeRange();
+    this.noticedAt,
+    this.deadlineAt,
+  }) : staff = staff ?? Staff(name: "", email: "", archived: false);
 
   NoticesFilter copyWith({
     String? search,
     NoticeType? type,
     NoticeStatus? status,
     bool? archived,
-    MutableDateTimeRange? noticedAt,
-    MutableDateTimeRange? deadlineAt,
+    DateTimeRange? noticedAt,
+    DateTimeRange? deadlineAt,
   }) {
     return NoticesFilter(
       staff: staff,
@@ -45,23 +41,28 @@ class NoticesFilter {
   }
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> result = {
-      "staffId": {"eq": staff.id},
-      "subject": {"contains": search},
-    };
+    Map<String, dynamic> result = {};
+    search.isNotEmpty ? result["subject"] = {"contains": search} : null;
+
     archived != null ? result["archived"] = {"eq": archived} : null;
     type != null ? result["type"] = {"eq": type!.name} : null;
     status != null ? result["type"] = {"eq": status!.name} : null;
-    noticedAt.dateTimeRange != null
-        ? result["createdAt"] = {"between": noticedAt.toIso8601String()}
+    noticedAt != null
+        ? result["createdAt"] = {
+            "between":
+                "${noticedAt!.start.toIso8601String()},${noticedAt!.end.toIso8601String()}"
+          }
         : null;
-    deadlineAt.dateTimeRange != null
-        ? result["createdAt"] = {"between": deadlineAt.toIso8601String()}
+    deadlineAt != null
+        ? result["createdAt"] = {
+            "between":
+                "${deadlineAt!.start.toIso8601String()},${deadlineAt!.end.toIso8601String()}"
+          }
         : null;
     return result;
   }
 
-  Widget getFilterWidget(BuildContext context, Function fetchRawData) {
+  Widget getFilterWidget(BuildContext context, VoidCallback rebuild) {
     NoticesFilter temp = this;
     return ElevatedButton(
       onPressed: () {
@@ -140,15 +141,17 @@ class NoticesFilter {
                     Container(
                       padding: const EdgeInsets.all(8),
                       child: DateTimeRangePicker(
-                        timeRange: temp.noticedAt,
                         text: "Select notice date range",
+                        onSubmitted: (value) => temp.noticedAt = value,
+                        initialDateRange: temp.noticedAt,
                       ),
                     ),
                     Container(
                       padding: const EdgeInsets.all(8),
                       child: DateTimeRangePicker(
-                        timeRange: temp.deadlineAt,
                         text: "Select deadline date range",
+                        onSubmitted: (value) => temp.deadlineAt = value,
+                        initialDateRange: temp.deadlineAt,
                       ),
                     ),
                   ],
@@ -165,9 +168,9 @@ class NoticesFilter {
                     type = null;
                     status = null;
                     archived = false;
-                    noticedAt = MutableDateTimeRange();
-                    deadlineAt = MutableDateTimeRange();
-                    fetchRawData();
+                    noticedAt = null;
+                    deadlineAt = null;
+                    rebuild();
                     Navigator.pop(context, 'Apply');
                   },
                   child: const Text("Reset filter"),
@@ -180,7 +183,7 @@ class NoticesFilter {
                     archived = temp.archived;
                     noticedAt = temp.noticedAt;
                     deadlineAt = temp.deadlineAt;
-                    fetchRawData();
+                    rebuild();
                     Navigator.pop(context, 'Apply');
                   },
                   child: const Text('Apply'),

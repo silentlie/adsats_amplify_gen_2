@@ -1,30 +1,27 @@
 part of 'documents_widget.dart';
 
 class DocumentsDataSource extends DataTableSource {
-  static bool isInitialize = false;
+  final List<Document> data = [];
 
-  static final List<Document> _data = [];
+  final DocumentsFilter filter;
 
-  static final DocumentsFilter _filter = DocumentsFilter();
+  final BuildContext context;
 
-  final BuildContext _context;
+  final VoidCallback rebuild;
 
-  DocumentsDataSource(this._context) {
-    if (!isInitialize) {
-      _filter.archived = false;
-      _filter.subcategories = Provider.of<AuthNotifier>(_context)
-              .user
-              .subcategories
-              ?.map(
-                (e) => e.subcategory!,
-              )
-              .toList() ??
-          [];
-    }
+  DocumentsDataSource({
+    required this.context,
+    required this.filter,
+    required this.rebuild,
+  }) {
+    final _ = Provider.of<AuthNotifier>(context).user;
+    final subcategories = _.subcategories?.map((e) => e.subcategory!) ?? [];
+    filter.archived = false;
+    filter.subcategories = subcategories;
   }
 
   @override
-  int get rowCount => _data.length;
+  int get rowCount => data.length;
 
   @override
   bool get isRowCountApproximate => false;
@@ -34,7 +31,7 @@ class DocumentsDataSource extends DataTableSource {
 
   @override
   DataRow2 getRow(int index) {
-    final document = _data[index];
+    final document = data[index];
     return DataRow2.byIndex(
       index: index,
       cells: [
@@ -89,7 +86,7 @@ class DocumentsDataSource extends DataTableSource {
 
   Widget getActions(Document document) {
     AuthNotifier authNotifier = Provider.of<AuthNotifier>(
-      _context,
+      context,
       listen: false,
     );
     return MenuAnchor(
@@ -104,7 +101,7 @@ class DocumentsDataSource extends DataTableSource {
           IconButton(
             onPressed: () async {
               await archive(document);
-              fetchRawData();
+              rebuild();
             },
             icon: const Icon(Icons.archive_outlined),
           ),
@@ -112,7 +109,7 @@ class DocumentsDataSource extends DataTableSource {
           IconButton(
             onPressed: () async {
               await delete(document);
-              fetchRawData();
+              rebuild();
             },
             icon: const Icon(Icons.delete_outline),
           ),
@@ -136,88 +133,32 @@ class DocumentsDataSource extends DataTableSource {
   }
 
   Future<void> fetchRawData() async {
-    final request = GraphQLRequest<String>(
-      document: listDocuments,
-      variables: {"filter": _filter.toJson()},
-    );
-
     try {
+      final request = GraphQLRequest<String>(
+        document: listDocuments,
+        variables: {"filter": filter.toJson()},
+      );
       final response = await Amplify.API.query(request: request).response;
       if (response.errors.isNotEmpty) {
         throw response.errors.first;
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
-      final listDocuments = jsonMap["listDocuments"];
-      final List<Map<String, dynamic>> documents;
-      listDocuments == null
-          ? documents = []
-          : documents = List<Map<String, dynamic>>.from(
-              jsonMap["listDocuments"]["items"],
-            );
-      _data.clear();
-      for (var document in documents) {
-        _data.add(Document.fromJson(document));
+      data.clear();
+      for (var document in jsonMap["listDocuments"]["items"]) {
+        data.add(Document.fromJson(document));
       }
-      isInitialize = true;
-      notifyListeners();
+      // notifyListeners();
       // debugPrint("did call fetchRawData");
+    } on ApiException catch (e) {
+      debugPrint('ApiExecption: fetchRawData Document failed: $e');
     } on Exception catch (e) {
-      debugPrint(
-        'Error Exception while retrieving documents: $e',
-      );
-      rethrow;
+      debugPrint('Dart Exception: fetchRawData Document failed: $e');
     }
-  }
-
-  get header {
-    return ListTile(
-      contentPadding: const EdgeInsets.only(),
-      leading: const Text(
-        "Documents",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      title: SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: 5),
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                fetchRawData();
-              },
-              icon: const Icon(Icons.refresh),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                _context.go('/add-a-document');
-              },
-              label: const Text('Add a document'),
-              icon: const Icon(
-                Icons.add,
-                size: 25,
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            _filter.getFilterWidget(_context, fetchRawData),
-            const SizedBox(
-              width: 10,
-            ),
-            SearchBarWidget(filter: _filter, fetchRawData: fetchRawData)
-          ],
-        ),
-      ),
-    );
   }
 
   void sort<T>(
       Comparable<T> Function(Document document) getField, bool ascending) {
-    _data.sort((a, b) {
+    data.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);
       return ascending

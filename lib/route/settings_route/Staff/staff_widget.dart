@@ -4,6 +4,7 @@ import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/helper/multi_select.dart';
+import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/Staff/staff_api.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/settings_filter.dart';

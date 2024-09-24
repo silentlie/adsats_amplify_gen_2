@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/helper/multi_select.dart';
-import 'package:adsats_amplify_gen_2/helper/mutable_date_time_range.dart';
+import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
@@ -18,7 +18,6 @@ import 'package:data_table_2/data_table_2.dart';
 
 part 'documents_data_source.dart';
 part 'documents_filter.dart';
-part 'search_bar_widget.dart';
 
 class DocumentsWidget extends StatelessWidget {
   const DocumentsWidget({
@@ -42,13 +41,69 @@ class DocumentsDataTable2 extends StatefulWidget {
 }
 
 class _DocumentsDataTable2State extends State<DocumentsDataTable2> {
-  late DocumentsDataSource dataSource;
+  late final DocumentsDataSource dataSource= DocumentsDataSource(
+    context: context,
+    filter: filter,
+    rebuild: rebuild,
+  );
+  final DocumentsFilter filter = DocumentsFilter();
+  bool isInitialize = false;
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   bool _sortAscending = false;
   int _sortColumnIndex = 5;
   Comparable Function(Document document) getField = (document) {
     return document.createdAt!;
   };
+
+  get header {
+    return ListTile(
+      contentPadding: const EdgeInsets.only(),
+      leading: const Text(
+        "Documents",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      title: SingleChildScrollView(
+        padding: const EdgeInsets.only(bottom: 5),
+        scrollDirection: Axis.horizontal,
+        reverse: true,
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: rebuild,
+              icon: const Icon(Icons.refresh),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                context.go('/add-a-document');
+              },
+              label: const Text('Add a document'),
+              icon: const Icon(
+                Icons.add,
+                size: 25,
+              ),
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            filter.getFilterWidget(context, rebuild),
+            const SizedBox(
+              width: 10,
+            ),
+            SearchBarWidget(
+              onSubmitted: (value) {
+                filter.search = value;
+                rebuild();
+              },
+              initialValue: filter.search,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   get columns {
     return <DataColumn2>[
@@ -148,10 +203,10 @@ class _DocumentsDataTable2State extends State<DocumentsDataTable2> {
 
   @override
   Widget build(BuildContext context) {
-    dataSource = DocumentsDataSource(context);
-    if (DocumentsDataSource.isInitialize) {
+    if (isInitialize) {
       return builder(context, dataSource);
     }
+    isInitialize = true;
     return FutureBuilder(
       future: dataSource.fetchRawData(),
       builder: (context, snapshot) {
@@ -164,6 +219,10 @@ class _DocumentsDataTable2State extends State<DocumentsDataTable2> {
         }
       },
     );
+  }
+
+  void rebuild() {
+    setState(() => isInitialize = false);
   }
 
   Widget builder(BuildContext context, DocumentsDataSource dataSource) {
@@ -192,7 +251,7 @@ class _DocumentsDataTable2State extends State<DocumentsDataTable2> {
       onPageChanged: (rowIndex) {
         // debugPrint((rowIndex / _rowsPerPage).toString());
       },
-      header: dataSource.header,
+      header: header,
       dataRowHeight: 62,
       showCheckboxColumn: false,
       // dynamic change rows per page based on height of screen

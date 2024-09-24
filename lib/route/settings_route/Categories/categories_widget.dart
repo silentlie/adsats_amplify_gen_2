@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/Categories/category_api.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/settings_filter.dart';

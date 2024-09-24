@@ -144,7 +144,6 @@ class SubcategoriesDataSource extends DataTableSource {
       for (var subcategory in subcategories) {
         data.add(Subcategory.fromJson(subcategory));
       }
-      // notifyListeners();
       // debugPrint("did call fetchRawData");
     } on ApiException catch (e) {
       debugPrint('ApiExecption: fetchRawData Subcategory failed: $e');

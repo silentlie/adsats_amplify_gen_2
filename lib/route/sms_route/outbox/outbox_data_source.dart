@@ -1,23 +1,24 @@
 part of 'outbox_widget.dart';
 
 class OutboxDataSource extends DataTableSource {
-  static bool isInitialize = false;
+  final List<Notice> data = [];
 
-  static final List<Notice> _data = [];
+  final NoticesFilter filter;
 
-  late final NoticesFilter _filter;
+  final BuildContext context;
 
-  final BuildContext _context;
+  final VoidCallback rebuild;
 
-  OutboxDataSource(this._context) {
-    _filter = NoticesFilter(
-      staff: Provider.of<AuthNotifier>(_context).user,
-      archived: false,
-    );
+  OutboxDataSource({
+    required this.context,
+    required this.filter,
+    required this.rebuild,
+  }) {
+    filter.archived = false;
+    filter.staff = Provider.of<AuthNotifier>(context).user;
   }
-
   @override
-  int get rowCount => _data.length;
+  int get rowCount => data.length;
 
   @override
   bool get isRowCountApproximate => false;
@@ -27,7 +28,7 @@ class OutboxDataSource extends DataTableSource {
 
   @override
   DataRow2 getRow(int index) {
-    final notice = _data[index];
+    final notice = data[index];
     return DataRow2.byIndex(
       index: index,
       cells: [
@@ -42,11 +43,7 @@ class OutboxDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(notice.aircraft
-                  ?.map(
-                    (e) {
-                      return e.aircraft!.name;
-                    },
-                  )
+                  ?.map((e) => e.aircraft!.name)
                   .toList()
                   .join(', ') ??
               ""),
@@ -70,7 +67,7 @@ class OutboxDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            notice.createdAt != null
+            notice.noticed_at != null
                 ? DateFormat('dd/MM/yyyy').format(
                     notice.noticed_at!.getDateTimeInUtc(),
                   )
@@ -79,7 +76,7 @@ class OutboxDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            notice.createdAt != null
+            notice.deadline_at != null
                 ? DateFormat('dd/MM/yyyy').format(
                     notice.deadline_at!.getDateTimeInUtc(),
                   )
@@ -96,26 +93,25 @@ class OutboxDataSource extends DataTableSource {
   }
 
   Widget getActions(Notice notice) {
-    //TODO: add function
     return MenuAnchor(
       menuChildren: [
         IconButton(
           onPressed: () async {
-            // await getFileUrl(aircraft);
+            context.go('/sms', extra: notice);
           },
           icon: const Icon(Icons.edit_outlined),
         ),
         IconButton(
           onPressed: () async {
-            // await archive(aircraft);
-            fetchRawData();
+            await update(notice.copyWith(archived: !notice.archived));
+            rebuild();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            // await delete(aircraft);
-            fetchRawData();
+            await delete(notice);
+            rebuild();
           },
           icon: const Icon(Icons.delete_outline),
         ),
@@ -139,158 +135,32 @@ class OutboxDataSource extends DataTableSource {
   }
 
   Future<void> fetchRawData() async {
-    const graphQLDocument = '''
-      query ListNotices(\$filter: ModelNoticeFilterInput) {
-        listNotices(filter: \$filter) {
-          items {
-            id
-            subject
-            type
-            status
-            details
-            archived
-            noticed_at
-            deadline_at
-            createdAt
-            staffId
-            author {
-              id
-              email
-              updatedAt
-              name
-              createdAt
-              archived
-            }
-            documents {
-              items {
-                updatedAt
-                noticeId
-                name
-                id
-                createdAt
-              }
-            }
-            aircraft {
-              items {
-                aircraftId
-                createdAt
-                id
-                noticeId
-                updatedAt
-                aircraft {
-                  updatedAt
-                  name
-                  id
-                  description
-                  createdAt
-                  archived
-                }
-              }
-            }
-            recipients {
-              items {
-                staffId
-                updatedAt
-                read_at
-                noticeId
-                id
-                staff {
-                  archived
-                  createdAt
-                  id
-                  name
-                  email
-                  updatedAt
-                }
-              }
-            }
-            updatedAt
-          }
-        }
-      }
-    ''';
-
-    final request = GraphQLRequest<String>(
-      document: graphQLDocument,
-      variables: {"filter": _filter.toJson()},
-    );
     try {
+      final filterJson = filter.toJson();
+      filterJson["staffId"] = {"eq": filter.staff.id};
+      final request = GraphQLRequest<String>(
+        document: listNotices,
+        variables: {"filter": filterJson},
+      );
       final response = await Amplify.API.query(request: request).response;
       if (response.errors.isNotEmpty) {
         throw response.errors.first;
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
-      final listNotices = jsonMap["listNotices"];
-      final List<Map<String, dynamic>> notices;
-      listNotices == null
-          ? notices = []
-          : notices = List<Map<String, dynamic>>.from(
-              jsonMap["listNotices"]["items"],
-            );
-      _data.clear();
-      for (var notices in notices) {
-        _data.add(Notice.fromJson(notices));
+      data.clear();
+      for (var notices in jsonMap["listNotices"]["items"]) {
+        data.add(Notice.fromJson(notices));
       }
-      isInitialize = true;
-      notifyListeners();
-      debugPrint("did call fetchRawData");
+      // debugPrint("did call fetchRawData");
+    } on ApiException catch (e) {
+      debugPrint('ApiExecption: fetchRawData Outbox failed: $e');
     } on Exception catch (e) {
-      debugPrint(
-        'Error Exception while retrieving notices: $e',
-      );
-      rethrow;
+      debugPrint('Dart Exception: fetchRawData Outbox failed: $e');
     }
   }
 
-  get header {
-    return ListTile(
-      contentPadding: const EdgeInsets.only(),
-      leading: const Text(
-        "Outbox",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      title: SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: 5),
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: () {
-                fetchRawData();
-              },
-              icon: const Icon(Icons.refresh),
-            ),
-            // TODO add new
-            // ElevatedButton.icon(
-            //   onPressed: () {
-            //     _context.go('/add-a-document');
-            //   },
-            //   label: const Text('Add a document'),
-            //   icon: const Icon(
-            //     Icons.add,
-            //     size: 25,
-            //   ),
-            // ),
-            const SizedBox(
-              width: 10,
-            ),
-            _filter.getFilterWidget(_context, fetchRawData),
-            const SizedBox(
-              width: 10,
-            ),
-            SearchBarWidget(filter: _filter, fetchRawData: fetchRawData)
-          ],
-        ),
-      ),
-    );
-  }
-
   void sort<T>(Comparable<T> Function(Notice notice) getField, bool ascending) {
-    _data.sort((a, b) {
+    data.sort((a, b) {
       final aValue = getField(a);
       final bValue = getField(b);
       return ascending

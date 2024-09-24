@@ -1,11 +1,16 @@
-import 'package:adsats_amplify_gen_2/helper/mutable_date_time_range.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DateTimeRangePicker extends StatefulWidget {
-  const DateTimeRangePicker(
-      {super.key, required this.timeRange, this.text = "Select a date range"});
-  final MutableDateTimeRange timeRange;
+  const DateTimeRangePicker({
+    super.key,
+    this.text = "Select a date range",
+    required this.onSubmitted,
+    this.initialDateRange,
+  });
+  final ValueChanged<DateTimeRange?> onSubmitted;
   final String text;
+  final DateTimeRange? initialDateRange;
 
   @override
   State<DateTimeRangePicker> createState() => _DateTimeRangePickerState();
@@ -15,7 +20,7 @@ class _DateTimeRangePickerState extends State<DateTimeRangePicker> {
   DateTimeRange? _dateTimeRange;
   @override
   Widget build(BuildContext context) {
-    _dateTimeRange = widget.timeRange.dateTimeRange;
+    _dateTimeRange = widget.initialDateRange;
     return ElevatedButton(
       onPressed: () async {
         _dateTimeRange = await showDateRangePicker(
@@ -36,15 +41,13 @@ class _DateTimeRangePickerState extends State<DateTimeRangePicker> {
             );
           },
         );
-        if (_dateTimeRange != null) {
-          widget.timeRange.dateTimeRange = _dateTimeRange!;
-        }
+        widget.onSubmitted(_dateTimeRange);
         setState(() {});
       },
       child: Text(
         _dateTimeRange == null
             ? widget.text
-            : widget.timeRange.toDateRangeString(),
+            : "${DateFormat('dd/MM/yyyy').format(_dateTimeRange!.start)} - ${DateFormat('dd/MM/yyyy').format(_dateTimeRange!.end)}",
       ),
     );
   }

@@ -140,7 +140,6 @@ class CategoriesDataSource extends DataTableSource {
       for (var category in categories) {
         data.add(Category.fromJson(category));
       }
-      // notifyListeners();
       // debugPrint("did call fetchRawData");
     } on ApiException catch (e) {
       debugPrint('ApiExecption: fetchRawData Category failed: $e');

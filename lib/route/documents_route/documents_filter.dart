@@ -3,21 +3,21 @@ part of 'documents_widget.dart';
 class DocumentsFilter {
   String search;
   bool? archived;
-  List<Subcategory> subcategories;
-  MutableDateTimeRange createdAt;
+  Iterable<Subcategory> subcategories;
+  DateTimeRange? createdAt;
 
   DocumentsFilter({
     this.search = "",
     this.archived,
     this.subcategories = const [],
-    MutableDateTimeRange? createdAt,
-  }) : createdAt = createdAt ?? MutableDateTimeRange();
+    this.createdAt,
+  });
 
   DocumentsFilter copyWith({
     String? search,
     bool? archived,
     List<Subcategory>? subcategories,
-    MutableDateTimeRange? createdAt,
+    DateTimeRange? createdAt,
   }) {
     return DocumentsFilter(
       search: search ?? this.search,
@@ -28,24 +28,26 @@ class DocumentsFilter {
   }
 
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> result = {
-      "name": {"contains": search},
-    };
+    Map<String, dynamic> result = {};
+    search.isNotEmpty ? result["name"] = {"contains": search} : null;
     archived != null ? result["archived"] = {"eq": archived} : null;
-    createdAt.dateTimeRange != null
-        ? result["createdAt"] = {"between": createdAt.toIso8601String()}
+    createdAt != null
+        ? result["createdAt"] = {
+            "between":
+                "${createdAt!.start.toIso8601String()},${createdAt!.end.toIso8601String()}"
+          }
         : null;
-    result["or"] = subcategories.map(
-      (e) {
-        return {
-          "subcategoryId": {"eq": e.id}
-        };
-      },
-    ).toList();
+    result["or"] = subcategories
+        .map(
+          (e) => {
+            "subcategoryId": {"eq": e.id}
+          },
+        )
+        .toList();
     return result;
   }
 
-  Widget getFilterWidget(BuildContext context, Function fetchRawData) {
+  Widget getFilterWidget(BuildContext context, VoidCallback rebuild) {
     DocumentsFilter temp = this;
     return ElevatedButton(
       onPressed: () {
@@ -77,7 +79,7 @@ class DocumentsFilter {
                         temp.subcategories =
                             List<Subcategory>.from(selectedOptions);
                       },
-                      initialValue: subcategories,
+                      initialValue: subcategories.toList(),
                     ),
                     Container(
                       padding: const EdgeInsets.all(8),
@@ -102,7 +104,8 @@ class DocumentsFilter {
                     Container(
                       padding: const EdgeInsets.all(8),
                       child: DateTimeRangePicker(
-                        timeRange: temp.createdAt,
+                        onSubmitted: (value) => temp.createdAt = value,
+                        initialDateRange: temp.createdAt,
                       ),
                     ),
                   ],
@@ -118,13 +121,11 @@ class DocumentsFilter {
                   onPressed: () {
                     archived = false;
                     subcategories = authNotifier.user.subcategories
-                            ?.map(
-                              (e) => e.subcategory!,
-                            )
+                            ?.map((e) => e.subcategory!)
                             .toList() ??
                         [];
-                    createdAt = MutableDateTimeRange();
-                    fetchRawData();
+                    createdAt = null;
+                    rebuild();
                     Navigator.pop(context, 'Apply');
                   },
                   child: const Text("Reset filter"),
@@ -135,7 +136,7 @@ class DocumentsFilter {
                     archived = temp.archived;
                     subcategories = temp.subcategories;
                     createdAt = temp.createdAt;
-                    fetchRawData();
+                    rebuild();
                     Navigator.pop(context, 'Apply');
                   },
                   child: const Text('Apply'),

@@ -172,7 +172,6 @@ class StaffDataSource extends DataTableSource {
       for (var staff in staff) {
         data.add(Staff.fromJson(staff));
       }
-      // notifyListeners();
       // debugPrint("did call fetchRawData");
     } on ApiException catch (e) {
       debugPrint('ApiExecption: fetchRawData Stafffailed: $e');

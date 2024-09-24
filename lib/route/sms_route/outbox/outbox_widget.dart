@@ -1,12 +1,16 @@
 import 'dart:convert';
 
+import 'package:adsats_amplify_gen_2/API/mutations.dart';
+import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notices_filter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -20,13 +24,70 @@ class OutboxDataTable2 extends StatefulWidget {
 }
 
 class _OutboxDataTable2State extends State<OutboxDataTable2> {
-  late OutboxDataSource dataSource;
+  late final OutboxDataSource dataSource = OutboxDataSource(
+    context: context,
+    filter: filter,
+    rebuild: rebuild,
+  );
+  final NoticesFilter filter = NoticesFilter();
+  bool isInitialize = false;
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   bool _sortAscending = false;
   int _sortColumnIndex = 3;
   Comparable Function(Notice notice) getField = (notice) {
-    return notice.createdAt!;
+    return notice.noticed_at ?? notice.createdAt!;
   };
+
+  get header {
+    return ListTile(
+      contentPadding: const EdgeInsets.only(),
+      leading: const Text(
+        "Outbox",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      title: SingleChildScrollView(
+        padding: const EdgeInsets.only(bottom: 5),
+        scrollDirection: Axis.horizontal,
+        reverse: true,
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: rebuild,
+              icon: const Icon(Icons.refresh),
+            ),
+            // TODO add new
+            // ElevatedButton.icon(
+            //   onPressed: () {
+            //     _context.go('/add-a-document');
+            //   },
+            //   label: const Text('Add a document'),
+            //   icon: const Icon(
+            //     Icons.add,
+            //     size: 25,
+            //   ),
+            // ),
+            const SizedBox(
+              width: 10,
+            ),
+            filter.getFilterWidget(context, rebuild),
+            const SizedBox(
+              width: 10,
+            ),
+            SearchBarWidget(
+              onSubmitted: (value) {
+                filter.search = value;
+                rebuild();
+              },
+              initialValue: filter.search,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   get columns {
     return <DataColumn2>[
@@ -103,7 +164,7 @@ class _OutboxDataTable2State extends State<OutboxDataTable2> {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
             getField = (notice) {
-              return notice.noticed_at ?? double.infinity;
+              return notice.noticed_at ?? notice.createdAt!;
             };
           });
         },
@@ -116,7 +177,7 @@ class _OutboxDataTable2State extends State<OutboxDataTable2> {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
             getField = (notice) {
-              return notice.deadline_at ?? double.infinity;
+              return notice.deadline_at ?? notice.createdAt!;
             };
           });
         },
@@ -139,10 +200,10 @@ class _OutboxDataTable2State extends State<OutboxDataTable2> {
 
   @override
   Widget build(BuildContext context) {
-    dataSource = OutboxDataSource(context);
-    if (OutboxDataSource.isInitialize) {
+    if (isInitialize) {
       return builder(context, dataSource);
     }
+    isInitialize = true;
     return FutureBuilder(
       future: dataSource.fetchRawData(),
       builder: (context, snapshot) {
@@ -155,6 +216,10 @@ class _OutboxDataTable2State extends State<OutboxDataTable2> {
         }
       },
     );
+  }
+
+  void rebuild() {
+    setState(() => isInitialize = false);
   }
 
   Widget builder(BuildContext context, OutboxDataSource dataSource) {
@@ -183,7 +248,7 @@ class _OutboxDataTable2State extends State<OutboxDataTable2> {
       onPageChanged: (rowIndex) {
         // debugPrint((rowIndex / _rowsPerPage).toString());
       },
-      header: dataSource.header,
+      header: header,
       dataRowHeight: 62,
       showCheckboxColumn: false,
       // dynamic change rows per page based on height of screen
