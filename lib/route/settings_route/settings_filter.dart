@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/between_date_range.dart';
 import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -30,10 +31,7 @@ class SettingsFilter {
     };
     archived != null ? result["archived"] = {"eq": archived} : null;
     createdAt != null
-        ? result["createdAt"] = {
-            "between":
-                "${createdAt!.start.toIso8601String()},${createdAt!.end.toIso8601String()}"
-          }
+        ? result["createdAt"] = {"between": betweenDateRange(createdAt!)}
         : null;
     return result;
   }

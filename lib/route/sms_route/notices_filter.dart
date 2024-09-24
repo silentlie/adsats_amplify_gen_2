@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/between_date_range.dart';
 import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:flutter/material.dart';
@@ -48,16 +49,10 @@ class NoticesFilter {
     type != null ? result["type"] = {"eq": type!.name} : null;
     status != null ? result["type"] = {"eq": status!.name} : null;
     noticedAt != null
-        ? result["createdAt"] = {
-            "between":
-                "${noticedAt!.start.toIso8601String()},${noticedAt!.end.toIso8601String()}"
-          }
+        ? result["createdAt"] = {"between": betweenDateRange(noticedAt!)}
         : null;
     deadlineAt != null
-        ? result["createdAt"] = {
-            "between":
-                "${deadlineAt!.start.toIso8601String()},${deadlineAt!.end.toIso8601String()}"
-          }
+        ? result["createdAt"] = {"between": betweenDateRange(deadlineAt!)}
         : null;
     return result;
   }

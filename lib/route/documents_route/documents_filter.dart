@@ -32,10 +32,7 @@ class DocumentsFilter {
     search.isNotEmpty ? result["name"] = {"contains": search} : null;
     archived != null ? result["archived"] = {"eq": archived} : null;
     createdAt != null
-        ? result["createdAt"] = {
-            "between":
-                "${createdAt!.start.toIso8601String()},${createdAt!.end.toIso8601String()}"
-          }
+        ? result["createdAt"] = {"between": betweenDateRange(createdAt!)}
         : null;
     result["or"] = subcategories
         .map(

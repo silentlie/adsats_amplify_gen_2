@@ -17,10 +17,9 @@ class DateTimeRangePicker extends StatefulWidget {
 }
 
 class _DateTimeRangePickerState extends State<DateTimeRangePicker> {
-  DateTimeRange? _dateTimeRange;
+  late DateTimeRange? _dateTimeRange = widget.initialDateRange;
   @override
   Widget build(BuildContext context) {
-    _dateTimeRange = widget.initialDateRange;
     return ElevatedButton(
       onPressed: () async {
         _dateTimeRange = await showDateRangePicker(
@@ -45,10 +44,18 @@ class _DateTimeRangePickerState extends State<DateTimeRangePicker> {
         setState(() {});
       },
       child: Text(
-        _dateTimeRange == null
-            ? widget.text
-            : "${DateFormat('dd/MM/yyyy').format(_dateTimeRange!.start)} - ${DateFormat('dd/MM/yyyy').format(_dateTimeRange!.end)}",
+        _formatDateRange()
       ),
     );
+  }
+
+  String _formatDateRange() {
+    if (_dateTimeRange == null) {
+      return widget.text;
+    } else {
+      final start = DateFormat('dd/MM/yyyy').format(_dateTimeRange!.start);
+      final end = DateFormat('dd/MM/yyyy').format(_dateTimeRange!.end);
+      return "$start - $end";
+    }
   }
 }
