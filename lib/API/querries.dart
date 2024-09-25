@@ -236,6 +236,10 @@ query ListDocuments(\$filter: ModelDocumentFilterInput) {
       name
       createdAt
       archived
+      staff {
+        id
+        name
+      }
       subcategory {
         id
         name

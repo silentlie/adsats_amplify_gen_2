@@ -39,6 +39,9 @@ class DocumentsDataSource extends DataTableSource {
           getCenterText(document.name),
         ),
         DataCell(
+          getCenterText(document.staff?.name ?? ""),
+        ),
+        DataCell(
           getCenterText(
             document.aircraft?.map((e) => e.aircraft?.name).join(', ') ?? "",
           ),

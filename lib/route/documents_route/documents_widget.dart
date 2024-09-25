@@ -42,7 +42,7 @@ class DocumentsDataTable2 extends StatefulWidget {
 }
 
 class _DocumentsDataTable2State extends State<DocumentsDataTable2> {
-  late final DocumentsDataSource dataSource= DocumentsDataSource(
+  late final DocumentsDataSource dataSource = DocumentsDataSource(
     context: context,
     filter: filter,
     rebuild: rebuild,
@@ -117,6 +117,19 @@ class _DocumentsDataTable2State extends State<DocumentsDataTable2> {
             _sortAscending = ascending;
             getField = (document) {
               return document.name;
+            };
+          });
+        },
+      ),
+      DataColumn2(
+        label: getCenterText("Owner"),
+        size: ColumnSize.L,
+        onSort: (columnIndex, ascending) {
+          setState(() {
+            _sortColumnIndex = columnIndex;
+            _sortAscending = ascending;
+            getField = (document) {
+              return document.staff?.name ?? "";
             };
           });
         },

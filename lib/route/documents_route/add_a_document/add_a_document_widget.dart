@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
+import 'package:adsats_amplify_gen_2/helper/futrure_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/helper/multi_select.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/documents_route/s3.dart';
@@ -63,8 +64,21 @@ class _AddADocumentState extends State<AddADocument> {
         const Divider(),
         Row(
           children: [
-            // if (authNotifier.isAdmin || authNotifier.isEditor)
-            //   const Expanded(child: Placeholder()),
+            if (authNotifier.isAdmin || authNotifier.isEditor)
+              Expanded(
+                child: FutrureDropdownMenu<Staff>(
+                  modelType: Staff.classType,
+                  toList: (allData) {
+                    return allData
+                        .map(
+                          (e) => DropdownMenuEntry(value: e, label: e.name),
+                        )
+                        .toList();
+                  },
+                  onSelected: (value) => staff = value,
+                  text: "Owner",
+                ),
+              ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
