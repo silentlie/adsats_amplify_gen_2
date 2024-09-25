@@ -7,6 +7,7 @@ import 'package:adsats_amplify_gen_2/route/documents_route/documents_widget.dart
 import 'package:adsats_amplify_gen_2/route/help_route/help_widget.dart';
 import 'package:adsats_amplify_gen_2/route/profile_route/profile_widget.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/settings_widget.dart';
+import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_widget.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/sms_widget.dart';
 import 'package:adsats_amplify_gen_2/route/training_route/training_widget.dart';
 import 'package:adsats_amplify_gen_2/scaffold/scaffod_widget.dart';
@@ -94,7 +95,7 @@ final router = GoRouter(
               return const SMSWidget();
             }
             Notice notice = state.extra as Notice;
-            return Text(notice.toString());
+            return NoticeWidget(notice: notice);
           },
         ),
         GoRoute(
@@ -105,10 +106,10 @@ final router = GoRouter(
           path: '/training',
           builder: (context, state) => const TrainingWidget(),
         ),
-        // GoRoute(
-        //   path: '/send-notices',
-        //   builder: (context, state) => const SendNotices(),
-        // ),
+        GoRoute(
+          path: '/notice',
+          builder: (context, state) => const NoticeWidget(),
+        ),
       ],
     ),
   ],

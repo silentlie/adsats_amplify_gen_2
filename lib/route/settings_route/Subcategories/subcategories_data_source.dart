@@ -285,7 +285,7 @@ class SubcategoriesDataSource extends DataTableSource {
                       builder: (context, setState) {
                         return Column(
                           children: [
-                            MultiSelect(
+                            MultiSelect<Staff>(
                               onConfirm: (options) {
                                 setState(() {
                                   List<Staff> selectedStaff =
@@ -310,8 +310,9 @@ class SubcategoriesDataSource extends DataTableSource {
                                 return MultiSelectItem(e, e.name);
                               }).toList(),
                               initialValue: staffSubcategories
-                                  .map((e) => e.staff)
+                                  .map((e) => e.staff!)
                                   .toList(),
+                              text: "Choose Staff",
                             ),
                             ...staffSubcategories.map(
                               (staffSubcategory) {

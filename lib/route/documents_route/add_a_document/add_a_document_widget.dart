@@ -96,17 +96,17 @@ class _AddADocumentState extends State<AddADocument> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: MultiSelect(
+                child: MultiSelect<Aircraft>(
                   items: staff?.aircraft?.map(
                         (e) {
-                          return MultiSelectItem(e.aircraft, e.aircraft!.name);
+                          return MultiSelectItem(e.aircraft!, e.aircraft!.name);
                         },
                       ).toList() ??
                       [],
                   onConfirm: (selectedOptions) {
                     aircraft = List<Aircraft>.from(selectedOptions);
                   },
-                  buttonText: const Text("Add aircraft"),
+                  text: "Add aircraft",
                   title: const Text("Add aircraft"),
                 ),
               ),

@@ -59,6 +59,6 @@ Future<void> updateAircraftStaff(Aircraft aircraft, List<Staff> staff) async {
     }
     await Future.wait(futures);
   } on ApiException catch (e) {
-    debugPrint('update role staff failed: $e');
+    debugPrint('update aircraft staff failed: $e');
   }
 }

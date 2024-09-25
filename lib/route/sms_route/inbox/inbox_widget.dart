@@ -6,6 +6,7 @@ import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_api.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notices_filter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:data_table_2/data_table_2.dart';
@@ -58,17 +59,16 @@ class _InboxDataTable2State extends State<InboxDataTable2> {
               onPressed: rebuild,
               icon: const Icon(Icons.refresh),
             ),
-            // TODO add new
-            // ElevatedButton.icon(
-            //   onPressed: () {
-            //     _context.go('/add-a-document');
-            //   },
-            //   label: const Text('Add a document'),
-            //   icon: const Icon(
-            //     Icons.add,
-            //     size: 25,
-            //   ),
-            // ),
+            ElevatedButton.icon(
+              onPressed: () {
+                context.go('/notice');
+              },
+              label: const Text('Create a new notice'),
+              icon: const Icon(
+                Icons.add,
+                size: 25,
+              ),
+            ),
             const SizedBox(
               width: 10,
             ),

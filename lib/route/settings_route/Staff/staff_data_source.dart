@@ -294,6 +294,7 @@ class StaffDataSource extends DataTableSource {
                         },
                       ).toList(),
                       initialValue: aircraft,
+                      text: "Choose Aircraft",
                     );
                   } else {
                     return const Placeholder();
@@ -320,6 +321,7 @@ class StaffDataSource extends DataTableSource {
                         },
                       ).toList(),
                       initialValue: roles,
+                      text: "Choose Roles",
                     );
                   } else {
                     return const Placeholder();
@@ -360,6 +362,7 @@ class StaffDataSource extends DataTableSource {
                               },
                             ).toList(),
                             initialValue: staffSubcategories.keys.toList(),
+                            text: "Choose subcategories",
                           ),
                           ...staffSubcategories.entries.map(
                             (entry) => Container(

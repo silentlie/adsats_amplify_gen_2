@@ -60,8 +60,8 @@ class DocumentsFilter {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    MultiSelect(
-                      buttonText: const Text("Filter by subcategories"),
+                    MultiSelect<Subcategory>(
+                      text: "Filter by subcategories",
                       title: const Text("Filter by subcategories"),
                       items: authNotifier.user.subcategories?.map(
                             (entry) {

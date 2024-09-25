@@ -1,34 +1,46 @@
-import 'package:adsats_amplify_gen_2/route/sms_route/inbox/inbox_widget.dart';
-import 'package:adsats_amplify_gen_2/route/sms_route/outbox/outbox_widget.dart';
+import 'package:adsats_amplify_gen_2/models/Notice.dart';
+import 'package:adsats_amplify_gen_2/route/sms_route/notice/hazard_report/hazard_report_widget.dart';
+import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_to_crew/notice_to_crew_widget.dart';
+import 'package:adsats_amplify_gen_2/route/sms_route/notice/safety_notice/safety_notice_widget.dart';
 import 'package:flutter/material.dart';
 
-class SMSWidget extends StatefulWidget {
-  const SMSWidget({super.key});
+class NoticeWidget extends StatefulWidget {
+  const NoticeWidget({super.key, this.notice});
+  final Notice? notice;
 
   @override
-  State<SMSWidget> createState() => _SMSWidgetState();
+  State<NoticeWidget> createState() => _NoticeWidgetState();
 }
 
-class _SMSWidgetState extends State<SMSWidget> {
+class _NoticeWidgetState extends State<NoticeWidget> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
-    const InboxDataTable2(),
-    const OutboxDataTable2(),
+    const NoticeToCrewWidget(),
+    const SafetyNoticeWidget(),
+    const HazardReportWidget(),
   ];
-
   final List<NavigationDestination> _navigationDestinations = [
     const NavigationDestination(
-      icon: Icon(Icons.move_to_inbox_outlined),
-      selectedIcon: Icon(Icons.move_to_inbox),
-      label: "Inbox",
+      icon: Icon(Icons.notifications_outlined),
+      selectedIcon: Icon(Icons.notifications),
+      label: "Notice to Crew",
     ),
     const NavigationDestination(
-      icon: Icon(Icons.outbox_outlined),
-      selectedIcon: Icon(Icons.outbox),
-      label: "Outbox",
+      icon: Icon(Icons.gpp_maybe_outlined),
+      selectedIcon: Icon(Icons.gpp_maybe),
+      label: "Safety Notice",
     ),
+    const NavigationDestination(
+      icon: Icon(Icons.report_outlined),
+      selectedIcon: Icon(Icons.report),
+      label: "Hazard Report",
+    ),
+    // const NavigationDestination(
+    //   icon: Icon(Icons.document_scanner_outlined),
+    //   selectedIcon: Icon(Icons.document_scanner),
+    //   label: "BCAA report",
+    // ),
   ];
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -40,7 +52,7 @@ class _SMSWidgetState extends State<SMSWidget> {
                 child: Center(
                   child: Container(
                     constraints: const BoxConstraints(maxWidth: 1532),
-                    child:  IndexedStack(
+                    child: IndexedStack(
                       index: _selectedIndex,
                       children: _pages,
                     ),

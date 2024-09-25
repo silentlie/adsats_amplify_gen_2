@@ -115,7 +115,7 @@ class InboxDataSource extends DataTableSource {
         ),
         IconButton(
           onPressed: () async {
-            await delete(notice);
+            await deleteNotice(notice);
             rebuild();
           },
           icon: const Icon(Icons.delete_outline),
