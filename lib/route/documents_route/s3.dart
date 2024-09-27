@@ -1,4 +1,3 @@
-
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -30,13 +29,13 @@ Future<void> getFileUrl(Document document) async {
 }
 
 Future<void> uploadFiles(
-  FilePickerResult filePickerResult,
+  List<PlatformFile> selectedFiles,
   Staff staff,
   Subcategory subcategory,
   List<Aircraft> aircraft,
 ) async {
   await Future.wait(
-    filePickerResult.files.map(
+    selectedFiles.map(
       (file) => uploadFile(
         file,
         staff,
@@ -72,7 +71,7 @@ Future<void> uploadFile(
     // Concurrently upload the file and create AircraftDocument entries
     final fileUploadFuture = Amplify.Storage.uploadFile(
       localFile: AWSFile.fromStream(file.readStream!, size: file.size),
-      path: StoragePath.fromString("documents/${id}_${file.name}"),
+      path: StoragePath.fromString("documents/$id/${file.name}"),
       onProgress: (progress) {
         // Optional debug print for progress
         debugPrint('Fraction completed: ${progress.fractionCompleted}');
@@ -143,8 +142,7 @@ Future<void> delete(Document document) async {
     // print('Removed file: ${result.removedItem.path}');
   } on StorageException catch (e) {
     debugPrint('delete document in s3 failed: ${e.message}');
-  }
-  on ApiException catch (e) {
+  } on ApiException catch (e) {
     debugPrint('delete document in graphQL/Appsync failed: ${e.message}');
   } catch (e) {
     debugPrint('Unknown Error: $e');

@@ -98,7 +98,8 @@ class DocumentsDataSource extends DataTableSource {
           onPressed: () async {
             await getFileUrl(document);
           },
-          icon: const Icon(Icons.remove_red_eye_outlined),
+          icon: const Icon(Icons.download_outlined),
+          tooltip: "Download",
         ),
         if (authNotifier.isAdmin || authNotifier.isEditor)
           IconButton(
@@ -107,6 +108,7 @@ class DocumentsDataSource extends DataTableSource {
               rebuild();
             },
             icon: const Icon(Icons.archive_outlined),
+            tooltip: "Archive",
           ),
         if (authNotifier.isAdmin)
           IconButton(
@@ -115,6 +117,7 @@ class DocumentsDataSource extends DataTableSource {
               rebuild();
             },
             icon: const Icon(Icons.delete_outline),
+            tooltip: "Delete",
           ),
       ],
       builder: (context, controller, child) {

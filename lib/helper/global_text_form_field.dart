@@ -57,7 +57,6 @@ class GlobalTextFormField extends StatelessWidget {
               labelText: labelText,
               hintText: 'Please enter the ${labelText.toLowerCase()}',
               border: const OutlineInputBorder(),
-              enabled: false,
             ),
         textCapitalization: TextCapitalization.sentences,
         readOnly: readOnly,

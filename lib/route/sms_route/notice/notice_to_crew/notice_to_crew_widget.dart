@@ -15,7 +15,10 @@ import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 
 class NoticeToCrewWidget extends StatefulWidget {
-  const NoticeToCrewWidget({super.key, this.notice});
+  const NoticeToCrewWidget({
+    super.key,
+    this.notice,
+  });
   final Notice? notice;
 
   @override
