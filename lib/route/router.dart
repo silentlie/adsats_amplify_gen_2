@@ -4,6 +4,7 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/compliance_route/compliance_widget.dart';
 import 'package:adsats_amplify_gen_2/route/documents_route/documents_widget.dart';
 import 'package:adsats_amplify_gen_2/route/help_route/help_widget.dart';
+import 'package:adsats_amplify_gen_2/route/home_route/home_widget.dart';
 import 'package:adsats_amplify_gen_2/route/profile_route/profile_widget.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/settings_widget.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_widget.dart';
@@ -15,7 +16,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 final router = GoRouter(
-  initialLocation: '/documents',
+  initialLocation: '/',
   debugLogDiagnostics: false,
   routes: [
     ShellRoute(
@@ -58,13 +59,13 @@ final router = GoRouter(
       },
       routes: [
         GoRoute(
+          path: '/',
+          builder: (context, state) => const HomeWidget(),
+        ),
+        GoRoute(
           path: '/documents',
           builder: (context, state) => const DocumentsWidget(),
         ),
-        // GoRoute(
-        //   path: '/add-a-document',
-        //   builder: (context, state) => const AddADocumentWidget(),
-        // ),
         GoRoute(
           path: '/profile',
           builder: (context, state) => const ProfileWidget(),

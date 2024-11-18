@@ -293,9 +293,11 @@ query GetStaff(\$id: ID!) {
         subcategory {
           id
           name
+          archived
           category {
             id
             name
+            archived
           }
         }
       }

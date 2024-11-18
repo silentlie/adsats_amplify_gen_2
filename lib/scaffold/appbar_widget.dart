@@ -111,27 +111,45 @@ class MenuItem {
 }
 
 class AppBarItems {
+  static const List<MenuItem> menuItems = [
+    itemDocuments,
+    itemSMS,
+    itemCompliance,
+    itemTraining,
+  ];
   static const List<MenuItem> fullMenuItems = [
+    itemHome,
     itemDocuments,
     itemSMS,
     itemCompliance,
     itemTraining,
   ];
 
-  static const List<MenuItem> tabletMenuItems = [
-    itemDocuments,
-    itemSMS,
-  ];
+  // static const List<MenuItem> tabletMenuItems = [
+  //   itemDocuments,
+  //   itemSMS,
+  // ];
 
-  static const List<MenuItem> tabletPopupItems = [
-    itemCompliance,
-    itemTraining,
-  ];
+  // static const List<MenuItem> tabletPopupItems = [
+  //   itemCompliance,
+  //   itemTraining,
+  // ];
 
+  static const itemHome = MenuItem(
+    text: 'Home',
+    icon: Icons.home,
+    route: '/',
+  );
   static const itemDocuments = MenuItem(
-      text: 'Documents', icon: Icons.insert_drive_file, route: '/documents');
+    text: 'Documents',
+    icon: Icons.insert_drive_file,
+    route: '/documents',
+  );
   static const itemSMS = MenuItem(
-      text: 'S.M.S', icon: FontAwesomeIcons.helmetSafety, route: '/sms');
+    text: 'S.M.S',
+    icon: FontAwesomeIcons.helmetSafety,
+    route: '/sms',
+  );
   static const itemCompliance = MenuItem(
       text: 'Compliance',
       icon: Icons.assignment_turned_in,

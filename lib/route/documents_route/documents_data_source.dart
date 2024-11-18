@@ -14,8 +14,11 @@ class DocumentsDataSource extends DataTableSource {
     required this.filter,
     required this.rebuild,
   }) {
-    final _ = Provider.of<AuthNotifier>(context).user;
-    final subcategories = _.subcategories?.map((e) => e.subcategory!) ?? [];
+    final subcategories = Provider.of<AuthNotifier>(context)
+            .user
+            .subcategories
+            ?.map((e) => e.subcategory!) ??
+        [];
     filter.archived = false;
     filter.subcategories = subcategories;
   }
