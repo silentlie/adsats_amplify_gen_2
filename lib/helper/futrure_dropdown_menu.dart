@@ -32,18 +32,21 @@ class FutrureDropdownMenu<T extends Model> extends StatelessWidget {
           return Text('Error: ${snapshot.error}');
         } else if (snapshot.hasData) {
           final allData = snapshot.data!.cast<T>();
-          return DropdownMenu(
-            dropdownMenuEntries: toList(allData),
-            inputDecorationTheme: const InputDecorationTheme(
-              border: OutlineInputBorder(),
+          return Padding(
+            padding: padding,
+            child: DropdownMenu(
+              dropdownMenuEntries: toList(allData),
+              inputDecorationTheme: const InputDecorationTheme(
+                border: OutlineInputBorder(),
+              ),
+              enableSearch: enabled,
+              hintText: text,
+              menuHeight: 200,
+              label: Text(text),
+              onSelected: onSelected,
+              initialSelection: initialSelection ?? allData.firstOrNull,
+              expandedInsets: EdgeInsets.zero,
             ),
-            enableSearch: enabled,
-            hintText: text,
-            menuHeight: 200,
-            label: Text(text),
-            onSelected: onSelected,
-            initialSelection: initialSelection ?? allData.firstOrNull,
-            expandedInsets: EdgeInsets.zero,
           );
         } else {
           return const Placeholder();

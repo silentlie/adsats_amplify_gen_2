@@ -146,13 +146,15 @@ class InboxDataSource extends DataTableSource {
         where: NoticeStaff.STAFF.eq(filter.staff.id),
       );
       final filterJson = filter.toJson();
-      if (noticeIds.isNotEmpty) {
-        filterJson["or"] = noticeIds
-            .map((e) => {
-                  "id": {"eq": e.notice?.id}
-                })
-            .toList();
+      if (noticeIds.isEmpty) {
+        data.clear();
+        return;
       }
+      filterJson["or"] = noticeIds
+          .map((e) => {
+                "id": {"eq": e.notice?.id}
+              })
+          .toList();
       final request = GraphQLRequest<String>(
         document: listNotices,
         variables: {"filter": filterJson},

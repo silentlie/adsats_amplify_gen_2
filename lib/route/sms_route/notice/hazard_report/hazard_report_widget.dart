@@ -39,6 +39,7 @@ class _HazardReportWidgetState extends State<HazardReportWidget> {
 
   @override
   Widget build(BuildContext context) {
+    return Placeholder();
     AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     List<Aircraft> aircraft = notice.aircraft

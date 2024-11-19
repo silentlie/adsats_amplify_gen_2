@@ -107,9 +107,11 @@ class _NoticeWidgetState extends State<NoticeWidget> {
               child: Center(
                 child: Container(
                   constraints: const BoxConstraints(maxWidth: 1500),
-                  child: IndexedStack(
-                    index: _selectedIndex,
-                    children: _pages,
+                  child: Card(
+                    child: IndexedStack(
+                      index: _selectedIndex,
+                      children: _pages,
+                    ),
                   ),
                 ),
               ),
