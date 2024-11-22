@@ -14,7 +14,7 @@ class InboxDataSource extends DataTableSource {
     required this.filter,
     required this.rebuild,
   }) {
-    filter.staff = Provider.of<AuthNotifier>(context).user;
+    filter.staff = Provider.of<AuthNotifier>(context, listen: false).user;
     filter.archived = false;
   }
 
@@ -99,12 +99,14 @@ class InboxDataSource extends DataTableSource {
 
   Widget getActions(Notice notice) {
     return MenuAnchor(
+      alignmentOffset: Offset(50, -40),
       menuChildren: [
         IconButton(
           onPressed: () async {
             context.go('/sms', extra: notice);
           },
-          icon: const Icon(Icons.edit_outlined),
+          icon: const Icon(Icons.remove_red_eye_outlined),
+          tooltip: "View this notice",
         ),
         IconButton(
           onPressed: () async {
@@ -112,6 +114,8 @@ class InboxDataSource extends DataTableSource {
             rebuild();
           },
           icon: const Icon(Icons.archive_outlined),
+          tooltip:
+              notice.archived ? "Unarchive thi notice" : "Archive this notice",
         ),
         IconButton(
           onPressed: () async {
@@ -119,6 +123,7 @@ class InboxDataSource extends DataTableSource {
             rebuild();
           },
           icon: const Icon(Icons.delete_outline),
+          tooltip: "delete this notice",
         ),
       ],
       builder: (context, controller, child) {

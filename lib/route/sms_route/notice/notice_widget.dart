@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/models/Notice.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/hazard_report/hazard_report_widget.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_to_crew/notice_to_crew_widget.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/safety_notice/safety_notice_widget.dart';
@@ -43,6 +43,29 @@ class _NoticeWidgetState extends State<NoticeWidget> {
   ];
   @override
   Widget build(BuildContext context) {
+    if (widget.notice != null) {
+      Widget content;
+      switch (widget.notice!.type) {
+        case NoticeType.Notice_to_Crew:
+          content = NoticeToCrewWidget(notice: widget.notice);
+          break;
+        case NoticeType.Safety_notice:
+          content = SafetyNoticeWidget(notice: widget.notice);
+          break;
+        case NoticeType.Hazard_report:
+          content = HazardReportWidget(notice: widget.notice);
+          break;
+        default:
+          content = Center(child: Text("Unknown notice type"));
+          break;
+      }
+      return Center(
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 1532),
+          child: Card(child: content),
+        ),
+      );
+    }
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth < 1533) {
@@ -120,5 +143,28 @@ class _NoticeWidgetState extends State<NoticeWidget> {
         );
       },
     );
+  }
+
+  Widget getContent() {
+    if (widget.notice == null) {
+      return IndexedStack(
+        index: _selectedIndex,
+        children: [
+          const NoticeToCrewWidget(),
+          const SafetyNoticeWidget(),
+          const HazardReportWidget(),
+        ],
+      );
+    }
+    switch (widget.notice!.type) {
+      case NoticeType.Notice_to_Crew:
+        return NoticeToCrewWidget(notice: widget.notice);
+      case NoticeType.Safety_notice:
+        return SafetyNoticeWidget(notice: widget.notice);
+      case NoticeType.Hazard_report:
+        return HazardReportWidget(notice: widget.notice);
+      default:
+        return Center(child: Text("Unknown notice type"));
+    }
   }
 }

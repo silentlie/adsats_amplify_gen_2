@@ -51,7 +51,8 @@ class DocumentsFilter {
         showDialog(
           context: context,
           builder: (context) {
-            AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
+            AuthNotifier authNotifier =
+                Provider.of<AuthNotifier>(context);
             return AlertDialog.adaptive(
               title: const Text('Filter By:'),
               content: Container(

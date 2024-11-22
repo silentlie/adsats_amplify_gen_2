@@ -15,7 +15,7 @@ class OutboxDataSource extends DataTableSource {
     required this.rebuild,
   }) {
     filter.archived = false;
-    filter.staff = Provider.of<AuthNotifier>(context).user;
+    filter.staff = Provider.of<AuthNotifier>(context, listen: false).user;
   }
   @override
   int get rowCount => data.length;

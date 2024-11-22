@@ -25,6 +25,7 @@ class AuthNotifier with ChangeNotifier {
       await _queryUserDetails(id);
       _validateRoles();
       _validateSubcategories();
+      notifyListeners();
       return isSignedIn;
     } on SignedOutException catch (e) {
       debugPrint(
@@ -67,7 +68,7 @@ class AuthNotifier with ChangeNotifier {
       return role.role!.name == "Admin";
     });
     isEditor = user.roles!.any((role) {
-      return role.role!.id == "Editor";
+      return role.role!.name == "Editor";
     });
   }
 

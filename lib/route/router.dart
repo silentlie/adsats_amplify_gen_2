@@ -21,7 +21,8 @@ final router = GoRouter(
   routes: [
     ShellRoute(
       builder: (context, state, child) {
-        AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
+        AuthNotifier authNotifier =
+            Provider.of<AuthNotifier>(context, listen: false);
         if (authNotifier.isSignedIn) {
           authNotifier.fetchCognitoAuthSession();
           return MyScaffold(child: child);
@@ -77,8 +78,7 @@ final router = GoRouter(
         GoRoute(
           path: '/settings',
           builder: (context, state) {
-            AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
-            if (!authNotifier.isAdmin) {
+            if (!Provider.of<AuthNotifier>(context, listen: false).isAdmin) {
               context.go('/documents');
             }
             return const SettingsWidget();

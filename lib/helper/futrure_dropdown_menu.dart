@@ -39,13 +39,13 @@ class FutrureDropdownMenu<T extends Model> extends StatelessWidget {
               inputDecorationTheme: const InputDecorationTheme(
                 border: OutlineInputBorder(),
               ),
-              enableSearch: enabled,
               hintText: text,
               menuHeight: 200,
               label: Text(text),
               onSelected: onSelected,
               initialSelection: initialSelection ?? allData.firstOrNull,
               expandedInsets: EdgeInsets.zero,
+              enabled: enabled,
             ),
           );
         } else {

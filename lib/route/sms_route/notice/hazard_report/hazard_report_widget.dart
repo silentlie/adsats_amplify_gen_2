@@ -556,7 +556,6 @@ class _HazardReportWidgetState extends State<HazardReportWidget> {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
                         notice = notice.copyWith(details: details.toString());
-                        print(notice);
                         // if (!context.mounted) return;
                         // context.go('/sms');
                       }

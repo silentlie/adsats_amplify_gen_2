@@ -7,22 +7,49 @@ query ListNotices(\$filter: ModelNoticeFilterInput) {
   listNotices(filter: \$filter) {
     items {
       id
-      subject
       type
+      subject
       status
+      archived
+      noticed_at
+      deadline_at
+      createdAt
+      updatedAt
+      details
+      author {
+        id
+        name
+        email
+        archived
+      }
       aircraft {
         items {
           id
           aircraft {
             id
             name
+            archived
+            description
           }
         }
       }
-      archived
-      noticed_at
-      deadline_at
-      createdAt
+      documents {
+        items {
+          id
+          name
+        }
+      }
+      recipients {
+        items {
+          id
+          staff {
+            id
+            name
+            email
+            archived
+          }
+        }
+      }
     }
   }
 }
@@ -30,6 +57,7 @@ query ListNotices(\$filter: ModelNoticeFilterInput) {
 const getNoticeDetails = '''
 query GetNoticeDetails(\$id: ID!) {
   getNotice(id: \$id) {
+    id
     type
     subject
     status
@@ -302,7 +330,7 @@ query GetStaff(\$id: ID!) {
         }
       }
     }
-    notifications(filter: {read_at: {attributeExists: false}}) {
+    notifications(filter: {read_at: {eq: null}}) {
       items {
         id
         notice {
@@ -312,6 +340,10 @@ query GetStaff(\$id: ID!) {
           status
           subject
           type
+          author {
+            id
+            name
+          }
         }
       }
     }

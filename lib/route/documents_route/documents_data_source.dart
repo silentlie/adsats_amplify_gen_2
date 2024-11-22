@@ -14,7 +14,7 @@ class DocumentsDataSource extends DataTableSource {
     required this.filter,
     required this.rebuild,
   }) {
-    final subcategories = Provider.of<AuthNotifier>(context)
+    final subcategories = Provider.of<AuthNotifier>(context, listen: false)
             .user
             .subcategories
             ?.map((e) => e.subcategory!) ??

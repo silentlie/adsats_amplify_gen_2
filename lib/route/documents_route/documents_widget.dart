@@ -322,11 +322,9 @@ class _DocumentsDataTable2State extends State<DocumentsDataTable2> {
                     child: FutrureDropdownMenu<Staff>(
                       modelType: Staff.classType,
                       toList: (allData) {
-                        print("rebuild this");
                         return allData
-                            .map(
-                              (e) => DropdownMenuEntry(value: e, label: e.name),
-                            )
+                            .map((e) =>
+                                DropdownMenuEntry(value: e, label: e.name))
                             .toList();
                       },
                       onSelected: (value) =>

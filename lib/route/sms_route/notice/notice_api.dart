@@ -6,7 +6,7 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-Future<Notice> deleteNotice(Notice notice)async {
+Future<Notice> deleteNotice(Notice notice) async {
   try {
     final request = GraphQLRequest<String>(
       document: getNoticeDetails,
@@ -29,19 +29,19 @@ Future<Notice> deleteNotice(Notice notice)async {
       (noticeDocument) => futures.add(delete(noticeDocument)),
     );
     futures.add(delete(notice));
-    Future.wait(futures);
+    await Future.wait(futures);
     return notice;
   } on ApiException catch (e) {
     debugPrint('ApiExecption: delete Notice with ${notice.id} failed: $e');
     rethrow;
   } on Exception catch (e) {
-    debugPrint(
-        'Dart Exception: delete Notice with ${notice.id} failed: $e');
+    debugPrint('Dart Exception: delete Notice with ${notice.id} failed: $e');
     rethrow;
   }
 }
 
-Future<void> updateAircraftNotice(Notice notice, List<Aircraft> aircraft) async {
+Future<void> updateAircraftNotice(
+    Notice notice, List<Aircraft> aircraft) async {
   try {
     final List<Future> futures = [];
     final oldRecords = notice.aircraft ?? [];
@@ -51,7 +51,8 @@ Future<void> updateAircraftNotice(Notice notice, List<Aircraft> aircraft) async 
     for (var newAircraft in aircraft) {
       final oldRecord = oldMap.remove(newAircraft.id);
       if (oldRecord == null) {
-        futures.add(create(AircraftNotice(aircraft: newAircraft, notice: notice)));
+        futures
+            .add(create(AircraftNotice(aircraft: newAircraft, notice: notice)));
       }
     }
     for (var oldRecord in oldMap.values) {
