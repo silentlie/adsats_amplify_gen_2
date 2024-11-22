@@ -157,8 +157,10 @@ class _SafetyNoticeWidgetState extends State<SafetyNoticeWidget> {
                           .toList(),
                       initialSelection: notice.status,
                       enabled: editMode,
-                      onSelected: (value) =>
-                          notice = notice.copyWith(status: value),
+                      onSelected: (value) {
+                        notice = notice.copyWith(status: value);
+                        setState(() {});
+                      },
                       hintText: "Status of this notice",
                       menuHeight: 200,
                       expandedInsets: EdgeInsets.zero,
@@ -186,11 +188,6 @@ class _SafetyNoticeWidgetState extends State<SafetyNoticeWidget> {
               minLines: 5,
             ),
             const Divider(),
-            const Center(
-              child: Text(
-                "This will send to Safety officers",
-              ),
-            ),
             Row(
               children: [
                 if (editMode)
@@ -225,7 +222,14 @@ class _SafetyNoticeWidgetState extends State<SafetyNoticeWidget> {
                       ],
                     ),
                   )),
-                if (editMode)
+                if (editMode && notice.status != NoticeStatus.Resolved)
+                  Expanded(
+                    child: Center(
+                      child:
+                          Text("This notice will be sent to Safety officers"),
+                    ),
+                  ),
+                if (editMode && notice.status == NoticeStatus.Resolved)
                   Expanded(
                     child: FutureMultiSelect<Staff>(
                       modelType: Staff.classType,
@@ -259,7 +263,10 @@ class _SafetyNoticeWidgetState extends State<SafetyNoticeWidget> {
               ],
             ),
             const Divider(),
-            actionsRow(context, authNotifier),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: actionsRow(context, authNotifier),
+            ),
           ],
         ),
       ),
