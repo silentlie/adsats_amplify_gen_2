@@ -1,4 +1,9 @@
+import 'dart:convert';
+
+import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -56,15 +61,30 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                   style: const TextStyle(fontWeight: FontWeight.bold),
                   children: <TextSpan>[
                     TextSpan(
-                      text: e.notice?.subject,
+                      text: e.notice!.subject,
                       style: const TextStyle(fontWeight: FontWeight.normal),
                     ),
                   ],
                 ),
               ),
-              leading: Icon(_getIcon(e.notice?.type!.name)),
-              onTap: () {
-                context.go('/sms', extra: e.notice);
+              leading: Icon(_getIcon(e.notice!.type!.name)),
+              onTap: () async {
+                final response = await Amplify.API
+                    .query(
+                      request: GraphQLRequest(
+                        document: getNoticeDetails,
+                        variables: {
+                          "id": e.notice!.id,
+                        },
+                      ),
+                    )
+                    .response;
+                if (response.errors.isNotEmpty) {
+                  throw response.errors.first;
+                }
+                Map<String, dynamic> jsonMap = json.decode(response.data);
+                context.go('/sms',
+                    extra: Notice.fromJson(jsonMap["getNotice"]));
               },
             );
           },

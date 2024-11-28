@@ -431,7 +431,7 @@ Future<List<T>> list<T extends Model>(
   }
 }
 
-Future<T?> get<T extends Model>(
+Future<T> get<T extends Model>(
   ModelType<T> modelType,
   ModelIdentifier<T> modelIdentifier,
 ) async {

@@ -64,190 +64,194 @@ class _NoticeToCrewWidgetState extends State<NoticeToCrewWidget> {
     }
     return Form(
       key: formKey,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: const Text(
-              'Notice to Crew',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: const Text(
+                'Notice to Crew',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
               ),
             ),
-          ),
-          const Divider(),
-          Row(
-            children: [
-              Expanded(
-                child: GlobalTextFormField(
-                  labelText: 'Notice ID',
-                  enabled: false,
-                  initialValue: notice.id,
-                  onSaved: (value) {},
+            const Divider(),
+            Row(
+              children: [
+                Expanded(
+                  child: GlobalTextFormField(
+                    labelText: 'Notice ID',
+                    enabled: false,
+                    initialValue: notice.id,
+                    onSaved: (value) {},
+                  ),
                 ),
-              ),
-              Expanded(
-                child: FutrureDropdownMenu<Staff>(
-                  modelType: Staff.classType,
-                  toList: (allData) => allData
-                      .map((e) => DropdownMenuEntry(value: e, label: e.name))
-                      .toList(),
-                  onSelected: (value) {
-                    notice = notice.copyWith(author: value);
-                  },
-                  enabled: editMode,
-                  initialSelection: notice.author,
-                  text: "Author of this notice",
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: DatePickerWidget(
-                  text: "Notice Date",
-                  onSelected: (value) {
-                    notice = notice.copyWith(noticed_at: value);
-                  },
-                  enabled: editMode,
-                  initialValue: notice.noticed_at,
-                  firstDate:
-                      DateTime.now().subtract(const Duration(days: 365 * 10)),
-                  lastDate: DateTime.now(),
-                ),
-              ),
-              Expanded(
-                child: DatePickerWidget(
-                  text: "Deadline Date",
-                  onSelected: (value) {
-                    notice = notice.copyWith(deadline_at: value);
-                  },
-                  enabled: editMode,
-                  initialValue: notice.deadline_at,
-                  firstDate: DateTime.now(),
-                  lastDate: DateTime.now().add(const Duration(days: 365 * 10)),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: GlobalTextFormField(
-                  labelText: "Subject",
-                  onSaved: (value) {
-                    notice = notice.copyWith(subject: value);
-                  },
-                  initialValue: notice.subject,
-                  enabled: editMode,
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownMenu(
-                    dropdownMenuEntries: NoticeStatus.values
+                Expanded(
+                  child: FutrureDropdownMenu<Staff>(
+                    modelType: Staff.classType,
+                    toList: (allData) => allData
                         .map((e) => DropdownMenuEntry(value: e, label: e.name))
                         .toList(),
-                    initialSelection: notice.status,
+                    onSelected: (value) {
+                      notice = notice.copyWith(author: value);
+                    },
                     enabled: editMode,
-                    onSelected: (value) =>
-                        notice = notice.copyWith(status: value),
-                    hintText: "Status of this notice",
-                    menuHeight: 200,
-                    expandedInsets: EdgeInsets.zero,
+                    initialSelection: notice.author,
+                    text: "Author of this notice",
                   ),
                 ),
-              ),
-            ],
-          ),
-          const Divider(),
-          GlobalTextFormField(
-            labelText: "Message",
-            onSaved: (value) {
-              details["message"] = value;
-            },
-            initialValue: details["message"],
-            enabled: editMode,
-            minLines: 5,
-          ),
-          const Divider(),
-          Row(
-            children: [
-              if (editMode)
+              ],
+            ),
+            Row(
+              children: [
                 Expanded(
-                  child: FutureMultiSelect<Aircraft>(
-                    modelType: Aircraft.classType,
-                    items: (allData) {
-                      return allData
-                          .map((e) => MultiSelectItem(e, e.name))
-                          .toList();
+                  child: DatePickerWidget(
+                    text: "Notice Date",
+                    onSelected: (value) {
+                      notice = notice.copyWith(noticed_at: value);
                     },
-                    onSelected: (options) {
-                      aircraft = options.cast<Aircraft>();
-                    },
-                    initialSelection: aircraft,
-                    text: "Aircraft",
-                    title: const Text("Add aircraft"),
                     enabled: editMode,
+                    initialValue: notice.noticed_at,
+                    firstDate:
+                        DateTime.now().subtract(const Duration(days: 365 * 10)),
+                    lastDate: DateTime.now(),
                   ),
                 ),
-              if (!editMode)
                 Expanded(
-                    child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      Text("Aircraft:"),
-                      ...aircraft.map((e) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Chip(label: Text(e.name)),
-                          ))
-                    ],
+                  child: DatePickerWidget(
+                    text: "Deadline Date",
+                    onSelected: (value) {
+                      notice = notice.copyWith(deadline_at: value);
+                    },
+                    enabled: editMode,
+                    initialValue: notice.deadline_at,
+                    firstDate: DateTime.now(),
+                    lastDate:
+                        DateTime.now().add(const Duration(days: 365 * 10)),
                   ),
-                )),
-              if (editMode)
+                ),
+              ],
+            ),
+            Row(
+              children: [
                 Expanded(
-                  child: FutureMultiSelect<Staff>(
-                    modelType: Staff.classType,
-                    items: (allData) {
-                      return allData
-                          .map((e) => MultiSelectItem(e, e.name))
-                          .toList();
+                  child: GlobalTextFormField(
+                    labelText: "Subject",
+                    onSaved: (value) {
+                      notice = notice.copyWith(subject: value);
                     },
-                    onSelected: (options) {
-                      recipients = options.cast<Staff>();
-                    },
-                    initialSelection: recipients,
-                    text: "Recipients",
-                    title: const Text("Add recipients"),
+                    initialValue: notice.subject,
                     enabled: editMode,
                   ),
                 ),
-              if (!editMode)
                 Expanded(
-                  child: Row(
-                    children: [
-                      Text("Recipients:"),
-                      ...notice.recipients!.map((e) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Chip(label: Text(e.staff!.name)),
-                          )),
-                      if (notice.recipients!.isEmpty) Text("None"),
-                    ],
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    child: DropdownMenu(
+                      dropdownMenuEntries: NoticeStatus.values
+                          .map(
+                              (e) => DropdownMenuEntry(value: e, label: e.name))
+                          .toList(),
+                      initialSelection: notice.status,
+                      enabled: editMode,
+                      onSelected: (value) =>
+                          notice = notice.copyWith(status: value),
+                      hintText: "Status of this notice",
+                      menuHeight: 200,
+                      expandedInsets: EdgeInsets.zero,
+                    ),
                   ),
                 ),
-            ],
-          ),
-          const Divider(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: actionsRow(context, authNotifier),
-          ),
-        ],
+              ],
+            ),
+            const Divider(),
+            GlobalTextFormField(
+              labelText: "Message",
+              onSaved: (value) {
+                details["message"] = value;
+              },
+              initialValue: details["message"],
+              enabled: editMode,
+              minLines: 5,
+            ),
+            const Divider(),
+            Row(
+              children: [
+                if (editMode)
+                  Expanded(
+                    child: FutureMultiSelect<Aircraft>(
+                      modelType: Aircraft.classType,
+                      items: (allData) {
+                        return allData
+                            .map((e) => MultiSelectItem(e, e.name))
+                            .toList();
+                      },
+                      onSelected: (options) {
+                        aircraft = options.cast<Aircraft>();
+                      },
+                      initialSelection: aircraft,
+                      text: "Aircraft",
+                      title: const Text("Add aircraft"),
+                      enabled: editMode,
+                    ),
+                  ),
+                if (!editMode)
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Text("Aircraft:"),
+                        ...aircraft.map((e) => Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Chip(label: Text(e.name)),
+                            ))
+                      ],
+                    ),
+                  )),
+                if (editMode)
+                  Expanded(
+                    child: FutureMultiSelect<Staff>(
+                      modelType: Staff.classType,
+                      items: (allData) {
+                        return allData
+                            .map((e) => MultiSelectItem(e, e.name))
+                            .toList();
+                      },
+                      onSelected: (options) {
+                        recipients = options.cast<Staff>();
+                      },
+                      initialSelection: recipients,
+                      text: "Recipients",
+                      title: const Text("Add recipients"),
+                      enabled: editMode,
+                    ),
+                  ),
+                if (!editMode)
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Text("Recipients:"),
+                        ...notice.recipients!.map((e) => Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Chip(label: Text(e.staff!.name)),
+                            )),
+                        if (notice.recipients!.isEmpty) Text("None"),
+                      ],
+                    ),
+                  ),
+              ],
+            ),
+            const Divider(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: actionsRow(context, authNotifier),
+            ),
+          ],
+        ),
       ),
     );
   }

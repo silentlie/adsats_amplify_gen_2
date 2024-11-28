@@ -1,5 +1,10 @@
+import 'dart:convert';
+
+import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/scaffold/appbar_widget.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -67,8 +72,24 @@ class _HomeWidgetState extends State<HomeWidget> {
                 ),
               ),
               leading: Icon(_getIcon(e.notice?.type!.name)),
-              onTap: () {
-                context.go('/sms', extra: e.notice);
+              onTap: () async {
+                final response = await Amplify.API
+                    .query(
+                      request: GraphQLRequest(
+                        document: getNoticeDetails,
+                        variables: {
+                          "id": e.notice!.id,
+                        },
+                      ),
+                    )
+                    .response;
+                if (response.errors.isNotEmpty) {
+                  throw response.errors.first;
+                }
+                Map<String, dynamic> jsonMap = json.decode(response.data);
+                if (!context.mounted) return;
+                context.go('/sms',
+                    extra: Notice.fromJson(jsonMap["getNotice"]));
               },
             );
           },
