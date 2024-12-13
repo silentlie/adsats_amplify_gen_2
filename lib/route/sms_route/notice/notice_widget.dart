@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class NoticeWidget extends StatefulWidget {
   const NoticeWidget({super.key, this.notice});
   final Notice? notice;
+  static String path = '/notice';
 
   @override
   State<NoticeWidget> createState() => _NoticeWidgetState();

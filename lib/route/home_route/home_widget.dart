@@ -14,6 +14,8 @@ part 'navigate_icon_button.dart';
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
 
+  static String path = '/';
+
   @override
   State<HomeWidget> createState() => _HomeWidgetState();
 }

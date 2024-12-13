@@ -2,296 +2,99 @@ import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
-import 'package:adsats_amplify_gen_2/helper/between_date_range.dart';
 import 'package:adsats_amplify_gen_2/helper/futrure_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/helper/multi_select.dart';
 import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/route/documents_route/file_picker_notifier.dart';
+import 'package:adsats_amplify_gen_2/route/documents_route/filter.dart';
 import 'package:adsats_amplify_gen_2/route/documents_route/s3.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/amplify_flutter.dart' hide Category;
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
 import 'package:provider/provider.dart';
-import 'package:data_table_2/data_table_2.dart';
 
-part 'documents_data_source.dart';
-part 'documents_filter.dart';
+class DocumentsWidget extends StatefulWidget {
+  const DocumentsWidget({super.key});
 
-class DocumentsWidget extends StatelessWidget {
-  const DocumentsWidget({
-    super.key,
-  });
+  static String path = '/documents';
+
+  @override
+  State<DocumentsWidget> createState() => _DocumentsWidgetState();
+}
+
+class _DocumentsWidgetState extends State<DocumentsWidget> {
+  bool isInitialize = false;
   @override
   Widget build(BuildContext context) {
+    Map<Category, List<Subcategory>> map = {};
+    Provider.of<AuthNotifier>(context).user.subcategories?.forEach(
+      (staffSubcategory) {
+        if (map[staffSubcategory.subcategory!.category!] == null) {
+          map[staffSubcategory.subcategory!.category!] = [];
+        }
+        map[staffSubcategory.subcategory!.category!]!
+            .add(staffSubcategory.subcategory!);
+      },
+    );
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 1536.0),
-        child: const DocumentsDataTable2(),
-      ),
-    );
-  }
-}
-
-class DocumentsDataTable2 extends StatefulWidget {
-  const DocumentsDataTable2({super.key});
-  @override
-  State<DocumentsDataTable2> createState() => _DocumentsDataTable2State();
-}
-
-class _DocumentsDataTable2State extends State<DocumentsDataTable2> {
-  late final DocumentsDataSource dataSource = DocumentsDataSource(
-    context: context,
-    filter: filter,
-    rebuild: rebuild,
-  );
-  final DocumentsFilter filter = DocumentsFilter();
-  bool isInitialize = false;
-  int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
-  bool _sortAscending = false;
-  int _sortColumnIndex = 5;
-  Comparable Function(Document document) getField = (document) {
-    return document.createdAt!;
-  };
-
-  get header {
-    return ListTile(
-      contentPadding: const EdgeInsets.only(),
-      leading: const Text(
-        "Documents",
-        style: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.bold,
+        child: Card(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                ListTile(
+                  // contentPadding: const EdgeInsets.only(),
+                  leading: const Text(
+                    "Documents",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  title: ElevatedButton.icon(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) => newDocumentDialog(context),
+                      );
+                    },
+                    label: const Text('Add a document'),
+                    icon: const Icon(
+                      Icons.add,
+                      size: 25,
+                    ),
+                  ),
+                ),
+                ...map.entries.map(
+                  (entry) {
+                    return ExpansionTile(
+                      leading: Icon(Icons.view_agenda_outlined),
+                      title: Text(entry.key.name),
+                      enabled: !entry.key.archived,
+                      children: entry.value.map(
+                        (subcategory) {
+                          return ExpansionTile(
+                            leading: Icon(Icons.view_list_outlined),
+                            title: Text(subcategory.name),
+                            enabled: !subcategory.archived,
+                            children: [
+                              DocumentsViewWidget(subcategory: subcategory)
+                            ],
+                          );
+                        },
+                      ).toList(),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
-      title: SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: 5),
-        scrollDirection: Axis.horizontal,
-        reverse: true,
-        child: Row(
-          children: [
-            IconButton(
-              onPressed: rebuild,
-              icon: const Icon(Icons.refresh),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) => newDocumentDialog(context),
-                );
-              },
-              label: const Text('Add a document'),
-              icon: const Icon(
-                Icons.add,
-                size: 25,
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            filter.getFilterWidget(context, rebuild),
-            const SizedBox(
-              width: 10,
-            ),
-            SearchBarWidget(
-              onSubmitted: (value) {
-                filter.search = value;
-                rebuild();
-              },
-              initialValue: filter.search,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  get columns {
-    return <DataColumn2>[
-      DataColumn2(
-        label: getCenterText("File name"),
-        size: ColumnSize.L,
-        onSort: (columnIndex, ascending) {
-          setState(() {
-            _sortColumnIndex = columnIndex;
-            _sortAscending = ascending;
-            getField = (document) {
-              return document.name;
-            };
-          });
-        },
-      ),
-      DataColumn2(
-        label: getCenterText("Owner"),
-        size: ColumnSize.L,
-        onSort: (columnIndex, ascending) {
-          setState(() {
-            _sortColumnIndex = columnIndex;
-            _sortAscending = ascending;
-            getField = (document) {
-              return document.staff?.name ?? "";
-            };
-          });
-        },
-      ),
-      DataColumn2(
-        label: getCenterText("Aircraft"),
-        size: ColumnSize.S,
-        onSort: (columnIndex, ascending) {
-          setState(() {
-            _sortColumnIndex = columnIndex;
-            _sortAscending = ascending;
-            getField = (document) {
-              return document.aircraft.hashCode;
-            };
-          });
-        },
-      ),
-      DataColumn2(
-        label: getCenterText("Subcategory"),
-        size: ColumnSize.L,
-        onSort: (columnIndex, ascending) {
-          setState(() {
-            _sortColumnIndex = columnIndex;
-            _sortAscending = ascending;
-            getField = (document) {
-              return document.subcategory.hashCode;
-            };
-          });
-        },
-      ),
-      DataColumn2(
-        label: getCenterText("Category"),
-        size: ColumnSize.S,
-        onSort: (columnIndex, ascending) {
-          setState(() {
-            _sortColumnIndex = columnIndex;
-            _sortAscending = ascending;
-            getField = (document) {
-              return document.subcategory?.category.hashCode ?? double.infinity;
-            };
-          });
-        },
-      ),
-      DataColumn2(
-        label: getCenterText("Archived"),
-        fixedWidth: 100,
-        onSort: (columnIndex, ascending) {
-          setState(() {
-            _sortColumnIndex = columnIndex;
-            _sortAscending = ascending;
-            getField = (document) {
-              return document.archived.hashCode;
-            };
-          });
-        },
-      ),
-      DataColumn2(
-        label: getCenterText("Upload date"),
-        fixedWidth: 100,
-        onSort: (columnIndex, ascending) {
-          setState(() {
-            _sortColumnIndex = columnIndex;
-            _sortAscending = ascending;
-            getField = (document) {
-              return document.createdAt!;
-            };
-          });
-        },
-      ),
-      DataColumn2(
-        label: getCenterText("Action"),
-        fixedWidth: 80,
-        onSort: (columnIndex, ascending) {
-          setState(() {
-            _sortColumnIndex = columnIndex;
-            _sortAscending = ascending;
-            getField = (document) {
-              return document.hashCode;
-            };
-          });
-        },
-      ),
-    ];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (isInitialize) {
-      return builder(context, dataSource);
-    }
-    isInitialize = true;
-    return FutureBuilder(
-      future: dataSource.fetchRawData(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator.adaptive());
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          return builder(context, dataSource);
-        }
-      },
-    );
-  }
-
-  void rebuild() {
-    setState(() => isInitialize = false);
-  }
-
-  Widget builder(BuildContext context, DocumentsDataSource dataSource) {
-    final ColorScheme colorScheme = Theme.of(context).colorScheme;
-    dataSource.sort(getField, _sortAscending);
-    return PaginatedDataTable2(
-      columns: columns,
-      source: dataSource,
-      headingRowColor: WidgetStateColor.resolveWith((states) {
-        return colorScheme.surfaceContainerHighest;
-      }),
-      columnSpacing: 0,
-      empty: const Text("There is nothing"),
-      initialFirstRowIndex: 0,
-      rowsPerPage: _rowsPerPage,
-      availableRowsPerPage: [
-        _rowsPerPage,
-        _rowsPerPage * 2,
-        _rowsPerPage * 5,
-        _rowsPerPage * 10,
-      ],
-      onRowsPerPageChanged: (value) {
-        // No need to wrap in setState, behave diff in this package
-        _rowsPerPage = value!;
-      },
-      onPageChanged: (rowIndex) {
-        // debugPrint((rowIndex / _rowsPerPage).toString());
-      },
-      header: header,
-      dataRowHeight: 62,
-      showCheckboxColumn: false,
-      // dynamic change rows per page based on height of screen
-      autoRowsToHeight: false,
-      minWidth: 1328,
-      // stick paginator to the bottom when there's few rows
-      fit: FlexFit.loose,
-      // render empty rows to match rows per page
-      renderEmptyRowsInTheEnd: false,
-      // customise border of table
-      border: const TableBorder(),
-      hidePaginator: false,
-      wrapInCard: true,
-      // how many fixed columns from left
-      fixedLeftColumns: 0,
-      showFirstLastButtons: true,
-      lmRatio: 0.67,
-      sortColumnIndex: _sortColumnIndex,
-      sortAscending: _sortAscending,
-      sortArrowIcon: Icons.keyboard_arrow_up, // custom arrow
-      sortArrowAnimationDuration: const Duration(milliseconds: 150),
     );
   }
 
@@ -317,22 +120,18 @@ class _DocumentsDataTable2State extends State<DocumentsDataTable2> {
             child: Column(
               children: [
                 if (authNotifier.isAdmin || authNotifier.isEditor)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: FutrureDropdownMenu<Staff>(
-                      modelType: Staff.classType,
-                      toList: (allData) {
-                        return allData
-                            .map((e) =>
-                                DropdownMenuEntry(value: e, label: e.name))
-                            .toList();
-                      },
-                      onSelected: (value) =>
-                          context.read<FilePickerNotifier>().staff = value!,
-                      text: "Owner",
-                      initialSelection:
-                          context.read<FilePickerNotifier>().staff,
-                    ),
+                  FutrureDropdownMenu<Staff>(
+                    modelType: Staff.classType,
+                    toList: (allData) {
+                      return allData
+                          .map(
+                              (e) => DropdownMenuEntry(value: e, label: e.name))
+                          .toList();
+                    },
+                    onSelected: (value) =>
+                        context.read<FilePickerNotifier>().staff = value!,
+                    text: "Owner",
+                    initialSelection: context.read<FilePickerNotifier>().staff,
                   ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -446,7 +245,7 @@ class _DocumentsDataTable2State extends State<DocumentsDataTable2> {
                             if (!context.mounted) return;
                             Navigator.pop(context, 'Apply');
                             Navigator.pop(context, 'Apply');
-                            rebuild();
+                            setState(() {});
                           },
                           child: const Text('Confirm'),
                         )
@@ -470,6 +269,156 @@ class _DocumentsDataTable2State extends State<DocumentsDataTable2> {
               ),
             ),
           ],
+        );
+      },
+    );
+  }
+}
+
+class DocumentsViewWidget extends StatefulWidget {
+  const DocumentsViewWidget({super.key, required this.subcategory});
+  final Subcategory subcategory;
+
+  @override
+  State<DocumentsViewWidget> createState() => _DocumentsViewWidgetState();
+}
+
+class _DocumentsViewWidgetState extends State<DocumentsViewWidget> {
+  late final Filter filter;
+
+  @override
+  void initState() {
+    filter = Filter(subcategory: widget.subcategory, archived: false);
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: fetchDocuments(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator.adaptive());
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          return Column(
+            children: [
+              ListTile(
+                leading: SearchBarWidget(
+                  onSubmitted: (value) {
+                    setState(() {
+                      filter.search = value;
+                    });
+                  },
+                  initialValue: filter.search,
+                ),
+                title: filter.getFilterWidget(context, setState),
+              ),
+              ...snapshot.data!.map(
+                (document) {
+                  return ListTile(
+                    leading: Icon(Icons.description_outlined),
+                    title: Text(document.name),
+                    trailing: getActions(context, document),
+                    subtitle: Text([
+                      document.archived ? "Archived" : "Active",
+                      DateFormat('dd/MM/yyyy').format(
+                        document.createdAt!.getDateTimeInUtc(),
+                      ),
+                      if (document.staff != null) document.staff!.name,
+                      ...document.aircraft!.map(
+                        (e) => e.aircraft!.name,
+                      ),
+                    ].join(" - ")),
+                    titleAlignment: ListTileTitleAlignment.center,
+                    onTap: () => showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return Placeholder();
+                      },
+                    ),
+                  );
+                },
+              ),
+            ],
+          );
+        }
+      },
+    );
+  }
+
+  Future<List<Document>> fetchDocuments() async {
+    try {
+      final request = GraphQLRequest<String>(
+        document: listDocuments,
+        variables: {"filter": filter.toJson()},
+      );
+      final response = await Amplify.API.query(request: request).response;
+      if (response.errors.isNotEmpty) {
+        throw response.errors.first;
+      }
+      Map<String, dynamic> jsonMap = json.decode(response.data!);
+      return (jsonMap["listDocuments"]["items"] as List).map(
+        (document) {
+          return Document.fromJson(document);
+        },
+      ).toList();
+    } on ApiException catch (e) {
+      debugPrint('ApiExecption: fetchRawData Document failed: $e');
+      return [];
+    } on Exception catch (e) {
+      debugPrint('Dart Exception: fetchRawData Document failed: $e');
+      return [];
+    }
+  }
+
+  Widget getActions(BuildContext context, Document document) {
+    AuthNotifier authNotifier = Provider.of<AuthNotifier>(
+      context,
+      listen: false,
+    );
+    return MenuAnchor(
+      menuChildren: [
+        IconButton(
+          onPressed: () async {
+            await getFileUrl(document);
+          },
+          icon: const Icon(Icons.download_outlined),
+          tooltip: "Download",
+        ),
+        if (authNotifier.isAdmin || authNotifier.isEditor)
+          IconButton(
+            onPressed: () async {
+              await archive(document);
+              setState(() {});
+            },
+            icon: const Icon(Icons.archive_outlined),
+            tooltip: "Archive",
+          ),
+        if (authNotifier.isAdmin)
+          IconButton(
+            onPressed: () async {
+              await delete(document);
+              setState(() {});
+            },
+            icon: const Icon(Icons.delete_outline),
+            tooltip: "Delete",
+          ),
+      ],
+      builder: (context, controller, child) {
+        return IconButton(
+          onPressed: () {
+            if (controller.isOpen) {
+              controller.close();
+            } else {
+              controller.open();
+            }
+          },
+          icon: const Icon(
+            Icons.more_vert,
+            // size: 20,
+          ),
         );
       },
     );

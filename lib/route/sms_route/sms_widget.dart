@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class SMSWidget extends StatefulWidget {
   const SMSWidget({super.key});
 
+  static String path = '/sms';
+
   @override
   State<SMSWidget> createState() => _SMSWidgetState();
 }
@@ -40,7 +42,7 @@ class _SMSWidgetState extends State<SMSWidget> {
                 child: Center(
                   child: Container(
                     constraints: const BoxConstraints(maxWidth: 1532),
-                    child:  IndexedStack(
+                    child: IndexedStack(
                       index: _selectedIndex,
                       children: _pages,
                     ),

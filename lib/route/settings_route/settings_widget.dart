@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({super.key});
+  static String path = '/settings';
 
   @override
   State<SettingsWidget> createState() => _SettingsWidgetState();
@@ -61,7 +62,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                 child: Center(
                   child: Container(
                     constraints: const BoxConstraints(maxWidth: 1532),
-                    child:  IndexedStack(
+                    child: IndexedStack(
                       index: _selectedIndex,
                       children: _pages,
                     ),

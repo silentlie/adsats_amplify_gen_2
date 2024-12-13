@@ -1,64 +1,38 @@
-import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/helper/between_date_range.dart';
 import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
-import 'package:adsats_amplify_gen_2/helper/multi_select.dart';
-import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/models/Subcategory.dart';
 import 'package:flutter/material.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
-import 'package:provider/provider.dart';
 
-class DocumentsFilter {
+class Filter {
   String search;
   bool? archived;
-  Iterable<Subcategory> subcategories;
+  Subcategory subcategory;
   DateTimeRange? createdAt;
-
-  DocumentsFilter({
+  Filter({
     this.search = "",
     this.archived,
-    this.subcategories = const [],
+    required this.subcategory,
     this.createdAt,
   });
-
-  DocumentsFilter copyWith({
-    String? search,
-    bool? archived,
-    List<Subcategory>? subcategories,
-    DateTimeRange? createdAt,
-  }) {
-    return DocumentsFilter(
-      search: search ?? this.search,
-      archived: archived ?? this.archived,
-      subcategories: subcategories ?? this.subcategories,
-      createdAt: createdAt ?? this.createdAt,
-    );
-  }
-
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> result = {};
+    final Map<String, dynamic> result = {};
     search.isNotEmpty ? result["name"] = {"contains": search} : null;
     archived != null ? result["archived"] = {"eq": archived} : null;
     createdAt != null
         ? result["createdAt"] = {"between": betweenDateRange(createdAt!)}
         : null;
-    result["or"] = subcategories
-        .map(
-          (e) => {
-            "subcategoryId": {"eq": e.id}
-          },
-        )
-        .toList();
+    result["subcategoryId"] = {"eq": subcategory.id};
     return result;
   }
 
-  Widget getFilterWidget(BuildContext context, VoidCallback rebuild) {
-    DocumentsFilter temp = this;
+  Widget getFilterWidget(
+      BuildContext context, void Function(VoidCallback) setState) {
+    Filter temp = this;
     return ElevatedButton(
       onPressed: () {
         showDialog(
           context: context,
           builder: (context) {
-            AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
             return AlertDialog.adaptive(
               title: const Text('Filter By:'),
               content: Container(
@@ -67,24 +41,6 @@ class DocumentsFilter {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    MultiSelect<Subcategory>(
-                      text: "Filter by subcategories",
-                      title: const Text("Filter by subcategories"),
-                      items: authNotifier.user.subcategories?.map(
-                            (entry) {
-                              return MultiSelectItem(
-                                entry.subcategory!,
-                                entry.subcategory!.name,
-                              );
-                            },
-                          ).toList() ??
-                          [],
-                      onConfirm: (selectedOptions) {
-                        temp.subcategories =
-                            List<Subcategory>.from(selectedOptions);
-                      },
-                      initialValue: subcategories.toList(),
-                    ),
                     Container(
                       padding: const EdgeInsets.all(8),
                       child: DropdownMenu(
@@ -124,12 +80,10 @@ class DocumentsFilter {
                 TextButton(
                   onPressed: () {
                     archived = false;
-                    subcategories = authNotifier.user.subcategories
-                            ?.map((e) => e.subcategory!)
-                            .toList() ??
-                        [];
                     createdAt = null;
-                    rebuild();
+                    setState(
+                      () {},
+                    );
                     Navigator.pop(context, 'Apply');
                   },
                   child: const Text("Reset filter"),
@@ -138,9 +92,10 @@ class DocumentsFilter {
                 TextButton(
                   onPressed: () {
                     archived = temp.archived;
-                    subcategories = temp.subcategories;
                     createdAt = temp.createdAt;
-                    rebuild();
+                    setState(
+                      () {},
+                    );
                     Navigator.pop(context, 'Apply');
                   },
                   child: const Text('Apply'),
@@ -152,10 +107,5 @@ class DocumentsFilter {
       },
       child: const Text("Filter By"),
     );
-  }
-
-  @override
-  String toString() {
-    return toJson().toString();
   }
 }

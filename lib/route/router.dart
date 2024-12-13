@@ -16,7 +16,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: HomeWidget.path,
   debugLogDiagnostics: false,
   routes: [
     ShellRoute(
@@ -60,11 +60,11 @@ final router = GoRouter(
       },
       routes: [
         GoRoute(
-          path: '/',
+          path: HomeWidget.path,
           builder: (context, state) => const HomeWidget(),
         ),
         GoRoute(
-          path: '/documents',
+          path: DocumentsWidget.path,
           builder: (context, state) => const DocumentsWidget(),
         ),
         GoRoute(
@@ -72,24 +72,20 @@ final router = GoRouter(
           builder: (context, state) => const ProfileWidget(),
         ),
         GoRoute(
-          path: '/help',
+          path: HelpWidget.path,
           builder: (context, state) => const HelpWidget(),
         ),
         GoRoute(
-          path: '/settings',
+          path: SettingsWidget.path,
           builder: (context, state) {
             if (!Provider.of<AuthNotifier>(context, listen: false).isAdmin) {
-              context.go('/documents');
+              context.go(HomeWidget.path);
             }
             return const SettingsWidget();
           },
         ),
-        // GoRoute(
-        //   path: '/resetPassword',
-        //   builder: (context, state) => const CustomResetPasswordForm(),
-        // ),
         GoRoute(
-          path: '/sms',
+          path: SMSWidget.path,
           builder: (context, state) {
             if (state.extra == null) {
               return const SMSWidget();
@@ -99,15 +95,15 @@ final router = GoRouter(
           },
         ),
         GoRoute(
-          path: '/compliance',
+          path: ComplianceWidget.path,
           builder: (context, state) => const ComplianceWidget(),
         ),
         GoRoute(
-          path: '/training',
+          path: TrainingWidget.path,
           builder: (context, state) => const TrainingWidget(),
         ),
         GoRoute(
-          path: '/notice',
+          path: NoticeWidget.path,
           builder: (context, state) => const NoticeWidget(),
         ),
       ],
