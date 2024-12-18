@@ -347,7 +347,7 @@ const schema = a
       description: a.string(),
       crewDocuments: a.hasMany("CrewDocument", "categoryId"),
     }),
-    CrewDocuments: a.model({
+    CrewDocument: a.model({
       categoryId: a.id().required(),
       staffId: a.id().required(),
       name: a.string().required(),
