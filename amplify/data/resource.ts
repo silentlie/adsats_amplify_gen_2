@@ -244,6 +244,7 @@ const schema = a
       aircraft: a.hasMany("AircraftStaff", "staffId"),
       roles: a.hasMany("RoleStaff", "staffId"),
       subcategories: a.hasMany("StaffSubcategory", "staffId"),
+      crewDocuments: a.hasMany("CrewDocument", "staffId"),
     }),
     Category: a.model({
       name: a.string().required(),
@@ -339,6 +340,20 @@ const schema = a
       noticeId: a.id().required(),
       notices: a.belongsTo("Notice", "noticeId"),
       name: a.string().required(),
+    }),
+    CrewDocumentsCategory: a.model({
+      name: a.string().required(),
+      archived: a.boolean().required().default(false),
+      description: a.string(),
+      crewDocuments: a.hasMany("CrewDocument", "categoryId"),
+    }),
+    CrewDocuments: a.model({
+      categoryId: a.id().required(),
+      staffId: a.id().required(),
+      name: a.string().required(),
+      archived: a.boolean().required().default(false),
+      category: a.belongsTo("CrewDocumentsCategory", "categoryId"),
+      staff: a.belongsTo("Staff", "staffId"),
     }),
   })
   .authorization((allow) => [

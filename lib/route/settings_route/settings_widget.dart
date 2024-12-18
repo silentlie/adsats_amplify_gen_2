@@ -1,5 +1,6 @@
 import 'package:adsats_amplify_gen_2/route/settings_route/Aircraft/aircraft_widget.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/Categories/categories_widget.dart';
+import 'package:adsats_amplify_gen_2/route/settings_route/Crew_documents/crew_documents_widget.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/Roles/roles_widget.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/Staff/staff_widget.dart';
 import 'package:adsats_amplify_gen_2/route/settings_route/Subcategories/subcategories_widget.dart';
@@ -21,6 +22,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     const StaffDataTable2(),
     const CategoriesDataTable2(),
     const SubcategoriesDataTable2(),
+    const CrewDocumentsWidget(),
   ];
 
   final List<NavigationDestination> _navigationDestinations = [
@@ -48,6 +50,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
       icon: Icon(Icons.view_list_outlined),
       selectedIcon: Icon(Icons.view_list),
       label: "Subcategories",
+    ),
+    const NavigationDestination(
+      icon: Icon(Icons.description_outlined),
+      selectedIcon: Icon(Icons.description),
+      label: "Crew_documents",
     ),
   ];
 

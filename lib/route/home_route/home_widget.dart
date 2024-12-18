@@ -156,12 +156,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                 Wrap(
                   children: AppBarItems.menuItems.map(
                     (e) {
-                      return NavigateIconButton(
-                        icon: e.icon,
-                        name: e.text,
-                        onPressed: () {
-                          context.go(e.route);
-                        },
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: NavigateIconButton(
+                          icon: e.icon,
+                          name: e.text,
+                          onPressed: () {
+                            context.go(e.route);
+                          },
+                        ),
                       );
                     },
                   ).toList(),

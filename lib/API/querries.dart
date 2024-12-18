@@ -2,6 +2,7 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
+
 const listNotices = '''
 query ListNotices(\$filter: ModelNoticeFilterInput) {
   listNotices(filter: \$filter) {
