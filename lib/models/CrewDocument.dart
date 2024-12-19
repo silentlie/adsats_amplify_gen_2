@@ -22,12 +22,13 @@
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-/** This is an auto generated class representing the StaffSubcategory type in your schema. */
-class StaffSubcategory extends amplify_core.Model {
-  static const classType = const _StaffSubcategoryModelType();
+/** This is an auto generated class representing the CrewDocument type in your schema. */
+class CrewDocument extends amplify_core.Model {
+  static const classType = const _CrewDocumentModelType();
   final String id;
-  final int? _accessLevel;
-  final Subcategory? _subcategory;
+  final String? _name;
+  final bool? _archived;
+  final CrewDocumentsCategory? _category;
   final Staff? _staff;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
@@ -40,13 +41,13 @@ class StaffSubcategory extends amplify_core.Model {
   @override
   String getId() => id;
 
-  StaffSubcategoryModelIdentifier get modelIdentifier {
-    return StaffSubcategoryModelIdentifier(id: id);
+  CrewDocumentModelIdentifier get modelIdentifier {
+    return CrewDocumentModelIdentifier(id: id);
   }
 
-  int get accessLevel {
+  String get name {
     try {
-      return _accessLevel!;
+      return _name!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
           amplify_core.AmplifyExceptionMessages
@@ -57,8 +58,21 @@ class StaffSubcategory extends amplify_core.Model {
     }
   }
 
-  Subcategory? get subcategory {
-    return _subcategory;
+  bool get archived {
+    try {
+      return _archived!;
+    } catch (e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  CrewDocumentsCategory? get category {
+    return _category;
   }
 
   Staff? get staff {
@@ -73,28 +87,32 @@ class StaffSubcategory extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const StaffSubcategory._internal(
+  const CrewDocument._internal(
       {required this.id,
-      required accessLevel,
-      subcategory,
+      required name,
+      required archived,
+      category,
       staff,
       createdAt,
       updatedAt})
-      : _accessLevel = accessLevel,
-        _subcategory = subcategory,
+      : _name = name,
+        _archived = archived,
+        _category = category,
         _staff = staff,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory StaffSubcategory(
+  factory CrewDocument(
       {String? id,
-      required int accessLevel,
-      Subcategory? subcategory,
+      required String name,
+      required bool archived,
+      CrewDocumentsCategory? category,
       Staff? staff}) {
-    return StaffSubcategory._internal(
+    return CrewDocument._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
-        accessLevel: accessLevel,
-        subcategory: subcategory,
+        name: name,
+        archived: archived,
+        category: category,
         staff: staff);
   }
 
@@ -105,10 +123,11 @@ class StaffSubcategory extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is StaffSubcategory &&
+    return other is CrewDocument &&
         id == other.id &&
-        _accessLevel == other._accessLevel &&
-        _subcategory == other._subcategory &&
+        _name == other._name &&
+        _archived == other._archived &&
+        _category == other._category &&
         _staff == other._staff;
   }
 
@@ -119,13 +138,14 @@ class StaffSubcategory extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("StaffSubcategory {");
+    buffer.write("CrewDocument {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("accessLevel=" +
-        (_accessLevel != null ? _accessLevel.toString() : "null") +
+    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("archived=" +
+        (_archived != null ? _archived.toString() : "null") +
         ", ");
-    buffer.write("subcategory=" +
-        (_subcategory != null ? _subcategory.toString() : "null") +
+    buffer.write("category=" +
+        (_category != null ? _category.toString() : "null") +
         ", ");
     buffer
         .write("staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
@@ -139,35 +159,42 @@ class StaffSubcategory extends amplify_core.Model {
     return buffer.toString();
   }
 
-  StaffSubcategory copyWith(
-      {int? accessLevel, Subcategory? subcategory, Staff? staff}) {
-    return StaffSubcategory._internal(
+  CrewDocument copyWith(
+      {String? name,
+      bool? archived,
+      CrewDocumentsCategory? category,
+      Staff? staff}) {
+    return CrewDocument._internal(
         id: id,
-        accessLevel: accessLevel ?? this.accessLevel,
-        subcategory: subcategory ?? this.subcategory,
+        name: name ?? this.name,
+        archived: archived ?? this.archived,
+        category: category ?? this.category,
         staff: staff ?? this.staff);
   }
 
-  StaffSubcategory copyWithModelFieldValues(
-      {ModelFieldValue<int>? accessLevel,
-      ModelFieldValue<Subcategory?>? subcategory,
+  CrewDocument copyWithModelFieldValues(
+      {ModelFieldValue<String>? name,
+      ModelFieldValue<bool>? archived,
+      ModelFieldValue<CrewDocumentsCategory?>? category,
       ModelFieldValue<Staff?>? staff}) {
-    return StaffSubcategory._internal(
+    return CrewDocument._internal(
         id: id,
-        accessLevel: accessLevel == null ? this.accessLevel : accessLevel.value,
-        subcategory: subcategory == null ? this.subcategory : subcategory.value,
+        name: name == null ? this.name : name.value,
+        archived: archived == null ? this.archived : archived.value,
+        category: category == null ? this.category : category.value,
         staff: staff == null ? this.staff : staff.value);
   }
 
-  StaffSubcategory.fromJson(Map<String, dynamic> json)
+  CrewDocument.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _accessLevel = (json['accessLevel'] as num?)?.toInt(),
-        _subcategory = json['subcategory'] != null
-            ? json['subcategory']['serializedData'] != null
-                ? Subcategory.fromJson(new Map<String, dynamic>.from(
-                    json['subcategory']['serializedData']))
-                : Subcategory.fromJson(
-                    new Map<String, dynamic>.from(json['subcategory']))
+        _name = json['name'],
+        _archived = json['archived'],
+        _category = json['category'] != null
+            ? json['category']['serializedData'] != null
+                ? CrewDocumentsCategory.fromJson(new Map<String, dynamic>.from(
+                    json['category']['serializedData']))
+                : CrewDocumentsCategory.fromJson(
+                    new Map<String, dynamic>.from(json['category']))
             : null,
         _staff = json['staff'] != null
             ? json['staff']['serializedData'] != null
@@ -184,8 +211,9 @@ class StaffSubcategory extends amplify_core.Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'accessLevel': _accessLevel,
-        'subcategory': _subcategory?.toJson(),
+        'name': _name,
+        'archived': _archived,
+        'category': _category?.toJson(),
         'staff': _staff?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
@@ -193,23 +221,25 @@ class StaffSubcategory extends amplify_core.Model {
 
   Map<String, Object?> toMap() => {
         'id': id,
-        'accessLevel': _accessLevel,
-        'subcategory': _subcategory,
+        'name': _name,
+        'archived': _archived,
+        'category': _category,
         'staff': _staff,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
 
-  static final amplify_core
-      .QueryModelIdentifier<StaffSubcategoryModelIdentifier> MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<StaffSubcategoryModelIdentifier>();
+  static final amplify_core.QueryModelIdentifier<CrewDocumentModelIdentifier>
+      MODEL_IDENTIFIER =
+      amplify_core.QueryModelIdentifier<CrewDocumentModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
-  static final ACCESSLEVEL = amplify_core.QueryField(fieldName: "accessLevel");
-  static final SUBCATEGORY = amplify_core.QueryField(
-      fieldName: "subcategory",
+  static final NAME = amplify_core.QueryField(fieldName: "name");
+  static final ARCHIVED = amplify_core.QueryField(fieldName: "archived");
+  static final CATEGORY = amplify_core.QueryField(
+      fieldName: "category",
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Subcategory'));
+          ofModelName: 'CrewDocumentsCategory'));
   static final STAFF = amplify_core.QueryField(
       fieldName: "staff",
       fieldType: amplify_core.ModelFieldType(
@@ -217,8 +247,8 @@ class StaffSubcategory extends amplify_core.Model {
           ofModelName: 'Staff'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "StaffSubcategory";
-    modelSchemaDefinition.pluralName = "StaffSubcategories";
+    modelSchemaDefinition.name = "CrewDocument";
+    modelSchemaDefinition.pluralName = "CrewDocuments";
 
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
@@ -234,19 +264,25 @@ class StaffSubcategory extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: StaffSubcategory.ACCESSLEVEL,
+        key: CrewDocument.NAME,
+        isRequired: true,
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+        key: CrewDocument.ARCHIVED,
         isRequired: true,
         ofType:
-            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.int)));
+            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: StaffSubcategory.SUBCATEGORY,
+        key: CrewDocument.CATEGORY,
         isRequired: false,
-        targetNames: ['subcategoryId'],
-        ofModelName: 'Subcategory'));
+        targetNames: ['categoryId'],
+        ofModelName: 'CrewDocumentsCategory'));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: StaffSubcategory.STAFF,
+        key: CrewDocument.STAFF,
         isRequired: false,
         targetNames: ['staffId'],
         ofModelName: 'Staff'));
@@ -269,31 +305,30 @@ class StaffSubcategory extends amplify_core.Model {
   });
 }
 
-class _StaffSubcategoryModelType
-    extends amplify_core.ModelType<StaffSubcategory> {
-  const _StaffSubcategoryModelType();
+class _CrewDocumentModelType extends amplify_core.ModelType<CrewDocument> {
+  const _CrewDocumentModelType();
 
   @override
-  StaffSubcategory fromJson(Map<String, dynamic> jsonData) {
-    return StaffSubcategory.fromJson(jsonData);
+  CrewDocument fromJson(Map<String, dynamic> jsonData) {
+    return CrewDocument.fromJson(jsonData);
   }
 
   @override
   String modelName() {
-    return 'StaffSubcategory';
+    return 'CrewDocument';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [StaffSubcategory] in your schema.
+ * of [CrewDocument] in your schema.
  */
-class StaffSubcategoryModelIdentifier
-    implements amplify_core.ModelIdentifier<StaffSubcategory> {
+class CrewDocumentModelIdentifier
+    implements amplify_core.ModelIdentifier<CrewDocument> {
   final String id;
 
-  /** Create an instance of StaffSubcategoryModelIdentifier using [id] the primary key. */
-  const StaffSubcategoryModelIdentifier({required this.id});
+  /** Create an instance of CrewDocumentModelIdentifier using [id] the primary key. */
+  const CrewDocumentModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -308,7 +343,7 @@ class StaffSubcategoryModelIdentifier
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'StaffSubcategoryModelIdentifier(id: $id)';
+  String toString() => 'CrewDocumentModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -316,7 +351,7 @@ class StaffSubcategoryModelIdentifier
       return true;
     }
 
-    return other is StaffSubcategoryModelIdentifier && id == other.id;
+    return other is CrewDocumentModelIdentifier && id == other.id;
   }
 
   @override

@@ -11,140 +11,10 @@ import { deleteAircraftOverride } from "./override/delete/delete-aricraft-overri
 import { deleteDocumentOverride } from "./override/delete/delete-document-override/resouce";
 import { deleteNoticeDocumentOverride } from "./override/delete/delete-notice-document-override/resource";
 import { deleteNoticeOverride } from "./override/delete/delete-notice-override/resource";
-import { createStaffOverride } from "./override/create/create-staff-override/resource";
-import { createAircraftOverride } from "./override/create/create-aircraft-override/resource";
-import { createRoleOverride } from "./override/create/create-role-override/resource";
-import { createSubcategoryOverride } from "./override/create/create-subcategory-override/resource";
-import { createDocumentOverride } from "./override/create/create-document-override/resource";
-import { createNoticeOverride } from "./override/create/create-notice-override/resource";
-import { updateRoleStaffOverride } from "./override/update/update-role-staff-override/resource";
-import { updateStaffSubcategoryOverride } from "./override/update/update-staff-subcategory-override/resource";
-import { updateAircraftStaffOverride } from "./override/update/update-aircraft-staff-override/resource";
-import { updateAircraftNoticeOverride } from "./override/update/update-aircraft-notice-override/resource";
-import { updateNoticeStaffOverride } from "./override/update/update-notice-staff-override/resource";
+
 
 const schema = a
   .schema({
-    updateNoticeStaffOverride: a
-      .mutation()
-      .arguments({
-        noticeId: a.id().required(),
-        staffIds: a.id().required().array(),
-        aircraftIds: a.id().required().array(),
-        roleIds: a.id().required().array(),
-      })
-      .handler(a.handler.function(updateNoticeStaffOverride))
-      .returns(a.json()),
-    updateAircraftNoticeOverride: a
-      .mutation()
-      .arguments({
-        compareKey: a.enum(["NOTICE", "AIRCRAFT"]),
-        id: a.id().required(),
-        ids: a.id().required().array().required(),
-      })
-      .handler(a.handler.function(updateAircraftNoticeOverride))
-      .returns(a.json()),
-    updateAircraftStaffOverride: a
-      .mutation()
-      .arguments({
-        compareKey: a.enum(["STAFF", "AIRCRAFT"]),
-        id: a.id().required(),
-        ids: a.id().required().array().required(),
-      })
-      .handler(a.handler.function(updateAircraftStaffOverride))
-      .returns(a.json()),
-    updateStaffSubcategoryOverride: a
-      .mutation()
-      .arguments({
-        compareKey: a.enum(["STAFF", "SUBCATEGORY"]),
-        id: a.id().required(),
-        ids: a.id().required().array().required(),
-        accessLevels: a.integer().required().array().required(),
-      })
-      .handler(a.handler.function(updateStaffSubcategoryOverride))
-      .returns(a.json()),
-    updateRoleStaffOverride: a
-      .mutation()
-      .arguments({
-        compareKey: a.enum(["STAFF", "ROLE"]),
-        id: a.id().required(),
-        ids: a.id().required().array().required(),
-      })
-      .handler(a.handler.function(updateRoleStaffOverride))
-      .returns(a.json()),
-    createNoticeOverride: a
-      .mutation()
-      .arguments({
-        subject: a.string().required(),
-        type: a.enum(["Notice_to_Crew", "Safety_notice", "Hazard_report"]),
-        status: a.enum(["Draft", "Open", "Pending", "Resolved"]),
-        archived: a.boolean().required(),
-        details: a.json().required(),
-        noticed_at: a.datetime(),
-        deadline_at: a.datetime(),
-        staffId: a.id().required(),
-        recipients: a.id().required().array(),
-        aircraft: a.id().required().array(),
-        documents: a.string().required().array(),
-      })
-      .handler(a.handler.function(createNoticeOverride))
-      .returns(a.json()),
-    createDocumentOverride: a
-      .mutation()
-      .arguments({
-        name: a.string().required(),
-        staffId: a.id().required(),
-        subcategoryId: a.id().required(),
-        archived: a.boolean().required(),
-        aircraft: a.id().required().array(),
-      })
-      .handler(a.handler.function(createDocumentOverride))
-      .returns(a.json()),
-    createSubcategoryOverride: a
-      .mutation()
-      .arguments({
-        categoryId: a.id().required(),
-        name: a.string().required(),
-        description: a.string().required(),
-        archived: a.boolean().required(),
-        staff: a.id().required().array(),
-        accessLevels: a.integer().required().array(),
-      })
-      .handler(a.handler.function(createSubcategoryOverride))
-      .returns(a.json()),
-    createRoleOverride: a
-      .mutation()
-      .arguments({
-        name: a.string().required(),
-        description: a.string().required(),
-        archived: a.boolean().required(),
-        staff: a.id().required().array(),
-      })
-      .handler(a.handler.function(createRoleOverride))
-      .returns(a.json()),
-    createAircraftOverride: a
-      .mutation()
-      .arguments({
-        name: a.string().required(),
-        description: a.string().required(),
-        archived: a.boolean().required(),
-        staff: a.id().required().array(),
-      })
-      .handler(a.handler.function(createAircraftOverride))
-      .returns(a.json()),
-    createStaffOverride: a
-      .mutation()
-      .arguments({
-        name: a.string().required(),
-        email: a.email().required(),
-        archived: a.boolean().required(),
-        aircraft: a.id().required().array(),
-        roles: a.id().required().array(),
-        subcategories: a.id().required().array(),
-        accessLevels: a.integer().required().array(),
-      })
-      .handler(a.handler.function(createStaffOverride))
-      .returns(a.json()),
     deleteNoticeOverride: a
       .mutation()
       .arguments({
@@ -366,17 +236,6 @@ const schema = a
     allow.resource(deleteDocumentOverride),
     allow.resource(deleteNoticeDocumentOverride),
     allow.resource(deleteNoticeOverride),
-    allow.resource(createStaffOverride),
-    allow.resource(createAircraftOverride),
-    allow.resource(createRoleOverride),
-    allow.resource(createSubcategoryOverride),
-    allow.resource(createDocumentOverride),
-    allow.resource(createNoticeOverride),
-    allow.resource(updateRoleStaffOverride),
-    allow.resource(updateStaffSubcategoryOverride),
-    allow.resource(updateAircraftStaffOverride),
-    allow.resource(updateAircraftNoticeOverride),
-    allow.resource(updateNoticeStaffOverride),
   ]);
 
 export type Schema = ClientSchema<typeof schema>;

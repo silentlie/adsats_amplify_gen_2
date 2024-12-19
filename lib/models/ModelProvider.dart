@@ -25,6 +25,8 @@ import 'AircraftDocument.dart';
 import 'AircraftNotice.dart';
 import 'AircraftStaff.dart';
 import 'Category.dart';
+import 'CrewDocument.dart';
+import 'CrewDocumentsCategory.dart';
 import 'Document.dart';
 import 'Notice.dart';
 import 'NoticeDocument.dart';
@@ -40,8 +42,8 @@ export 'AircraftDocument.dart';
 export 'AircraftNotice.dart';
 export 'AircraftStaff.dart';
 export 'Category.dart';
-export 'CreateNoticeOverrideStatus.dart';
-export 'CreateNoticeOverrideType.dart';
+export 'CrewDocument.dart';
+export 'CrewDocumentsCategory.dart';
 export 'Document.dart';
 export 'Notice.dart';
 export 'NoticeDocument.dart';
@@ -53,14 +55,10 @@ export 'RoleStaff.dart';
 export 'Staff.dart';
 export 'StaffSubcategory.dart';
 export 'Subcategory.dart';
-export 'UpdateAircraftNoticeOverrideCompareKey.dart';
-export 'UpdateAircraftStaffOverrideCompareKey.dart';
-export 'UpdateRoleStaffOverrideCompareKey.dart';
-export 'UpdateStaffSubcategoryOverrideCompareKey.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "323393b395112159046e062b5941508b";
+  String version = "1943b0c6b9b2cb4d2297f7d6dc8910a4";
   @override
   List<amplify_core.ModelSchema> modelSchemas = [
     Aircraft.schema,
@@ -68,6 +66,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     AircraftNotice.schema,
     AircraftStaff.schema,
     Category.schema,
+    CrewDocument.schema,
+    CrewDocumentsCategory.schema,
     Document.schema,
     Notice.schema,
     NoticeDocument.schema,
@@ -96,6 +96,10 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return AircraftStaff.classType;
       case "Category":
         return Category.classType;
+      case "CrewDocument":
+        return CrewDocument.classType;
+      case "CrewDocumentsCategory":
+        return CrewDocumentsCategory.classType;
       case "Document":
         return Document.classType;
       case "Notice":
