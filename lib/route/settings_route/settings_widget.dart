@@ -54,7 +54,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     const NavigationDestination(
       icon: Icon(Icons.description_outlined),
       selectedIcon: Icon(Icons.description),
-      label: "Crew_documents",
+      label: "Crew Documents",
     ),
   ];
 

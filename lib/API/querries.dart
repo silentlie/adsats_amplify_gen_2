@@ -2,7 +2,28 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-
+const listCrewDocumentsMeta = '''
+query MyQuery {
+  listRoles(filter: {archived: {eq: false}}) {
+    items {
+      id
+      name
+    }
+  }
+  listAircraft(filter: {archived: {eq: false}}) {
+    items {
+      id
+      name
+    }
+  }
+  listCrewDocumentsCategories(filter: {archived: {eq: false}}) {
+    items {
+      id
+      name
+    }
+  }
+}
+''';
 const listNotices = '''
 query ListNotices(\$filter: ModelNoticeFilterInput) {
   listNotices(filter: \$filter) {
