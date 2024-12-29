@@ -23,9 +23,9 @@ import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:collection/collection.dart';
 
-/** This is an auto generated class representing the CrewDocumentsCategory type in your schema. */
-class CrewDocumentsCategory extends amplify_core.Model {
-  static const classType = const _CrewDocumentsCategoryModelType();
+/** This is an auto generated class representing the CrewDocumentCategory type in your schema. */
+class CrewDocumentCategory extends amplify_core.Model {
+  static const classType = const _CrewDocumentCategoryModelType();
   final String id;
   final String? _name;
   final bool? _archived;
@@ -42,8 +42,8 @@ class CrewDocumentsCategory extends amplify_core.Model {
   @override
   String getId() => id;
 
-  CrewDocumentsCategoryModelIdentifier get modelIdentifier {
-    return CrewDocumentsCategoryModelIdentifier(id: id);
+  CrewDocumentCategoryModelIdentifier get modelIdentifier {
+    return CrewDocumentCategoryModelIdentifier(id: id);
   }
 
   String get name {
@@ -88,7 +88,7 @@ class CrewDocumentsCategory extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const CrewDocumentsCategory._internal(
+  const CrewDocumentCategory._internal(
       {required this.id,
       required name,
       required archived,
@@ -103,13 +103,13 @@ class CrewDocumentsCategory extends amplify_core.Model {
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory CrewDocumentsCategory(
+  factory CrewDocumentCategory(
       {String? id,
       required String name,
       required bool archived,
       String? description,
       List<CrewDocument>? crewDocuments}) {
-    return CrewDocumentsCategory._internal(
+    return CrewDocumentCategory._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
         name: name,
         archived: archived,
@@ -126,7 +126,7 @@ class CrewDocumentsCategory extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is CrewDocumentsCategory &&
+    return other is CrewDocumentCategory &&
         id == other.id &&
         _name == other._name &&
         _archived == other._archived &&
@@ -141,7 +141,7 @@ class CrewDocumentsCategory extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("CrewDocumentsCategory {");
+    buffer.write("CrewDocumentCategory {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("archived=" +
@@ -158,12 +158,12 @@ class CrewDocumentsCategory extends amplify_core.Model {
     return buffer.toString();
   }
 
-  CrewDocumentsCategory copyWith(
+  CrewDocumentCategory copyWith(
       {String? name,
       bool? archived,
       String? description,
       List<CrewDocument>? crewDocuments}) {
-    return CrewDocumentsCategory._internal(
+    return CrewDocumentCategory._internal(
         id: id,
         name: name ?? this.name,
         archived: archived ?? this.archived,
@@ -171,12 +171,12 @@ class CrewDocumentsCategory extends amplify_core.Model {
         crewDocuments: crewDocuments ?? this.crewDocuments);
   }
 
-  CrewDocumentsCategory copyWithModelFieldValues(
+  CrewDocumentCategory copyWithModelFieldValues(
       {ModelFieldValue<String>? name,
       ModelFieldValue<bool>? archived,
       ModelFieldValue<String?>? description,
       ModelFieldValue<List<CrewDocument>?>? crewDocuments}) {
-    return CrewDocumentsCategory._internal(
+    return CrewDocumentCategory._internal(
         id: id,
         name: name == null ? this.name : name.value,
         archived: archived == null ? this.archived : archived.value,
@@ -185,7 +185,7 @@ class CrewDocumentsCategory extends amplify_core.Model {
             crewDocuments == null ? this.crewDocuments : crewDocuments.value);
   }
 
-  CrewDocumentsCategory.fromJson(Map<String, dynamic> json)
+  CrewDocumentCategory.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
         _archived = json['archived'],
@@ -234,9 +234,9 @@ class CrewDocumentsCategory extends amplify_core.Model {
       };
 
   static final amplify_core
-      .QueryModelIdentifier<CrewDocumentsCategoryModelIdentifier>
+      .QueryModelIdentifier<CrewDocumentCategoryModelIdentifier>
       MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<CrewDocumentsCategoryModelIdentifier>();
+      amplify_core.QueryModelIdentifier<CrewDocumentCategoryModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static final ARCHIVED = amplify_core.QueryField(fieldName: "archived");
@@ -248,8 +248,8 @@ class CrewDocumentsCategory extends amplify_core.Model {
           ofModelName: 'CrewDocument'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "CrewDocumentsCategory";
-    modelSchemaDefinition.pluralName = "CrewDocumentsCategories";
+    modelSchemaDefinition.name = "CrewDocumentCategory";
+    modelSchemaDefinition.pluralName = "CrewDocumentCategories";
 
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
@@ -265,25 +265,25 @@ class CrewDocumentsCategory extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CrewDocumentsCategory.NAME,
+        key: CrewDocumentCategory.NAME,
         isRequired: true,
         ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CrewDocumentsCategory.ARCHIVED,
+        key: CrewDocumentCategory.ARCHIVED,
         isRequired: true,
         ofType:
             amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CrewDocumentsCategory.DESCRIPTION,
+        key: CrewDocumentCategory.DESCRIPTION,
         isRequired: false,
         ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: CrewDocumentsCategory.CREWDOCUMENTS,
+        key: CrewDocumentCategory.CREWDOCUMENTS,
         isRequired: false,
         ofModelName: 'CrewDocument',
         associatedKey: CrewDocument.CATEGORY));
@@ -306,31 +306,31 @@ class CrewDocumentsCategory extends amplify_core.Model {
   });
 }
 
-class _CrewDocumentsCategoryModelType
-    extends amplify_core.ModelType<CrewDocumentsCategory> {
-  const _CrewDocumentsCategoryModelType();
+class _CrewDocumentCategoryModelType
+    extends amplify_core.ModelType<CrewDocumentCategory> {
+  const _CrewDocumentCategoryModelType();
 
   @override
-  CrewDocumentsCategory fromJson(Map<String, dynamic> jsonData) {
-    return CrewDocumentsCategory.fromJson(jsonData);
+  CrewDocumentCategory fromJson(Map<String, dynamic> jsonData) {
+    return CrewDocumentCategory.fromJson(jsonData);
   }
 
   @override
   String modelName() {
-    return 'CrewDocumentsCategory';
+    return 'CrewDocumentCategory';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [CrewDocumentsCategory] in your schema.
+ * of [CrewDocumentCategory] in your schema.
  */
-class CrewDocumentsCategoryModelIdentifier
-    implements amplify_core.ModelIdentifier<CrewDocumentsCategory> {
+class CrewDocumentCategoryModelIdentifier
+    implements amplify_core.ModelIdentifier<CrewDocumentCategory> {
   final String id;
 
-  /** Create an instance of CrewDocumentsCategoryModelIdentifier using [id] the primary key. */
-  const CrewDocumentsCategoryModelIdentifier({required this.id});
+  /** Create an instance of CrewDocumentCategoryModelIdentifier using [id] the primary key. */
+  const CrewDocumentCategoryModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -345,7 +345,7 @@ class CrewDocumentsCategoryModelIdentifier
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'CrewDocumentsCategoryModelIdentifier(id: $id)';
+  String toString() => 'CrewDocumentCategoryModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -353,7 +353,7 @@ class CrewDocumentsCategoryModelIdentifier
       return true;
     }
 
-    return other is CrewDocumentsCategoryModelIdentifier && id == other.id;
+    return other is CrewDocumentCategoryModelIdentifier && id == other.id;
   }
 
   @override

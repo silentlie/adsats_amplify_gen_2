@@ -37,7 +37,7 @@ class CrewDocumentsWidget extends StatelessWidget {
     );
   }
 
-  Future<(List<Aircraft>, List<Role>, List<CrewDocumentsCategory>)>
+  Future<(List<Aircraft>, List<Role>, List<CrewDocumentCategory>)>
       fetchCrewDocumentsMeta() async {
     try {
       final request = GraphQLRequest<String>(
@@ -55,8 +55,8 @@ class CrewDocumentsWidget extends StatelessWidget {
           .map((item) => Role.fromJson(item))
           .toList();
       final categories =
-          (jsonMap["listCrewDocumentsCategories"]["items"] as List)
-              .map((item) => CrewDocumentsCategory.fromJson(item))
+          (jsonMap["listCrewDocumentCategories"]["items"] as List)
+              .map((item) => CrewDocumentCategory.fromJson(item))
               .toList();
       return (aircraft, roles, categories);
     } on ApiException catch (e) {
@@ -78,7 +78,7 @@ class CrewDocumentsContent extends StatefulWidget {
   });
   final List<Aircraft> aircraft;
   final List<Role> roles;
-  final List<CrewDocumentsCategory> categories;
+  final List<CrewDocumentCategory> categories;
   @override
   State<CrewDocumentsContent> createState() => _CrewDocumentsContentState();
 }
@@ -87,7 +87,7 @@ class _CrewDocumentsContentState extends State<CrewDocumentsContent>
     with TickerProviderStateMixin {
   late List<Aircraft> aircraft;
   late List<Role> roles;
-  late List<CrewDocumentsCategory> categories;
+  late List<CrewDocumentCategory> categories;
 
   late TabController _aircraftTabCon;
   late TabController _rolesTabCon;
@@ -177,7 +177,11 @@ class _CrewDocumentsContentState extends State<CrewDocumentsContent>
                         controller: _rolesTabCon,
                         children: roles
                             .map(
-                              (role) => Placeholder(),
+                              (role) => CrewsView(
+                                aircraft: aircraft,
+                                role: role,
+                                categories: categories,
+                              ),
                             )
                             .toList(),
                       ),
@@ -190,5 +194,84 @@ class _CrewDocumentsContentState extends State<CrewDocumentsContent>
         ),
       ],
     );
+  }
+}
+
+class CrewsView extends StatefulWidget {
+  const CrewsView({
+    super.key,
+    required this.aircraft,
+    required this.role,
+    required this.categories,
+  });
+
+  final Aircraft aircraft;
+  final Role role;
+  final List<CrewDocumentCategory> categories;
+
+  @override
+  State<CrewsView> createState() => _CrewsViewState();
+}
+
+class _CrewsViewState extends State<CrewsView> {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+      future: fetchCrewDocumentsCrews(widget.aircraft, widget.role),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator.adaptive());
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          return SingleChildScrollView(
+            child: Column(
+              children: snapshot.data!.map(
+                (staff) {
+                  return ExpansionTile(
+                    title: Text(staff.name),
+                    leading: Icon(Icons.person_outline),
+                    children: widget.categories.map(
+                      (category) {
+                        return ExpansionTile(
+                          title: Text(category.name),
+                          leading: Icon(Icons.person_outline),
+                        );
+                      },
+                    ).toList(),
+                  );
+                },
+              ).toList(),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  Future<Iterable<Staff>> fetchCrewDocumentsCrews(
+      Aircraft aircraft, Role role) async {
+    try {
+      final request =
+          GraphQLRequest<String>(document: listCrewDocumentsCrews, variables: {
+        "aircraftId": aircraft.id,
+        "roleId": role.id,
+      });
+      final response = await Amplify.API.query(request: request).response;
+      if (response.errors.isNotEmpty) {
+        throw response.errors.first;
+      }
+      Map<String, dynamic> jsonMap = json.decode(response.data!);
+      final staff = (jsonMap["getRole"]["staff"]["items"] as List)
+          .map((e) => Staff.fromJson(e["staff"]))
+          .where((element) => element.aircraft?.isNotEmpty ?? false);
+      return staff;
+    } on ApiException catch (e) {
+      debugPrint('ApiExecption: fetchCrewDocumentsMeta failed: $e');
+      rethrow;
+    } on Exception catch (e) {
+      debugPrint('Dart Exception: fetchCrewDocumentsMeta failed: $e');
+      rethrow;
+    }
   }
 }

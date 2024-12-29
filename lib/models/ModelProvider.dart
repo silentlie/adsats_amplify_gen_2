@@ -26,7 +26,7 @@ import 'AircraftNotice.dart';
 import 'AircraftStaff.dart';
 import 'Category.dart';
 import 'CrewDocument.dart';
-import 'CrewDocumentsCategory.dart';
+import 'CrewDocumentCategory.dart';
 import 'Document.dart';
 import 'Notice.dart';
 import 'NoticeDocument.dart';
@@ -43,7 +43,7 @@ export 'AircraftNotice.dart';
 export 'AircraftStaff.dart';
 export 'Category.dart';
 export 'CrewDocument.dart';
-export 'CrewDocumentsCategory.dart';
+export 'CrewDocumentCategory.dart';
 export 'Document.dart';
 export 'Notice.dart';
 export 'NoticeDocument.dart';
@@ -67,7 +67,7 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     AircraftStaff.schema,
     Category.schema,
     CrewDocument.schema,
-    CrewDocumentsCategory.schema,
+    CrewDocumentCategory.schema,
     Document.schema,
     Notice.schema,
     NoticeDocument.schema,
@@ -98,8 +98,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return Category.classType;
       case "CrewDocument":
         return CrewDocument.classType;
-      case "CrewDocumentsCategory":
-        return CrewDocumentsCategory.classType;
+      case "CrewDocumentCategory":
+        return CrewDocumentCategory.classType;
       case "Document":
         return Document.classType;
       case "Notice":

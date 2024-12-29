@@ -211,7 +211,7 @@ const schema = a
       notices: a.belongsTo("Notice", "noticeId"),
       name: a.string().required(),
     }),
-    CrewDocumentsCategory: a.model({
+    CrewDocumentCategory: a.model({
       name: a.string().required(),
       archived: a.boolean().required().default(false),
       description: a.string(),
@@ -222,7 +222,7 @@ const schema = a
       staffId: a.id().required(),
       name: a.string().required(),
       archived: a.boolean().required().default(false),
-      category: a.belongsTo("CrewDocumentsCategory", "categoryId"),
+      category: a.belongsTo("CrewDocumentCategory", "categoryId"),
       staff: a.belongsTo("Staff", "staffId"),
     }),
   })

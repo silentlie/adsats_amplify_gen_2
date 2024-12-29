@@ -28,7 +28,7 @@ class CrewDocument extends amplify_core.Model {
   final String id;
   final String? _name;
   final bool? _archived;
-  final CrewDocumentsCategory? _category;
+  final CrewDocumentCategory? _category;
   final Staff? _staff;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
@@ -71,7 +71,7 @@ class CrewDocument extends amplify_core.Model {
     }
   }
 
-  CrewDocumentsCategory? get category {
+  CrewDocumentCategory? get category {
     return _category;
   }
 
@@ -106,7 +106,7 @@ class CrewDocument extends amplify_core.Model {
       {String? id,
       required String name,
       required bool archived,
-      CrewDocumentsCategory? category,
+      CrewDocumentCategory? category,
       Staff? staff}) {
     return CrewDocument._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
@@ -162,7 +162,7 @@ class CrewDocument extends amplify_core.Model {
   CrewDocument copyWith(
       {String? name,
       bool? archived,
-      CrewDocumentsCategory? category,
+      CrewDocumentCategory? category,
       Staff? staff}) {
     return CrewDocument._internal(
         id: id,
@@ -175,7 +175,7 @@ class CrewDocument extends amplify_core.Model {
   CrewDocument copyWithModelFieldValues(
       {ModelFieldValue<String>? name,
       ModelFieldValue<bool>? archived,
-      ModelFieldValue<CrewDocumentsCategory?>? category,
+      ModelFieldValue<CrewDocumentCategory?>? category,
       ModelFieldValue<Staff?>? staff}) {
     return CrewDocument._internal(
         id: id,
@@ -191,9 +191,9 @@ class CrewDocument extends amplify_core.Model {
         _archived = json['archived'],
         _category = json['category'] != null
             ? json['category']['serializedData'] != null
-                ? CrewDocumentsCategory.fromJson(new Map<String, dynamic>.from(
+                ? CrewDocumentCategory.fromJson(new Map<String, dynamic>.from(
                     json['category']['serializedData']))
-                : CrewDocumentsCategory.fromJson(
+                : CrewDocumentCategory.fromJson(
                     new Map<String, dynamic>.from(json['category']))
             : null,
         _staff = json['staff'] != null
@@ -239,7 +239,7 @@ class CrewDocument extends amplify_core.Model {
       fieldName: "category",
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'CrewDocumentsCategory'));
+          ofModelName: 'CrewDocumentCategory'));
   static final STAFF = amplify_core.QueryField(
       fieldName: "staff",
       fieldType: amplify_core.ModelFieldType(
@@ -279,7 +279,7 @@ class CrewDocument extends amplify_core.Model {
         key: CrewDocument.CATEGORY,
         isRequired: false,
         targetNames: ['categoryId'],
-        ofModelName: 'CrewDocumentsCategory'));
+        ofModelName: 'CrewDocumentCategory'));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
         key: CrewDocument.STAFF,
