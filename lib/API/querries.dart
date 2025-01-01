@@ -2,8 +2,23 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-const listCrewDocumentsCrews = '''
-query ListCrewDocumentsCrews(\$aircraftId: ID!, \$roleId: ID!) {
+const listCrewDocuments = '''
+query ListCrewDocumentsCrews(\$staffId: ID!, \$categoryId: ID!) {
+  listCrewDocuments(filter: {staffId: {eq: \$staffId}, categoryId: {eq: \$categoryId}}) {
+    items {
+      id
+      categoryId
+      staffId
+      name
+      archived
+      createdAt
+      updatedAt
+    }
+  }
+}
+''';
+const listCrewDocumentCrews = '''
+query ListCrewDocumentCrews(\$aircraftId: ID!, \$roleId: ID!) {
   getRole(id: \$roleId) {
     staff {
       items {
@@ -22,8 +37,8 @@ query ListCrewDocumentsCrews(\$aircraftId: ID!, \$roleId: ID!) {
   }
 }
 ''';
-const listCrewDocumentsMeta = '''
-query ListCrewDocumentsMeta {
+const listCrewDocumentMeta = '''
+query ListCrewDocumentMeta {
   listRoles(filter: {archived: {eq: false}}) {
     items {
       id

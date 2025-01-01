@@ -1,4 +1,4 @@
-import 'dart:convert';
+ import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
@@ -6,7 +6,7 @@ import 'package:adsats_amplify_gen_2/helper/futrure_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/helper/multi_select.dart';
 import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/route/documents_route/file_picker_notifier.dart';
+import 'package:adsats_amplify_gen_2/helper/file_picker_notifier.dart';
 import 'package:adsats_amplify_gen_2/route/documents_route/filter.dart';
 import 'package:adsats_amplify_gen_2/route/documents_route/s3.dart';
 import 'package:amplify_flutter/amplify_flutter.dart' hide Category;
@@ -315,6 +315,7 @@ class _DocumentsViewWidgetState extends State<DocumentsViewWidget> {
                 ),
                 title: filter.getFilterWidget(context, setState),
               ),
+              if (snapshot.data!.isEmpty) Text("There is no document"),
               ...snapshot.data!.map(
                 (document) {
                   return ListTile(

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/route/settings_route/Crew_documents/documents_view_widget.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -41,7 +42,7 @@ class CrewDocumentsWidget extends StatelessWidget {
       fetchCrewDocumentsMeta() async {
     try {
       final request = GraphQLRequest<String>(
-        document: listCrewDocumentsMeta,
+        document: listCrewDocumentMeta,
       );
       final response = await Amplify.API.query(request: request).response;
       if (response.errors.isNotEmpty) {
@@ -235,7 +236,11 @@ class _CrewsViewState extends State<CrewsView> {
                       (category) {
                         return ExpansionTile(
                           title: Text(category.name),
-                          leading: Icon(Icons.person_outline),
+                          leading: Icon(Icons.category_outlined),
+                          children: [
+                            DocumentsViewWidget(
+                                staff: staff, category: category)
+                          ],
                         );
                       },
                     ).toList(),
@@ -253,7 +258,7 @@ class _CrewsViewState extends State<CrewsView> {
       Aircraft aircraft, Role role) async {
     try {
       final request =
-          GraphQLRequest<String>(document: listCrewDocumentsCrews, variables: {
+          GraphQLRequest<String>(document: listCrewDocumentCrews, variables: {
         "aircraftId": aircraft.id,
         "roleId": role.id,
       });

@@ -5,7 +5,7 @@ import { deleteNoticeDocumentOverride } from "../data/override/delete/delete-not
 export const storage = defineStorage({
   name: "adsatsS3",
   access: (allow) => ({
-    "documents/*": [
+    "*": [
       allow.authenticated.to(["read", "write", "delete"]),
       allow.resource(deleteDocumentOverride).to(["read", "write", "delete"]),
       allow.resource(deleteNoticeDocumentOverride).to(["read", "write", "delete"]),
