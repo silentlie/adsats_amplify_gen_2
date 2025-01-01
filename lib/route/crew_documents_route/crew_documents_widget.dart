@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/route/admin_route/Crew_documents/documents_view_widget.dart';
+import 'package:adsats_amplify_gen_2/route/crew_documents_route/documents_view_widget.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 

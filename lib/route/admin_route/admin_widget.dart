@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/route/admin_route/Aircraft/aircraft_widget.dart';
 import 'package:adsats_amplify_gen_2/route/admin_route/Categories/categories_widget.dart';
-import 'package:adsats_amplify_gen_2/route/admin_route/Crew_documents/crew_documents_widget.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/Crew_document_categories/crew_document_categorie_widget.dart';
 import 'package:adsats_amplify_gen_2/route/admin_route/Roles/roles_widget.dart';
 import 'package:adsats_amplify_gen_2/route/admin_route/Staff/staff_widget.dart';
 import 'package:adsats_amplify_gen_2/route/admin_route/Subcategories/subcategories_widget.dart';
@@ -22,7 +22,7 @@ class _AdminWidgetState extends State<AdminWidget> {
     const StaffDataTable2(),
     const CategoriesDataTable2(),
     const SubcategoriesDataTable2(),
-    const CrewDocumentsWidget(),
+    const CrewDocumentCategorieWidget(),
   ];
 
   final List<NavigationDestination> _navigationDestinations = [
