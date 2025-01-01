@@ -8,7 +8,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 Future<void> getFileUrl(CrewDocument crewDocument, Staff staff) async {
   try {
-    String pathStr = "${staff.id}/${crewDocument.id}/${crewDocument.name}";
+    String pathStr =
+        "crewDocuments/${staff.id}/${crewDocument.id}/${crewDocument.name}";
 
     final result = await Amplify.Storage.getUrl(
       path: StoragePath.fromString(pathStr),
@@ -64,11 +65,11 @@ Future<void> uploadFile(
 
     String id = response.data!.id;
     debugPrint("document.id: $id");
-    debugPrint("path:${staff.id}/$id/${file.name}");
     // Concurrently upload the file and create AircraftDocument entries
     final result = await Amplify.Storage.uploadFile(
       localFile: AWSFile.fromStream(file.readStream!, size: file.size),
-      path: StoragePath.fromString("${staff.id}/$id/${file.name}"),
+      path:
+          StoragePath.fromString("crewDocuments/${staff.id}/$id/${file.name}"),
       onProgress: (progress) {
         // Optional debug print for progress
         debugPrint('Fraction completed: ${progress.fractionCompleted}');
@@ -117,7 +118,7 @@ Future<void> delete(CrewDocument crewDocument, Staff staff) async {
     // final result =
     await Amplify.Storage.remove(
       path: StoragePath.fromString(
-          '${staff.id}/${crewDocument.id}_${crewDocument.name}'),
+          'crewDocuments/${staff.id}/${crewDocument.id}_${crewDocument.name}'),
     ).result;
     // print('Removed file: ${result.removedItem.path}');
   } on StorageException catch (e) {
