@@ -2,11 +2,12 @@ import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/auth/sign_out_button_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/compliance_route/compliance_widget.dart';
+import 'package:adsats_amplify_gen_2/route/crew_documents_route/crew_documents_widget.dart';
 import 'package:adsats_amplify_gen_2/route/documents_route/documents_widget.dart';
 import 'package:adsats_amplify_gen_2/route/help_route/help_widget.dart';
 import 'package:adsats_amplify_gen_2/route/home_route/home_widget.dart';
 import 'package:adsats_amplify_gen_2/route/profile_route/profile_widget.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/settings_widget.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/admin_widget.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_widget.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/sms_widget.dart';
 import 'package:adsats_amplify_gen_2/route/training_route/training_widget.dart';
@@ -76,12 +77,21 @@ final router = GoRouter(
           builder: (context, state) => const HelpWidget(),
         ),
         GoRoute(
-          path: SettingsWidget.path,
+          path: AdminWidget.path,
           builder: (context, state) {
             if (!Provider.of<AuthNotifier>(context, listen: false).isAdmin) {
               context.go(HomeWidget.path);
             }
-            return const SettingsWidget();
+            return const AdminWidget();
+          },
+        ),
+        GoRoute(
+          path: CrewDocumentsWidget.path,
+          builder: (context, state) {
+            if (!Provider.of<AuthNotifier>(context, listen: false).isAdmin) {
+              context.go(HomeWidget.path);
+            }
+            return const CrewDocumentsWidget();
           },
         ),
         GoRoute(

@@ -6,8 +6,8 @@ import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/helper/multi_select.dart';
 import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/Aircraft/aircraft_api.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/settings_filter.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/Aircraft/aircraft_api.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/admin_filter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +29,7 @@ class _AircraftDataTable2State extends State<AircraftDataTable2> {
     filter: filter,
     rebuild: rebuild,
   );
-  final SettingsFilter filter = SettingsFilter(archived: false);
+  final AdminFilter filter = AdminFilter(archived: false);
   bool isInitialize = false;
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   bool _sortAscending = false;

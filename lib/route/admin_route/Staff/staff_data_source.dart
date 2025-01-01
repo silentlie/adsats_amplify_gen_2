@@ -3,7 +3,7 @@ part of 'staff_widget.dart';
 class StaffDataSource extends DataTableSource {
   final List<Staff> data = [];
 
-  final SettingsFilter filter;
+  final AdminFilter filter;
 
   final BuildContext context;
 

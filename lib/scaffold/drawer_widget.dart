@@ -2,6 +2,8 @@ import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/auth/sign_out_button_widget.dart';
 import 'package:adsats_amplify_gen_2/default_logo_widget.dart';
 import 'package:adsats_amplify_gen_2/helper/to_string.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/admin_widget.dart';
+import 'package:adsats_amplify_gen_2/route/crew_documents_route/crew_documents_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -31,9 +33,16 @@ class MyDrawer extends StatelessWidget {
           ),
           if (authNotifier.isAdmin)
             ListTile(
-              title: const Text('Settings'),
+              title: const Text('Admin'),
               onTap: () {
-                context.go('/settings');
+                context.go(AdminWidget.path);
+              },
+            ),
+          if (authNotifier.isAdmin)
+            ListTile(
+              title: const Text('Crew Documents'),
+              onTap: () {
+                context.go(CrewDocumentsWidget.path);
               },
             ),
           ListTile(

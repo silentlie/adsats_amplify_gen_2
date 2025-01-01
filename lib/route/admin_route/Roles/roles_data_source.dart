@@ -3,7 +3,7 @@ part of 'roles_widget.dart';
 class RolesDataSource extends DataTableSource {
   final List<Role> data = [];
 
-  final SettingsFilter filter;
+  final AdminFilter filter;
 
   final BuildContext context;
 

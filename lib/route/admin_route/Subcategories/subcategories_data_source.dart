@@ -3,7 +3,7 @@ part of 'subcategories_widget.dart';
 class SubcategoriesDataSource extends DataTableSource {
   final List<Subcategory> data = [];
 
-  final SettingsFilter filter;
+  final AdminFilter filter;
 
   final BuildContext context;
 

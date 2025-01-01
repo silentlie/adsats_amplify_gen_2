@@ -1,20 +1,20 @@
-import 'package:adsats_amplify_gen_2/route/settings_route/Aircraft/aircraft_widget.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/Categories/categories_widget.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/Crew_documents/crew_documents_widget.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/Roles/roles_widget.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/Staff/staff_widget.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/Subcategories/subcategories_widget.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/Aircraft/aircraft_widget.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/Categories/categories_widget.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/Crew_documents/crew_documents_widget.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/Roles/roles_widget.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/Staff/staff_widget.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/Subcategories/subcategories_widget.dart';
 import 'package:flutter/material.dart';
 
-class SettingsWidget extends StatefulWidget {
-  const SettingsWidget({super.key});
+class AdminWidget extends StatefulWidget {
+  const AdminWidget({super.key});
   static String path = '/settings';
 
   @override
-  State<SettingsWidget> createState() => _SettingsWidgetState();
+  State<AdminWidget> createState() => _AdminWidgetState();
 }
 
-class _SettingsWidgetState extends State<SettingsWidget> {
+class _AdminWidgetState extends State<AdminWidget> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     const AircraftDataTable2(),

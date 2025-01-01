@@ -1,15 +1,15 @@
-part of 'aircraft_widget.dart';
+part of 'categories_widget.dart';
 
-class AircraftDataSource extends DataTableSource {
-  final List<Aircraft> data = [];
+class CategoriesDataSource extends DataTableSource {
+  final List<Category> data = [];
 
-  final SettingsFilter filter;
+  final AdminFilter filter;
 
   final BuildContext context;
 
   final VoidCallback rebuild;
 
-  AircraftDataSource({
+  CategoriesDataSource({
     required this.context,
     required this.filter,
     required this.rebuild,
@@ -26,15 +26,15 @@ class AircraftDataSource extends DataTableSource {
 
   @override
   DataRow2 getRow(int index) {
-    final aircraft = data[index];
+    final category = data[index];
     return DataRow2.byIndex(
       index: index,
       cells: [
         DataCell(
-          getCenterText(aircraft.name),
+          getCenterText(category.name),
         ),
         DataCell(
-          getCenterText(aircraft.description ?? ""),
+          getCenterText(category.description ?? ""),
         ),
         DataCell(
           Center(
@@ -45,33 +45,33 @@ class AircraftDataSource extends DataTableSource {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(20),
                 // maybe make it follow color scheme
-                color: aircraft.archived ? Colors.grey : Colors.blue.shade600,
+                color: category.archived ? Colors.grey : Colors.blue.shade600,
               ),
               child: Center(
-                child: Text(aircraft.archived ? "Yes" : "No"),
+                child: Text(category.archived ? "Yes" : "No"),
               ),
             ),
           ),
         ),
         DataCell(
           getCenterText(
-            aircraft.createdAt != null
+            category.createdAt != null
                 ? DateFormat('dd/MM/yyyy').format(
-                    aircraft.createdAt!.getDateTimeInUtc(),
+                    category.createdAt!.getDateTimeInUtc(),
                   )
                 : "",
           ),
         ),
         DataCell(
           Center(
-            child: getActions(aircraft),
+            child: getActions(category),
           ),
         ),
       ],
     );
   }
 
-  Widget getActions(Aircraft aircraft) {
+  Widget getActions(Category category) {
     return MenuAnchor(
       menuChildren: [
         IconButton(
@@ -79,7 +79,7 @@ class AircraftDataSource extends DataTableSource {
             showDialog(
               context: context,
               builder: (context) {
-                return aircraftWidget(context, aircraft: aircraft);
+                return categoryWidget(context, category: category);
               },
             );
           },
@@ -87,14 +87,14 @@ class AircraftDataSource extends DataTableSource {
         ),
         IconButton(
           onPressed: () async {
-            await update(aircraft.copyWith(archived: !aircraft.archived));
+            await update(category.copyWith(archived: !category.archived));
             rebuild();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            await deleteAicraft(aircraft);
+            await deleteCetegory(category);
             rebuild();
           },
           icon: const Icon(Icons.delete_outline),
@@ -121,7 +121,7 @@ class AircraftDataSource extends DataTableSource {
   Future<void> fetchRawData() async {
     try {
       final request = GraphQLRequest<String>(
-        document: listAircraft,
+        document: listCategories,
         variables: {"filter": filter.toJson()},
       );
       final response = await Amplify.API.query(request: request).response;
@@ -129,27 +129,27 @@ class AircraftDataSource extends DataTableSource {
         throw response.errors.first;
       }
       Map<String, dynamic> jsonMap = json.decode(response.data!);
-      final listAircraftResult = jsonMap["listAircraft"];
-      final List<Map<String, dynamic>> aircraft;
-      listAircraftResult == null
-          ? aircraft = []
-          : aircraft = List<Map<String, dynamic>>.from(
-              jsonMap["listAircraft"]["items"],
+      final listCategoriesResult = jsonMap["listCategories"];
+      final List<Map<String, dynamic>> categories;
+      listCategoriesResult == null
+          ? categories = []
+          : categories = List<Map<String, dynamic>>.from(
+              jsonMap["listCategories"]["items"],
             );
       data.clear();
-      for (var aircraft in aircraft) {
-        data.add(Aircraft.fromJson(aircraft));
+      for (var category in categories) {
+        data.add(Category.fromJson(category));
       }
       // debugPrint("did call fetchRawData");
     } on ApiException catch (e) {
-      debugPrint('ApiExecption: fetchRawData Aircraft failed: $e');
+      debugPrint('ApiExecption: fetchRawData Category failed: $e');
     } on Exception catch (e) {
-      debugPrint('Dart Exception: fetchRawData Aircraft failed: $e');
+      debugPrint('Dart Exception: fetchRawData Category failed: $e');
     }
   }
 
   void sort<T>(
-    Comparable<T> Function(Aircraft aircraft) getField,
+    Comparable<T> Function(Category category) getField,
     bool ascending,
   ) {
     data.sort((a, b) {
@@ -162,16 +162,15 @@ class AircraftDataSource extends DataTableSource {
     notifyListeners();
   }
 
-  Widget aircraftWidget(BuildContext context, {Aircraft? aircraft}) {
-    String name = aircraft?.name ?? "";
-    String description = aircraft?.description ?? "";
-    bool archived = aircraft?.archived ?? false;
-    List<Staff> staff = aircraft?.staff?.map((e) => e.staff!).toList() ?? [];
+  Widget categoryWidget(BuildContext context, {Category? category}) {
+    String name = category?.name ?? "";
+    String description = category?.description ?? "";
+    bool archived = category?.archived ?? false;
     final formKey = GlobalKey<FormState>();
     return AlertDialog.adaptive(
-      title: aircraft != null
-          ? Text('Editing ${aircraft.name}')
-          : const Text('Add an aircraft'),
+      title: category != null
+          ? Text('Editing ${category.name}')
+          : const Text('Add a category'),
       content: Form(
         key: formKey,
         child: Column(
@@ -182,7 +181,7 @@ class AircraftDataSource extends DataTableSource {
               child: TextFormField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Aircraft Name',
+                  labelText: 'Category Name',
                 ),
                 onChanged: (value) {
                   name = value;
@@ -190,7 +189,7 @@ class AircraftDataSource extends DataTableSource {
                 initialValue: name,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter aircraft name';
+                    return 'Please enter category name';
                   }
                   return null;
                 },
@@ -201,7 +200,7 @@ class AircraftDataSource extends DataTableSource {
               child: TextFormField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Description of the aircraft',
+                  labelText: 'Description of the category',
                 ),
                 initialValue: description,
                 onChanged: (value) {
@@ -229,33 +228,6 @@ class AircraftDataSource extends DataTableSource {
                 ),
               ),
             ),
-            FutureBuilder(
-              future: list(Staff.classType),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                      child: CircularProgressIndicator.adaptive());
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else if (snapshot.hasData) {
-                  final allStaff = snapshot.data as List<Staff>;
-                  return MultiSelect(
-                    onConfirm: (p0) {
-                      staff = List<Staff>.from(p0);
-                    },
-                    items: allStaff.map(
-                      (e) {
-                        return MultiSelectItem(e, e.name);
-                      },
-                    ).toList(),
-                    initialValue: staff,
-                    text: "Choose Staff",
-                  );
-                } else {
-                  return const Placeholder();
-                }
-              },
-            ),
           ],
         ),
       ),
@@ -268,26 +240,22 @@ class AircraftDataSource extends DataTableSource {
           onPressed: () async {
             if (formKey.currentState!.validate()) {
               formKey.currentState!.save();
-              Aircraft newAircraft = aircraft?.copyWith(
+              Category newCategory = category?.copyWith(
                     name: name,
                     archived: archived,
                     description: description,
                   ) ??
-                  Aircraft(
+                  Category(
                     name: name,
                     archived: archived,
                     description: description,
                   );
-              if (aircraft != null) {
+              if (category != null) {
                 await Future.wait([
-                  updateAircraftStaff(newAircraft, staff),
-                  if (aircraft != newAircraft) update(newAircraft),
+                  if (newCategory != category) update(newCategory),
                 ]);
               } else {
-                await Future.wait([
-                  create(newAircraft),
-                  updateAircraftStaff(newAircraft, staff),
-                ]);
+                await create(newCategory);
               }
               rebuild();
               if (!context.mounted) return;

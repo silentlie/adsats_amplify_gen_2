@@ -1,4 +1,4 @@
- import 'dart:convert';
+import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
@@ -305,7 +305,20 @@ class _DocumentsViewWidgetState extends State<DocumentsViewWidget> {
           return Column(
             children: [
               ListTile(
-                leading: SearchBarWidget(
+                leading: ElevatedButton.icon(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => newDocumentDialog(context),
+                    );
+                  },
+                  label: const Text('Add a document'),
+                  icon: const Icon(
+                    Icons.add,
+                    size: 25,
+                  ),
+                ),
+                title: SearchBarWidget(
                   onSubmitted: (value) {
                     setState(() {
                       filter.search = value;
@@ -313,7 +326,7 @@ class _DocumentsViewWidgetState extends State<DocumentsViewWidget> {
                   },
                   initialValue: filter.search,
                 ),
-                title: filter.getFilterWidget(context, setState),
+                trailing: filter.getFilterWidget(context, setState),
               ),
               if (snapshot.data!.isEmpty) Text("There is no document"),
               ...snapshot.data!.map(
@@ -420,6 +433,152 @@ class _DocumentsViewWidgetState extends State<DocumentsViewWidget> {
             Icons.more_vert,
             // size: 20,
           ),
+        );
+      },
+    );
+  }
+
+  Widget newDocumentDialog(BuildContext context) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
+    AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
+    Staff staff = authNotifier.user;
+    List<Aircraft> aircraft = [];
+    return ChangeNotifierProvider<FilePickerNotifier>(
+      create: (context) => FilePickerNotifier(),
+      lazy: false,
+      builder: (context, child) {
+        return AlertDialog.adaptive(
+          title: const Text(
+            'Add documents',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: Column(
+              children: [
+                if (authNotifier.isAdmin || authNotifier.isEditor)
+                  FutrureDropdownMenu<Staff>(
+                    modelType: Staff.classType,
+                    toList: (allData) {
+                      return allData
+                          .map(
+                              (e) => DropdownMenuEntry(value: e, label: e.name))
+                          .toList();
+                    },
+                    onSelected: (value) =>
+                        context.read<FilePickerNotifier>().staff = value!,
+                    text: "Owner",
+                    initialSelection: context.read<FilePickerNotifier>().staff,
+                  ),
+                MultiSelect<Aircraft>(
+                  items: staff.aircraft?.map(
+                        (e) {
+                          return MultiSelectItem(e.aircraft!, e.aircraft!.name);
+                        },
+                      ).toList() ??
+                      [],
+                  onConfirm: (selectedOptions) {
+                    aircraft = List<Aircraft>.from(selectedOptions);
+                  },
+                  text: "Add aircraft",
+                  title: const Text("Add aircraft"),
+                ),
+                Consumer<FilePickerNotifier>(
+                  builder: (context, filePickerProvider, child) {
+                    return Column(
+                      children: filePickerProvider.selectedFiles.map((file) {
+                        return Chip(
+                          label: Text(file.name),
+                          onDeleted: () {
+                            filePickerProvider.removeFile(file);
+                          },
+                        );
+                      }).toList(),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+          actions: [
+            ElevatedButton.icon(
+              onPressed: () {
+                Navigator.pop(context, 'Cancel');
+              },
+              label: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                FilePickerResult? filePickerResult =
+                    await FilePicker.platform.pickFiles(
+                  allowMultiple: true,
+                  type: FileType.any,
+                  withData: false,
+                  // Ensure to get file stream for better performance
+                  withReadStream: true,
+                );
+                if (!context.mounted) return;
+                context
+                    .read<FilePickerNotifier>()
+                    .addFiles(filePickerResult?.files ?? []);
+              },
+              child: const Text("Pick file"),
+            ),
+            ElevatedButton.icon(
+              onPressed: () {
+                final selectedFiles =
+                    context.read<FilePickerNotifier>().selectedFiles;
+                if (selectedFiles.isEmpty) return;
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text("Confirm?"),
+                      content: const Text("Proceed with file upload?"),
+                      actions: [
+                        // cancel
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                          child: const Text('Cancel'),
+                        ),
+                        // apply
+                        TextButton(
+                          onPressed: () async {
+                            await uploadFiles(
+                              selectedFiles,
+                              staff,
+                              widget.subcategory,
+                              aircraft,
+                            );
+                            if (!context.mounted) return;
+                            Navigator.pop(context, 'Apply');
+                            Navigator.pop(context, 'Apply');
+                            setState(() {});
+                          },
+                          child: const Text('Confirm'),
+                        )
+                      ],
+                    );
+                  },
+                );
+              },
+              style: ButtonStyle(
+                // Change button background color
+                backgroundColor:
+                    WidgetStateProperty.all<Color>(colorScheme.secondary),
+              ),
+              label: Text(
+                'Upload Files',
+                style: TextStyle(color: colorScheme.onSecondary),
+              ),
+              icon: Icon(
+                Icons.upload_file,
+                color: colorScheme.onSecondary,
+              ),
+            ),
+          ],
         );
       },
     );

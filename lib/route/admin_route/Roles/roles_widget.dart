@@ -6,44 +6,43 @@ import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/helper/multi_select.dart';
 import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/Subcategories/subcategory_api.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/settings_filter.dart';
-import 'package:amplify_flutter/amplify_flutter.dart' hide Category;
+import 'package:adsats_amplify_gen_2/route/admin_route/Roles/roles_api.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/admin_filter.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:multi_select_flutter/util/multi_select_item.dart';
+import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-part 'subcategories_data_source.dart';
+part 'roles_data_source.dart';
 
-class SubcategoriesDataTable2 extends StatefulWidget {
-  const SubcategoriesDataTable2({super.key});
+class RolesDataTable2 extends StatefulWidget {
+  const RolesDataTable2({super.key});
 
   @override
-  State<SubcategoriesDataTable2> createState() =>
-      _SubcategoriesDataTable2State();
+  State<RolesDataTable2> createState() => _RolesDataTable2State();
 }
 
-class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
-  late SubcategoriesDataSource dataSource = SubcategoriesDataSource(
+class _RolesDataTable2State extends State<RolesDataTable2> {
+  late RolesDataSource dataSource = RolesDataSource(
     context: context,
-    rebuild: rebuild,
     filter: filter,
+    rebuild: rebuild,
   );
-  final SettingsFilter filter = SettingsFilter(archived: false);
+  final AdminFilter filter = AdminFilter(archived: false);
   bool isInitialize = false;
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   bool _sortAscending = true;
   int _sortColumnIndex = 3;
-  Comparable Function(Subcategory subcategory) getField = (subcategory) {
-    return subcategory.createdAt!;
+  Comparable Function(Role role) getField = (role) {
+    return role.createdAt!;
   };
 
   get header {
     return ListTile(
       contentPadding: const EdgeInsets.only(),
       leading: const Text(
-        "Subcategories",
+        "Roles",
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
@@ -64,11 +63,11 @@ class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return dataSource.subcategoryWidget(context);
+                    return dataSource.roleWidget(context);
                   },
                 );
               },
-              label: const Text('Add an subcategory'),
+              label: const Text('Add an role'),
               icon: const Icon(
                 Icons.add,
                 size: 25,
@@ -87,7 +86,7 @@ class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
                 rebuild();
               },
               initialValue: filter.search,
-            )
+            ),
           ],
         ),
       ),
@@ -103,8 +102,8 @@ class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (subcategory) {
-              return subcategory.name;
+            getField = (role) {
+              return role.name;
             };
           });
         },
@@ -116,21 +115,8 @@ class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (subcategory) {
-              return subcategory.description ?? "";
-            };
-          });
-        },
-      ),
-      DataColumn2(
-        label: getCenterText("Category"),
-        size: ColumnSize.L,
-        onSort: (columnIndex, ascending) {
-          setState(() {
-            _sortColumnIndex = columnIndex;
-            _sortAscending = ascending;
-            getField = (subcategory) {
-              return subcategory.category?.name ?? "";
+            getField = (role) {
+              return role.description ?? "";
             };
           });
         },
@@ -142,8 +128,8 @@ class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (subcategory) {
-              return subcategory.archived.hashCode;
+            getField = (role) {
+              return role.archived.hashCode;
             };
           });
         },
@@ -155,8 +141,8 @@ class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (subcategory) {
-              return subcategory.createdAt!;
+            getField = (role) {
+              return role.createdAt!;
             };
           });
         },
@@ -168,8 +154,8 @@ class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (subcategory) {
-              return subcategory.hashCode;
+            getField = (role) {
+              return role.hashCode;
             };
           });
         },
@@ -201,7 +187,7 @@ class _SubcategoriesDataTable2State extends State<SubcategoriesDataTable2> {
     setState(() => isInitialize = false);
   }
 
-  Widget builder(BuildContext context, SubcategoriesDataSource dataSource) {
+  Widget builder(BuildContext context, RolesDataSource dataSource) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     dataSource.sort(getField, _sortAscending);
     return PaginatedDataTable2(

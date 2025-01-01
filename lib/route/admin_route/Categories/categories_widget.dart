@@ -3,46 +3,44 @@ import 'dart:convert';
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/helper/multi_select.dart';
 import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/Roles/roles_api.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/settings_filter.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/Categories/category_api.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/admin_filter.dart';
+import 'package:amplify_flutter/amplify_flutter.dart' hide Category;
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-part 'roles_data_source.dart';
+part 'categories_data_source.dart';
 
-class RolesDataTable2 extends StatefulWidget {
-  const RolesDataTable2({super.key});
+class CategoriesDataTable2 extends StatefulWidget {
+  const CategoriesDataTable2({super.key});
 
   @override
-  State<RolesDataTable2> createState() => _RolesDataTable2State();
+  State<CategoriesDataTable2> createState() => _CategoriesDataTable2State();
 }
 
-class _RolesDataTable2State extends State<RolesDataTable2> {
-  late RolesDataSource dataSource = RolesDataSource(
+class _CategoriesDataTable2State extends State<CategoriesDataTable2> {
+  late CategoriesDataSource dataSource = CategoriesDataSource(
     context: context,
     filter: filter,
     rebuild: rebuild,
   );
-  final SettingsFilter filter = SettingsFilter(archived: false);
+  final AdminFilter filter = AdminFilter(archived: false);
   bool isInitialize = false;
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   bool _sortAscending = true;
   int _sortColumnIndex = 3;
-  Comparable Function(Role role) getField = (role) {
-    return role.createdAt!;
+  Comparable Function(Category category) getField = (category) {
+    return category.createdAt!;
   };
 
   get header {
     return ListTile(
       contentPadding: const EdgeInsets.only(),
       leading: const Text(
-        "Roles",
+        "Categories",
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
@@ -63,11 +61,11 @@ class _RolesDataTable2State extends State<RolesDataTable2> {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return dataSource.roleWidget(context);
+                    return dataSource.categoryWidget(context);
                   },
                 );
               },
-              label: const Text('Add an role'),
+              label: const Text('Add a category'),
               icon: const Icon(
                 Icons.add,
                 size: 25,
@@ -86,7 +84,7 @@ class _RolesDataTable2State extends State<RolesDataTable2> {
                 rebuild();
               },
               initialValue: filter.search,
-            ),
+            )
           ],
         ),
       ),
@@ -102,8 +100,8 @@ class _RolesDataTable2State extends State<RolesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (role) {
-              return role.name;
+            getField = (category) {
+              return category.name;
             };
           });
         },
@@ -115,8 +113,8 @@ class _RolesDataTable2State extends State<RolesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (role) {
-              return role.description ?? "";
+            getField = (category) {
+              return category.description ?? "";
             };
           });
         },
@@ -128,8 +126,8 @@ class _RolesDataTable2State extends State<RolesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (role) {
-              return role.archived.hashCode;
+            getField = (category) {
+              return category.archived.hashCode;
             };
           });
         },
@@ -141,8 +139,8 @@ class _RolesDataTable2State extends State<RolesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (role) {
-              return role.createdAt!;
+            getField = (category) {
+              return category.createdAt!;
             };
           });
         },
@@ -154,8 +152,8 @@ class _RolesDataTable2State extends State<RolesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (role) {
-              return role.hashCode;
+            getField = (category) {
+              return category.hashCode;
             };
           });
         },
@@ -187,7 +185,7 @@ class _RolesDataTable2State extends State<RolesDataTable2> {
     setState(() => isInitialize = false);
   }
 
-  Widget builder(BuildContext context, RolesDataSource dataSource) {
+  Widget builder(BuildContext context, CategoriesDataSource dataSource) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     dataSource.sort(getField, _sortAscending);
     return PaginatedDataTable2(

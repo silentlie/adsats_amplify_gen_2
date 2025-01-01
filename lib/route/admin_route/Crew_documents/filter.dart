@@ -2,33 +2,27 @@ import 'package:adsats_amplify_gen_2/helper/between_date_range.dart';
 import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
 import 'package:flutter/material.dart';
 
-class SettingsFilter {
+class Filter {
+  final String staffId;
+  final String categoryId;
   String search;
   bool? archived;
   DateTimeRange? createdAt;
 
-  SettingsFilter({
+  Filter({
+    required this.staffId,
+    required this.categoryId,
     this.search = "",
     this.archived,
     this.createdAt,
   });
 
-  SettingsFilter copyWith({
-    String? search,
-    bool? archived,
-    DateTimeRange? createdAt,
-  }) {
-    return SettingsFilter(
-      search: search ?? this.search,
-      archived: archived ?? this.archived,
-      createdAt: createdAt ?? this.createdAt,
-    );
-  }
-
   Map<String, dynamic> toJson() {
-    Map<String, dynamic> result = {
-      "name": {"contains": search},
+    final Map<String, dynamic> result = {
+      "staffId": staffId,
+      "categoryId": categoryId,
     };
+    search.isNotEmpty ? result["name"] = {"contains": search} : null;
     archived != null ? result["archived"] = {"eq": archived} : null;
     createdAt != null
         ? result["createdAt"] = {"between": betweenDateRange(createdAt!)}
@@ -36,8 +30,9 @@ class SettingsFilter {
     return result;
   }
 
-  Widget getFilterWidget(BuildContext context, VoidCallback rebuild) {
-    SettingsFilter temp = this;
+  Widget getFilterWidget(
+      BuildContext context, void Function(VoidCallback) setState) {
+    Filter temp = this;
     return ElevatedButton(
       onPressed: () {
         showDialog(
@@ -45,34 +40,9 @@ class SettingsFilter {
           builder: (context) {
             return AlertDialog.adaptive(
               title: const Text('Filter By:'),
-              actions: [
-                // cancel
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'Cancel'),
-                  child: const Text('Cancel'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    archived = false;
-                    createdAt = null;
-                    rebuild();
-                    Navigator.pop(context, 'Apply');
-                  },
-                  child: const Text("Reset filter"),
-                ),
-                // apply
-                TextButton(
-                  onPressed: () {
-                    archived = temp.archived;
-                    createdAt = temp.createdAt;
-                    rebuild();
-                    Navigator.pop(context, 'Apply');
-                  },
-                  child: const Text('Apply'),
-                )
-              ],
               content: Container(
-                constraints: const BoxConstraints(maxWidth: 400, minWidth: 400),
+                // max width of filter column
+                constraints: const BoxConstraints(maxWidth: 400),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -106,16 +76,41 @@ class SettingsFilter {
                   ],
                 ),
               ),
+              actions: [
+                // cancel
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    archived = false;
+                    createdAt = null;
+                    setState(
+                      () {},
+                    );
+                    Navigator.pop(context, 'Apply');
+                  },
+                  child: const Text("Reset filter"),
+                ),
+                // apply
+                TextButton(
+                  onPressed: () {
+                    archived = temp.archived;
+                    createdAt = temp.createdAt;
+                    setState(
+                      () {},
+                    );
+                    Navigator.pop(context, 'Apply');
+                  },
+                  child: const Text('Apply'),
+                )
+              ],
             );
           },
         );
       },
       child: const Text("Filter By"),
     );
-  }
-
-  @override
-  String toString() {
-    return toJson().toString();
   }
 }

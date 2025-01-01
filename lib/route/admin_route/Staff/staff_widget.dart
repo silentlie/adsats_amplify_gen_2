@@ -3,44 +3,46 @@ import 'dart:convert';
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/multi_select.dart';
 import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/Categories/category_api.dart';
-import 'package:adsats_amplify_gen_2/route/settings_route/settings_filter.dart';
-import 'package:amplify_flutter/amplify_flutter.dart' hide Category;
+import 'package:adsats_amplify_gen_2/route/admin_route/Staff/staff_api.dart';
+import 'package:adsats_amplify_gen_2/route/admin_route/admin_filter.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:multi_select_flutter/util/multi_select_item.dart';
 
-part 'categories_data_source.dart';
+part 'staff_data_source.dart';
 
-class CategoriesDataTable2 extends StatefulWidget {
-  const CategoriesDataTable2({super.key});
+class StaffDataTable2 extends StatefulWidget {
+  const StaffDataTable2({super.key});
 
   @override
-  State<CategoriesDataTable2> createState() => _CategoriesDataTable2State();
+  State<StaffDataTable2> createState() => _StaffDataTable2State();
 }
 
-class _CategoriesDataTable2State extends State<CategoriesDataTable2> {
-  late CategoriesDataSource dataSource = CategoriesDataSource(
+class _StaffDataTable2State extends State<StaffDataTable2> {
+  late StaffDataSource dataSource = StaffDataSource(
     context: context,
     filter: filter,
     rebuild: rebuild,
   );
-  final SettingsFilter filter = SettingsFilter(archived: false);
+  final AdminFilter filter = AdminFilter(archived: false);
   bool isInitialize = false;
   int _rowsPerPage = PaginatedDataTable.defaultRowsPerPage;
   bool _sortAscending = true;
   int _sortColumnIndex = 3;
-  Comparable Function(Category category) getField = (category) {
-    return category.createdAt!;
+  Comparable Function(Staff staff) getField = (staff) {
+    return staff.createdAt!;
   };
 
   get header {
     return ListTile(
       contentPadding: const EdgeInsets.only(),
       leading: const Text(
-        "Categories",
+        "Staff",
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
@@ -61,11 +63,11 @@ class _CategoriesDataTable2State extends State<CategoriesDataTable2> {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return dataSource.categoryWidget(context);
+                    return dataSource.staffWidget(context);
                   },
                 );
               },
-              label: const Text('Add a category'),
+              label: const Text('Add an staff'),
               icon: const Icon(
                 Icons.add,
                 size: 25,
@@ -84,7 +86,7 @@ class _CategoriesDataTable2State extends State<CategoriesDataTable2> {
                 rebuild();
               },
               initialValue: filter.search,
-            )
+            ),
           ],
         ),
       ),
@@ -100,21 +102,47 @@ class _CategoriesDataTable2State extends State<CategoriesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (category) {
-              return category.name;
+            getField = (staff) {
+              return staff.name;
             };
           });
         },
       ),
       DataColumn2(
-        label: getCenterText("Description"),
+        label: getCenterText("Email"),
+        size: ColumnSize.S,
+        onSort: (columnIndex, ascending) {
+          setState(() {
+            _sortColumnIndex = columnIndex;
+            _sortAscending = ascending;
+            getField = (staff) {
+              return staff.email;
+            };
+          });
+        },
+      ),
+      DataColumn2(
+        label: getCenterText("Aircraft"),
         size: ColumnSize.L,
         onSort: (columnIndex, ascending) {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (category) {
-              return category.description ?? "";
+            getField = (staff) {
+              return staff.aircraft.hashCode;
+            };
+          });
+        },
+      ),
+      DataColumn2(
+        label: getCenterText("Roles"),
+        size: ColumnSize.L,
+        onSort: (columnIndex, ascending) {
+          setState(() {
+            _sortColumnIndex = columnIndex;
+            _sortAscending = ascending;
+            getField = (staff) {
+              return staff.roles.hashCode;
             };
           });
         },
@@ -126,8 +154,8 @@ class _CategoriesDataTable2State extends State<CategoriesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (category) {
-              return category.archived.hashCode;
+            getField = (staff) {
+              return staff.archived.hashCode;
             };
           });
         },
@@ -139,8 +167,8 @@ class _CategoriesDataTable2State extends State<CategoriesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (category) {
-              return category.createdAt!;
+            getField = (staff) {
+              return staff.createdAt!;
             };
           });
         },
@@ -152,8 +180,8 @@ class _CategoriesDataTable2State extends State<CategoriesDataTable2> {
           setState(() {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
-            getField = (category) {
-              return category.hashCode;
+            getField = (staff) {
+              return staff.hashCode;
             };
           });
         },
@@ -185,7 +213,7 @@ class _CategoriesDataTable2State extends State<CategoriesDataTable2> {
     setState(() => isInitialize = false);
   }
 
-  Widget builder(BuildContext context, CategoriesDataSource dataSource) {
+  Widget builder(BuildContext context, StaffDataSource dataSource) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     dataSource.sort(getField, _sortAscending);
     return PaginatedDataTable2(
