@@ -69,7 +69,7 @@ final router = GoRouter(
           builder: (context, state) => const DocumentsWidget(),
         ),
         GoRoute(
-          path: '/profile',
+          path: ProfileWidget.path,
           builder: (context, state) => const ProfileWidget(),
         ),
         GoRoute(

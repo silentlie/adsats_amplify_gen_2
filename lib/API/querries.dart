@@ -2,6 +2,21 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
+const listCrewDocumentCategories = '''
+query ListCrewDocumentCategories(\$filter: ModelCrewDocumentCategoryFilterInput) {
+  listCrewDocumentCategories(filter: \$filter) {
+    items {
+      id
+      name
+      archived
+      description
+      createdAt
+      updatedAt
+    }
+  }
+}
+
+''';
 const listCrewDocuments = '''
 query ListCrewDocumentsCrews(\$staffId: ID!, \$categoryId: ID!) {
   listCrewDocuments(filter: {staffId: {eq: \$staffId}, categoryId: {eq: \$categoryId}}) {

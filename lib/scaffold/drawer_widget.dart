@@ -4,6 +4,7 @@ import 'package:adsats_amplify_gen_2/default_logo_widget.dart';
 import 'package:adsats_amplify_gen_2/helper/to_string.dart';
 import 'package:adsats_amplify_gen_2/route/admin_route/admin_widget.dart';
 import 'package:adsats_amplify_gen_2/route/crew_documents_route/crew_documents_widget.dart';
+import 'package:adsats_amplify_gen_2/route/profile_route/profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +23,7 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             title: const Text('Profile'),
             onTap: () {
-              context.go('/profile');
+              context.go(ProfileWidget.path);
             },
           ),
           ListTile(
