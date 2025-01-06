@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_widget.dart';
+import 'package:adsats_amplify_gen_2/route/sms_route/sms_widget.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -84,9 +84,9 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                   throw response.errors.first;
                 }
                 Map<String, dynamic> jsonMap = json.decode(response.data);
+                final notice = Notice.fromJson(jsonMap["getNotice"]);
                 if (!context.mounted) return;
-                context.go(NoticeWidget.path,
-                    extra: Notice.fromJson(jsonMap["getNotice"]));
+                context.go(SMSWidget.path, extra: notice);
               },
             );
           },
