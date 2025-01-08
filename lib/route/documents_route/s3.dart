@@ -137,7 +137,7 @@ Future<void> delete(Document document) async {
     }
     // final result =
     await Amplify.Storage.remove(
-      path: StoragePath.fromString('documents/${document.id}_${document.name}'),
+      path: StoragePath.fromString('documents/${document.id}/${document.name}'),
     ).result;
     // print('Removed file: ${result.removedItem.path}');
   } on StorageException catch (e) {

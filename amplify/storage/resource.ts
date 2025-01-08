@@ -14,10 +14,9 @@ export const storage = defineStorage({
     ],
     "crewDocuments/*": [
       allow.authenticated.to(["read", "write", "delete"]),
-      allow.resource(deleteDocumentOverride).to(["read", "write", "delete"]),
-      allow
-        .resource(deleteNoticeDocumentOverride)
-        .to(["read", "write", "delete"]),
+    ],
+    "noticeDocuments/*": [
+      allow.authenticated.to(["read", "write", "delete"]),
     ],
   }),
 });

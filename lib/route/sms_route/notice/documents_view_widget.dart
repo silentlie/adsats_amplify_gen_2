@@ -11,6 +11,10 @@ class DocumentsViewWidget extends StatelessWidget {
     return Consumer<NoticeNotifier>(
       builder: (context, noticeNotifier, child) {
         final chilren = [
+          Text("Documents: "),
+          if (noticeNotifier.documents.isEmpty &&
+              noticeNotifier.selectedFiles.isEmpty)
+            Text("Empty"),
           ...noticeNotifier.documents.map(
             (document) {
               return Chip(
@@ -35,11 +39,9 @@ class DocumentsViewWidget extends StatelessWidget {
         ];
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: chilren,
-            ),
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: chilren,
           ),
         );
       },

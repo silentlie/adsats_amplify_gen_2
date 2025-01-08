@@ -78,7 +78,6 @@ Future<void> uploadFile(
     debugPrint('Successfully uploaded file: ${result.uploadedItem.path}');
   } on StorageException catch (e) {
     debugPrint('Storage Exception: ${e.message} ,${e.recoverySuggestion}');
-    print(e.underlyingException.toString());
   } on ApiException catch (e) {
     debugPrint('create crew document failed: ${e.message}');
   } catch (e) {
@@ -118,7 +117,7 @@ Future<void> delete(CrewDocument crewDocument, Staff staff) async {
     // final result =
     await Amplify.Storage.remove(
       path: StoragePath.fromString(
-          'crewDocuments/${staff.id}/${crewDocument.id}_${crewDocument.name}'),
+          'crewDocuments/${staff.id}/${crewDocument.id}/${crewDocument.name}'),
     ).result;
     // print('Removed file: ${result.removedItem.path}');
   } on StorageException catch (e) {

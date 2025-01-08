@@ -250,7 +250,6 @@ class _DocumentsViewWidgetState extends State<DocumentsViewWidget> {
                             await uploadFiles(selectedFiles, staff, category);
                             if (!context.mounted) return;
                             Navigator.pop(context, 'Apply');
-                            Navigator.pop(context, 'Apply');
                             setState(() {});
                           },
                           child: const Text('Confirm'),
