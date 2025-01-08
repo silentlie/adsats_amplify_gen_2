@@ -2,6 +2,30 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
+const listJoinRecipients = '''
+query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFilter: ModelAircraftStaffFilterInput) {
+  listStaff {
+    items {
+      id
+      name
+      email
+      archived
+      createdAt
+      updatedAt
+      aircraft(filter: \$aircraftFilter) {
+        items {
+          id
+        }
+      }
+      roles(filter: \$rolesFilter) {
+        items {
+          id
+        }
+      }
+    }
+  }
+}
+''';
 const listCrewDocumentCategories = '''
 query ListCrewDocumentCategories(\$filter: ModelCrewDocumentCategoryFilterInput) {
   listCrewDocumentCategories(filter: \$filter) {
@@ -15,7 +39,6 @@ query ListCrewDocumentCategories(\$filter: ModelCrewDocumentCategoryFilterInput)
     }
   }
 }
-
 ''';
 const listCrewDocuments = '''
 query ListCrewDocumentsCrews(\$staffId: ID!, \$categoryId: ID!) {

@@ -10,7 +10,19 @@ class ComplianceWidget extends StatelessWidget {
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 1536.0),
-        child: const Card(child: Text("Compliance")),
+        child: const Card(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                Placeholder(),
+                Placeholder(),
+                Placeholder(),
+                Placeholder()
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

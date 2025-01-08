@@ -9,6 +9,7 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_notifier.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/sms_widget.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -31,7 +32,7 @@ class NoticeToCrewWidget extends StatelessWidget {
       lazy: false,
       builder: (context, child) {
         return Form(
-          key: Provider.of<NoticeNotifier>(context).formKey,
+          key: Provider.of<NoticeNotifier>(context, listen: false).formKey,
           child: SingleChildScrollView(
             child: NoticeToCrewBody(),
           ),
@@ -55,7 +56,7 @@ class _NoticeToCrewBodyState extends State<NoticeToCrewBody> {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final authNotifier = Provider.of<AuthNotifier>(context, listen: false);
-    final noticeNotifier = Provider.of<NoticeNotifier>(context);
+    final noticeNotifier = Provider.of<NoticeNotifier>(context, listen: false);
     return Column(
       children: [
         Container(
@@ -252,6 +253,38 @@ class _NoticeToCrewBodyState extends State<NoticeToCrewBody> {
           ],
         ),
         const Divider(),
+        Consumer<NoticeNotifier>(
+          builder: (context, value, child) {
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    ...value.documents.map(
+                      (document) {
+                        return Chip(
+                          label: Text(document.name),
+                          color: WidgetStatePropertyAll(colorScheme.onPrimary),
+                          onDeleted: () => value.removeDocument(document),
+                        );
+                      },
+                    ),
+                    ...value.selectedFiles.map(
+                      (file) {
+                        return Chip(
+                          label: Text(file.name),
+                          onDeleted: () => value.removeFile(file),
+                        );
+                      },
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+        const Divider(),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -329,9 +362,26 @@ class _NoticeToCrewBodyState extends State<NoticeToCrewBody> {
                   padding: const EdgeInsets.only(right: 8.0),
                   child: ElevatedButton.icon(
                     onPressed: () async {
+                      FilePickerResult? filePickerResult =
+                          await FilePicker.platform.pickFiles(
+                        allowMultiple: true,
+                        type: FileType.any,
+                        withData: false,
+                        // Ensure to get file stream for better performance
+                        withReadStream: true,
+                      );
+                      noticeNotifier.addFiles(filePickerResult?.files ?? []);
+                    },
+                    label: const Text("Pick file"),
+                    icon: Icon(Icons.description_outlined),
+                  ),
+                ),
+              if (noticeNotifier.editMode)
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
                       await noticeNotifier.saveNotice(false);
-                      if (!context.mounted) return;
-                      context.go(SMSWidget.path);
                     },
                     style: ButtonStyle(
                       backgroundColor: WidgetStateProperty.all<Color>(
@@ -347,8 +397,6 @@ class _NoticeToCrewBodyState extends State<NoticeToCrewBody> {
                 ElevatedButton.icon(
                   onPressed: () async {
                     await noticeNotifier.saveNotice(true);
-                    if (!context.mounted) return;
-                    context.go(SMSWidget.path);
                   },
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all<Color>(

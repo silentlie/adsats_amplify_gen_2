@@ -218,7 +218,6 @@ class _DocumentsViewWidgetState extends State<DocumentsViewWidget> {
                   allowMultiple: true,
                   type: FileType.any,
                   withData: false,
-                  // Ensure to get file stream for better performance
                   withReadStream: true,
                 );
                 if (!context.mounted) return;
