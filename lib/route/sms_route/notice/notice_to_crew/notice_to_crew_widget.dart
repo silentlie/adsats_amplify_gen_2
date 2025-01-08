@@ -311,7 +311,8 @@ class _NoticeToCrewBodyState extends State<NoticeToCrewBody> {
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Center(
-                            child: CircularProgressIndicator.adaptive());
+                          child: CircularProgressIndicator.adaptive(),
+                        );
                       } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
                       } else {

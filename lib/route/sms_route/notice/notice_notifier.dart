@@ -37,9 +37,29 @@ class NoticeNotifier extends ChangeNotifier {
     this.notice,
     required this.context,
   }) {
+    type = notice?.type ?? NoticeType.Notice_to_Crew;
+    _loadNotice();
+  }
+
+  NoticeNotifier.safetyNotice({
+    this.notice,
+    required this.context,
+  }) {
+    type = notice?.type ?? NoticeType.Safety_notice;
+    _loadNotice();
+  }
+
+  NoticeNotifier.hazardReport({
+    this.notice,
+    required this.context,
+  }) {
+    type = notice?.type ?? NoticeType.Hazard_report;
+    _loadNotice();
+  }
+
+  void _loadNotice() {
     editMode = notice == null;
     id = notice?.id ?? "";
-    type = notice?.type ?? NoticeType.Notice_to_Crew;
     status = notice?.status ?? NoticeStatus.Draft;
     archived = notice?.archived ?? false;
     author = notice?.author ??
