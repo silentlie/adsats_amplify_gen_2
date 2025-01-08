@@ -1,17 +1,10 @@
-import 'package:adsats_amplify_gen_2/API/mutations.dart';
-import 'package:adsats_amplify_gen_2/API/querries.dart';
-import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
-import 'package:adsats_amplify_gen_2/helper/date_picker_widget.dart';
-import 'package:adsats_amplify_gen_2/helper/futrure_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/helper/future_multi_select.dart';
 import 'package:adsats_amplify_gen_2/helper/global_text_form_field.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/route/sms_route/notice/actions_row_widget.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_notifier.dart';
-import 'package:adsats_amplify_gen_2/route/sms_route/sms_widget.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:adsats_amplify_gen_2/route/sms_route/notice_basic_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -50,13 +43,11 @@ class NoticeToCrewBody extends StatefulWidget {
 }
 
 class _NoticeToCrewBodyState extends State<NoticeToCrewBody> {
-  final formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final authNotifier = Provider.of<AuthNotifier>(context, listen: false);
     final noticeNotifier = Provider.of<NoticeNotifier>(context, listen: false);
+    noticeNotifier.setState = setState;
     return Column(
       children: [
         Container(
@@ -69,93 +60,7 @@ class _NoticeToCrewBodyState extends State<NoticeToCrewBody> {
             ),
           ),
         ),
-        const Divider(),
-        if (authNotifier.isEditor)
-          Row(
-            children: [
-              Expanded(
-                child: GlobalTextFormField(
-                  labelText: 'Notice ID',
-                  enabled: false,
-                  initialValue: noticeNotifier.id,
-                  onSaved: (value) {},
-                ),
-              ),
-              Expanded(
-                child: FutrureDropdownMenu<Staff>(
-                  modelType: Staff.classType,
-                  toList: (allData) => allData
-                      .map((e) => DropdownMenuEntry(value: e, label: e.name))
-                      .toList(),
-                  onSelected: (value) {
-                    noticeNotifier.author = value!;
-                  },
-                  enabled: noticeNotifier.editMode,
-                  initialSelection: noticeNotifier.author,
-                  text: "Author of this notice",
-                ),
-              ),
-            ],
-          ),
-        Row(
-          children: [
-            Expanded(
-              child: DatePickerWidget(
-                text: "Notice Date",
-                onSelected: (value) {
-                  noticeNotifier.noticedAt = value;
-                },
-                enabled: noticeNotifier.editMode,
-                initialValue: noticeNotifier.noticedAt,
-                firstDate:
-                    DateTime.now().subtract(const Duration(days: 365 * 10)),
-                lastDate: DateTime.now(),
-              ),
-            ),
-            Expanded(
-              child: DatePickerWidget(
-                text: "Deadline Date",
-                onSelected: (value) {
-                  noticeNotifier.deadlineAt = value;
-                },
-                enabled: noticeNotifier.editMode,
-                initialValue: noticeNotifier.deadlineAt,
-                firstDate: DateTime.now(),
-                lastDate: DateTime.now().add(const Duration(days: 365 * 10)),
-              ),
-            ),
-          ],
-        ),
-        Row(
-          children: [
-            Expanded(
-              child: GlobalTextFormField(
-                labelText: "Subject",
-                onSaved: (value) {
-                  noticeNotifier.subject = value!;
-                },
-                initialValue: noticeNotifier.subject,
-                enabled: noticeNotifier.editMode,
-              ),
-            ),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.all(8.0),
-                child: DropdownMenu(
-                  dropdownMenuEntries: NoticeStatus.values
-                      .map((e) => DropdownMenuEntry(value: e, label: e.name))
-                      .toList(),
-                  initialSelection: noticeNotifier.status,
-                  enabled: noticeNotifier.editMode,
-                  onSelected: (value) => noticeNotifier.status = value!,
-                  hintText: "Status of this notice",
-                  menuHeight: 200,
-                  expandedInsets: EdgeInsets.zero,
-                ),
-              ),
-            ),
-          ],
-        ),
+        NoticeBasicWidget(),
         const Divider(),
         GlobalTextFormField(
           labelText: "Message",
@@ -285,137 +190,7 @@ class _NoticeToCrewBodyState extends State<NoticeToCrewBody> {
           },
         ),
         const Divider(),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    context.go(SMSWidget.path);
-                  },
-                  label: const Text('Cancel'),
-                ),
-              ),
-              if (noticeNotifier.notice != null)
-                Padding(
-                  padding: EdgeInsets.only(right: 10),
-                  child: FutureBuilder(
-                    future: list(
-                      NoticeStaff.classType,
-                      where: NoticeStaff.STAFF.eq(authNotifier.user.id).and(
-                          NoticeStaff.NOTICE.eq(noticeNotifier.notice!.id)),
-                    ),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        final unreadList = snapshot.data!
-                            .where((element) => element.read_at == null)
-                            .toList();
-                        if (unreadList.isEmpty) {
-                          return ElevatedButton.icon(
-                            onPressed: () {},
-                            label: const Text('You\'ve read this notice'),
-                            icon: Icon(Icons.mark_email_read_outlined),
-                          );
-                        } else {
-                          return ElevatedButton.icon(
-                            onPressed: () async {
-                              await Future.wait(unreadList.map(
-                                (e) => update(e.copyWith(
-                                    read_at: TemporalDateTime.now())),
-                              ));
-                              if (!context.mounted) return;
-                              context.go(SMSWidget.path);
-                            },
-                            label: const Text('Mark as read'),
-                            icon: Icon(Icons.mark_email_unread_outlined),
-                          );
-                        }
-                      }
-                    },
-                  ),
-                ),
-              if (noticeNotifier.notice != null &&
-                  (authNotifier.isEditor || authNotifier.isAdmin))
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        noticeNotifier.editMode = !noticeNotifier.editMode;
-                      });
-                    },
-                    label: noticeNotifier.editMode
-                        ? const Text('View Mode')
-                        : const Text('Edit Mode'),
-                  ),
-                ),
-              if (noticeNotifier.editMode)
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: ElevatedButton.icon(
-                    onPressed: () async {
-                      FilePickerResult? filePickerResult =
-                          await FilePicker.platform.pickFiles(
-                        allowMultiple: true,
-                        type: FileType.any,
-                        withData: false,
-                        // Ensure to get file stream for better performance
-                        withReadStream: true,
-                      );
-                      noticeNotifier.addFiles(filePickerResult?.files ?? []);
-                    },
-                    label: const Text("Pick file"),
-                    icon: Icon(Icons.description_outlined),
-                  ),
-                ),
-              if (noticeNotifier.editMode)
-                Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: ElevatedButton.icon(
-                    onPressed: () async {
-                      await noticeNotifier.saveNotice(false);
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStateProperty.all<Color>(
-                        colorScheme.secondary,
-                      ),
-                    ),
-                    label: Text('Save',
-                        style: TextStyle(color: colorScheme.onSecondary)),
-                    icon: Icon(Icons.mail, color: colorScheme.onSecondary),
-                  ),
-                ),
-              if (noticeNotifier.editMode)
-                ElevatedButton.icon(
-                  onPressed: () async {
-                    await noticeNotifier.saveNotice(true);
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all<Color>(
-                      colorScheme.secondary,
-                    ),
-                  ),
-                  label: Text(
-                    'Submit and Send',
-                    style: TextStyle(color: colorScheme.onSecondary),
-                  ),
-                  icon: Icon(
-                    Icons.mail,
-                    color: colorScheme.onSecondary,
-                  ),
-                ),
-            ],
-          ),
-        ),
+        ActionsRowWidget()
       ],
     );
   }

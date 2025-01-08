@@ -32,6 +32,9 @@ class NoticeNotifier extends ChangeNotifier {
   List<Role> roles = [];
   late List<Staff> recipients;
   List<PlatformFile> selectedFiles = [];
+  void Function(VoidCallback) setState = (f) {
+    throw UnimplementedError();
+  };
 
   NoticeNotifier.noticeToCrew({
     this.notice,
