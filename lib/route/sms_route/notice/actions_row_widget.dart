@@ -80,7 +80,7 @@ class ActionsRowWidget extends StatelessWidget {
               ),
             ),
           if (noticeNotifier.notice != null &&
-              (authNotifier.isEditor || authNotifier.isAdmin))
+              (authNotifier.isSafetyOfficer || authNotifier.isAdmin))
             Padding(
               padding: const EdgeInsets.only(right: 8.0),
               child: ElevatedButton.icon(
@@ -130,7 +130,7 @@ class ActionsRowWidget extends StatelessWidget {
                 icon: Icon(Icons.mail, color: colorScheme.onSecondary),
               ),
             ),
-          if (noticeNotifier.editMode )
+          if (noticeNotifier.editMode)
             ElevatedButton.icon(
               onPressed: () async {
                 await noticeNotifier.saveNotice(true);

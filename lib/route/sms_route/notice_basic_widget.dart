@@ -17,7 +17,7 @@ class NoticeBasicWidget extends StatelessWidget {
     return Column(
       children: [
         const Divider(),
-        if (authNotifier.isEditor)
+        if (authNotifier.isSafetyOfficer)
           Row(
             children: [
               Expanded(

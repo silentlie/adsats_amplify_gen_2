@@ -191,7 +191,6 @@ class _HazardReportWidgetState extends State<HazardReportWidget> {
                     enabled: editMode,
                     initialSelection: false,
                     onSelected: (value) => details["isConfidential"] = value!,
-
                   ),
                 ),
               ],
@@ -572,7 +571,7 @@ class _HazardReportWidgetState extends State<HazardReportWidget> {
         if (widget.notice != null) readButton(context, authNotifier, notice),
         const SizedBox(width: 10),
         if (widget.notice != null &&
-            (authNotifier.isAdmin || authNotifier.isEditor))
+            (authNotifier.isAdmin || authNotifier.isSafetyOfficer))
           ElevatedButton.icon(
             onPressed: () {
               setState(() {

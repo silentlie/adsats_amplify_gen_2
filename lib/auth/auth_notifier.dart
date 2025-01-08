@@ -10,7 +10,7 @@ class AuthNotifier with ChangeNotifier {
   bool isSignedIn = false;
   late Staff user;
   bool isAdmin = false;
-  bool isEditor = false;
+  bool isSafetyOfficer = false;
 
   Future<bool> fetchCognitoAuthSession() async {
     try {
@@ -67,8 +67,8 @@ class AuthNotifier with ChangeNotifier {
     isAdmin = user.roles!.any((role) {
       return role.role!.name == "Admin";
     });
-    isEditor = user.roles!.any((role) {
-      return role.role!.name == "Editor";
+    isSafetyOfficer = user.roles!.any((role) {
+      return role.role!.name == "Safety Officer";
     });
   }
 

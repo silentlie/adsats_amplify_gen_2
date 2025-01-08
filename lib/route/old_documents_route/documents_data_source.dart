@@ -104,7 +104,7 @@ class DocumentsDataSource extends DataTableSource {
           icon: const Icon(Icons.download_outlined),
           tooltip: "Download",
         ),
-        if (authNotifier.isAdmin || authNotifier.isEditor)
+        if (authNotifier.isAdmin || authNotifier.isSafetyOfficer)
           IconButton(
             onPressed: () async {
               await archive(document);

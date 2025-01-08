@@ -119,7 +119,7 @@ class _DocumentsWidgetState extends State<DocumentsWidget> {
           content: SingleChildScrollView(
             child: Column(
               children: [
-                if (authNotifier.isAdmin || authNotifier.isEditor)
+                if (authNotifier.isAdmin || authNotifier.isSafetyOfficer)
                   FutrureDropdownMenu<Staff>(
                     modelType: Staff.classType,
                     toList: (allData) {
@@ -401,7 +401,7 @@ class _DocumentsViewWidgetState extends State<DocumentsViewWidget> {
           icon: const Icon(Icons.download_outlined),
           tooltip: "Download",
         ),
-        if (authNotifier.isAdmin || authNotifier.isEditor)
+        if (authNotifier.isAdmin || authNotifier.isSafetyOfficer)
           IconButton(
             onPressed: () async {
               await archive(document);
@@ -458,7 +458,7 @@ class _DocumentsViewWidgetState extends State<DocumentsViewWidget> {
           content: SingleChildScrollView(
             child: Column(
               children: [
-                if (authNotifier.isAdmin || authNotifier.isEditor)
+                if (authNotifier.isAdmin || authNotifier.isSafetyOfficer)
                   FutrureDropdownMenu<Staff>(
                     modelType: Staff.classType,
                     toList: (allData) {

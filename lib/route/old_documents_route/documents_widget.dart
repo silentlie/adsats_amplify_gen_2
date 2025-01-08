@@ -316,7 +316,7 @@ class _DocumentsDataTable2State extends State<DocumentsDataTable2> {
           content: SingleChildScrollView(
             child: Column(
               children: [
-                if (authNotifier.isAdmin || authNotifier.isEditor)
+                if (authNotifier.isAdmin || authNotifier.isSafetyOfficer)
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: FutrureDropdownMenu<Staff>(
