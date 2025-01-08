@@ -31,7 +31,7 @@ Future<void> uploadFile(PlatformFile file, Notice notice) async {
   }
 }
 
-Future<void> delete(NoticeDocument noticeDocument, Notice notice) async {
+Future<void> deleteFile(NoticeDocument noticeDocument, Notice notice) async {
   try {
     final request = ModelMutations.deleteById(
       NoticeDocument.classType,

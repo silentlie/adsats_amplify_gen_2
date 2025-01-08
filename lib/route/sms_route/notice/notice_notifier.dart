@@ -5,6 +5,7 @@ import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_api.dart';
+import 'package:adsats_amplify_gen_2/route/sms_route/notice/s3.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/sms_widget.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:file_picker/file_picker.dart';
@@ -99,8 +100,8 @@ class NoticeNotifier extends ChangeNotifier {
           },
         ),
         ...selectedFiles.map(
-          (e) {
-            return create(NoticeDocument(name: e.name, notices: newNotice));
+          (file) {
+            return uploadFile(file, newNotice);
           },
         ),
       ]);
@@ -114,10 +115,15 @@ class NoticeNotifier extends ChangeNotifier {
           },
         ),
         ...selectedFiles.map(
-          (e) {
-            return create(NoticeDocument(name: e.name, notices: newNotice));
+          (file) {
+            return uploadFile(file, newNotice);
           },
         ),
+        ...documentsToDelete.map(
+          (document) {
+            return deleteFile(document, newNotice);
+          },
+        )
       ]);
     }
     if (sendNotice) {
