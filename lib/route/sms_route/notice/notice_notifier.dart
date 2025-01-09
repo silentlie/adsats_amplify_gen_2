@@ -128,20 +128,21 @@ class NoticeNotifier extends ChangeNotifier {
     }
     if (sendNotice) {
       final finalRecipients = await fetchJoinRecipients();
-      await Future.wait(
-        finalRecipients.map(
+      await Future.wait([
+        ...finalRecipients.map(
           (e) {
             return create(NoticeStaff(staff: e, notice: newNotice));
           },
         ),
-      );
+        sendEmail(newNotice, finalRecipients),
+      ]);
     }
     if (!context.mounted) return;
     context.go(SMSWidget.path);
   }
 
   Future<Iterable<Staff>> fetchJoinRecipients() async {
-    if (aircraft.isEmpty || roles.isEmpty) return [];
+    if (aircraft.isEmpty || roles.isEmpty) return recipients;
     Map<String, dynamic> aircraftFilter = {
       "or": aircraft
           .map(
@@ -235,6 +236,4 @@ class NoticeNotifier extends ChangeNotifier {
     selectedFiles.remove(file);
     notifyListeners();
   }
-
-
 }

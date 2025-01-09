@@ -130,7 +130,8 @@ class ActionsRowWidget extends StatelessWidget {
                 icon: Icon(Icons.mail, color: colorScheme.onSecondary),
               ),
             ),
-          if (noticeNotifier.editMode && noticeNotifier.status == NoticeStatus.Draft)
+          if (noticeNotifier.editMode &&
+              noticeNotifier.status != NoticeStatus.Draft)
             ElevatedButton.icon(
               onPressed: () async {
                 await noticeNotifier.saveNotice(true);

@@ -64,3 +64,32 @@ Future<void> updateAircraftNotice(
     debugPrint('update aircraft notice failed: $e');
   }
 }
+
+Future<void> sendEmail(Notice notice, Iterable<Staff> staff) async {
+  try {
+    final request = GraphQLRequest<String>(
+      document: sendNoticeEmail,
+      variables: {
+        "subject": notice.subject,
+        "recipients": staff
+            .map(
+              (e) => e.email,
+            )
+            .toList(),
+        "status": notice.status!.name,
+        "type": notice.type!.name,
+        "noticed_at": notice.noticed_at?.toString(),
+        "deadline_at": notice.deadline_at?.toString(),
+        "details": notice.details,
+        "author": notice.author!.name,
+      },
+    );
+    final response = await Amplify.API.query(request: request).response;
+    if (response.errors.isNotEmpty) {
+      throw response.errors.first;
+    }
+    // Map<String, dynamic> jsonMap = json.decode(response.data!);
+  } on ApiException catch (e) {
+    debugPrint('send notice email failed: $e');
+  }
+}
