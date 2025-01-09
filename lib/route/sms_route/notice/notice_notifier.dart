@@ -108,7 +108,7 @@ class NoticeNotifier extends ChangeNotifier {
     } else {
       await Future.wait([
         update(newNotice),
-        updateAircraftNotice(newNotice, aircraft),
+        updateAircraftNotice(notice!, aircraft),
         ...documentsToDelete.map(
           (e) {
             return delete(e);
@@ -141,6 +141,7 @@ class NoticeNotifier extends ChangeNotifier {
   }
 
   Future<Iterable<Staff>> fetchJoinRecipients() async {
+    if (aircraft.isEmpty || roles.isEmpty) return [];
     Map<String, dynamic> aircraftFilter = {
       "or": aircraft
           .map(
@@ -234,4 +235,6 @@ class NoticeNotifier extends ChangeNotifier {
     selectedFiles.remove(file);
     notifyListeners();
   }
+
+
 }

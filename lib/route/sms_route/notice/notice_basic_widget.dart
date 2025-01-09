@@ -94,7 +94,11 @@ class NoticeBasicWidget extends StatelessWidget {
                       .toList(),
                   initialSelection: noticeNotifier.status,
                   enabled: noticeNotifier.editMode,
-                  onSelected: (value) => noticeNotifier.status = value!,
+                  onSelected: (value) {
+                    noticeNotifier.setState(() {
+                      noticeNotifier.status = value!;
+                    });
+                  },
                   hintText: "Status of this notice",
                   menuHeight: 200,
                   expandedInsets: EdgeInsets.zero,

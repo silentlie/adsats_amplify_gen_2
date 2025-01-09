@@ -64,7 +64,7 @@ class _MitigateCommentWidgetState extends State<MitigateCommentWidget> {
               noticeNotifier.details["mitigation"] = value;
             },
             initialValue: noticeNotifier.details["mitigation"],
-            enabled: true,
+            enabled: noticeNotifier.editMode,
             minLines: 3,
           ),
       ],
@@ -93,6 +93,136 @@ class SafetyOfficersSection extends StatelessWidget {
             ),
           ),
         ),
+        GlobalTextFormField(
+          labelText: "Interim Action/Comment",
+          onSaved: (value) {
+            noticeNotifier.details["interim_comment"] = value;
+          },
+          initialValue: noticeNotifier.details["interim_comment"],
+          enabled: noticeNotifier.editMode,
+          maxLines: 3,
+        ),
+        Row(
+          children: [
+            Flexible(
+              child: DatePickerWidget(
+                text: "SRB Review Date",
+                firstDate: DateTime.now().subtract(
+                  const Duration(days: 365 * 10),
+                ),
+                lastDate: DateTime.now().add(
+                  const Duration(days: 365 * 10),
+                ),
+                onSelected: (value) {
+                  noticeNotifier.details["reviewed_at"] = value.toString();
+                },
+                enabled: noticeNotifier.editMode,
+                initialValue: noticeNotifier.details["reviewed_at"] == null
+                    ? null
+                    : TemporalDateTime.fromString(
+                        noticeNotifier.details["reviewed_at"]),
+              ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownMenu(
+                  dropdownMenuEntries: List<DropdownMenuEntry>.generate(
+                    5,
+                    (int index) {
+                      return DropdownMenuEntry(
+                        label: (index + 1).toString(),
+                        value: index,
+                      );
+                    },
+                  ),
+                  enabled: noticeNotifier.editMode,
+                  requestFocusOnTap: false,
+                  initialSelection:
+                      noticeNotifier.details["review_likelihood"] ?? 0,
+                  expandedInsets: EdgeInsets.zero,
+                  label: const Text("Reviewed likelihood"),
+                  onSelected: (value) {
+                    noticeNotifier.details["reviewed_likelihood"] = value;
+                  },
+                ),
+              ),
+            ),
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownMenu(
+                  dropdownMenuEntries: List<DropdownMenuEntry>.generate(
+                    5,
+                    (int index) {
+                      return DropdownMenuEntry(
+                        label: (index + 1).toString(),
+                        value: index,
+                      );
+                    },
+                  ),
+                  enabled: noticeNotifier.editMode,
+                  requestFocusOnTap: false,
+                  initialSelection:
+                      noticeNotifier.details["review_severity"] ?? 0,
+                  expandedInsets: EdgeInsets.zero,
+                  label: const Text("Reviewed severity"),
+                  onSelected: (value) {
+                    noticeNotifier.details["reviewed_severity"] = value;
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+        GlobalTextFormField(
+          labelText: "Additional comments",
+          onSaved: (value) {
+            noticeNotifier.details["additional_comment"] = value;
+          },
+          initialValue: noticeNotifier.details["additional_comment"],
+          enabled: noticeNotifier.editMode,
+          maxLines: 3,
+        ),
+        Row(
+          children: [
+            Flexible(
+              child: DatePickerWidget(
+                text: "Closed date",
+                firstDate: DateTime.now().subtract(
+                  const Duration(days: 365 * 10),
+                ),
+                lastDate: DateTime.now().add(
+                  const Duration(days: 365 * 10),
+                ),
+                onSelected: (value) {
+                  noticeNotifier.details["closed_at"] = value.toString();
+                },
+                enabled: noticeNotifier.editMode,
+                initialValue: noticeNotifier.details["closed_at"] == null
+                    ? null
+                    : TemporalDateTime.fromString(
+                        noticeNotifier.details["closed_at"]),
+              ),
+            ),
+            Flexible(
+              child: FutrureDropdownMenu<Staff>(
+                modelType: Staff.classType,
+                toList: (allData) => allData
+                    .map((e) => DropdownMenuEntry(value: e, label: e.name))
+                    .toList(),
+                onSelected: (value) {
+                  noticeNotifier.author = value!;
+                },
+                enabled: noticeNotifier.editMode,
+                initialSelection: noticeNotifier.details["signature"] == null
+                    ? null
+                    : Staff.fromJson(noticeNotifier.details["signature"]),
+                text: "Safety officer closed this notice",
+              ),
+            ),
+          ],
+        )
       ],
     );
   }
@@ -345,7 +475,7 @@ class _RiskWidgetState extends State<RiskWidget> {
                 child: GlobalTextFormField(
                   labelText: "Risk",
                   onSaved: (value) {},
-                  enabled: true,
+                  enabled: false,
                   readOnly: true,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),

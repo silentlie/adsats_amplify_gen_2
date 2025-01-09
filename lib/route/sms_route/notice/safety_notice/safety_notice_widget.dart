@@ -4,7 +4,7 @@ import 'package:adsats_amplify_gen_2/route/sms_route/notice/actions_row_widget.d
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/documents_view_widget.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_notifier.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_recipients_widget.dart';
-import 'package:adsats_amplify_gen_2/route/sms_route/notice_basic_widget.dart';
+import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_basic_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

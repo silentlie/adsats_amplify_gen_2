@@ -1,10 +1,13 @@
+import 'package:adsats_amplify_gen_2/helper/date_picker_widget.dart';
+import 'package:adsats_amplify_gen_2/helper/futrure_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/helper/global_text_form_field.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/actions_row_widget.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/documents_view_widget.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_notifier.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_recipients_widget.dart';
-import 'package:adsats_amplify_gen_2/route/sms_route/notice_basic_widget.dart';
+import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_basic_widget.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -89,6 +92,8 @@ class _HazardReportBodyState extends State<HazardReportBody> {
                   },
                   hintText: "Is this report confidential?",
                   expandedInsets: EdgeInsets.zero,
+                  initialSelection:
+                      noticeNotifier.details["isConfidential"] ?? false,
                 ),
               ),
             ),
@@ -106,7 +111,6 @@ class _HazardReportBodyState extends State<HazardReportBody> {
         MitigateCommentWidget(),
         RiskWidget(),
         SafetyOfficersSection(),
-        // Add components
         const Divider(),
         NoticeRecipientsWidget(),
         const Divider(),

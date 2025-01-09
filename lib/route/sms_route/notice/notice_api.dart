@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/route/sms_route/notice/s3.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,7 @@ Future<Notice> deleteNotice(Notice notice) async {
       (aircraftNotice) => futures.add(delete(aircraftNotice)),
     );
     returnNotice.documents?.forEach(
-      (noticeDocument) => futures.add(delete(noticeDocument)),
+      (noticeDocument) => futures.add(deleteFile(noticeDocument, notice)),
     );
     futures.add(delete(notice));
     await Future.wait(futures);

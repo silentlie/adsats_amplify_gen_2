@@ -11,10 +11,6 @@ class NoticeRecipientsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final noticeNotifier = Provider.of<NoticeNotifier>(context, listen: false);
-    final isNoticeToCrew = noticeNotifier.type == NoticeType.Notice_to_Crew;
-    final isSafetyOfficerViewed =
-        noticeNotifier.status == NoticeStatus.Resolved ||
-            noticeNotifier.status == NoticeStatus.Pending;
     return Row(
       children: [
         if (noticeNotifier.editMode)
@@ -34,15 +30,7 @@ class NoticeRecipientsWidget extends StatelessWidget {
             ),
           ),
         if (noticeNotifier.editMode &&
-            !isSafetyOfficerViewed &&
-            !isNoticeToCrew)
-          Expanded(
-            child: Center(
-              child: Text("This notice will be sent to Safety officers"),
-            ),
-          ),
-        if (noticeNotifier.editMode &&
-            (isSafetyOfficerViewed || isNoticeToCrew))
+            noticeNotifier.status != NoticeStatus.Draft)
           Expanded(
             child: FutureMultiSelect<Role>(
               modelType: Role.classType,
@@ -59,7 +47,7 @@ class NoticeRecipientsWidget extends StatelessWidget {
             ),
           ),
         if (noticeNotifier.editMode &&
-            (isSafetyOfficerViewed || isNoticeToCrew))
+            noticeNotifier.status != NoticeStatus.Draft)
           Expanded(
             child: FutureMultiSelect<Staff>(
               modelType: Staff.classType,
@@ -77,29 +65,36 @@ class NoticeRecipientsWidget extends StatelessWidget {
           ),
         if (!noticeNotifier.editMode)
           Expanded(
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
               child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text("Aircraft:"),
-                ...noticeNotifier.aircraft.map((e) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Chip(label: Text(e.name)),
-                    ))
-              ],
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text("Aircraft:"),
+                    ...noticeNotifier.aircraft.map((e) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Chip(label: Text(e.name)),
+                        ))
+                  ],
+                ),
+              ),
             ),
-          )),
+          ),
         if (!noticeNotifier.editMode)
           Expanded(
-            child: Row(
-              children: [
-                Text("Recipients:"),
-                ...noticeNotifier.recipients.map((e) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Chip(label: Text(e.name)),
-                    )),
-                if (noticeNotifier.recipients.isEmpty) Text("None"),
-              ],
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Text("Recipients:"),
+                  ...noticeNotifier.recipients.map((e) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Chip(label: Text(e.name)),
+                      )),
+                  if (noticeNotifier.recipients.isEmpty) Text("None"),
+                ],
+              ),
             ),
           ),
       ],

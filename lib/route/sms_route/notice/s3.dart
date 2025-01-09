@@ -14,8 +14,8 @@ Future<void> uploadFile(PlatformFile file, Notice notice) async {
     debugPrint("document.id: $id");
     final result = await Amplify.Storage.uploadFile(
       localFile: AWSFile.fromStream(file.readStream!, size: file.size),
-      path:
-          StoragePath.fromString("crewDocuments/${notice.id}/$id/${file.name}"),
+      path: StoragePath.fromString(
+          "noticeDocuments/${notice.id}/$id/${file.name}"),
       onProgress: (progress) {
         // Optional debug print for progress
         debugPrint('Fraction completed: ${progress.fractionCompleted}');
