@@ -15,13 +15,29 @@ export const handler: Handler = async (event) => {
     author,
     recipients,
   } = event.arguments;
-  const subjectStr = `${type!.replace(/_/g, " ")}: ${subject} [${status}]`;
-  let bodyStr = `Notice Date: ${noticed_at}\nDeadline Date: ${deadline_at}`;
 
-  if (type == "Notice_to_Crew") {
-    bodyStr += `Message: ${JSON.stringify(details)}`;
-    bodyStr += `Type: ${typeof details}`;
+  const subjectStr = `${type!.replace(/_/g, " ")}: ${subject} [${status}]`;
+  let bodyStr = "";
+  if (noticed_at != null) {
+    bodyStr += `Notice Date: ${noticed_at}\n`;
   }
+  if (deadline_at != null) {
+    bodyStr += `Deadline Date: ${deadline_at}\n`;
+  }
+  if (typeof details === "string") {
+    const json = JSON.parse(details);
+    if (type == "Notice_to_Crew") {
+      bodyStr += `Message: ${json["message"]}\n`;
+    } else if (type == "Safety_notice") {
+      bodyStr += `Potential safety risk: ${json["title"]}`;
+      bodyStr += `Message: ${json["message"]}\n`;
+    } else if (type == "Hazard_report") {
+      bodyStr += `Location: ${json["location"]}\n`;
+      bodyStr += `This is a ${json["isConfidential"]} hazard report\n`;
+      bodyStr += `Describe the Hazard or the Event:\n${json["description"]}\n`;
+    }
+  }
+
   const command = new SendEmailCommand({
     FromEmailAddressIdentityArn:
       "arn:aws:ses:ap-southeast-2:891377389351:identity/adsats.com",
