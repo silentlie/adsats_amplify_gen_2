@@ -1,6 +1,5 @@
 import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import type { Schema } from "../../resource";
-import { env } from "$amplify/env/send-notice-email";
 
 type Handler = Schema["sendNoticeEmail"]["functionHandler"];
 const client = new SESv2Client();
