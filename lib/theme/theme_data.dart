@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 // https://api.flutter.dev/flutter/material/ColorScheme-class.html
 // try using ColorScheme.dark()/light()/fromseed()/... because everything is refrence from scoloScheme
 class GlobalThemeData {
-  static final Color _lightFocusColor = Colors.black.withOpacity(0.12);
-  static final Color _darkFocusColor = Colors.white.withOpacity(0.12);
+  static final Color _lightFocusColor = Colors.black.withValues(alpha: 0.12);
+  static final Color _darkFocusColor = Colors.white.withValues(alpha: 0.12);
 
   static ThemeData lightThemeData =
       themeData(lightColorScheme, _lightFocusColor);

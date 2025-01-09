@@ -19,7 +19,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
     return SafeArea(
       child: AppBar(
-        backgroundColor: colorScheme.secondary.withOpacity(0.3),
+        backgroundColor: colorScheme.secondary.withValues(alpha: 0.3),
         leading: Container(
           padding: const EdgeInsets.all(5),
           child: const DefaultLogoWidget(),
@@ -87,7 +87,7 @@ class MenuItemRow extends StatelessWidget {
             // todo: Need to check for cosmetic
             backgroundColor: WidgetStateProperty.all(
               currentUri == item.route
-                  ? colorScheme.primaryContainer.withOpacity(0.25)
+                  ? colorScheme.primaryContainer.withValues(alpha: 0.25)
                   : Colors.transparent,
             ),
           ),

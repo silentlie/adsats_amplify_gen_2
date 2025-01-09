@@ -79,7 +79,9 @@ class SafetyOfficersSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final noticeNotifier = Provider.of<NoticeNotifier>(context, listen: false);
     if (noticeNotifier.status == NoticeStatus.Draft ||
-        noticeNotifier.status == NoticeStatus.Open) return SizedBox();
+        noticeNotifier.status == NoticeStatus.Open) {
+      return SizedBox();
+    }
     return Column(
       children: [
         const Divider(),
