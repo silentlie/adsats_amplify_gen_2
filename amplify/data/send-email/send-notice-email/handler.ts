@@ -19,7 +19,7 @@ export const handler: Handler = async (event) => {
   let bodyStr = `Notice Date: ${noticed_at}\nDeadline Date: ${deadline_at}`;
 
   if (type == "Notice_to_Crew") {
-    bodyStr += `Message: ${details}`;
+    bodyStr += `Message: ${JSON.stringify(details)}`;
     bodyStr += `Type: ${typeof details}`;
   }
   const command = new SendEmailCommand({
