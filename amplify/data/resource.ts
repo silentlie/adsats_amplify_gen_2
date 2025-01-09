@@ -3,75 +3,23 @@ import { createUser } from "./cognito-admin/create-user/resource";
 import { deleteUser } from "./cognito-admin/delete-user/resouce";
 import { enableUser } from "./cognito-admin/enable-user/resouce";
 import { disableUser } from "./cognito-admin/disable-user/resouce";
-import { deleteCategoryOverride } from "./override/delete/delete-category-override/resource";
-import { deleteSubcategoryOverride } from "./override/delete/delete-subcategory-override/resource";
-import { deleteStaffOverride } from "./override/delete/delete-staff-override/resouce";
-import { deleteRoleOverride } from "./override/delete/delete-role-override/resource";
-import { deleteAircraftOverride } from "./override/delete/delete-aricraft-override/resource";
-import { deleteDocumentOverride } from "./override/delete/delete-document-override/resouce";
-import { deleteNoticeDocumentOverride } from "./override/delete/delete-notice-document-override/resource";
-import { deleteNoticeOverride } from "./override/delete/delete-notice-override/resource";
-
+import { sendNoticeEmail } from "./send-email/send-notice-email/resouce";
 
 const schema = a
   .schema({
-    deleteNoticeOverride: a
+    sendNoticeEmail: a
       .mutation()
       .arguments({
-        noticeId: a.id().required(),
+        subject: a.string().required(),
+        type: a.enum(["Notice_to_Crew", "Safety_notice", "Hazard_report"]),
+        status: a.enum(["Draft", "Open", "Pending", "Resolved"]),
+        details: a.json().required(),
+        noticed_at: a.datetime(),
+        deadline_at: a.datetime(),
+        author: a.string(),
+        recipients: a.string().required().array().required(),
       })
-      .handler(a.handler.function(deleteNoticeOverride))
-      .returns(a.json()),
-    deleteNoticeDocumentOverride: a
-      .mutation()
-      .arguments({
-        noticeDocumentId: a.id().required(),
-        noticeDocumentName: a.string().required(),
-      })
-      .handler(a.handler.function(deleteNoticeDocumentOverride))
-      .returns(a.json()),
-    deleteDocumentOverride: a
-      .mutation()
-      .arguments({
-        documentId: a.id().required(),
-        documentName: a.string().required(),
-      })
-      .handler(a.handler.function(deleteDocumentOverride))
-      .returns(a.json()),
-    deleteAircraftOverride: a
-      .mutation()
-      .arguments({
-        aircraftId: a.id().required(),
-      })
-      .handler(a.handler.function(deleteAircraftOverride))
-      .returns(a.json()),
-    deleteRoleOverride: a
-      .mutation()
-      .arguments({
-        roleId: a.id().required(),
-      })
-      .handler(a.handler.function(deleteRoleOverride))
-      .returns(a.json()),
-    deleteStaffOverride: a
-      .mutation()
-      .arguments({
-        staffId: a.id().required(),
-      })
-      .handler(a.handler.function(deleteStaffOverride))
-      .returns(a.json()),
-    deleteSubcategoryOverride: a
-      .mutation()
-      .arguments({
-        subcategoryId: a.id().required(),
-      })
-      .handler(a.handler.function(deleteSubcategoryOverride))
-      .returns(a.json()),
-    deleteCategoryOverride: a
-      .mutation()
-      .arguments({
-        categoryId: a.id().required(),
-      })
-      .handler(a.handler.function(deleteCategoryOverride))
+      .handler(a.handler.function(sendNoticeEmail))
       .returns(a.json()),
     createUser: a
       .mutation()
@@ -226,17 +174,7 @@ const schema = a
       staff: a.belongsTo("Staff", "staffId"),
     }),
   })
-  .authorization((allow) => [
-    allow.authenticated(),
-    allow.resource(deleteCategoryOverride),
-    allow.resource(deleteSubcategoryOverride),
-    allow.resource(deleteStaffOverride),
-    allow.resource(deleteRoleOverride),
-    allow.resource(deleteAircraftOverride),
-    allow.resource(deleteDocumentOverride),
-    allow.resource(deleteNoticeDocumentOverride),
-    allow.resource(deleteNoticeOverride),
-  ]);
+  .authorization((allow) => [allow.authenticated()]);
 
 export type Schema = ClientSchema<typeof schema>;
 

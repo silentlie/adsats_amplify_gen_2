@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/querries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
-import 'package:adsats_amplify_gen_2/models/NoticeStaff.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_notifier.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/sms_widget.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -130,7 +130,7 @@ class ActionsRowWidget extends StatelessWidget {
                 icon: Icon(Icons.mail, color: colorScheme.onSecondary),
               ),
             ),
-          if (noticeNotifier.editMode)
+          if (noticeNotifier.editMode && noticeNotifier.status == NoticeStatus.Draft)
             ElevatedButton.icon(
               onPressed: () async {
                 await noticeNotifier.saveNotice(true);

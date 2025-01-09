@@ -26,6 +26,7 @@
     "typescript": "^5.5.4"
   },
   "dependencies": {
+    "@aws-sdk/client-sesv2": "^3.723.0",
     "amplify": "^0.0.11",
     "aws-amplify": "^6.5.2"
   }
