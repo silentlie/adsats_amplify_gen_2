@@ -191,6 +191,34 @@ class NoticeNotifier extends ChangeNotifier {
     }
   }
 
+  int get risk {
+    return details["likelihood"] + details["severity"];
+  }
+
+  Color getRiskColor() {
+    if (details["likelihood"] == 0 && details["severity"] == 3) {
+      return Colors.green;
+    } else if (risk < 3) {
+      return Colors.green;
+    } else if (risk < 6) {
+      return Colors.amber;
+    } else {
+      return Colors.red;
+    }
+  }
+
+  String getRiskText() {
+    if (details["likelihood"] == 0 && details["severity"] == 3) {
+      return "Acceptable";
+    } else if (risk < 3) {
+      return "Acceptable";
+    } else if (risk < 6) {
+      return "Review";
+    } else {
+      return "Unacceptable";
+    }
+  }
+
   void removeDocument(NoticeDocument document) {
     documents.remove(document);
     documentsToDelete.add(document);

@@ -98,30 +98,266 @@ class SafetyOfficersSection extends StatelessWidget {
   }
 }
 
-class LikelihoodWidget extends StatefulWidget {
-  const LikelihoodWidget({super.key});
+class RiskWidget extends StatefulWidget {
+  const RiskWidget({super.key});
 
   @override
-  State<LikelihoodWidget> createState() => _LikelihoodWidgetState();
+  State<RiskWidget> createState() => _RiskWidgetState();
 }
 
-class _LikelihoodWidgetState extends State<LikelihoodWidget> {
+class _RiskWidgetState extends State<RiskWidget> {
+  final List<Map<String, dynamic>> likelihoodofOccurrence = [
+    {
+      "Definition": "Extremely improbable",
+      "Meaning": "Almost inconceivable that the event will occur",
+      "value": "1"
+    },
+    {
+      "Definition": "Improbable",
+      "Meaning": "Very unlikely to occur",
+      "value": "2"
+    },
+    {
+      "Definition": "Remote",
+      "Meaning": "Unlikely to occur but possible",
+      "value": "3"
+    },
+    {
+      "Definition": "Occassional",
+      "Meaning": "Likely to occur sometimes",
+      "value": "4"
+    },
+    {
+      "Definition": "Frequent",
+      "Meaning": "Likely to occur many time",
+      "value": "5"
+    },
+  ];
+  final List<Map<String, dynamic>> severityOfConsequence = [
+    {
+      "Definition": "Negligible",
+      "Meaning": "Nuisance of little consequences",
+      "Value": "1"
+    },
+    {
+      "Definition": "Minor",
+      "Meaning": "Results in a minor incident",
+      "Value": "2"
+    },
+    {
+      "Definition": "Major",
+      "Meaning": "Serious incident or injury",
+      "Value": "3"
+    },
+    {
+      "Definition": "Hazardous",
+      "Meaning": "Serious injury or major equipment damage",
+      "Value": "4"
+    },
+    {
+      "Definition": "Catastrophic",
+      "Meaning": "Results in an accident, death or equipment destroyed",
+      "Value": "5"
+    },
+  ];
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}
-
-class ConsequenceWidget extends StatefulWidget {
-  const ConsequenceWidget({super.key});
-
-  @override
-  State<ConsequenceWidget> createState() => _ConsequenceWidgetState();
-}
-
-class _ConsequenceWidgetState extends State<ConsequenceWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
+    final noticeNotifier = Provider.of<NoticeNotifier>(context, listen: false);
+    noticeNotifier.details.putIfAbsent(
+      "likelihood",
+      () => 0,
+    );
+    noticeNotifier.details.putIfAbsent(
+      "severity",
+      () => 0,
+    );
+    return Column(
+      children: [
+        Wrap(
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    child: const Text(
+                      'In your opinion, what is the likelihood of the occurrence happening again? Click on the table below.',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  DataTable(
+                    columns: likelihoodofOccurrence.first.keys.map(
+                      (column) {
+                        return DataColumn(
+                          label: Flexible(
+                            child: Center(
+                              child: Text(column),
+                            ),
+                          ),
+                        );
+                      },
+                    ).toList(),
+                    rows: List.generate(
+                      likelihoodofOccurrence.length,
+                      (index) {
+                        Map<String, dynamic> row =
+                            likelihoodofOccurrence[index];
+                        return DataRow(
+                          cells: row.values.map(
+                            (column) {
+                              return DataCell(
+                                Center(
+                                  child: Text(
+                                    column,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              );
+                            },
+                          ).toList(),
+                          selected:
+                              index == noticeNotifier.details["likelihood"],
+                          onSelectChanged: (value) {
+                            if (noticeNotifier.editMode) {
+                              setState(() {
+                                noticeNotifier.details["likelihood"] = index;
+                              });
+                            }
+                          },
+                          color: WidgetStateColor.resolveWith(
+                            (states) {
+                              if (states.contains(WidgetState.selected)) {
+                                return Colors.lightBlue;
+                              } else {
+                                return Colors.transparent;
+                              }
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    showCheckboxColumn: false,
+                    border: TableBorder.all(),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    child: const Text(
+                      'What do you consider to be the worst possible consequence of this event happening? Click on the table below.',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  DataTable(
+                    columns: severityOfConsequence.first.keys.map(
+                      (column) {
+                        return DataColumn(
+                          label: Flexible(
+                            child: Center(
+                              child: Text(column),
+                            ),
+                          ),
+                        );
+                      },
+                    ).toList(),
+                    rows: List.generate(
+                      severityOfConsequence.length,
+                      (index) {
+                        Map<String, dynamic> row = severityOfConsequence[index];
+                        return DataRow(
+                          cells: row.values.map(
+                            (column) {
+                              return DataCell(
+                                Center(
+                                  child: Text(
+                                    column,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              );
+                            },
+                          ).toList(),
+                          selected: index == noticeNotifier.details["severity"],
+                          onSelectChanged: (value) {
+                            if (noticeNotifier.editMode) {
+                              setState(() {
+                                noticeNotifier.details["severity"] = index;
+                              });
+                            }
+                          },
+                          color: WidgetStateColor.resolveWith(
+                            (states) {
+                              if (states.contains(WidgetState.selected)) {
+                                return Colors.lightBlue;
+                              } else {
+                                return Colors.transparent;
+                              }
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    showCheckboxColumn: false,
+                    border: TableBorder.all(),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Text(
+                "Risk Severity:",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              IconButton(
+                icon: const Icon(
+                  Icons.info_outline,
+                ),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      content: Image.asset('risk-severity-chart.png'),
+                    ),
+                  );
+                },
+              ),
+              IntrinsicWidth(
+                child: GlobalTextFormField(
+                  labelText: "Risk",
+                  onSaved: (value) {},
+                  enabled: true,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      fillColor: noticeNotifier.getRiskColor(),
+                      filled: true,
+                      hintText: noticeNotifier.getRiskText()),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

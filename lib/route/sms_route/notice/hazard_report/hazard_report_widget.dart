@@ -104,7 +104,7 @@ class _HazardReportBodyState extends State<HazardReportBody> {
           minLines: 5,
         ),
         MitigateCommentWidget(),
-        // Add components
+        RiskWidget(),
         SafetyOfficersSection(),
         // Add components
         const Divider(),
