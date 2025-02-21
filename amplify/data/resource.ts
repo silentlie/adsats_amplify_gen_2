@@ -191,7 +191,7 @@ const schema = a
       closerId: a.id().required(),
       closer: a.belongsTo("Staff", "closerId"),
       closeAt: a.datetime(),
-      recipients: a.hasMany("ReportStaff", "staffId"),
+      recipients: a.hasMany("ReportStaff", "reportId"),
     }),
     ReportStaff: a
       .model({
