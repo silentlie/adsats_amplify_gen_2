@@ -63,6 +63,9 @@ const schema = a
       roles: a.hasMany("RoleStaff", "staffId"),
       subcategories: a.hasMany("StaffSubcategory", "staffId"),
       crewDocuments: a.hasMany("CrewDocument", "staffId"),
+      reports: a.hasMany("Report", "authorId"),
+      reportNotifications: a.hasMany("ReportStaff", "staffId"),
+      closedReport: a.hasMany("Report", "closerId"),
     }),
     Category: a.model({
       name: a.string().required(),
@@ -93,6 +96,7 @@ const schema = a
       archived: a.boolean().required().default(false),
       description: a.string(),
       staff: a.hasMany("RoleStaff", "roleId"),
+      categories: a.hasMany("CrewDocumentCategory", "roleId"),
     }),
     RoleStaff: a.model({
       roleId: a.id().required(),
@@ -139,8 +143,8 @@ const schema = a
       status: a.enum(["Draft", "Open", "Pending", "Resolved"]),
       archived: a.boolean().required().default(false),
       details: a.json().required(),
-      noticed_at: a.datetime(),
-      deadline_at: a.datetime(),
+      noticedAt: a.datetime(),
+      deadlineAt: a.datetime(),
       staffId: a.id().required(),
       author: a.belongsTo("Staff", "staffId"),
       recipients: a.hasMany("NoticeStaff", "noticeId"),
@@ -148,7 +152,7 @@ const schema = a
       documents: a.hasMany("NoticeDocument", "noticeId"),
     }),
     NoticeStaff: a.model({
-      read_at: a.datetime(),
+      readAt: a.datetime(),
       noticeId: a.id().required(),
       staffId: a.id().required(),
       notice: a.belongsTo("Notice", "noticeId"),
@@ -163,6 +167,8 @@ const schema = a
       name: a.string().required(),
       archived: a.boolean().required().default(false),
       description: a.string(),
+      roleId: a.id().required(),
+      role: a.belongsTo("Role", "roleId"),
       crewDocuments: a.hasMany("CrewDocument", "categoryId"),
     }),
     CrewDocument: a.model({
@@ -173,6 +179,29 @@ const schema = a
       category: a.belongsTo("CrewDocumentCategory", "categoryId"),
       staff: a.belongsTo("Staff", "staffId"),
     }),
+    Report: a.model({
+      subject: a.string().required(),
+      type: a.enum(["External_audit_report", "Internal_audit_report"]),
+      status: a.enum(["Draft", "Open", "Pending", "Closed"]),
+      archived: a.boolean().required().default(false),
+      details: a.json().required(),
+      authorId: a.id().required(),
+      author: a.belongsTo("Staff", "authorId"),
+      reportedAt: a.datetime(),
+      closerId: a.id().required(),
+      closer: a.belongsTo("Staff", "closerId"),
+      closeAt: a.datetime(),
+      recipients: a.hasMany("ReportStaff", "staffId"),
+    }),
+    ReportStaff: a
+      .model({
+        readAt: a.datetime(),
+        reportId: a.id().required(),
+        staffId: a.id().required(),
+        report: a.belongsTo("Report", "reportId"),
+        staff: a.belongsTo("Staff", "staffId"),
+      })
+      .identifier(["reportId", "staffId"]),
   })
   .authorization((allow) => [allow.authenticated()]);
 

@@ -33,6 +33,7 @@ class DocumentsViewWidget extends StatelessWidget {
                 onDeleted: () {
                   noticeNotifier.removeFile(file);
                 },
+                
               );
             },
           ),

@@ -415,7 +415,7 @@ class StaffDataSource extends DataTableSource {
               formKey.currentState!.save();
               if (staff != null) {
                 Staff newStaff = staff.copyWith(
-                  // name: name,
+                  name: name,
                   archived: archived,
                   // email: email,
                 );
