@@ -23,13 +23,12 @@ import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
 
-/** This is an auto generated class representing the CrewDocument type in your schema. */
-class CrewDocument extends amplify_core.Model {
-  static const classType = const _CrewDocumentModelType();
+/** This is an auto generated class representing the ReportStaff type in your schema. */
+class ReportStaff extends amplify_core.Model {
+  static const classType = const _ReportStaffModelType();
   final String id;
-  final String? _name;
-  final bool? _archived;
-  final CrewDocumentCategory? _category;
+  final amplify_core.TemporalDateTime? _readAt;
+  final Report? _report;
   final Staff? _staff;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
@@ -41,40 +40,18 @@ class CrewDocument extends amplify_core.Model {
   @override
   String getId() => id;
   
-  CrewDocumentModelIdentifier get modelIdentifier {
-      return CrewDocumentModelIdentifier(
+  ReportStaffModelIdentifier get modelIdentifier {
+      return ReportStaffModelIdentifier(
         id: id
       );
   }
   
-  String get name {
-    try {
-      return _name!;
-    } catch(e) {
-      throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
+  amplify_core.TemporalDateTime? get readAt {
+    return _readAt;
   }
   
-  bool get archived {
-    try {
-      return _archived!;
-    } catch(e) {
-      throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
-    }
-  }
-  
-  CrewDocumentCategory? get category {
-    return _category;
+  Report? get report {
+    return _report;
   }
   
   Staff? get staff {
@@ -89,14 +66,13 @@ class CrewDocument extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const CrewDocument._internal({required this.id, required name, required archived, category, staff, createdAt, updatedAt}): _name = name, _archived = archived, _category = category, _staff = staff, _createdAt = createdAt, _updatedAt = updatedAt;
+  const ReportStaff._internal({required this.id, readAt, report, staff, createdAt, updatedAt}): _readAt = readAt, _report = report, _staff = staff, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory CrewDocument({String? id, required String name, required bool archived, CrewDocumentCategory? category, Staff? staff}) {
-    return CrewDocument._internal(
+  factory ReportStaff({String? id, amplify_core.TemporalDateTime? readAt, Report? report, Staff? staff}) {
+    return ReportStaff._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
-      name: name,
-      archived: archived,
-      category: category,
+      readAt: readAt,
+      report: report,
       staff: staff);
   }
   
@@ -107,11 +83,10 @@ class CrewDocument extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is CrewDocument &&
+    return other is ReportStaff &&
       id == other.id &&
-      _name == other._name &&
-      _archived == other._archived &&
-      _category == other._category &&
+      _readAt == other._readAt &&
+      _report == other._report &&
       _staff == other._staff;
   }
   
@@ -122,11 +97,10 @@ class CrewDocument extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
     
-    buffer.write("CrewDocument {");
+    buffer.write("ReportStaff {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("name=" + "$_name" + ", ");
-    buffer.write("archived=" + (_archived != null ? _archived!.toString() : "null") + ", ");
-    buffer.write("category=" + (_category != null ? _category!.toString() : "null") + ", ");
+    buffer.write("readAt=" + (_readAt != null ? _readAt!.format() : "null") + ", ");
+    buffer.write("report=" + (_report != null ? _report!.toString() : "null") + ", ");
     buffer.write("staff=" + (_staff != null ? _staff!.toString() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
@@ -135,38 +109,34 @@ class CrewDocument extends amplify_core.Model {
     return buffer.toString();
   }
   
-  CrewDocument copyWith({String? name, bool? archived, CrewDocumentCategory? category, Staff? staff}) {
-    return CrewDocument._internal(
+  ReportStaff copyWith({amplify_core.TemporalDateTime? readAt, Report? report, Staff? staff}) {
+    return ReportStaff._internal(
       id: id,
-      name: name ?? this.name,
-      archived: archived ?? this.archived,
-      category: category ?? this.category,
+      readAt: readAt ?? this.readAt,
+      report: report ?? this.report,
       staff: staff ?? this.staff);
   }
   
-  CrewDocument copyWithModelFieldValues({
-    ModelFieldValue<String>? name,
-    ModelFieldValue<bool>? archived,
-    ModelFieldValue<CrewDocumentCategory?>? category,
+  ReportStaff copyWithModelFieldValues({
+    ModelFieldValue<amplify_core.TemporalDateTime?>? readAt,
+    ModelFieldValue<Report?>? report,
     ModelFieldValue<Staff?>? staff
   }) {
-    return CrewDocument._internal(
+    return ReportStaff._internal(
       id: id,
-      name: name == null ? this.name : name.value,
-      archived: archived == null ? this.archived : archived.value,
-      category: category == null ? this.category : category.value,
+      readAt: readAt == null ? this.readAt : readAt.value,
+      report: report == null ? this.report : report.value,
       staff: staff == null ? this.staff : staff.value
     );
   }
   
-  CrewDocument.fromJson(Map<String, dynamic> json)  
+  ReportStaff.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
-      _name = json['name'],
-      _archived = json['archived'],
-      _category = json['category'] != null
-        ? json['category']['serializedData'] != null
-          ? CrewDocumentCategory.fromJson(new Map<String, dynamic>.from(json['category']['serializedData']))
-          : CrewDocumentCategory.fromJson(new Map<String, dynamic>.from(json['category']))
+      _readAt = json['readAt'] != null ? amplify_core.TemporalDateTime.fromString(json['readAt']) : null,
+      _report = json['report'] != null
+        ? json['report']['serializedData'] != null
+          ? Report.fromJson(new Map<String, dynamic>.from(json['report']['serializedData']))
+          : Report.fromJson(new Map<String, dynamic>.from(json['report']))
         : null,
       _staff = json['staff'] != null
         ? json['staff']['serializedData'] != null
@@ -177,32 +147,30 @@ class CrewDocument extends amplify_core.Model {
       _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'archived': _archived, 'category': _category?.toJson(), 'staff': _staff?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'readAt': _readAt?.format(), 'report': _report?.toJson(), 'staff': _staff?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
     'id': id,
-    'name': _name,
-    'archived': _archived,
-    'category': _category,
+    'readAt': _readAt,
+    'report': _report,
     'staff': _staff,
     'createdAt': _createdAt,
     'updatedAt': _updatedAt
   };
 
-  static final amplify_core.QueryModelIdentifier<CrewDocumentModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<CrewDocumentModelIdentifier>();
+  static final amplify_core.QueryModelIdentifier<ReportStaffModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<ReportStaffModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
-  static final NAME = amplify_core.QueryField(fieldName: "name");
-  static final ARCHIVED = amplify_core.QueryField(fieldName: "archived");
-  static final CATEGORY = amplify_core.QueryField(
-    fieldName: "category",
-    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'CrewDocumentCategory'));
+  static final READAT = amplify_core.QueryField(fieldName: "readAt");
+  static final REPORT = amplify_core.QueryField(
+    fieldName: "report",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Report'));
   static final STAFF = amplify_core.QueryField(
     fieldName: "staff",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Staff'));
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "CrewDocument";
-    modelSchemaDefinition.pluralName = "CrewDocuments";
+    modelSchemaDefinition.name = "ReportStaff";
+    modelSchemaDefinition.pluralName = "ReportStaffs";
     
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
@@ -218,26 +186,20 @@ class CrewDocument extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: CrewDocument.NAME,
-      isRequired: true,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
-    ));
-    
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: CrewDocument.ARCHIVED,
-      isRequired: true,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)
-    ));
-    
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-      key: CrewDocument.CATEGORY,
+      key: ReportStaff.READAT,
       isRequired: false,
-      targetNames: ['categoryId'],
-      ofModelName: 'CrewDocumentCategory'
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-      key: CrewDocument.STAFF,
+      key: ReportStaff.REPORT,
+      isRequired: false,
+      targetNames: ['reportId'],
+      ofModelName: 'Report'
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
+      key: ReportStaff.STAFF,
       isRequired: false,
       targetNames: ['staffId'],
       ofModelName: 'Staff'
@@ -259,29 +221,29 @@ class CrewDocument extends amplify_core.Model {
   });
 }
 
-class _CrewDocumentModelType extends amplify_core.ModelType<CrewDocument> {
-  const _CrewDocumentModelType();
+class _ReportStaffModelType extends amplify_core.ModelType<ReportStaff> {
+  const _ReportStaffModelType();
   
   @override
-  CrewDocument fromJson(Map<String, dynamic> jsonData) {
-    return CrewDocument.fromJson(jsonData);
+  ReportStaff fromJson(Map<String, dynamic> jsonData) {
+    return ReportStaff.fromJson(jsonData);
   }
   
   @override
   String modelName() {
-    return 'CrewDocument';
+    return 'ReportStaff';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [CrewDocument] in your schema.
+ * of [ReportStaff] in your schema.
  */
-class CrewDocumentModelIdentifier implements amplify_core.ModelIdentifier<CrewDocument> {
+class ReportStaffModelIdentifier implements amplify_core.ModelIdentifier<ReportStaff> {
   final String id;
 
-  /** Create an instance of CrewDocumentModelIdentifier using [id] the primary key. */
-  const CrewDocumentModelIdentifier({
+  /** Create an instance of ReportStaffModelIdentifier using [id] the primary key. */
+  const ReportStaffModelIdentifier({
     required this.id});
   
   @override
@@ -299,7 +261,7 @@ class CrewDocumentModelIdentifier implements amplify_core.ModelIdentifier<CrewDo
   String serializeAsString() => serializeAsMap().values.join('#');
   
   @override
-  String toString() => 'CrewDocumentModelIdentifier(id: $id)';
+  String toString() => 'ReportStaffModelIdentifier(id: $id)';
   
   @override
   bool operator ==(Object other) {
@@ -307,7 +269,7 @@ class CrewDocumentModelIdentifier implements amplify_core.ModelIdentifier<CrewDo
       return true;
     }
     
-    return other is CrewDocumentModelIdentifier &&
+    return other is ReportStaffModelIdentifier &&
       id == other.id;
   }
   

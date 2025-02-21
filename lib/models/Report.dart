@@ -24,21 +24,20 @@ import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:collection/collection.dart';
 
 
-/** This is an auto generated class representing the Notice type in your schema. */
-class Notice extends amplify_core.Model {
-  static const classType = const _NoticeModelType();
+/** This is an auto generated class representing the Report type in your schema. */
+class Report extends amplify_core.Model {
+  static const classType = const _ReportModelType();
   final String id;
   final String? _subject;
-  final NoticeType? _type;
-  final NoticeStatus? _status;
+  final ReportType? _type;
+  final ReportStatus? _status;
   final bool? _archived;
   final String? _details;
-  final amplify_core.TemporalDateTime? _noticedAt;
-  final amplify_core.TemporalDateTime? _deadlineAt;
   final Staff? _author;
-  final List<NoticeStaff>? _recipients;
-  final List<AircraftNotice>? _aircraft;
-  final List<NoticeDocument>? _documents;
+  final amplify_core.TemporalDateTime? _reportedAt;
+  final Staff? _closer;
+  final amplify_core.TemporalDateTime? _closeAt;
+  final List<ReportStaff>? _recipients;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -49,8 +48,8 @@ class Notice extends amplify_core.Model {
   @override
   String getId() => id;
   
-  NoticeModelIdentifier get modelIdentifier {
-      return NoticeModelIdentifier(
+  ReportModelIdentifier get modelIdentifier {
+      return ReportModelIdentifier(
         id: id
       );
   }
@@ -68,11 +67,11 @@ class Notice extends amplify_core.Model {
     }
   }
   
-  NoticeType? get type {
+  ReportType? get type {
     return _type;
   }
   
-  NoticeStatus? get status {
+  ReportStatus? get status {
     return _status;
   }
   
@@ -102,28 +101,24 @@ class Notice extends amplify_core.Model {
     }
   }
   
-  amplify_core.TemporalDateTime? get noticedAt {
-    return _noticedAt;
-  }
-  
-  amplify_core.TemporalDateTime? get deadlineAt {
-    return _deadlineAt;
-  }
-  
   Staff? get author {
     return _author;
   }
   
-  List<NoticeStaff>? get recipients {
+  amplify_core.TemporalDateTime? get reportedAt {
+    return _reportedAt;
+  }
+  
+  Staff? get closer {
+    return _closer;
+  }
+  
+  amplify_core.TemporalDateTime? get closeAt {
+    return _closeAt;
+  }
+  
+  List<ReportStaff>? get recipients {
     return _recipients;
-  }
-  
-  List<AircraftNotice>? get aircraft {
-    return _aircraft;
-  }
-  
-  List<NoticeDocument>? get documents {
-    return _documents;
   }
   
   amplify_core.TemporalDateTime? get createdAt {
@@ -134,22 +129,21 @@ class Notice extends amplify_core.Model {
     return _updatedAt;
   }
   
-  const Notice._internal({required this.id, required subject, type, status, required archived, required details, noticedAt, deadlineAt, author, recipients, aircraft, documents, createdAt, updatedAt}): _subject = subject, _type = type, _status = status, _archived = archived, _details = details, _noticedAt = noticedAt, _deadlineAt = deadlineAt, _author = author, _recipients = recipients, _aircraft = aircraft, _documents = documents, _createdAt = createdAt, _updatedAt = updatedAt;
+  const Report._internal({required this.id, required subject, type, status, required archived, required details, author, reportedAt, closer, closeAt, recipients, createdAt, updatedAt}): _subject = subject, _type = type, _status = status, _archived = archived, _details = details, _author = author, _reportedAt = reportedAt, _closer = closer, _closeAt = closeAt, _recipients = recipients, _createdAt = createdAt, _updatedAt = updatedAt;
   
-  factory Notice({String? id, required String subject, NoticeType? type, NoticeStatus? status, required bool archived, required String details, amplify_core.TemporalDateTime? noticedAt, amplify_core.TemporalDateTime? deadlineAt, Staff? author, List<NoticeStaff>? recipients, List<AircraftNotice>? aircraft, List<NoticeDocument>? documents}) {
-    return Notice._internal(
+  factory Report({String? id, required String subject, ReportType? type, ReportStatus? status, required bool archived, required String details, Staff? author, amplify_core.TemporalDateTime? reportedAt, Staff? closer, amplify_core.TemporalDateTime? closeAt, List<ReportStaff>? recipients}) {
+    return Report._internal(
       id: id == null ? amplify_core.UUID.getUUID() : id,
       subject: subject,
       type: type,
       status: status,
       archived: archived,
       details: details,
-      noticedAt: noticedAt,
-      deadlineAt: deadlineAt,
       author: author,
-      recipients: recipients != null ? List<NoticeStaff>.unmodifiable(recipients) : recipients,
-      aircraft: aircraft != null ? List<AircraftNotice>.unmodifiable(aircraft) : aircraft,
-      documents: documents != null ? List<NoticeDocument>.unmodifiable(documents) : documents);
+      reportedAt: reportedAt,
+      closer: closer,
+      closeAt: closeAt,
+      recipients: recipients != null ? List<ReportStaff>.unmodifiable(recipients) : recipients);
   }
   
   bool equals(Object other) {
@@ -159,19 +153,18 @@ class Notice extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Notice &&
+    return other is Report &&
       id == other.id &&
       _subject == other._subject &&
       _type == other._type &&
       _status == other._status &&
       _archived == other._archived &&
       _details == other._details &&
-      _noticedAt == other._noticedAt &&
-      _deadlineAt == other._deadlineAt &&
       _author == other._author &&
-      DeepCollectionEquality().equals(_recipients, other._recipients) &&
-      DeepCollectionEquality().equals(_aircraft, other._aircraft) &&
-      DeepCollectionEquality().equals(_documents, other._documents);
+      _reportedAt == other._reportedAt &&
+      _closer == other._closer &&
+      _closeAt == other._closeAt &&
+      DeepCollectionEquality().equals(_recipients, other._recipients);
   }
   
   @override
@@ -181,16 +174,17 @@ class Notice extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
     
-    buffer.write("Notice {");
+    buffer.write("Report {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("subject=" + "$_subject" + ", ");
     buffer.write("type=" + (_type != null ? amplify_core.enumToString(_type)! : "null") + ", ");
     buffer.write("status=" + (_status != null ? amplify_core.enumToString(_status)! : "null") + ", ");
     buffer.write("archived=" + (_archived != null ? _archived!.toString() : "null") + ", ");
     buffer.write("details=" + "$_details" + ", ");
-    buffer.write("noticedAt=" + (_noticedAt != null ? _noticedAt!.format() : "null") + ", ");
-    buffer.write("deadlineAt=" + (_deadlineAt != null ? _deadlineAt!.format() : "null") + ", ");
     buffer.write("author=" + (_author != null ? _author!.toString() : "null") + ", ");
+    buffer.write("reportedAt=" + (_reportedAt != null ? _reportedAt!.format() : "null") + ", ");
+    buffer.write("closer=" + (_closer != null ? _closer!.toString() : "null") + ", ");
+    buffer.write("closeAt=" + (_closeAt != null ? _closeAt!.format() : "null") + ", ");
     buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
     buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
@@ -198,109 +192,85 @@ class Notice extends amplify_core.Model {
     return buffer.toString();
   }
   
-  Notice copyWith({String? subject, NoticeType? type, NoticeStatus? status, bool? archived, String? details, amplify_core.TemporalDateTime? noticedAt, amplify_core.TemporalDateTime? deadlineAt, Staff? author, List<NoticeStaff>? recipients, List<AircraftNotice>? aircraft, List<NoticeDocument>? documents}) {
-    return Notice._internal(
+  Report copyWith({String? subject, ReportType? type, ReportStatus? status, bool? archived, String? details, Staff? author, amplify_core.TemporalDateTime? reportedAt, Staff? closer, amplify_core.TemporalDateTime? closeAt, List<ReportStaff>? recipients}) {
+    return Report._internal(
       id: id,
       subject: subject ?? this.subject,
       type: type ?? this.type,
       status: status ?? this.status,
       archived: archived ?? this.archived,
       details: details ?? this.details,
-      noticedAt: noticedAt ?? this.noticedAt,
-      deadlineAt: deadlineAt ?? this.deadlineAt,
       author: author ?? this.author,
-      recipients: recipients ?? this.recipients,
-      aircraft: aircraft ?? this.aircraft,
-      documents: documents ?? this.documents);
+      reportedAt: reportedAt ?? this.reportedAt,
+      closer: closer ?? this.closer,
+      closeAt: closeAt ?? this.closeAt,
+      recipients: recipients ?? this.recipients);
   }
   
-  Notice copyWithModelFieldValues({
+  Report copyWithModelFieldValues({
     ModelFieldValue<String>? subject,
-    ModelFieldValue<NoticeType?>? type,
-    ModelFieldValue<NoticeStatus?>? status,
+    ModelFieldValue<ReportType?>? type,
+    ModelFieldValue<ReportStatus?>? status,
     ModelFieldValue<bool>? archived,
     ModelFieldValue<String>? details,
-    ModelFieldValue<amplify_core.TemporalDateTime?>? noticedAt,
-    ModelFieldValue<amplify_core.TemporalDateTime?>? deadlineAt,
     ModelFieldValue<Staff?>? author,
-    ModelFieldValue<List<NoticeStaff>?>? recipients,
-    ModelFieldValue<List<AircraftNotice>?>? aircraft,
-    ModelFieldValue<List<NoticeDocument>?>? documents
+    ModelFieldValue<amplify_core.TemporalDateTime?>? reportedAt,
+    ModelFieldValue<Staff?>? closer,
+    ModelFieldValue<amplify_core.TemporalDateTime?>? closeAt,
+    ModelFieldValue<List<ReportStaff>?>? recipients
   }) {
-    return Notice._internal(
+    return Report._internal(
       id: id,
       subject: subject == null ? this.subject : subject.value,
       type: type == null ? this.type : type.value,
       status: status == null ? this.status : status.value,
       archived: archived == null ? this.archived : archived.value,
       details: details == null ? this.details : details.value,
-      noticedAt: noticedAt == null ? this.noticedAt : noticedAt.value,
-      deadlineAt: deadlineAt == null ? this.deadlineAt : deadlineAt.value,
       author: author == null ? this.author : author.value,
-      recipients: recipients == null ? this.recipients : recipients.value,
-      aircraft: aircraft == null ? this.aircraft : aircraft.value,
-      documents: documents == null ? this.documents : documents.value
+      reportedAt: reportedAt == null ? this.reportedAt : reportedAt.value,
+      closer: closer == null ? this.closer : closer.value,
+      closeAt: closeAt == null ? this.closeAt : closeAt.value,
+      recipients: recipients == null ? this.recipients : recipients.value
     );
   }
   
-  Notice.fromJson(Map<String, dynamic> json)  
+  Report.fromJson(Map<String, dynamic> json)  
     : id = json['id'],
       _subject = json['subject'],
-      _type = amplify_core.enumFromString<NoticeType>(json['type'], NoticeType.values),
-      _status = amplify_core.enumFromString<NoticeStatus>(json['status'], NoticeStatus.values),
+      _type = amplify_core.enumFromString<ReportType>(json['type'], ReportType.values),
+      _status = amplify_core.enumFromString<ReportStatus>(json['status'], ReportStatus.values),
       _archived = json['archived'],
       _details = json['details'],
-      _noticedAt = json['noticedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['noticedAt']) : null,
-      _deadlineAt = json['deadlineAt'] != null ? amplify_core.TemporalDateTime.fromString(json['deadlineAt']) : null,
       _author = json['author'] != null
         ? json['author']['serializedData'] != null
           ? Staff.fromJson(new Map<String, dynamic>.from(json['author']['serializedData']))
           : Staff.fromJson(new Map<String, dynamic>.from(json['author']))
         : null,
+      _reportedAt = json['reportedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['reportedAt']) : null,
+      _closer = json['closer'] != null
+        ? json['closer']['serializedData'] != null
+          ? Staff.fromJson(new Map<String, dynamic>.from(json['closer']['serializedData']))
+          : Staff.fromJson(new Map<String, dynamic>.from(json['closer']))
+        : null,
+      _closeAt = json['closeAt'] != null ? amplify_core.TemporalDateTime.fromString(json['closeAt']) : null,
       _recipients = json['recipients']  is Map
         ? (json['recipients']['items'] is List
           ? (json['recipients']['items'] as List)
               .where((e) => e != null)
-              .map((e) => NoticeStaff.fromJson(new Map<String, dynamic>.from(e)))
+              .map((e) => ReportStaff.fromJson(new Map<String, dynamic>.from(e)))
               .toList()
           : null)
         : (json['recipients'] is List
           ? (json['recipients'] as List)
               .where((e) => e?['serializedData'] != null)
-              .map((e) => NoticeStaff.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
-              .toList()
-          : null),
-      _aircraft = json['aircraft']  is Map
-        ? (json['aircraft']['items'] is List
-          ? (json['aircraft']['items'] as List)
-              .where((e) => e != null)
-              .map((e) => AircraftNotice.fromJson(new Map<String, dynamic>.from(e)))
-              .toList()
-          : null)
-        : (json['aircraft'] is List
-          ? (json['aircraft'] as List)
-              .where((e) => e?['serializedData'] != null)
-              .map((e) => AircraftNotice.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
-              .toList()
-          : null),
-      _documents = json['documents']  is Map
-        ? (json['documents']['items'] is List
-          ? (json['documents']['items'] as List)
-              .where((e) => e != null)
-              .map((e) => NoticeDocument.fromJson(new Map<String, dynamic>.from(e)))
-              .toList()
-          : null)
-        : (json['documents'] is List
-          ? (json['documents'] as List)
-              .where((e) => e?['serializedData'] != null)
-              .map((e) => NoticeDocument.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .map((e) => ReportStaff.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
               .toList()
           : null),
       _createdAt = json['createdAt'] != null ? amplify_core.TemporalDateTime.fromString(json['createdAt']) : null,
       _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
   
   Map<String, dynamic> toJson() => {
-    'id': id, 'subject': _subject, 'type': amplify_core.enumToString(_type), 'status': amplify_core.enumToString(_status), 'archived': _archived, 'details': _details, 'noticedAt': _noticedAt?.format(), 'deadlineAt': _deadlineAt?.format(), 'author': _author?.toJson(), 'recipients': _recipients?.map((NoticeStaff? e) => e?.toJson()).toList(), 'aircraft': _aircraft?.map((AircraftNotice? e) => e?.toJson()).toList(), 'documents': _documents?.map((NoticeDocument? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+    'id': id, 'subject': _subject, 'type': amplify_core.enumToString(_type), 'status': amplify_core.enumToString(_status), 'archived': _archived, 'details': _details, 'author': _author?.toJson(), 'reportedAt': _reportedAt?.format(), 'closer': _closer?.toJson(), 'closeAt': _closeAt?.format(), 'recipients': _recipients?.map((ReportStaff? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
   };
   
   Map<String, Object?> toMap() => {
@@ -310,40 +280,36 @@ class Notice extends amplify_core.Model {
     'status': _status,
     'archived': _archived,
     'details': _details,
-    'noticedAt': _noticedAt,
-    'deadlineAt': _deadlineAt,
     'author': _author,
+    'reportedAt': _reportedAt,
+    'closer': _closer,
+    'closeAt': _closeAt,
     'recipients': _recipients,
-    'aircraft': _aircraft,
-    'documents': _documents,
     'createdAt': _createdAt,
     'updatedAt': _updatedAt
   };
 
-  static final amplify_core.QueryModelIdentifier<NoticeModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<NoticeModelIdentifier>();
+  static final amplify_core.QueryModelIdentifier<ReportModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<ReportModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final SUBJECT = amplify_core.QueryField(fieldName: "subject");
   static final TYPE = amplify_core.QueryField(fieldName: "type");
   static final STATUS = amplify_core.QueryField(fieldName: "status");
   static final ARCHIVED = amplify_core.QueryField(fieldName: "archived");
   static final DETAILS = amplify_core.QueryField(fieldName: "details");
-  static final NOTICEDAT = amplify_core.QueryField(fieldName: "noticedAt");
-  static final DEADLINEAT = amplify_core.QueryField(fieldName: "deadlineAt");
   static final AUTHOR = amplify_core.QueryField(
     fieldName: "author",
     fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Staff'));
+  static final REPORTEDAT = amplify_core.QueryField(fieldName: "reportedAt");
+  static final CLOSER = amplify_core.QueryField(
+    fieldName: "closer",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Staff'));
+  static final CLOSEAT = amplify_core.QueryField(fieldName: "closeAt");
   static final RECIPIENTS = amplify_core.QueryField(
     fieldName: "recipients",
-    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'NoticeStaff'));
-  static final AIRCRAFT = amplify_core.QueryField(
-    fieldName: "aircraft",
-    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'AircraftNotice'));
-  static final DOCUMENTS = amplify_core.QueryField(
-    fieldName: "documents",
-    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'NoticeDocument'));
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'ReportStaff'));
   static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Notice";
-    modelSchemaDefinition.pluralName = "Notices";
+    modelSchemaDefinition.name = "Report";
+    modelSchemaDefinition.pluralName = "Reports";
     
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
@@ -359,73 +325,66 @@ class Notice extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Notice.SUBJECT,
+      key: Report.SUBJECT,
       isRequired: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Notice.TYPE,
+      key: Report.TYPE,
       isRequired: false,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.enumeration)
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Notice.STATUS,
+      key: Report.STATUS,
       isRequired: false,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.enumeration)
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Notice.ARCHIVED,
+      key: Report.ARCHIVED,
       isRequired: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Notice.DETAILS,
+      key: Report.DETAILS,
       isRequired: true,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Notice.NOTICEDAT,
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
+      key: Report.AUTHOR,
       isRequired: false,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
+      targetNames: ['authorId'],
+      ofModelName: 'Staff'
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: Notice.DEADLINEAT,
+      key: Report.REPORTEDAT,
       isRequired: false,
       ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-      key: Notice.AUTHOR,
+      key: Report.CLOSER,
       isRequired: false,
-      targetNames: ['staffId'],
+      targetNames: ['closerId'],
       ofModelName: 'Staff'
     ));
     
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-      key: Notice.RECIPIENTS,
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+      key: Report.CLOSEAT,
       isRequired: false,
-      ofModelName: 'NoticeStaff',
-      associatedKey: NoticeStaff.NOTICE
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-      key: Notice.AIRCRAFT,
+      key: Report.RECIPIENTS,
       isRequired: false,
-      ofModelName: 'AircraftNotice',
-      associatedKey: AircraftNotice.NOTICE
-    ));
-    
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-      key: Notice.DOCUMENTS,
-      isRequired: false,
-      ofModelName: 'NoticeDocument',
-      associatedKey: NoticeDocument.NOTICES
+      ofModelName: 'ReportStaff',
+      associatedKey: ReportStaff.REPORT
     ));
     
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
@@ -444,29 +403,29 @@ class Notice extends amplify_core.Model {
   });
 }
 
-class _NoticeModelType extends amplify_core.ModelType<Notice> {
-  const _NoticeModelType();
+class _ReportModelType extends amplify_core.ModelType<Report> {
+  const _ReportModelType();
   
   @override
-  Notice fromJson(Map<String, dynamic> jsonData) {
-    return Notice.fromJson(jsonData);
+  Report fromJson(Map<String, dynamic> jsonData) {
+    return Report.fromJson(jsonData);
   }
   
   @override
   String modelName() {
-    return 'Notice';
+    return 'Report';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [Notice] in your schema.
+ * of [Report] in your schema.
  */
-class NoticeModelIdentifier implements amplify_core.ModelIdentifier<Notice> {
+class ReportModelIdentifier implements amplify_core.ModelIdentifier<Report> {
   final String id;
 
-  /** Create an instance of NoticeModelIdentifier using [id] the primary key. */
-  const NoticeModelIdentifier({
+  /** Create an instance of ReportModelIdentifier using [id] the primary key. */
+  const ReportModelIdentifier({
     required this.id});
   
   @override
@@ -484,7 +443,7 @@ class NoticeModelIdentifier implements amplify_core.ModelIdentifier<Notice> {
   String serializeAsString() => serializeAsMap().values.join('#');
   
   @override
-  String toString() => 'NoticeModelIdentifier(id: $id)';
+  String toString() => 'ReportModelIdentifier(id: $id)';
   
   @override
   bool operator ==(Object other) {
@@ -492,7 +451,7 @@ class NoticeModelIdentifier implements amplify_core.ModelIdentifier<Notice> {
       return true;
     }
     
-    return other is NoticeModelIdentifier &&
+    return other is ReportModelIdentifier &&
       id == other.id;
   }
   

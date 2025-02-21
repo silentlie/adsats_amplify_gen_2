@@ -36,7 +36,7 @@ class _OutboxDataTable2State extends State<OutboxDataTable2> {
   bool _sortAscending = false;
   int _sortColumnIndex = 3;
   Comparable Function(Notice notice) getField = (notice) {
-    return notice.noticed_at ?? notice.createdAt!;
+    return notice.noticedAt ?? notice.createdAt!;
   };
 
   get header {
@@ -164,7 +164,7 @@ class _OutboxDataTable2State extends State<OutboxDataTable2> {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
             getField = (notice) {
-              return notice.noticed_at ?? notice.createdAt!;
+              return notice.noticedAt ?? notice.createdAt!;
             };
           });
         },
@@ -177,7 +177,7 @@ class _OutboxDataTable2State extends State<OutboxDataTable2> {
             _sortColumnIndex = columnIndex;
             _sortAscending = ascending;
             getField = (notice) {
-              return notice.deadline_at ?? notice.createdAt!;
+              return notice.deadlineAt ?? notice.createdAt!;
             };
           });
         },

@@ -14,8 +14,8 @@ const schema = a
         type: a.enum(["Notice_to_Crew", "Safety_notice", "Hazard_report"]),
         status: a.enum(["Draft", "Open", "Pending", "Resolved"]),
         details: a.json().required(),
-        noticed_at: a.datetime(),
-        deadline_at: a.datetime(),
+        noticedAt: a.datetime(),
+        deadlineAt: a.datetime(),
         author: a.string(),
         recipients: a.string().required().array().required(),
       })

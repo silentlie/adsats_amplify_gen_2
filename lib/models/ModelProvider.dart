@@ -31,6 +31,8 @@ import 'Document.dart';
 import 'Notice.dart';
 import 'NoticeDocument.dart';
 import 'NoticeStaff.dart';
+import 'Report.dart';
+import 'ReportStaff.dart';
 import 'Role.dart';
 import 'RoleStaff.dart';
 import 'Staff.dart';
@@ -50,42 +52,31 @@ export 'NoticeDocument.dart';
 export 'NoticeStaff.dart';
 export 'NoticeStatus.dart';
 export 'NoticeType.dart';
+export 'Report.dart';
+export 'ReportStaff.dart';
+export 'ReportStatus.dart';
+export 'ReportType.dart';
 export 'Role.dart';
 export 'RoleStaff.dart';
+export 'SendNoticeEmailStatus.dart';
+export 'SendNoticeEmailType.dart';
 export 'Staff.dart';
 export 'StaffSubcategory.dart';
 export 'Subcategory.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "1943b0c6b9b2cb4d2297f7d6dc8910a4";
+  String version = "940b5ec87da15ed06d34434eecfaf3af";
   @override
-  List<amplify_core.ModelSchema> modelSchemas = [
-    Aircraft.schema,
-    AircraftDocument.schema,
-    AircraftNotice.schema,
-    AircraftStaff.schema,
-    Category.schema,
-    CrewDocument.schema,
-    CrewDocumentCategory.schema,
-    Document.schema,
-    Notice.schema,
-    NoticeDocument.schema,
-    NoticeStaff.schema,
-    Role.schema,
-    RoleStaff.schema,
-    Staff.schema,
-    StaffSubcategory.schema,
-    Subcategory.schema
-  ];
+  List<amplify_core.ModelSchema> modelSchemas = [Aircraft.schema, AircraftDocument.schema, AircraftNotice.schema, AircraftStaff.schema, Category.schema, CrewDocument.schema, CrewDocumentCategory.schema, Document.schema, Notice.schema, NoticeDocument.schema, NoticeStaff.schema, Report.schema, ReportStaff.schema, Role.schema, RoleStaff.schema, Staff.schema, StaffSubcategory.schema, Subcategory.schema];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [];
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
-
+  
   amplify_core.ModelType getModelTypeByModelName(String modelName) {
-    switch (modelName) {
+    switch(modelName) {
       case "Aircraft":
         return Aircraft.classType;
       case "AircraftDocument":
@@ -108,6 +99,10 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return NoticeDocument.classType;
       case "NoticeStaff":
         return NoticeStaff.classType;
+      case "Report":
+        return Report.classType;
+      case "ReportStaff":
+        return ReportStaff.classType;
       case "Role":
         return Role.classType;
       case "RoleStaff":
@@ -119,12 +114,11 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
       case "Subcategory":
         return Subcategory.classType;
       default:
-        throw Exception(
-            "Failed to find model in model provider for model name: " +
-                modelName);
+        throw Exception("Failed to find model in model provider for model name: " + modelName);
     }
   }
 }
+
 
 class ModelFieldValue<T> {
   const ModelFieldValue.value(this.value);

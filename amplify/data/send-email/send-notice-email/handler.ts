@@ -10,19 +10,19 @@ export const handler: Handler = async (event) => {
     type,
     status,
     details,
-    noticed_at,
-    deadline_at,
+    noticedAt,
+    deadlineAt,
     author,
     recipients,
   } = event.arguments;
 
   const subjectStr = `${type!.replace(/_/g, " ")}: ${subject} [${status}]`;
   let bodyStr = "";
-  if (noticed_at != null) {
-    bodyStr += `Notice Date: ${noticed_at}\n`;
+  if (noticedAt != null) {
+    bodyStr += `Notice Date: ${noticedAt}\n`;
   }
-  if (deadline_at != null) {
-    bodyStr += `Deadline Date: ${deadline_at}\n`;
+  if (deadlineAt != null) {
+    bodyStr += `Deadline Date: ${deadlineAt}\n`;
   }
   if (typeof details === "string") {
     const json = JSON.parse(details);

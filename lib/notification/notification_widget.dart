@@ -37,7 +37,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
   Widget build(BuildContext context) {
     AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
     notifications = authNotifier.user.notifications
-            ?.where((element) => element.read_at == null)
+            ?.where((element) => element.readAt == null)
             .map(
           (e) {
             return ListTile(

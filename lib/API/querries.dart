@@ -106,8 +106,8 @@ query ListNotices(\$filter: ModelNoticeFilterInput) {
       subject
       status
       archived
-      noticed_at
-      deadline_at
+      noticedAt
+      deadlineAt
       createdAt
       updatedAt
       details
@@ -157,8 +157,8 @@ query GetNoticeDetails(\$id: ID!) {
     subject
     status
     archived
-    noticed_at
-    deadline_at
+    noticedAt
+    deadlineAt
     details
     author {
       id
@@ -425,13 +425,13 @@ query GetStaff(\$id: ID!) {
         }
       }
     }
-    notifications(filter: {read_at: {eq: null}}) {
+    notifications(filter: {readAt: {eq: null}}) {
       items {
         id
         notice {
           id
           archived
-          deadline_at
+          deadlineAt
           status
           subject
           type

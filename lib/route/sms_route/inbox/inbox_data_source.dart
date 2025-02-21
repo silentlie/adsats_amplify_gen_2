@@ -72,18 +72,18 @@ class InboxDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            notice.noticed_at != null
+            notice.noticedAt != null
                 ? DateFormat('dd/MM/yyyy').format(
-                    notice.noticed_at!.getDateTimeInUtc(),
+                    notice.noticedAt!.getDateTimeInUtc(),
                   )
                 : "",
           ),
         ),
         DataCell(
           getCenterText(
-            notice.deadline_at != null
+            notice.deadlineAt != null
                 ? DateFormat('dd/MM/yyyy').format(
-                    notice.deadline_at!.getDateTimeInUtc(),
+                    notice.deadlineAt!.getDateTimeInUtc(),
                   )
                 : "",
           ),

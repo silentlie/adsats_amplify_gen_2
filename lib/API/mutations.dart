@@ -3,15 +3,15 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
 const sendNoticeEmail = '''
-mutation SendNoticeEmail(\$subject: String!, \$recipients: [String!]!, \$status: SendNoticeEmailStatus!, \$type: SendNoticeEmailType!, \$noticed_at: AWSDateTime, \$details: AWSJSON!, \$deadline_at: AWSDateTime, \$author: String) {
+mutation SendNoticeEmail(\$subject: String!, \$recipients: [String!]!, \$status: SendNoticeEmailStatus!, \$type: SendNoticeEmailType!, \$noticedAt: AWSDateTime, \$details: AWSJSON!, \$deadlineAt: AWSDateTime, \$author: String) {
   sendNoticeEmail(
     details: \$details
     recipients: \$recipients
     subject: \$subject
     status: \$status
     type: \$type
-    noticed_at: \$noticed_at
-    deadline_at: \$deadline_at
+    noticedAt: \$noticedAt
+    deadlineAt: \$deadlineAt
     author: \$author
   )
 }

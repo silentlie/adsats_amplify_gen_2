@@ -116,13 +116,13 @@ class SafetyOfficersSection extends StatelessWidget {
                   const Duration(days: 365 * 10),
                 ),
                 onSelected: (value) {
-                  noticeNotifier.details["reviewed_at"] = value.toString();
+                  noticeNotifier.details["reviewedAt"] = value.toString();
                 },
                 enabled: noticeNotifier.editMode,
-                initialValue: noticeNotifier.details["reviewed_at"] == null
+                initialValue: noticeNotifier.details["reviewedAt"] == null
                     ? null
                     : TemporalDateTime.fromString(
-                        noticeNotifier.details["reviewed_at"]),
+                        noticeNotifier.details["reviewedAt"]),
               ),
             ),
             Flexible(
@@ -198,13 +198,13 @@ class SafetyOfficersSection extends StatelessWidget {
                   const Duration(days: 365 * 10),
                 ),
                 onSelected: (value) {
-                  noticeNotifier.details["closed_at"] = value.toString();
+                  noticeNotifier.details["closedAt"] = value.toString();
                 },
                 enabled: noticeNotifier.editMode,
-                initialValue: noticeNotifier.details["closed_at"] == null
+                initialValue: noticeNotifier.details["closedAt"] == null
                     ? null
                     : TemporalDateTime.fromString(
-                        noticeNotifier.details["closed_at"]),
+                        noticeNotifier.details["closedAt"]),
               ),
             ),
             Flexible(

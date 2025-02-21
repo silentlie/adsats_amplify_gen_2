@@ -53,7 +53,7 @@ class ActionsRowWidget extends StatelessWidget {
                     return Text('Error: ${snapshot.error}');
                   } else {
                     final unreadList = snapshot.data!
-                        .where((element) => element.read_at == null)
+                        .where((element) => element.readAt == null)
                         .toList();
                     if (unreadList.isEmpty) {
                       return ElevatedButton.icon(
@@ -66,7 +66,7 @@ class ActionsRowWidget extends StatelessWidget {
                         onPressed: () async {
                           await Future.wait(unreadList.map(
                             (e) => update(
-                                e.copyWith(read_at: TemporalDateTime.now())),
+                                e.copyWith(readAt: TemporalDateTime.now())),
                           ));
                           if (!context.mounted) return;
                           context.go(SMSWidget.path);

@@ -41,7 +41,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     AuthNotifier authNotifier = Provider.of<AuthNotifier>(context);
     notifications = authNotifier.user.notifications
             ?.where(
-          (element) => element.read_at == null,
+          (element) => element.readAt == null,
         )
             .map(
           (e) {

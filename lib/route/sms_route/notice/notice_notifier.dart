@@ -69,8 +69,8 @@ class NoticeNotifier extends ChangeNotifier {
     author = notice?.author ??
         Provider.of<AuthNotifier>(context, listen: false).user;
     subject = notice?.subject ?? "";
-    noticedAt = notice?.noticed_at;
-    deadlineAt = notice?.deadline_at;
+    noticedAt = notice?.noticedAt;
+    deadlineAt = notice?.deadlineAt;
     details = json.decode(notice?.details ?? "{}") as Map<String, dynamic>;
     documents = notice?.documents ?? [];
     aircraft = notice?.aircraft?.map((e) => e.aircraft!).toList() ?? [];
@@ -85,8 +85,8 @@ class NoticeNotifier extends ChangeNotifier {
       type: type,
       status: status,
       author: author,
-      noticed_at: noticedAt,
-      deadline_at: deadlineAt,
+      noticedAt: noticedAt,
+      deadlineAt: deadlineAt,
       subject: subject,
       archived: archived,
       details: jsonEncode(details),

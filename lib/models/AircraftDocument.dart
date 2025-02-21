@@ -22,6 +22,7 @@
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
+
 /** This is an auto generated class representing the AircraftDocument type in your schema. */
 class AircraftDocument extends amplify_core.Model {
   static const classType = const _AircraftDocumentModelType();
@@ -33,211 +34,181 @@ class AircraftDocument extends amplify_core.Model {
 
   @override
   getInstanceType() => classType;
-
-  @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+  
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-
+  
   AircraftDocumentModelIdentifier get modelIdentifier {
-    return AircraftDocumentModelIdentifier(id: id);
+      return AircraftDocumentModelIdentifier(
+        id: id
+      );
   }
-
+  
   Aircraft? get aircraft {
     return _aircraft;
   }
-
+  
   Document? get document {
     return _document;
   }
-
+  
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
-
+  
   amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-
-  const AircraftDocument._internal(
-      {required this.id, aircraft, document, createdAt, updatedAt})
-      : _aircraft = aircraft,
-        _document = document,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
-
-  factory AircraftDocument(
-      {String? id, Aircraft? aircraft, Document? document}) {
+  
+  const AircraftDocument._internal({required this.id, aircraft, document, createdAt, updatedAt}): _aircraft = aircraft, _document = document, _createdAt = createdAt, _updatedAt = updatedAt;
+  
+  factory AircraftDocument({String? id, Aircraft? aircraft, Document? document}) {
     return AircraftDocument._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        aircraft: aircraft,
-        document: document);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      aircraft: aircraft,
+      document: document);
   }
-
+  
   bool equals(Object other) {
     return this == other;
   }
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AircraftDocument &&
-        id == other.id &&
-        _aircraft == other._aircraft &&
-        _document == other._document;
+      id == other.id &&
+      _aircraft == other._aircraft &&
+      _document == other._document;
   }
-
+  
   @override
   int get hashCode => toString().hashCode;
-
+  
   @override
   String toString() {
     var buffer = new StringBuffer();
-
+    
     buffer.write("AircraftDocument {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("aircraft=" +
-        (_aircraft != null ? _aircraft.toString() : "null") +
-        ", ");
-    buffer.write("document=" +
-        (_document != null ? _document.toString() : "null") +
-        ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+    buffer.write("aircraft=" + (_aircraft != null ? _aircraft!.toString() : "null") + ", ");
+    buffer.write("document=" + (_document != null ? _document!.toString() : "null") + ", ");
+    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
-
+    
     return buffer.toString();
   }
-
+  
   AircraftDocument copyWith({Aircraft? aircraft, Document? document}) {
     return AircraftDocument._internal(
-        id: id,
-        aircraft: aircraft ?? this.aircraft,
-        document: document ?? this.document);
+      id: id,
+      aircraft: aircraft ?? this.aircraft,
+      document: document ?? this.document);
   }
-
-  AircraftDocument copyWithModelFieldValues(
-      {ModelFieldValue<Aircraft?>? aircraft,
-      ModelFieldValue<Document?>? document}) {
+  
+  AircraftDocument copyWithModelFieldValues({
+    ModelFieldValue<Aircraft?>? aircraft,
+    ModelFieldValue<Document?>? document
+  }) {
     return AircraftDocument._internal(
-        id: id,
-        aircraft: aircraft == null ? this.aircraft : aircraft.value,
-        document: document == null ? this.document : document.value);
+      id: id,
+      aircraft: aircraft == null ? this.aircraft : aircraft.value,
+      document: document == null ? this.document : document.value
+    );
   }
-
-  AircraftDocument.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _aircraft = json['aircraft'] != null
-            ? json['aircraft']['serializedData'] != null
-                ? Aircraft.fromJson(new Map<String, dynamic>.from(
-                    json['aircraft']['serializedData']))
-                : Aircraft.fromJson(
-                    new Map<String, dynamic>.from(json['aircraft']))
-            : null,
-        _document = json['document'] != null
-            ? json['document']['serializedData'] != null
-                ? Document.fromJson(new Map<String, dynamic>.from(
-                    json['document']['serializedData']))
-                : Document.fromJson(
-                    new Map<String, dynamic>.from(json['document']))
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
-
+  
+  AircraftDocument.fromJson(Map<String, dynamic> json)  
+    : id = json['id'],
+      _aircraft = json['aircraft'] != null
+        ? json['aircraft']['serializedData'] != null
+          ? Aircraft.fromJson(new Map<String, dynamic>.from(json['aircraft']['serializedData']))
+          : Aircraft.fromJson(new Map<String, dynamic>.from(json['aircraft']))
+        : null,
+      _document = json['document'] != null
+        ? json['document']['serializedData'] != null
+          ? Document.fromJson(new Map<String, dynamic>.from(json['document']['serializedData']))
+          : Document.fromJson(new Map<String, dynamic>.from(json['document']))
+        : null,
+      _createdAt = json['createdAt'] != null ? amplify_core.TemporalDateTime.fromString(json['createdAt']) : null,
+      _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
+  
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'aircraft': _aircraft?.toJson(),
-        'document': _document?.toJson(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
-
+    'id': id, 'aircraft': _aircraft?.toJson(), 'document': _document?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+  };
+  
   Map<String, Object?> toMap() => {
-        'id': id,
-        'aircraft': _aircraft,
-        'document': _document,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'aircraft': _aircraft,
+    'document': _document,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt
+  };
 
-  static final amplify_core
-      .QueryModelIdentifier<AircraftDocumentModelIdentifier> MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<AircraftDocumentModelIdentifier>();
+  static final amplify_core.QueryModelIdentifier<AircraftDocumentModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<AircraftDocumentModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final AIRCRAFT = amplify_core.QueryField(
-      fieldName: "aircraft",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Aircraft'));
+    fieldName: "aircraft",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Aircraft'));
   static final DOCUMENT = amplify_core.QueryField(
-      fieldName: "document",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Document'));
-  static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+    fieldName: "document",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Document'));
+  static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "AircraftDocument";
     modelSchemaDefinition.pluralName = "AircraftDocuments";
-
+    
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
-          authStrategy: amplify_core.AuthStrategy.PRIVATE,
-          operations: const [
-            amplify_core.ModelOperation.CREATE,
-            amplify_core.ModelOperation.UPDATE,
-            amplify_core.ModelOperation.DELETE,
-            amplify_core.ModelOperation.READ
-          ])
+        authStrategy: amplify_core.AuthStrategy.PRIVATE,
+        operations: const [
+          amplify_core.ModelOperation.CREATE,
+          amplify_core.ModelOperation.UPDATE,
+          amplify_core.ModelOperation.DELETE,
+          amplify_core.ModelOperation.READ
+        ])
     ];
-
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
-
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: AircraftDocument.AIRCRAFT,
-        isRequired: false,
-        targetNames: ['aircraftId'],
-        ofModelName: 'Aircraft'));
-
+      key: AircraftDocument.AIRCRAFT,
+      isRequired: false,
+      targetNames: ['aircraftId'],
+      ofModelName: 'Aircraft'
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: AircraftDocument.DOCUMENT,
-        isRequired: false,
-        targetNames: ['documentId'],
-        ofModelName: 'Document'));
-
-    modelSchemaDefinition.addField(
-        amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(
-        amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+      key: AircraftDocument.DOCUMENT,
+      isRequired: false,
+      targetNames: ['documentId'],
+      ofModelName: 'Document'
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
+      fieldName: 'createdAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
+      fieldName: 'updatedAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
+    ));
   });
 }
 
-class _AircraftDocumentModelType
-    extends amplify_core.ModelType<AircraftDocument> {
+class _AircraftDocumentModelType extends amplify_core.ModelType<AircraftDocument> {
   const _AircraftDocumentModelType();
-
+  
   @override
   AircraftDocument fromJson(Map<String, dynamic> jsonData) {
     return AircraftDocument.fromJson(jsonData);
   }
-
+  
   @override
   String modelName() {
     return 'AircraftDocument';
@@ -248,37 +219,41 @@ class _AircraftDocumentModelType
  * This is an auto generated class representing the model identifier
  * of [AircraftDocument] in your schema.
  */
-class AircraftDocumentModelIdentifier
-    implements amplify_core.ModelIdentifier<AircraftDocument> {
+class AircraftDocumentModelIdentifier implements amplify_core.ModelIdentifier<AircraftDocument> {
   final String id;
 
   /** Create an instance of AircraftDocumentModelIdentifier using [id] the primary key. */
-  const AircraftDocumentModelIdentifier({required this.id});
-
+  const AircraftDocumentModelIdentifier({
+    required this.id});
+  
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
-
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
-
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-
+  
   @override
   String toString() => 'AircraftDocumentModelIdentifier(id: $id)';
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-
-    return other is AircraftDocumentModelIdentifier && id == other.id;
+    
+    return other is AircraftDocumentModelIdentifier &&
+      id == other.id;
   }
-
+  
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode =>
+    id.hashCode;
 }
