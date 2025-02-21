@@ -200,8 +200,7 @@ const schema = a
         staffId: a.id().required(),
         report: a.belongsTo("Report", "reportId"),
         staff: a.belongsTo("Staff", "staffId"),
-      })
-      .identifier(["reportId", "staffId"]),
+      }),
   })
   .authorization((allow) => [allow.authenticated()]);
 
