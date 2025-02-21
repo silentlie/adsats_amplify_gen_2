@@ -22,7 +22,6 @@
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-
 /** This is an auto generated class representing the AircraftNotice type in your schema. */
 class AircraftNotice extends amplify_core.Model {
   static const classType = const _AircraftNoticeModelType();
@@ -34,181 +33,207 @@ class AircraftNotice extends amplify_core.Model {
 
   @override
   getInstanceType() => classType;
-  
-  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-  
+
   AircraftNoticeModelIdentifier get modelIdentifier {
-      return AircraftNoticeModelIdentifier(
-        id: id
-      );
+    return AircraftNoticeModelIdentifier(id: id);
   }
-  
+
   Aircraft? get aircraft {
     return _aircraft;
   }
-  
+
   Notice? get notice {
     return _notice;
   }
-  
+
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
-  const AircraftNotice._internal({required this.id, aircraft, notice, createdAt, updatedAt}): _aircraft = aircraft, _notice = notice, _createdAt = createdAt, _updatedAt = updatedAt;
-  
+
+  const AircraftNotice._internal(
+      {required this.id, aircraft, notice, createdAt, updatedAt})
+      : _aircraft = aircraft,
+        _notice = notice,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
   factory AircraftNotice({String? id, Aircraft? aircraft, Notice? notice}) {
     return AircraftNotice._internal(
-      id: id == null ? amplify_core.UUID.getUUID() : id,
-      aircraft: aircraft,
-      notice: notice);
+        id: id == null ? amplify_core.UUID.getUUID() : id,
+        aircraft: aircraft,
+        notice: notice);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is AircraftNotice &&
-      id == other.id &&
-      _aircraft == other._aircraft &&
-      _notice == other._notice;
+        id == other.id &&
+        _aircraft == other._aircraft &&
+        _notice == other._notice;
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
     var buffer = new StringBuffer();
-    
+
     buffer.write("AircraftNotice {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("aircraft=" + (_aircraft != null ? _aircraft!.toString() : "null") + ", ");
-    buffer.write("notice=" + (_notice != null ? _notice!.toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt!.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
+    buffer.write("aircraft=" +
+        (_aircraft != null ? _aircraft.toString() : "null") +
+        ", ");
+    buffer.write(
+        "notice=" + (_notice != null ? _notice.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
+
   AircraftNotice copyWith({Aircraft? aircraft, Notice? notice}) {
     return AircraftNotice._internal(
-      id: id,
-      aircraft: aircraft ?? this.aircraft,
-      notice: notice ?? this.notice);
+        id: id,
+        aircraft: aircraft ?? this.aircraft,
+        notice: notice ?? this.notice);
   }
-  
-  AircraftNotice copyWithModelFieldValues({
-    ModelFieldValue<Aircraft?>? aircraft,
-    ModelFieldValue<Notice?>? notice
-  }) {
-    return AircraftNotice._internal(
-      id: id,
-      aircraft: aircraft == null ? this.aircraft : aircraft.value,
-      notice: notice == null ? this.notice : notice.value
-    );
-  }
-  
-  AircraftNotice.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _aircraft = json['aircraft'] != null
-        ? json['aircraft']['serializedData'] != null
-          ? Aircraft.fromJson(new Map<String, dynamic>.from(json['aircraft']['serializedData']))
-          : Aircraft.fromJson(new Map<String, dynamic>.from(json['aircraft']))
-        : null,
-      _notice = json['notice'] != null
-        ? json['notice']['serializedData'] != null
-          ? Notice.fromJson(new Map<String, dynamic>.from(json['notice']['serializedData']))
-          : Notice.fromJson(new Map<String, dynamic>.from(json['notice']))
-        : null,
-      _createdAt = json['createdAt'] != null ? amplify_core.TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
-  
-  Map<String, dynamic> toJson() => {
-    'id': id, 'aircraft': _aircraft?.toJson(), 'notice': _notice?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
-  
-  Map<String, Object?> toMap() => {
-    'id': id,
-    'aircraft': _aircraft,
-    'notice': _notice,
-    'createdAt': _createdAt,
-    'updatedAt': _updatedAt
-  };
 
-  static final amplify_core.QueryModelIdentifier<AircraftNoticeModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<AircraftNoticeModelIdentifier>();
+  AircraftNotice copyWithModelFieldValues(
+      {ModelFieldValue<Aircraft?>? aircraft,
+      ModelFieldValue<Notice?>? notice}) {
+    return AircraftNotice._internal(
+        id: id,
+        aircraft: aircraft == null ? this.aircraft : aircraft.value,
+        notice: notice == null ? this.notice : notice.value);
+  }
+
+  AircraftNotice.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _aircraft = json['aircraft'] != null
+            ? json['aircraft']['serializedData'] != null
+                ? Aircraft.fromJson(new Map<String, dynamic>.from(
+                    json['aircraft']['serializedData']))
+                : Aircraft.fromJson(
+                    new Map<String, dynamic>.from(json['aircraft']))
+            : null,
+        _notice = json['notice'] != null
+            ? json['notice']['serializedData'] != null
+                ? Notice.fromJson(new Map<String, dynamic>.from(
+                    json['notice']['serializedData']))
+                : Notice.fromJson(new Map<String, dynamic>.from(json['notice']))
+            : null,
+        _createdAt = json['createdAt'] != null
+            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+            : null;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'aircraft': _aircraft?.toJson(),
+        'notice': _notice?.toJson(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
+
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'aircraft': _aircraft,
+        'notice': _notice,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
+  static final amplify_core.QueryModelIdentifier<AircraftNoticeModelIdentifier>
+      MODEL_IDENTIFIER =
+      amplify_core.QueryModelIdentifier<AircraftNoticeModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final AIRCRAFT = amplify_core.QueryField(
-    fieldName: "aircraft",
-    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Aircraft'));
+      fieldName: "aircraft",
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'Aircraft'));
   static final NOTICE = amplify_core.QueryField(
-    fieldName: "notice",
-    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Notice'));
-  static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      fieldName: "notice",
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'Notice'));
+  static var schema = amplify_core.Model.defineSchema(
+      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "AircraftNotice";
     modelSchemaDefinition.pluralName = "AircraftNotices";
-    
+
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
-        authStrategy: amplify_core.AuthStrategy.PRIVATE,
-        operations: const [
-          amplify_core.ModelOperation.CREATE,
-          amplify_core.ModelOperation.UPDATE,
-          amplify_core.ModelOperation.DELETE,
-          amplify_core.ModelOperation.READ
-        ])
+          authStrategy: amplify_core.AuthStrategy.PRIVATE,
+          operations: const [
+            amplify_core.ModelOperation.CREATE,
+            amplify_core.ModelOperation.UPDATE,
+            amplify_core.ModelOperation.DELETE,
+            amplify_core.ModelOperation.READ
+          ])
     ];
-    
+
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-      key: AircraftNotice.AIRCRAFT,
-      isRequired: false,
-      targetNames: ['aircraftId'],
-      ofModelName: 'Aircraft'
-    ));
-    
+        key: AircraftNotice.AIRCRAFT,
+        isRequired: false,
+        targetNames: ['aircraftId'],
+        ofModelName: 'Aircraft'));
+
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-      key: AircraftNotice.NOTICE,
-      isRequired: false,
-      targetNames: ['noticeId'],
-      ofModelName: 'Notice'
-    ));
-    
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
-    ));
-    
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
-    ));
+        key: AircraftNotice.NOTICE,
+        isRequired: false,
+        targetNames: ['noticeId'],
+        ofModelName: 'Notice'));
+
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'createdAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'updatedAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
   });
 }
 
 class _AircraftNoticeModelType extends amplify_core.ModelType<AircraftNotice> {
   const _AircraftNoticeModelType();
-  
+
   @override
   AircraftNotice fromJson(Map<String, dynamic> jsonData) {
     return AircraftNotice.fromJson(jsonData);
   }
-  
+
   @override
   String modelName() {
     return 'AircraftNotice';
@@ -219,41 +244,37 @@ class _AircraftNoticeModelType extends amplify_core.ModelType<AircraftNotice> {
  * This is an auto generated class representing the model identifier
  * of [AircraftNotice] in your schema.
  */
-class AircraftNoticeModelIdentifier implements amplify_core.ModelIdentifier<AircraftNotice> {
+class AircraftNoticeModelIdentifier
+    implements amplify_core.ModelIdentifier<AircraftNotice> {
   final String id;
 
   /** Create an instance of AircraftNoticeModelIdentifier using [id] the primary key. */
-  const AircraftNoticeModelIdentifier({
-    required this.id});
-  
+  const AircraftNoticeModelIdentifier({required this.id});
+
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id
-  });
-  
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-    .entries
-    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
-    .toList();
-  
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-  
+
   @override
   String toString() => 'AircraftNoticeModelIdentifier(id: $id)';
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    
-    return other is AircraftNoticeModelIdentifier &&
-      id == other.id;
+
+    return other is AircraftNoticeModelIdentifier && id == other.id;
   }
-  
+
   @override
-  int get hashCode =>
-    id.hashCode;
+  int get hashCode => id.hashCode;
 }
