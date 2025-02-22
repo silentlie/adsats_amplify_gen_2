@@ -17,6 +17,7 @@ class Router extends _$Router {
   @override
   GoRouter build() {
     return GoRouter(
+      initialLocation: HomeRoute().location,
       restorationScopeId: 'root_route',
       navigatorKey: rootNavigatorKey,
       routes: $appRoutes,

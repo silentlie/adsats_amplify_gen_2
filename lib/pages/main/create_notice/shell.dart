@@ -9,13 +9,12 @@ export 'package:adsats_amplify_gen_2/pages/main/create_notice/hazard_report/rout
 class CreateNoticeShellRouteData extends StatefulShellRouteInfo {
   const CreateNoticeShellRouteData();
 
-  static String $initialLocation = '/sms/notice-to-crew';
+  static String $initialLocation = NoticeToCrewRoute().location;
 
-  //TODO: fix icon
   @override
-  Icon get icon => const Icon(Icons.insert_drive_file_outlined);
+  Icon get icon => const Icon(Icons.add_outlined);
   @override
-  Icon get selectedIcon => const Icon(Icons.insert_drive_file);
+  Icon get selectedIcon => const Icon(Icons.add);
   @override
   String get label => 'Create Notice';
 

@@ -11,11 +11,10 @@ class NoticeToCrewShellBranchData extends StatefulShellBranchData {
 class NoticeToCrewRoute extends RouteInfo {
   const NoticeToCrewRoute();
 
-  //TODO: fix icon
   @override
-  Icon get icon => const Icon(Icons.insert_drive_file_outlined);
+  Icon get icon => const Icon(Icons.notifications_outlined);
   @override
-  Icon get selectedIcon => const Icon(Icons.insert_drive_file);
+  Icon get selectedIcon => const Icon(Icons.notifications);
   @override
   String get label => 'Notice To Crew';
 

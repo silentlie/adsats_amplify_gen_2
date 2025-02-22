@@ -11,11 +11,10 @@ class InternalAuditReportShellBranchData extends StatefulShellBranchData {
 class InternalAuditReportRoute extends RouteInfo {
   const InternalAuditReportRoute();
 
-  //TODO: fix icon
   @override
-  Icon get icon => const Icon(Icons.insert_drive_file_outlined);
+  Icon get icon => const Icon(Icons.plagiarism_outlined);
   @override
-  Icon get selectedIcon => const Icon(Icons.insert_drive_file);
+  Icon get selectedIcon => const Icon(Icons.plagiarism);
   @override
   String get label => 'Internal Audit Report';
 

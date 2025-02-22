@@ -11,11 +11,10 @@ class SmsInboxShellBranchData extends StatefulShellBranchData {
 class SmsInboxRoute extends RouteInfo {
   const SmsInboxRoute();
 
-  //TODO: fix icon
   @override
-  Icon get icon => const Icon(Icons.insert_drive_file_outlined);
+  Icon get icon => const Icon(Icons.inbox_outlined);
   @override
-  Icon get selectedIcon => const Icon(Icons.insert_drive_file);
+  Icon get selectedIcon => const Icon(Icons.inbox);
   @override
   String get label => 'Inbox';
 

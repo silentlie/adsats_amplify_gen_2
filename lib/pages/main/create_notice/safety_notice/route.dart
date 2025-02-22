@@ -11,11 +11,10 @@ class SafetyNoticeShellBranchData extends StatefulShellBranchData {
 class SafetyNoticeRoute extends RouteInfo {
   const SafetyNoticeRoute();
 
-  //TODO: fix icon
   @override
-  Icon get icon => const Icon(Icons.insert_drive_file_outlined);
+  Icon get icon => const Icon(Icons.gpp_maybe_outlined);
   @override
-  Icon get selectedIcon => const Icon(Icons.insert_drive_file);
+  Icon get selectedIcon => const Icon(Icons.gpp_maybe);
   @override
   String get label => 'Safety Notice';
 

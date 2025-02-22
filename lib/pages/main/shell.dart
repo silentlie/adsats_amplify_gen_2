@@ -1,8 +1,7 @@
 import 'package:adsats_amplify_gen_2/pages/main/create_report/internal_audit_report/route.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
-import 'package:adsats_amplify_gen_2/theme/theme_toggle_button.dart';
-import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -57,29 +56,7 @@ class MainShell extends ConsumerWidget {
   Widget body(BuildContext context, WidgetRef ref) {
     final orientation = MediaQuery.orientationOf(context);
     final isLandscape = orientation == Orientation.landscape;
-    if (!isLandscape) {
-      return Column(
-        children: [
-          Expanded(child: navigationShell),
-          BottomAppBar(
-            shape: const CircularNotchedRectangle(),
-            child: NavigationBar(
-              destinations: routes.map(
-                (routeInfo) {
-                  return NavigationDestination(
-                    icon: routeInfo.icon,
-                    label: routeInfo.label,
-                    selectedIcon: routeInfo.selectedIcon,
-                  );
-                },
-              ).toList(),
-              onDestinationSelected: onDestinationSelected,
-              selectedIndex: navigationShell.currentIndex,
-            ),
-          ),
-        ],
-      );
-    }
+    if (!isLandscape) return navigationShell;
     final isExtended = ref.watch(settingsNotifierProvider.select(
       (value) => value.isNavigationRailExtended,
     ));
@@ -134,6 +111,7 @@ class MainShell extends ConsumerWidget {
               icon: routeInfo.icon,
               label: routeInfo.label,
               selectedIcon: routeInfo.selectedIcon,
+              tooltip: routeInfo.label,
             );
           },
         ).toList(),
@@ -236,46 +214,17 @@ class MainShell extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final colorScheme = Theme.of(context).colorScheme;
     final bottomBar = bottomAppBar(context);
     final button = floatingActionButton(context);
     final location = button == null ? null : floatButtonLocation(context);
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: colorScheme.secondary.withValues(alpha: 0.3),
-        leading: Container(
-          padding: const EdgeInsets.all(2),
-          child: const DefaultLogoWidget(),
-        ),
-        leadingWidth: 94,
-        title: title(context),
-        centerTitle: true,
-        actions: [
-          ThemeToggleButton(),
-          IconButton(
-            icon: const Icon(Icons.menu),
-            onPressed: () {
-              Scaffold.of(context).openEndDrawer();
-            },
-          )
-        ],
-      ),
+      appBar: AppBarWidget(),
       body: body(context, ref),
       endDrawer: null,
       primary: true,
       floatingActionButton: button,
       floatingActionButtonLocation: location,
       bottomNavigationBar: bottomBar,
-    );
-  }
-
-  Text title(BuildContext context) {
-    final orientation = MediaQuery.orientationOf(context);
-    final isLandscape = orientation == Orientation.landscape;
-    return Text(
-      isLandscape
-          ? "ADSATS - Aviation Document Storage and Tracking System"
-          : "ADSATS",
     );
   }
 }

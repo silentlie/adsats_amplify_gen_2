@@ -12,13 +12,12 @@ class ComplianceShellBranchData extends StatefulShellBranchData {
 class ComplianceShellRouteData extends StatefulShellRouteInfo {
   const ComplianceShellRouteData();
 
-  static String $initialLocation = '/compliance/sent';
+  static String $initialLocation = ComplianceInboxRoute().location;
 
-  //TODO: fix icon
   @override
-  Icon get icon => const Icon(Icons.insert_drive_file_outlined);
+  Icon get icon => const Icon(Icons.fact_check_outlined);
   @override
-  Icon get selectedIcon => const Icon(Icons.insert_drive_file);
+  Icon get selectedIcon => const Icon(Icons.fact_check);
   @override
   String get label => 'Compliance';
 

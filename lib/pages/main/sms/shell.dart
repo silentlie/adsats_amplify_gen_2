@@ -12,13 +12,12 @@ class SmsShellBranchData extends StatefulShellBranchData {
 class SmsShellRouteData extends StatefulShellRouteInfo {
   const SmsShellRouteData();
 
-  static String $initialLocation = '/sms/sent';
+  static String $initialLocation = SmsInboxRoute().location;
 
-  //TODO: fix icon
   @override
-  Icon get icon => const Icon(Icons.insert_drive_file_outlined);
+  Icon get icon => const Icon(Icons.support_outlined);
   @override
-  Icon get selectedIcon => const Icon(Icons.insert_drive_file);
+  Icon get selectedIcon => const Icon(Icons.support);
   @override
   String get label => 'S.M.S';
 

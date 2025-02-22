@@ -11,13 +11,13 @@ export 'package:adsats_amplify_gen_2/pages/main/create_notice/hazard_report/rout
 class CreateReportShellRouteData extends StatefulShellRouteInfo {
   const CreateReportShellRouteData();
 
-  static String $initialLocation = '/compliance/internal-audit-report';
+  static String $initialLocation = InternalAuditReportRoute().location;
 
-  //TODO: fix icon
+  //
   @override
-  Icon get icon => const Icon(Icons.insert_drive_file_outlined);
+  Icon get icon => const Icon(Icons.add_outlined);
   @override
-  Icon get selectedIcon => const Icon(Icons.insert_drive_file);
+  Icon get selectedIcon => const Icon(Icons.add);
   @override
   String get label => 'Create Report';
 

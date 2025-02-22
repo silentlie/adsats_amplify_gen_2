@@ -11,13 +11,12 @@ class CrewDocumentsShellBranchData extends StatefulShellBranchData {
 class CrewDocumentsRoute extends RouteInfo {
   const CrewDocumentsRoute();
 
-  //TODO: fix icon
   @override
-  Icon get icon => const Icon(Icons.insert_drive_file_outlined);
+  Icon get icon => const Icon(Icons.contact_page_outlined);
   @override
-  Icon get selectedIcon => const Icon(Icons.insert_drive_file);
+  Icon get selectedIcon => const Icon(Icons.contact_page);
   @override
-  String get label => 'Crew Documents';
+  String get label => 'Crew Docs';
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {

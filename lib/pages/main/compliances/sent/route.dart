@@ -11,11 +11,10 @@ class ComplianceSentShellBranchData extends StatefulShellBranchData {
 class ComplianceSentRoute extends RouteInfo {
   const ComplianceSentRoute();
 
-  //TODO: fix icon
   @override
-  Icon get icon => const Icon(Icons.insert_drive_file_outlined);
+  Icon get icon => const Icon(Icons.outbox_outlined);
   @override
-  Icon get selectedIcon => const Icon(Icons.insert_drive_file);
+  Icon get selectedIcon => const Icon(Icons.outbox);
   @override
   String get label => 'Sent';
 

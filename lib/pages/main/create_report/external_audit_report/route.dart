@@ -11,11 +11,10 @@ class ExternalAuditReportShellBranchData extends StatefulShellBranchData {
 class ExternalAuditReportRoute extends RouteInfo {
   const ExternalAuditReportRoute();
 
-  //TODO: fix icon
   @override
-  Icon get icon => const Icon(Icons.insert_drive_file_outlined);
+  Icon get icon => const Icon(Icons.find_in_page_outlined);
   @override
-  Icon get selectedIcon => const Icon(Icons.insert_drive_file);
+  Icon get selectedIcon => const Icon(Icons.find_in_page);
   @override
   String get label => 'External Audit Report';
 
