@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/default_logo_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
 

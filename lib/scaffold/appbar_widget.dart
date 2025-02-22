@@ -1,6 +1,5 @@
-import 'package:adsats_amplify_gen_2/default_logo_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
 import 'package:adsats_amplify_gen_2/notification/notification_widget.dart';
-import 'package:adsats_amplify_gen_2/theme/theme_switch_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -33,7 +32,6 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         centerTitle: true,
         actions: [
-          const ThemeSwitch(),
           const NotificationsWidget(),
           Builder(
             builder: (context) => IconButton(

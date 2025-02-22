@@ -1,0 +1,76 @@
+import 'package:adsats_amplify_gen_2/pages/main/create_report/external_audit_report/route.dart';
+import 'package:adsats_amplify_gen_2/pages/main/create_report/internal_audit_report/route.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+export 'package:adsats_amplify_gen_2/pages/main/create_notice/notice_to_crew/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/create_notice/safety_notice/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/create_notice/hazard_report/route.dart';
+
+class CreateReportShellRouteData extends StatefulShellRouteInfo {
+  const CreateReportShellRouteData();
+
+  static String $initialLocation = '/compliance/internal-audit-report';
+
+  //TODO: fix icon
+  @override
+  Icon get icon => const Icon(Icons.insert_drive_file_outlined);
+  @override
+  Icon get selectedIcon => const Icon(Icons.insert_drive_file);
+  @override
+  String get label => 'Create Report';
+
+  @override
+  Page<void> pageBuilder(
+    BuildContext context,
+    GoRouterState state,
+    StatefulNavigationShell navigationShell,
+  ) {
+    return MaterialPage(
+      child: CreateReportShell(navigationShell: navigationShell),
+    );
+  }
+}
+
+class CreateReportShell extends StatelessWidget {
+  const CreateReportShell({
+    super.key,
+    required this.navigationShell,
+  });
+  final StatefulNavigationShell navigationShell;
+
+  void onDestinationSelected(int index) {
+    navigationShell.goBranch(
+      index,
+      initialLocation: index == navigationShell.currentIndex,
+    );
+  }
+
+  final List<RouteInfoBase> routes = const [
+    InternalAuditReportRoute(),
+    ExternalAuditReportRoute(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        NavigationBar(
+          destinations: routes.map(
+            (routeInfo) {
+              return NavigationDestination(
+                icon: routeInfo.icon,
+                label: routeInfo.label,
+                selectedIcon: routeInfo.selectedIcon,
+              );
+            },
+          ).toList(),
+          onDestinationSelected: onDestinationSelected,
+          selectedIndex: navigationShell.currentIndex,
+        ),
+        Expanded(child: navigationShell),
+      ],
+    );
+  }
+}

@@ -1,6 +1,6 @@
+import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:go_router/go_router.dart';
 
 class DefaultTextLogo extends StatelessWidget {
   const DefaultTextLogo({
@@ -13,7 +13,7 @@ class DefaultTextLogo extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () {
-          context.go('/documents');
+          HomeRoute().go(context);
         },
         child: const Text(
           'ADSATS',
@@ -33,7 +33,7 @@ class DefaultLogoWidget extends StatelessWidget {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () {
-          context.go('/documents');
+          HomeRoute().go(context);
         },
         child: SvgPicture.asset(
           'assets/ADSATS_logo.svg',

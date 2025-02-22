@@ -4,6 +4,7 @@ import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 import 'amplify_outputs.dart';
@@ -13,7 +14,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureAmplify();
   setPathUrlStrategy();
-  runApp(const MyApp());
+  runApp(
+    ProviderScope(
+      child: const MyApp(),
+    ),
+  );
 }
 
 Future<void> configureAmplify() async {
@@ -22,11 +27,10 @@ Future<void> configureAmplify() async {
       AmplifyAuthCognito(),
       AmplifyAPI(
         options: APIPluginOptions(
-          modelProvider: ModelProvider.instance,
-          subscriptionOptions: GraphQLSubscriptionOptions(
-            retryOptions: RetryOptions(maxAttempts: 10),
-          )
-        ),
+            modelProvider: ModelProvider.instance,
+            subscriptionOptions: GraphQLSubscriptionOptions(
+              retryOptions: RetryOptions(maxAttempts: 10),
+            )),
       ),
       AmplifyStorageS3(),
     ]);

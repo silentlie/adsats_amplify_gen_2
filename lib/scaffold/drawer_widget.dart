@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/auth/sign_out_button_widget.dart';
-import 'package:adsats_amplify_gen_2/default_logo_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
 import 'package:adsats_amplify_gen_2/helper/to_string.dart';
 import 'package:adsats_amplify_gen_2/route/admin_route/admin_widget.dart';
 import 'package:adsats_amplify_gen_2/route/crew_documents_route/crew_documents_widget.dart';
