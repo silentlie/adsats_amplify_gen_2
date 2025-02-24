@@ -22,6 +22,7 @@ class DrawerWidget extends ConsumerWidget {
           DrawerHeaderWidget(),
           const Divider(),
           ListTile(
+            leading: ProfileRoute().icon,
             title: const Text('Profile'),
             onTap: () {
               ProfileRoute().push(context);
@@ -29,6 +30,7 @@ class DrawerWidget extends ConsumerWidget {
             },
           ),
           ListTile(
+            leading: ResetPasswordRoute().icon,
             title: const Text('Reset password'),
             onTap: () {
               ResetPasswordRoute().push(context);
@@ -37,12 +39,14 @@ class DrawerWidget extends ConsumerWidget {
           ),
           if (ref.watch(isAdminProvider))
             ListTile(
+              leading: Icon(Icons.admin_panel_settings_outlined),
               title: const Text('Admin'),
               onTap: () {
                 //TODO admin path
               },
             ),
           ListTile(
+            leading: HelpRoute().icon,
             title: const Text('Help'),
             onTap: () {
               HelpRoute().push(context);
@@ -50,6 +54,7 @@ class DrawerWidget extends ConsumerWidget {
             },
           ),
           ListTile(
+            leading: Icon(Icons.info_outline),
             title: const Text('About this app'),
             onTap: () {
               showAboutDialog(
@@ -85,7 +90,12 @@ class DrawerHeaderWidget extends ConsumerWidget {
       data: (user) {
         return Column(
           children: [
-            Center(child: avatar),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: avatar,
+              ),
+            ),
             const SizedBox(height: 10),
             Center(
               child: Text(

@@ -54,7 +54,7 @@ final isAdminProvider = AutoDisposeProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef IsAdminRef = AutoDisposeProviderRef<bool>;
-String _$isSafetyOfficerHash() => r'f39c7461cc440c828ecda121c734d454b17eb817';
+String _$isSafetyOfficerHash() => r'8a1c3bfd01b62bf6b97c384a5b08c283dfbc11ff';
 
 /// See also [isSafetyOfficer].
 @ProviderFor(isSafetyOfficer)
@@ -71,7 +71,7 @@ final isSafetyOfficerProvider = AutoDisposeProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef IsSafetyOfficerRef = AutoDisposeProviderRef<bool>;
-String _$isQualityManagerHash() => r'e5264a469260a8e41b816596ad379422418a5cda';
+String _$isQualityManagerHash() => r'3425962d612e369066c47b3375cd312ac2dc0759';
 
 /// See also [isQualityManager].
 @ProviderFor(isQualityManager)

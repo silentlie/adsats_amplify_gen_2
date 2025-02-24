@@ -1,7 +1,5 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/Staff.dart';
-import 'package:adsats_amplify_gen_2/pages/main/create_report/external_audit_report/route.dart';
-import 'package:adsats_amplify_gen_2/pages/main/create_report/internal_audit_report/route.dart';
 import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
 import 'package:adsats_amplify_gen_2/widgets/future_value_widget.dart';
 import 'package:flutter/material.dart';
@@ -201,6 +199,40 @@ class ErrorRoute extends GoRouteData {
       ),
     ],
   ),
+  TypedStatefulShellRoute<AdminShellRouteData>(branches: [
+    TypedStatefulShellBranch<AircraftShellBranchData>(
+        routes: <TypedRoute<RouteData>>[
+          TypedGoRoute<AircraftRoute>(
+            path: '/admin/aircraft',
+            name: 'Aircraft',
+          ),
+        ],
+      ),
+      TypedStatefulShellBranch<RolesShellBranchData>(
+        routes: <TypedRoute<RouteData>>[
+          TypedGoRoute<RolesRoute>(
+            path: '/admin/roles',
+            name: 'Roles',
+          ),
+        ],
+      ),
+      TypedStatefulShellBranch<StaffShellBranchData>(
+        routes: <TypedRoute<RouteData>>[
+          TypedGoRoute<StaffRoute>(
+            path: '/admin/staff',
+            name: 'Staff',
+          ),
+        ],
+      ),
+      TypedStatefulShellBranch<CategoriesShellBranchData>(
+        routes: <TypedRoute<RouteData>>[
+          TypedGoRoute<CategoriesRoute>(
+            path: '/admin/categories',
+            name: 'Categories',
+          ),
+        ],
+      ),
+  ],),
 ])
 class RootShellRouteData extends ShellRouteData {
   const RootShellRouteData();

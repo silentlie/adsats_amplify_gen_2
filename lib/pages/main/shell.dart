@@ -1,4 +1,3 @@
-import 'package:adsats_amplify_gen_2/pages/main/create_report/internal_audit_report/route.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
 import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
@@ -134,7 +133,7 @@ class MainShell extends ConsumerWidget {
   }
 
   FloatingActionButton? floatingActionButton(
-      BuildContext context, WidgetRef ref) {
+      BuildContext context) {
     final orientation = MediaQuery.orientationOf(context);
     final isLandscape = orientation == Orientation.landscape;
     final currentPath = GoRouter.of(context).state.uri.path;
@@ -228,7 +227,7 @@ class MainShell extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bottomBar = bottomAppBar(context);
-    final button = floatingActionButton(context, ref);
+    final button = floatingActionButton(context);
     final location = button == null ? null : floatButtonLocation(context);
     return Scaffold(
       appBar: AppBarWidget(),

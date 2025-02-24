@@ -183,6 +183,47 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
             ),
           ],
         ),
+        StatefulShellRouteData.$route(
+          factory: $AdminShellRouteDataExtension._fromState,
+          branches: [
+            StatefulShellBranchData.$branch(
+              routes: [
+                GoRouteData.$route(
+                  path: '/admin/aircraft',
+                  name: 'Aircraft',
+                  factory: $AircraftRouteExtension._fromState,
+                ),
+              ],
+            ),
+            StatefulShellBranchData.$branch(
+              routes: [
+                GoRouteData.$route(
+                  path: '/admin/roles',
+                  name: 'Roles',
+                  factory: $RolesRouteExtension._fromState,
+                ),
+              ],
+            ),
+            StatefulShellBranchData.$branch(
+              routes: [
+                GoRouteData.$route(
+                  path: '/admin/staff',
+                  name: 'Staff',
+                  factory: $StaffRouteExtension._fromState,
+                ),
+              ],
+            ),
+            StatefulShellBranchData.$branch(
+              routes: [
+                GoRouteData.$route(
+                  path: '/admin/categories',
+                  name: 'Categories',
+                  factory: $CategoriesRouteExtension._fromState,
+                ),
+              ],
+            ),
+          ],
+        ),
       ],
     );
 
@@ -469,6 +510,80 @@ extension $ResetPasswordRouteExtension on ResetPasswordRoute {
 
   String get location => GoRouteData.$location(
         '/reset-password',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $AdminShellRouteDataExtension on AdminShellRouteData {
+  static AdminShellRouteData _fromState(GoRouterState state) =>
+      const AdminShellRouteData();
+}
+
+extension $AircraftRouteExtension on AircraftRoute {
+  static AircraftRoute _fromState(GoRouterState state) => const AircraftRoute();
+
+  String get location => GoRouteData.$location(
+        '/admin/aircraft',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $RolesRouteExtension on RolesRoute {
+  static RolesRoute _fromState(GoRouterState state) => const RolesRoute();
+
+  String get location => GoRouteData.$location(
+        '/admin/roles',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $StaffRouteExtension on StaffRoute {
+  static StaffRoute _fromState(GoRouterState state) => const StaffRoute();
+
+  String get location => GoRouteData.$location(
+        '/admin/staff',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $CategoriesRouteExtension on CategoriesRoute {
+  static CategoriesRoute _fromState(GoRouterState state) =>
+      const CategoriesRoute();
+
+  String get location => GoRouteData.$location(
+        '/admin/categories',
       );
 
   void go(BuildContext context) => context.go(location);

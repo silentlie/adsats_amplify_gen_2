@@ -26,7 +26,6 @@ Future<String> userId(Ref ref) async {
 
 @riverpod
 Future<Staff> userDetails(Ref ref) async {
-
   final id = await ref.watch(userIdProvider.future);
   return await Amplify.API
       .query(
@@ -80,7 +79,8 @@ bool isSafetyOfficer(Ref ref) {
           (user) {
             return user.valueOrNull?.roles?.any(
               (role) {
-                return role.role?.name == "Safety Officer";
+                final roleName = role.role?.name;
+                return roleName == "Safety Officer" || roleName == "Admin";
               },
             );
           },
@@ -96,7 +96,8 @@ bool isQualityManager(Ref ref) {
           (user) {
             return user.valueOrNull?.roles?.any(
               (role) {
-                return role.role?.name == "Quality Manager";
+                final roleName = role.role?.name;
+                return roleName == "Quality Manager" || roleName == "Admin";
               },
             );
           },

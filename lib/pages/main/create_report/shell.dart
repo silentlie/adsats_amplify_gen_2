@@ -1,12 +1,11 @@
-import 'package:adsats_amplify_gen_2/pages/main/create_report/external_audit_report/route.dart';
-import 'package:adsats_amplify_gen_2/pages/main/create_report/internal_audit_report/route.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-export 'package:adsats_amplify_gen_2/pages/main/create_notice/notice_to_crew/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/create_notice/safety_notice/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/create_notice/hazard_report/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/create_report/internal_audit_report/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/create_report/external_audit_report/route.dart';
+
+
 
 class CreateReportShellRouteData extends StatefulShellRouteInfo {
   const CreateReportShellRouteData();
