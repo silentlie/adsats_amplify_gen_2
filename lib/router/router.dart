@@ -1,8 +1,9 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/models/Staff.dart';
 import 'package:adsats_amplify_gen_2/pages/main/create_report/external_audit_report/route.dart';
 import 'package:adsats_amplify_gen_2/pages/main/create_report/internal_audit_report/route.dart';
 import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
-import 'package:adsats_amplify_gen_2/widgets/loading_view.dart';
+import 'package:adsats_amplify_gen_2/widgets/future_value_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -174,6 +175,30 @@ class ErrorRoute extends GoRouteData {
           ),
         ],
       ),
+      TypedStatefulShellBranch<ProfileShellBranchData>(
+        routes: <TypedRoute<RouteData>>[
+          TypedGoRoute<ProfileRoute>(
+            path: '/profile',
+            name: 'Profile',
+          ),
+        ],
+      ),
+      TypedStatefulShellBranch<HelpShellBranchData>(
+        routes: <TypedRoute<RouteData>>[
+          TypedGoRoute<HelpRoute>(
+            path: '/help',
+            name: 'Help',
+          ),
+        ],
+      ),
+      TypedStatefulShellBranch<ResetPasswordShellBranchData>(
+        routes: <TypedRoute<RouteData>>[
+          TypedGoRoute<ResetPasswordRoute>(
+            path: '/reset-password',
+            name: 'Reset Password',
+          ),
+        ],
+      ),
     ],
   ),
 ])
@@ -188,15 +213,17 @@ class RootShellRouteData extends ShellRouteData {
   ) {
     return Consumer(
       builder: (context, ref, child) {
-        final isLoading = ref.watch(
+        final user = ref.watch(
           userDetailsProvider.select(
-            (asyncValue) => asyncValue.valueOrNull == null,
+            (asyncValue) => asyncValue.valueOrNull,
           ),
         );
-        if (isLoading) {
-          return LoadingView();
-        }
-        return RootShell(child: navigator);
+        return FutureValueWidget<Staff>(
+          value: user,
+          data: (user) {
+            return RootShell(child: navigator);
+          },
+        );
       },
     );
   }

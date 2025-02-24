@@ -2,7 +2,7 @@ import 'package:adsats_amplify_gen_2/pages/main/create_report/internal_audit_rep
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
 import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:adsats_amplify_gen_2/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -14,6 +14,9 @@ export 'package:adsats_amplify_gen_2/pages/main/create_notice/shell.dart';
 export 'package:adsats_amplify_gen_2/pages/main/compliances/shell.dart';
 export 'package:adsats_amplify_gen_2/pages/main/create_report/shell.dart';
 export 'package:adsats_amplify_gen_2/pages/main/crew_documents/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/profile/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/help/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/reset_password//route.dart';
 
 class MainShellRouteData extends StatefulShellRouteData {
   const MainShellRouteData();
@@ -44,6 +47,14 @@ class MainShell extends ConsumerWidget {
       index,
       initialLocation: index == navigationShell.currentIndex,
     );
+  }
+
+  int? validIndex() {
+    if (0 <= navigationShell.currentIndex &&
+        navigationShell.currentIndex < routes.length) {
+      return navigationShell.currentIndex;
+    }
+    return null;
   }
 
   final List<RouteInfoBase> routes = const [
@@ -83,18 +94,12 @@ class MainShell extends ConsumerWidget {
               );
             },
           ).toList(),
-          selectedIndex: navigationShell.currentIndex,
+          selectedIndex: validIndex(),
           onDestinationSelected: onDestinationSelected,
           groupAlignment: -1,
           extended: isExtended,
           labelType: isExtended ? null : NavigationRailLabelType.selected,
           minExtendedWidth: 192,
-          trailing: IconButton(
-            onPressed: () => Amplify.Auth.signOut(),
-            icon: Icon(
-              Icons.logout,
-            ),
-          ),
         ),
         VerticalDivider(
           width: 0,
@@ -123,7 +128,7 @@ class MainShell extends ConsumerWidget {
           },
         ).toList(),
         onDestinationSelected: onDestinationSelected,
-        selectedIndex: navigationShell.currentIndex,
+        selectedIndex: validIndex() ?? 0,
       ),
     );
   }
@@ -228,7 +233,7 @@ class MainShell extends ConsumerWidget {
     return Scaffold(
       appBar: AppBarWidget(),
       body: body(context, ref),
-      endDrawer: null,
+      endDrawer: DrawerWidget(),
       primary: true,
       floatingActionButton: button,
       floatingActionButtonLocation: location,

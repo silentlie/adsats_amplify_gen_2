@@ -1,10 +1,10 @@
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
-import 'package:adsats_amplify_gen_2/widgets/sign_out_button_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
 import 'package:adsats_amplify_gen_2/helper/to_string.dart';
 import 'package:adsats_amplify_gen_2/route/admin_route/admin_widget.dart';
 import 'package:adsats_amplify_gen_2/route/crew_documents_route/crew_documents_widget.dart';
 import 'package:adsats_amplify_gen_2/route/profile_route/profile_widget.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +20,7 @@ class MyDrawer extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         children: [
           const MyDrawerHeader(),
+          const Divider(),
           ListTile(
             title: const Text('Profile'),
             onTap: () {
@@ -63,7 +64,7 @@ class MyDrawer extends StatelessWidget {
               );
             },
           ),
-          const SignOutButtonWidget(),
+          SignOutButton(),
         ],
       ),
     );
@@ -120,7 +121,6 @@ class MyDrawerHeader extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
         ),
-        const Divider()
       ],
     );
   }

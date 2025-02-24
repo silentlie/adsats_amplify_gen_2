@@ -154,6 +154,33 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 ),
               ],
             ),
+            StatefulShellBranchData.$branch(
+              routes: [
+                GoRouteData.$route(
+                  path: '/profile',
+                  name: 'Profile',
+                  factory: $ProfileRouteExtension._fromState,
+                ),
+              ],
+            ),
+            StatefulShellBranchData.$branch(
+              routes: [
+                GoRouteData.$route(
+                  path: '/help',
+                  name: 'Help',
+                  factory: $HelpRouteExtension._fromState,
+                ),
+              ],
+            ),
+            StatefulShellBranchData.$branch(
+              routes: [
+                GoRouteData.$route(
+                  path: '/reset-password',
+                  name: 'Reset Password',
+                  factory: $ResetPasswordRouteExtension._fromState,
+                ),
+              ],
+            ),
           ],
         ),
       ],
@@ -402,11 +429,63 @@ extension $CrewDocumentsRouteExtension on CrewDocumentsRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $ProfileRouteExtension on ProfileRoute {
+  static ProfileRoute _fromState(GoRouterState state) => const ProfileRoute();
+
+  String get location => GoRouteData.$location(
+        '/profile',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $HelpRouteExtension on HelpRoute {
+  static HelpRoute _fromState(GoRouterState state) => const HelpRoute();
+
+  String get location => GoRouteData.$location(
+        '/help',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ResetPasswordRouteExtension on ResetPasswordRoute {
+  static ResetPasswordRoute _fromState(GoRouterState state) =>
+      const ResetPasswordRoute();
+
+  String get location => GoRouteData.$location(
+        '/reset-password',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'e2d259e1232d5acc98a71e3397c57fbd4a3cf64f';
+String _$routerHash() => r'33d77f388773fe464240e522cbfe463c8d5295c9';
 
 /// See also [Router].
 @ProviderFor(Router)

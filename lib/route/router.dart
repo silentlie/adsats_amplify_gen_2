@@ -1,5 +1,4 @@
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
-import 'package:adsats_amplify_gen_2/widgets/sign_out_button_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/compliance_route/compliance_widget.dart';
 import 'package:adsats_amplify_gen_2/route/crew_documents_route/crew_documents_widget.dart';
@@ -12,6 +11,7 @@ import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_widget.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/sms_widget.dart';
 import 'package:adsats_amplify_gen_2/route/training_route/training_widget.dart';
 import 'package:adsats_amplify_gen_2/scaffold/scaffod_widget.dart';
+import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -37,7 +37,7 @@ final router = GoRouter(
               return Column(
                 children: [
                   Text('Error: ${snapshot.error}'),
-                  const SignOutButtonWidget(),
+                  const SignOutButton(),
                 ],
               );
             } else if (snapshot.hasData) {
@@ -49,7 +49,7 @@ final router = GoRouter(
                     Text(
                       'Error access denied, user status: ${snapshot.data!}',
                     ),
-                    const SignOutButtonWidget(),
+                    const SignOutButton(),
                   ],
                 );
               }

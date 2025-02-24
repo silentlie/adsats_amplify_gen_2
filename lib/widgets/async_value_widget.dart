@@ -18,7 +18,7 @@ class AsyncValueWidget<T> extends StatelessWidget {
     return value.when(
       data: data,
       loading: () {
-        return LoadingView();
+        return const LoadingView();
       },
       error: (error, stackTrace) {
         final titleLarge = Theme.of(context).textTheme.titleLarge;
