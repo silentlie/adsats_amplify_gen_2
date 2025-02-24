@@ -2,6 +2,7 @@ import 'package:adsats_amplify_gen_2/pages/main/create_report/internal_audit_rep
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
 import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -88,6 +89,12 @@ class MainShell extends ConsumerWidget {
           extended: isExtended,
           labelType: isExtended ? null : NavigationRailLabelType.selected,
           minExtendedWidth: 192,
+          trailing: IconButton(
+            onPressed: () => Amplify.Auth.signOut(),
+            icon: Icon(
+              Icons.logout,
+            ),
+          ),
         ),
         VerticalDivider(
           width: 0,
@@ -121,7 +128,8 @@ class MainShell extends ConsumerWidget {
     );
   }
 
-  FloatingActionButton? floatingActionButton(BuildContext context) {
+  FloatingActionButton? floatingActionButton(
+      BuildContext context, WidgetRef ref) {
     final orientation = MediaQuery.orientationOf(context);
     final isLandscape = orientation == Orientation.landscape;
     final currentPath = GoRouter.of(context).state.uri.path;
@@ -215,7 +223,7 @@ class MainShell extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bottomBar = bottomAppBar(context);
-    final button = floatingActionButton(context);
+    final button = floatingActionButton(context, ref);
     final location = button == null ? null : floatButtonLocation(context);
     return Scaffold(
       appBar: AppBarWidget(),

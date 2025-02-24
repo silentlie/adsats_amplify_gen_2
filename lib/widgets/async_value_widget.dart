@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/widgets/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,9 +18,7 @@ class AsyncValueWidget<T> extends StatelessWidget {
     return value.when(
       data: data,
       loading: () {
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
+        return LoadingView();
       },
       error: (error, stackTrace) {
         final titleLarge = Theme.of(context).textTheme.titleLarge;

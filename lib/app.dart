@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/auth/sign_in_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/sign_in_widget.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
 import 'package:adsats_amplify_gen_2/theme/theme_data.dart';
@@ -6,11 +6,16 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MyApp extends ConsumerWidget {
+class MyApp extends ConsumerStatefulWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends ConsumerState<MyApp> {
+  @override
+  Widget build(BuildContext context) {
     final themeMode = ref.watch(settingsNotifierProvider.select(
       (settings) => settings.themeMode,
     ));

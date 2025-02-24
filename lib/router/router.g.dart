@@ -406,7 +406,7 @@ extension $CrewDocumentsRouteExtension on CrewDocumentsRoute {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'2d074deb19b74d2bdfceba49ac03ff52f2c72776';
+String _$routerHash() => r'e2d259e1232d5acc98a71e3397c57fbd4a3cf64f';
 
 /// See also [Router].
 @ProviderFor(Router)

@@ -3,7 +3,9 @@ import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
 import 'package:flutter/material.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarWidget({super.key});
+  const AppBarWidget({super.key, this.isBarebone = false});
+
+  final bool isBarebone;
 
   @override
   Size get preferredSize => const Size.fromHeight(56);
@@ -22,13 +24,15 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       actions: [
         ThemeToggleButton(),
-        IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {
-            Scaffold.of(context).openEndDrawer();
-          },
-        )
+        if (!isBarebone)
+          IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              Scaffold.of(context).openEndDrawer();
+            },
+          )
       ],
+      primary: true,
     );
   }
 

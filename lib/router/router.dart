@@ -1,6 +1,8 @@
+import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/pages/main/create_report/external_audit_report/route.dart';
 import 'package:adsats_amplify_gen_2/pages/main/create_report/internal_audit_report/route.dart';
 import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/widgets/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +24,10 @@ class Router extends _$Router {
       navigatorKey: rootNavigatorKey,
       routes: $appRoutes,
       debugLogDiagnostics: true,
+      redirect: (context, state) {
+        ref.refresh(userIdProvider.future).ignore();
+        return null;
+      },
       errorBuilder: (BuildContext context, GoRouterState state) {
         return ErrorRoute(error: state.error!).build(context, state);
       },
@@ -182,7 +188,14 @@ class RootShellRouteData extends ShellRouteData {
   ) {
     return Consumer(
       builder: (context, ref, child) {
-        // TODO verify staff from appSyncGraphQL
+        final isLoading = ref.watch(
+          userDetailsProvider.select(
+            (asyncValue) => asyncValue.valueOrNull == null,
+          ),
+        );
+        if (isLoading) {
+          return LoadingView();
+        }
         return RootShell(child: navigator);
       },
     );

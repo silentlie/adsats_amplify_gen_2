@@ -12,6 +12,7 @@ class GlobalThemeData {
 
   static ThemeData themeData(ColorScheme colorScheme, Color focusColor) {
     return ThemeData(
+      useMaterial3: true,
       colorScheme: colorScheme,
       canvasColor: colorScheme.surface,
       scaffoldBackgroundColor: colorScheme.surface,
@@ -24,11 +25,11 @@ class GlobalThemeData {
         style: ButtonStyle(
           backgroundColor:
               WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
-            return colorScheme.onSecondary; // colour
+            return colorScheme.onSecondary;
           }),
           foregroundColor:
               WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
-            return colorScheme.secondary; // colour
+            return colorScheme.secondary;
           }),
         ),
       ),

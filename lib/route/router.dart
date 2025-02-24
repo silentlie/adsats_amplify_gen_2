@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
-import 'package:adsats_amplify_gen_2/auth/sign_out_button_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/sign_out_button_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/compliance_route/compliance_widget.dart';
 import 'package:adsats_amplify_gen_2/route/crew_documents_route/crew_documents_widget.dart';
