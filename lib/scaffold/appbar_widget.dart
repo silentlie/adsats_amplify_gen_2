@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
-import 'package:adsats_amplify_gen_2/notification/notification_widget.dart';
+import 'package:adsats_amplify_gen_2/notification/notifications_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';

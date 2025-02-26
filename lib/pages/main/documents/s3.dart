@@ -106,9 +106,9 @@ Future<void> uploadFile(
   }
 }
 
-Future<void> archive(Document document) async {
+Future<void> archive(Document document, bool value) async {
   try {
-    final newDocument = document.copyWith(archived: !document.archived);
+    final newDocument = document.copyWith(archived: value);
     final request = ModelMutations.update(newDocument);
     final response = await Amplify.API.mutate(request: request).response;
     final data = response.data;

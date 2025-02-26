@@ -1,7 +1,6 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
-import 'package:adsats_amplify_gen_2/models/Staff.dart';
 import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
-import 'package:adsats_amplify_gen_2/widgets/future_value_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -199,8 +198,9 @@ class ErrorRoute extends GoRouteData {
       ),
     ],
   ),
-  TypedStatefulShellRoute<AdminShellRouteData>(branches: [
-    TypedStatefulShellBranch<AircraftShellBranchData>(
+  TypedStatefulShellRoute<AdminShellRouteData>(
+    branches: [
+      TypedStatefulShellBranch<AircraftShellBranchData>(
         routes: <TypedRoute<RouteData>>[
           TypedGoRoute<AircraftRoute>(
             path: '/admin/aircraft',
@@ -232,7 +232,8 @@ class ErrorRoute extends GoRouteData {
           ),
         ],
       ),
-  ],),
+    ],
+  ),
 ])
 class RootShellRouteData extends ShellRouteData {
   const RootShellRouteData();
@@ -245,17 +246,23 @@ class RootShellRouteData extends ShellRouteData {
   ) {
     return Consumer(
       builder: (context, ref, child) {
-        final user = ref.watch(
-          userDetailsProvider.select(
-            (asyncValue) => asyncValue.valueOrNull,
-          ),
-        );
-        return FutureValueWidget<Staff>(
-          value: user,
-          data: (user) {
-            return RootShell(child: navigator);
-          },
-        );
+        return ref.watch(userDetailsProvider).when(
+              data: (data) {
+                return RootShell(child: navigator);
+              },
+              error: (error, stackTrace) {
+                final titleLarge = Theme.of(context).textTheme.titleLarge;
+                return Center(
+                  child: Text(
+                    error.toString(),
+                    style: titleLarge?.copyWith(color: Colors.red),
+                  ),
+                );
+              },
+              loading: () => LoadingView(),
+              skipLoadingOnRefresh: true,
+              skipLoadingOnReload: true,
+            );
       },
     );
   }

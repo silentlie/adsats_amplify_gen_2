@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
 import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
@@ -11,10 +14,17 @@ export 'package:adsats_amplify_gen_2/pages/admin/roles/route.dart';
 export 'package:adsats_amplify_gen_2/pages/admin/staff/route.dart';
 export 'package:adsats_amplify_gen_2/pages/admin/categories/route.dart';
 
-class AdminShellRouteData extends StatefulShellRouteData {
+class AdminShellRouteData extends StatefulShellRouteInfo {
   const AdminShellRouteData();
 
   static String $initialLocation = AircraftRoute().location;
+
+  @override
+  Icon get icon => const Icon(Icons.admin_panel_settings_outlined);
+  @override
+  Icon get selectedIcon => const Icon(Icons.admin_panel_settings);
+  @override
+  String get label => 'Admin';
 
   @override
   Widget builder(
@@ -26,10 +36,18 @@ class AdminShellRouteData extends StatefulShellRouteData {
       navigationShell: navigationShell,
     );
   }
+
+  @override
+  FutureOr<String?> redirect(BuildContext context, GoRouterState state) {
+    final ref = ProviderScope.containerOf(context);
+    if (ref.read(isAdminProvider)) return null;
+    return HomeRoute().location;
+  }
 }
 
 class AdminShell extends ConsumerWidget {
-  const AdminShell({super.key,
+  const AdminShell({
+    super.key,
     required this.navigationShell,
   });
   final StatefulNavigationShell navigationShell;
@@ -66,15 +84,14 @@ class AdminShell extends ConsumerWidget {
     return Row(
       children: [
         NavigationRail(
-          leading: IconButton(
+          leading: TextButton.icon(
             onPressed: () {
               ref
                   .read(settingsNotifierProvider.notifier)
                   .changeNavigationRailExtended();
             },
-            icon: Icon(
-              isExtended ? Icons.chevron_left : Icons.chevron_right,
-            ),
+            label: isExtended ? Text("Colapse") : Icon(Icons.chevron_right),
+            icon: isExtended ? Icon(Icons.chevron_left) : null,
           ),
           destinations: routes.map(
             (route) {
@@ -91,6 +108,13 @@ class AdminShell extends ConsumerWidget {
           extended: isExtended,
           labelType: isExtended ? null : NavigationRailLabelType.selected,
           minExtendedWidth: 192,
+          trailing: TextButton.icon(
+            onPressed: () {
+              context.canPop() ? context.pop() : HomeRoute().go(context);
+            },
+            label: isExtended ? Text("Back") : Icon(Icons.arrow_back),
+            icon: isExtended ? Icon(Icons.arrow_back) : null,
+          ),
         ),
         VerticalDivider(
           width: 0,
@@ -163,15 +187,6 @@ class AdminShell extends ConsumerWidget {
         onPressed: onPressed,
       );
     }
-    if (currentPath != HomeRoute().location) {
-      return _buildFAB(
-        isLandscape: isLandscape,
-        label: "Back",
-        icon: Icons.arrow_back,
-        onPressed:
-            context.canPop() ? context.pop : () => HomeRoute().go(context),
-      );
-    }
     return null;
   }
 
@@ -205,24 +220,24 @@ class AdminShell extends ConsumerWidget {
   ) {
     final orientation = MediaQuery.orientationOf(context);
     final isLandscape = orientation == Orientation.landscape;
-    if (isLandscape) {
-      return FloatingActionButtonLocation.endFloat;
+    if (!isLandscape) {
+      return FloatingActionButtonLocation.centerDocked;
     }
-    return FloatingActionButtonLocation.centerFloat;
+    return FloatingActionButtonLocation.endFloat;
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bottomBar = bottomAppBar(context);
+    final location = floatButtonLocation(context);
     final button = floatingActionButton(context);
-    final location = button == null ? null : floatButtonLocation(context);
     return Scaffold(
       appBar: AppBarWidget(),
       body: body(context, ref),
       endDrawer: DrawerWidget(),
       primary: true,
-      floatingActionButton: button,
       floatingActionButtonLocation: location,
+      floatingActionButton: button,
       bottomNavigationBar: bottomBar,
     );
   }

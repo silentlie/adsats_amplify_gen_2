@@ -2,7 +2,6 @@ import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/compliance_route/compliance_widget.dart';
 import 'package:adsats_amplify_gen_2/route/crew_documents_route/crew_documents_widget.dart';
-import 'package:adsats_amplify_gen_2/route/documents_route/documents_widget.dart';
 import 'package:adsats_amplify_gen_2/route/help_route/help_widget.dart';
 import 'package:adsats_amplify_gen_2/route/home_route/home_widget.dart';
 import 'package:adsats_amplify_gen_2/route/profile_route/profile_widget.dart';
@@ -63,10 +62,6 @@ final router = GoRouter(
         GoRoute(
           path: HomeWidget.path,
           builder: (context, state) => const HomeWidget(),
-        ),
-        GoRoute(
-          path: DocumentsWidget.path,
-          builder: (context, state) => const DocumentsWidget(),
         ),
         GoRoute(
           path: ProfileWidget.path,

@@ -182,180 +182,180 @@ class SubcategoriesDataSource extends DataTableSource {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              FutureBuilder(
-                future: list(Category.classType),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator.adaptive(),
-                    );
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else {
-                    category = subcategory == null
-                        ? snapshot.data!.firstOrNull
-                        : subcategory.category;
-                    return Container(
-                      padding: const EdgeInsets.all(8),
-                      child: DropdownMenu(
-                        dropdownMenuEntries: snapshot.data!.map(
-                          (e) {
-                            return DropdownMenuEntry(value: e, label: e.name);
-                          },
-                        ).toList(),
-                        onSelected: (value) {
-                          category = value!;
-                        },
-                        initialSelection: category,
-                        expandedInsets: EdgeInsets.zero,
-                        requestFocusOnTap: false,
-                        hintText: "Category",
-                        label: const Text(
-                          "Category",
-                        ),
-                      ),
-                    );
-                  }
-                },
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Subcategory Name',
-                  ),
-                  onChanged: (value) {
-                    name = value;
-                  },
-                  initialValue: name,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter subcategory name';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Container(
-                constraints: const BoxConstraints(maxWidth: 666),
-                padding: const EdgeInsets.all(8),
-                child: TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Description of the subcategory',
-                  ),
-                  initialValue: description,
-                  onChanged: (value) {
-                    description = value;
-                  },
-                  maxLines: 4,
-                ),
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: DropdownMenu(
-                  dropdownMenuEntries: const [
-                    DropdownMenuEntry(value: false, label: "False"),
-                    DropdownMenuEntry(value: true, label: "True"),
-                  ],
-                  onSelected: (value) {
-                    archived = value!;
-                  },
-                  initialSelection: archived,
-                  expandedInsets: EdgeInsets.zero,
-                  requestFocusOnTap: false,
-                  hintText: "Archived",
-                  label: const Text(
-                    "Archived",
-                  ),
-                ),
-              ),
-              FutureBuilder(
-                future: list(Staff.classType),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                        child: CircularProgressIndicator.adaptive());
-                  } else if (snapshot.hasError) {
-                    return Text('Error: ${snapshot.error}');
-                  } else if (snapshot.hasData) {
-                    final allStaff = snapshot.data as List<Staff>;
-                    return StatefulBuilder(
-                      builder: (context, setState) {
-                        return Column(
-                          children: [
-                            MultiSelect<Staff>(
-                              onConfirm: (options) {
-                                setState(() {
-                                  List<Staff> selectedStaff =
-                                      List<Staff>.from(options);
-                                  staffSubcategories.removeWhere(
-                                    (staffSubcategory) => !selectedStaff
-                                        .contains(staffSubcategory.staff),
-                                  );
-                                  for (var staff in selectedStaff) {
-                                    if (!staffSubcategories
-                                        .any((s) => s.staff == staff)) {
-                                      staffSubcategories.add(StaffSubcategory(
-                                        accessLevel: 1,
-                                        staff: staff,
-                                        subcategory: subcategory,
-                                      ));
-                                    }
-                                  }
-                                });
-                              },
-                              items: allStaff.map((e) {
-                                return MultiSelectItem(e, e.name);
-                              }).toList(),
-                              initialValue: staffSubcategories
-                                  .map((e) => e.staff!)
-                                  .toList(),
-                              text: "Choose Staff",
-                            ),
-                            ...staffSubcategories.map(
-                              (staffSubcategory) {
-                                return Container(
-                                  padding: const EdgeInsets.all(8),
-                                  child: DropdownMenu(
-                                    dropdownMenuEntries: const [
-                                      DropdownMenuEntry(
-                                        value: 1,
-                                        label: "Read-only",
-                                      ),
-                                      DropdownMenuEntry(
-                                        value: 2,
-                                        label: "Full-access",
-                                      ),
-                                    ],
-                                    onSelected: (value) {
-                                      final index = staffSubcategories
-                                          .indexOf(staffSubcategory);
-                                      staffSubcategories[index] =
-                                          staffSubcategory.copyWith(
-                                        accessLevel: value as int,
-                                      );
-                                    },
-                                    initialSelection:
-                                        staffSubcategory.accessLevel,
-                                    expandedInsets: EdgeInsets.zero,
-                                    requestFocusOnTap: false,
-                                    hintText: staffSubcategory.staff!.name,
-                                    label: Text(staffSubcategory.staff!.name),
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  } else {
-                    return const Placeholder();
-                  }
-                },
-              ),
+              // FutureBuilder(
+              //   future: list(Category.classType),
+              //   builder: (context, snapshot) {
+              //     if (snapshot.connectionState == ConnectionState.waiting) {
+              //       return const Center(
+              //         child: CircularProgressIndicator.adaptive(),
+              //       );
+              //     } else if (snapshot.hasError) {
+              //       return Text('Error: ${snapshot.error}');
+              //     } else {
+              //       category = subcategory == null
+              //           ? snapshot.data!.firstOrNull
+              //           : subcategory.category;
+              //       return Container(
+              //         padding: const EdgeInsets.all(8),
+              //         child: DropdownMenu(
+              //           dropdownMenuEntries: snapshot.data!.map(
+              //             (e) {
+              //               return DropdownMenuEntry(value: e, label: e.name);
+              //             },
+              //           ).toList(),
+              //           onSelected: (value) {
+              //             category = value!;
+              //           },
+              //           initialSelection: category,
+              //           expandedInsets: EdgeInsets.zero,
+              //           requestFocusOnTap: false,
+              //           hintText: "Category",
+              //           label: const Text(
+              //             "Category",
+              //           ),
+              //         ),
+              //       );
+              //     }
+              //   },
+              // ),
+              // Container(
+              //   padding: const EdgeInsets.all(8),
+              //   child: TextFormField(
+              //     decoration: const InputDecoration(
+              //       border: OutlineInputBorder(),
+              //       labelText: 'Subcategory Name',
+              //     ),
+              //     onChanged: (value) {
+              //       name = value;
+              //     },
+              //     initialValue: name,
+              //     validator: (value) {
+              //       if (value == null || value.isEmpty) {
+              //         return 'Please enter subcategory name';
+              //       }
+              //       return null;
+              //     },
+              //   ),
+              // ),
+              // Container(
+              //   constraints: const BoxConstraints(maxWidth: 666),
+              //   padding: const EdgeInsets.all(8),
+              //   child: TextFormField(
+              //     decoration: const InputDecoration(
+              //       border: OutlineInputBorder(),
+              //       labelText: 'Description of the subcategory',
+              //     ),
+              //     initialValue: description,
+              //     onChanged: (value) {
+              //       description = value;
+              //     },
+              //     maxLines: 4,
+              //   ),
+              // ),
+              // Container(
+              //   padding: const EdgeInsets.all(8),
+              //   child: DropdownMenu(
+              //     dropdownMenuEntries: const [
+              //       DropdownMenuEntry(value: false, label: "False"),
+              //       DropdownMenuEntry(value: true, label: "True"),
+              //     ],
+              //     onSelected: (value) {
+              //       archived = value!;
+              //     },
+              //     initialSelection: archived,
+              //     expandedInsets: EdgeInsets.zero,
+              //     requestFocusOnTap: false,
+              //     hintText: "Archived",
+              //     label: const Text(
+              //       "Archived",
+              //     ),
+              //   ),
+              // ),
+              // FutureBuilder(
+              //   future: list(Staff.classType),
+              //   builder: (context, snapshot) {
+              //     if (snapshot.connectionState == ConnectionState.waiting) {
+              //       return const Center(
+              //           child: CircularProgressIndicator.adaptive());
+              //     } else if (snapshot.hasError) {
+              //       return Text('Error: ${snapshot.error}');
+              //     } else if (snapshot.hasData) {
+              //       final allStaff = snapshot.data as List<Staff>;
+              //       return StatefulBuilder(
+              //         builder: (context, setState) {
+              //           return Column(
+              //             children: [
+              //               MultiSelect<Staff>(
+              //                 onConfirm: (options) {
+              //                   setState(() {
+              //                     List<Staff> selectedStaff =
+              //                         List<Staff>.from(options);
+              //                     staffSubcategories.removeWhere(
+              //                       (staffSubcategory) => !selectedStaff
+              //                           .contains(staffSubcategory.staff),
+              //                     );
+              //                     for (var staff in selectedStaff) {
+              //                       if (!staffSubcategories
+              //                           .any((s) => s.staff == staff)) {
+              //                         staffSubcategories.add(StaffSubcategory(
+              //                           accessLevel: 1,
+              //                           staff: staff,
+              //                           subcategory: subcategory,
+              //                         ));
+              //                       }
+              //                     }
+              //                   });
+              //                 },
+              //                 items: allStaff.map((e) {
+              //                   return MultiSelectItem(e, e.name);
+              //                 }).toList(),
+              //                 initialValue: staffSubcategories
+              //                     .map((e) => e.staff!)
+              //                     .toList(),
+              //                 text: "Choose Staff",
+              //               ),
+              //               ...staffSubcategories.map(
+              //                 (staffSubcategory) {
+              //                   return Container(
+              //                     padding: const EdgeInsets.all(8),
+              //                     child: DropdownMenu(
+              //                       dropdownMenuEntries: const [
+              //                         DropdownMenuEntry(
+              //                           value: 1,
+              //                           label: "Read-only",
+              //                         ),
+              //                         DropdownMenuEntry(
+              //                           value: 2,
+              //                           label: "Full-access",
+              //                         ),
+              //                       ],
+              //                       onSelected: (value) {
+              //                         final index = staffSubcategories
+              //                             .indexOf(staffSubcategory);
+              //                         staffSubcategories[index] =
+              //                             staffSubcategory.copyWith(
+              //                           accessLevel: value as int,
+              //                         );
+              //                       },
+              //                       initialSelection:
+              //                           staffSubcategory.accessLevel,
+              //                       expandedInsets: EdgeInsets.zero,
+              //                       requestFocusOnTap: false,
+              //                       hintText: staffSubcategory.staff!.name,
+              //                       label: Text(staffSubcategory.staff!.name),
+              //                     ),
+              //                   );
+              //                 },
+              //               ),
+              //             ],
+              //           );
+              //         },
+              //       );
+              //     } else {
+              //       return const Placeholder();
+              //     }
+              //   },
+              // ),
             ],
           ),
         ),

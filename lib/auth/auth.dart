@@ -10,7 +10,7 @@ import '../models/ModelProvider.dart';
 
 part 'auth.g.dart';
 
-@riverpod
+@Riverpod(dependencies: [])
 Future<String> userId(Ref ref) async {
   return await Amplify.Auth.getPlugin(
     AmplifyAuthCognito.pluginKey,
@@ -24,7 +24,7 @@ Future<String> userId(Ref ref) async {
   );
 }
 
-@riverpod
+@Riverpod(dependencies: [userId])
 Future<Staff> userDetails(Ref ref) async {
   final id = await ref.watch(userIdProvider.future);
   return await Amplify.API
@@ -56,7 +56,7 @@ Future<Staff> userDetails(Ref ref) async {
   );
 }
 
-@riverpod
+@Riverpod(dependencies: [userDetails])
 bool isAdmin(Ref ref) {
   return ref.watch(
         userDetailsProvider.select(
@@ -72,7 +72,7 @@ bool isAdmin(Ref ref) {
       false;
 }
 
-@riverpod
+@Riverpod(dependencies: [userDetails])
 bool isSafetyOfficer(Ref ref) {
   return ref.watch(
         userDetailsProvider.select(
@@ -89,7 +89,7 @@ bool isSafetyOfficer(Ref ref) {
       false;
 }
 
-@riverpod
+@Riverpod(dependencies: [userDetails])
 bool isQualityManager(Ref ref) {
   return ref.watch(
         userDetailsProvider.select(

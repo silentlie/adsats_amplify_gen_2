@@ -1,20 +1,21 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-class FutrureDropdownMenu<T extends Model> extends StatelessWidget {
-  const FutrureDropdownMenu({
+class GlobalDropdownMenu<T extends Model> extends StatelessWidget {
+  const GlobalDropdownMenu({
     super.key,
-    required this.modelType,
-    required this.toList,
+    required this.entries,
     this.enabled = true,
     this.text = "",
+    this.enableSearch = true,
     required this.onSelected,
     this.initialSelection,
-    this.padding = const EdgeInsets.all(8.0),
+    this.padding = const EdgeInsets.all(8),
   });
-  final ModelType modelType;
-  final List<DropdownMenuEntry<T>> Function(List<T> allData) toList;
+
+  final List<DropdownMenuEntry<T>> entries;
   final bool enabled;
+  final bool enableSearch;
   final String text;
   final ValueChanged<T?> onSelected;
   final T? initialSelection;
@@ -22,11 +23,10 @@ class FutrureDropdownMenu<T extends Model> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<T> allData = <T>[];
     return Padding(
-      padding: padding,
-      child: DropdownMenu(
-        dropdownMenuEntries: toList(allData),
+      padding: const EdgeInsets.all(8.0),
+      child: DropdownMenu<T>(
+        dropdownMenuEntries: entries,
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(),
         ),
@@ -34,9 +34,10 @@ class FutrureDropdownMenu<T extends Model> extends StatelessWidget {
         menuHeight: 200,
         label: Text(text),
         onSelected: onSelected,
-        initialSelection: initialSelection ?? allData.firstOrNull,
         expandedInsets: EdgeInsets.zero,
         enabled: enabled,
+        initialSelection: initialSelection,
+        enableSearch: enableSearch,
       ),
     );
   }

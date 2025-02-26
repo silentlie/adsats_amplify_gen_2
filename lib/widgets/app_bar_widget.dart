@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/notification/notifications_widget.dart';
 import 'package:adsats_amplify_gen_2/theme/theme_toggle_button.dart';
 import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       actions: [
         ThemeToggleButton(),
+        if (!isBarebone)
+        const NotificationsWidget(),
         if (!isBarebone)
           IconButton(
             icon: const Icon(Icons.menu),

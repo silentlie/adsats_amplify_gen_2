@@ -146,10 +146,11 @@ class InboxDataSource extends DataTableSource {
 
   Future<void> fetchRawData() async {
     try {
-      final noticeIds = await list(
-        NoticeStaff.classType,
-        where: NoticeStaff.STAFF.eq(filter.staff.id),
-      );
+      // final noticeIds = await list(
+      //   NoticeStaff.classType,
+      //   where: NoticeStaff.STAFF.eq(filter.staff.id),
+      // );
+      final noticeIds = [];
       final filterJson = filter.toJson();
       if (noticeIds.isEmpty) {
         data.clear();

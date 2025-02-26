@@ -6,6 +6,7 @@ import 'package:adsats_amplify_gen_2/widgets/future_value_widget.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class DrawerWidget extends ConsumerWidget {
   const DrawerWidget({super.key});
@@ -21,6 +22,14 @@ class DrawerWidget extends ConsumerWidget {
         children: [
           DrawerHeaderWidget(),
           const Divider(),
+          ListTile(
+            leading: HomeRoute().icon,
+            title: const Text('Home'),
+            onTap: () {
+              context.canPop() ? context.pop() : HomeRoute().go(context);
+              _close(context);
+            },
+          ),
           ListTile(
             leading: ProfileRoute().icon,
             title: const Text('Profile'),
@@ -42,7 +51,7 @@ class DrawerWidget extends ConsumerWidget {
               leading: Icon(Icons.admin_panel_settings_outlined),
               title: const Text('Admin'),
               onTap: () {
-                //TODO admin path
+                AircraftRoute().push(context);
               },
             ),
           ListTile(

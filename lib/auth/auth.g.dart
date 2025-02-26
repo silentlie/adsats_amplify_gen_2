@@ -6,7 +6,7 @@ part of 'auth.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$userIdHash() => r'3ff909554adc1d30addf19392b522ba0839aae7d';
+String _$userIdHash() => r'2b1762f5114422db6a7aaca8a84656d84c75397a';
 
 /// See also [userId].
 @ProviderFor(userId)
@@ -15,14 +15,14 @@ final userIdProvider = AutoDisposeFutureProvider<String>.internal(
   name: r'userIdProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product') ? null : _$userIdHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
+  dependencies: const <ProviderOrFamily>[],
+  allTransitiveDependencies: const <ProviderOrFamily>{},
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef UserIdRef = AutoDisposeFutureProviderRef<String>;
-String _$userDetailsHash() => r'e118aafb13d4ed0713dc592c333e51e4393388bd';
+String _$userDetailsHash() => r'617c1a9b729b2a31e8876ff773bb18e8232f7932';
 
 /// See also [userDetails].
 @ProviderFor(userDetails)
@@ -31,14 +31,17 @@ final userDetailsProvider = AutoDisposeFutureProvider<Staff>.internal(
   name: r'userDetailsProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product') ? null : _$userDetailsHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
+  dependencies: <ProviderOrFamily>[userIdProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{
+    userIdProvider,
+    ...?userIdProvider.allTransitiveDependencies
+  },
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef UserDetailsRef = AutoDisposeFutureProviderRef<Staff>;
-String _$isAdminHash() => r'ec095ef8ca746620102f1ec8c9defad4d1f35959';
+String _$isAdminHash() => r'96b4f4ec96cebc4d7a5cbe0327080f9cde2a7e5c';
 
 /// See also [isAdmin].
 @ProviderFor(isAdmin)
@@ -47,14 +50,17 @@ final isAdminProvider = AutoDisposeProvider<bool>.internal(
   name: r'isAdminProvider',
   debugGetCreateSourceHash:
       const bool.fromEnvironment('dart.vm.product') ? null : _$isAdminHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
+  dependencies: <ProviderOrFamily>[userDetailsProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{
+    userDetailsProvider,
+    ...?userDetailsProvider.allTransitiveDependencies
+  },
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef IsAdminRef = AutoDisposeProviderRef<bool>;
-String _$isSafetyOfficerHash() => r'8a1c3bfd01b62bf6b97c384a5b08c283dfbc11ff';
+String _$isSafetyOfficerHash() => r'a43178c78a2686af64559b3f401b46ec08feeb4f';
 
 /// See also [isSafetyOfficer].
 @ProviderFor(isSafetyOfficer)
@@ -64,14 +70,17 @@ final isSafetyOfficerProvider = AutoDisposeProvider<bool>.internal(
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$isSafetyOfficerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
+  dependencies: <ProviderOrFamily>[userDetailsProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{
+    userDetailsProvider,
+    ...?userDetailsProvider.allTransitiveDependencies
+  },
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef IsSafetyOfficerRef = AutoDisposeProviderRef<bool>;
-String _$isQualityManagerHash() => r'3425962d612e369066c47b3375cd312ac2dc0759';
+String _$isQualityManagerHash() => r'8360bb921e6ba37c508682f4d751756ef98fcc70';
 
 /// See also [isQualityManager].
 @ProviderFor(isQualityManager)
@@ -81,8 +90,11 @@ final isQualityManagerProvider = AutoDisposeProvider<bool>.internal(
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$isQualityManagerHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
+  dependencies: <ProviderOrFamily>[userDetailsProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{
+    userDetailsProvider,
+    ...?userDetailsProvider.allTransitiveDependencies
+  },
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')

@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/pages/main/documents/new_document.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
 import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
@@ -132,8 +133,7 @@ class MainShell extends ConsumerWidget {
     );
   }
 
-  FloatingActionButton? floatingActionButton(
-      BuildContext context) {
+  FloatingActionButton? floatingActionButton(BuildContext context) {
     final orientation = MediaQuery.orientationOf(context);
     final isLandscape = orientation == Orientation.landscape;
     final currentPath = GoRouter.of(context).state.uri.path;
@@ -141,7 +141,10 @@ class MainShell extends ConsumerWidget {
       DocumentsRoute().location: (
         "New Document",
         () {
-          // TODO: Upload new documents
+          showDialog(
+            context: context,
+            builder: (context) => NewDocumentDialog(),
+          );
         }
       ),
       SmsInboxRoute().location: (
@@ -174,15 +177,6 @@ class MainShell extends ConsumerWidget {
         isLandscape: isLandscape,
         label: label,
         onPressed: onPressed,
-      );
-    }
-    if (currentPath != HomeRoute().location) {
-      return _buildFAB(
-        isLandscape: isLandscape,
-        label: "Back",
-        icon: Icons.arrow_back,
-        onPressed:
-            context.canPop() ? context.pop : () => HomeRoute().go(context),
       );
     }
     return null;
@@ -227,15 +221,15 @@ class MainShell extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bottomBar = bottomAppBar(context);
+    final location = floatButtonLocation(context);
     final button = floatingActionButton(context);
-    final location = button == null ? null : floatButtonLocation(context);
     return Scaffold(
       appBar: AppBarWidget(),
       body: body(context, ref),
       endDrawer: DrawerWidget(),
       primary: true,
-      floatingActionButton: button,
       floatingActionButtonLocation: location,
+      floatingActionButton: button,
       bottomNavigationBar: bottomBar,
     );
   }
