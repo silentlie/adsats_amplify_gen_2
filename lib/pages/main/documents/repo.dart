@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:adsats_amplify_gen_2/API/querries.dart';
+import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/filter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -11,7 +11,7 @@ part 'repo.g.dart';
 @Riverpod(dependencies: [])
 class DocumentsRepo extends _$DocumentsRepo {
   @override
-  FutureOr<List<Document>> build(FilterState filter) async {
+  FutureOr<List<Document>> build(DocumentFilterState filter) async {
     final request = GraphQLRequest<String>(
       document: listDocuments,
       variables: {"filter": filter.toJson()},

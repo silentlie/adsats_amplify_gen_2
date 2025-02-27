@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:adsats_amplify_gen_2/API/querries.dart';
+import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';

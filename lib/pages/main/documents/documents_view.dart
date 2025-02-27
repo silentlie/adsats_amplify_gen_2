@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -6,6 +7,7 @@ import 'package:adsats_amplify_gen_2/pages/main/documents/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/new_document.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
+import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,7 +22,7 @@ class DocumentsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(filterProvider(subcategory));
+    final filter = ref.watch(documentFilterProvider(subcategory));
     final documentsAsync = ref.watch(
       documentsRepoProvider(filter),
     );
@@ -89,13 +91,14 @@ class DocumentsView extends ConsumerWidget {
       children: [
         ListTile(
           leading: ElevatedButton.icon(
-            onPressed: () {
-              showDialog(
+            onPressed: () async {
+              await showDialog(
                 context: context,
                 builder: (context) => NewDocumentDialog(
                   subcategory: subcategory,
                 ),
               );
+              ref.invalidate(documentsRepoProvider(filter));
             },
             label: const Text('Add a document'),
             icon: const Icon(
@@ -105,21 +108,34 @@ class DocumentsView extends ConsumerWidget {
           ),
           title: SearchBarWidget(
             onSubmitted: (value) {
-              ref.read(filterProvider(subcategory).notifier).search(value);
+              ref
+                  .read(documentFilterProvider(subcategory).notifier)
+                  .search(value);
             },
             initialValue: filter.search,
           ),
-          trailing: ElevatedButton.icon(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return FilterView(subcategory: subcategory);
+          trailing: Row(
+            children: [
+              ElevatedButton.icon(
+                onPressed: () {
+                  ref.invalidate(documentsRepoProvider(filter));
                 },
-              );
-            },
-            label: Text("Filter"),
-            icon: Icon(Icons.filter_alt_outlined),
+                label: Text("Refresh"),
+                icon: Icon(Icons.refresh_outlined),
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return DocumentsFilterView(subcategory: subcategory);
+                    },
+                  );
+                },
+                label: Text("Filter"),
+                icon: Icon(Icons.filter_alt_outlined),
+              ),
+            ],
           ),
         ),
         ...widgets
@@ -128,8 +144,8 @@ class DocumentsView extends ConsumerWidget {
   }
 }
 
-class FilterView extends ConsumerWidget {
-  const FilterView({
+class DocumentsFilterView extends ConsumerWidget {
+  const DocumentsFilterView({
     super.key,
     required this.subcategory,
   });
@@ -138,35 +154,28 @@ class FilterView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var filter = ref.watch(filterProvider(subcategory));
+    var filter = ref.watch(documentFilterProvider(subcategory));
     return AlertDialog.adaptive(
       title: const Text('Filter By:'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: DropdownMenu<bool?>(
-              dropdownMenuEntries: const [
-                DropdownMenuEntry(value: false, label: "False"),
-                DropdownMenuEntry(value: true, label: "True"),
-                DropdownMenuEntry(value: null, label: "All"),
-              ],
-              onSelected: (value) {
-                filter = filter.copyWith(archived: value);
-              },
-              initialSelection: filter.archived,
-              expandedInsets: EdgeInsets.zero,
-              requestFocusOnTap: false,
-              hintText: "Archived",
-              label: const Text(
-                "Archived",
-              ),
-            ),
+          GlobalDropdownMenu(
+            entries: const [
+              DropdownMenuEntry(value: false, label: "False"),
+              DropdownMenuEntry(value: true, label: "True"),
+              DropdownMenuEntry(value: null, label: "All"),
+            ],
+            onSelected: (value) {
+              filter = filter.copyWith(archived: value);
+            },
+            initialSelection: filter.archived,
+            text: "Archived",
           ),
           Container(
             padding: const EdgeInsets.all(8),
             child: DateTimeRangePicker(
+              text: "Select document date range",
               onSubmitted: (value) {
                 filter = filter.copyWith(createdAt: value);
               },
@@ -183,7 +192,7 @@ class FilterView extends ConsumerWidget {
         ),
         TextButton(
           onPressed: () {
-            ref.invalidate(filterProvider(subcategory));
+            ref.invalidate(documentFilterProvider(subcategory));
             Navigator.pop(context, 'Apply');
           },
           child: const Text("Reset filter"),
@@ -191,7 +200,7 @@ class FilterView extends ConsumerWidget {
         // apply
         TextButton(
           onPressed: () {
-            ref.read(filterProvider(subcategory).notifier).apply(
+            ref.read(documentFilterProvider(subcategory).notifier).apply(
                   filter,
                 );
             Navigator.pop(context, 'Apply');
@@ -229,32 +238,45 @@ class DocumentActions extends ConsumerWidget {
           icon: const Icon(Icons.download_outlined),
           tooltip: "Download",
         ),
-        if (isAdmin && !document.archived)
-          IconButton(
-            onPressed: () async {
-              await archive(document, true);
-              controller.close();
+        if (isAdmin)
+        IconButton(
+          onPressed: () async {
+            final result = await showConfirmDialog(
+              context,
+              Text("Are you sure?"),
+              Text(
+                "Do you want to ${document.archived ? "unarchive" : "archive"} this document?",
+              ),
+            );
+            if (result) {
+              await archive(document);
               reload();
-            },
-            icon: const Icon(Icons.archive_outlined),
-            tooltip: "Archive",
-          ),
-        if (isAdmin && document.archived)
-          IconButton(
-            onPressed: () async {
-              await archive(document, false);
               controller.close();
-              reload();
-            },
-            icon: const Icon(Icons.unarchive_outlined),
-            tooltip: "Unarchive",
+            }
+          },
+          icon: Icon(
+            document.archived
+                ? Icons.unarchive_outlined
+                : Icons.archive_outlined,
           ),
+          tooltip: document.archived
+              ? "Unarchive this document"
+              : "Archive this document",
+        ),
         if (isAdmin)
           IconButton(
             onPressed: () async {
-              await delete(document);
-              controller.close();
-              reload();
+              final result = await showConfirmDialog(
+                context,
+                Text("Are you sure?"),
+                Text("Do you want to delete this notice?"),
+              );
+              if (result) {
+                await delete(document);
+                controller.close();
+                reload();
+              }
+
             },
             icon: const Icon(Icons.delete_outline),
             tooltip: "Delete",

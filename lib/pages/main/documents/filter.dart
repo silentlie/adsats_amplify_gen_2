@@ -8,30 +8,30 @@ part 'filter.freezed.dart';
 part 'filter.g.dart';
 
 @Riverpod(dependencies: [])
-class Filter extends _$Filter {
+class DocumentFilter extends _$DocumentFilter {
   @override
-  FilterState build(Subcategory subcategory) {
-    return FilterState(subcategory: subcategory, archived: false);
+  DocumentFilterState build(Subcategory subcategory) {
+    return DocumentFilterState(subcategory: subcategory, archived: false);
   }
 
   void search(String name) {
     state = state.copyWith(search: name);
   }
 
-  void apply(FilterState newState) {
+  void apply(DocumentFilterState newState) {
     state = newState;
   }
 }
 
 @freezed
-class FilterState with _$FilterState {
-  FilterState._();
-  factory FilterState({
+class DocumentFilterState with _$DocumentFilterState {
+  DocumentFilterState._();
+  factory DocumentFilterState({
     required Subcategory subcategory,
     @Default("") String search,
     bool? archived,
     DateTimeRange? createdAt,
-  }) = _FilterState;
+  }) = _DocumentFilterState;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> result = {};

@@ -14,7 +14,6 @@ class InboxDataSource extends DataTableSource {
     required this.filter,
     required this.rebuild,
   }) {
-    filter.staff = Provider.of<AuthNotifier>(context, listen: false).user;
     filter.archived = false;
   }
 

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:adsats_amplify_gen_2/API/querries.dart';
+import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/helper/between_date_range.dart';
 import 'package:adsats_amplify_gen_2/helper/futrure_dropdown_menu.dart';

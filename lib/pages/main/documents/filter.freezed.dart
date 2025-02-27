@@ -15,24 +15,24 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$FilterState {
+mixin _$DocumentFilterState {
   Subcategory get subcategory => throw _privateConstructorUsedError;
   String get search => throw _privateConstructorUsedError;
   bool? get archived => throw _privateConstructorUsedError;
   DateTimeRange? get createdAt => throw _privateConstructorUsedError;
 
-  /// Create a copy of FilterState
+  /// Create a copy of DocumentFilterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $FilterStateCopyWith<FilterState> get copyWith =>
+  $DocumentFilterStateCopyWith<DocumentFilterState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $FilterStateCopyWith<$Res> {
-  factory $FilterStateCopyWith(
-          FilterState value, $Res Function(FilterState) then) =
-      _$FilterStateCopyWithImpl<$Res, FilterState>;
+abstract class $DocumentFilterStateCopyWith<$Res> {
+  factory $DocumentFilterStateCopyWith(
+          DocumentFilterState value, $Res Function(DocumentFilterState) then) =
+      _$DocumentFilterStateCopyWithImpl<$Res, DocumentFilterState>;
   @useResult
   $Res call(
       {Subcategory subcategory,
@@ -42,16 +42,16 @@ abstract class $FilterStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$FilterStateCopyWithImpl<$Res, $Val extends FilterState>
-    implements $FilterStateCopyWith<$Res> {
-  _$FilterStateCopyWithImpl(this._value, this._then);
+class _$DocumentFilterStateCopyWithImpl<$Res, $Val extends DocumentFilterState>
+    implements $DocumentFilterStateCopyWith<$Res> {
+  _$DocumentFilterStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of FilterState
+  /// Create a copy of DocumentFilterState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -83,11 +83,11 @@ class _$FilterStateCopyWithImpl<$Res, $Val extends FilterState>
 }
 
 /// @nodoc
-abstract class _$$FilterStateImplCopyWith<$Res>
-    implements $FilterStateCopyWith<$Res> {
-  factory _$$FilterStateImplCopyWith(
-          _$FilterStateImpl value, $Res Function(_$FilterStateImpl) then) =
-      __$$FilterStateImplCopyWithImpl<$Res>;
+abstract class _$$DocumentFilterStateImplCopyWith<$Res>
+    implements $DocumentFilterStateCopyWith<$Res> {
+  factory _$$DocumentFilterStateImplCopyWith(_$DocumentFilterStateImpl value,
+          $Res Function(_$DocumentFilterStateImpl) then) =
+      __$$DocumentFilterStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -98,14 +98,14 @@ abstract class _$$FilterStateImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$FilterStateImplCopyWithImpl<$Res>
-    extends _$FilterStateCopyWithImpl<$Res, _$FilterStateImpl>
-    implements _$$FilterStateImplCopyWith<$Res> {
-  __$$FilterStateImplCopyWithImpl(
-      _$FilterStateImpl _value, $Res Function(_$FilterStateImpl) _then)
+class __$$DocumentFilterStateImplCopyWithImpl<$Res>
+    extends _$DocumentFilterStateCopyWithImpl<$Res, _$DocumentFilterStateImpl>
+    implements _$$DocumentFilterStateImplCopyWith<$Res> {
+  __$$DocumentFilterStateImplCopyWithImpl(_$DocumentFilterStateImpl _value,
+      $Res Function(_$DocumentFilterStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of FilterState
+  /// Create a copy of DocumentFilterState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -115,7 +115,7 @@ class __$$FilterStateImplCopyWithImpl<$Res>
     Object? archived = freezed,
     Object? createdAt = freezed,
   }) {
-    return _then(_$FilterStateImpl(
+    return _then(_$DocumentFilterStateImpl(
       subcategory: null == subcategory
           ? _value.subcategory
           : subcategory // ignore: cast_nullable_to_non_nullable
@@ -138,8 +138,8 @@ class __$$FilterStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$FilterStateImpl extends _FilterState {
-  _$FilterStateImpl(
+class _$DocumentFilterStateImpl extends _DocumentFilterState {
+  _$DocumentFilterStateImpl(
       {required this.subcategory,
       this.search = "",
       this.archived,
@@ -158,14 +158,14 @@ class _$FilterStateImpl extends _FilterState {
 
   @override
   String toString() {
-    return 'FilterState(subcategory: $subcategory, search: $search, archived: $archived, createdAt: $createdAt)';
+    return 'DocumentFilterState(subcategory: $subcategory, search: $search, archived: $archived, createdAt: $createdAt)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$FilterStateImpl &&
+            other is _$DocumentFilterStateImpl &&
             (identical(other.subcategory, subcategory) ||
                 other.subcategory == subcategory) &&
             (identical(other.search, search) || other.search == search) &&
@@ -179,22 +179,23 @@ class _$FilterStateImpl extends _FilterState {
   int get hashCode =>
       Object.hash(runtimeType, subcategory, search, archived, createdAt);
 
-  /// Create a copy of FilterState
+  /// Create a copy of DocumentFilterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$FilterStateImplCopyWith<_$FilterStateImpl> get copyWith =>
-      __$$FilterStateImplCopyWithImpl<_$FilterStateImpl>(this, _$identity);
+  _$$DocumentFilterStateImplCopyWith<_$DocumentFilterStateImpl> get copyWith =>
+      __$$DocumentFilterStateImplCopyWithImpl<_$DocumentFilterStateImpl>(
+          this, _$identity);
 }
 
-abstract class _FilterState extends FilterState {
-  factory _FilterState(
+abstract class _DocumentFilterState extends DocumentFilterState {
+  factory _DocumentFilterState(
       {required final Subcategory subcategory,
       final String search,
       final bool? archived,
-      final DateTimeRange? createdAt}) = _$FilterStateImpl;
-  _FilterState._() : super._();
+      final DateTimeRange? createdAt}) = _$DocumentFilterStateImpl;
+  _DocumentFilterState._() : super._();
 
   @override
   Subcategory get subcategory;
@@ -205,10 +206,10 @@ abstract class _FilterState extends FilterState {
   @override
   DateTimeRange? get createdAt;
 
-  /// Create a copy of FilterState
+  /// Create a copy of DocumentFilterState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$FilterStateImplCopyWith<_$FilterStateImpl> get copyWith =>
+  _$$DocumentFilterStateImplCopyWith<_$DocumentFilterStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

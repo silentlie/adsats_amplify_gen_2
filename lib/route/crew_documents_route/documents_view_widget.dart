@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:adsats_amplify_gen_2/API/querries.dart';
+import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/helper/file_picker_notifier.dart';
 import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';

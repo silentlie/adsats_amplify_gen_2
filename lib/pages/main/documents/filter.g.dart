@@ -6,7 +6,7 @@ part of 'filter.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$filterHash() => r'5573d79f3a3ecb9c23c53b42a2ec9c82227ccbcf';
+String _$documentFilterHash() => r'01f7da502324ef638ea77f32f5c3b850cdc378d1';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,35 +29,36 @@ class _SystemHash {
   }
 }
 
-abstract class _$Filter extends BuildlessAutoDisposeNotifier<FilterState> {
+abstract class _$DocumentFilter
+    extends BuildlessAutoDisposeNotifier<DocumentFilterState> {
   late final Subcategory subcategory;
 
-  FilterState build(
+  DocumentFilterState build(
     Subcategory subcategory,
   );
 }
 
-/// See also [Filter].
-@ProviderFor(Filter)
-const filterProvider = FilterFamily();
+/// See also [DocumentFilter].
+@ProviderFor(DocumentFilter)
+const documentFilterProvider = DocumentFilterFamily();
 
-/// See also [Filter].
-class FilterFamily extends Family<FilterState> {
-  /// See also [Filter].
-  const FilterFamily();
+/// See also [DocumentFilter].
+class DocumentFilterFamily extends Family<DocumentFilterState> {
+  /// See also [DocumentFilter].
+  const DocumentFilterFamily();
 
-  /// See also [Filter].
-  FilterProvider call(
+  /// See also [DocumentFilter].
+  DocumentFilterProvider call(
     Subcategory subcategory,
   ) {
-    return FilterProvider(
+    return DocumentFilterProvider(
       subcategory,
     );
   }
 
   @override
-  FilterProvider getProviderOverride(
-    covariant FilterProvider provider,
+  DocumentFilterProvider getProviderOverride(
+    covariant DocumentFilterProvider provider,
   ) {
     return call(
       provider.subcategory,
@@ -78,29 +79,30 @@ class FilterFamily extends Family<FilterState> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'filterProvider';
+  String? get name => r'documentFilterProvider';
 }
 
-/// See also [Filter].
-class FilterProvider
-    extends AutoDisposeNotifierProviderImpl<Filter, FilterState> {
-  /// See also [Filter].
-  FilterProvider(
+/// See also [DocumentFilter].
+class DocumentFilterProvider extends AutoDisposeNotifierProviderImpl<
+    DocumentFilter, DocumentFilterState> {
+  /// See also [DocumentFilter].
+  DocumentFilterProvider(
     Subcategory subcategory,
   ) : this._internal(
-          () => Filter()..subcategory = subcategory,
-          from: filterProvider,
-          name: r'filterProvider',
+          () => DocumentFilter()..subcategory = subcategory,
+          from: documentFilterProvider,
+          name: r'documentFilterProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$filterHash,
-          dependencies: FilterFamily._dependencies,
-          allTransitiveDependencies: FilterFamily._allTransitiveDependencies,
+                  : _$documentFilterHash,
+          dependencies: DocumentFilterFamily._dependencies,
+          allTransitiveDependencies:
+              DocumentFilterFamily._allTransitiveDependencies,
           subcategory: subcategory,
         );
 
-  FilterProvider._internal(
+  DocumentFilterProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -113,8 +115,8 @@ class FilterProvider
   final Subcategory subcategory;
 
   @override
-  FilterState runNotifierBuild(
-    covariant Filter notifier,
+  DocumentFilterState runNotifierBuild(
+    covariant DocumentFilter notifier,
   ) {
     return notifier.build(
       subcategory,
@@ -122,10 +124,10 @@ class FilterProvider
   }
 
   @override
-  Override overrideWith(Filter Function() create) {
+  Override overrideWith(DocumentFilter Function() create) {
     return ProviderOverride(
       origin: this,
-      override: FilterProvider._internal(
+      override: DocumentFilterProvider._internal(
         () => create()..subcategory = subcategory,
         from: from,
         name: null,
@@ -138,13 +140,14 @@ class FilterProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<Filter, FilterState> createElement() {
-    return _FilterProviderElement(this);
+  AutoDisposeNotifierProviderElement<DocumentFilter, DocumentFilterState>
+      createElement() {
+    return _DocumentFilterProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is FilterProvider && other.subcategory == subcategory;
+    return other is DocumentFilterProvider && other.subcategory == subcategory;
   }
 
   @override
@@ -158,18 +161,17 @@ class FilterProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin FilterRef on AutoDisposeNotifierProviderRef<FilterState> {
+mixin DocumentFilterRef on AutoDisposeNotifierProviderRef<DocumentFilterState> {
   /// The parameter `subcategory` of this provider.
   Subcategory get subcategory;
 }
 
-class _FilterProviderElement
-    extends AutoDisposeNotifierProviderElement<Filter, FilterState>
-    with FilterRef {
-  _FilterProviderElement(super.provider);
+class _DocumentFilterProviderElement extends AutoDisposeNotifierProviderElement<
+    DocumentFilter, DocumentFilterState> with DocumentFilterRef {
+  _DocumentFilterProviderElement(super.provider);
 
   @override
-  Subcategory get subcategory => (origin as FilterProvider).subcategory;
+  Subcategory get subcategory => (origin as DocumentFilterProvider).subcategory;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

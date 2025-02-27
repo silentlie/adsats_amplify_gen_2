@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
-import 'package:adsats_amplify_gen_2/API/querries.dart';
-import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
+import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -13,7 +12,6 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 part 'inbox_data_source.dart';
 

@@ -6,7 +6,7 @@ part of 'selected_files.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$selectedFilesHash() => r'db47b6fbad65911babfbf421114509460f70cb0b';
+String _$selectedFilesHash() => r'45a39146ba4e200235ef7649ced84df839d07455';
 
 /// See also [SelectedFiles].
 @ProviderFor(SelectedFiles)

@@ -1,7 +1,6 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-class GlobalDropdownMenu<T extends Model> extends StatelessWidget {
+class GlobalDropdownMenu<T> extends StatelessWidget {
   const GlobalDropdownMenu({
     super.key,
     required this.entries,

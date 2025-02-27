@@ -15,7 +15,6 @@ class OutboxDataSource extends DataTableSource {
     required this.rebuild,
   }) {
     filter.archived = false;
-    filter.staff = Provider.of<AuthNotifier>(context, listen: false).user;
   }
   @override
   int get rowCount => data.length;
@@ -137,7 +136,7 @@ class OutboxDataSource extends DataTableSource {
   Future<void> fetchRawData() async {
     try {
       final filterJson = filter.toJson();
-      filterJson["staffId"] = {"eq": filter.staff.id};
+      filterJson["staffId"] = {"eq": null};
       final request = GraphQLRequest<String>(
         document: listNotices,
         variables: {"filter": filterJson},

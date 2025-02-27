@@ -213,7 +213,7 @@ class MainShell extends ConsumerWidget {
     final orientation = MediaQuery.orientationOf(context);
     final isLandscape = orientation == Orientation.landscape;
     if (isLandscape) {
-      return FloatingActionButtonLocation.endFloat;
+      return FloatingActionButtonLocation.centerFloat;
     }
     return FloatingActionButtonLocation.centerFloat;
   }
