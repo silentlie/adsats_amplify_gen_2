@@ -5,8 +5,8 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class DataSource extends DataTableSource {
-  DataSource({required this.sortedData});
+class NoticeDataSource extends DataTableSource {
+  NoticeDataSource({required this.sortedData});
 
   List<Notice> sortedData;
 

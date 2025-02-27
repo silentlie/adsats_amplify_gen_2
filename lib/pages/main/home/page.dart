@@ -102,7 +102,7 @@ class HomePage extends ConsumerWidget {
                       NavigateIconButton(
                         icon: AdminShellRouteData().icon.icon!,
                         name: AdminShellRouteData().label,
-                        onPressed: () => HomeRoute().push(context),
+                        onPressed: () => AircraftRoute().push(context),
                       ),
                   ],
                 )

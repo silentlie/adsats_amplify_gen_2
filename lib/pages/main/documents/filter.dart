@@ -11,7 +11,7 @@ part 'filter.g.dart';
 class DocumentFilter extends _$DocumentFilter {
   @override
   DocumentFilterState build(Subcategory subcategory) {
-    return DocumentFilterState(subcategory: subcategory, archived: false);
+    return DocumentFilterState(subcategory: subcategory);
   }
 
   void search(String name) {
@@ -29,6 +29,7 @@ class DocumentFilterState with _$DocumentFilterState {
   factory DocumentFilterState({
     required Subcategory subcategory,
     @Default("") String search,
+    @Default(false)
     bool? archived,
     DateTimeRange? createdAt,
   }) = _DocumentFilterState;

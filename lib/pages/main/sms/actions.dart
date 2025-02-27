@@ -3,7 +3,7 @@ import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/Notice.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/api.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/inbox/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/invalidate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,6 +11,8 @@ class NoticeActions extends ConsumerWidget {
   const NoticeActions({super.key, required this.notice});
 
   final Notice notice;
+
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,7 +42,7 @@ class NoticeActions extends ConsumerWidget {
               );
               if (result) {
                 await update(notice.copyWith(archived: !notice.archived));
-                ref.invalidate(noticesInboxRepoProvider);
+                invalidate(ref);
                 controller.close();
               }
             },
@@ -63,8 +65,7 @@ class NoticeActions extends ConsumerWidget {
               );
               if (result) {
                 await deleteNotice(notice);
-                // todo invalidate sent
-                ref.invalidate(noticesInboxRepoProvider);
+                invalidate(ref);
                 controller.close();
               }
             },

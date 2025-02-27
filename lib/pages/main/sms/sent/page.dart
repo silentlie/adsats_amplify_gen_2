@@ -7,6 +7,11 @@ class SmsSentPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final filter = ref.watch(noticeFilterProvider);
     final dataAsync = ref.watch(noticesSentRepoProvider(filter));
-    return DataTableWidget(value: dataAsync);
+    return Center(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 1536.0),
+        child: NoticeDataTable(value: dataAsync),
+      ),
+    );
   }
 }

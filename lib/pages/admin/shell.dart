@@ -221,9 +221,9 @@ class AdminShell extends ConsumerWidget {
     final orientation = MediaQuery.orientationOf(context);
     final isLandscape = orientation == Orientation.landscape;
     if (!isLandscape) {
-      return FloatingActionButtonLocation.centerDocked;
+      return FloatingActionButtonLocation.centerFloat;
     }
-    return FloatingActionButtonLocation.endFloat;
+    return FloatingActionButtonLocation.centerFloat;
   }
 
   @override

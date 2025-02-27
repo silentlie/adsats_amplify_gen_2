@@ -160,7 +160,7 @@ class NewDocumentDialog extends ConsumerWidget {
                 final result = await showConfirmDialog(
                   context,
                   Text("Are you sure?"),
-                  Text("Do you want to cancel?"),
+                  Text("Do you want to upload these documents?"),
                 );
                 if (!result) {
                   return;
@@ -175,7 +175,7 @@ class NewDocumentDialog extends ConsumerWidget {
                   Navigator.pop(context);
                 }
               },
-              label: const Text('Apply'),
+              label: const Text('Upload'),
               icon: Icon(Icons.upload_file_outlined),
             )
           ],

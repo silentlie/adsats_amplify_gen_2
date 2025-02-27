@@ -6,9 +6,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'sort.g.dart';
 part 'sort.freezed.dart';
 
-int Function(Notice, Notice) compareNotices({
+int Function(Aircraft, Aircraft) compareAircraft({
   required bool sortAscending,
-  required Comparable Function(Notice notice) getField,
+  required Comparable Function(Aircraft aircraft) getField,
 }) {
   return (a, b) {
     final aValue = getField(a);
@@ -20,12 +20,12 @@ int Function(Notice, Notice) compareNotices({
 }
 
 @Riverpod()
-class NoticeSort extends _$NoticeSort {
+class AircraftSort extends _$AircraftSort {
   @override
-  NoticeSortState build() {
-    return NoticeSortState(
-      getField: (notice) {
-        return notice.noticedAt ?? notice.createdAt!;
+  AircraftSortState build() {
+    return AircraftSortState(
+      getField: (aircraft) {
+        return aircraft.createdAt!;
       },
     );
   }
@@ -37,7 +37,7 @@ class NoticeSort extends _$NoticeSort {
   void apply({
     required int columnIndex,
     required bool sortAscending,
-    required Comparable Function(Notice notice) getField,
+    required Comparable Function(Aircraft aircraft) getField,
   }) {
     state = state.copyWith(
       sortColumnIndex: columnIndex,
@@ -48,11 +48,11 @@ class NoticeSort extends _$NoticeSort {
 }
 
 @freezed
-class NoticeSortState with _$NoticeSortState {
-  factory NoticeSortState({
+class AircraftSortState with _$AircraftSortState {
+  factory AircraftSortState({
     @Default(false) bool sortAscending,
     @Default(3) int sortColumnIndex,
-    required Comparable Function(Notice notice) getField,
+    required Comparable Function(Aircraft aircraft) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
-  }) = _NoticeSortState;
+  }) = _AircraftSortState;
 }

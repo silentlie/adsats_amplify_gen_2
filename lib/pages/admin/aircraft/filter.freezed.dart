@@ -15,57 +15,47 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$DocumentFilterState {
-  Subcategory get subcategory => throw _privateConstructorUsedError;
+mixin _$AircraftFilterState {
   String get search => throw _privateConstructorUsedError;
   bool? get archived => throw _privateConstructorUsedError;
   DateTimeRange? get createdAt => throw _privateConstructorUsedError;
 
-  /// Create a copy of DocumentFilterState
+  /// Create a copy of AircraftFilterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $DocumentFilterStateCopyWith<DocumentFilterState> get copyWith =>
+  $AircraftFilterStateCopyWith<AircraftFilterState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DocumentFilterStateCopyWith<$Res> {
-  factory $DocumentFilterStateCopyWith(
-          DocumentFilterState value, $Res Function(DocumentFilterState) then) =
-      _$DocumentFilterStateCopyWithImpl<$Res, DocumentFilterState>;
+abstract class $AircraftFilterStateCopyWith<$Res> {
+  factory $AircraftFilterStateCopyWith(
+          AircraftFilterState value, $Res Function(AircraftFilterState) then) =
+      _$AircraftFilterStateCopyWithImpl<$Res, AircraftFilterState>;
   @useResult
-  $Res call(
-      {Subcategory subcategory,
-      String search,
-      bool? archived,
-      DateTimeRange? createdAt});
+  $Res call({String search, bool? archived, DateTimeRange? createdAt});
 }
 
 /// @nodoc
-class _$DocumentFilterStateCopyWithImpl<$Res, $Val extends DocumentFilterState>
-    implements $DocumentFilterStateCopyWith<$Res> {
-  _$DocumentFilterStateCopyWithImpl(this._value, this._then);
+class _$AircraftFilterStateCopyWithImpl<$Res, $Val extends AircraftFilterState>
+    implements $AircraftFilterStateCopyWith<$Res> {
+  _$AircraftFilterStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of DocumentFilterState
+  /// Create a copy of AircraftFilterState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? subcategory = null,
     Object? search = null,
     Object? archived = freezed,
     Object? createdAt = freezed,
   }) {
     return _then(_value.copyWith(
-      subcategory: null == subcategory
-          ? _value.subcategory
-          : subcategory // ignore: cast_nullable_to_non_nullable
-              as Subcategory,
       search: null == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
@@ -83,43 +73,34 @@ class _$DocumentFilterStateCopyWithImpl<$Res, $Val extends DocumentFilterState>
 }
 
 /// @nodoc
-abstract class _$$DocumentFilterStateImplCopyWith<$Res>
-    implements $DocumentFilterStateCopyWith<$Res> {
-  factory _$$DocumentFilterStateImplCopyWith(_$DocumentFilterStateImpl value,
-          $Res Function(_$DocumentFilterStateImpl) then) =
-      __$$DocumentFilterStateImplCopyWithImpl<$Res>;
+abstract class _$$AircraftFilterStateImplCopyWith<$Res>
+    implements $AircraftFilterStateCopyWith<$Res> {
+  factory _$$AircraftFilterStateImplCopyWith(_$AircraftFilterStateImpl value,
+          $Res Function(_$AircraftFilterStateImpl) then) =
+      __$$AircraftFilterStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {Subcategory subcategory,
-      String search,
-      bool? archived,
-      DateTimeRange? createdAt});
+  $Res call({String search, bool? archived, DateTimeRange? createdAt});
 }
 
 /// @nodoc
-class __$$DocumentFilterStateImplCopyWithImpl<$Res>
-    extends _$DocumentFilterStateCopyWithImpl<$Res, _$DocumentFilterStateImpl>
-    implements _$$DocumentFilterStateImplCopyWith<$Res> {
-  __$$DocumentFilterStateImplCopyWithImpl(_$DocumentFilterStateImpl _value,
-      $Res Function(_$DocumentFilterStateImpl) _then)
+class __$$AircraftFilterStateImplCopyWithImpl<$Res>
+    extends _$AircraftFilterStateCopyWithImpl<$Res, _$AircraftFilterStateImpl>
+    implements _$$AircraftFilterStateImplCopyWith<$Res> {
+  __$$AircraftFilterStateImplCopyWithImpl(_$AircraftFilterStateImpl _value,
+      $Res Function(_$AircraftFilterStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of DocumentFilterState
+  /// Create a copy of AircraftFilterState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? subcategory = null,
     Object? search = null,
     Object? archived = freezed,
     Object? createdAt = freezed,
   }) {
-    return _then(_$DocumentFilterStateImpl(
-      subcategory: null == subcategory
-          ? _value.subcategory
-          : subcategory // ignore: cast_nullable_to_non_nullable
-              as Subcategory,
+    return _then(_$AircraftFilterStateImpl(
       search: null == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
@@ -138,16 +119,11 @@ class __$$DocumentFilterStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$DocumentFilterStateImpl extends _DocumentFilterState {
-  _$DocumentFilterStateImpl(
-      {required this.subcategory,
-      this.search = "",
-      this.archived = false,
-      this.createdAt})
+class _$AircraftFilterStateImpl extends _AircraftFilterState {
+  _$AircraftFilterStateImpl(
+      {this.search = "", this.archived = false, this.createdAt})
       : super._();
 
-  @override
-  final Subcategory subcategory;
   @override
   @JsonKey()
   final String search;
@@ -159,16 +135,14 @@ class _$DocumentFilterStateImpl extends _DocumentFilterState {
 
   @override
   String toString() {
-    return 'DocumentFilterState(subcategory: $subcategory, search: $search, archived: $archived, createdAt: $createdAt)';
+    return 'AircraftFilterState(search: $search, archived: $archived, createdAt: $createdAt)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$DocumentFilterStateImpl &&
-            (identical(other.subcategory, subcategory) ||
-                other.subcategory == subcategory) &&
+            other is _$AircraftFilterStateImpl &&
             (identical(other.search, search) || other.search == search) &&
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
@@ -177,29 +151,25 @@ class _$DocumentFilterStateImpl extends _DocumentFilterState {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, subcategory, search, archived, createdAt);
+  int get hashCode => Object.hash(runtimeType, search, archived, createdAt);
 
-  /// Create a copy of DocumentFilterState
+  /// Create a copy of AircraftFilterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$DocumentFilterStateImplCopyWith<_$DocumentFilterStateImpl> get copyWith =>
-      __$$DocumentFilterStateImplCopyWithImpl<_$DocumentFilterStateImpl>(
+  _$$AircraftFilterStateImplCopyWith<_$AircraftFilterStateImpl> get copyWith =>
+      __$$AircraftFilterStateImplCopyWithImpl<_$AircraftFilterStateImpl>(
           this, _$identity);
 }
 
-abstract class _DocumentFilterState extends DocumentFilterState {
-  factory _DocumentFilterState(
-      {required final Subcategory subcategory,
-      final String search,
+abstract class _AircraftFilterState extends AircraftFilterState {
+  factory _AircraftFilterState(
+      {final String search,
       final bool? archived,
-      final DateTimeRange? createdAt}) = _$DocumentFilterStateImpl;
-  _DocumentFilterState._() : super._();
+      final DateTimeRange? createdAt}) = _$AircraftFilterStateImpl;
+  _AircraftFilterState._() : super._();
 
-  @override
-  Subcategory get subcategory;
   @override
   String get search;
   @override
@@ -207,10 +177,10 @@ abstract class _DocumentFilterState extends DocumentFilterState {
   @override
   DateTimeRange? get createdAt;
 
-  /// Create a copy of DocumentFilterState
+  /// Create a copy of AircraftFilterState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$DocumentFilterStateImplCopyWith<_$DocumentFilterStateImpl> get copyWith =>
+  _$$AircraftFilterStateImplCopyWith<_$AircraftFilterStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
