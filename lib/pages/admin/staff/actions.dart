@@ -1,15 +1,15 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/api.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/aircraft_view.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/api.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/staff_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AircraftActions extends ConsumerWidget {
-  const AircraftActions({super.key, required this.aircraft});
+class StaffActions extends ConsumerWidget {
+  const StaffActions({super.key, required this.staff});
 
-  final Aircraft aircraft;
+  final Staff staff;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,8 +22,8 @@ class AircraftActions extends ConsumerWidget {
             showDialog(
               context: context,
               builder: (context) {
-                return AircraftView(
-                  aircraft: aircraft,
+                return StaffView(
+                  staff: staff,
                 );
               },
             );
@@ -32,16 +32,22 @@ class AircraftActions extends ConsumerWidget {
         ),
         IconButton(
           onPressed: () async {
-            await update(aircraft.copyWith(archived: !aircraft.archived));
-            ref.invalidate(aircraftRepoProvider);
+            await Future.wait([
+              update(staff.copyWith(archived: !staff.archived)),
+              staff.archived ? enableUser(staff.id) : disableUser(staff.id),
+            ]);
+            ref.invalidate(staffRepoProvider);
             controller.close();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            await deleteAicraft(aircraft);
-            ref.invalidate(aircraftRepoProvider);
+            await Future.wait([
+              deleteStaff(staff),
+              deleteUser(staff.id),
+            ]);
+            ref.invalidate(staffRepoProvider);
             controller.close();
           },
           icon: const Icon(Icons.delete_outline),

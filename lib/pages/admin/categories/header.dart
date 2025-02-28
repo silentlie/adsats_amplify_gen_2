@@ -1,12 +1,12 @@
 import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/aircraft_view.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/category_view.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AircraftHeader extends ConsumerWidget {
-  const AircraftHeader({super.key});
+class CategoryHeader extends ConsumerWidget {
+  const CategoryHeader({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -14,7 +14,7 @@ class AircraftHeader extends ConsumerWidget {
     return ListTile(
       contentPadding: const EdgeInsets.only(),
       leading: const Text(
-        "Aircraft",
+        "Category",
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
@@ -27,7 +27,7 @@ class AircraftHeader extends ConsumerWidget {
         child: Row(
           children: [
             IconButton(
-              onPressed: () => ref.invalidate(aircraftRepoProvider),
+              onPressed: () => ref.invalidate(categoriesRepoProvider),
               icon: const Icon(Icons.refresh),
             ),
             ElevatedButton.icon(
@@ -35,11 +35,11 @@ class AircraftHeader extends ConsumerWidget {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return AircraftView();
+                    return CategoryView();
                   },
                 );
               },
-              label: const Text('Add an aircraft'),
+              label: const Text('Add a category'),
               icon: const Icon(
                 Icons.add,
                 size: 25,

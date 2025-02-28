@@ -15,38 +15,38 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$AircraftFilterState {
+mixin _$AdminFilterState {
   String get search => throw _privateConstructorUsedError;
   bool? get archived => throw _privateConstructorUsedError;
   DateTimeRange? get createdAt => throw _privateConstructorUsedError;
 
-  /// Create a copy of AircraftFilterState
+  /// Create a copy of AdminFilterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $AircraftFilterStateCopyWith<AircraftFilterState> get copyWith =>
+  $AdminFilterStateCopyWith<AdminFilterState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AircraftFilterStateCopyWith<$Res> {
-  factory $AircraftFilterStateCopyWith(
-          AircraftFilterState value, $Res Function(AircraftFilterState) then) =
-      _$AircraftFilterStateCopyWithImpl<$Res, AircraftFilterState>;
+abstract class $AdminFilterStateCopyWith<$Res> {
+  factory $AdminFilterStateCopyWith(
+          AdminFilterState value, $Res Function(AdminFilterState) then) =
+      _$AdminFilterStateCopyWithImpl<$Res, AdminFilterState>;
   @useResult
   $Res call({String search, bool? archived, DateTimeRange? createdAt});
 }
 
 /// @nodoc
-class _$AircraftFilterStateCopyWithImpl<$Res, $Val extends AircraftFilterState>
-    implements $AircraftFilterStateCopyWith<$Res> {
-  _$AircraftFilterStateCopyWithImpl(this._value, this._then);
+class _$AdminFilterStateCopyWithImpl<$Res, $Val extends AdminFilterState>
+    implements $AdminFilterStateCopyWith<$Res> {
+  _$AdminFilterStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of AircraftFilterState
+  /// Create a copy of AdminFilterState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -73,25 +73,25 @@ class _$AircraftFilterStateCopyWithImpl<$Res, $Val extends AircraftFilterState>
 }
 
 /// @nodoc
-abstract class _$$AircraftFilterStateImplCopyWith<$Res>
-    implements $AircraftFilterStateCopyWith<$Res> {
-  factory _$$AircraftFilterStateImplCopyWith(_$AircraftFilterStateImpl value,
-          $Res Function(_$AircraftFilterStateImpl) then) =
-      __$$AircraftFilterStateImplCopyWithImpl<$Res>;
+abstract class _$$AdminFilterStateImplCopyWith<$Res>
+    implements $AdminFilterStateCopyWith<$Res> {
+  factory _$$AdminFilterStateImplCopyWith(_$AdminFilterStateImpl value,
+          $Res Function(_$AdminFilterStateImpl) then) =
+      __$$AdminFilterStateImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String search, bool? archived, DateTimeRange? createdAt});
 }
 
 /// @nodoc
-class __$$AircraftFilterStateImplCopyWithImpl<$Res>
-    extends _$AircraftFilterStateCopyWithImpl<$Res, _$AircraftFilterStateImpl>
-    implements _$$AircraftFilterStateImplCopyWith<$Res> {
-  __$$AircraftFilterStateImplCopyWithImpl(_$AircraftFilterStateImpl _value,
-      $Res Function(_$AircraftFilterStateImpl) _then)
+class __$$AdminFilterStateImplCopyWithImpl<$Res>
+    extends _$AdminFilterStateCopyWithImpl<$Res, _$AdminFilterStateImpl>
+    implements _$$AdminFilterStateImplCopyWith<$Res> {
+  __$$AdminFilterStateImplCopyWithImpl(_$AdminFilterStateImpl _value,
+      $Res Function(_$AdminFilterStateImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AircraftFilterState
+  /// Create a copy of AdminFilterState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -100,7 +100,7 @@ class __$$AircraftFilterStateImplCopyWithImpl<$Res>
     Object? archived = freezed,
     Object? createdAt = freezed,
   }) {
-    return _then(_$AircraftFilterStateImpl(
+    return _then(_$AdminFilterStateImpl(
       search: null == search
           ? _value.search
           : search // ignore: cast_nullable_to_non_nullable
@@ -119,8 +119,8 @@ class __$$AircraftFilterStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AircraftFilterStateImpl extends _AircraftFilterState {
-  _$AircraftFilterStateImpl(
+class _$AdminFilterStateImpl extends _AdminFilterState {
+  _$AdminFilterStateImpl(
       {this.search = "", this.archived = false, this.createdAt})
       : super._();
 
@@ -135,14 +135,14 @@ class _$AircraftFilterStateImpl extends _AircraftFilterState {
 
   @override
   String toString() {
-    return 'AircraftFilterState(search: $search, archived: $archived, createdAt: $createdAt)';
+    return 'AdminFilterState(search: $search, archived: $archived, createdAt: $createdAt)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AircraftFilterStateImpl &&
+            other is _$AdminFilterStateImpl &&
             (identical(other.search, search) || other.search == search) &&
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
@@ -153,22 +153,22 @@ class _$AircraftFilterStateImpl extends _AircraftFilterState {
   @override
   int get hashCode => Object.hash(runtimeType, search, archived, createdAt);
 
-  /// Create a copy of AircraftFilterState
+  /// Create a copy of AdminFilterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$AircraftFilterStateImplCopyWith<_$AircraftFilterStateImpl> get copyWith =>
-      __$$AircraftFilterStateImplCopyWithImpl<_$AircraftFilterStateImpl>(
+  _$$AdminFilterStateImplCopyWith<_$AdminFilterStateImpl> get copyWith =>
+      __$$AdminFilterStateImplCopyWithImpl<_$AdminFilterStateImpl>(
           this, _$identity);
 }
 
-abstract class _AircraftFilterState extends AircraftFilterState {
-  factory _AircraftFilterState(
+abstract class _AdminFilterState extends AdminFilterState {
+  factory _AdminFilterState(
       {final String search,
       final bool? archived,
-      final DateTimeRange? createdAt}) = _$AircraftFilterStateImpl;
-  _AircraftFilterState._() : super._();
+      final DateTimeRange? createdAt}) = _$AdminFilterStateImpl;
+  _AdminFilterState._() : super._();
 
   @override
   String get search;
@@ -177,10 +177,10 @@ abstract class _AircraftFilterState extends AircraftFilterState {
   @override
   DateTimeRange? get createdAt;
 
-  /// Create a copy of AircraftFilterState
+  /// Create a copy of AdminFilterState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AircraftFilterStateImplCopyWith<_$AircraftFilterStateImpl> get copyWith =>
+  _$$AdminFilterStateImplCopyWith<_$AdminFilterStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

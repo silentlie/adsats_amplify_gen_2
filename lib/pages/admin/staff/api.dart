@@ -94,7 +94,7 @@ Future<Staff> deleteStaff(Staff staff) async {
       (notification) => futures.add(delete(notification)),
     );
     futures.add(delete(staff));
-    Future.wait(futures);
+    await Future.wait(futures);
     return staff;
   } on ApiException catch (e) {
     debugPrint('ApiExecption: delete Staff with ${staff.id} failed: $e');

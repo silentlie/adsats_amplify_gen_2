@@ -1,15 +1,16 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/actions.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/aircraft_view.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/actions.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/staff_view.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class AircraftDataSource extends DataTableSource {
-  AircraftDataSource({required this.sortedData, required this.context});
-  List<Aircraft> sortedData;
+class StaffDataSource extends DataTableSource {
+  StaffDataSource({required this.sortedData, required this.context});
+  List<Staff> sortedData;
   BuildContext context;
+
   @override
   int get rowCount => sortedData.length;
 
@@ -21,14 +22,14 @@ class AircraftDataSource extends DataTableSource {
 
   @override
   DataRow2 getRow(int index) {
-    final aircraft = sortedData[index];
+    final staff = sortedData[index];
     return DataRow2.byIndex(
       onTap: () {
         showDialog(
           context: context,
           builder: (context) {
-            return AircraftView(
-              aircraft: aircraft,
+            return StaffView(
+              staff: staff,
             );
           },
         );
@@ -36,10 +37,20 @@ class AircraftDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(aircraft.name),
+          getCenterText(staff.name),
         ),
         DataCell(
-          getCenterText(aircraft.description ?? ""),
+          getCenterText(staff.email),
+        ),
+        DataCell(
+          getCenterText(
+            staff.aircraft?.map((e) => e.aircraft!.name).join(', ') ?? "",
+          ),
+        ),
+        DataCell(
+          getCenterText(
+            staff.roles?.map((e) => e.role!.name).join(', ') ?? "",
+          ),
         ),
         DataCell(
           Center(
@@ -50,27 +61,27 @@ class AircraftDataSource extends DataTableSource {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(20),
                 // maybe make it follow color scheme
-                color: aircraft.archived ? Colors.grey : Colors.blue.shade600,
+                color: staff.archived ? Colors.grey : Colors.blue.shade600,
               ),
               child: Center(
-                child: Text(aircraft.archived ? "Yes" : "No"),
+                child: Text(staff.archived ? "Yes" : "No"),
               ),
             ),
           ),
         ),
         DataCell(
           getCenterText(
-            aircraft.createdAt != null
+            staff.createdAt != null
                 ? DateFormat('dd/MM/yyyy').format(
-                    aircraft.createdAt!.getDateTimeInUtc(),
+                    staff.createdAt!.getDateTimeInUtc(),
                   )
                 : "",
           ),
         ),
         DataCell(
           Center(
-            child: AircraftActions(
-              aircraft: aircraft,
+            child: StaffActions(
+              staff: staff,
             ),
           ),
         ),

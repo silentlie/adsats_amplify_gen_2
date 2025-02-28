@@ -1,15 +1,15 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/api.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/aircraft_view.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/api.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/category_view.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AircraftActions extends ConsumerWidget {
-  const AircraftActions({super.key, required this.aircraft});
+class CategoryActions extends ConsumerWidget {
+  const CategoryActions({super.key, required this.category});
 
-  final Aircraft aircraft;
+  final Category category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,8 +22,8 @@ class AircraftActions extends ConsumerWidget {
             showDialog(
               context: context,
               builder: (context) {
-                return AircraftView(
-                  aircraft: aircraft,
+                return CategoryView(
+                  category: category,
                 );
               },
             );
@@ -32,16 +32,16 @@ class AircraftActions extends ConsumerWidget {
         ),
         IconButton(
           onPressed: () async {
-            await update(aircraft.copyWith(archived: !aircraft.archived));
-            ref.invalidate(aircraftRepoProvider);
+            await update(category.copyWith(archived: !category.archived));
+            ref.invalidate(categoriesRepoProvider);
             controller.close();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            await deleteAicraft(aircraft);
-            ref.invalidate(aircraftRepoProvider);
+            await deleteCetegory(category);
+            ref.invalidate(categoriesRepoProvider);
             controller.close();
           },
           icon: const Icon(Icons.delete_outline),

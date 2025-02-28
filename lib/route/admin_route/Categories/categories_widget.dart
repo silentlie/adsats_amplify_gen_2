@@ -5,7 +5,7 @@ import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/route/admin_route/Categories/category_api.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/api.dart';
 import 'package:adsats_amplify_gen_2/route/admin_route/admin_filter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart' hide Category;
 import 'package:data_table_2/data_table_2.dart';

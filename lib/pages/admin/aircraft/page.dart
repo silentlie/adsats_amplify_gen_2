@@ -5,7 +5,7 @@ class AircraftPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(aircraftFilterProvider);
+    final filter = ref.watch(adminFilterProvider);
     final dataAsync = ref.watch(aircraftRepoProvider(filter));
     final sortState = ref.watch(aircraftSortProvider);
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -19,7 +19,10 @@ class AircraftPage extends ConsumerWidget {
               sortAscending: sortState.sortAscending,
               getField: sortState.getField,
             ));
-            final dataSource = AircraftDataSource(sortedData: data);
+            final dataSource = AircraftDataSource(
+              sortedData: data,
+              context: context,
+            );
             final sortNotifier = ref.read(aircraftSortProvider.notifier);
             return PaginatedDataTable2(
               columns: <DataColumn2>[

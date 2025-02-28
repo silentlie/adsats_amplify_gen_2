@@ -6,7 +6,7 @@ part of 'repo.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$aircraftRepoHash() => r'7387b3b2264d0ce9e2f8ad8eb7008e7c242fe043';
+String _$staffRepoHash() => r'5fa86eb6ff2808fd958b9fb53d7fee26595ff2a9';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,27 +29,27 @@ class _SystemHash {
   }
 }
 
-/// See also [aircraftRepo].
-@ProviderFor(aircraftRepo)
-const aircraftRepoProvider = AircraftRepoFamily();
+/// See also [staffRepo].
+@ProviderFor(staffRepo)
+const staffRepoProvider = StaffRepoFamily();
 
-/// See also [aircraftRepo].
-class AircraftRepoFamily extends Family<AsyncValue<List<Aircraft>>> {
-  /// See also [aircraftRepo].
-  const AircraftRepoFamily();
+/// See also [staffRepo].
+class StaffRepoFamily extends Family<AsyncValue<List<Staff>>> {
+  /// See also [staffRepo].
+  const StaffRepoFamily();
 
-  /// See also [aircraftRepo].
-  AircraftRepoProvider call(
+  /// See also [staffRepo].
+  StaffRepoProvider call(
     AdminFilterState filter,
   ) {
-    return AircraftRepoProvider(
+    return StaffRepoProvider(
       filter,
     );
   }
 
   @override
-  AircraftRepoProvider getProviderOverride(
-    covariant AircraftRepoProvider provider,
+  StaffRepoProvider getProviderOverride(
+    covariant StaffRepoProvider provider,
   ) {
     return call(
       provider.filter,
@@ -70,32 +70,31 @@ class AircraftRepoFamily extends Family<AsyncValue<List<Aircraft>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'aircraftRepoProvider';
+  String? get name => r'staffRepoProvider';
 }
 
-/// See also [aircraftRepo].
-class AircraftRepoProvider extends AutoDisposeFutureProvider<List<Aircraft>> {
-  /// See also [aircraftRepo].
-  AircraftRepoProvider(
+/// See also [staffRepo].
+class StaffRepoProvider extends AutoDisposeFutureProvider<List<Staff>> {
+  /// See also [staffRepo].
+  StaffRepoProvider(
     AdminFilterState filter,
   ) : this._internal(
-          (ref) => aircraftRepo(
-            ref as AircraftRepoRef,
+          (ref) => staffRepo(
+            ref as StaffRepoRef,
             filter,
           ),
-          from: aircraftRepoProvider,
-          name: r'aircraftRepoProvider',
+          from: staffRepoProvider,
+          name: r'staffRepoProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$aircraftRepoHash,
-          dependencies: AircraftRepoFamily._dependencies,
-          allTransitiveDependencies:
-              AircraftRepoFamily._allTransitiveDependencies,
+                  : _$staffRepoHash,
+          dependencies: StaffRepoFamily._dependencies,
+          allTransitiveDependencies: StaffRepoFamily._allTransitiveDependencies,
           filter: filter,
         );
 
-  AircraftRepoProvider._internal(
+  StaffRepoProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -109,12 +108,12 @@ class AircraftRepoProvider extends AutoDisposeFutureProvider<List<Aircraft>> {
 
   @override
   Override overrideWith(
-    FutureOr<List<Aircraft>> Function(AircraftRepoRef provider) create,
+    FutureOr<List<Staff>> Function(StaffRepoRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: AircraftRepoProvider._internal(
-        (ref) => create(ref as AircraftRepoRef),
+      override: StaffRepoProvider._internal(
+        (ref) => create(ref as StaffRepoRef),
         from: from,
         name: null,
         dependencies: null,
@@ -126,13 +125,13 @@ class AircraftRepoProvider extends AutoDisposeFutureProvider<List<Aircraft>> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<Aircraft>> createElement() {
-    return _AircraftRepoProviderElement(this);
+  AutoDisposeFutureProviderElement<List<Staff>> createElement() {
+    return _StaffRepoProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is AircraftRepoProvider && other.filter == filter;
+    return other is StaffRepoProvider && other.filter == filter;
   }
 
   @override
@@ -146,18 +145,17 @@ class AircraftRepoProvider extends AutoDisposeFutureProvider<List<Aircraft>> {
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin AircraftRepoRef on AutoDisposeFutureProviderRef<List<Aircraft>> {
+mixin StaffRepoRef on AutoDisposeFutureProviderRef<List<Staff>> {
   /// The parameter `filter` of this provider.
   AdminFilterState get filter;
 }
 
-class _AircraftRepoProviderElement
-    extends AutoDisposeFutureProviderElement<List<Aircraft>>
-    with AircraftRepoRef {
-  _AircraftRepoProviderElement(super.provider);
+class _StaffRepoProviderElement
+    extends AutoDisposeFutureProviderElement<List<Staff>> with StaffRepoRef {
+  _StaffRepoProviderElement(super.provider);
 
   @override
-  AdminFilterState get filter => (origin as AircraftRepoProvider).filter;
+  AdminFilterState get filter => (origin as StaffRepoProvider).filter;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

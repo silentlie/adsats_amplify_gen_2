@@ -29,7 +29,7 @@ Future<Aircraft> deleteAicraft(Aircraft aircraft) async {
       (aircraftNotice) => futures.add(delete(aircraftNotice)),
     );
     futures.add(delete(aircraft));
-    Future.wait(futures);
+    await Future.wait(futures);
     return aircraft;
   } on ApiException catch (e) {
     debugPrint('ApiExecption: delete Aircraft with ${aircraft.id} failed: $e');

@@ -6,7 +6,7 @@ part of 'repo.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$aircraftRepoHash() => r'7387b3b2264d0ce9e2f8ad8eb7008e7c242fe043';
+String _$categoriesRepoHash() => r'bbc0016a626fbb6741e04dae6615ccecb2601a84';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,27 +29,27 @@ class _SystemHash {
   }
 }
 
-/// See also [aircraftRepo].
-@ProviderFor(aircraftRepo)
-const aircraftRepoProvider = AircraftRepoFamily();
+/// See also [categoriesRepo].
+@ProviderFor(categoriesRepo)
+const categoriesRepoProvider = CategoriesRepoFamily();
 
-/// See also [aircraftRepo].
-class AircraftRepoFamily extends Family<AsyncValue<List<Aircraft>>> {
-  /// See also [aircraftRepo].
-  const AircraftRepoFamily();
+/// See also [categoriesRepo].
+class CategoriesRepoFamily extends Family<AsyncValue<List<Category>>> {
+  /// See also [categoriesRepo].
+  const CategoriesRepoFamily();
 
-  /// See also [aircraftRepo].
-  AircraftRepoProvider call(
+  /// See also [categoriesRepo].
+  CategoriesRepoProvider call(
     AdminFilterState filter,
   ) {
-    return AircraftRepoProvider(
+    return CategoriesRepoProvider(
       filter,
     );
   }
 
   @override
-  AircraftRepoProvider getProviderOverride(
-    covariant AircraftRepoProvider provider,
+  CategoriesRepoProvider getProviderOverride(
+    covariant CategoriesRepoProvider provider,
   ) {
     return call(
       provider.filter,
@@ -70,32 +70,32 @@ class AircraftRepoFamily extends Family<AsyncValue<List<Aircraft>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'aircraftRepoProvider';
+  String? get name => r'categoriesRepoProvider';
 }
 
-/// See also [aircraftRepo].
-class AircraftRepoProvider extends AutoDisposeFutureProvider<List<Aircraft>> {
-  /// See also [aircraftRepo].
-  AircraftRepoProvider(
+/// See also [categoriesRepo].
+class CategoriesRepoProvider extends AutoDisposeFutureProvider<List<Category>> {
+  /// See also [categoriesRepo].
+  CategoriesRepoProvider(
     AdminFilterState filter,
   ) : this._internal(
-          (ref) => aircraftRepo(
-            ref as AircraftRepoRef,
+          (ref) => categoriesRepo(
+            ref as CategoriesRepoRef,
             filter,
           ),
-          from: aircraftRepoProvider,
-          name: r'aircraftRepoProvider',
+          from: categoriesRepoProvider,
+          name: r'categoriesRepoProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$aircraftRepoHash,
-          dependencies: AircraftRepoFamily._dependencies,
+                  : _$categoriesRepoHash,
+          dependencies: CategoriesRepoFamily._dependencies,
           allTransitiveDependencies:
-              AircraftRepoFamily._allTransitiveDependencies,
+              CategoriesRepoFamily._allTransitiveDependencies,
           filter: filter,
         );
 
-  AircraftRepoProvider._internal(
+  CategoriesRepoProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -109,12 +109,12 @@ class AircraftRepoProvider extends AutoDisposeFutureProvider<List<Aircraft>> {
 
   @override
   Override overrideWith(
-    FutureOr<List<Aircraft>> Function(AircraftRepoRef provider) create,
+    FutureOr<List<Category>> Function(CategoriesRepoRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: AircraftRepoProvider._internal(
-        (ref) => create(ref as AircraftRepoRef),
+      override: CategoriesRepoProvider._internal(
+        (ref) => create(ref as CategoriesRepoRef),
         from: from,
         name: null,
         dependencies: null,
@@ -126,13 +126,13 @@ class AircraftRepoProvider extends AutoDisposeFutureProvider<List<Aircraft>> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<Aircraft>> createElement() {
-    return _AircraftRepoProviderElement(this);
+  AutoDisposeFutureProviderElement<List<Category>> createElement() {
+    return _CategoriesRepoProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is AircraftRepoProvider && other.filter == filter;
+    return other is CategoriesRepoProvider && other.filter == filter;
   }
 
   @override
@@ -146,18 +146,18 @@ class AircraftRepoProvider extends AutoDisposeFutureProvider<List<Aircraft>> {
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin AircraftRepoRef on AutoDisposeFutureProviderRef<List<Aircraft>> {
+mixin CategoriesRepoRef on AutoDisposeFutureProviderRef<List<Category>> {
   /// The parameter `filter` of this provider.
   AdminFilterState get filter;
 }
 
-class _AircraftRepoProviderElement
-    extends AutoDisposeFutureProviderElement<List<Aircraft>>
-    with AircraftRepoRef {
-  _AircraftRepoProviderElement(super.provider);
+class _CategoriesRepoProviderElement
+    extends AutoDisposeFutureProviderElement<List<Category>>
+    with CategoriesRepoRef {
+  _CategoriesRepoProviderElement(super.provider);
 
   @override
-  AdminFilterState get filter => (origin as AircraftRepoProvider).filter;
+  AdminFilterState get filter => (origin as CategoriesRepoProvider).filter;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,38 +1,28 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
-import 'package:adsats_amplify_gen_2/API/query_providers.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/api.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/repo.dart';
-import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/repo.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
-import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-class AircraftView extends ConsumerWidget {
-  const AircraftView({super.key, this.aircraft});
+class CategoryView extends ConsumerWidget {
+  const CategoryView({super.key, this.category});
 
-  final Aircraft? aircraft;
+  final Category? category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isEditing = this.aircraft != null;
-    var aircraft = this.aircraft ??
-        Aircraft(
+    final isEditing = this.category != null;
+    var category = this.category ??
+        Category(
           name: "",
           archived: false,
         );
-    var staff = this.aircraft?.staff?.map(
-          (e) {
-            return e.staff!;
-          },
-        ).toList() ??
-        [];
+
     return AlertDialog.adaptive(
       title: Text(
-        isEditing ? 'Editing ${aircraft.name}' : 'Add an aircraft',
+        isEditing ? 'Editing ${category.name}' : 'Add an category',
       ),
       content: SingleChildScrollView(
         child: Column(
@@ -43,12 +33,12 @@ class AircraftView extends ConsumerWidget {
               child: TextFormField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Aircraft Name',
+                  labelText: 'Category Name',
                 ),
                 onChanged: (value) {
-                  aircraft = aircraft.copyWith(name: value);
+                  category = category.copyWith(name: value);
                 },
-                initialValue: aircraft.name,
+                initialValue: category.name,
               ),
             ),
             Container(
@@ -56,11 +46,11 @@ class AircraftView extends ConsumerWidget {
               child: TextFormField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Description of the aircraft',
+                  labelText: 'Description of the category',
                 ),
-                initialValue: aircraft.description,
+                initialValue: category.description,
                 onChanged: (value) {
-                  aircraft = aircraft.copyWith(description: value);
+                  category = category.copyWith(description: value);
                 },
                 maxLines: 4,
               ),
@@ -71,27 +61,10 @@ class AircraftView extends ConsumerWidget {
                 DropdownMenuEntry(value: true, label: "True"),
               ],
               onSelected: (value) {
-                aircraft = aircraft.copyWith(archived: value!);
+                category = category.copyWith(archived: value!);
               },
               text: "Archived",
-              initialSelection: aircraft.archived,
-            ),
-            AsyncValueWidget(
-              value: ref.watch(listStaffProvider()),
-              data: (value) {
-                return GlobalMultiSelect<Staff>(
-                  text: "Choose Staff",
-                  onConfirm: (p0) {
-                    staff = p0;
-                  },
-                  items: value.map(
-                    (e) {
-                      return MultiSelectItem(e, e.name);
-                    },
-                  ).toList(),
-                  initialValue: staff,
-                );
-              },
+              initialSelection: category.archived,
             ),
           ],
         ),
@@ -122,17 +95,11 @@ class AircraftView extends ConsumerWidget {
               return;
             }
             if (isEditing) {
-              await Future.wait([
-                updateAircraftStaff(aircraft, staff),
-                update(aircraft),
-              ]);
+              await update(category);
             } else {
-              await Future.wait([
-                create(aircraft),
-                updateAircraftStaff(aircraft, staff),
-              ]);
+              await create(category);
             }
-            ref.invalidate(aircraftRepoProvider);
+            ref.invalidate(categoriesRepoProvider);
             if (context.mounted) {
               Navigator.pop(context);
             }

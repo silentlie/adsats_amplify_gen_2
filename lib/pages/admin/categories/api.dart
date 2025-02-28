@@ -11,6 +11,7 @@ Future<Category> deleteCetegory(Category category) async {
       (subcategory) => futures.add(deleteSubcategory(subcategory)),
     );
     futures.add(delete(category));
+    await Future.wait(futures);
     return category;
   } on ApiException catch (e) {
     debugPrint('ApiExecption: delete Category with ${category.id} failed: $e');
