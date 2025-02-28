@@ -192,31 +192,35 @@ query GetNoticeDetails(\$id: ID!) {
 }
 ''';
 const listSubcategories = '''
-query ListSubcategories(\$filter: ModelSubcategoryFilterInput) {
-  listSubcategories(filter: \$filter) {
-    items {
-      id
-      name
-      description
-      archived
-      createdAt
-      updatedAt
-      category {
+query ListSubcategories(\$filter: ModelSubcategoryFilterInput, \$id: ID!) {
+  getCategory(id: \$id) {
+    id
+    name
+    subcategories(filter: \$filter) {
+      items {
         id
         name
         description
         archived
-      }
-      staff {
-        items {
-          id
-          accessLevel
-          staff {
+        createdAt
+        updatedAt
+        staff {
+          items {
             id
-            name
-            email
-            archived
+            accessLevel
+            staff {
+              id
+              name
+              email
+              archived
+            }
           }
+        }
+        category {
+          id
+          name
+          description
+          archived
         }
       }
     }

@@ -1,5 +1,6 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -40,10 +41,32 @@ class ErrorRoute extends GoRouteData {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     final titleLarge = Theme.of(context).textTheme.titleLarge;
-    return Center(
-      child: Text(
-        error.toString(),
-        style: titleLarge?.copyWith(color: Colors.red),
+    return Scaffold(
+      appBar: AppBarWidget(
+        isBarebone: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              error.toString(),
+              style: titleLarge?.copyWith(color: Colors.red),
+            ),
+            TextButton.icon(
+              onPressed: () {
+                if (context.canPop()) {
+                  print("pop");
+                  context.pop();
+                } else {
+                  HomeRoute().go(context);
+                }
+              },
+              label: Text("Back"),
+              icon: Icon(Icons.arrow_back),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -229,6 +252,12 @@ class ErrorRoute extends GoRouteData {
           TypedGoRoute<CategoriesRoute>(
             path: '/admin/categories',
             name: 'Categories',
+            routes: [
+              TypedGoRoute<SubcategoriesRoute>(
+                path: ':categoryId',
+                name: 'Subcategories',
+              ),
+            ],
           ),
         ],
       ),

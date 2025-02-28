@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_api/amplify_api.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_flutter/amplify_flutter.dart' hide Category;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -84,6 +84,26 @@ FutureOr<List<Role>> listRoles(
     throw response.errors.first;
   }
   return response.data!.items.cast<Role>();
+}
+
+@Riverpod(dependencies: [])
+FutureOr<List<Category>> listCategories(
+  Ref ref, [
+  QueryPredicate? where,
+]) async {
+  final request = ModelQueries.list<Category>(
+    Category.classType,
+    where: where,
+  );
+  final response = await Amplify.API
+      .query<PaginatedResult<Category>>(
+        request: request,
+      )
+      .response;
+  if (response.errors.isNotEmpty) {
+    throw response.errors.first;
+  }
+  return response.data!.items.cast<Category>();
 }
 
 @Riverpod(dependencies: [])

@@ -219,6 +219,13 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                   path: '/admin/categories',
                   name: 'Categories',
                   factory: $CategoriesRouteExtension._fromState,
+                  routes: [
+                    GoRouteData.$route(
+                      path: ':categoryId',
+                      name: 'Subcategories',
+                      factory: $SubcategoriesRouteExtension._fromState,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -584,6 +591,26 @@ extension $CategoriesRouteExtension on CategoriesRoute {
 
   String get location => GoRouteData.$location(
         '/admin/categories',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $SubcategoriesRouteExtension on SubcategoriesRoute {
+  static SubcategoriesRoute _fromState(GoRouterState state) =>
+      SubcategoriesRoute(
+        categoryId: state.pathParameters['categoryId']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/admin/categories/${Uri.encodeComponent(categoryId)}',
       );
 
   void go(BuildContext context) => context.go(location);

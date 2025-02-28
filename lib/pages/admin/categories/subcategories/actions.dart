@@ -1,15 +1,15 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/api.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/category_view.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/api.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/subcategory_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CategoryActions extends ConsumerWidget {
-  const CategoryActions({super.key, required this.category});
+class SubcategoryActions extends ConsumerWidget {
+  const SubcategoryActions({super.key, required this.subcategory});
 
-  final Category category;
+  final Subcategory subcategory;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,8 +22,9 @@ class CategoryActions extends ConsumerWidget {
             showDialog(
               context: context,
               builder: (context) {
-                return CategoryView(
-                  category: category,
+                return SubcategoryView(
+                  subcategory: subcategory,
+                  category: subcategory.category!,
                 );
               },
             );
@@ -32,16 +33,16 @@ class CategoryActions extends ConsumerWidget {
         ),
         IconButton(
           onPressed: () async {
-            await update(category.copyWith(archived: !category.archived));
-            ref.invalidate(categoriesRepoProvider);
+            await update(subcategory.copyWith(archived: !subcategory.archived));
+            ref.invalidate(subcategoriesRepoProvider);
             controller.close();
           },
           icon: const Icon(Icons.archive_outlined),
         ),
         IconButton(
           onPressed: () async {
-            await deleteCategory(category);
-            ref.invalidate(categoriesRepoProvider);
+            await deleteSubcategory(subcategory);
+            ref.invalidate(subcategoriesRepoProvider);
             controller.close();
           },
           icon: const Icon(Icons.delete_outline),

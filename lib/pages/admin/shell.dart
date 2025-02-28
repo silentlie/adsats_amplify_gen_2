@@ -38,9 +38,17 @@ class AdminShellRouteData extends StatefulShellRouteInfo {
   }
 
   @override
-  FutureOr<String?> redirect(BuildContext context, GoRouterState state) {
+  FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
     final ref = ProviderScope.containerOf(context);
-    if (ref.read(isAdminProvider)) return null;
+    final user = await ref.read(userDetailsProvider.future);
+    final isAdmin = user.roles?.any(
+          (role) {
+            return role.role?.name == "Admin";
+          },
+        ) ??
+        false;
+    if (isAdmin) return null;
+    print("return home");
     return HomeRoute().location;
   }
 }
@@ -151,7 +159,10 @@ class AdminShell extends ConsumerWidget {
   FloatingActionButton? floatingActionButton(BuildContext context) {
     final orientation = MediaQuery.orientationOf(context);
     final isLandscape = orientation == Orientation.landscape;
-    final currentPath = GoRouter.of(context).state.uri.path;
+    final goRouterState = GoRouter.of(context).state;
+    final currentPath = goRouterState.uri.path;
+    final isSubcategoriesRoute =
+        goRouterState.pathParameters.containsKey('categoryId');
     final actions = <String, (String, VoidCallback)>{
       AircraftRoute().location: (
         "New Aircraft",
@@ -178,7 +189,16 @@ class AdminShell extends ConsumerWidget {
         }
       ),
     };
+    if (isSubcategoriesRoute) {
+      actions[currentPath] = (
+        "New Subcategory",
+        () {
+          // TODO: Handle new subcategory action
+        }
+      );
+    }
     final action = actions[currentPath];
+
     if (action != null) {
       final (label, onPressed) = action;
       return _buildFAB(

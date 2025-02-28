@@ -94,7 +94,7 @@ class CategoriesDataSource extends DataTableSource {
         ),
         IconButton(
           onPressed: () async {
-            await deleteCetegory(category);
+            await deleteCategory(category);
             rebuild();
           },
           icon: const Icon(Icons.delete_outline),

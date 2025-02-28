@@ -6,7 +6,7 @@ part of 'repo.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$categoriesRepoHash() => r'32d2f3e7e82a6818c77c006e04ae8be5bf745302';
+String _$subcategoriesRepoHash() => r'3c044fc9e199e1ae65863a20d0dd85e1e9ca5aca';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,27 +29,27 @@ class _SystemHash {
   }
 }
 
-/// See also [categoriesRepo].
-@ProviderFor(categoriesRepo)
-const categoriesRepoProvider = CategoriesRepoFamily();
+/// See also [subcategoriesRepo].
+@ProviderFor(subcategoriesRepo)
+const subcategoriesRepoProvider = SubcategoriesRepoFamily();
 
-/// See also [categoriesRepo].
-class CategoriesRepoFamily extends Family<AsyncValue<List<Category>>> {
-  /// See also [categoriesRepo].
-  const CategoriesRepoFamily();
+/// See also [subcategoriesRepo].
+class SubcategoriesRepoFamily extends Family<AsyncValue<Category>> {
+  /// See also [subcategoriesRepo].
+  const SubcategoriesRepoFamily();
 
-  /// See also [categoriesRepo].
-  CategoriesRepoProvider call(
-    AdminFilterState filter,
+  /// See also [subcategoriesRepo].
+  SubcategoriesRepoProvider call(
+    SubcategoryFilterState filter,
   ) {
-    return CategoriesRepoProvider(
+    return SubcategoriesRepoProvider(
       filter,
     );
   }
 
   @override
-  CategoriesRepoProvider getProviderOverride(
-    covariant CategoriesRepoProvider provider,
+  SubcategoriesRepoProvider getProviderOverride(
+    covariant SubcategoriesRepoProvider provider,
   ) {
     return call(
       provider.filter,
@@ -70,32 +70,32 @@ class CategoriesRepoFamily extends Family<AsyncValue<List<Category>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'categoriesRepoProvider';
+  String? get name => r'subcategoriesRepoProvider';
 }
 
-/// See also [categoriesRepo].
-class CategoriesRepoProvider extends AutoDisposeFutureProvider<List<Category>> {
-  /// See also [categoriesRepo].
-  CategoriesRepoProvider(
-    AdminFilterState filter,
+/// See also [subcategoriesRepo].
+class SubcategoriesRepoProvider extends AutoDisposeFutureProvider<Category> {
+  /// See also [subcategoriesRepo].
+  SubcategoriesRepoProvider(
+    SubcategoryFilterState filter,
   ) : this._internal(
-          (ref) => categoriesRepo(
-            ref as CategoriesRepoRef,
+          (ref) => subcategoriesRepo(
+            ref as SubcategoriesRepoRef,
             filter,
           ),
-          from: categoriesRepoProvider,
-          name: r'categoriesRepoProvider',
+          from: subcategoriesRepoProvider,
+          name: r'subcategoriesRepoProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$categoriesRepoHash,
-          dependencies: CategoriesRepoFamily._dependencies,
+                  : _$subcategoriesRepoHash,
+          dependencies: SubcategoriesRepoFamily._dependencies,
           allTransitiveDependencies:
-              CategoriesRepoFamily._allTransitiveDependencies,
+              SubcategoriesRepoFamily._allTransitiveDependencies,
           filter: filter,
         );
 
-  CategoriesRepoProvider._internal(
+  SubcategoriesRepoProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -105,16 +105,16 @@ class CategoriesRepoProvider extends AutoDisposeFutureProvider<List<Category>> {
     required this.filter,
   }) : super.internal();
 
-  final AdminFilterState filter;
+  final SubcategoryFilterState filter;
 
   @override
   Override overrideWith(
-    FutureOr<List<Category>> Function(CategoriesRepoRef provider) create,
+    FutureOr<Category> Function(SubcategoriesRepoRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: CategoriesRepoProvider._internal(
-        (ref) => create(ref as CategoriesRepoRef),
+      override: SubcategoriesRepoProvider._internal(
+        (ref) => create(ref as SubcategoriesRepoRef),
         from: from,
         name: null,
         dependencies: null,
@@ -126,13 +126,13 @@ class CategoriesRepoProvider extends AutoDisposeFutureProvider<List<Category>> {
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<Category>> createElement() {
-    return _CategoriesRepoProviderElement(this);
+  AutoDisposeFutureProviderElement<Category> createElement() {
+    return _SubcategoriesRepoProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is CategoriesRepoProvider && other.filter == filter;
+    return other is SubcategoriesRepoProvider && other.filter == filter;
   }
 
   @override
@@ -146,18 +146,19 @@ class CategoriesRepoProvider extends AutoDisposeFutureProvider<List<Category>> {
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin CategoriesRepoRef on AutoDisposeFutureProviderRef<List<Category>> {
+mixin SubcategoriesRepoRef on AutoDisposeFutureProviderRef<Category> {
   /// The parameter `filter` of this provider.
-  AdminFilterState get filter;
+  SubcategoryFilterState get filter;
 }
 
-class _CategoriesRepoProviderElement
-    extends AutoDisposeFutureProviderElement<List<Category>>
-    with CategoriesRepoRef {
-  _CategoriesRepoProviderElement(super.provider);
+class _SubcategoriesRepoProviderElement
+    extends AutoDisposeFutureProviderElement<Category>
+    with SubcategoriesRepoRef {
+  _SubcategoriesRepoProviderElement(super.provider);
 
   @override
-  AdminFilterState get filter => (origin as CategoriesRepoProvider).filter;
+  SubcategoryFilterState get filter =>
+      (origin as SubcategoriesRepoProvider).filter;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

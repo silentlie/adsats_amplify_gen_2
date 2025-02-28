@@ -554,6 +554,139 @@ class _ListRolesProviderElement
   QueryPredicate<Model>? get where => (origin as ListRolesProvider).where;
 }
 
+String _$listCategoriesHash() => r'862168f45f6078ab26c10df0e495f3dc7c9a278a';
+
+/// See also [listCategories].
+@ProviderFor(listCategories)
+const listCategoriesProvider = ListCategoriesFamily();
+
+/// See also [listCategories].
+class ListCategoriesFamily extends Family<AsyncValue<List<Category>>> {
+  /// See also [listCategories].
+  const ListCategoriesFamily();
+
+  /// See also [listCategories].
+  ListCategoriesProvider call([
+    QueryPredicate<Model>? where,
+  ]) {
+    return ListCategoriesProvider(
+      where,
+    );
+  }
+
+  @override
+  ListCategoriesProvider getProviderOverride(
+    covariant ListCategoriesProvider provider,
+  ) {
+    return call(
+      provider.where,
+    );
+  }
+
+  static final Iterable<ProviderOrFamily> _dependencies =
+      const <ProviderOrFamily>[];
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
+      const <ProviderOrFamily>{};
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'listCategoriesProvider';
+}
+
+/// See also [listCategories].
+class ListCategoriesProvider extends AutoDisposeFutureProvider<List<Category>> {
+  /// See also [listCategories].
+  ListCategoriesProvider([
+    QueryPredicate<Model>? where,
+  ]) : this._internal(
+          (ref) => listCategories(
+            ref as ListCategoriesRef,
+            where,
+          ),
+          from: listCategoriesProvider,
+          name: r'listCategoriesProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$listCategoriesHash,
+          dependencies: ListCategoriesFamily._dependencies,
+          allTransitiveDependencies:
+              ListCategoriesFamily._allTransitiveDependencies,
+          where: where,
+        );
+
+  ListCategoriesProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.where,
+  }) : super.internal();
+
+  final QueryPredicate<Model>? where;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<Category>> Function(ListCategoriesRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: ListCategoriesProvider._internal(
+        (ref) => create(ref as ListCategoriesRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        where: where,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<Category>> createElement() {
+    return _ListCategoriesProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ListCategoriesProvider && other.where == where;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, where.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin ListCategoriesRef on AutoDisposeFutureProviderRef<List<Category>> {
+  /// The parameter `where` of this provider.
+  QueryPredicate<Model>? get where;
+}
+
+class _ListCategoriesProviderElement
+    extends AutoDisposeFutureProviderElement<List<Category>>
+    with ListCategoriesRef {
+  _ListCategoriesProviderElement(super.provider);
+
+  @override
+  QueryPredicate<Model>? get where => (origin as ListCategoriesProvider).where;
+}
+
 String _$listSubcategoriesHash() => r'47c1dcfeb0e4f0836010d5bacf2b9164c46d324b';
 
 /// See also [listSubcategories].

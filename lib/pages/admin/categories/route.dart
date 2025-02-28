@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+export 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/route.dart';
+
 part 'page.dart';
 
 class CategoriesShellBranchData extends StatefulShellBranchData {

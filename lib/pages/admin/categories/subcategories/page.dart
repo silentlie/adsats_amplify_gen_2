@@ -1,28 +1,29 @@
 part of 'route.dart';
 
-class AircraftPage extends ConsumerWidget {
-  const AircraftPage({super.key});
+class SubcategoriesPage extends ConsumerWidget {
+  const SubcategoriesPage({super.key, required this.categoryId});
+
+  final String categoryId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(adminFilterProvider);
-    final dataAsync = ref.watch(aircraftRepoProvider(filter));
-    final sortState = ref.watch(aircraftSortProvider);
+    final filter = ref.watch(subcategoryFilterProvider(categoryId));
+    final dataAsync = ref.watch(subcategoriesRepoProvider(filter));
+    final sortState = ref.watch(subcategorySortProvider);
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
       child: AsyncValueWidget(
         value: dataAsync,
-        data: (data) {
-          data.sort(compareAircraft(
+        data: (value) {
+          final data = value.subcategories!;
+          data.sort(compareSubcategory(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
-          final dataSource = AircraftDataSource(
-            sortedData: data,
-            context: context,
-          );
-          final sortNotifier = ref.read(aircraftSortProvider.notifier);
+          final dataSource =
+              SubcategoryDataSource(sortedData: data, context: context,);
+          final sortNotifier = ref.read(subcategorySortProvider.notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
@@ -32,8 +33,8 @@ class AircraftPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (aircraft) {
-                      return aircraft.name;
+                    getField: (subcategory) {
+                      return subcategory.name;
                     },
                   );
                 },
@@ -45,8 +46,8 @@ class AircraftPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (aircraft) {
-                      return aircraft.description ?? "";
+                    getField: (subcategory) {
+                      return subcategory.description ?? "";
                     },
                   );
                 },
@@ -58,8 +59,8 @@ class AircraftPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (aircraft) {
-                      return aircraft.archived.hashCode;
+                    getField: (subcategory) {
+                      return subcategory.archived.hashCode;
                     },
                   );
                 },
@@ -71,8 +72,8 @@ class AircraftPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (aircraft) {
-                      return aircraft.createdAt!;
+                    getField: (subcategory) {
+                      return subcategory.createdAt!;
                     },
                   );
                 },
@@ -84,8 +85,8 @@ class AircraftPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (aircraft) {
-                      return aircraft.hashCode;
+                    getField: (subcategory) {
+                      return subcategory.hashCode;
                     },
                   );
                 },
@@ -112,7 +113,7 @@ class AircraftPage extends ConsumerWidget {
             onPageChanged: (rowIndex) {
               // debugPrint((rowIndex / _rowsPerPage).toString());
             },
-            header: AircraftHeader(),
+            header: SubcategoryHeader(category: value,),
             dataRowHeight: 62,
             showCheckboxColumn: false,
             // dynamic change rows per page based on height of screen
