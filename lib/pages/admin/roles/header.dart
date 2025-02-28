@@ -1,12 +1,12 @@
 import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/category_view.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/role_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CategoryHeader extends ConsumerWidget {
-  const CategoryHeader({super.key});
+class RoleHeader extends ConsumerWidget {
+  const RoleHeader({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -14,7 +14,7 @@ class CategoryHeader extends ConsumerWidget {
     return ListTile(
       contentPadding: const EdgeInsets.only(),
       leading: const Text(
-        "Categories",
+        "Roles",
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
@@ -27,7 +27,7 @@ class CategoryHeader extends ConsumerWidget {
         child: Row(
           children: [
             IconButton(
-              onPressed: () => ref.invalidate(categoriesRepoProvider),
+              onPressed: () => ref.invalidate(rolesRepoProvider),
               icon: const Icon(Icons.refresh),
             ),
             ElevatedButton.icon(
@@ -35,11 +35,11 @@ class CategoryHeader extends ConsumerWidget {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return CategoryView();
+                    return RoleView();
                   },
                 );
               },
-              label: const Text('Add a category'),
+              label: const Text('Add a role'),
               icon: const Icon(
                 Icons.add,
                 size: 25,

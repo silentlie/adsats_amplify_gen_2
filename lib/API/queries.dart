@@ -23,15 +23,25 @@ query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFil
 }
 ''';
 const listCrewDocumentCategories = '''
-query ListCrewDocumentCategories(\$filter: ModelCrewDocumentCategoryFilterInput) {
-  listCrewDocumentCategories(filter: \$filter) {
-    items {
-      id
-      name
-      archived
-      description
-      createdAt
-      updatedAt
+query ListCrewDocumentCategories(\$filter: ModelCrewDocumentCategoryFilterInput, \$id: ID!) {
+  getRole(id: \$id) {
+    id
+    name
+    categories(filter: \$filter) {
+      items {
+        id
+        name
+        description
+        archived
+        createdAt
+        updatedAt
+        role {
+          id
+          name
+          description
+          archived
+        }
+      }
     }
   }
 }

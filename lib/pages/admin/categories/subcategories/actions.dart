@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
+import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/api.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/repo.dart';
@@ -33,17 +34,38 @@ class SubcategoryActions extends ConsumerWidget {
         ),
         IconButton(
           onPressed: () async {
-            await update(subcategory.copyWith(archived: !subcategory.archived));
+            final result = await showConfirmDialog(
+              context,
+              Text("Are you sure?"),
+              Text(
+                "Do you want to ${subcategory.archived ? "unarchive" : "archive"} this subcategory?",
+              ),
+            );
+            if (result)
+            {await update(subcategory.copyWith(archived: !subcategory.archived));
             ref.invalidate(subcategoriesRepoProvider);
-            controller.close();
+            controller.close();}
           },
-          icon: const Icon(Icons.archive_outlined),
+           icon: Icon(
+            subcategory.archived
+                ? Icons.unarchive_outlined
+                : Icons.archive_outlined,
+          ),
+          tooltip: subcategory.archived
+              ? "Unarchive this subcategory"
+              : "Archive this subcategory",
         ),
         IconButton(
           onPressed: () async {
-            await deleteSubcategory(subcategory);
+             final result = await showConfirmDialog(
+              context,
+              Text("Are you sure?"),
+              Text("Do you want to delete this subcategory?"),
+            );
+            if (result)
+            {await deleteSubcategory(subcategory);
             ref.invalidate(subcategoriesRepoProvider);
-            controller.close();
+            controller.close();}
           },
           icon: const Icon(Icons.delete_outline),
         ),

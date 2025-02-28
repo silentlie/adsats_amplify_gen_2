@@ -236,6 +236,12 @@ class ErrorRoute extends GoRouteData {
           TypedGoRoute<RolesRoute>(
             path: '/admin/roles',
             name: 'Roles',
+            routes: [
+              TypedGoRoute<CrewDocumentCategoriesRoute>(
+                  path: ':roleId',
+                  name: 'Crew Document Categories',
+                ),
+            ]
           ),
         ],
       ),

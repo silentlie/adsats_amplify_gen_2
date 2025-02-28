@@ -269,14 +269,13 @@ class DocumentActions extends ConsumerWidget {
               final result = await showConfirmDialog(
                 context,
                 Text("Are you sure?"),
-                Text("Do you want to delete this notice?"),
+                Text("Do you want to delete this document?"),
               );
               if (result) {
                 await delete(document);
                 controller.close();
                 reload();
               }
-
             },
             icon: const Icon(Icons.delete_outline),
             tooltip: "Delete",

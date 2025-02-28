@@ -1,28 +1,32 @@
 part of 'route.dart';
 
-class RolesPage extends ConsumerWidget {
-  const RolesPage({super.key});
+class CrewDocumentCategoriesPage extends ConsumerWidget {
+  const CrewDocumentCategoriesPage({super.key, required this.roleId});
+
+  final String roleId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(adminFilterProvider);
-    final dataAsync = ref.watch(rolesRepoProvider(filter));
-    final sortState = ref.watch(roleSortProvider);
+    final filter = ref.watch(crewDocumentCategoryFilterProvider(roleId));
+    final dataAsync = ref.watch(crewDocumentCategoriesRepoProvider(filter));
+    final sortState = ref.watch(crewDocumentCategorySortProvider);
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
       child: AsyncValueWidget(
         value: dataAsync,
-        data: (data) {
-          data.sort(compareRole(
+        data: (value) {
+          final data = value.categories!;
+          data.sort(compareCrewDocumentCategory(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
-          final dataSource = RoleDataSource(
+          final dataSource = CrewDocumentCategoryDataSource(
             sortedData: data,
             context: context,
           );
-          final sortNotifier = ref.read(roleSortProvider.notifier);
+          final sortNotifier =
+              ref.read(crewDocumentCategorySortProvider.notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
@@ -32,8 +36,8 @@ class RolesPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (role) {
-                      return role.name;
+                    getField: (crewDocumentCategory) {
+                      return crewDocumentCategory.name;
                     },
                   );
                 },
@@ -45,8 +49,8 @@ class RolesPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (role) {
-                      return role.description ?? "";
+                    getField: (crewDocumentCategory) {
+                      return crewDocumentCategory.description ?? "";
                     },
                   );
                 },
@@ -58,8 +62,8 @@ class RolesPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (role) {
-                      return role.archived.hashCode;
+                    getField: (crewDocumentCategory) {
+                      return crewDocumentCategory.archived.hashCode;
                     },
                   );
                 },
@@ -71,8 +75,8 @@ class RolesPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (role) {
-                      return role.createdAt!;
+                    getField: (crewDocumentCategory) {
+                      return crewDocumentCategory.createdAt!;
                     },
                   );
                 },
@@ -84,8 +88,8 @@ class RolesPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (role) {
-                      return role.hashCode;
+                    getField: (crewDocumentCategory) {
+                      return crewDocumentCategory.hashCode;
                     },
                   );
                 },
@@ -112,7 +116,9 @@ class RolesPage extends ConsumerWidget {
             onPageChanged: (rowIndex) {
               // debugPrint((rowIndex / _rowsPerPage).toString());
             },
-            header: RoleHeader(),
+            header: CrewDocumentCategoryHeader(
+              role: value,
+            ),
             dataRowHeight: 62,
             showCheckboxColumn: false,
             // dynamic change rows per page based on height of screen

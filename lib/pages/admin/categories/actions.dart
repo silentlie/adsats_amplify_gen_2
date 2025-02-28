@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
+import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/api.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/category_view.dart';
@@ -32,17 +33,38 @@ class CategoryActions extends ConsumerWidget {
         ),
         IconButton(
           onPressed: () async {
-            await update(category.copyWith(archived: !category.archived));
+            final result = await showConfirmDialog(
+              context,
+              Text("Are you sure?"),
+              Text(
+                "Do you want to ${category.archived ? "unarchive" : "archive"} this category?",
+              ),
+            );
+            if (result)
+            {await update(category.copyWith(archived: !category.archived));
             ref.invalidate(categoriesRepoProvider);
-            controller.close();
+            controller.close();}
           },
-          icon: const Icon(Icons.archive_outlined),
+          icon: Icon(
+            category.archived
+                ? Icons.unarchive_outlined
+                : Icons.archive_outlined,
+          ),
+          tooltip: category.archived
+              ? "Unarchive this category"
+              : "Archive this category",
         ),
         IconButton(
           onPressed: () async {
-            await deleteCategory(category);
+            final result = await showConfirmDialog(
+              context,
+              Text("Are you sure?"),
+              Text("Do you want to delete this category?"),
+            );
+            if (result)
+            {await deleteCategory(category);
             ref.invalidate(categoriesRepoProvider);
-            controller.close();
+            controller.close();}
           },
           icon: const Icon(Icons.delete_outline),
         ),

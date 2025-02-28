@@ -201,6 +201,13 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                   path: '/admin/roles',
                   name: 'Roles',
                   factory: $RolesRouteExtension._fromState,
+                  routes: [
+                    GoRouteData.$route(
+                      path: ':roleId',
+                      name: 'Crew Document Categories',
+                      factory: $CrewDocumentCategoriesRouteExtension._fromState,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -556,6 +563,26 @@ extension $RolesRouteExtension on RolesRoute {
 
   String get location => GoRouteData.$location(
         '/admin/roles',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $CrewDocumentCategoriesRouteExtension on CrewDocumentCategoriesRoute {
+  static CrewDocumentCategoriesRoute _fromState(GoRouterState state) =>
+      CrewDocumentCategoriesRoute(
+        roleId: state.pathParameters['roleId']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/admin/roles/${Uri.encodeComponent(roleId)}',
       );
 
   void go(BuildContext context) => context.go(location);

@@ -1,16 +1,15 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/api.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/aircraft_view.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/crew_document_categories/crew_document_category_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AircraftActions extends ConsumerWidget {
-  const AircraftActions({super.key, required this.aircraft});
+class CrewDocumentCategoryActions extends ConsumerWidget {
+  const CrewDocumentCategoryActions({super.key, required this.category});
 
-  final Aircraft aircraft;
+  final CrewDocumentCategory category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,8 +22,9 @@ class AircraftActions extends ConsumerWidget {
             showDialog(
               context: context,
               builder: (context) {
-                return AircraftView(
-                  aircraft: aircraft,
+                return CrewDocumentCategoryView(
+                  category: category,
+                  role: category.role!,
                 );
               },
             );
@@ -37,34 +37,36 @@ class AircraftActions extends ConsumerWidget {
               context,
               Text("Are you sure?"),
               Text(
-                "Do you want to ${aircraft.archived ? "unarchive" : "archive"} this aircraft?",
+                "Do you want to ${category.archived ? "unarchive" : "archive"} this category?",
               ),
             );
-            if (result)
-            {await update(aircraft.copyWith(archived: !aircraft.archived));
-            ref.invalidate(aircraftRepoProvider);
-            controller.close();}
+            if (result) {
+              await update(category.copyWith(archived: !category.archived));
+              ref.invalidate(subcategoriesRepoProvider);
+              controller.close();
+            }
           },
           icon: Icon(
-            aircraft.archived
+            category.archived
                 ? Icons.unarchive_outlined
                 : Icons.archive_outlined,
           ),
-          tooltip: aircraft.archived
-              ? "Unarchive this aircraft"
-              : "Archive this aircraft",
+          tooltip: category.archived
+              ? "Unarchive this category"
+              : "Archive this category",
         ),
         IconButton(
           onPressed: () async {
             final result = await showConfirmDialog(
               context,
               Text("Are you sure?"),
-              Text("Do you want to delete this aircraft?"),
+              Text("Do you want to delete this category?"),
             );
-            if (result){
-            await deleteAicraft(aircraft);
-            ref.invalidate(aircraftRepoProvider);
-            controller.close();}
+            if (result) {
+              //TODO delete
+              ref.invalidate(subcategoriesRepoProvider);
+              controller.close();
+            }
           },
           icon: const Icon(Icons.delete_outline),
         ),

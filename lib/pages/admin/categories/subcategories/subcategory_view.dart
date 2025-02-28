@@ -44,7 +44,7 @@ class SubcategoryView extends ConsumerWidget {
                     },
                   ));
                 }
-                return GlobalDropdownMenu(
+                return GlobalDropdownMenu<Category>(
                   entries: value.map(
                     (e) {
                       return DropdownMenuEntry(value: e, label: e.name);
