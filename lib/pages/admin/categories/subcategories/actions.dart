@@ -25,7 +25,7 @@ class SubcategoryActions extends ConsumerWidget {
               builder: (context) {
                 return SubcategoryView(
                   subcategory: subcategory,
-                  category: subcategory.category!,
+                  categoryId: subcategory.category!.id,
                 );
               },
             );
@@ -60,7 +60,7 @@ class SubcategoryActions extends ConsumerWidget {
              final result = await showConfirmDialog(
               context,
               Text("Are you sure?"),
-              Text("Do you want to delete this subcategory?"),
+              Text("Do you want to delete this subcategory?\nIt also deletes its documents"),
             );
             if (result)
             {await deleteSubcategory(subcategory);

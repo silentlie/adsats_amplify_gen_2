@@ -57,7 +57,7 @@ class SubcategoryHeader extends ConsumerWidget {
                   context: context,
                   builder: (context) {
                     return SubcategoryView(
-                      category: category,
+                      categoryId: category.id,
                     );
                   },
                 );

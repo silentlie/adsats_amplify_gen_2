@@ -57,7 +57,7 @@ class RoleActions extends ConsumerWidget {
             final result = await showConfirmDialog(
               context,
               Text("Are you sure?"),
-              Text("Do you want to delete this role?"),
+              Text("Do you want to delete this role?\nIt also delete all its categories and crew documents "),
             );
             if (result)
             {await deleteRole(role);

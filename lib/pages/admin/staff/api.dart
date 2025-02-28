@@ -93,6 +93,9 @@ Future<Staff> deleteStaff(Staff staff) async {
     returnStaff.notifications?.forEach(
       (notification) => futures.add(delete(notification)),
     );
+    returnStaff.reportNotifications?.forEach(
+      (notification) => futures.add(delete(notification)),
+    );
     futures.add(delete(staff));
     await Future.wait(futures);
     return staff;

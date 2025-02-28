@@ -1,3 +1,15 @@
+const getCrewDocumentCategoryDetails = '''
+query GetCrewDocumentCategoryDetails(\$id: ID) {
+  getCrewDocumentCategory(id: \$id) {
+    crewDocuments {
+      items {
+        id
+      }
+    }
+    id
+  }
+}
+''';
 const listJoinRecipients = '''
 query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFilter: ModelAircraftStaffFilterInput) {
   listStaff {
@@ -303,6 +315,11 @@ query ListRoles(\$filter: ModelRoleFilterInput) {
           }
         }
       }
+      categories {
+        items {
+          id
+        }
+      }
     }
   }
 }
@@ -479,6 +496,11 @@ query GetStaffDetails(\$id: ID!) {
         id
       }
     }
+    reportNotifications {
+      items {
+        id
+      }
+    }
   }
 }
 ''';
@@ -509,6 +531,11 @@ query GetSubcategoryDetails(\$id: ID!) {
   getSubcategory(id: \$id) {
     id
     staff {
+      items {
+        id
+      }
+    }
+    documents {
       items {
         id
       }

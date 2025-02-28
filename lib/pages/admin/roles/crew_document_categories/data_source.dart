@@ -29,7 +29,7 @@ class CrewDocumentCategoryDataSource extends DataTableSource {
           context: context,
           builder: (context) {
             return CrewDocumentCategoryView(
-              role: crewDocumentCategory.role!,
+              roleId: crewDocumentCategory.role!.id,
               category: crewDocumentCategory,
             );
           },

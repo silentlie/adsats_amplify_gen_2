@@ -2,6 +2,7 @@ import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/crew_document_categories/api.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/crew_document_categories/crew_document_category_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +25,7 @@ class CrewDocumentCategoryActions extends ConsumerWidget {
               builder: (context) {
                 return CrewDocumentCategoryView(
                   category: category,
-                  role: category.role!,
+                  roleId: category.role!.id,
                 );
               },
             );
@@ -60,10 +61,11 @@ class CrewDocumentCategoryActions extends ConsumerWidget {
             final result = await showConfirmDialog(
               context,
               Text("Are you sure?"),
-              Text("Do you want to delete this category?"),
+              Text(
+                  "Do you want to delete this category?\nIt also deletes any crew document under this category"),
             );
             if (result) {
-              //TODO delete
+              await deleteCrewDocumentCategory(category);
               ref.invalidate(subcategoriesRepoProvider);
               controller.close();
             }

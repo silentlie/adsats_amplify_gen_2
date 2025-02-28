@@ -23,9 +23,9 @@ class RolesRoute extends RouteInfo {
   const RolesRoute();
 
   @override
-  Icon get icon => const Icon(Icons.group_outlined);
+  Icon get icon => const Icon(Icons.groups_outlined);
   @override
-  Icon get selectedIcon => const Icon(Icons.group);
+  Icon get selectedIcon => const Icon(Icons.groups);
   @override
   String get label => 'Roles';
 

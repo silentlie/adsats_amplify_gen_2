@@ -48,7 +48,8 @@ class CrewDocumentCategoryHeader extends ConsumerWidget {
               icon: const Icon(Icons.arrow_back),
             ),
             IconButton(
-              onPressed: () => ref.invalidate(crewDocumentCategoriesRepoProvider),
+              onPressed: () =>
+                  ref.invalidate(crewDocumentCategoriesRepoProvider),
               icon: const Icon(Icons.refresh),
             ),
             ElevatedButton.icon(
@@ -57,7 +58,7 @@ class CrewDocumentCategoryHeader extends ConsumerWidget {
                   context: context,
                   builder: (context) {
                     return CrewDocumentCategoryView(
-                      role: role,
+                      roleId: role.id,
                     );
                   },
                 );

@@ -239,30 +239,30 @@ class DocumentActions extends ConsumerWidget {
           tooltip: "Download",
         ),
         if (isAdmin)
-        IconButton(
-          onPressed: () async {
-            final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text(
-                "Do you want to ${document.archived ? "unarchive" : "archive"} this document?",
-              ),
-            );
-            if (result) {
-              await archive(document);
-              reload();
-              controller.close();
-            }
-          },
-          icon: Icon(
-            document.archived
-                ? Icons.unarchive_outlined
-                : Icons.archive_outlined,
+          IconButton(
+            onPressed: () async {
+              final result = await showConfirmDialog(
+                context,
+                Text("Are you sure?"),
+                Text(
+                  "Do you want to ${document.archived ? "unarchive" : "archive"} this document?",
+                ),
+              );
+              if (result) {
+                await archive(document);
+                reload();
+                controller.close();
+              }
+            },
+            icon: Icon(
+              document.archived
+                  ? Icons.unarchive_outlined
+                  : Icons.archive_outlined,
+            ),
+            tooltip: document.archived
+                ? "Unarchive this document"
+                : "Archive this document",
           ),
-          tooltip: document.archived
-              ? "Unarchive this document"
-              : "Archive this document",
-        ),
         if (isAdmin)
           IconButton(
             onPressed: () async {
@@ -272,7 +272,7 @@ class DocumentActions extends ConsumerWidget {
                 Text("Do you want to delete this document?"),
               );
               if (result) {
-                await delete(document);
+                await deleteDocument(document);
                 controller.close();
                 reload();
               }

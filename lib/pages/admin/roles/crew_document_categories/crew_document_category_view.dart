@@ -9,10 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CrewDocumentCategoryView extends ConsumerWidget {
-  const CrewDocumentCategoryView({super.key, this.category, required this.role});
+  const CrewDocumentCategoryView(
+      {super.key, this.category, required this.roleId});
 
   final CrewDocumentCategory? category;
-  final Role role;
+  final String roleId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -36,7 +37,7 @@ class CrewDocumentCategoryView extends ConsumerWidget {
                 if (!isEditing) {
                   category = category.copyWith(role: value.firstWhere(
                     (element) {
-                      return element.id == role.id;
+                      return element.id == roleId;
                     },
                   ));
                 }

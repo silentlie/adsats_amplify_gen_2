@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,11 @@ Future<Subcategory> deleteSubcategory(Subcategory subcategory) async {
     final List<Future> futures = [];
     returnSubcategory.staff?.forEach(
       (staffSubcategory) => futures.add(delete(staffSubcategory)),
+    );
+    returnSubcategory.documents?.forEach(
+      (document) {
+        futures.add(deleteDocument(document));
+      },
     );
     futures.add(delete(subcategory));
     await Future.wait(futures);

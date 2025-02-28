@@ -29,7 +29,7 @@ class SubcategoryDataSource extends DataTableSource {
           builder: (context) {
             return SubcategoryView(
               subcategory: subcategory,
-              category: subcategory.category!,
+              categoryId: subcategory.category!.id,
             );
           },
         );

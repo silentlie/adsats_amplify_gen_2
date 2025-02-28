@@ -12,10 +12,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class SubcategoryView extends ConsumerWidget {
-  const SubcategoryView({super.key, this.subcategory, required this.category});
+  const SubcategoryView({super.key, this.subcategory, required this.categoryId,});
 
   final Subcategory? subcategory;
-  final Category category;
+  final String categoryId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,7 +40,7 @@ class SubcategoryView extends ConsumerWidget {
                 if (!isEditing) {
                   subcategory = subcategory.copyWith(category: value.firstWhere(
                     (element) {
-                      return element.id == category.id;
+                      return element.id == categoryId;
                     },
                   ));
                 }

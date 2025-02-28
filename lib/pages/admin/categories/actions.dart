@@ -59,7 +59,7 @@ class CategoryActions extends ConsumerWidget {
             final result = await showConfirmDialog(
               context,
               Text("Are you sure?"),
-              Text("Do you want to delete this category?"),
+              Text("Do you want to delete this category?\nIt also deletes its subcategories and documents"),
             );
             if (result)
             {await deleteCategory(category);

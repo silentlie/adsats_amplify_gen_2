@@ -1,5 +1,6 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/crew_document_categories/api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,11 @@ Future<Role> deleteRole(Role role) async {
     role.staff?.forEach(
       (roleStaff) => futures.add(delete(roleStaff)),
     );
+    role.categories?.forEach(
+      (category) {
+        futures.add(deleteCrewDocumentCategory(category));
+      },
+    );
     futures.add(delete(role));
     await Future.wait(futures);
     return role;
@@ -16,8 +22,7 @@ Future<Role> deleteRole(Role role) async {
     debugPrint('ApiExecption: delete Role with ${role.id} failed: $e');
     rethrow;
   } on Exception catch (e) {
-    debugPrint(
-        'Dart Exception: delete Role with ${role.id} failed: $e');
+    debugPrint('Dart Exception: delete Role with ${role.id} failed: $e');
     rethrow;
   }
 }

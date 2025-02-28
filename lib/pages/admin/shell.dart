@@ -1,6 +1,12 @@
 import 'dart:async';
 
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/aircraft/aircraft_view.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/category_view.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/subcategory_view.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/crew_document_categories/crew_document_category_view.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/role_view.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/staff_view.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
 import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
@@ -161,39 +167,78 @@ class AdminShell extends ConsumerWidget {
     final isLandscape = orientation == Orientation.landscape;
     final goRouterState = GoRouter.of(context).state;
     final currentPath = goRouterState.uri.path;
-    final isSubcategoriesRoute =
-        goRouterState.pathParameters.containsKey('categoryId');
     final actions = <String, (String, VoidCallback)>{
       AircraftRoute().location: (
         "New Aircraft",
         () {
-          // TODO:
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AircraftView();
+            },
+          );
         }
       ),
       RolesRoute().location: (
         "New Role",
         () {
-          // TODO:
+          showDialog(
+            context: context,
+            builder: (context) {
+              return RoleView();
+            },
+          );
         }
       ),
       StaffRoute().location: (
         "New Staff",
         () {
-          // TODO:
+          showDialog(
+            context: context,
+            builder: (context) {
+              return StaffView();
+            },
+          );
         }
       ),
       CategoriesRoute().location: (
         "New Category",
         () {
-          // TODO:
+          showDialog(
+            context: context,
+            builder: (context) {
+              return CategoryView();
+            },
+          );
         }
       ),
     };
-    if (isSubcategoriesRoute) {
+    if (goRouterState.pathParameters.containsKey('categoryId')) {
       actions[currentPath] = (
         "New Subcategory",
         () {
-          // TODO: Handle new subcategory action
+          showDialog(
+            context: context,
+            builder: (context) {
+              return SubcategoryView(
+                categoryId: goRouterState.pathParameters['categoryId']!,
+              );
+            },
+          );
+        }
+      );
+    } else if (goRouterState.pathParameters.containsKey('roleId')) {
+      actions[currentPath] = (
+        "New Crew Document Category",
+        () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return CrewDocumentCategoryView(
+                roleId: goRouterState.pathParameters['roleId']!,
+              );
+            },
+          );
         }
       );
     }

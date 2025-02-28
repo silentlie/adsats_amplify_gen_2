@@ -123,17 +123,15 @@ Future<void> archive(Document document) async {
   }
 }
 
-Future<void> delete(Document document) async {
+Future<void> deleteDocument(Document document) async {
   try {
     final request = ModelMutations.deleteById(
       Document.classType,
       DocumentModelIdentifier(id: document.id),
     );
     final response = await Amplify.API.mutate(request: request).response;
-    final data = response.data;
-    if (data == null) {
-      debugPrint('errors: ${response.errors}');
-      return;
+    if (response.errors.isNotEmpty) {
+      throw response.errors.first;
     }
     // final result =
     await Amplify.Storage.remove(
