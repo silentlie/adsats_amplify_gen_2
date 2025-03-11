@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 
 export 'package:adsats_amplify_gen_2/pages/main/sms/inbox/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/sms/sent/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/shell.dart';
+export 'package:adsats_amplify_gen_2/pages/main/sms/view_notice/route.dart';
+
 
 class SmsShellBranchData extends StatefulShellBranchData {
   const SmsShellBranchData();

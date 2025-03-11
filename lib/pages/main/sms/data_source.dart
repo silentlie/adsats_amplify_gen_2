@@ -1,13 +1,17 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/actions.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class NoticeDataSource extends DataTableSource {
-  NoticeDataSource({required this.sortedData});
-
+  NoticeDataSource({
+    required this.sortedData,
+    required this.context,
+  });
+  BuildContext context;
   List<Notice> sortedData;
 
   @override
@@ -23,6 +27,9 @@ class NoticeDataSource extends DataTableSource {
   DataRow2 getRow(int index) {
     final notice = sortedData[index];
     return DataRow2.byIndex(
+      onTap: () {
+        ViewNoticeRoute(id: notice.id).push(context);
+      },
       index: index,
       cells: [
         DataCell(

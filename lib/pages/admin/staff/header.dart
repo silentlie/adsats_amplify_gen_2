@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/staff_view.dart';

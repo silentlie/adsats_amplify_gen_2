@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
-import 'package:adsats_amplify_gen_2/helper/date_range_picker.dart';
-import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
+import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/new_document.dart';

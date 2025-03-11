@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/roles/crew_document_categories/acttions.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/crew_document_categories/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/crew_document_categories/crew_document_category_view.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';

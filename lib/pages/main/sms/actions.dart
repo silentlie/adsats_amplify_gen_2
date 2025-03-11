@@ -4,6 +4,7 @@ import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/Notice.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/api.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/invalidate.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,8 +12,6 @@ class NoticeActions extends ConsumerWidget {
   const NoticeActions({super.key, required this.notice});
 
   final Notice notice;
-
-
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -24,8 +23,7 @@ class NoticeActions extends ConsumerWidget {
       menuChildren: [
         IconButton(
           onPressed: () async {
-            // context.go('/sms', extra: notice);
-            // TODO: view notice
+            ViewNoticeRoute(id: notice.id).push(context);
           },
           icon: const Icon(Icons.remove_red_eye_outlined),
           tooltip: "View this notice",

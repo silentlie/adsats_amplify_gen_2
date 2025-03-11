@@ -16,15 +16,6 @@ class ActionsRowWidget extends StatelessWidget {
     //   child: Row(
     //     mainAxisAlignment: MainAxisAlignment.end,
     //     children: [
-    //       Padding(
-    //         padding: const EdgeInsets.only(right: 8.0),
-    //         child: ElevatedButton.icon(
-    //           onPressed: () {
-    //             context.go(SMSWidget.path);
-    //           },
-    //           label: const Text('Cancel'),
-    //         ),
-    //       ),
     //       if (noticeNotifier.notice != null)
     //         Padding(
     //           padding: EdgeInsets.only(right: 10),
@@ -68,77 +59,6 @@ class ActionsRowWidget extends StatelessWidget {
     //                 }
     //               }
     //             },
-    //           ),
-    //         ),
-    //       if (noticeNotifier.notice != null &&
-    //           (authNotifier.isSafetyOfficer || authNotifier.isAdmin))
-    //         Padding(
-    //           padding: const EdgeInsets.only(right: 8.0),
-    //           child: ElevatedButton.icon(
-    //             onPressed: () {
-    //               noticeNotifier.setState(() {
-    //                 noticeNotifier.editMode = !noticeNotifier.editMode;
-    //               });
-    //             },
-    //             label: noticeNotifier.editMode
-    //                 ? const Text('View Mode')
-    //                 : const Text('Edit Mode'),
-    //           ),
-    //         ),
-    //       if (noticeNotifier.editMode)
-    //         Padding(
-    //           padding: const EdgeInsets.only(right: 8.0),
-    //           child: ElevatedButton.icon(
-    //             onPressed: () async {
-    //               FilePickerResult? filePickerResult =
-    //                   await FilePicker.platform.pickFiles(
-    //                 allowMultiple: true,
-    //                 type: FileType.any,
-    //                 withData: false,
-    //                 // Ensure to get file stream for better performance
-    //                 withReadStream: true,
-    //               );
-    //               noticeNotifier.addFiles(filePickerResult?.files ?? []);
-    //             },
-    //             label: const Text("Pick file"),
-    //             icon: Icon(Icons.description_outlined),
-    //           ),
-    //         ),
-    //       if (noticeNotifier.editMode)
-    //         Padding(
-    //           padding: const EdgeInsets.only(right: 8.0),
-    //           child: ElevatedButton.icon(
-    //             onPressed: () async {
-    //               await noticeNotifier.saveNotice(false);
-    //             },
-    //             style: ButtonStyle(
-    //               backgroundColor: WidgetStateProperty.all<Color>(
-    //                 colorScheme.secondary,
-    //               ),
-    //             ),
-    //             label: Text('Save',
-    //                 style: TextStyle(color: colorScheme.onSecondary)),
-    //             icon: Icon(Icons.mail, color: colorScheme.onSecondary),
-    //           ),
-    //         ),
-    //       if (noticeNotifier.editMode &&
-    //           noticeNotifier.status != NoticeStatus.Draft)
-    //         ElevatedButton.icon(
-    //           onPressed: () async {
-    //             await noticeNotifier.saveNotice(true);
-    //           },
-    //           style: ButtonStyle(
-    //             backgroundColor: WidgetStateProperty.all<Color>(
-    //               colorScheme.secondary,
-    //             ),
-    //           ),
-    //           label: Text(
-    //             'Submit and Send',
-    //             style: TextStyle(color: colorScheme.onSecondary),
-    //           ),
-    //           icon: Icon(
-    //             Icons.mail,
-    //             color: colorScheme.onSecondary,
     //           ),
     //         ),
     //     ],

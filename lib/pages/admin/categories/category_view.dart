@@ -2,9 +2,11 @@ import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/repo.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class CategoryView extends ConsumerWidget {
   const CategoryView({super.key, this.category});
@@ -100,8 +102,11 @@ class CategoryView extends ConsumerWidget {
               await create(category);
             }
             ref.invalidate(categoriesRepoProvider);
-            if (context.mounted) {
-              Navigator.pop(context);
+            if (!context.mounted) return;
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              CategoriesRoute().go(context);
             }
           },
           label: Text(isEditing ? 'Apply' : 'Create'),

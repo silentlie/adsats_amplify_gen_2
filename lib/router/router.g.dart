@@ -91,6 +91,11 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                     ),
                   ],
                 ),
+                GoRouteData.$route(
+                  path: '/sms/:id',
+                  name: 'View Notice',
+                  factory: $ViewNoticeRouteExtension._fromState,
+                ),
               ],
             ),
             StatefulShellBranchData.$branch(
@@ -124,7 +129,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                     StatefulShellBranchData.$branch(
                       routes: [
                         GoRouteData.$route(
-                          path: '/sms/internal-audit-report',
+                          path: '/compliance/internal-audit-report',
                           name: 'Internal Audit Report',
                           factory:
                               $InternalAuditReportRouteExtension._fromState,
@@ -134,7 +139,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                     StatefulShellBranchData.$branch(
                       routes: [
                         GoRouteData.$route(
-                          path: '/sms/external-audit-report',
+                          path: '/compliance/external-audit-report',
                           name: 'External Audit Report',
                           factory:
                               $ExternalAuditReportRouteExtension._fromState,
@@ -142,6 +147,11 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                       ],
                     ),
                   ],
+                ),
+                GoRouteData.$route(
+                  path: '/compliance/:id',
+                  name: 'View Report',
+                  factory: $ViewReportRouteExtension._fromState,
                 ),
               ],
             ),
@@ -384,6 +394,25 @@ extension $HazardReportRouteExtension on HazardReportRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $ViewNoticeRouteExtension on ViewNoticeRoute {
+  static ViewNoticeRoute _fromState(GoRouterState state) => ViewNoticeRoute(
+        id: state.pathParameters['id']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/sms/${Uri.encodeComponent(id)}',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $ComplianceShellRouteDataExtension on ComplianceShellRouteData {
   static ComplianceShellRouteData _fromState(GoRouterState state) =>
       const ComplianceShellRouteData();
@@ -435,7 +464,7 @@ extension $InternalAuditReportRouteExtension on InternalAuditReportRoute {
       const InternalAuditReportRoute();
 
   String get location => GoRouteData.$location(
-        '/sms/internal-audit-report',
+        '/compliance/internal-audit-report',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -453,7 +482,26 @@ extension $ExternalAuditReportRouteExtension on ExternalAuditReportRoute {
       const ExternalAuditReportRoute();
 
   String get location => GoRouteData.$location(
-        '/sms/external-audit-report',
+        '/compliance/external-audit-report',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ViewReportRouteExtension on ViewReportRoute {
+  static ViewReportRoute _fromState(GoRouterState state) => ViewReportRoute(
+        id: state.pathParameters['id']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/compliance/${Uri.encodeComponent(id)}',
       );
 
   void go(BuildContext context) => context.go(location);

@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/pages/main/compliances/view_report/route.dart';
 import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
 import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/loading_view.dart';
@@ -56,7 +57,6 @@ class ErrorRoute extends GoRouteData {
             TextButton.icon(
               onPressed: () {
                 if (context.canPop()) {
-                  print("pop");
                   context.pop();
                 } else {
                   HomeRoute().go(context);
@@ -141,6 +141,10 @@ class ErrorRoute extends GoRouteData {
               ),
             ],
           ),
+          TypedGoRoute<ViewNoticeRoute>(
+            path: '/sms/:id',
+            name: 'View Notice',
+          ),
         ],
       ),
       TypedStatefulShellBranch<ComplianceShellBranchData>(
@@ -170,7 +174,7 @@ class ErrorRoute extends GoRouteData {
               TypedStatefulShellBranch<InternalAuditReportShellBranchData>(
                 routes: <TypedRoute<RouteData>>[
                   TypedGoRoute<InternalAuditReportRoute>(
-                    path: '/sms/internal-audit-report',
+                    path: '/compliance/internal-audit-report',
                     name: 'Internal Audit Report',
                   ),
                 ],
@@ -178,12 +182,16 @@ class ErrorRoute extends GoRouteData {
               TypedStatefulShellBranch<ExternalAuditReportShellBranchData>(
                 routes: <TypedRoute<RouteData>>[
                   TypedGoRoute<ExternalAuditReportRoute>(
-                    path: '/sms/external-audit-report',
+                    path: '/compliance/external-audit-report',
                     name: 'External Audit Report',
                   ),
                 ],
               ),
             ],
+          ),
+          TypedGoRoute<ViewReportRoute>(
+            path: '/compliance/:id',
+            name: 'View Report',
           ),
         ],
       ),
@@ -234,15 +242,14 @@ class ErrorRoute extends GoRouteData {
       TypedStatefulShellBranch<RolesShellBranchData>(
         routes: <TypedRoute<RouteData>>[
           TypedGoRoute<RolesRoute>(
-            path: '/admin/roles',
-            name: 'Roles',
-            routes: [
-              TypedGoRoute<CrewDocumentCategoriesRoute>(
+              path: '/admin/roles',
+              name: 'Roles',
+              routes: [
+                TypedGoRoute<CrewDocumentCategoriesRoute>(
                   path: ':roleId',
                   name: 'Crew Document Categories',
                 ),
-            ]
-          ),
+              ]),
         ],
       ),
       TypedStatefulShellBranch<StaffShellBranchData>(

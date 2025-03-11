@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/crew_document_categories/crew_document_category_view.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/crew_document_categories/filter.dart';

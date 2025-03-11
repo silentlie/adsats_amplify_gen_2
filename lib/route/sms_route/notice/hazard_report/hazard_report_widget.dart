@@ -1,6 +1,6 @@
-import 'package:adsats_amplify_gen_2/helper/date_picker_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
 import 'package:adsats_amplify_gen_2/helper/futrure_dropdown_menu.dart';
-import 'package:adsats_amplify_gen_2/helper/global_text_form_field.dart';
+import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/actions_row_widget.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/documents_view_widget.dart';

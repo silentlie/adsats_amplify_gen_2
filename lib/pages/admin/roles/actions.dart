@@ -38,31 +38,30 @@ class RoleActions extends ConsumerWidget {
               Text("Are you sure?"),
               Text("Do you want to delete this role?"),
             );
-            if (result)
-            {await update(role.copyWith(archived: !role.archived));
-            ref.invalidate(rolesRepoProvider);
-            controller.close();}
+            if (result) {
+              await update(role.copyWith(archived: !role.archived));
+              ref.invalidate(rolesRepoProvider);
+              controller.close();
+            }
           },
           icon: Icon(
-            role.archived
-                ? Icons.unarchive_outlined
-                : Icons.archive_outlined,
+            role.archived ? Icons.unarchive_outlined : Icons.archive_outlined,
           ),
-          tooltip: role.archived
-              ? "Unarchive this role"
-              : "Archive this role",
+          tooltip: role.archived ? "Unarchive this role" : "Archive this role",
         ),
         IconButton(
           onPressed: () async {
             final result = await showConfirmDialog(
               context,
               Text("Are you sure?"),
-              Text("Do you want to delete this role?\nIt also delete all its categories and crew documents "),
+              Text(
+                  "Do you want to delete this role?\nIt also delete all its categories and crew documents "),
             );
-            if (result)
-            {await deleteRole(role);
-            ref.invalidate(rolesRepoProvider);
-            controller.close();}
+            if (result) {
+              await deleteRole(role);
+              ref.invalidate(rolesRepoProvider);
+              controller.close();
+            }
           },
           icon: const Icon(Icons.delete_outline),
         ),

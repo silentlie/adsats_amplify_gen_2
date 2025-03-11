@@ -1,9 +1,6 @@
-import 'dart:convert';
-
-import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -65,24 +62,8 @@ List<ListTile> buildNotifications(BuildContext context, WidgetRef ref) {
           ),
         ),
         leading: Icon(getIcon(e.notice!.type!.name)),
-        onTap: () async {
-          final response = await Amplify.API
-              .query(
-                request: GraphQLRequest(
-                  document: getNoticeDetails,
-                  variables: {
-                    "id": e.notice!.id,
-                  },
-                ),
-              )
-              .response;
-          if (response.errors.isNotEmpty) {
-            throw response.errors.first;
-          }
-          Map<String, dynamic> jsonMap = json.decode(response.data);
-          final notice = Notice.fromJson(jsonMap["getNotice"]);
-          if (!context.mounted) return;
-          //TODO go to sms with noticeId
+        onTap: () {
+          ViewNoticeRoute(id: e.notice!.id).push(context);
         },
       );
     },

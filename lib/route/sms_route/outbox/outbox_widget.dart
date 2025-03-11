@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_api.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notices_filter.dart';

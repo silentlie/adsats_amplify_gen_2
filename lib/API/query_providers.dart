@@ -165,23 +165,3 @@ FutureOr<List<Document>> listDocuments(
   }
   return response.data!.items.cast<Document>();
 }
-
-@Riverpod(dependencies: [])
-FutureOr<Notice> getNotice(
-  Ref ref,
-  ModelIdentifier<Notice> modelIdentifier,
-) async {
-  final request = ModelQueries.get<Notice>(
-    Notice.classType,
-    modelIdentifier,
-  );
-  final response = await Amplify.API
-      .query<Notice>(
-        request: request,
-      )
-      .response;
-  if (response.errors.isNotEmpty) {
-    throw response.errors.first;
-  }
-  return response.data!;
-}

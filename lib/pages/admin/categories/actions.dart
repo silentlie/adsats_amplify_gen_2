@@ -40,10 +40,11 @@ class CategoryActions extends ConsumerWidget {
                 "Do you want to ${category.archived ? "unarchive" : "archive"} this category?",
               ),
             );
-            if (result)
-            {await update(category.copyWith(archived: !category.archived));
-            ref.invalidate(categoriesRepoProvider);
-            controller.close();}
+            if (result) {
+              await update(category.copyWith(archived: !category.archived));
+              ref.invalidate(categoriesRepoProvider);
+              controller.close();
+            }
           },
           icon: Icon(
             category.archived
@@ -59,12 +60,14 @@ class CategoryActions extends ConsumerWidget {
             final result = await showConfirmDialog(
               context,
               Text("Are you sure?"),
-              Text("Do you want to delete this category?\nIt also deletes its subcategories and documents"),
+              Text(
+                  "Do you want to delete this category?\nIt also deletes its subcategories and documents"),
             );
-            if (result)
-            {await deleteCategory(category);
-            ref.invalidate(categoriesRepoProvider);
-            controller.close();}
+            if (result) {
+              await deleteCategory(category);
+              ref.invalidate(categoriesRepoProvider);
+              controller.close();
+            }
           },
           icon: const Icon(Icons.delete_outline),
         ),

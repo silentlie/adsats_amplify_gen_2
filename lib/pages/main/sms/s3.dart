@@ -1,8 +1,32 @@
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+Future<void> getFileUrl(NoticeDocument document, Notice notice) async {
+  try {
+    final result = await Amplify.Storage.getUrl(
+      path: StoragePath.fromString(
+        "noticeDocuments/${notice.id}/${document.id}/${document.name}",
+      ),
+      options: const StorageGetUrlOptions(
+        pluginOptions: S3GetUrlPluginOptions(
+          validateObjectExistence: true,
+          expiresIn: Duration(days: 1),
+        ),
+      ),
+    ).result;
+    // debugPrint('url: ${result.url}');
+    launchUrl(result.url);
+  } on StorageException catch (e) {
+    debugPrint('get notice document url in s3 failed: ${e.message}');
+  } catch (e) {
+    debugPrint('Unknown Error: $e');
+  }
+}
 
 Future<void> uploadFile(PlatformFile file, Notice notice) async {
   final noticeDocument = NoticeDocument(name: file.name, notices: notice);
@@ -46,7 +70,8 @@ Future<void> deleteFile(NoticeDocument noticeDocument, Notice notice) async {
     // final result =
     await Amplify.Storage.remove(
       path: StoragePath.fromString(
-          'noticeDocuments/${notice.id}/${noticeDocument.id}/${noticeDocument.name}'),
+        'noticeDocuments/${notice.id}/${noticeDocument.id}/${noticeDocument.name}',
+      ),
     ).result;
     // print('Removed file: ${result.removedItem.path}');
   } on StorageException catch (e) {

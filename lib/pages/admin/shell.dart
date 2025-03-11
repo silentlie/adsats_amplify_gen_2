@@ -54,7 +54,6 @@ class AdminShellRouteData extends StatefulShellRouteInfo {
         ) ??
         false;
     if (isAdmin) return null;
-    print("return home");
     return HomeRoute().location;
   }
 }

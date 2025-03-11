@@ -42,18 +42,25 @@ Future<Notice> deleteNotice(Notice notice) async {
 }
 
 Future<void> updateAircraftNotice(
-    Notice notice, List<Aircraft> aircraft) async {
+  Notice oldNotice,
+  Notice newNotice,
+) async {
   try {
     final List<Future> futures = [];
-    final oldRecords = notice.aircraft ?? [];
+    final oldRecords = oldNotice.aircraft ?? [];
+    final newRecords = newNotice.aircraft ?? [];
     final Map<String, AircraftNotice> oldMap = {
-      for (var oldRecord in oldRecords) oldRecord.aircraft!.id: oldRecord
+      for (var oldAircraft in oldRecords) oldAircraft.aircraft!.id: oldAircraft
     };
-    for (var newAircraft in aircraft) {
+    for (var newAircraft in newRecords) {
       final oldRecord = oldMap.remove(newAircraft.id);
       if (oldRecord == null) {
-        futures
-            .add(create(AircraftNotice(aircraft: newAircraft, notice: notice)));
+        futures.add(
+          create(AircraftNotice(
+            aircraft: newAircraft.aircraft!,
+            notice: oldNotice,
+          )),
+        );
       }
     }
     for (var oldRecord in oldMap.values) {
@@ -91,5 +98,62 @@ Future<void> sendEmail(Notice notice, Iterable<Staff> staff) async {
     // Map<String, dynamic> jsonMap = json.decode(response.data!);
   } on ApiException catch (e) {
     debugPrint('send notice email failed: $e');
+  }
+}
+
+Future<Iterable<Staff>> fetchJoinRecipients({
+  required Notice notice,
+  required List<Role> roles,
+}) async {
+  final aircraft = notice.aircraft!.map((e) => e.aircraft!);
+  final recipients = notice.recipients!.map((e) => e.staff!).toList();
+  if (aircraft.isEmpty || roles.isEmpty) return recipients;
+  Map<String, dynamic> aircraftFilter = {
+    "or": aircraft
+        .map(
+          (aircraft) => {
+            "aircraftId": {"eq": aircraft.id}
+          },
+        )
+        .toList()
+  };
+  Map<String, dynamic> rolesFilter = {
+    "or": roles
+        .map(
+          (role) => {
+            "roleId": {"eq": role.id}
+          },
+        )
+        .toList()
+  };
+  try {
+    final request =
+        GraphQLRequest<String>(document: listJoinRecipients, variables: {
+      "aircraft": aircraftFilter,
+      "rolesFilter": rolesFilter,
+    });
+    final response = await Amplify.API.query(request: request).response;
+    if (response.errors.isNotEmpty) {
+      throw response.errors.first;
+    }
+    Map<String, dynamic> jsonMap = json.decode(response.data!);
+    final staff = (jsonMap["listStaff"]["items"] as List)
+        .map((e) => Staff.fromJson(e))
+        .where(
+          (element) =>
+              (element.aircraft?.isNotEmpty ?? false) &&
+              (element.roles?.isNotEmpty ?? false),
+        );
+    recipients.addAll(staff);
+    return recipients.fold<Map<String, Staff>>({}, (map, staff) {
+      map.putIfAbsent(staff.id, () => staff);
+      return map;
+    }).values;
+  } on ApiException catch (e) {
+    debugPrint('ApiExecption: fetchJoinRecipients failed: $e');
+    rethrow;
+  } on Exception catch (e) {
+    debugPrint('Dart Exception: fetchJoinRecipients failed: $e');
+    rethrow;
   }
 }

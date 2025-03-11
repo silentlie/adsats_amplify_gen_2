@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 export 'package:adsats_amplify_gen_2/pages/main/compliances/inbox/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/compliances/sent/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/compliances/create_report/shell.dart';
 
 class ComplianceShellBranchData extends StatefulShellBranchData {
   const ComplianceShellBranchData();

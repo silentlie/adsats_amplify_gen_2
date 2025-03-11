@@ -4,11 +4,13 @@ import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/api.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/repo.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class StaffView extends ConsumerWidget {
@@ -241,8 +243,11 @@ class StaffView extends ConsumerWidget {
               ]);
             }
             ref.invalidate(staffRepoProvider);
-            if (context.mounted) {
-              Navigator.pop(context);
+            if (!context.mounted) return;
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              StaffRoute().go(context);
             }
           },
           label: Text(isEditing ? 'Apply' : 'Create'),

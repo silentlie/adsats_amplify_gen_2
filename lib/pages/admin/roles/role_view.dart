@@ -4,11 +4,13 @@ import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/api.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/repo.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class RoleView extends ConsumerWidget {
@@ -111,11 +113,9 @@ class RoleView extends ConsumerWidget {
             final result = await showConfirmDialog(
               context,
               Text("Are you sure?"),
-              Text("Do you want to ?"),
+              Text("Do you want to apply?"),
             );
-            if (!result) {
-              return;
-            }
+            if (!result) return;
             if (isEditing) {
               await Future.wait([
                 updateRoleStaff(role, staff),
@@ -125,9 +125,11 @@ class RoleView extends ConsumerWidget {
               await create(role);
             }
             ref.invalidate(rolesRepoProvider);
-            if (context.mounted) {
-              role = await create(role);
-              await updateRoleStaff(role, staff);
+            if (!context.mounted) return;
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              RolesRoute().go(context);
             }
           },
           label: Text(isEditing ? 'Apply' : 'Create'),

@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/aircraft_view.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/repo.dart';

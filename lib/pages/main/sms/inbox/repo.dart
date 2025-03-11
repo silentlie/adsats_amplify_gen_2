@@ -12,7 +12,10 @@ import '../../../../models/ModelProvider.dart';
 part 'repo.g.dart';
 
 @Riverpod(dependencies: [listNoticeStaff])
-FutureOr<List<Notice>> noticesInboxRepo(Ref ref, NoticeFilterState filter,) async {
+FutureOr<List<Notice>> noticesInboxRepo(
+  Ref ref,
+  NoticeFilterState filter,
+) async {
   final noticeIds = await ref.watch(listNoticeStaffProvider(
     NoticeStaff.STAFF.eq(filter.user.id),
   ).future);

@@ -181,6 +181,8 @@ query GetNoticeDetails(\$id: ID!) {
     author {
       id
       name
+      email
+      archived
     }
     aircraft {
       items {

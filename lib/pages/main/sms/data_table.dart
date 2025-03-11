@@ -29,7 +29,10 @@ class NoticeDataTable extends ConsumerWidget {
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
-          final dataSource = NoticeDataSource(sortedData: data);
+          final dataSource = NoticeDataSource(
+            sortedData: data,
+            context: context,
+          );
           final sortNotifier = ref.read(noticeSortProvider.notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
@@ -125,7 +128,7 @@ class NoticeDataTable extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Action"),
+                label: getCenterText("Actions"),
                 fixedWidth: 80,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(

@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/search_bar_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/invalidate.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
