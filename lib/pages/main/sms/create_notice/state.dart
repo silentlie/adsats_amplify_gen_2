@@ -39,41 +39,6 @@ class NoticeNotifier extends _$NoticeNotifier {
     if (isInitialNotice) _initialNotice = notice;
   }
 
-  void updateNotice({
-    String? subject,
-    Staff? author,
-    bool? archived,
-    NoticeStatus? status,
-    TemporalDateTime? noticedAt,
-    TemporalDateTime? deadlineAt,
-    Map<String, dynamic>? details,
-    List<Aircraft>? aircraft,
-    List<Role>? roles,
-    List<Staff>? recipients,
-    List<NoticeDocument>? documents,
-  }) {
-    if (roles != null) {
-      _roles = roles;
-      return;
-    }
-    state.notice = state.notice.copyWith(
-      subject: subject,
-      author: author,
-      archived: archived,
-      status: status,
-      noticedAt: noticedAt,
-      deadlineAt: deadlineAt,
-      details: details == null ? null : jsonEncode(details),
-      documents: documents,
-      recipients: recipients
-          ?.map((e) => NoticeStaff(notice: state.notice, staff: e))
-          .toList(),
-      aircraft: aircraft
-          ?.map((e) => AircraftNotice(aircraft: e, notice: state.notice))
-          .toList(),
-    );
-  }
-
   Future<void> submit(bool isSend) async {
     state.formKey.currentState!.save();
     final List<Future> futures = switch (isEditable()) {
@@ -111,8 +76,53 @@ class NoticeNotifier extends _$NoticeNotifier {
     await Future.wait(futures);
   }
 
+  //This does not trigger rebuild on watch
+  void updateNotice({
+    String? subject,
+    Staff? author,
+    bool? archived,
+    NoticeStatus? status,
+    TemporalDateTime? noticedAt,
+    TemporalDateTime? deadlineAt,
+    Map<String, dynamic>? details,
+    List<Aircraft>? aircraft,
+    List<Role>? roles,
+    List<Staff>? recipients,
+    List<NoticeDocument>? documents,
+  }) {
+    if (roles != null) {
+      _roles = roles;
+      return;
+    }
+    state.notice = state.notice.copyWith(
+      subject: subject,
+      author: author,
+      archived: archived,
+      status: status,
+      noticedAt: noticedAt,
+      deadlineAt: deadlineAt,
+      details: details == null ? null : jsonEncode(details),
+      documents: documents,
+      recipients: recipients
+          ?.map((e) => NoticeStaff(notice: state.notice, staff: e))
+          .toList(),
+      aircraft: aircraft
+          ?.map((e) => AircraftNotice(aircraft: e, notice: state.notice))
+          .toList(),
+    );
+  }
+
+  //This does trigger rebuild
+  void updateDetails(Map<String, dynamic> details) {
+    state = state.copyWith(
+      notice: state.notice.copyWith(details: jsonEncode(details)),
+    );
+  }
+
   void updateStatus(NoticeStatus status) {
-    state = state.copyWith(notice: state.notice.copyWith(status: status));
+    state = state.copyWith(
+      notice: state.notice.copyWith(status: status),
+    );
   }
 
   void removeNoticeDocument(NoticeDocument document) {

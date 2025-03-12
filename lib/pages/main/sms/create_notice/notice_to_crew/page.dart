@@ -52,6 +52,7 @@ class NoticeToCrewPage extends StatelessWidget {
                           ),
                         ),
                         NoticeBasicDetailsWidget(),
+                        const Divider(),
                         NoticeToCrewBody(),
                         const Divider(),
                         NoticeRecipientsWidget(),

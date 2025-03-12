@@ -52,6 +52,7 @@ class SafetyNoticePage extends ConsumerWidget {
                           ),
                         ),
                         NoticeBasicDetailsWidget(),
+                        const Divider(),
                         SafetyNoticeBody(),
                         const Divider(),
                         NoticeRecipientsWidget(),

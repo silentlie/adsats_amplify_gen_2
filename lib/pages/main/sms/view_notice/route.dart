@@ -1,5 +1,4 @@
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/state.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/view_notice/repo.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
