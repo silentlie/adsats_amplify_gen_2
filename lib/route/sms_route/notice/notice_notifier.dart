@@ -4,7 +4,7 @@ import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth_notifier.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/s3.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/notice/notice_api.dart';
 import 'package:adsats_amplify_gen_2/route/sms_route/sms_widget.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';

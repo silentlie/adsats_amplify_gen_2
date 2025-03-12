@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/actions.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/actions.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';

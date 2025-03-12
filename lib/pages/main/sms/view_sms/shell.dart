@@ -7,15 +7,8 @@ export 'package:adsats_amplify_gen_2/pages/main/sms/sent/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/shell.dart';
 export 'package:adsats_amplify_gen_2/pages/main/sms/view_notice/route.dart';
 
-
-class SmsShellBranchData extends StatefulShellBranchData {
-  const SmsShellBranchData();
-}
-
 class SmsShellRouteData extends StatefulShellRouteInfo {
   const SmsShellRouteData();
-
-  static String $initialLocation = SmsInboxRoute().location;
 
   @override
   Icon get icon => const Icon(Icons.support_outlined);

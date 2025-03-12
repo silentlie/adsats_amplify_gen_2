@@ -1,8 +1,8 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/models/Notice.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/header.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/sort.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/header.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/sort.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';

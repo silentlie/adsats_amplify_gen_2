@@ -13,6 +13,8 @@ class ViewNoticeRoute extends RouteInfo {
   const ViewNoticeRoute({required this.id});
   final String id;
 
+  static final $parentNavigatorKey = rootNavigatorKey;
+
   @override
   Icon get icon => const Icon(Icons.support_outlined);
   @override
@@ -22,9 +24,11 @@ class ViewNoticeRoute extends RouteInfo {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return MaterialPage(
-        child: ViewReportPage(
-      id: id,
-    ));
+    return DialogPage(
+      key: state.pageKey,
+      child: ViewReportPage(
+        id: id,
+      ),
+    );
   }
 }

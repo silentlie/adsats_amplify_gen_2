@@ -9,8 +9,6 @@ export 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/hazard_report/
 class CreateNoticeShellRouteData extends StatefulShellRouteInfo {
   const CreateNoticeShellRouteData();
 
-  static String $initialLocation = NoticeToCrewRoute().location;
-
   @override
   Icon get icon => const Icon(Icons.add_outlined);
   @override

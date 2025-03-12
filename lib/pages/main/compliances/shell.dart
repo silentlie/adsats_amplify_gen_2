@@ -14,6 +14,7 @@ class ComplianceShellRouteData extends StatefulShellRouteInfo {
   const ComplianceShellRouteData();
 
   static String $initialLocation = ComplianceInboxRoute().location;
+  
 
   @override
   Icon get icon => const Icon(Icons.fact_check_outlined);

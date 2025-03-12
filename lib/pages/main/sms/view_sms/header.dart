@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/invalidate.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/filter.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/invalidate.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

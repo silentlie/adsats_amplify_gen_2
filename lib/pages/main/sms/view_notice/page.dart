@@ -1,6 +1,6 @@
 part of 'route.dart';
 
-class ViewReportPage extends ConsumerWidget {
+class ViewReportPage extends ConsumerStatefulWidget {
   const ViewReportPage({
     super.key,
     required this.id,
@@ -9,11 +9,16 @@ class ViewReportPage extends ConsumerWidget {
   final String id;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ViewReportPage> createState() => _ViewReportPageState();
+}
+
+class _ViewReportPageState extends ConsumerState<ViewReportPage> {
+
+  @override
+  Widget build(BuildContext context) {
     return AsyncValueWidget(
-      value: ref.watch(noticeRepoProvider(id)),
+      value: ref.watch(noticeRepoProvider(widget.id)),
       data: (value) {
-        ref.watch(noticeNotifierProvider.notifier).setNotice(value, true);
         return switch (value.type) {
           NoticeType.Notice_to_Crew => NoticeToCrewPage(
               notice: value,

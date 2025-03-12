@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 
 export 'package:adsats_amplify_gen_2/pages/main/home/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/documents/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/sms/shell.dart';
+export 'package:adsats_amplify_gen_2/pages/main/sms/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/compliances/shell.dart';
 export 'package:adsats_amplify_gen_2/pages/main/crew_documents/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/profile/route.dart';
@@ -18,8 +18,6 @@ export 'package:adsats_amplify_gen_2/pages/main/reset_password//route.dart';
 
 class MainShellRouteData extends StatefulShellRouteData {
   const MainShellRouteData();
-
-  static String $initialLocation = HomeRoute().location;
 
   @override
   Widget builder(

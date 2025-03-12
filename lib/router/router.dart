@@ -12,10 +12,12 @@ export 'package:adsats_amplify_gen_2/pages/root_shell.dart';
 
 part 'route_info.dart';
 part 'router.g.dart';
+part 'dialog_page.dart';
+
+final rootNavigatorKey = GlobalKey<NavigatorState>();
 
 @Riverpod(keepAlive: true)
 class Router extends _$Router {
-  static final rootNavigatorKey = GlobalKey<NavigatorState>();
   @override
   GoRouter build() {
     return GoRouter(
@@ -31,43 +33,6 @@ class Router extends _$Router {
       errorBuilder: (BuildContext context, GoRouterState state) {
         return ErrorRoute(error: state.error!).build(context, state);
       },
-    );
-  }
-}
-
-class ErrorRoute extends GoRouteData {
-  ErrorRoute({required this.error});
-  final Exception error;
-
-  @override
-  Widget build(BuildContext context, GoRouterState state) {
-    final titleLarge = Theme.of(context).textTheme.titleLarge;
-    return Scaffold(
-      appBar: AppBarWidget(
-        isBarebone: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              error.toString(),
-              style: titleLarge?.copyWith(color: Colors.red),
-            ),
-            TextButton.icon(
-              onPressed: () {
-                if (context.canPop()) {
-                  context.pop();
-                } else {
-                  HomeRoute().go(context);
-                }
-              },
-              label: Text("Back"),
-              icon: Icon(Icons.arrow_back),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
@@ -91,59 +56,65 @@ class ErrorRoute extends GoRouteData {
           ),
         ],
       ),
-      TypedStatefulShellBranch<SmsShellBranchData>(
+      TypedStatefulShellBranch<SMSShellBranchData>(
         routes: [
-          TypedStatefulShellRoute<SmsShellRouteData>(
-            branches: [
-              TypedStatefulShellBranch<SmsInboxShellBranchData>(
-                routes: <TypedRoute<RouteData>>[
-                  TypedGoRoute<SmsInboxRoute>(
-                    path: '/sms/inbox',
-                    name: 'SMS Inbox',
+          TypedGoRoute<SMSRoute>(
+            path: '/sms',
+            name: 'SMS',
+            routes: [
+              TypedStatefulShellRoute<SmsShellRouteData>(
+                branches: [
+                  TypedStatefulShellBranch<SmsInboxShellBranchData>(
+                    routes: <TypedRoute<RouteData>>[
+                      TypedGoRoute<SmsInboxRoute>(
+                        path: 'inbox',
+                        name: 'SMS Inbox',
+                      ),
+                    ],
+                  ),
+                  TypedStatefulShellBranch<SmsSentShellBranchData>(
+                    routes: <TypedRoute<RouteData>>[
+                      TypedGoRoute<SmsSentRoute>(
+                        path: 'sent',
+                        name: 'SMS Sent',
+                      ),
+                    ],
                   ),
                 ],
               ),
-              TypedStatefulShellBranch<SmsSentShellBranchData>(
-                routes: <TypedRoute<RouteData>>[
-                  TypedGoRoute<SmsSentRoute>(
-                    path: '/sms/sent',
-                    name: 'SMS Sent',
+              TypedStatefulShellRoute<CreateNoticeShellRouteData>(
+                branches: [
+                  TypedStatefulShellBranch<NoticeToCrewShellBranchData>(
+                    routes: <TypedRoute<RouteData>>[
+                      TypedGoRoute<NoticeToCrewRoute>(
+                        path: 'notice-to-crew',
+                        name: 'Notice To Crew',
+                      ),
+                    ],
+                  ),
+                  TypedStatefulShellBranch<SafetyNoticeShellBranchData>(
+                    routes: <TypedRoute<RouteData>>[
+                      TypedGoRoute<SafetyNoticeRoute>(
+                        path: 'safety-notice',
+                        name: 'Safety Notice',
+                      ),
+                    ],
+                  ),
+                  TypedStatefulShellBranch<HazardReportShellBranchData>(
+                    routes: <TypedRoute<RouteData>>[
+                      TypedGoRoute<HazardReportRoute>(
+                        path: 'hazard-report',
+                        name: 'Hazard Report',
+                      ),
+                    ],
                   ),
                 ],
+              ),
+              TypedGoRoute<ViewNoticeRoute>(
+                path: ':id',
+                name: 'View Notice',
               ),
             ],
-          ),
-          TypedStatefulShellRoute<CreateNoticeShellRouteData>(
-            branches: [
-              TypedStatefulShellBranch<NoticeToCrewShellBranchData>(
-                routes: <TypedRoute<RouteData>>[
-                  TypedGoRoute<NoticeToCrewRoute>(
-                    path: '/sms/notice-to-crew',
-                    name: 'Notice To Crew',
-                  ),
-                ],
-              ),
-              TypedStatefulShellBranch<SafetyNoticeShellBranchData>(
-                routes: <TypedRoute<RouteData>>[
-                  TypedGoRoute<SafetyNoticeRoute>(
-                    path: '/sms/safety-notice',
-                    name: 'Safety Notice',
-                  ),
-                ],
-              ),
-              TypedStatefulShellBranch<HazardReportShellBranchData>(
-                routes: <TypedRoute<RouteData>>[
-                  TypedGoRoute<HazardReportRoute>(
-                    path: '/sms/hazard-report',
-                    name: 'Hazard Report',
-                  ),
-                ],
-              ),
-            ],
-          ),
-          TypedGoRoute<ViewNoticeRoute>(
-            path: '/sms/:id',
-            name: 'View Notice',
           ),
         ],
       ),
@@ -306,6 +277,43 @@ class RootShellRouteData extends ShellRouteData {
               skipLoadingOnReload: true,
             );
       },
+    );
+  }
+}
+
+class ErrorRoute extends GoRouteData {
+  ErrorRoute({required this.error});
+  final Exception error;
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    final titleLarge = Theme.of(context).textTheme.titleLarge;
+    return Scaffold(
+      appBar: AppBarWidget(
+        isBarebone: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              error.toString(),
+              style: titleLarge?.copyWith(color: Colors.red),
+            ),
+            TextButton.icon(
+              onPressed: () {
+                if (context.canPop()) {
+                  context.pop();
+                } else {
+                  HomeRoute().go(context);
+                }
+              },
+              label: Text("Back"),
+              icon: Icon(Icons.arrow_back),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

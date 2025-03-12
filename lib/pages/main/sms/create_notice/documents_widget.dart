@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/state.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/s3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

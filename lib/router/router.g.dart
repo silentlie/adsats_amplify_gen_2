@@ -35,66 +35,75 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
               ],
             ),
             StatefulShellBranchData.$branch(
+              initialLocation: SMSShellBranchData.$initialLocation,
               routes: [
-                StatefulShellRouteData.$route(
-                  factory: $SmsShellRouteDataExtension._fromState,
-                  branches: [
-                    StatefulShellBranchData.$branch(
-                      routes: [
-                        GoRouteData.$route(
-                          path: '/sms/inbox',
-                          name: 'SMS Inbox',
-                          factory: $SmsInboxRouteExtension._fromState,
-                        ),
-                      ],
-                    ),
-                    StatefulShellBranchData.$branch(
-                      routes: [
-                        GoRouteData.$route(
-                          path: '/sms/sent',
-                          name: 'SMS Sent',
-                          factory: $SmsSentRouteExtension._fromState,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                StatefulShellRouteData.$route(
-                  factory: $CreateNoticeShellRouteDataExtension._fromState,
-                  branches: [
-                    StatefulShellBranchData.$branch(
-                      routes: [
-                        GoRouteData.$route(
-                          path: '/sms/notice-to-crew',
-                          name: 'Notice To Crew',
-                          factory: $NoticeToCrewRouteExtension._fromState,
-                        ),
-                      ],
-                    ),
-                    StatefulShellBranchData.$branch(
-                      routes: [
-                        GoRouteData.$route(
-                          path: '/sms/safety-notice',
-                          name: 'Safety Notice',
-                          factory: $SafetyNoticeRouteExtension._fromState,
-                        ),
-                      ],
-                    ),
-                    StatefulShellBranchData.$branch(
-                      routes: [
-                        GoRouteData.$route(
-                          path: '/sms/hazard-report',
-                          name: 'Hazard Report',
-                          factory: $HazardReportRouteExtension._fromState,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
                 GoRouteData.$route(
-                  path: '/sms/:id',
-                  name: 'View Notice',
-                  factory: $ViewNoticeRouteExtension._fromState,
+                  path: '/sms',
+                  name: 'SMS',
+                  factory: $SMSRouteExtension._fromState,
+                  routes: [
+                    StatefulShellRouteData.$route(
+                      factory: $SmsShellRouteDataExtension._fromState,
+                      branches: [
+                        StatefulShellBranchData.$branch(
+                          routes: [
+                            GoRouteData.$route(
+                              path: 'inbox',
+                              name: 'SMS Inbox',
+                              factory: $SmsInboxRouteExtension._fromState,
+                            ),
+                          ],
+                        ),
+                        StatefulShellBranchData.$branch(
+                          routes: [
+                            GoRouteData.$route(
+                              path: 'sent',
+                              name: 'SMS Sent',
+                              factory: $SmsSentRouteExtension._fromState,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    StatefulShellRouteData.$route(
+                      factory: $CreateNoticeShellRouteDataExtension._fromState,
+                      branches: [
+                        StatefulShellBranchData.$branch(
+                          routes: [
+                            GoRouteData.$route(
+                              path: 'notice-to-crew',
+                              name: 'Notice To Crew',
+                              factory: $NoticeToCrewRouteExtension._fromState,
+                            ),
+                          ],
+                        ),
+                        StatefulShellBranchData.$branch(
+                          routes: [
+                            GoRouteData.$route(
+                              path: 'safety-notice',
+                              name: 'Safety Notice',
+                              factory: $SafetyNoticeRouteExtension._fromState,
+                            ),
+                          ],
+                        ),
+                        StatefulShellBranchData.$branch(
+                          routes: [
+                            GoRouteData.$route(
+                              path: 'hazard-report',
+                              name: 'Hazard Report',
+                              factory: $HazardReportRouteExtension._fromState,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    GoRouteData.$route(
+                      path: ':id',
+                      name: 'View Notice',
+                      parentNavigatorKey: ViewNoticeRoute.$parentNavigatorKey,
+                      factory: $ViewNoticeRouteExtension._fromState,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -284,6 +293,23 @@ extension $DocumentsRouteExtension on DocumentsRoute {
 
   String get location => GoRouteData.$location(
         '/documents',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $SMSRouteExtension on SMSRoute {
+  static SMSRoute _fromState(GoRouterState state) => const SMSRoute();
+
+  String get location => GoRouteData.$location(
+        '/sms',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -702,7 +728,7 @@ extension $SubcategoriesRouteExtension on SubcategoriesRoute {
 // RiverpodGenerator
 // **************************************************************************
 
-String _$routerHash() => r'33d77f388773fe464240e522cbfe463c8d5295c9';
+String _$routerHash() => r'1c462b6ee3d3e49a92379255ac5005e643e1372c';
 
 /// See also [Router].
 @ProviderFor(Router)
