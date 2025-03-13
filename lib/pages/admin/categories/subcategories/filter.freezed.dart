@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,88 +10,53 @@ part of 'filter.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$SubcategoryFilterState {
-  String get search => throw _privateConstructorUsedError;
-  bool? get archived => throw _privateConstructorUsedError;
-  DateTimeRange? get createdAt => throw _privateConstructorUsedError;
-  String get categoryId => throw _privateConstructorUsedError;
+  String get search;
+  bool? get archived;
+  DateTimeRange? get createdAt;
+  String get categoryId;
 
   /// Create a copy of SubcategoryFilterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $SubcategoryFilterStateCopyWith<SubcategoryFilterState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $SubcategoryFilterStateCopyWith<$Res> {
-  factory $SubcategoryFilterStateCopyWith(SubcategoryFilterState value,
-          $Res Function(SubcategoryFilterState) then) =
-      _$SubcategoryFilterStateCopyWithImpl<$Res, SubcategoryFilterState>;
-  @useResult
-  $Res call(
-      {String search,
-      bool? archived,
-      DateTimeRange? createdAt,
-      String categoryId});
-}
-
-/// @nodoc
-class _$SubcategoryFilterStateCopyWithImpl<$Res,
-        $Val extends SubcategoryFilterState>
-    implements $SubcategoryFilterStateCopyWith<$Res> {
-  _$SubcategoryFilterStateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of SubcategoryFilterState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $SubcategoryFilterStateCopyWith<SubcategoryFilterState> get copyWith =>
+      _$SubcategoryFilterStateCopyWithImpl<SubcategoryFilterState>(
+          this as SubcategoryFilterState, _$identity);
+
   @override
-  $Res call({
-    Object? search = null,
-    Object? archived = freezed,
-    Object? createdAt = freezed,
-    Object? categoryId = null,
-  }) {
-    return _then(_value.copyWith(
-      search: null == search
-          ? _value.search
-          : search // ignore: cast_nullable_to_non_nullable
-              as String,
-      archived: freezed == archived
-          ? _value.archived
-          : archived // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTimeRange?,
-      categoryId: null == categoryId
-          ? _value.categoryId
-          : categoryId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is SubcategoryFilterState &&
+            (identical(other.search, search) || other.search == search) &&
+            (identical(other.archived, archived) ||
+                other.archived == archived) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, search, archived, createdAt, categoryId);
+
+  @override
+  String toString() {
+    return 'SubcategoryFilterState(search: $search, archived: $archived, createdAt: $createdAt, categoryId: $categoryId)';
   }
 }
 
 /// @nodoc
-abstract class _$$SubcategoryFilterStateImplCopyWith<$Res>
-    implements $SubcategoryFilterStateCopyWith<$Res> {
-  factory _$$SubcategoryFilterStateImplCopyWith(
-          _$SubcategoryFilterStateImpl value,
-          $Res Function(_$SubcategoryFilterStateImpl) then) =
-      __$$SubcategoryFilterStateImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $SubcategoryFilterStateCopyWith<$Res> {
+  factory $SubcategoryFilterStateCopyWith(SubcategoryFilterState value,
+          $Res Function(SubcategoryFilterState) _then) =
+      _$SubcategoryFilterStateCopyWithImpl;
   @useResult
   $Res call(
       {String search,
@@ -100,14 +66,12 @@ abstract class _$$SubcategoryFilterStateImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$SubcategoryFilterStateImplCopyWithImpl<$Res>
-    extends _$SubcategoryFilterStateCopyWithImpl<$Res,
-        _$SubcategoryFilterStateImpl>
-    implements _$$SubcategoryFilterStateImplCopyWith<$Res> {
-  __$$SubcategoryFilterStateImplCopyWithImpl(
-      _$SubcategoryFilterStateImpl _value,
-      $Res Function(_$SubcategoryFilterStateImpl) _then)
-      : super(_value, _then);
+class _$SubcategoryFilterStateCopyWithImpl<$Res>
+    implements $SubcategoryFilterStateCopyWith<$Res> {
+  _$SubcategoryFilterStateCopyWithImpl(this._self, this._then);
+
+  final SubcategoryFilterState _self;
+  final $Res Function(SubcategoryFilterState) _then;
 
   /// Create a copy of SubcategoryFilterState
   /// with the given fields replaced by the non-null parameter values.
@@ -119,21 +83,21 @@ class __$$SubcategoryFilterStateImplCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? categoryId = null,
   }) {
-    return _then(_$SubcategoryFilterStateImpl(
+    return _then(_self.copyWith(
       search: null == search
-          ? _value.search
+          ? _self.search
           : search // ignore: cast_nullable_to_non_nullable
               as String,
       archived: freezed == archived
-          ? _value.archived
+          ? _self.archived
           : archived // ignore: cast_nullable_to_non_nullable
               as bool?,
       createdAt: freezed == createdAt
-          ? _value.createdAt
+          ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTimeRange?,
       categoryId: null == categoryId
-          ? _value.categoryId
+          ? _self.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String,
     ));
@@ -142,8 +106,8 @@ class __$$SubcategoryFilterStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$SubcategoryFilterStateImpl extends _SubcategoryFilterState {
-  _$SubcategoryFilterStateImpl(
+class _SubcategoryFilterState extends SubcategoryFilterState {
+  _SubcategoryFilterState(
       {this.search = "",
       this.archived = false,
       this.createdAt,
@@ -161,16 +125,20 @@ class _$SubcategoryFilterStateImpl extends _SubcategoryFilterState {
   @override
   final String categoryId;
 
+  /// Create a copy of SubcategoryFilterState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'SubcategoryFilterState(search: $search, archived: $archived, createdAt: $createdAt, categoryId: $categoryId)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$SubcategoryFilterStateCopyWith<_SubcategoryFilterState> get copyWith =>
+      __$SubcategoryFilterStateCopyWithImpl<_SubcategoryFilterState>(
+          this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SubcategoryFilterStateImpl &&
+            other is _SubcategoryFilterState &&
             (identical(other.search, search) || other.search == search) &&
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
@@ -184,37 +152,64 @@ class _$SubcategoryFilterStateImpl extends _SubcategoryFilterState {
   int get hashCode =>
       Object.hash(runtimeType, search, archived, createdAt, categoryId);
 
+  @override
+  String toString() {
+    return 'SubcategoryFilterState(search: $search, archived: $archived, createdAt: $createdAt, categoryId: $categoryId)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$SubcategoryFilterStateCopyWith<$Res>
+    implements $SubcategoryFilterStateCopyWith<$Res> {
+  factory _$SubcategoryFilterStateCopyWith(_SubcategoryFilterState value,
+          $Res Function(_SubcategoryFilterState) _then) =
+      __$SubcategoryFilterStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String search,
+      bool? archived,
+      DateTimeRange? createdAt,
+      String categoryId});
+}
+
+/// @nodoc
+class __$SubcategoryFilterStateCopyWithImpl<$Res>
+    implements _$SubcategoryFilterStateCopyWith<$Res> {
+  __$SubcategoryFilterStateCopyWithImpl(this._self, this._then);
+
+  final _SubcategoryFilterState _self;
+  final $Res Function(_SubcategoryFilterState) _then;
+
   /// Create a copy of SubcategoryFilterState
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$SubcategoryFilterStateImplCopyWith<_$SubcategoryFilterStateImpl>
-      get copyWith => __$$SubcategoryFilterStateImplCopyWithImpl<
-          _$SubcategoryFilterStateImpl>(this, _$identity);
+  $Res call({
+    Object? search = null,
+    Object? archived = freezed,
+    Object? createdAt = freezed,
+    Object? categoryId = null,
+  }) {
+    return _then(_SubcategoryFilterState(
+      search: null == search
+          ? _self.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as String,
+      archived: freezed == archived
+          ? _self.archived
+          : archived // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      createdAt: freezed == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTimeRange?,
+      categoryId: null == categoryId
+          ? _self.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
-abstract class _SubcategoryFilterState extends SubcategoryFilterState {
-  factory _SubcategoryFilterState(
-      {final String search,
-      final bool? archived,
-      final DateTimeRange? createdAt,
-      required final String categoryId}) = _$SubcategoryFilterStateImpl;
-  _SubcategoryFilterState._() : super._();
-
-  @override
-  String get search;
-  @override
-  bool? get archived;
-  @override
-  DateTimeRange? get createdAt;
-  @override
-  String get categoryId;
-
-  /// Create a copy of SubcategoryFilterState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SubcategoryFilterStateImplCopyWith<_$SubcategoryFilterStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
+// dart format on

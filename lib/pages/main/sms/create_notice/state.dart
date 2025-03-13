@@ -155,7 +155,7 @@ class NoticeNotifier extends _$NoticeNotifier {
 }
 
 @unfreezed
-class NoticeState with _$NoticeState {
+sealed class NoticeState with _$NoticeState {
   NoticeState._();
   factory NoticeState({
     required GlobalKey<FormState> formKey,

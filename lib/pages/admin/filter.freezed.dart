@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,87 +10,60 @@ part of 'filter.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$AdminFilterState {
-  String get search => throw _privateConstructorUsedError;
-  bool? get archived => throw _privateConstructorUsedError;
-  DateTimeRange? get createdAt => throw _privateConstructorUsedError;
+  String get search;
+  bool? get archived;
+  DateTimeRange? get createdAt;
 
   /// Create a copy of AdminFilterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $AdminFilterStateCopyWith<AdminFilterState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $AdminFilterStateCopyWith<$Res> {
-  factory $AdminFilterStateCopyWith(
-          AdminFilterState value, $Res Function(AdminFilterState) then) =
-      _$AdminFilterStateCopyWithImpl<$Res, AdminFilterState>;
-  @useResult
-  $Res call({String search, bool? archived, DateTimeRange? createdAt});
-}
-
-/// @nodoc
-class _$AdminFilterStateCopyWithImpl<$Res, $Val extends AdminFilterState>
-    implements $AdminFilterStateCopyWith<$Res> {
-  _$AdminFilterStateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of AdminFilterState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $AdminFilterStateCopyWith<AdminFilterState> get copyWith =>
+      _$AdminFilterStateCopyWithImpl<AdminFilterState>(
+          this as AdminFilterState, _$identity);
+
   @override
-  $Res call({
-    Object? search = null,
-    Object? archived = freezed,
-    Object? createdAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      search: null == search
-          ? _value.search
-          : search // ignore: cast_nullable_to_non_nullable
-              as String,
-      archived: freezed == archived
-          ? _value.archived
-          : archived // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTimeRange?,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is AdminFilterState &&
+            (identical(other.search, search) || other.search == search) &&
+            (identical(other.archived, archived) ||
+                other.archived == archived) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, search, archived, createdAt);
+
+  @override
+  String toString() {
+    return 'AdminFilterState(search: $search, archived: $archived, createdAt: $createdAt)';
   }
 }
 
 /// @nodoc
-abstract class _$$AdminFilterStateImplCopyWith<$Res>
-    implements $AdminFilterStateCopyWith<$Res> {
-  factory _$$AdminFilterStateImplCopyWith(_$AdminFilterStateImpl value,
-          $Res Function(_$AdminFilterStateImpl) then) =
-      __$$AdminFilterStateImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $AdminFilterStateCopyWith<$Res> {
+  factory $AdminFilterStateCopyWith(
+          AdminFilterState value, $Res Function(AdminFilterState) _then) =
+      _$AdminFilterStateCopyWithImpl;
   @useResult
   $Res call({String search, bool? archived, DateTimeRange? createdAt});
 }
 
 /// @nodoc
-class __$$AdminFilterStateImplCopyWithImpl<$Res>
-    extends _$AdminFilterStateCopyWithImpl<$Res, _$AdminFilterStateImpl>
-    implements _$$AdminFilterStateImplCopyWith<$Res> {
-  __$$AdminFilterStateImplCopyWithImpl(_$AdminFilterStateImpl _value,
-      $Res Function(_$AdminFilterStateImpl) _then)
-      : super(_value, _then);
+class _$AdminFilterStateCopyWithImpl<$Res>
+    implements $AdminFilterStateCopyWith<$Res> {
+  _$AdminFilterStateCopyWithImpl(this._self, this._then);
+
+  final AdminFilterState _self;
+  final $Res Function(AdminFilterState) _then;
 
   /// Create a copy of AdminFilterState
   /// with the given fields replaced by the non-null parameter values.
@@ -100,17 +74,17 @@ class __$$AdminFilterStateImplCopyWithImpl<$Res>
     Object? archived = freezed,
     Object? createdAt = freezed,
   }) {
-    return _then(_$AdminFilterStateImpl(
+    return _then(_self.copyWith(
       search: null == search
-          ? _value.search
+          ? _self.search
           : search // ignore: cast_nullable_to_non_nullable
               as String,
       archived: freezed == archived
-          ? _value.archived
+          ? _self.archived
           : archived // ignore: cast_nullable_to_non_nullable
               as bool?,
       createdAt: freezed == createdAt
-          ? _value.createdAt
+          ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTimeRange?,
     ));
@@ -119,9 +93,8 @@ class __$$AdminFilterStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AdminFilterStateImpl extends _AdminFilterState {
-  _$AdminFilterStateImpl(
-      {this.search = "", this.archived = false, this.createdAt})
+class _AdminFilterState extends AdminFilterState {
+  _AdminFilterState({this.search = "", this.archived = false, this.createdAt})
       : super._();
 
   @override
@@ -133,16 +106,19 @@ class _$AdminFilterStateImpl extends _AdminFilterState {
   @override
   final DateTimeRange? createdAt;
 
+  /// Create a copy of AdminFilterState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'AdminFilterState(search: $search, archived: $archived, createdAt: $createdAt)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$AdminFilterStateCopyWith<_AdminFilterState> get copyWith =>
+      __$AdminFilterStateCopyWithImpl<_AdminFilterState>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AdminFilterStateImpl &&
+            other is _AdminFilterState &&
             (identical(other.search, search) || other.search == search) &&
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
@@ -153,34 +129,55 @@ class _$AdminFilterStateImpl extends _AdminFilterState {
   @override
   int get hashCode => Object.hash(runtimeType, search, archived, createdAt);
 
+  @override
+  String toString() {
+    return 'AdminFilterState(search: $search, archived: $archived, createdAt: $createdAt)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$AdminFilterStateCopyWith<$Res>
+    implements $AdminFilterStateCopyWith<$Res> {
+  factory _$AdminFilterStateCopyWith(
+          _AdminFilterState value, $Res Function(_AdminFilterState) _then) =
+      __$AdminFilterStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call({String search, bool? archived, DateTimeRange? createdAt});
+}
+
+/// @nodoc
+class __$AdminFilterStateCopyWithImpl<$Res>
+    implements _$AdminFilterStateCopyWith<$Res> {
+  __$AdminFilterStateCopyWithImpl(this._self, this._then);
+
+  final _AdminFilterState _self;
+  final $Res Function(_AdminFilterState) _then;
+
   /// Create a copy of AdminFilterState
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$AdminFilterStateImplCopyWith<_$AdminFilterStateImpl> get copyWith =>
-      __$$AdminFilterStateImplCopyWithImpl<_$AdminFilterStateImpl>(
-          this, _$identity);
+  $Res call({
+    Object? search = null,
+    Object? archived = freezed,
+    Object? createdAt = freezed,
+  }) {
+    return _then(_AdminFilterState(
+      search: null == search
+          ? _self.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as String,
+      archived: freezed == archived
+          ? _self.archived
+          : archived // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      createdAt: freezed == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTimeRange?,
+    ));
+  }
 }
 
-abstract class _AdminFilterState extends AdminFilterState {
-  factory _AdminFilterState(
-      {final String search,
-      final bool? archived,
-      final DateTimeRange? createdAt}) = _$AdminFilterStateImpl;
-  _AdminFilterState._() : super._();
-
-  @override
-  String get search;
-  @override
-  bool? get archived;
-  @override
-  DateTimeRange? get createdAt;
-
-  /// Create a copy of AdminFilterState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AdminFilterStateImplCopyWith<_$AdminFilterStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

@@ -52,7 +52,7 @@ class SettingsNotifier extends _$SettingsNotifier {
 }
 
 @freezed
-class Settings with _$Settings {
+sealed class Settings with _$Settings {
   const Settings._();
   factory Settings({
     @Default(ThemeMode.system) ThemeMode themeMode,

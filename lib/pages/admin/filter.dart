@@ -26,7 +26,7 @@ class AdminFilter extends _$AdminFilter {
 }
 
 @freezed
-class AdminFilterState with _$AdminFilterState {
+sealed class AdminFilterState with _$AdminFilterState {
   AdminFilterState._();
   factory AdminFilterState({
     @Default("") String search,

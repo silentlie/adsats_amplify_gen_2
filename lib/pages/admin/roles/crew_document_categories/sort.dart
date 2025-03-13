@@ -48,7 +48,7 @@ class CrewDocumentCategorySort extends _$CrewDocumentCategorySort {
 }
 
 @freezed
-class CrewDocumentCategorySortState with _$CrewDocumentCategorySortState {
+sealed class CrewDocumentCategorySortState with _$CrewDocumentCategorySortState {
   factory CrewDocumentCategorySortState({
     @Default(false) bool sortAscending,
     @Default(3) int sortColumnIndex,

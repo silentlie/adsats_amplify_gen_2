@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,101 +10,66 @@ part of 'filter.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$CrewDocumentCategoryFilterState {
-  String get search => throw _privateConstructorUsedError;
-  bool? get archived => throw _privateConstructorUsedError;
-  DateTimeRange? get createdAt => throw _privateConstructorUsedError;
-  String get roleId => throw _privateConstructorUsedError;
+  String get search;
+  bool? get archived;
+  DateTimeRange? get createdAt;
+  String get roleId;
 
   /// Create a copy of CrewDocumentCategoryFilterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $CrewDocumentCategoryFilterStateCopyWith<CrewDocumentCategoryFilterState>
-      get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $CrewDocumentCategoryFilterStateCopyWith<$Res> {
-  factory $CrewDocumentCategoryFilterStateCopyWith(
-          CrewDocumentCategoryFilterState value,
-          $Res Function(CrewDocumentCategoryFilterState) then) =
-      _$CrewDocumentCategoryFilterStateCopyWithImpl<$Res,
-          CrewDocumentCategoryFilterState>;
-  @useResult
-  $Res call(
-      {String search, bool? archived, DateTimeRange? createdAt, String roleId});
-}
-
-/// @nodoc
-class _$CrewDocumentCategoryFilterStateCopyWithImpl<$Res,
-        $Val extends CrewDocumentCategoryFilterState>
-    implements $CrewDocumentCategoryFilterStateCopyWith<$Res> {
-  _$CrewDocumentCategoryFilterStateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of CrewDocumentCategoryFilterState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $CrewDocumentCategoryFilterStateCopyWith<CrewDocumentCategoryFilterState>
+      get copyWith => _$CrewDocumentCategoryFilterStateCopyWithImpl<
+              CrewDocumentCategoryFilterState>(
+          this as CrewDocumentCategoryFilterState, _$identity);
+
   @override
-  $Res call({
-    Object? search = null,
-    Object? archived = freezed,
-    Object? createdAt = freezed,
-    Object? roleId = null,
-  }) {
-    return _then(_value.copyWith(
-      search: null == search
-          ? _value.search
-          : search // ignore: cast_nullable_to_non_nullable
-              as String,
-      archived: freezed == archived
-          ? _value.archived
-          : archived // ignore: cast_nullable_to_non_nullable
-              as bool?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTimeRange?,
-      roleId: null == roleId
-          ? _value.roleId
-          : roleId // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is CrewDocumentCategoryFilterState &&
+            (identical(other.search, search) || other.search == search) &&
+            (identical(other.archived, archived) ||
+                other.archived == archived) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.roleId, roleId) || other.roleId == roleId));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, search, archived, createdAt, roleId);
+
+  @override
+  String toString() {
+    return 'CrewDocumentCategoryFilterState(search: $search, archived: $archived, createdAt: $createdAt, roleId: $roleId)';
   }
 }
 
 /// @nodoc
-abstract class _$$CrewDocumentCategoryFilterStateImplCopyWith<$Res>
-    implements $CrewDocumentCategoryFilterStateCopyWith<$Res> {
-  factory _$$CrewDocumentCategoryFilterStateImplCopyWith(
-          _$CrewDocumentCategoryFilterStateImpl value,
-          $Res Function(_$CrewDocumentCategoryFilterStateImpl) then) =
-      __$$CrewDocumentCategoryFilterStateImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $CrewDocumentCategoryFilterStateCopyWith<$Res> {
+  factory $CrewDocumentCategoryFilterStateCopyWith(
+          CrewDocumentCategoryFilterState value,
+          $Res Function(CrewDocumentCategoryFilterState) _then) =
+      _$CrewDocumentCategoryFilterStateCopyWithImpl;
   @useResult
   $Res call(
       {String search, bool? archived, DateTimeRange? createdAt, String roleId});
 }
 
 /// @nodoc
-class __$$CrewDocumentCategoryFilterStateImplCopyWithImpl<$Res>
-    extends _$CrewDocumentCategoryFilterStateCopyWithImpl<$Res,
-        _$CrewDocumentCategoryFilterStateImpl>
-    implements _$$CrewDocumentCategoryFilterStateImplCopyWith<$Res> {
-  __$$CrewDocumentCategoryFilterStateImplCopyWithImpl(
-      _$CrewDocumentCategoryFilterStateImpl _value,
-      $Res Function(_$CrewDocumentCategoryFilterStateImpl) _then)
-      : super(_value, _then);
+class _$CrewDocumentCategoryFilterStateCopyWithImpl<$Res>
+    implements $CrewDocumentCategoryFilterStateCopyWith<$Res> {
+  _$CrewDocumentCategoryFilterStateCopyWithImpl(this._self, this._then);
+
+  final CrewDocumentCategoryFilterState _self;
+  final $Res Function(CrewDocumentCategoryFilterState) _then;
 
   /// Create a copy of CrewDocumentCategoryFilterState
   /// with the given fields replaced by the non-null parameter values.
@@ -115,21 +81,21 @@ class __$$CrewDocumentCategoryFilterStateImplCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? roleId = null,
   }) {
-    return _then(_$CrewDocumentCategoryFilterStateImpl(
+    return _then(_self.copyWith(
       search: null == search
-          ? _value.search
+          ? _self.search
           : search // ignore: cast_nullable_to_non_nullable
               as String,
       archived: freezed == archived
-          ? _value.archived
+          ? _self.archived
           : archived // ignore: cast_nullable_to_non_nullable
               as bool?,
       createdAt: freezed == createdAt
-          ? _value.createdAt
+          ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTimeRange?,
       roleId: null == roleId
-          ? _value.roleId
+          ? _self.roleId
           : roleId // ignore: cast_nullable_to_non_nullable
               as String,
     ));
@@ -138,9 +104,8 @@ class __$$CrewDocumentCategoryFilterStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$CrewDocumentCategoryFilterStateImpl
-    extends _CrewDocumentCategoryFilterState {
-  _$CrewDocumentCategoryFilterStateImpl(
+class _CrewDocumentCategoryFilterState extends CrewDocumentCategoryFilterState {
+  _CrewDocumentCategoryFilterState(
       {this.search = "",
       this.archived = false,
       this.createdAt,
@@ -158,16 +123,20 @@ class _$CrewDocumentCategoryFilterStateImpl
   @override
   final String roleId;
 
+  /// Create a copy of CrewDocumentCategoryFilterState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'CrewDocumentCategoryFilterState(search: $search, archived: $archived, createdAt: $createdAt, roleId: $roleId)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$CrewDocumentCategoryFilterStateCopyWith<_CrewDocumentCategoryFilterState>
+      get copyWith => __$CrewDocumentCategoryFilterStateCopyWithImpl<
+          _CrewDocumentCategoryFilterState>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$CrewDocumentCategoryFilterStateImpl &&
+            other is _CrewDocumentCategoryFilterState &&
             (identical(other.search, search) || other.search == search) &&
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
@@ -180,40 +149,62 @@ class _$CrewDocumentCategoryFilterStateImpl
   int get hashCode =>
       Object.hash(runtimeType, search, archived, createdAt, roleId);
 
+  @override
+  String toString() {
+    return 'CrewDocumentCategoryFilterState(search: $search, archived: $archived, createdAt: $createdAt, roleId: $roleId)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$CrewDocumentCategoryFilterStateCopyWith<$Res>
+    implements $CrewDocumentCategoryFilterStateCopyWith<$Res> {
+  factory _$CrewDocumentCategoryFilterStateCopyWith(
+          _CrewDocumentCategoryFilterState value,
+          $Res Function(_CrewDocumentCategoryFilterState) _then) =
+      __$CrewDocumentCategoryFilterStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {String search, bool? archived, DateTimeRange? createdAt, String roleId});
+}
+
+/// @nodoc
+class __$CrewDocumentCategoryFilterStateCopyWithImpl<$Res>
+    implements _$CrewDocumentCategoryFilterStateCopyWith<$Res> {
+  __$CrewDocumentCategoryFilterStateCopyWithImpl(this._self, this._then);
+
+  final _CrewDocumentCategoryFilterState _self;
+  final $Res Function(_CrewDocumentCategoryFilterState) _then;
+
   /// Create a copy of CrewDocumentCategoryFilterState
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$CrewDocumentCategoryFilterStateImplCopyWith<
-          _$CrewDocumentCategoryFilterStateImpl>
-      get copyWith => __$$CrewDocumentCategoryFilterStateImplCopyWithImpl<
-          _$CrewDocumentCategoryFilterStateImpl>(this, _$identity);
+  $Res call({
+    Object? search = null,
+    Object? archived = freezed,
+    Object? createdAt = freezed,
+    Object? roleId = null,
+  }) {
+    return _then(_CrewDocumentCategoryFilterState(
+      search: null == search
+          ? _self.search
+          : search // ignore: cast_nullable_to_non_nullable
+              as String,
+      archived: freezed == archived
+          ? _self.archived
+          : archived // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      createdAt: freezed == createdAt
+          ? _self.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTimeRange?,
+      roleId: null == roleId
+          ? _self.roleId
+          : roleId // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
-abstract class _CrewDocumentCategoryFilterState
-    extends CrewDocumentCategoryFilterState {
-  factory _CrewDocumentCategoryFilterState(
-      {final String search,
-      final bool? archived,
-      final DateTimeRange? createdAt,
-      required final String roleId}) = _$CrewDocumentCategoryFilterStateImpl;
-  _CrewDocumentCategoryFilterState._() : super._();
-
-  @override
-  String get search;
-  @override
-  bool? get archived;
-  @override
-  DateTimeRange? get createdAt;
-  @override
-  String get roleId;
-
-  /// Create a copy of CrewDocumentCategoryFilterState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$CrewDocumentCategoryFilterStateImplCopyWith<
-          _$CrewDocumentCategoryFilterStateImpl>
-      get copyWith => throw _privateConstructorUsedError;
-}
+// dart format on

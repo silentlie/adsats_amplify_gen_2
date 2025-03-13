@@ -24,7 +24,7 @@ class DocumentFilter extends _$DocumentFilter {
 }
 
 @freezed
-class DocumentFilterState with _$DocumentFilterState {
+sealed class DocumentFilterState with _$DocumentFilterState {
   DocumentFilterState._();
   factory DocumentFilterState({
     required Subcategory subcategory,

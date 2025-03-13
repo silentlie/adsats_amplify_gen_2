@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/helper/between_date_range.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:flutter/material.dart';
@@ -10,33 +11,40 @@ part 'filter.g.dart';
 part 'filter.freezed.dart';
 
 @Riverpod(dependencies: [])
-class SubcategoryFilter extends _$SubcategoryFilter {
+class CrewDocumentFilter extends _$CrewDocumentFilter {
   @override
-  SubcategoryFilterState build(String categoryId) {
-    return SubcategoryFilterState(categoryId: categoryId);
+  CrewDocumentFilterState build(
+    Staff staff,
+    CrewDocumentCategory category,
+  ) {
+    return CrewDocumentFilterState(staff: staff, category: category);
   }
 
   void search(String name) {
     state = state.copyWith(search: name);
   }
 
-  void apply(SubcategoryFilterState newState) {
+  void apply(CrewDocumentFilterState newState) {
     state = newState;
   }
 }
 
 @freezed
-sealed class SubcategoryFilterState with _$SubcategoryFilterState {
-  SubcategoryFilterState._();
-  factory SubcategoryFilterState({
+sealed class CrewDocumentFilterState with _$CrewDocumentFilterState {
+  CrewDocumentFilterState._();
+  factory CrewDocumentFilterState({
+    required final Staff staff,
+    required final CrewDocumentCategory category,
     @Default("") String search,
     @Default(false) bool? archived,
     DateTimeRange? createdAt,
-    required String categoryId,
-  }) = _SubcategoryFilterState;
+  }) = _CrewDocumentFilterState;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> result = {};
+    final Map<String, dynamic> result = {
+      "staffId": {"eq": staff.id},
+      "categoryId": {"eq": category.id},
+    };
     search.isNotEmpty ? result["name"] = {"contains": search} : null;
     archived != null ? result["archived"] = {"eq": archived} : null;
     createdAt != null
@@ -46,17 +54,18 @@ sealed class SubcategoryFilterState with _$SubcategoryFilterState {
   }
 }
 
-class SubcategoryFilterView extends ConsumerWidget {
-  const SubcategoryFilterView({
+class CrewDocumentFilterView extends ConsumerWidget {
+  const CrewDocumentFilterView({
     super.key,
-    required this.categoryId,
+    required this.staff,
+    required this.category,
   });
-
-  final String categoryId;
+  final Staff staff;
+  final CrewDocumentCategory category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var filter = ref.watch(subcategoryFilterProvider(categoryId));
+    var filter = ref.watch(crewDocumentFilterProvider(staff, category));
     return AlertDialog.adaptive(
       title: const Text('Filter By:'),
       content: Column(
@@ -94,7 +103,7 @@ class SubcategoryFilterView extends ConsumerWidget {
         ),
         TextButton(
           onPressed: () {
-            ref.invalidate(subcategoryFilterProvider);
+            ref.invalidate(crewDocumentFilterProvider);
             Navigator.pop(context);
           },
           child: const Text("Reset filter"),
@@ -103,7 +112,7 @@ class SubcategoryFilterView extends ConsumerWidget {
         TextButton(
           onPressed: () {
             ref
-                .read(subcategoryFilterProvider(categoryId).notifier)
+                .read(crewDocumentFilterProvider(staff, category).notifier)
                 .apply(filter);
             Navigator.pop(context);
           },

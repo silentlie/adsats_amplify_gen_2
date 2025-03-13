@@ -8,7 +8,7 @@ export 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/shell.dart';
 part 'page.dart';
 
 class SMSShellBranchData extends StatefulShellBranchData {
-  static String $initialLocation = SMSRoute().location;
+  static String $initialLocation = SmsInboxRoute().location;
   const SMSShellBranchData();
 }
 

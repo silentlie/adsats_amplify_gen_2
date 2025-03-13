@@ -29,7 +29,7 @@ class NoticeFilter extends _$NoticeFilter {
 }
 
 @freezed
-class NoticeFilterState with _$NoticeFilterState {
+sealed class NoticeFilterState with _$NoticeFilterState {
   NoticeFilterState._();
   factory NoticeFilterState(
       {required Staff user,

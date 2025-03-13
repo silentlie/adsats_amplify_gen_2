@@ -6,9 +6,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'sort.g.dart';
 part 'sort.freezed.dart';
 
-int Function(Staff, Staff) compareStaff({
+int Function(CrewDocument, CrewDocument) compareCrewDocument({
   required bool sortAscending,
-  required Comparable Function(Staff staff) getField,
+  required Comparable Function(CrewDocument crewDocument) getField,
 }) {
   return (a, b) {
     final aValue = getField(a);
@@ -20,12 +20,12 @@ int Function(Staff, Staff) compareStaff({
 }
 
 @Riverpod()
-class StaffSort extends _$StaffSort {
+class CrewDocumentSort extends _$CrewDocumentSort {
   @override
-  StaffSortState build() {
-    return StaffSortState(
-      getField: (staff) {
-        return staff.createdAt!;
+  CrewDocumentSortState build() {
+    return CrewDocumentSortState(
+      getField: (crewDocument) {
+        return crewDocument.createdAt!;
       },
     );
   }
@@ -37,7 +37,7 @@ class StaffSort extends _$StaffSort {
   void apply({
     required int columnIndex,
     required bool sortAscending,
-    required Comparable Function(Staff staff) getField,
+    required Comparable Function(CrewDocument crewDocument) getField,
   }) {
     state = state.copyWith(
       sortColumnIndex: columnIndex,
@@ -48,11 +48,11 @@ class StaffSort extends _$StaffSort {
 }
 
 @freezed
-sealed class StaffSortState with _$StaffSortState {
-  factory StaffSortState({
+sealed class CrewDocumentSortState with _$CrewDocumentSortState {
+  factory CrewDocumentSortState({
     @Default(false) bool sortAscending,
-    @Default(5) int sortColumnIndex,
-    required Comparable Function(Staff staff) getField,
+    @Default(3) int sortColumnIndex,
+    required Comparable Function(CrewDocument crewDocument) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
-  }) = _StaffSortState;
+  }) = _CrewDocumentSortState;
 }

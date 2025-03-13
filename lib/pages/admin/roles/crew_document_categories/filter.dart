@@ -26,7 +26,7 @@ class CrewDocumentCategoryFilter extends _$CrewDocumentCategoryFilter {
 }
 
 @freezed
-class CrewDocumentCategoryFilterState with _$CrewDocumentCategoryFilterState {
+sealed class CrewDocumentCategoryFilterState with _$CrewDocumentCategoryFilterState {
   CrewDocumentCategoryFilterState._();
   factory CrewDocumentCategoryFilterState({
     @Default("") String search,

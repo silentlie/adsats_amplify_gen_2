@@ -5,7 +5,7 @@ import 'package:adsats_amplify_gen_2/helper/file_picker_notifier.dart';
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/route/crew_documents_route/filter.dart';
-import 'package:adsats_amplify_gen_2/route/crew_documents_route/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/crew_documents/s3.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +130,7 @@ class _DocumentsViewWidgetState extends State<DocumentsViewWidget> {
       menuChildren: [
         IconButton(
           onPressed: () async {
-            await getFileUrl(document, staff);
+            await getCrewDocumentFileUrl(document);
           },
           icon: const Icon(Icons.download_outlined),
           tooltip: "Download",
@@ -145,7 +145,7 @@ class _DocumentsViewWidgetState extends State<DocumentsViewWidget> {
         ),
         IconButton(
           onPressed: () async {
-            await delete(document, staff);
+            await deleteCrewDocument(document);
             setState(() {});
           },
           icon: const Icon(Icons.delete_outline),
@@ -247,7 +247,8 @@ class _DocumentsViewWidgetState extends State<DocumentsViewWidget> {
                         // apply
                         TextButton(
                           onPressed: () async {
-                            await uploadFiles(selectedFiles, staff, category);
+                            await uploadCrewDocumentFiles(
+                                selectedFiles, staff, category);
                             if (!context.mounted) return;
                             Navigator.pop(context, 'Apply');
                             setState(() {});

@@ -32,6 +32,9 @@ dependencies:
   freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
   collection: ^1.19.1
+  flutter_hooks: ^0.21.2
+  riverpod: ^2.6.1
+  hooks_riverpod: ^2.6.1
 
 
 dev_dependencies:

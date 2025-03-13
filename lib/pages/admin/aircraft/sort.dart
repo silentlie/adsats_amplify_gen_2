@@ -48,7 +48,7 @@ class AircraftSort extends _$AircraftSort {
 }
 
 @freezed
-class AircraftSortState with _$AircraftSortState {
+sealed class AircraftSortState with _$AircraftSortState {
   factory AircraftSortState({
     @Default(false) bool sortAscending,
     @Default(3) int sortColumnIndex,

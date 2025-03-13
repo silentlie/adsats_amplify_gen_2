@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,87 +10,54 @@ part of 'sort.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$StaffSortState {
-  bool get sortAscending => throw _privateConstructorUsedError;
-  int get sortColumnIndex => throw _privateConstructorUsedError;
-  Comparable<dynamic> Function(Staff) get getField =>
-      throw _privateConstructorUsedError;
-  int get rowsPerPage => throw _privateConstructorUsedError;
+  bool get sortAscending;
+  int get sortColumnIndex;
+  Comparable Function(Staff staff) get getField;
+  int get rowsPerPage;
 
   /// Create a copy of StaffSortState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $StaffSortStateCopyWith<StaffSortState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $StaffSortStateCopyWith<$Res> {
-  factory $StaffSortStateCopyWith(
-          StaffSortState value, $Res Function(StaffSortState) then) =
-      _$StaffSortStateCopyWithImpl<$Res, StaffSortState>;
-  @useResult
-  $Res call(
-      {bool sortAscending,
-      int sortColumnIndex,
-      Comparable<dynamic> Function(Staff) getField,
-      int rowsPerPage});
-}
-
-/// @nodoc
-class _$StaffSortStateCopyWithImpl<$Res, $Val extends StaffSortState>
-    implements $StaffSortStateCopyWith<$Res> {
-  _$StaffSortStateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of StaffSortState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $StaffSortStateCopyWith<StaffSortState> get copyWith =>
+      _$StaffSortStateCopyWithImpl<StaffSortState>(
+          this as StaffSortState, _$identity);
+
   @override
-  $Res call({
-    Object? sortAscending = null,
-    Object? sortColumnIndex = null,
-    Object? getField = null,
-    Object? rowsPerPage = null,
-  }) {
-    return _then(_value.copyWith(
-      sortAscending: null == sortAscending
-          ? _value.sortAscending
-          : sortAscending // ignore: cast_nullable_to_non_nullable
-              as bool,
-      sortColumnIndex: null == sortColumnIndex
-          ? _value.sortColumnIndex
-          : sortColumnIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-      getField: null == getField
-          ? _value.getField
-          : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Staff),
-      rowsPerPage: null == rowsPerPage
-          ? _value.rowsPerPage
-          : rowsPerPage // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is StaffSortState &&
+            (identical(other.sortAscending, sortAscending) ||
+                other.sortAscending == sortAscending) &&
+            (identical(other.sortColumnIndex, sortColumnIndex) ||
+                other.sortColumnIndex == sortColumnIndex) &&
+            (identical(other.getField, getField) ||
+                other.getField == getField) &&
+            (identical(other.rowsPerPage, rowsPerPage) ||
+                other.rowsPerPage == rowsPerPage));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, sortAscending, sortColumnIndex, getField, rowsPerPage);
+
+  @override
+  String toString() {
+    return 'StaffSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
   }
 }
 
 /// @nodoc
-abstract class _$$StaffSortStateImplCopyWith<$Res>
-    implements $StaffSortStateCopyWith<$Res> {
-  factory _$$StaffSortStateImplCopyWith(_$StaffSortStateImpl value,
-          $Res Function(_$StaffSortStateImpl) then) =
-      __$$StaffSortStateImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $StaffSortStateCopyWith<$Res> {
+  factory $StaffSortStateCopyWith(
+          StaffSortState value, $Res Function(StaffSortState) _then) =
+      _$StaffSortStateCopyWithImpl;
   @useResult
   $Res call(
       {bool sortAscending,
@@ -99,12 +67,12 @@ abstract class _$$StaffSortStateImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$StaffSortStateImplCopyWithImpl<$Res>
-    extends _$StaffSortStateCopyWithImpl<$Res, _$StaffSortStateImpl>
-    implements _$$StaffSortStateImplCopyWith<$Res> {
-  __$$StaffSortStateImplCopyWithImpl(
-      _$StaffSortStateImpl _value, $Res Function(_$StaffSortStateImpl) _then)
-      : super(_value, _then);
+class _$StaffSortStateCopyWithImpl<$Res>
+    implements $StaffSortStateCopyWith<$Res> {
+  _$StaffSortStateCopyWithImpl(this._self, this._then);
+
+  final StaffSortState _self;
+  final $Res Function(StaffSortState) _then;
 
   /// Create a copy of StaffSortState
   /// with the given fields replaced by the non-null parameter values.
@@ -116,21 +84,21 @@ class __$$StaffSortStateImplCopyWithImpl<$Res>
     Object? getField = null,
     Object? rowsPerPage = null,
   }) {
-    return _then(_$StaffSortStateImpl(
+    return _then(_self.copyWith(
       sortAscending: null == sortAscending
-          ? _value.sortAscending
+          ? _self.sortAscending
           : sortAscending // ignore: cast_nullable_to_non_nullable
               as bool,
       sortColumnIndex: null == sortColumnIndex
-          ? _value.sortColumnIndex
+          ? _self.sortColumnIndex
           : sortColumnIndex // ignore: cast_nullable_to_non_nullable
               as int,
       getField: null == getField
-          ? _value.getField
+          ? _self.getField!
           : getField // ignore: cast_nullable_to_non_nullable
               as Comparable<dynamic> Function(Staff),
       rowsPerPage: null == rowsPerPage
-          ? _value.rowsPerPage
+          ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
               as int,
     ));
@@ -139,8 +107,8 @@ class __$$StaffSortStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$StaffSortStateImpl implements _StaffSortState {
-  _$StaffSortStateImpl(
+class _StaffSortState implements StaffSortState {
+  _StaffSortState(
       {this.sortAscending = false,
       this.sortColumnIndex = 5,
       required this.getField,
@@ -158,16 +126,19 @@ class _$StaffSortStateImpl implements _StaffSortState {
   @JsonKey()
   final int rowsPerPage;
 
+  /// Create a copy of StaffSortState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'StaffSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$StaffSortStateCopyWith<_StaffSortState> get copyWith =>
+      __$StaffSortStateCopyWithImpl<_StaffSortState>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$StaffSortStateImpl &&
+            other is _StaffSortState &&
             (identical(other.sortAscending, sortAscending) ||
                 other.sortAscending == sortAscending) &&
             (identical(other.sortColumnIndex, sortColumnIndex) ||
@@ -182,36 +153,64 @@ class _$StaffSortStateImpl implements _StaffSortState {
   int get hashCode => Object.hash(
       runtimeType, sortAscending, sortColumnIndex, getField, rowsPerPage);
 
+  @override
+  String toString() {
+    return 'StaffSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$StaffSortStateCopyWith<$Res>
+    implements $StaffSortStateCopyWith<$Res> {
+  factory _$StaffSortStateCopyWith(
+          _StaffSortState value, $Res Function(_StaffSortState) _then) =
+      __$StaffSortStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {bool sortAscending,
+      int sortColumnIndex,
+      Comparable<dynamic> Function(Staff) getField,
+      int rowsPerPage});
+}
+
+/// @nodoc
+class __$StaffSortStateCopyWithImpl<$Res>
+    implements _$StaffSortStateCopyWith<$Res> {
+  __$StaffSortStateCopyWithImpl(this._self, this._then);
+
+  final _StaffSortState _self;
+  final $Res Function(_StaffSortState) _then;
+
   /// Create a copy of StaffSortState
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$StaffSortStateImplCopyWith<_$StaffSortStateImpl> get copyWith =>
-      __$$StaffSortStateImplCopyWithImpl<_$StaffSortStateImpl>(
-          this, _$identity);
+  $Res call({
+    Object? sortAscending = null,
+    Object? sortColumnIndex = null,
+    Object? getField = null,
+    Object? rowsPerPage = null,
+  }) {
+    return _then(_StaffSortState(
+      sortAscending: null == sortAscending
+          ? _self.sortAscending
+          : sortAscending // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sortColumnIndex: null == sortColumnIndex
+          ? _self.sortColumnIndex
+          : sortColumnIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      getField: null == getField
+          ? _self.getField
+          : getField // ignore: cast_nullable_to_non_nullable
+              as Comparable<dynamic> Function(Staff),
+      rowsPerPage: null == rowsPerPage
+          ? _self.rowsPerPage
+          : rowsPerPage // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
-abstract class _StaffSortState implements StaffSortState {
-  factory _StaffSortState(
-      {final bool sortAscending,
-      final int sortColumnIndex,
-      required final Comparable<dynamic> Function(Staff) getField,
-      final int rowsPerPage}) = _$StaffSortStateImpl;
-
-  @override
-  bool get sortAscending;
-  @override
-  int get sortColumnIndex;
-  @override
-  Comparable<dynamic> Function(Staff) get getField;
-  @override
-  int get rowsPerPage;
-
-  /// Create a copy of StaffSortState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$StaffSortStateImplCopyWith<_$StaffSortStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

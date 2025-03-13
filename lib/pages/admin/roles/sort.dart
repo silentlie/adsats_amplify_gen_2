@@ -48,7 +48,7 @@ class RoleSort extends _$RoleSort {
 }
 
 @freezed
-class RoleSortState with _$RoleSortState {
+sealed class RoleSortState with _$RoleSortState {
   factory RoleSortState({
     @Default(false) bool sortAscending,
     @Default(3) int sortColumnIndex,

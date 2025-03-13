@@ -23,6 +23,7 @@ class NewDocumentDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ThemeData themeData = Theme.of(context);
+    final colorScheme = themeData.colorScheme;
     return AsyncValueWidget(
       value: ref.watch(userDetailsProvider),
       data: (user) {
@@ -175,8 +176,19 @@ class NewDocumentDialog extends ConsumerWidget {
                   Navigator.pop(context);
                 }
               },
-              label: const Text('Upload'),
-              icon: Icon(Icons.upload_file_outlined),
+              style: ButtonStyle(
+                // Change button background color
+                backgroundColor:
+                    WidgetStateProperty.all<Color>(colorScheme.secondary),
+              ),
+              label: Text(
+                'Upload Files',
+                style: TextStyle(color: colorScheme.onSecondary),
+              ),
+              icon: Icon(
+                Icons.upload_file,
+                color: colorScheme.onSecondary,
+              ),
             )
           ],
         );

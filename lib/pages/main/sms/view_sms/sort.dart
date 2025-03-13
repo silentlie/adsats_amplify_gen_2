@@ -48,7 +48,7 @@ class NoticeSort extends _$NoticeSort {
 }
 
 @freezed
-class NoticeSortState with _$NoticeSortState {
+sealed class NoticeSortState with _$NoticeSortState {
   factory NoticeSortState({
     @Default(false) bool sortAscending,
     @Default(3) int sortColumnIndex,

@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,87 +10,54 @@ part of 'sort.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$RoleSortState {
-  bool get sortAscending => throw _privateConstructorUsedError;
-  int get sortColumnIndex => throw _privateConstructorUsedError;
-  Comparable<dynamic> Function(Role) get getField =>
-      throw _privateConstructorUsedError;
-  int get rowsPerPage => throw _privateConstructorUsedError;
+  bool get sortAscending;
+  int get sortColumnIndex;
+  Comparable Function(Role role) get getField;
+  int get rowsPerPage;
 
   /// Create a copy of RoleSortState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $RoleSortStateCopyWith<RoleSortState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $RoleSortStateCopyWith<$Res> {
-  factory $RoleSortStateCopyWith(
-          RoleSortState value, $Res Function(RoleSortState) then) =
-      _$RoleSortStateCopyWithImpl<$Res, RoleSortState>;
-  @useResult
-  $Res call(
-      {bool sortAscending,
-      int sortColumnIndex,
-      Comparable<dynamic> Function(Role) getField,
-      int rowsPerPage});
-}
-
-/// @nodoc
-class _$RoleSortStateCopyWithImpl<$Res, $Val extends RoleSortState>
-    implements $RoleSortStateCopyWith<$Res> {
-  _$RoleSortStateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of RoleSortState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $RoleSortStateCopyWith<RoleSortState> get copyWith =>
+      _$RoleSortStateCopyWithImpl<RoleSortState>(
+          this as RoleSortState, _$identity);
+
   @override
-  $Res call({
-    Object? sortAscending = null,
-    Object? sortColumnIndex = null,
-    Object? getField = null,
-    Object? rowsPerPage = null,
-  }) {
-    return _then(_value.copyWith(
-      sortAscending: null == sortAscending
-          ? _value.sortAscending
-          : sortAscending // ignore: cast_nullable_to_non_nullable
-              as bool,
-      sortColumnIndex: null == sortColumnIndex
-          ? _value.sortColumnIndex
-          : sortColumnIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-      getField: null == getField
-          ? _value.getField
-          : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Role),
-      rowsPerPage: null == rowsPerPage
-          ? _value.rowsPerPage
-          : rowsPerPage // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is RoleSortState &&
+            (identical(other.sortAscending, sortAscending) ||
+                other.sortAscending == sortAscending) &&
+            (identical(other.sortColumnIndex, sortColumnIndex) ||
+                other.sortColumnIndex == sortColumnIndex) &&
+            (identical(other.getField, getField) ||
+                other.getField == getField) &&
+            (identical(other.rowsPerPage, rowsPerPage) ||
+                other.rowsPerPage == rowsPerPage));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, sortAscending, sortColumnIndex, getField, rowsPerPage);
+
+  @override
+  String toString() {
+    return 'RoleSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
   }
 }
 
 /// @nodoc
-abstract class _$$RoleSortStateImplCopyWith<$Res>
-    implements $RoleSortStateCopyWith<$Res> {
-  factory _$$RoleSortStateImplCopyWith(
-          _$RoleSortStateImpl value, $Res Function(_$RoleSortStateImpl) then) =
-      __$$RoleSortStateImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $RoleSortStateCopyWith<$Res> {
+  factory $RoleSortStateCopyWith(
+          RoleSortState value, $Res Function(RoleSortState) _then) =
+      _$RoleSortStateCopyWithImpl;
   @useResult
   $Res call(
       {bool sortAscending,
@@ -99,12 +67,12 @@ abstract class _$$RoleSortStateImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$RoleSortStateImplCopyWithImpl<$Res>
-    extends _$RoleSortStateCopyWithImpl<$Res, _$RoleSortStateImpl>
-    implements _$$RoleSortStateImplCopyWith<$Res> {
-  __$$RoleSortStateImplCopyWithImpl(
-      _$RoleSortStateImpl _value, $Res Function(_$RoleSortStateImpl) _then)
-      : super(_value, _then);
+class _$RoleSortStateCopyWithImpl<$Res>
+    implements $RoleSortStateCopyWith<$Res> {
+  _$RoleSortStateCopyWithImpl(this._self, this._then);
+
+  final RoleSortState _self;
+  final $Res Function(RoleSortState) _then;
 
   /// Create a copy of RoleSortState
   /// with the given fields replaced by the non-null parameter values.
@@ -116,21 +84,21 @@ class __$$RoleSortStateImplCopyWithImpl<$Res>
     Object? getField = null,
     Object? rowsPerPage = null,
   }) {
-    return _then(_$RoleSortStateImpl(
+    return _then(_self.copyWith(
       sortAscending: null == sortAscending
-          ? _value.sortAscending
+          ? _self.sortAscending
           : sortAscending // ignore: cast_nullable_to_non_nullable
               as bool,
       sortColumnIndex: null == sortColumnIndex
-          ? _value.sortColumnIndex
+          ? _self.sortColumnIndex
           : sortColumnIndex // ignore: cast_nullable_to_non_nullable
               as int,
       getField: null == getField
-          ? _value.getField
+          ? _self.getField!
           : getField // ignore: cast_nullable_to_non_nullable
               as Comparable<dynamic> Function(Role),
       rowsPerPage: null == rowsPerPage
-          ? _value.rowsPerPage
+          ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
               as int,
     ));
@@ -139,8 +107,8 @@ class __$$RoleSortStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$RoleSortStateImpl implements _RoleSortState {
-  _$RoleSortStateImpl(
+class _RoleSortState implements RoleSortState {
+  _RoleSortState(
       {this.sortAscending = false,
       this.sortColumnIndex = 3,
       required this.getField,
@@ -158,16 +126,19 @@ class _$RoleSortStateImpl implements _RoleSortState {
   @JsonKey()
   final int rowsPerPage;
 
+  /// Create a copy of RoleSortState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'RoleSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$RoleSortStateCopyWith<_RoleSortState> get copyWith =>
+      __$RoleSortStateCopyWithImpl<_RoleSortState>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RoleSortStateImpl &&
+            other is _RoleSortState &&
             (identical(other.sortAscending, sortAscending) ||
                 other.sortAscending == sortAscending) &&
             (identical(other.sortColumnIndex, sortColumnIndex) ||
@@ -182,35 +153,64 @@ class _$RoleSortStateImpl implements _RoleSortState {
   int get hashCode => Object.hash(
       runtimeType, sortAscending, sortColumnIndex, getField, rowsPerPage);
 
+  @override
+  String toString() {
+    return 'RoleSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$RoleSortStateCopyWith<$Res>
+    implements $RoleSortStateCopyWith<$Res> {
+  factory _$RoleSortStateCopyWith(
+          _RoleSortState value, $Res Function(_RoleSortState) _then) =
+      __$RoleSortStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {bool sortAscending,
+      int sortColumnIndex,
+      Comparable<dynamic> Function(Role) getField,
+      int rowsPerPage});
+}
+
+/// @nodoc
+class __$RoleSortStateCopyWithImpl<$Res>
+    implements _$RoleSortStateCopyWith<$Res> {
+  __$RoleSortStateCopyWithImpl(this._self, this._then);
+
+  final _RoleSortState _self;
+  final $Res Function(_RoleSortState) _then;
+
   /// Create a copy of RoleSortState
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$RoleSortStateImplCopyWith<_$RoleSortStateImpl> get copyWith =>
-      __$$RoleSortStateImplCopyWithImpl<_$RoleSortStateImpl>(this, _$identity);
+  $Res call({
+    Object? sortAscending = null,
+    Object? sortColumnIndex = null,
+    Object? getField = null,
+    Object? rowsPerPage = null,
+  }) {
+    return _then(_RoleSortState(
+      sortAscending: null == sortAscending
+          ? _self.sortAscending
+          : sortAscending // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sortColumnIndex: null == sortColumnIndex
+          ? _self.sortColumnIndex
+          : sortColumnIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      getField: null == getField
+          ? _self.getField
+          : getField // ignore: cast_nullable_to_non_nullable
+              as Comparable<dynamic> Function(Role),
+      rowsPerPage: null == rowsPerPage
+          ? _self.rowsPerPage
+          : rowsPerPage // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
-abstract class _RoleSortState implements RoleSortState {
-  factory _RoleSortState(
-      {final bool sortAscending,
-      final int sortColumnIndex,
-      required final Comparable<dynamic> Function(Role) getField,
-      final int rowsPerPage}) = _$RoleSortStateImpl;
-
-  @override
-  bool get sortAscending;
-  @override
-  int get sortColumnIndex;
-  @override
-  Comparable<dynamic> Function(Role) get getField;
-  @override
-  int get rowsPerPage;
-
-  /// Create a copy of RoleSortState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$RoleSortStateImplCopyWith<_$RoleSortStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

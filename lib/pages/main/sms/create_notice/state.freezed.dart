@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,90 +10,46 @@ part of 'state.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$NoticeState {
-  GlobalKey<FormState> get formKey => throw _privateConstructorUsedError;
-  set formKey(GlobalKey<FormState> value) => throw _privateConstructorUsedError;
-  Notice get notice => throw _privateConstructorUsedError;
-  set notice(Notice value) => throw _privateConstructorUsedError;
-  bool get editMode => throw _privateConstructorUsedError;
-  set editMode(bool value) => throw _privateConstructorUsedError;
+  GlobalKey<FormState> get formKey;
+  set formKey(GlobalKey<FormState> value);
+  Notice get notice;
+  set notice(Notice value);
+  bool get editMode;
+  set editMode(bool value);
 
   /// Create a copy of NoticeState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $NoticeStateCopyWith<NoticeState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $NoticeStateCopyWith<$Res> {
-  factory $NoticeStateCopyWith(
-          NoticeState value, $Res Function(NoticeState) then) =
-      _$NoticeStateCopyWithImpl<$Res, NoticeState>;
-  @useResult
-  $Res call({GlobalKey<FormState> formKey, Notice notice, bool editMode});
-}
-
-/// @nodoc
-class _$NoticeStateCopyWithImpl<$Res, $Val extends NoticeState>
-    implements $NoticeStateCopyWith<$Res> {
-  _$NoticeStateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of NoticeState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $NoticeStateCopyWith<NoticeState> get copyWith =>
+      _$NoticeStateCopyWithImpl<NoticeState>(this as NoticeState, _$identity);
+
   @override
-  $Res call({
-    Object? formKey = null,
-    Object? notice = null,
-    Object? editMode = null,
-  }) {
-    return _then(_value.copyWith(
-      formKey: null == formKey
-          ? _value.formKey
-          : formKey // ignore: cast_nullable_to_non_nullable
-              as GlobalKey<FormState>,
-      notice: null == notice
-          ? _value.notice
-          : notice // ignore: cast_nullable_to_non_nullable
-              as Notice,
-      editMode: null == editMode
-          ? _value.editMode
-          : editMode // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
+  String toString() {
+    return 'NoticeState(formKey: $formKey, notice: $notice, editMode: $editMode)';
   }
 }
 
 /// @nodoc
-abstract class _$$NoticeStateImplCopyWith<$Res>
-    implements $NoticeStateCopyWith<$Res> {
-  factory _$$NoticeStateImplCopyWith(
-          _$NoticeStateImpl value, $Res Function(_$NoticeStateImpl) then) =
-      __$$NoticeStateImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $NoticeStateCopyWith<$Res> {
+  factory $NoticeStateCopyWith(
+          NoticeState value, $Res Function(NoticeState) _then) =
+      _$NoticeStateCopyWithImpl;
   @useResult
   $Res call({GlobalKey<FormState> formKey, Notice notice, bool editMode});
 }
 
 /// @nodoc
-class __$$NoticeStateImplCopyWithImpl<$Res>
-    extends _$NoticeStateCopyWithImpl<$Res, _$NoticeStateImpl>
-    implements _$$NoticeStateImplCopyWith<$Res> {
-  __$$NoticeStateImplCopyWithImpl(
-      _$NoticeStateImpl _value, $Res Function(_$NoticeStateImpl) _then)
-      : super(_value, _then);
+class _$NoticeStateCopyWithImpl<$Res> implements $NoticeStateCopyWith<$Res> {
+  _$NoticeStateCopyWithImpl(this._self, this._then);
+
+  final NoticeState _self;
+  final $Res Function(NoticeState) _then;
 
   /// Create a copy of NoticeState
   /// with the given fields replaced by the non-null parameter values.
@@ -103,17 +60,17 @@ class __$$NoticeStateImplCopyWithImpl<$Res>
     Object? notice = null,
     Object? editMode = null,
   }) {
-    return _then(_$NoticeStateImpl(
+    return _then(_self.copyWith(
       formKey: null == formKey
-          ? _value.formKey
+          ? _self.formKey
           : formKey // ignore: cast_nullable_to_non_nullable
               as GlobalKey<FormState>,
       notice: null == notice
-          ? _value.notice
+          ? _self.notice
           : notice // ignore: cast_nullable_to_non_nullable
               as Notice,
       editMode: null == editMode
-          ? _value.editMode
+          ? _self.editMode
           : editMode // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
@@ -122,8 +79,8 @@ class __$$NoticeStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$NoticeStateImpl extends _NoticeState {
-  _$NoticeStateImpl(
+class _NoticeState extends NoticeState {
+  _NoticeState(
       {required this.formKey, required this.notice, this.editMode = true})
       : super._();
 
@@ -135,41 +92,62 @@ class _$NoticeStateImpl extends _NoticeState {
   @JsonKey()
   bool editMode;
 
+  /// Create a copy of NoticeState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$NoticeStateCopyWith<_NoticeState> get copyWith =>
+      __$NoticeStateCopyWithImpl<_NoticeState>(this, _$identity);
+
   @override
   String toString() {
     return 'NoticeState(formKey: $formKey, notice: $notice, editMode: $editMode)';
   }
+}
+
+/// @nodoc
+abstract mixin class _$NoticeStateCopyWith<$Res>
+    implements $NoticeStateCopyWith<$Res> {
+  factory _$NoticeStateCopyWith(
+          _NoticeState value, $Res Function(_NoticeState) _then) =
+      __$NoticeStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call({GlobalKey<FormState> formKey, Notice notice, bool editMode});
+}
+
+/// @nodoc
+class __$NoticeStateCopyWithImpl<$Res> implements _$NoticeStateCopyWith<$Res> {
+  __$NoticeStateCopyWithImpl(this._self, this._then);
+
+  final _NoticeState _self;
+  final $Res Function(_NoticeState) _then;
 
   /// Create a copy of NoticeState
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$NoticeStateImplCopyWith<_$NoticeStateImpl> get copyWith =>
-      __$$NoticeStateImplCopyWithImpl<_$NoticeStateImpl>(this, _$identity);
+  $Res call({
+    Object? formKey = null,
+    Object? notice = null,
+    Object? editMode = null,
+  }) {
+    return _then(_NoticeState(
+      formKey: null == formKey
+          ? _self.formKey
+          : formKey // ignore: cast_nullable_to_non_nullable
+              as GlobalKey<FormState>,
+      notice: null == notice
+          ? _self.notice
+          : notice // ignore: cast_nullable_to_non_nullable
+              as Notice,
+      editMode: null == editMode
+          ? _self.editMode
+          : editMode // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
-abstract class _NoticeState extends NoticeState {
-  factory _NoticeState(
-      {required GlobalKey<FormState> formKey,
-      required Notice notice,
-      bool editMode}) = _$NoticeStateImpl;
-  _NoticeState._() : super._();
-
-  @override
-  GlobalKey<FormState> get formKey;
-  set formKey(GlobalKey<FormState> value);
-  @override
-  Notice get notice;
-  set notice(Notice value);
-  @override
-  bool get editMode;
-  set editMode(bool value);
-
-  /// Create a copy of NoticeState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$NoticeStateImplCopyWith<_$NoticeStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

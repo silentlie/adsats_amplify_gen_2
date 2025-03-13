@@ -159,12 +159,6 @@ class MainShell extends ConsumerWidget {
         "New Report",
         () => InternalAuditReportRoute().push(context)
       ),
-      CrewDocumentsRoute().location: (
-        "New Crew Documents",
-        () {
-          // TODO: Upload new crew documents
-        }
-      ),
     };
     final action = actions[currentPath];
     if (action != null) {

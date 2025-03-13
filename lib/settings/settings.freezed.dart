@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,126 +10,26 @@ part of 'settings.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$Settings {
-  ThemeMode get themeMode => throw _privateConstructorUsedError;
-  bool get isNavigationRailExtended => throw _privateConstructorUsedError;
+  ThemeMode get themeMode;
+  bool get isNavigationRailExtended;
 
   /// Create a copy of Settings
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
   $SettingsCopyWith<Settings> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $SettingsCopyWith<$Res> {
-  factory $SettingsCopyWith(Settings value, $Res Function(Settings) then) =
-      _$SettingsCopyWithImpl<$Res, Settings>;
-  @useResult
-  $Res call({ThemeMode themeMode, bool isNavigationRailExtended});
-}
-
-/// @nodoc
-class _$SettingsCopyWithImpl<$Res, $Val extends Settings>
-    implements $SettingsCopyWith<$Res> {
-  _$SettingsCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of Settings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? themeMode = null,
-    Object? isNavigationRailExtended = null,
-  }) {
-    return _then(_value.copyWith(
-      themeMode: null == themeMode
-          ? _value.themeMode
-          : themeMode // ignore: cast_nullable_to_non_nullable
-              as ThemeMode,
-      isNavigationRailExtended: null == isNavigationRailExtended
-          ? _value.isNavigationRailExtended
-          : isNavigationRailExtended // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$SettingsImplCopyWith<$Res>
-    implements $SettingsCopyWith<$Res> {
-  factory _$$SettingsImplCopyWith(
-          _$SettingsImpl value, $Res Function(_$SettingsImpl) then) =
-      __$$SettingsImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({ThemeMode themeMode, bool isNavigationRailExtended});
-}
-
-/// @nodoc
-class __$$SettingsImplCopyWithImpl<$Res>
-    extends _$SettingsCopyWithImpl<$Res, _$SettingsImpl>
-    implements _$$SettingsImplCopyWith<$Res> {
-  __$$SettingsImplCopyWithImpl(
-      _$SettingsImpl _value, $Res Function(_$SettingsImpl) _then)
-      : super(_value, _then);
-
-  /// Create a copy of Settings
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? themeMode = null,
-    Object? isNavigationRailExtended = null,
-  }) {
-    return _then(_$SettingsImpl(
-      themeMode: null == themeMode
-          ? _value.themeMode
-          : themeMode // ignore: cast_nullable_to_non_nullable
-              as ThemeMode,
-      isNavigationRailExtended: null == isNavigationRailExtended
-          ? _value.isNavigationRailExtended
-          : isNavigationRailExtended // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$SettingsImpl extends _Settings {
-  _$SettingsImpl(
-      {this.themeMode = ThemeMode.system, this.isNavigationRailExtended = true})
-      : super._();
-
-  @override
-  @JsonKey()
-  final ThemeMode themeMode;
-  @override
-  @JsonKey()
-  final bool isNavigationRailExtended;
-
-  @override
-  String toString() {
-    return 'Settings(themeMode: $themeMode, isNavigationRailExtended: $isNavigationRailExtended)';
-  }
+      _$SettingsCopyWithImpl<Settings>(this as Settings, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SettingsImpl &&
+            other is Settings &&
             (identical(other.themeMode, themeMode) ||
                 other.themeMode == themeMode) &&
             (identical(
@@ -140,30 +41,128 @@ class _$SettingsImpl extends _Settings {
   int get hashCode =>
       Object.hash(runtimeType, themeMode, isNavigationRailExtended);
 
+  @override
+  String toString() {
+    return 'Settings(themeMode: $themeMode, isNavigationRailExtended: $isNavigationRailExtended)';
+  }
+}
+
+/// @nodoc
+abstract mixin class $SettingsCopyWith<$Res> {
+  factory $SettingsCopyWith(Settings value, $Res Function(Settings) _then) =
+      _$SettingsCopyWithImpl;
+  @useResult
+  $Res call({ThemeMode themeMode, bool isNavigationRailExtended});
+}
+
+/// @nodoc
+class _$SettingsCopyWithImpl<$Res> implements $SettingsCopyWith<$Res> {
+  _$SettingsCopyWithImpl(this._self, this._then);
+
+  final Settings _self;
+  final $Res Function(Settings) _then;
+
   /// Create a copy of Settings
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? themeMode = null,
+    Object? isNavigationRailExtended = null,
+  }) {
+    return _then(_self.copyWith(
+      themeMode: null == themeMode
+          ? _self.themeMode
+          : themeMode // ignore: cast_nullable_to_non_nullable
+              as ThemeMode,
+      isNavigationRailExtended: null == isNavigationRailExtended
+          ? _self.isNavigationRailExtended
+          : isNavigationRailExtended // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _Settings extends Settings {
+  _Settings(
+      {this.themeMode = ThemeMode.system, this.isNavigationRailExtended = true})
+      : super._();
+
+  @override
+  @JsonKey()
+  final ThemeMode themeMode;
+  @override
+  @JsonKey()
+  final bool isNavigationRailExtended;
+
+  /// Create a copy of Settings
+  /// with the given fields replaced by the non-null parameter values.
+  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$SettingsCopyWith<_Settings> get copyWith =>
+      __$SettingsCopyWithImpl<_Settings>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _Settings &&
+            (identical(other.themeMode, themeMode) ||
+                other.themeMode == themeMode) &&
+            (identical(
+                    other.isNavigationRailExtended, isNavigationRailExtended) ||
+                other.isNavigationRailExtended == isNavigationRailExtended));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, themeMode, isNavigationRailExtended);
+
+  @override
+  String toString() {
+    return 'Settings(themeMode: $themeMode, isNavigationRailExtended: $isNavigationRailExtended)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$SettingsCopyWith<$Res>
+    implements $SettingsCopyWith<$Res> {
+  factory _$SettingsCopyWith(_Settings value, $Res Function(_Settings) _then) =
+      __$SettingsCopyWithImpl;
+  @override
+  @useResult
+  $Res call({ThemeMode themeMode, bool isNavigationRailExtended});
+}
+
+/// @nodoc
+class __$SettingsCopyWithImpl<$Res> implements _$SettingsCopyWith<$Res> {
+  __$SettingsCopyWithImpl(this._self, this._then);
+
+  final _Settings _self;
+  final $Res Function(_Settings) _then;
+
+  /// Create a copy of Settings
+  /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  _$$SettingsImplCopyWith<_$SettingsImpl> get copyWith =>
-      __$$SettingsImplCopyWithImpl<_$SettingsImpl>(this, _$identity);
+  $Res call({
+    Object? themeMode = null,
+    Object? isNavigationRailExtended = null,
+  }) {
+    return _then(_Settings(
+      themeMode: null == themeMode
+          ? _self.themeMode
+          : themeMode // ignore: cast_nullable_to_non_nullable
+              as ThemeMode,
+      isNavigationRailExtended: null == isNavigationRailExtended
+          ? _self.isNavigationRailExtended
+          : isNavigationRailExtended // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
 }
 
-abstract class _Settings extends Settings {
-  factory _Settings(
-      {final ThemeMode themeMode,
-      final bool isNavigationRailExtended}) = _$SettingsImpl;
-  _Settings._() : super._();
-
-  @override
-  ThemeMode get themeMode;
-  @override
-  bool get isNavigationRailExtended;
-
-  /// Create a copy of Settings
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SettingsImplCopyWith<_$SettingsImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

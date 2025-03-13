@@ -1,3 +1,4 @@
+// dart format width=80
 // coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint
@@ -9,87 +10,54 @@ part of 'sort.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// dart format off
 T _$identity<T>(T value) => value;
-
-final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$AircraftSortState {
-  bool get sortAscending => throw _privateConstructorUsedError;
-  int get sortColumnIndex => throw _privateConstructorUsedError;
-  Comparable<dynamic> Function(Aircraft) get getField =>
-      throw _privateConstructorUsedError;
-  int get rowsPerPage => throw _privateConstructorUsedError;
+  bool get sortAscending;
+  int get sortColumnIndex;
+  Comparable Function(Aircraft aircraft) get getField;
+  int get rowsPerPage;
 
   /// Create a copy of AircraftSortState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $AircraftSortStateCopyWith<AircraftSortState> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $AircraftSortStateCopyWith<$Res> {
-  factory $AircraftSortStateCopyWith(
-          AircraftSortState value, $Res Function(AircraftSortState) then) =
-      _$AircraftSortStateCopyWithImpl<$Res, AircraftSortState>;
-  @useResult
-  $Res call(
-      {bool sortAscending,
-      int sortColumnIndex,
-      Comparable<dynamic> Function(Aircraft) getField,
-      int rowsPerPage});
-}
-
-/// @nodoc
-class _$AircraftSortStateCopyWithImpl<$Res, $Val extends AircraftSortState>
-    implements $AircraftSortStateCopyWith<$Res> {
-  _$AircraftSortStateCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  /// Create a copy of AircraftSortState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
+  $AircraftSortStateCopyWith<AircraftSortState> get copyWith =>
+      _$AircraftSortStateCopyWithImpl<AircraftSortState>(
+          this as AircraftSortState, _$identity);
+
   @override
-  $Res call({
-    Object? sortAscending = null,
-    Object? sortColumnIndex = null,
-    Object? getField = null,
-    Object? rowsPerPage = null,
-  }) {
-    return _then(_value.copyWith(
-      sortAscending: null == sortAscending
-          ? _value.sortAscending
-          : sortAscending // ignore: cast_nullable_to_non_nullable
-              as bool,
-      sortColumnIndex: null == sortColumnIndex
-          ? _value.sortColumnIndex
-          : sortColumnIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-      getField: null == getField
-          ? _value.getField
-          : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Aircraft),
-      rowsPerPage: null == rowsPerPage
-          ? _value.rowsPerPage
-          : rowsPerPage // ignore: cast_nullable_to_non_nullable
-              as int,
-    ) as $Val);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is AircraftSortState &&
+            (identical(other.sortAscending, sortAscending) ||
+                other.sortAscending == sortAscending) &&
+            (identical(other.sortColumnIndex, sortColumnIndex) ||
+                other.sortColumnIndex == sortColumnIndex) &&
+            (identical(other.getField, getField) ||
+                other.getField == getField) &&
+            (identical(other.rowsPerPage, rowsPerPage) ||
+                other.rowsPerPage == rowsPerPage));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, sortAscending, sortColumnIndex, getField, rowsPerPage);
+
+  @override
+  String toString() {
+    return 'AircraftSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
   }
 }
 
 /// @nodoc
-abstract class _$$AircraftSortStateImplCopyWith<$Res>
-    implements $AircraftSortStateCopyWith<$Res> {
-  factory _$$AircraftSortStateImplCopyWith(_$AircraftSortStateImpl value,
-          $Res Function(_$AircraftSortStateImpl) then) =
-      __$$AircraftSortStateImplCopyWithImpl<$Res>;
-  @override
+abstract mixin class $AircraftSortStateCopyWith<$Res> {
+  factory $AircraftSortStateCopyWith(
+          AircraftSortState value, $Res Function(AircraftSortState) _then) =
+      _$AircraftSortStateCopyWithImpl;
   @useResult
   $Res call(
       {bool sortAscending,
@@ -99,12 +67,12 @@ abstract class _$$AircraftSortStateImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AircraftSortStateImplCopyWithImpl<$Res>
-    extends _$AircraftSortStateCopyWithImpl<$Res, _$AircraftSortStateImpl>
-    implements _$$AircraftSortStateImplCopyWith<$Res> {
-  __$$AircraftSortStateImplCopyWithImpl(_$AircraftSortStateImpl _value,
-      $Res Function(_$AircraftSortStateImpl) _then)
-      : super(_value, _then);
+class _$AircraftSortStateCopyWithImpl<$Res>
+    implements $AircraftSortStateCopyWith<$Res> {
+  _$AircraftSortStateCopyWithImpl(this._self, this._then);
+
+  final AircraftSortState _self;
+  final $Res Function(AircraftSortState) _then;
 
   /// Create a copy of AircraftSortState
   /// with the given fields replaced by the non-null parameter values.
@@ -116,21 +84,21 @@ class __$$AircraftSortStateImplCopyWithImpl<$Res>
     Object? getField = null,
     Object? rowsPerPage = null,
   }) {
-    return _then(_$AircraftSortStateImpl(
+    return _then(_self.copyWith(
       sortAscending: null == sortAscending
-          ? _value.sortAscending
+          ? _self.sortAscending
           : sortAscending // ignore: cast_nullable_to_non_nullable
               as bool,
       sortColumnIndex: null == sortColumnIndex
-          ? _value.sortColumnIndex
+          ? _self.sortColumnIndex
           : sortColumnIndex // ignore: cast_nullable_to_non_nullable
               as int,
       getField: null == getField
-          ? _value.getField
+          ? _self.getField!
           : getField // ignore: cast_nullable_to_non_nullable
               as Comparable<dynamic> Function(Aircraft),
       rowsPerPage: null == rowsPerPage
-          ? _value.rowsPerPage
+          ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
               as int,
     ));
@@ -139,8 +107,8 @@ class __$$AircraftSortStateImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AircraftSortStateImpl implements _AircraftSortState {
-  _$AircraftSortStateImpl(
+class _AircraftSortState implements AircraftSortState {
+  _AircraftSortState(
       {this.sortAscending = false,
       this.sortColumnIndex = 3,
       required this.getField,
@@ -158,16 +126,19 @@ class _$AircraftSortStateImpl implements _AircraftSortState {
   @JsonKey()
   final int rowsPerPage;
 
+  /// Create a copy of AircraftSortState
+  /// with the given fields replaced by the non-null parameter values.
   @override
-  String toString() {
-    return 'AircraftSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
-  }
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$AircraftSortStateCopyWith<_AircraftSortState> get copyWith =>
+      __$AircraftSortStateCopyWithImpl<_AircraftSortState>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AircraftSortStateImpl &&
+            other is _AircraftSortState &&
             (identical(other.sortAscending, sortAscending) ||
                 other.sortAscending == sortAscending) &&
             (identical(other.sortColumnIndex, sortColumnIndex) ||
@@ -182,36 +153,64 @@ class _$AircraftSortStateImpl implements _AircraftSortState {
   int get hashCode => Object.hash(
       runtimeType, sortAscending, sortColumnIndex, getField, rowsPerPage);
 
+  @override
+  String toString() {
+    return 'AircraftSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$AircraftSortStateCopyWith<$Res>
+    implements $AircraftSortStateCopyWith<$Res> {
+  factory _$AircraftSortStateCopyWith(
+          _AircraftSortState value, $Res Function(_AircraftSortState) _then) =
+      __$AircraftSortStateCopyWithImpl;
+  @override
+  @useResult
+  $Res call(
+      {bool sortAscending,
+      int sortColumnIndex,
+      Comparable<dynamic> Function(Aircraft) getField,
+      int rowsPerPage});
+}
+
+/// @nodoc
+class __$AircraftSortStateCopyWithImpl<$Res>
+    implements _$AircraftSortStateCopyWith<$Res> {
+  __$AircraftSortStateCopyWithImpl(this._self, this._then);
+
+  final _AircraftSortState _self;
+  final $Res Function(_AircraftSortState) _then;
+
   /// Create a copy of AircraftSortState
   /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$AircraftSortStateImplCopyWith<_$AircraftSortStateImpl> get copyWith =>
-      __$$AircraftSortStateImplCopyWithImpl<_$AircraftSortStateImpl>(
-          this, _$identity);
+  $Res call({
+    Object? sortAscending = null,
+    Object? sortColumnIndex = null,
+    Object? getField = null,
+    Object? rowsPerPage = null,
+  }) {
+    return _then(_AircraftSortState(
+      sortAscending: null == sortAscending
+          ? _self.sortAscending
+          : sortAscending // ignore: cast_nullable_to_non_nullable
+              as bool,
+      sortColumnIndex: null == sortColumnIndex
+          ? _self.sortColumnIndex
+          : sortColumnIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+      getField: null == getField
+          ? _self.getField
+          : getField // ignore: cast_nullable_to_non_nullable
+              as Comparable<dynamic> Function(Aircraft),
+      rowsPerPage: null == rowsPerPage
+          ? _self.rowsPerPage
+          : rowsPerPage // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
-abstract class _AircraftSortState implements AircraftSortState {
-  factory _AircraftSortState(
-      {final bool sortAscending,
-      final int sortColumnIndex,
-      required final Comparable<dynamic> Function(Aircraft) getField,
-      final int rowsPerPage}) = _$AircraftSortStateImpl;
-
-  @override
-  bool get sortAscending;
-  @override
-  int get sortColumnIndex;
-  @override
-  Comparable<dynamic> Function(Aircraft) get getField;
-  @override
-  int get rowsPerPage;
-
-  /// Create a copy of AircraftSortState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$AircraftSortStateImplCopyWith<_$AircraftSortStateImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
+// dart format on

@@ -48,7 +48,7 @@ class SubcategorySort extends _$SubcategorySort {
 }
 
 @freezed
-class SubcategorySortState with _$SubcategorySortState {
+sealed class SubcategorySortState with _$SubcategorySortState {
   factory SubcategorySortState({
     @Default(false) bool sortAscending,
     @Default(3) int sortColumnIndex,

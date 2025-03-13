@@ -6,10 +6,10 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<void> getFileUrl(CrewDocument crewDocument, Staff staff) async {
+Future<void> getCrewDocumentFileUrl(CrewDocument crewDocument) async {
   try {
     String pathStr =
-        "crewDocuments/${staff.id}/${crewDocument.id}/${crewDocument.name}";
+        "crewDocuments/${crewDocument.staff!.id}/${crewDocument.id}/${crewDocument.name}";
 
     final result = await Amplify.Storage.getUrl(
       path: StoragePath.fromString(pathStr),
@@ -29,14 +29,14 @@ Future<void> getFileUrl(CrewDocument crewDocument, Staff staff) async {
   }
 }
 
-Future<void> uploadFiles(
+Future<void> uploadCrewDocumentFiles(
   List<PlatformFile> selectedFiles,
   Staff staff,
   CrewDocumentCategory category,
 ) async {
   await Future.wait(
     selectedFiles.map(
-      (file) => uploadFile(
+      (file) => uploadCrewDocumentFile(
         file,
         staff,
         category,
@@ -45,7 +45,7 @@ Future<void> uploadFiles(
   );
 }
 
-Future<void> uploadFile(
+Future<void> uploadCrewDocumentFile(
   PlatformFile file,
   Staff staff,
   CrewDocumentCategory category,
@@ -102,7 +102,7 @@ Future<void> archive(CrewDocument crewDocument) async {
   }
 }
 
-Future<void> delete(CrewDocument crewDocument, Staff staff) async {
+Future<void> deleteCrewDocument(CrewDocument crewDocument) async {
   try {
     final request = ModelMutations.deleteById(
       CrewDocument.classType,
@@ -117,7 +117,7 @@ Future<void> delete(CrewDocument crewDocument, Staff staff) async {
     // final result =
     await Amplify.Storage.remove(
       path: StoragePath.fromString(
-          'crewDocuments/${staff.id}/${crewDocument.id}/${crewDocument.name}'),
+          'crewDocuments/${crewDocument.staff!.id}/${crewDocument.id}/${crewDocument.name}'),
     ).result;
     // print('Removed file: ${result.removedItem.path}');
   } on StorageException catch (e) {

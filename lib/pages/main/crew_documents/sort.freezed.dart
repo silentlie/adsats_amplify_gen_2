@@ -14,25 +14,25 @@ part of 'sort.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$SubcategorySortState {
+mixin _$CrewDocumentSortState {
   bool get sortAscending;
   int get sortColumnIndex;
-  Comparable Function(Subcategory subcategory) get getField;
+  Comparable Function(CrewDocument crewDocument) get getField;
   int get rowsPerPage;
 
-  /// Create a copy of SubcategorySortState
+  /// Create a copy of CrewDocumentSortState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $SubcategorySortStateCopyWith<SubcategorySortState> get copyWith =>
-      _$SubcategorySortStateCopyWithImpl<SubcategorySortState>(
-          this as SubcategorySortState, _$identity);
+  $CrewDocumentSortStateCopyWith<CrewDocumentSortState> get copyWith =>
+      _$CrewDocumentSortStateCopyWithImpl<CrewDocumentSortState>(
+          this as CrewDocumentSortState, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is SubcategorySortState &&
+            other is CrewDocumentSortState &&
             (identical(other.sortAscending, sortAscending) ||
                 other.sortAscending == sortAscending) &&
             (identical(other.sortColumnIndex, sortColumnIndex) ||
@@ -49,32 +49,32 @@ mixin _$SubcategorySortState {
 
   @override
   String toString() {
-    return 'SubcategorySortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
+    return 'CrewDocumentSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
   }
 }
 
 /// @nodoc
-abstract mixin class $SubcategorySortStateCopyWith<$Res> {
-  factory $SubcategorySortStateCopyWith(SubcategorySortState value,
-          $Res Function(SubcategorySortState) _then) =
-      _$SubcategorySortStateCopyWithImpl;
+abstract mixin class $CrewDocumentSortStateCopyWith<$Res> {
+  factory $CrewDocumentSortStateCopyWith(CrewDocumentSortState value,
+          $Res Function(CrewDocumentSortState) _then) =
+      _$CrewDocumentSortStateCopyWithImpl;
   @useResult
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Subcategory) getField,
+      Comparable<dynamic> Function(CrewDocument) getField,
       int rowsPerPage});
 }
 
 /// @nodoc
-class _$SubcategorySortStateCopyWithImpl<$Res>
-    implements $SubcategorySortStateCopyWith<$Res> {
-  _$SubcategorySortStateCopyWithImpl(this._self, this._then);
+class _$CrewDocumentSortStateCopyWithImpl<$Res>
+    implements $CrewDocumentSortStateCopyWith<$Res> {
+  _$CrewDocumentSortStateCopyWithImpl(this._self, this._then);
 
-  final SubcategorySortState _self;
-  final $Res Function(SubcategorySortState) _then;
+  final CrewDocumentSortState _self;
+  final $Res Function(CrewDocumentSortState) _then;
 
-  /// Create a copy of SubcategorySortState
+  /// Create a copy of CrewDocumentSortState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -96,7 +96,7 @@ class _$SubcategorySortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField!
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Subcategory),
+              as Comparable<dynamic> Function(CrewDocument),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -107,8 +107,8 @@ class _$SubcategorySortStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _SubcategorySortState implements SubcategorySortState {
-  _SubcategorySortState(
+class _CrewDocumentSortState implements CrewDocumentSortState {
+  _CrewDocumentSortState(
       {this.sortAscending = false,
       this.sortColumnIndex = 3,
       required this.getField,
@@ -121,25 +121,25 @@ class _SubcategorySortState implements SubcategorySortState {
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable<dynamic> Function(Subcategory) getField;
+  final Comparable<dynamic> Function(CrewDocument) getField;
   @override
   @JsonKey()
   final int rowsPerPage;
 
-  /// Create a copy of SubcategorySortState
+  /// Create a copy of CrewDocumentSortState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$SubcategorySortStateCopyWith<_SubcategorySortState> get copyWith =>
-      __$SubcategorySortStateCopyWithImpl<_SubcategorySortState>(
+  _$CrewDocumentSortStateCopyWith<_CrewDocumentSortState> get copyWith =>
+      __$CrewDocumentSortStateCopyWithImpl<_CrewDocumentSortState>(
           this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _SubcategorySortState &&
+            other is _CrewDocumentSortState &&
             (identical(other.sortAscending, sortAscending) ||
                 other.sortAscending == sortAscending) &&
             (identical(other.sortColumnIndex, sortColumnIndex) ||
@@ -156,34 +156,34 @@ class _SubcategorySortState implements SubcategorySortState {
 
   @override
   String toString() {
-    return 'SubcategorySortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
+    return 'CrewDocumentSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$SubcategorySortStateCopyWith<$Res>
-    implements $SubcategorySortStateCopyWith<$Res> {
-  factory _$SubcategorySortStateCopyWith(_SubcategorySortState value,
-          $Res Function(_SubcategorySortState) _then) =
-      __$SubcategorySortStateCopyWithImpl;
+abstract mixin class _$CrewDocumentSortStateCopyWith<$Res>
+    implements $CrewDocumentSortStateCopyWith<$Res> {
+  factory _$CrewDocumentSortStateCopyWith(_CrewDocumentSortState value,
+          $Res Function(_CrewDocumentSortState) _then) =
+      __$CrewDocumentSortStateCopyWithImpl;
   @override
   @useResult
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Subcategory) getField,
+      Comparable<dynamic> Function(CrewDocument) getField,
       int rowsPerPage});
 }
 
 /// @nodoc
-class __$SubcategorySortStateCopyWithImpl<$Res>
-    implements _$SubcategorySortStateCopyWith<$Res> {
-  __$SubcategorySortStateCopyWithImpl(this._self, this._then);
+class __$CrewDocumentSortStateCopyWithImpl<$Res>
+    implements _$CrewDocumentSortStateCopyWith<$Res> {
+  __$CrewDocumentSortStateCopyWithImpl(this._self, this._then);
 
-  final _SubcategorySortState _self;
-  final $Res Function(_SubcategorySortState) _then;
+  final _CrewDocumentSortState _self;
+  final $Res Function(_CrewDocumentSortState) _then;
 
-  /// Create a copy of SubcategorySortState
+  /// Create a copy of CrewDocumentSortState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -193,7 +193,7 @@ class __$SubcategorySortStateCopyWithImpl<$Res>
     Object? getField = null,
     Object? rowsPerPage = null,
   }) {
-    return _then(_SubcategorySortState(
+    return _then(_CrewDocumentSortState(
       sortAscending: null == sortAscending
           ? _self.sortAscending
           : sortAscending // ignore: cast_nullable_to_non_nullable
@@ -205,7 +205,7 @@ class __$SubcategorySortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Subcategory),
+              as Comparable<dynamic> Function(CrewDocument),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

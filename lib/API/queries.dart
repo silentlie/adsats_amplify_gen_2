@@ -10,6 +10,7 @@ query GetCrewDocumentCategoryDetails(\$id: ID) {
   }
 }
 ''';
+//TODO use listRoles instead
 const listJoinRecipients = '''
 query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFilter: ModelAircraftStaffFilterInput) {
   listStaff {
@@ -34,6 +35,7 @@ query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFil
   }
 }
 ''';
+//TODO delete
 const listCrewDocumentCategories = '''
 query ListCrewDocumentCategories(\$filter: ModelCrewDocumentCategoryFilterInput, \$id: ID!) {
   getRole(id: \$id) {
@@ -58,9 +60,30 @@ query ListCrewDocumentCategories(\$filter: ModelCrewDocumentCategoryFilterInput,
   }
 }
 ''';
+const listProfileMeta = '''
+query ListProfileMeta(\$id: ID!) {
+  listRoles(filter: {archived: {eq: false}}) {
+    items {
+      id
+      name
+      categories(filter: {archived: {eq: false}}) {
+        items {
+          id
+          name
+        }
+      }
+      staff(filter: {staffId: {eq: \$id}}) {
+        items {
+          id
+        }
+      }
+    }
+  }
+}
+''';
 const listCrewDocuments = '''
-query ListCrewDocumentsCrews(\$staffId: ID!, \$categoryId: ID!) {
-  listCrewDocuments(filter: {staffId: {eq: \$staffId}, categoryId: {eq: \$categoryId}}) {
+query ListCrewDocumentsCrews(\$filter: ModelCrewDocumentFilterInput) {
+  listCrewDocuments(filter: \$filter) {
     items {
       id
       categoryId
@@ -99,15 +122,15 @@ query ListCrewDocumentMeta {
     items {
       id
       name
+      categories(filter: {archived: {eq: false}}) {
+        items {
+          id
+          name
+        }
+      }
     }
   }
   listAircraft(filter: {archived: {eq: false}}) {
-    items {
-      id
-      name
-    }
-  }
-  listCrewDocumentCategories(filter: {archived: {eq: false}}) {
     items {
       id
       name
