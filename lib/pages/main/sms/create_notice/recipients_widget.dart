@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/API/query_providers.dart';
+import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/state.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
@@ -20,6 +21,7 @@ class NoticeRecipientsWidget extends ConsumerWidget {
     final editMode = ref.watch(noticeNotifierProvider.select(
       (value) => value.editMode,
     ));
+    final isSafetyOfficer = ref.watch(isSafetyOfficerProvider);
     return Row(
       children: [
         if (editMode)
@@ -45,6 +47,15 @@ class NoticeRecipientsWidget extends ConsumerWidget {
             child: AsyncValueWidget(
               value: ref.watch(listRolesProvider()),
               data: (value) {
+                if (!isSafetyOfficer) {
+                  notifier.updateNotice(
+                      roles: value.where(
+                    (element) {
+                      return element.name == "Safety Officer";
+                    },
+                  ).toList());
+                  return Text("This notice will be sent to Safety Officer");
+                }
                 return GlobalMultiSelect<Role>(
                   text: "Roles",
                   onConfirm: (p0) {
@@ -59,7 +70,7 @@ class NoticeRecipientsWidget extends ConsumerWidget {
               },
             ),
           ),
-        if (editMode && !isDraft)
+        if (editMode && !isDraft && isSafetyOfficer)
           Expanded(
             child: AsyncValueWidget(
               value: ref.watch(listStaffProvider()),

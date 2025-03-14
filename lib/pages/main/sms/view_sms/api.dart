@@ -27,7 +27,8 @@ Future<Notice> deleteNotice(Notice notice) async {
       (aircraftNotice) => futures.add(delete(aircraftNotice)),
     );
     returnNotice.documents?.forEach(
-      (noticeDocument) => futures.add(deleteFile(noticeDocument, notice)),
+      (noticeDocument) =>
+          futures.add(deleteNoticeDocumentFile(noticeDocument, notice)),
     );
     futures.add(delete(notice));
     await Future.wait(futures);

@@ -55,13 +55,20 @@ class DocumentsPage extends ConsumerWidget {
           enabled: !entry.key.archived,
           children: entry.value.map(
             (subcategory) {
-              return ExpansionTile(
+              return ListTile(
                 leading: Icon(Icons.view_list_outlined),
                 title: Text(subcategory.name),
                 enabled: !subcategory.archived,
-                children: [
-                  DocumentsView(subcategory: subcategory),
-                ],
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialog(
+                        child: DocumentsView(subcategory: subcategory),
+                      );
+                    },
+                  );
+                },
               );
             },
           ).toList(),

@@ -35,7 +35,6 @@ query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFil
   }
 }
 ''';
-//TODO delete
 const listCrewDocumentCategories = '''
 query ListCrewDocumentCategories(\$filter: ModelCrewDocumentCategoryFilterInput, \$id: ID!) {
   getRole(id: \$id) {

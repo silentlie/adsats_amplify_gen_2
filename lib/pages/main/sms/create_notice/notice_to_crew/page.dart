@@ -21,7 +21,7 @@ class NoticeToCrewPage extends StatelessWidget {
                   archived: false,
                   details: "{}",
                   type: NoticeType.Notice_to_Crew,
-                  status: NoticeStatus.Draft,
+                  status: NoticeStatus.Open,
                   aircraft: [],
                   documents: [],
                   recipients: [],

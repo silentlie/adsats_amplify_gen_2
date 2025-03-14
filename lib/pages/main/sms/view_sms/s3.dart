@@ -6,7 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<void> getFileUrl(NoticeDocument document, Notice notice) async {
+Future<void> getNoticeDocumentFileUrl(NoticeDocument document, Notice notice) async {
   try {
     final result = await Amplify.Storage.getUrl(
       path: StoragePath.fromString(
@@ -28,7 +28,7 @@ Future<void> getFileUrl(NoticeDocument document, Notice notice) async {
   }
 }
 
-Future<void> uploadFile(PlatformFile file, Notice notice) async {
+Future<void> uploadNoticeDocumentFile(PlatformFile file, Notice notice) async {
   final noticeDocument = NoticeDocument(name: file.name, notices: notice);
   try {
     final response = await Amplify.API
@@ -55,7 +55,8 @@ Future<void> uploadFile(PlatformFile file, Notice notice) async {
   }
 }
 
-Future<void> deleteFile(NoticeDocument noticeDocument, Notice notice) async {
+Future<void> deleteNoticeDocumentFile(
+    NoticeDocument noticeDocument, Notice notice) async {
   try {
     final request = ModelMutations.deleteById(
       NoticeDocument.classType,

@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'repo.g.dart';
 
-@Riverpod()
+@Riverpod(dependencies: [userId])
 FutureOr<Iterable<Role>> profileRepo(Ref ref) async {
   final id = await ref.watch(userIdProvider.future);
   final request = GraphQLRequest<String>(

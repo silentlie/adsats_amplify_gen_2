@@ -29,7 +29,7 @@ class NoticeDocumentsWidget extends ConsumerWidget {
             padding: const EdgeInsets.all(2.0),
             child: GestureDetector(
               onTap: () {
-                getFileUrl(
+                getNoticeDocumentFileUrl(
                   document,
                   ref.read(noticeNotifierProvider).notice,
                 );

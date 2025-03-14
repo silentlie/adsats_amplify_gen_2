@@ -403,6 +403,10 @@ class SafetyOfficersSection extends ConsumerWidget {
     final details = ref.read(noticeNotifierProvider.select(
       (value) => value.details,
     ));
+    details.putIfAbsent(
+      "isConfidential",
+      () => false,
+    );
     return Column(
       children: [
         const Divider(),
@@ -414,6 +418,24 @@ class SafetyOfficersSection extends ConsumerWidget {
               fontWeight: FontWeight.bold,
               fontSize: 16,
             ),
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(8.0),
+          child: DropdownMenu(
+            dropdownMenuEntries: [
+              DropdownMenuEntry(value: false, label: "Open"),
+              DropdownMenuEntry(value: true, label: "Confidential"),
+            ],
+            enabled: isEditMode,
+            onSelected: (value) {
+              details["isConfidential"] = value!;
+              notifier.updateNotice(details: details);
+            },
+            hintText: "Is this report confidential?",
+            expandedInsets: EdgeInsets.zero,
+            initialSelection: details["isConfidential"],
+            label: Text("Is this report confidential?"),
           ),
         ),
         GlobalTextFormField(

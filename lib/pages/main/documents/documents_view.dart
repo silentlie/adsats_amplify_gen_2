@@ -1,20 +1,157 @@
-import 'package:adsats_amplify_gen_2/auth/auth.dart';
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
-import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
+import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/actions.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/header.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/sort.dart';
+import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/new_document.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
-import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/loading_view.dart';
+import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class DocumentsView extends ConsumerWidget {
-  const DocumentsView({
+  const DocumentsView({super.key,
+    required this.subcategory,
+  });
+  final Subcategory subcategory;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final filter = ref.watch(documentFilterProvider(subcategory));
+    final dataAsync = ref.watch(
+      documentsRepoProvider(filter),
+    );
+    final sortState = ref.watch(documentSortProvider);
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 1536.0),
+      child: AsyncValueWidget(
+        value: dataAsync,
+        data: (data) {
+          data.sort(compareDocument(
+            sortAscending: sortState.sortAscending,
+            getField: sortState.getField,
+          ));
+          final dataSource = DocumentDataSource(
+            sortedData: data,
+          );
+          final sortNotifier = ref.read(documentSortProvider.notifier);
+          return PaginatedDataTable2(
+            columns: <DataColumn2>[
+              DataColumn2(
+                label: getCenterText("Name"),
+                size: ColumnSize.S,
+                onSort: (columnIndex, ascending) {
+                  sortNotifier.apply(
+                    columnIndex: columnIndex,
+                    sortAscending: ascending,
+                    getField: (document) {
+                      return document.name;
+                    },
+                  );
+                },
+              ),
+              DataColumn2(
+                label: getCenterText("Archived"),
+                size: ColumnSize.L,
+                onSort: (columnIndex, ascending) {
+                  sortNotifier.apply(
+                    columnIndex: columnIndex,
+                    sortAscending: ascending,
+                    getField: (document) {
+                      return document.archived.hashCode;
+                    },
+                  );
+                },
+              ),
+              DataColumn2(
+                label: getCenterText("Created at"),
+                size: ColumnSize.L,
+                onSort: (columnIndex, ascending) {
+                  sortNotifier.apply(
+                    columnIndex: columnIndex,
+                    sortAscending: ascending,
+                    getField: (document) {
+                      return document.createdAt!;
+                    },
+                  );
+                },
+              ),
+              DataColumn2(
+                label: getCenterText("Action"),
+                fixedWidth: 80,
+                onSort: (columnIndex, ascending) {
+                  sortNotifier.apply(
+                    columnIndex: columnIndex,
+                    sortAscending: ascending,
+                    getField: (document) {
+                      return document.hashCode;
+                    },
+                  );
+                },
+              ),
+            ],
+            source: dataSource,
+            headingRowColor: WidgetStateColor.resolveWith((states) {
+              return colorScheme.surfaceContainerHighest;
+            }),
+            columnSpacing: 0,
+            empty: const Text("There is nothing"),
+            initialFirstRowIndex: 0,
+            rowsPerPage: sortState.rowsPerPage,
+            availableRowsPerPage: [
+              sortState.rowsPerPage,
+              sortState.rowsPerPage * 2,
+              sortState.rowsPerPage * 5,
+              sortState.rowsPerPage * 10,
+            ],
+            onRowsPerPageChanged: (value) {
+              // No need to wrap in setState, behave diff in this package
+              sortNotifier.rowsPerPage(value!);
+            },
+            onPageChanged: (rowIndex) {
+              // debugPrint((rowIndex / _rowsPerPage).toString());
+            },
+            header: DocumentHeader(
+              subcategory: subcategory,
+            ),
+            dataRowHeight: 62,
+            showCheckboxColumn: false,
+            // dynamic change rows per page based on height of screen
+            autoRowsToHeight: false,
+            minWidth: 1328,
+            // stick paginator to the bottom when there's few rows
+            fit: FlexFit.loose,
+            // render empty rows to match rows per page
+            renderEmptyRowsInTheEnd: false,
+            // customise border of table
+            border: const TableBorder(),
+            hidePaginator: false,
+            wrapInCard: true,
+            // how many fixed columns from left
+            fixedLeftColumns: 0,
+            showFirstLastButtons: true,
+            lmRatio: 0.67,
+            sortColumnIndex: sortState.sortColumnIndex,
+            sortAscending: sortState.sortAscending,
+            sortArrowIcon: Icons.keyboard_arrow_up, // custom arrow
+            sortArrowAnimationDuration: const Duration(milliseconds: 150),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class OldDocumentsView extends ConsumerWidget {
+  const OldDocumentsView({
     super.key,
     required this.subcategory,
   });
@@ -35,9 +172,6 @@ class DocumentsView extends ConsumerWidget {
               title: Text(document.name),
               trailing: DocumentActions(
                 document: document,
-                reload: () {
-                  ref.invalidate(documentsRepoProvider(filter));
-                },
               ),
               subtitle: Text([
                 document.archived ? "Archived" : "Active",
@@ -140,162 +274,6 @@ class DocumentsView extends ConsumerWidget {
         ),
         ...widgets
       ],
-    );
-  }
-}
-
-class DocumentsFilterView extends ConsumerWidget {
-  const DocumentsFilterView({
-    super.key,
-    required this.subcategory,
-  });
-
-  final Subcategory subcategory;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    var filter = ref.watch(documentFilterProvider(subcategory));
-    return AlertDialog.adaptive(
-      title: const Text('Filter By:'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          GlobalDropdownMenu(
-            entries: const [
-              DropdownMenuEntry(value: false, label: "False"),
-              DropdownMenuEntry(value: true, label: "True"),
-              DropdownMenuEntry(value: null, label: "All"),
-            ],
-            onSelected: (value) {
-              filter = filter.copyWith(archived: value);
-            },
-            initialSelection: filter.archived,
-            text: "Archived",
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: DateTimeRangePicker(
-              text: "Select document date range",
-              onSubmitted: (value) {
-                filter = filter.copyWith(createdAt: value);
-              },
-              initialDateRange: filter.createdAt,
-            ),
-          ),
-        ],
-      ),
-      actions: [
-        // cancel
-        TextButton(
-          onPressed: () => Navigator.pop(context, 'Cancel'),
-          child: const Text('Cancel'),
-        ),
-        TextButton(
-          onPressed: () {
-            ref.invalidate(documentFilterProvider(subcategory));
-            Navigator.pop(context, 'Apply');
-          },
-          child: const Text("Reset filter"),
-        ),
-        // apply
-        TextButton(
-          onPressed: () {
-            ref.read(documentFilterProvider(subcategory).notifier).apply(
-                  filter,
-                );
-            Navigator.pop(context, 'Apply');
-          },
-          child: const Text('Apply'),
-        )
-      ],
-    );
-  }
-}
-
-class DocumentActions extends ConsumerWidget {
-  const DocumentActions({
-    super.key,
-    required this.document,
-    required this.reload,
-  });
-
-  final Document document;
-
-  final VoidCallback reload;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final isAdmin = ref.watch(isAdminProvider);
-    final controller = MenuController();
-    return MenuAnchor(
-      controller: controller,
-      menuChildren: [
-        IconButton(
-          onPressed: () async {
-            await getFileUrl(document);
-            controller.close();
-          },
-          icon: const Icon(Icons.download_outlined),
-          tooltip: "Download",
-        ),
-        if (isAdmin)
-          IconButton(
-            onPressed: () async {
-              final result = await showConfirmDialog(
-                context,
-                Text("Are you sure?"),
-                Text(
-                  "Do you want to ${document.archived ? "unarchive" : "archive"} this document?",
-                ),
-              );
-              if (result) {
-                await archive(document);
-                reload();
-                controller.close();
-              }
-            },
-            icon: Icon(
-              document.archived
-                  ? Icons.unarchive_outlined
-                  : Icons.archive_outlined,
-            ),
-            tooltip: document.archived
-                ? "Unarchive this document"
-                : "Archive this document",
-          ),
-        if (isAdmin)
-          IconButton(
-            onPressed: () async {
-              final result = await showConfirmDialog(
-                context,
-                Text("Are you sure?"),
-                Text("Do you want to delete this document?"),
-              );
-              if (result) {
-                await deleteDocument(document);
-                controller.close();
-                reload();
-              }
-            },
-            icon: const Icon(Icons.delete_outline),
-            tooltip: "Delete",
-          ),
-      ],
-      builder: (context, controller, child) {
-        return IconButton(
-          onPressed: () {
-            if (controller.isOpen) {
-              controller.close();
-            } else {
-              controller.open();
-            }
-          },
-          icon: const Icon(
-            Icons.more_vert,
-            // size: 20,
-          ),
-        );
-      },
     );
   }
 }

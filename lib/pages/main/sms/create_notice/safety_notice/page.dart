@@ -21,7 +21,7 @@ class SafetyNoticePage extends ConsumerWidget {
                   archived: false,
                   details: "{}",
                   type: NoticeType.Safety_notice,
-                  status: NoticeStatus.Draft,
+                  status: NoticeStatus.Open,
                   aircraft: [],
                   documents: [],
                   recipients: [],

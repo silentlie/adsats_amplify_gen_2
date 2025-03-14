@@ -4,12 +4,14 @@ import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class NewDocumentDialog extends ConsumerWidget {
@@ -125,8 +127,14 @@ class NewDocumentDialog extends ConsumerWidget {
                   Text("Are you sure?"),
                   Text("Do you want to cancel?"),
                 );
-                if (result && context.mounted) {
-                  Navigator.pop(context);
+                if (!result) {
+                  return;
+                }
+                if (!context.mounted) return;
+                if (context.canPop()) {
+                  context.pop();
+                } else {
+                  DocumentsRoute().go(context);
                 }
               },
               label: const Text('Cancel'),
@@ -172,8 +180,11 @@ class NewDocumentDialog extends ConsumerWidget {
                   subcategory!,
                   aircraft,
                 );
-                if (context.mounted) {
-                  Navigator.pop(context);
+                if (!context.mounted) return;
+                if (context.canPop()) {
+                  context.pop();
+                } else {
+                  DocumentsRoute().go(context);
                 }
               },
               style: ButtonStyle(

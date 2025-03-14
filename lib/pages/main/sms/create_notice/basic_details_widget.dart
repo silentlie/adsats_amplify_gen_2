@@ -115,6 +115,15 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: DropdownMenu(
                   dropdownMenuEntries: NoticeStatus.values
+                      .where(
+                        (element) {
+                          if (element != NoticeStatus.Pending ||
+                              element != NoticeStatus.Resolved) {
+                            return true;
+                          }
+                          return isSafetyOfficer;
+                        },
+                      )
                       .map((e) => DropdownMenuEntry(value: e, label: e.name))
                       .toList(),
                   initialSelection: notice.status,
@@ -125,6 +134,7 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
                   hintText: "Status of this notice",
                   menuHeight: 200,
                   expandedInsets: EdgeInsets.zero,
+                  label: Text("Status of this notice"),
                 ),
               ),
             ),

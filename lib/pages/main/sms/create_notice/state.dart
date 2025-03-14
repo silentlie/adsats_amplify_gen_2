@@ -50,7 +50,7 @@ class NoticeNotifier extends _$NoticeNotifier {
           ),
           ..._initialNotice!.documents!
               .where((element) => !state.notice.documents!.contains(element))
-              .map((e) => deleteFile(e, _initialNotice!))
+              .map((e) => deleteNoticeDocumentFile(e, _initialNotice!))
         ],
       false => [
           create(state.notice),
@@ -58,7 +58,8 @@ class NoticeNotifier extends _$NoticeNotifier {
         ]
     };
     final newFiles = ref.watch(selectedFilesProvider);
-    futures.addAll(newFiles.map((e) => uploadFile(e, state.notice)));
+    futures
+        .addAll(newFiles.map((e) => uploadNoticeDocumentFile(e, state.notice)));
     if (isSend) {
       final finalRecipients = await fetchJoinRecipients(
         roles: _roles,
@@ -177,6 +178,6 @@ sealed class NoticeState with _$NoticeState {
   }
 
   bool get isDraft {
-    return (notice.status ?? NoticeStatus.Draft) == NoticeStatus.Draft;
+    return (notice.status ?? NoticeStatus.Open) == NoticeStatus.Draft;
   }
 }

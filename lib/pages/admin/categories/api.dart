@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 Future<Category> deleteCategory(Category category) async {
   try {
+    //TODO fetch before delete
     final List<Future> futures = [];
     category.subcategories?.forEach(
       (subcategory) => futures.add(deleteSubcategory(subcategory)),

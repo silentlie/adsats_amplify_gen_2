@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 Future<Role> deleteRole(Role role) async {
   try {
+    //TODO fetch before delete
     final List<Future> futures = [];
     role.staff?.forEach(
       (roleStaff) => futures.add(delete(roleStaff)),

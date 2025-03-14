@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/models/CrewDocumentCategory.dart';
+import 'package:adsats_amplify_gen_2/pages/main/crew_documents/s3.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -22,8 +23,7 @@ Future<CrewDocumentCategory> deleteCrewDocumentCategory(
         CrewDocumentCategory.fromJson(jsonMap["getCrewDocumentCategory"]);
     final List<Future> futures = [];
     returnCrewDocumentCategory.crewDocuments?.forEach(
-      //TODO delete crew document
-      (crewDocument) => futures.add(delete(crewDocument)),
+      (crewDocument) => futures.add(deleteCrewDocument(crewDocument)),
     );
     futures.add(delete(category));
     await Future.wait(futures);
