@@ -1,3 +1,83 @@
+const listReports = '''
+query ListNotices(\$filter: ModelReportFilterInput) {
+  listReports(filter: \$filter) {
+    items {
+      id
+      type
+      subject
+      status
+      archived
+      reportedAt
+      details
+      createdAt
+      updatedAt
+      author {
+        id
+        name
+        email
+        archived
+      }
+      closeAt
+      closer {
+        id
+        name
+        email
+        archived
+      }
+      recipients {
+        items {
+          id
+          staff {
+            id
+            name
+            email
+            archived
+          }
+        }
+      }
+    }
+  }
+}
+''';
+const getReportDetails = '''
+query GetReportDetails(\$id: ID!) {
+  getReport(id: \$id) {
+    id
+    type
+    subject
+    status
+    archived
+    reportedAt
+    details
+    createdAt
+    updatedAt
+    author {
+      id
+      name
+      email
+      archived
+    }
+    closeAt
+    closer {
+      id
+      name
+      email
+      archived
+    }
+    recipients {
+      items {
+        id
+        staff {
+          id
+          name
+          email
+          archived
+        }
+      }
+    }
+  }
+}
+''';
 const getCrewDocumentCategoryDetails = '''
 query GetCrewDocumentCategoryDetails(\$id: ID) {
   getCrewDocumentCategory(id: \$id) {

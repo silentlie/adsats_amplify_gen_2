@@ -108,59 +108,68 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
               ],
             ),
             StatefulShellBranchData.$branch(
+              initialLocation: ComplianceShellBranchData.$initialLocation,
               routes: [
-                StatefulShellRouteData.$route(
-                  factory: $ComplianceShellRouteDataExtension._fromState,
-                  branches: [
-                    StatefulShellBranchData.$branch(
-                      routes: [
-                        GoRouteData.$route(
-                          path: '/compliance/inbox',
-                          name: 'Compliance Inbox',
-                          factory: $ComplianceInboxRouteExtension._fromState,
-                        ),
-                      ],
-                    ),
-                    StatefulShellBranchData.$branch(
-                      routes: [
-                        GoRouteData.$route(
-                          path: '/compliance/sent',
-                          name: 'Compliance Sent',
-                          factory: $ComplianceSentRouteExtension._fromState,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                StatefulShellRouteData.$route(
-                  factory: $CreateReportShellRouteDataExtension._fromState,
-                  branches: [
-                    StatefulShellBranchData.$branch(
-                      routes: [
-                        GoRouteData.$route(
-                          path: '/compliance/internal-audit-report',
-                          name: 'Internal Audit Report',
-                          factory:
-                              $InternalAuditReportRouteExtension._fromState,
-                        ),
-                      ],
-                    ),
-                    StatefulShellBranchData.$branch(
-                      routes: [
-                        GoRouteData.$route(
-                          path: '/compliance/external-audit-report',
-                          name: 'External Audit Report',
-                          factory:
-                              $ExternalAuditReportRouteExtension._fromState,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
                 GoRouteData.$route(
-                  path: '/compliance/:id',
-                  name: 'View Report',
-                  factory: $ViewReportRouteExtension._fromState,
+                  path: '/compliance',
+                  name: 'Compliance',
+                  factory: $ComplianceRouteExtension._fromState,
+                  routes: [
+                    StatefulShellRouteData.$route(
+                      factory: $ComplianceShellRouteDataExtension._fromState,
+                      branches: [
+                        StatefulShellBranchData.$branch(
+                          routes: [
+                            GoRouteData.$route(
+                              path: 'inbox',
+                              name: 'Compliance Inbox',
+                              factory:
+                                  $ComplianceInboxRouteExtension._fromState,
+                            ),
+                          ],
+                        ),
+                        StatefulShellBranchData.$branch(
+                          routes: [
+                            GoRouteData.$route(
+                              path: 'sent',
+                              name: 'Compliance Sent',
+                              factory: $ComplianceSentRouteExtension._fromState,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    StatefulShellRouteData.$route(
+                      factory: $CreateReportShellRouteDataExtension._fromState,
+                      branches: [
+                        StatefulShellBranchData.$branch(
+                          routes: [
+                            GoRouteData.$route(
+                              path: '/internal-audit-report',
+                              name: 'Internal Audit Report',
+                              factory:
+                                  $InternalAuditReportRouteExtension._fromState,
+                            ),
+                          ],
+                        ),
+                        StatefulShellBranchData.$branch(
+                          routes: [
+                            GoRouteData.$route(
+                              path: 'external-audit-report',
+                              name: 'External Audit Report',
+                              factory:
+                                  $ExternalAuditReportRouteExtension._fromState,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    GoRouteData.$route(
+                      path: ':id',
+                      name: 'View Report',
+                      factory: $ViewReportRouteExtension._fromState,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -439,6 +448,24 @@ extension $ViewNoticeRouteExtension on ViewNoticeRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
+extension $ComplianceRouteExtension on ComplianceRoute {
+  static ComplianceRoute _fromState(GoRouterState state) =>
+      const ComplianceRoute();
+
+  String get location => GoRouteData.$location(
+        '/compliance',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
 extension $ComplianceShellRouteDataExtension on ComplianceShellRouteData {
   static ComplianceShellRouteData _fromState(GoRouterState state) =>
       const ComplianceShellRouteData();
@@ -490,7 +517,7 @@ extension $InternalAuditReportRouteExtension on InternalAuditReportRoute {
       const InternalAuditReportRoute();
 
   String get location => GoRouteData.$location(
-        '/compliance/internal-audit-report',
+        '/internal-audit-report',
       );
 
   void go(BuildContext context) => context.go(location);

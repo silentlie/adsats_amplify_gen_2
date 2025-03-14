@@ -2,19 +2,11 @@ import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-export 'package:adsats_amplify_gen_2/pages/main/compliances/inbox/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/compliances/sent/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/compliances/create_report/shell.dart';
-
-class ComplianceShellBranchData extends StatefulShellBranchData {
-  const ComplianceShellBranchData();
-}
+export 'package:adsats_amplify_gen_2/pages/main/compliance/view_compliance/inbox/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/compliance/view_compliance/sent/route.dart';
 
 class ComplianceShellRouteData extends StatefulShellRouteInfo {
   const ComplianceShellRouteData();
-
-  static String $initialLocation = ComplianceInboxRoute().location;
-  
 
   @override
   Icon get icon => const Icon(Icons.fact_check_outlined);

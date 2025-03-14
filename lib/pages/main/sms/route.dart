@@ -1,9 +1,11 @@
-import 'package:adsats_amplify_gen_2/pages/main/home/navigate_icon_button.dart';
+import 'package:adsats_amplify_gen_2/widgets/navigate_icon_button.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 export 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/shell.dart';
+export 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/shell.dart';
+export 'package:adsats_amplify_gen_2/pages/main/sms/view_notice/route.dart';
 
 part 'page.dart';
 

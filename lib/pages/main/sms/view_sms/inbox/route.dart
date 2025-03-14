@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/data_table.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/inbox/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/inbox/repo.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -1,5 +1,4 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
-import 'package:adsats_amplify_gen_2/pages/main/compliances/view_report/route.dart';
 import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
 import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/loading_view.dart';
@@ -120,49 +119,55 @@ class Router extends _$Router {
       ),
       TypedStatefulShellBranch<ComplianceShellBranchData>(
         routes: [
-          TypedStatefulShellRoute<ComplianceShellRouteData>(
-            branches: [
-              TypedStatefulShellBranch<ComplianceInboxShellBranchData>(
-                routes: <TypedRoute<RouteData>>[
-                  TypedGoRoute<ComplianceInboxRoute>(
-                    path: '/compliance/inbox',
-                    name: 'Compliance Inbox',
+          TypedGoRoute<ComplianceRoute>(
+            path: '/compliance',
+            name: 'Compliance',
+            routes: [
+              TypedStatefulShellRoute<ComplianceShellRouteData>(
+                branches: [
+                  TypedStatefulShellBranch<ComplianceInboxShellBranchData>(
+                    routes: <TypedRoute<RouteData>>[
+                      TypedGoRoute<ComplianceInboxRoute>(
+                        path: 'inbox',
+                        name: 'Compliance Inbox',
+                      ),
+                    ],
+                  ),
+                  TypedStatefulShellBranch<ComplianceSentShellBranchData>(
+                    routes: <TypedRoute<RouteData>>[
+                      TypedGoRoute<ComplianceSentRoute>(
+                        path: 'sent',
+                        name: 'Compliance Sent',
+                      ),
+                    ],
                   ),
                 ],
               ),
-              TypedStatefulShellBranch<ComplianceSentShellBranchData>(
-                routes: <TypedRoute<RouteData>>[
-                  TypedGoRoute<ComplianceSentRoute>(
-                    path: '/compliance/sent',
-                    name: 'Compliance Sent',
+              TypedStatefulShellRoute<CreateReportShellRouteData>(
+                branches: [
+                  TypedStatefulShellBranch<InternalAuditReportShellBranchData>(
+                    routes: <TypedRoute<RouteData>>[
+                      TypedGoRoute<InternalAuditReportRoute>(
+                        path: '/internal-audit-report',
+                        name: 'Internal Audit Report',
+                      ),
+                    ],
+                  ),
+                  TypedStatefulShellBranch<ExternalAuditReportShellBranchData>(
+                    routes: <TypedRoute<RouteData>>[
+                      TypedGoRoute<ExternalAuditReportRoute>(
+                        path: 'external-audit-report',
+                        name: 'External Audit Report',
+                      ),
+                    ],
                   ),
                 ],
+              ),
+              TypedGoRoute<ViewReportRoute>(
+                path: ':id',
+                name: 'View Report',
               ),
             ],
-          ),
-          TypedStatefulShellRoute<CreateReportShellRouteData>(
-            branches: [
-              TypedStatefulShellBranch<InternalAuditReportShellBranchData>(
-                routes: <TypedRoute<RouteData>>[
-                  TypedGoRoute<InternalAuditReportRoute>(
-                    path: '/compliance/internal-audit-report',
-                    name: 'Internal Audit Report',
-                  ),
-                ],
-              ),
-              TypedStatefulShellBranch<ExternalAuditReportShellBranchData>(
-                routes: <TypedRoute<RouteData>>[
-                  TypedGoRoute<ExternalAuditReportRoute>(
-                    path: '/compliance/external-audit-report',
-                    name: 'External Audit Report',
-                  ),
-                ],
-              ),
-            ],
-          ),
-          TypedGoRoute<ViewReportRoute>(
-            path: '/compliance/:id',
-            name: 'View Report',
           ),
         ],
       ),

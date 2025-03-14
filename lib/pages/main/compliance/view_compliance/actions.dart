@@ -1,59 +1,62 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
-import 'package:adsats_amplify_gen_2/models/Notice.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/api.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/invalidate.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/compliance/view_compliance/api.dart';
+import 'package:adsats_amplify_gen_2/pages/main/compliance/view_compliance/invalidate.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NoticeActions extends ConsumerWidget {
-  const NoticeActions({super.key, required this.notice});
+class ReportActions extends ConsumerWidget {
+  const ReportActions({
+    super.key,
+    required this.report,
+  });
 
-  final Notice notice;
+  final Report report;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = MenuController();
-    final isSafetyOfficer = ref.watch(isSafetyOfficerProvider);
+    final isQualityManager = ref.watch(isQualityManagerProvider);
     return MenuAnchor(
       controller: controller,
       alignmentOffset: Offset(50, -40),
       menuChildren: [
         IconButton(
           onPressed: () async {
-            ViewNoticeRoute(id: notice.id).push(context);
+            ViewReportRoute(id: report.id).go(context);
           },
           icon: const Icon(Icons.remove_red_eye_outlined),
           tooltip: "View this notice",
         ),
-        if (isSafetyOfficer)
+        if (isQualityManager)
           IconButton(
             onPressed: () async {
               final result = await showConfirmDialog(
                 context,
                 Text("Are you sure?"),
                 Text(
-                  "Do you want to ${notice.archived ? "unarchive" : "archive"} this notice?",
+                  "Do you want to ${report.archived ? "unarchive" : "archive"} this report?",
                 ),
               );
               if (result) {
-                await update(notice.copyWith(archived: !notice.archived));
-                invalidateViewSMS(ref);
+                await update(report.copyWith(archived: !report.archived));
+                invalidateViewCompliance(ref);
                 controller.close();
               }
             },
             icon: Icon(
-              notice.archived
+              report.archived
                   ? Icons.unarchive_outlined
                   : Icons.archive_outlined,
             ),
-            tooltip: notice.archived
-                ? "Unarchive this notice"
-                : "Archive this notice",
+            tooltip: report.archived
+                ? "Unarchive this report"
+                : "Archive this report",
           ),
-        if (isSafetyOfficer)
+        if (isQualityManager)
           IconButton(
             onPressed: () async {
               final result = await showConfirmDialog(
@@ -62,8 +65,8 @@ class NoticeActions extends ConsumerWidget {
                 Text("Do you want to delete this notice?"),
               );
               if (result) {
-                await deleteNotice(notice);
-                invalidateViewSMS(ref);
+                await deleteReport(report);
+                invalidateViewCompliance(ref);
                 controller.close();
               }
             },

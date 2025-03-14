@@ -147,6 +147,26 @@ FutureOr<List<NoticeStaff>> listNoticeStaff(
 }
 
 @Riverpod(dependencies: [])
+FutureOr<List<ReportStaff>> listReportStaff(
+  Ref ref, [
+  QueryPredicate? where,
+]) async {
+  final request = ModelQueries.list<ReportStaff>(
+    ReportStaff.classType,
+    where: where,
+  );
+  final response = await Amplify.API
+      .query<PaginatedResult<ReportStaff>>(
+        request: request,
+      )
+      .response;
+  if (response.errors.isNotEmpty) {
+    throw response.errors.first;
+  }
+  return response.data!.items.cast<ReportStaff>();
+}
+
+@Riverpod(dependencies: [])
 FutureOr<List<Document>> listDocuments(
   Ref ref, [
   QueryPredicate? where,

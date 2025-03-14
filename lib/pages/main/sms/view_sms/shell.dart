@@ -2,10 +2,9 @@ import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-export 'package:adsats_amplify_gen_2/pages/main/sms/inbox/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/sms/sent/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/shell.dart';
-export 'package:adsats_amplify_gen_2/pages/main/sms/view_notice/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/inbox/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/sent/route.dart';
+
 
 class SmsShellRouteData extends StatefulShellRouteInfo {
   const SmsShellRouteData();

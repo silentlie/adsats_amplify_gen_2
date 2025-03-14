@@ -25,7 +25,7 @@ class ViewNoticeRoute extends RouteInfo {
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return DialogPage(
       key: state.pageKey,
-      child: ViewReportPage(
+      child: ViewNoticePage(
         id: id,
       ),
     );

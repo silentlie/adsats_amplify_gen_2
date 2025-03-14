@@ -1,16 +1,16 @@
-import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/invalidate.dart';
+import 'package:adsats_amplify_gen_2/pages/main/compliance/view_compliance/filter.dart';
+import 'package:adsats_amplify_gen_2/pages/main/compliance/view_compliance/invalidate.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NoticeHeader extends ConsumerWidget {
-  const NoticeHeader({super.key});
+class ReportHeader extends ConsumerWidget {
+  const ReportHeader({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(noticeFilterProvider);
+    final filter = ref.watch(reportFilterProvider);
     return ListTile(
       contentPadding: const EdgeInsets.only(),
       leading: const Text(
@@ -28,15 +28,15 @@ class NoticeHeader extends ConsumerWidget {
           children: [
             IconButton(
               onPressed: () {
-                invalidateViewSMS(ref);
+                invalidateViewCompliance(ref);
               },
               icon: const Icon(Icons.refresh),
             ),
             ElevatedButton.icon(
               onPressed: () {
-                NoticeToCrewRoute().go(context);
+                InternalAuditReportRoute().go(context);
               },
-              label: const Text('Create a new notice'),
+              label: const Text('Create a new report'),
               icon: const Icon(
                 Icons.add,
                 size: 25,
@@ -50,7 +50,7 @@ class NoticeHeader extends ConsumerWidget {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return NoticesFilterView();
+                    return ReportsFilterView();
                   },
                 );
               },
@@ -62,7 +62,7 @@ class NoticeHeader extends ConsumerWidget {
             ),
             SearchBarWidget(
               onSubmitted: (value) {
-                ref.read(noticeFilterProvider.notifier).search(value);
+                ref.read(reportFilterProvider.notifier).search(value);
               },
               initialValue: filter.search,
             )

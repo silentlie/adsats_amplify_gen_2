@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/between_date_range.dart';
-import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,34 +11,33 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'filter.g.dart';
 part 'filter.freezed.dart';
 
-@Riverpod(dependencies: [userDetails])
-class NoticeFilter extends _$NoticeFilter {
+@Riverpod(dependencies: [])
+class ReportFilter extends _$ReportFilter {
   @override
-  NoticeFilterState build() {
+  ReportFilterState build() {
     final user = ref.watch(userDetailsProvider).value!;
-    return NoticeFilterState(user: user, archived: false);
+    return ReportFilterState(user: user, archived: false);
   }
 
   void search(String name) {
     state = state.copyWith(search: name);
   }
 
-  void apply(NoticeFilterState newState) {
+  void apply(ReportFilterState newState) {
     state = newState;
   }
 }
 
 @freezed
-sealed class NoticeFilterState with _$NoticeFilterState {
-  NoticeFilterState._();
-  factory NoticeFilterState(
+sealed class ReportFilterState with _$ReportFilterState {
+  ReportFilterState._();
+  factory ReportFilterState(
       {required Staff user,
       @Default("") String search,
-      NoticeType? type,
-      NoticeStatus? status,
+      ReportType? type,
+      ReportStatus? status,
       bool? archived,
-      DateTimeRange? noticedAt,
-      DateTimeRange? deadlineAt}) = _NoticeFilterState;
+      DateTimeRange? reportedAt,}) = _ReportFilterState;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> result = {};
@@ -47,29 +46,26 @@ sealed class NoticeFilterState with _$NoticeFilterState {
     archived != null ? result["archived"] = {"eq": archived} : null;
     type != null ? result["type"] = {"eq": type!.name} : null;
     status != null ? result["type"] = {"eq": status!.name} : null;
-    noticedAt != null
-        ? result["noticedAt"] = {"between": betweenDateRange(noticedAt!)}
-        : null;
-    deadlineAt != null
-        ? result["deadlineAt"] = {"between": betweenDateRange(deadlineAt!)}
+    reportedAt != null
+        ? result["createdAt"] = {"between": betweenDateRange(reportedAt!)}
         : null;
     return result;
   }
 }
 
-class NoticesFilterView extends ConsumerWidget {
-  const NoticesFilterView({super.key});
+class ReportsFilterView extends ConsumerWidget {
+  const ReportsFilterView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var filter = ref.watch(noticeFilterProvider);
+    var filter = ref.watch(reportFilterProvider);
     return AlertDialog.adaptive(
       title: const Text('Filter By:'),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          GlobalDropdownMenu<NoticeType>(
-            entries: NoticeType.values.map(
+          GlobalDropdownMenu<ReportType>(
+            entries: ReportType.values.map(
               (e) {
                 return DropdownMenuEntry(
                     value: e, label: e.name.replaceAll('_', ' '));
@@ -79,10 +75,10 @@ class NoticesFilterView extends ConsumerWidget {
               filter = filter.copyWith(type: value);
             },
             initialSelection: filter.type,
-            text: "Notice Type",
+            text: "Report Type",
           ),
-          GlobalDropdownMenu<NoticeStatus>(
-            entries: NoticeStatus.values.map(
+          GlobalDropdownMenu<ReportStatus>(
+            entries: ReportStatus.values.map(
               (e) {
                 return DropdownMenuEntry(value: e, label: e.name);
               },
@@ -91,7 +87,7 @@ class NoticesFilterView extends ConsumerWidget {
               filter = filter.copyWith(status: value);
             },
             initialSelection: filter.status,
-            text: "Notice Status",
+            text: "Report Status",
           ),
           GlobalDropdownMenu(
             entries: const [
@@ -108,21 +104,11 @@ class NoticesFilterView extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.all(8),
             child: DateTimeRangePicker(
-              text: "Select notice date range",
+              text: "Select report date range",
               onSubmitted: (value) {
-                filter = filter.copyWith(noticedAt: value);
+                filter = filter.copyWith(reportedAt: value);
               },
-              initialDateRange: filter.noticedAt,
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: DateTimeRangePicker(
-              text: "Select deadline date range",
-              onSubmitted: (value) {
-                filter = filter.copyWith(deadlineAt: value);
-              },
-              initialDateRange: filter.deadlineAt,
+              initialDateRange: filter.reportedAt,
             ),
           ),
         ],
@@ -135,7 +121,7 @@ class NoticesFilterView extends ConsumerWidget {
         ),
         TextButton(
           onPressed: () {
-            ref.invalidate(noticeFilterProvider);
+            ref.invalidate(reportFilterProvider);
             Navigator.pop(context);
           },
           child: const Text("Reset filter"),
@@ -143,7 +129,7 @@ class NoticesFilterView extends ConsumerWidget {
         // apply
         TextButton(
           onPressed: () {
-            ref.read(noticeFilterProvider.notifier).apply(filter);
+            ref.read(reportFilterProvider.notifier).apply(filter);
             Navigator.pop(context);
           },
           child: const Text('Apply'),

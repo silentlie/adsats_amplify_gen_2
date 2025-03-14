@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/notification/notifications.dart';
-import 'package:adsats_amplify_gen_2/pages/main/home/navigate_icon_button.dart';
+import 'package:adsats_amplify_gen_2/widgets/navigate_icon_button.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

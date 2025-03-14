@@ -2,8 +2,8 @@ import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-export 'package:adsats_amplify_gen_2/pages/main/compliances/create_report/internal_audit_report/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/compliances/create_report/external_audit_report/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/compliance/create_report/internal_audit_report/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/compliance/create_report/external_audit_report/route.dart';
 
 
 

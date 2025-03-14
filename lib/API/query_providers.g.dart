@@ -956,6 +956,140 @@ class _ListNoticeStaffProviderElement
   QueryPredicate<Model>? get where => (origin as ListNoticeStaffProvider).where;
 }
 
+String _$listReportStaffHash() => r'948c826c550936d2bb6b59dc26f7ce92a65205f2';
+
+/// See also [listReportStaff].
+@ProviderFor(listReportStaff)
+const listReportStaffProvider = ListReportStaffFamily();
+
+/// See also [listReportStaff].
+class ListReportStaffFamily extends Family<AsyncValue<List<ReportStaff>>> {
+  /// See also [listReportStaff].
+  const ListReportStaffFamily();
+
+  /// See also [listReportStaff].
+  ListReportStaffProvider call([
+    QueryPredicate<Model>? where,
+  ]) {
+    return ListReportStaffProvider(
+      where,
+    );
+  }
+
+  @override
+  ListReportStaffProvider getProviderOverride(
+    covariant ListReportStaffProvider provider,
+  ) {
+    return call(
+      provider.where,
+    );
+  }
+
+  static final Iterable<ProviderOrFamily> _dependencies =
+      const <ProviderOrFamily>[];
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
+      const <ProviderOrFamily>{};
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'listReportStaffProvider';
+}
+
+/// See also [listReportStaff].
+class ListReportStaffProvider
+    extends AutoDisposeFutureProvider<List<ReportStaff>> {
+  /// See also [listReportStaff].
+  ListReportStaffProvider([
+    QueryPredicate<Model>? where,
+  ]) : this._internal(
+          (ref) => listReportStaff(
+            ref as ListReportStaffRef,
+            where,
+          ),
+          from: listReportStaffProvider,
+          name: r'listReportStaffProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$listReportStaffHash,
+          dependencies: ListReportStaffFamily._dependencies,
+          allTransitiveDependencies:
+              ListReportStaffFamily._allTransitiveDependencies,
+          where: where,
+        );
+
+  ListReportStaffProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.where,
+  }) : super.internal();
+
+  final QueryPredicate<Model>? where;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<ReportStaff>> Function(ListReportStaffRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: ListReportStaffProvider._internal(
+        (ref) => create(ref as ListReportStaffRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        where: where,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<ReportStaff>> createElement() {
+    return _ListReportStaffProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ListReportStaffProvider && other.where == where;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, where.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin ListReportStaffRef on AutoDisposeFutureProviderRef<List<ReportStaff>> {
+  /// The parameter `where` of this provider.
+  QueryPredicate<Model>? get where;
+}
+
+class _ListReportStaffProviderElement
+    extends AutoDisposeFutureProviderElement<List<ReportStaff>>
+    with ListReportStaffRef {
+  _ListReportStaffProviderElement(super.provider);
+
+  @override
+  QueryPredicate<Model>? get where => (origin as ListReportStaffProvider).where;
+}
+
 String _$listDocumentsHash() => r'91cd9ce0a6491dbe49a50e68f028c1ae75d135fc';
 
 /// See also [listDocuments].
