@@ -203,6 +203,14 @@ class Router extends _$Router {
           ),
         ],
       ),
+      TypedStatefulShellBranch<KPIShellBranchData>(
+        routes: <TypedRoute<RouteData>>[
+          TypedGoRoute<KPIRoute>(
+            path: '/kpi',
+            name: 'K.P.I',
+          ),
+        ],
+      ),
     ],
   ),
   TypedStatefulShellRoute<AdminShellRouteData>(

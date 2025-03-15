@@ -10,7 +10,10 @@ class SafetyNoticePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      overrides: [noticeNotifierProvider, selectedFilesProvider,],
+      overrides: [
+        noticeNotifierProvider,
+        selectedFilesProvider,
+      ],
       child: Consumer(
         builder: (context, ref, child) {
           final notifier = ref.read(noticeNotifierProvider.notifier);

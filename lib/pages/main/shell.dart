@@ -15,6 +15,7 @@ export 'package:adsats_amplify_gen_2/pages/main/crew_documents/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/profile/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/help/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/reset_password//route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/kpi/route.dart';
 
 class MainShellRouteData extends StatefulShellRouteData {
   const MainShellRouteData();

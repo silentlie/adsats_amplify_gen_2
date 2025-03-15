@@ -14,25 +14,25 @@ part of 'sort.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$NoticeSortState {
+mixin _$StaffKPISortState {
   bool get sortAscending;
   int get sortColumnIndex;
-  Comparable Function(Notice notice) get getField;
+  Comparable Function(StaffKPI staffKPI) get getField;
   int get rowsPerPage;
 
-  /// Create a copy of NoticeSortState
+  /// Create a copy of StaffKPISortState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $NoticeSortStateCopyWith<NoticeSortState> get copyWith =>
-      _$NoticeSortStateCopyWithImpl<NoticeSortState>(
-          this as NoticeSortState, _$identity);
+  $StaffKPISortStateCopyWith<StaffKPISortState> get copyWith =>
+      _$StaffKPISortStateCopyWithImpl<StaffKPISortState>(
+          this as StaffKPISortState, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is NoticeSortState &&
+            other is StaffKPISortState &&
             (identical(other.sortAscending, sortAscending) ||
                 other.sortAscending == sortAscending) &&
             (identical(other.sortColumnIndex, sortColumnIndex) ||
@@ -49,32 +49,32 @@ mixin _$NoticeSortState {
 
   @override
   String toString() {
-    return 'NoticeSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
+    return 'StaffKPISortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
   }
 }
 
 /// @nodoc
-abstract mixin class $NoticeSortStateCopyWith<$Res> {
-  factory $NoticeSortStateCopyWith(
-          NoticeSortState value, $Res Function(NoticeSortState) _then) =
-      _$NoticeSortStateCopyWithImpl;
+abstract mixin class $StaffKPISortStateCopyWith<$Res> {
+  factory $StaffKPISortStateCopyWith(
+          StaffKPISortState value, $Res Function(StaffKPISortState) _then) =
+      _$StaffKPISortStateCopyWithImpl;
   @useResult
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Notice) getField,
+      Comparable<dynamic> Function(StaffKPI) getField,
       int rowsPerPage});
 }
 
 /// @nodoc
-class _$NoticeSortStateCopyWithImpl<$Res>
-    implements $NoticeSortStateCopyWith<$Res> {
-  _$NoticeSortStateCopyWithImpl(this._self, this._then);
+class _$StaffKPISortStateCopyWithImpl<$Res>
+    implements $StaffKPISortStateCopyWith<$Res> {
+  _$StaffKPISortStateCopyWithImpl(this._self, this._then);
 
-  final NoticeSortState _self;
-  final $Res Function(NoticeSortState) _then;
+  final StaffKPISortState _self;
+  final $Res Function(StaffKPISortState) _then;
 
-  /// Create a copy of NoticeSortState
+  /// Create a copy of StaffKPISortState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -96,7 +96,7 @@ class _$NoticeSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Notice),
+              as Comparable<dynamic> Function(StaffKPI),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -107,10 +107,10 @@ class _$NoticeSortStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _NoticeSortState implements NoticeSortState {
-  _NoticeSortState(
+class _StaffKPISortState implements StaffKPISortState {
+  _StaffKPISortState(
       {this.sortAscending = false,
-      this.sortColumnIndex = 3,
+      this.sortColumnIndex = 2,
       required this.getField,
       this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage});
 
@@ -121,24 +121,24 @@ class _NoticeSortState implements NoticeSortState {
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable<dynamic> Function(Notice) getField;
+  final Comparable<dynamic> Function(StaffKPI) getField;
   @override
   @JsonKey()
   final int rowsPerPage;
 
-  /// Create a copy of NoticeSortState
+  /// Create a copy of StaffKPISortState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$NoticeSortStateCopyWith<_NoticeSortState> get copyWith =>
-      __$NoticeSortStateCopyWithImpl<_NoticeSortState>(this, _$identity);
+  _$StaffKPISortStateCopyWith<_StaffKPISortState> get copyWith =>
+      __$StaffKPISortStateCopyWithImpl<_StaffKPISortState>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _NoticeSortState &&
+            other is _StaffKPISortState &&
             (identical(other.sortAscending, sortAscending) ||
                 other.sortAscending == sortAscending) &&
             (identical(other.sortColumnIndex, sortColumnIndex) ||
@@ -155,34 +155,34 @@ class _NoticeSortState implements NoticeSortState {
 
   @override
   String toString() {
-    return 'NoticeSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
+    return 'StaffKPISortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$NoticeSortStateCopyWith<$Res>
-    implements $NoticeSortStateCopyWith<$Res> {
-  factory _$NoticeSortStateCopyWith(
-          _NoticeSortState value, $Res Function(_NoticeSortState) _then) =
-      __$NoticeSortStateCopyWithImpl;
+abstract mixin class _$StaffKPISortStateCopyWith<$Res>
+    implements $StaffKPISortStateCopyWith<$Res> {
+  factory _$StaffKPISortStateCopyWith(
+          _StaffKPISortState value, $Res Function(_StaffKPISortState) _then) =
+      __$StaffKPISortStateCopyWithImpl;
   @override
   @useResult
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Notice) getField,
+      Comparable<dynamic> Function(StaffKPI) getField,
       int rowsPerPage});
 }
 
 /// @nodoc
-class __$NoticeSortStateCopyWithImpl<$Res>
-    implements _$NoticeSortStateCopyWith<$Res> {
-  __$NoticeSortStateCopyWithImpl(this._self, this._then);
+class __$StaffKPISortStateCopyWithImpl<$Res>
+    implements _$StaffKPISortStateCopyWith<$Res> {
+  __$StaffKPISortStateCopyWithImpl(this._self, this._then);
 
-  final _NoticeSortState _self;
-  final $Res Function(_NoticeSortState) _then;
+  final _StaffKPISortState _self;
+  final $Res Function(_StaffKPISortState) _then;
 
-  /// Create a copy of NoticeSortState
+  /// Create a copy of StaffKPISortState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -192,7 +192,7 @@ class __$NoticeSortStateCopyWithImpl<$Res>
     Object? getField = null,
     Object? rowsPerPage = null,
   }) {
-    return _then(_NoticeSortState(
+    return _then(_StaffKPISortState(
       sortAscending: null == sortAscending
           ? _self.sortAscending
           : sortAscending // ignore: cast_nullable_to_non_nullable
@@ -204,7 +204,7 @@ class __$NoticeSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Notice),
+              as Comparable<dynamic> Function(StaffKPI),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

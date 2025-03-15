@@ -22,7 +22,6 @@ FutureOr<List<Report>> reportsInboxRepo(
   if (reportIds.isEmpty) {
     return [];
   }
-  //TODO fix
   filterJson["or"] = reportIds
       .map((e) => {
             "id": {"eq": e.report!.id}

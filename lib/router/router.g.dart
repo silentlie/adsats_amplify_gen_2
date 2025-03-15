@@ -209,6 +209,15 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 ),
               ],
             ),
+            StatefulShellBranchData.$branch(
+              routes: [
+                GoRouteData.$route(
+                  path: '/kpi',
+                  name: 'K.P.I',
+                  factory: $KPIRouteExtension._fromState,
+                ),
+              ],
+            ),
           ],
         ),
         StatefulShellRouteData.$route(
@@ -625,6 +634,23 @@ extension $ResetPasswordRouteExtension on ResetPasswordRoute {
 
   String get location => GoRouteData.$location(
         '/reset-password',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $KPIRouteExtension on KPIRoute {
+  static KPIRoute _fromState(GoRouterState state) => const KPIRoute();
+
+  String get location => GoRouteData.$location(
+        '/kpi',
       );
 
   void go(BuildContext context) => context.go(location);

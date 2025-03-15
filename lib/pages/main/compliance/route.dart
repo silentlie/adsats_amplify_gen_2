@@ -10,7 +10,7 @@ export 'package:adsats_amplify_gen_2/pages/main/compliance/view_report/route.dar
 part 'page.dart';
 
 class ComplianceShellBranchData extends StatefulShellBranchData {
-  static String $initialLocation = ComplianceInboxRoute().location;
+  static String $initialLocation = ComplianceSentRoute().location;
   const ComplianceShellBranchData();
 }
 

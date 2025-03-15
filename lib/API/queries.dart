@@ -1,3 +1,30 @@
+const listStaffKPI = '''
+query listStaffKPI(
+  \$staffFilter: ModelStaffFilterInput,
+  \$noticeFilter: ModelNoticeFilterInput,
+  \$reportFilter: ModelReportFilterInput,
+) {
+  listStaff(filter: \$staffFilter) {
+    items {
+      id
+      name
+      archived
+      notices(filter: \$noticeFilter) {
+        items {
+          id
+          type
+        }
+      }
+      reports(filter: \$reportFilter) {
+        items {
+          id
+          type
+        }
+      }
+    }
+  }
+}
+''';
 const listStaffByRole = '''
 query ListCrewDocumentCategories(\$roleName: String!) {
   listRoles(filter: {name: {eq: \$roleName}}) {

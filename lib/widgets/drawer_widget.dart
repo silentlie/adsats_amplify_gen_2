@@ -54,6 +54,14 @@ class DrawerWidget extends ConsumerWidget {
                 AircraftRoute().push(context);
               },
             ),
+          if (ref.watch(isAdminProvider))
+            ListTile(
+              leading: KPIRoute().icon,
+              title: const Text('K.P.I'),
+              onTap: () {
+                KPIRoute().push(context);
+              },
+            ),
           ListTile(
             leading: HelpRoute().icon,
             title: const Text('Help'),

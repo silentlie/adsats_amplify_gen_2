@@ -21,9 +21,11 @@ class ViewReportRoute extends RouteInfo {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return MaterialPage(
-        child: ViewReportPage(
-      id: id,
-    ));
+    return DialogPage(
+      key: state.pageKey,
+      child: ViewReportPage(
+        id: id,
+      ),
+    );
   }
 }
