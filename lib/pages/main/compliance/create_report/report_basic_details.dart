@@ -97,8 +97,7 @@ class ReportBasicDetails extends ConsumerWidget {
                   dropdownMenuEntries: ReportStatus.values
                       .where(
                         (element) {
-                          if (element != ReportStatus.Pending ||
-                              element != ReportStatus.Closed) {
+                          if (element != ReportStatus.Closed) {
                             return true;
                           }
                           return isQualityManager;
@@ -106,7 +105,9 @@ class ReportBasicDetails extends ConsumerWidget {
                       )
                       .map((e) => DropdownMenuEntry(value: e, label: e.name))
                       .toList(),
-                  initialSelection: report.status,
+                  initialSelection: ref.watch(reportNotifierProvider.select(
+                    (value) => value.report.status,
+                  )),
                   enabled: isEditMode,
                   onSelected: (value) {
                     notifier.updateStatus(value!);

@@ -17,14 +17,13 @@ class InternalAuditReportPage extends StatelessWidget {
           notifier.setReport(
             report ??
                 Report(
-                  subject: "",
-                  archived: false,
-                  details: "{}",
-                  recipients: [],
-                  status: ReportStatus.Open,
-                  type: ReportType.Internal_audit_report,
-                  documents: []
-                ),
+                    subject: "",
+                    archived: false,
+                    details: "{}",
+                    recipients: [],
+                    status: ReportStatus.Open,
+                    type: ReportType.Internal_audit_report,
+                    documents: []),
             report != null,
           );
           return Center(
@@ -79,6 +78,9 @@ class InternalAuditReportBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final status = ref.watch(reportNotifierProvider.select((value) {
+      return value.report.status!;
+    }));
     final details = ref.read(reportNotifierProvider.select(
       (value) => value.details,
     ));
@@ -99,6 +101,16 @@ class InternalAuditReportBody extends ConsumerWidget {
           enabled: isEditMode,
         ),
         DiscrepanciesWidget(),
+        if (status == ReportStatus.Pending)
+          GlobalTextFormField(
+            labelText: "Pending Comment",
+            onSaved: (value) {
+              notifier.updateDetails({'peding_comment': value});
+            },
+            initialValue: details["peding_comment"],
+            enabled: isEditMode,
+            maxLines: 3,
+          ),
         QualityManagerSection(),
       ],
     );

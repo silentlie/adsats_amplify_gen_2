@@ -73,6 +73,16 @@ class DiscrepanciesWidget extends ConsumerWidget {
             enabled: isEditMode,
             minLines: 3,
           ),
+        if (isDiscrepanciesFound)
+          GlobalTextFormField(
+            labelText: "Pending Comment",
+            onSaved: (value) {
+              notifier.updateDetails({'peding_comment': value});
+            },
+            initialValue: details["peding_comment"],
+            enabled: isEditMode,
+            maxLines: 3,
+          ),
         if (!isDiscrepanciesFound)
           GlobalTextFormField(
             labelText: 'Comments',
@@ -96,7 +106,7 @@ class QualityManagerSection extends ConsumerWidget {
     final status = ref.watch(reportNotifierProvider.select((value) {
       return value.report.status!;
     }));
-    if (status == ReportStatus.Draft || status == ReportStatus.Open) {
+    if (status != ReportStatus.Closed) {
       return SizedBox();
     }
     final report = ref.read(reportNotifierProvider).report;
@@ -109,29 +119,36 @@ class QualityManagerSection extends ConsumerWidget {
     final details = ref.read(reportNotifierProvider.select(
       (value) => value.details,
     ));
-
+    bool isDiscrepanciesFound = ref.watch(
+      reportNotifierProvider.select((value) {
+        final isIncluded = value.details["is_discrepancies_found"] as bool?;
+        if (isIncluded == null) {
+          notifier.updateDetails({'is_discrepancies_found': false});
+          return false;
+        }
+        return isIncluded;
+      }),
+    );
     return Column(
       children: [
         const Divider(),
-        if (status == ReportStatus.Pending)
+        Text(
+          "Quality Manager Section",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        if (isDiscrepanciesFound)
           GlobalTextFormField(
-            labelText: "Pending Comment",
+            labelText: "Corrective Action",
             onSaved: (value) {
-              notifier.updateDetails({'peding_comment': value});
+              notifier.updateDetails({'corrective_action': value});
             },
-            initialValue: details["peding_comment"],
+            initialValue: details["corrective_action"],
             enabled: isEditMode,
             maxLines: 3,
           ),
-        GlobalTextFormField(
-          labelText: "Corrective Action",
-          onSaved: (value) {
-            notifier.updateDetails({'corrective_action': value});
-          },
-          initialValue: details["corrective_action"],
-          enabled: isEditMode,
-          maxLines: 3,
-        ),
         Row(
           children: [
             Flexible(

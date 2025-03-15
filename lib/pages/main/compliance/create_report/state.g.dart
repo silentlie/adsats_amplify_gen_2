@@ -158,7 +158,7 @@ class _StaffByRoleNameProviderElement
   String get roleName => (origin as StaffByRoleNameProvider).roleName;
 }
 
-String _$reportNotifierHash() => r'069ac13ccd5e689b8bfd47e40983d2bd46c770ef';
+String _$reportNotifierHash() => r'7081a6234101dca9998711953f6d8f2f1b305086';
 
 /// See also [ReportNotifier].
 @ProviderFor(ReportNotifier)
@@ -169,15 +169,21 @@ final reportNotifierProvider =
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$reportNotifierHash,
-  dependencies: <ProviderOrFamily>[
+  dependencies: <ProviderOrFamily>{
+    selectedFilesProvider,
     isQualityManagerProvider,
-    userDetailsProvider
-  ],
+    userDetailsProvider,
+    staffByRoleNameProvider
+  },
   allTransitiveDependencies: <ProviderOrFamily>{
+    selectedFilesProvider,
+    ...?selectedFilesProvider.allTransitiveDependencies,
     isQualityManagerProvider,
     ...?isQualityManagerProvider.allTransitiveDependencies,
     userDetailsProvider,
-    ...?userDetailsProvider.allTransitiveDependencies
+    ...?userDetailsProvider.allTransitiveDependencies,
+    staffByRoleNameProvider,
+    ...?staffByRoleNameProvider.allTransitiveDependencies
   },
 );
 

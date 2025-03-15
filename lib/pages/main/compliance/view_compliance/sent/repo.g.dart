@@ -6,7 +6,7 @@ part of 'repo.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$reportsSentRepoHash() => r'24aeb5ac4e202092d95c1445324d1e4464ebe50f';
+String _$reportsSentRepoHash() => r'a784d206be019459a23af941befcfc1242d57445';
 
 /// Copied from Dart SDK
 class _SystemHash {

@@ -188,7 +188,7 @@ const schema = a
       auditorId: a.id().required(),
       auditor: a.belongsTo("Staff", "auditorId"),
       reportedAt: a.datetime(),
-      closerId: a.id().required(),
+      closerId: a.id(),
       closer: a.belongsTo("Staff", "closerId"),
       closeAt: a.datetime(),
       recipients: a.hasMany("ReportStaff", "reportId"),

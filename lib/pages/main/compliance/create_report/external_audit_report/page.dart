@@ -53,7 +53,7 @@ class ExternalAuditReportPage extends StatelessWidget {
                         ),
                         ReportBasicDetails(),
                         const Divider(),
-                        InternalAuditReportBody(),
+                        ExternalAuditReportBody(),
                         const Divider(),
                         ReportRecipients(),
                         const Divider(),
@@ -131,15 +131,7 @@ class ExternalAuditReportBody extends ConsumerWidget {
           enabled: isEditMode,
           minLines: 5,
         ),
-        GlobalTextFormField(
-          labelText: "Comments",
-          onSaved: (value) {
-            notifier.updateDetails({'comments': value});
-          },
-          initialValue: details["comments"],
-          enabled: isEditMode,
-          minLines: 3,
-        ),
+        DiscrepanciesWidget(),
         QualityManagerSection()
       ],
     );

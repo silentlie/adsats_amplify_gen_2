@@ -16,7 +16,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'state.g.dart';
 part 'state.freezed.dart';
 
-@Riverpod(dependencies: [SelectedFiles, isQualityManager, userDetails])
+@Riverpod(dependencies: [
+  SelectedFiles,
+  isQualityManager,
+  userDetails,
+  staffByRoleName,
+])
 class ReportNotifier extends _$ReportNotifier {
   ReportNotifier();
   Report? _initialReport;
@@ -45,7 +50,6 @@ class ReportNotifier extends _$ReportNotifier {
 
   Future<void> submit(bool isSend) async {
     state.formKey.currentState!.save();
-
     final List<Future> futures = switch (isEditable()) {
       true => [
           update(state.report),
@@ -121,12 +125,18 @@ class ReportNotifier extends _$ReportNotifier {
 
   //This does trigger rebuild
   void updateDetailsTriggerWatch(Map<String, dynamic> details) {
+    final updatedDetails = {
+      ...state.details,
+      ...details,
+    };
+
+    final status = updatedDetails['is_discrepancies_found'] == true
+        ? ReportStatus.Pending
+        : ReportStatus.Open;
     state = state.copyWith(
       report: state.report.copyWith(
-        details: jsonEncode({
-          ...state.details,
-          ...details,
-        }),
+        details: jsonEncode(updatedDetails),
+        status: status,
       ),
     );
   }
@@ -142,8 +152,19 @@ class ReportNotifier extends _$ReportNotifier {
   }
 
   void updateStatus(ReportStatus status) {
+    Map<String, dynamic>? details = Map.from(state.details);
+    if (status == ReportStatus.Open) {
+      details['is_discrepancies_found'] = false;
+    } else if (status == ReportStatus.Open) {
+      details['is_discrepancies_found'] = true;
+    } else {
+      details = null;
+    }
     state = state.copyWith(
-      report: state.report.copyWith(status: status),
+      report: state.report.copyWith(
+        status: status,
+        details: details != null ? jsonEncode(details) : null,
+      ),
     );
   }
 
