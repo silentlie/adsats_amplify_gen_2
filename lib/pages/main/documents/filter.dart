@@ -32,8 +32,7 @@ sealed class DocumentFilterState with _$DocumentFilterState {
   factory DocumentFilterState({
     required Subcategory subcategory,
     @Default("") String search,
-    @Default(false)
-    bool? archived,
+    @Default(false) bool? archived,
     DateTimeRange? createdAt,
   }) = _DocumentFilterState;
 

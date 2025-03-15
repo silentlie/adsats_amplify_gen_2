@@ -148,7 +148,7 @@ class Router extends _$Router {
                   TypedStatefulShellBranch<InternalAuditReportShellBranchData>(
                     routes: <TypedRoute<RouteData>>[
                       TypedGoRoute<InternalAuditReportRoute>(
-                        path: '/internal-audit-report',
+                        path: 'internal-audit-report',
                         name: 'Internal Audit Report',
                       ),
                     ],

@@ -6,7 +6,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<void> getNoticeDocumentFileUrl(NoticeDocument document, Notice notice) async {
+Future<void> getNoticeDocumentFileUrl(
+    NoticeDocument document, Notice notice) async {
   try {
     final result = await Amplify.Storage.getUrl(
       path: StoragePath.fromString(

@@ -21,8 +21,10 @@ class SubcategoriesPage extends ConsumerWidget {
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
-          final dataSource =
-              SubcategoryDataSource(sortedData: data, context: context,);
+          final dataSource = SubcategoryDataSource(
+            sortedData: data,
+            context: context,
+          );
           final sortNotifier = ref.read(subcategorySortProvider.notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
@@ -113,7 +115,9 @@ class SubcategoriesPage extends ConsumerWidget {
             onPageChanged: (rowIndex) {
               // debugPrint((rowIndex / _rowsPerPage).toString());
             },
-            header: SubcategoryHeader(category: value,),
+            header: SubcategoryHeader(
+              category: value,
+            ),
             dataRowHeight: 62,
             showCheckboxColumn: false,
             // dynamic change rows per page based on height of screen

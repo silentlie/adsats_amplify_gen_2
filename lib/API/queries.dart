@@ -1,3 +1,23 @@
+const listStaffByRole = '''
+query ListCrewDocumentCategories(\$roleName: String!) {
+  listRoles(filter: {name: {eq: \$roleName}}) {
+    items {
+      id
+      name
+      staff {
+        items {
+          id
+          staff {
+            id
+            name
+          }
+        }
+      }
+    }
+  }
+}
+''';
+
 const listReports = '''
 query ListNotices(\$filter: ModelReportFilterInput) {
   listReports(filter: \$filter) {
@@ -178,6 +198,7 @@ query ListCrewDocumentsCrews(\$filter: ModelCrewDocumentFilterInput) {
 const listCrewDocumentCrews = '''
 query ListCrewDocumentCrews(\$aircraftId: ID!, \$roleId: ID!) {
   getRole(id: \$roleId) {
+    id
     staff {
       items {
         staff {

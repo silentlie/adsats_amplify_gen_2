@@ -29,48 +29,48 @@ class CrewDocumentActions extends ConsumerWidget {
           tooltip: "Download",
         ),
         if (isAdmin)
-        IconButton(
-          onPressed: () async {
-            final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text(
-                "Do you want to ${crewDocument.archived ? "unarchive" : "archive"} this crew document?",
-              ),
-            );
-            if (result) {
-              await update(
-                  crewDocument.copyWith(archived: !crewDocument.archived));
-              ref.invalidate(crewDocumentsRepoProvider);
-              controller.close();
-            }
-          },
-          icon: Icon(
-            crewDocument.archived
-                ? Icons.unarchive_outlined
-                : Icons.archive_outlined,
+          IconButton(
+            onPressed: () async {
+              final result = await showConfirmDialog(
+                context,
+                Text("Are you sure?"),
+                Text(
+                  "Do you want to ${crewDocument.archived ? "unarchive" : "archive"} this crew document?",
+                ),
+              );
+              if (result) {
+                await update(
+                    crewDocument.copyWith(archived: !crewDocument.archived));
+                ref.invalidate(crewDocumentsRepoProvider);
+                controller.close();
+              }
+            },
+            icon: Icon(
+              crewDocument.archived
+                  ? Icons.unarchive_outlined
+                  : Icons.archive_outlined,
+            ),
+            tooltip: crewDocument.archived
+                ? "Unarchive this crew document"
+                : "Archive this crew document",
           ),
-          tooltip: crewDocument.archived
-              ? "Unarchive this crew document"
-              : "Archive this crew document",
-        ),
         if (isAdmin)
-        IconButton(
-          onPressed: () async {
-            final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text(
-                  "Do you want to delete this crew document?\nIt also deletes its documents"),
-            );
-            if (result) {
-              await deleteCrewDocument(crewDocument);
-              ref.invalidate(crewDocumentsRepoProvider);
-              controller.close();
-            }
-          },
-          icon: const Icon(Icons.delete_outline),
-        ),
+          IconButton(
+            onPressed: () async {
+              final result = await showConfirmDialog(
+                context,
+                Text("Are you sure?"),
+                Text(
+                    "Do you want to delete this crew document?\nIt also deletes its documents"),
+              );
+              if (result) {
+                await deleteCrewDocument(crewDocument);
+                ref.invalidate(crewDocumentsRepoProvider);
+                controller.close();
+              }
+            },
+            icon: const Icon(Icons.delete_outline),
+          ),
       ],
       builder: (context, controller, child) {
         return IconButton(

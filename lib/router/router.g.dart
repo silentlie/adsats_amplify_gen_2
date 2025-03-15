@@ -145,7 +145,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                         StatefulShellBranchData.$branch(
                           routes: [
                             GoRouteData.$route(
-                              path: '/internal-audit-report',
+                              path: 'internal-audit-report',
                               name: 'Internal Audit Report',
                               factory:
                                   $InternalAuditReportRouteExtension._fromState,
@@ -517,7 +517,7 @@ extension $InternalAuditReportRouteExtension on InternalAuditReportRoute {
       const InternalAuditReportRoute();
 
   String get location => GoRouteData.$location(
-        '/internal-audit-report',
+        '/compliance/internal-audit-report',
       );
 
   void go(BuildContext context) => context.go(location);

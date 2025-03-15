@@ -20,7 +20,7 @@ class HelpPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 100),
-             Text(
+            Text(
               'Please email Ben or contact the IT helpdesk.',
               style: TextStyle(
                 fontSize: 18,

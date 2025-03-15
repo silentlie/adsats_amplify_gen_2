@@ -1,6 +1,6 @@
 part of 'route.dart';
 
-class SafetyNoticePage extends ConsumerWidget {
+class SafetyNoticePage extends StatelessWidget {
   const SafetyNoticePage({
     super.key,
     this.notice,
@@ -8,7 +8,7 @@ class SafetyNoticePage extends ConsumerWidget {
   final Notice? notice;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return ProviderScope(
       overrides: [noticeNotifierProvider],
       child: Consumer(

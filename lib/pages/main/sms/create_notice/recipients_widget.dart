@@ -54,7 +54,7 @@ class NoticeRecipientsWidget extends ConsumerWidget {
                       return element.name == "Safety Officer";
                     },
                   ).toList());
-                  return Text("This notice will be sent to Safety Officer");
+                  return Text("This notice will be sent to Safety Officers");
                 }
                 return GlobalMultiSelect<Role>(
                   text: "Roles",

@@ -41,8 +41,7 @@ class DocumentDataSource extends DataTableSource {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(20),
                 // maybe make it follow color scheme
-                color:
-                    document.archived ? Colors.grey : Colors.blue.shade600,
+                color: document.archived ? Colors.grey : Colors.blue.shade600,
               ),
               child: Center(
                 child: Text(document.archived ? "Yes" : "No"),

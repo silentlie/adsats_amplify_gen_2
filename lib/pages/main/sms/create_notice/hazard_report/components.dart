@@ -62,7 +62,7 @@ class MitigateCommentWidget extends ConsumerWidget {
             ],
           ),
         ),
-        if (isIncludedComment == true)
+        if (isIncludedComment)
           GlobalTextFormField(
             labelText:
                 'In your opinion, how could the hazard or event be mitigated?',

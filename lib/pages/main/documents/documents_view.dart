@@ -17,7 +17,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 class DocumentsView extends ConsumerWidget {
-  const DocumentsView({super.key,
+  const DocumentsView({
+    super.key,
     required this.subcategory,
   });
   final Subcategory subcategory;

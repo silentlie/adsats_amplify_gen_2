@@ -21,12 +21,8 @@ class RoleView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isEditing = this.role != null;
-    var role = this.role ??
-        Role(
-          name: "",
-          archived: false,
-        );
-    List<Staff> staff = role.staff?.map((e) => e.staff!).toList() ?? [];
+    var role = this.role ?? Role(name: "", archived: false, staff: []);
+    List<Staff> staff = role.staff!.map((e) => e.staff!).toList();
     return AlertDialog.adaptive(
       title: Text(
         isEditing ? 'Editing ${role.name}' : 'Add an role',
@@ -122,7 +118,7 @@ class RoleView extends ConsumerWidget {
                 if (role != this.role) update(role),
               ]);
             } else {
-              await create(role);
+              await Future.wait([create(role), updateRoleStaff(role, staff)]);
             }
             ref.invalidate(rolesRepoProvider);
             if (!context.mounted) return;

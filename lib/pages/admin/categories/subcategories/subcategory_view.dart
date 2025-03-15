@@ -14,7 +14,11 @@ import 'package:go_router/go_router.dart';
 import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class SubcategoryView extends ConsumerWidget {
-  const SubcategoryView({super.key, this.subcategory, required this.categoryId,});
+  const SubcategoryView({
+    super.key,
+    this.subcategory,
+    required this.categoryId,
+  });
 
   final Subcategory? subcategory;
   final String categoryId;

@@ -11,7 +11,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'filter.g.dart';
 part 'filter.freezed.dart';
 
-@Riverpod(dependencies: [])
+@Riverpod(dependencies: [userDetails])
 class ReportFilter extends _$ReportFilter {
   @override
   ReportFilterState build() {
@@ -31,13 +31,14 @@ class ReportFilter extends _$ReportFilter {
 @freezed
 sealed class ReportFilterState with _$ReportFilterState {
   ReportFilterState._();
-  factory ReportFilterState(
-      {required Staff user,
-      @Default("") String search,
-      ReportType? type,
-      ReportStatus? status,
-      bool? archived,
-      DateTimeRange? reportedAt,}) = _ReportFilterState;
+  factory ReportFilterState({
+    required Staff user,
+    @Default("") String search,
+    ReportType? type,
+    ReportStatus? status,
+    bool? archived,
+    DateTimeRange? reportedAt,
+  }) = _ReportFilterState;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> result = {};

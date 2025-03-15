@@ -41,12 +41,14 @@ class SubcategoryActions extends ConsumerWidget {
                 "Do you want to ${subcategory.archived ? "unarchive" : "archive"} this subcategory?",
               ),
             );
-            if (result)
-            {await update(subcategory.copyWith(archived: !subcategory.archived));
-            ref.invalidate(subcategoriesRepoProvider);
-            controller.close();}
+            if (result) {
+              await update(
+                  subcategory.copyWith(archived: !subcategory.archived));
+              ref.invalidate(subcategoriesRepoProvider);
+              controller.close();
+            }
           },
-           icon: Icon(
+          icon: Icon(
             subcategory.archived
                 ? Icons.unarchive_outlined
                 : Icons.archive_outlined,
@@ -57,15 +59,17 @@ class SubcategoryActions extends ConsumerWidget {
         ),
         IconButton(
           onPressed: () async {
-             final result = await showConfirmDialog(
+            final result = await showConfirmDialog(
               context,
               Text("Are you sure?"),
-              Text("Do you want to delete this subcategory?\nIt also deletes its documents"),
+              Text(
+                  "Do you want to delete this subcategory?\nIt also deletes its documents"),
             );
-            if (result)
-            {await deleteSubcategory(subcategory);
-            ref.invalidate(subcategoriesRepoProvider);
-            controller.close();}
+            if (result) {
+              await deleteSubcategory(subcategory);
+              ref.invalidate(subcategoriesRepoProvider);
+              controller.close();
+            }
           },
           icon: const Icon(Icons.delete_outline),
         ),

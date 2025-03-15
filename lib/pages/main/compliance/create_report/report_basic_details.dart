@@ -1,36 +1,36 @@
 import 'package:adsats_amplify_gen_2/API/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/compliance/create_report/state.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NoticeBasicDetailsWidget extends ConsumerWidget {
-  const NoticeBasicDetailsWidget({super.key});
+class ReportBasicDetails extends ConsumerWidget {
+  const ReportBasicDetails({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notice = ref.watch(noticeNotifierProvider).notice;
-    final isSafetyOfficer = ref.watch(isSafetyOfficerProvider);
-    final notifier = ref.read(noticeNotifierProvider.notifier);
-    final isEditMode = ref.watch(noticeNotifierProvider.select(
+    final report = ref.read(reportNotifierProvider).report;
+    final isQualityManager = ref.watch(isQualityManagerProvider);
+    final notifier = ref.read(reportNotifierProvider.notifier);
+    final isEditMode = ref.watch(reportNotifierProvider.select(
       (value) => value.editMode,
     ));
     return Column(
       children: [
         const Divider(),
-        if (isSafetyOfficer)
+        if (isQualityManager)
           Row(
             children: [
               Expanded(
                 child: GlobalTextFormField(
-                  labelText: 'Notice ID',
+                  labelText: 'Report ID',
                   enabled: false,
-                  initialValue: notice.id,
+                  initialValue: report.id,
                   onSaved: (value) {},
                 ),
               ),
@@ -44,8 +44,8 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
                                 e.id ==
                                 ref.watch(userDetailsProvider).valueOrNull!.id,
                           )
-                        : notice.author!;
-                    notifier.updateNotice(
+                        : report.author!;
+                    notifier.updateReport(
                       author: initialSelection,
                     );
                     return GlobalDropdownMenu<Staff>(
@@ -57,46 +57,26 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
                       enabled: isEditMode,
                       initialSelection: initialSelection,
                       onSelected: (value) {
-                        notifier.updateNotice(author: value);
+                        notifier.updateReport(author: value);
                       },
-                      text: "Author of this notice",
+                      text: "Author of this report",
                     );
                   },
                 ),
               ),
             ],
           ),
-        Row(
-          children: [
-            Expanded(
-              child: DatePickerWidget(
-                text: "Notice Date",
-                onSelected: (value) {
-                  notifier.updateNotice(noticedAt: value);
-                },
-                enabled: isEditMode,
-                initialValue: notice.noticedAt,
-                firstDate: DateTime.now().subtract(
-                  const Duration(days: 365 * 10),
-                ),
-                lastDate: DateTime.now(),
-              ),
-            ),
-            Expanded(
-              child: DatePickerWidget(
-                text: "Deadline Date",
-                onSelected: (value) {
-                  notifier.updateNotice(deadlineAt: value);
-                },
-                enabled: isEditMode,
-                initialValue: notice.deadlineAt,
-                firstDate: DateTime.now(),
-                lastDate: DateTime.now().add(
-                  const Duration(days: 365 * 10),
-                ),
-              ),
-            ),
-          ],
+        DatePickerWidget(
+          text: "Report Date",
+          onSelected: (value) {
+            notifier.updateReport(reportedAt: value);
+          },
+          enabled: isEditMode,
+          initialValue: report.reportedAt,
+          firstDate: DateTime.now().subtract(
+            const Duration(days: 365 * 10),
+          ),
+          lastDate: DateTime.now(),
         ),
         Row(
           children: [
@@ -104,9 +84,9 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
               child: GlobalTextFormField(
                 labelText: "Subject",
                 onSaved: (value) {
-                  notifier.updateNotice(subject: value);
+                  notifier.updateReport(subject: value);
                 },
-                initialValue: notice.subject,
+                initialValue: report.subject,
                 enabled: isEditMode,
               ),
             ),
@@ -114,19 +94,19 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
               child: Container(
                 padding: const EdgeInsets.all(8.0),
                 child: DropdownMenu(
-                  dropdownMenuEntries: NoticeStatus.values
+                  dropdownMenuEntries: ReportStatus.values
                       .where(
                         (element) {
-                          if (element != NoticeStatus.Pending ||
-                              element != NoticeStatus.Resolved) {
+                          if (element != ReportStatus.Pending ||
+                              element != ReportStatus.Closed) {
                             return true;
                           }
-                          return isSafetyOfficer;
+                          return isQualityManager;
                         },
                       )
                       .map((e) => DropdownMenuEntry(value: e, label: e.name))
                       .toList(),
-                  initialSelection: notice.status,
+                  initialSelection: report.status,
                   enabled: isEditMode,
                   onSelected: (value) {
                     notifier.updateStatus(value!);

@@ -40,10 +40,11 @@ class AircraftActions extends ConsumerWidget {
                 "Do you want to ${aircraft.archived ? "unarchive" : "archive"} this aircraft?",
               ),
             );
-            if (result)
-            {await update(aircraft.copyWith(archived: !aircraft.archived));
-            ref.invalidate(aircraftRepoProvider);
-            controller.close();}
+            if (result) {
+              await update(aircraft.copyWith(archived: !aircraft.archived));
+              ref.invalidate(aircraftRepoProvider);
+              controller.close();
+            }
           },
           icon: Icon(
             aircraft.archived
@@ -61,10 +62,11 @@ class AircraftActions extends ConsumerWidget {
               Text("Are you sure?"),
               Text("Do you want to delete this aircraft?"),
             );
-            if (result){
-            await deleteAicraft(aircraft);
-            ref.invalidate(aircraftRepoProvider);
-            controller.close();}
+            if (result) {
+              await deleteAicraft(aircraft);
+              ref.invalidate(aircraftRepoProvider);
+              controller.close();
+            }
           },
           icon: const Icon(Icons.delete_outline),
         ),

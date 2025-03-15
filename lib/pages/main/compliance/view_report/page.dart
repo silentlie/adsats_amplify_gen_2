@@ -10,6 +10,21 @@ class ViewReportPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Container();
+    return AsyncValueWidget(
+      value: ref.watch(reportRepoProvider(id)),
+      data: (value) {
+        return switch (value.type) {
+          ReportType.Internal_audit_report => InternalAuditReportPage(
+              report: value,
+            ),
+          ReportType.External_audit_report => ExternalAuditReportPage(
+              report: value,
+            ),
+          _ => Center(
+              child: Text("Unknown report type"),
+            )
+        };
+      },
+    );
   }
 }

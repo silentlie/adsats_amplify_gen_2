@@ -5,7 +5,6 @@ import 'package:go_router/go_router.dart';
 export 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/inbox/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/sent/route.dart';
 
-
 class SmsShellRouteData extends StatefulShellRouteInfo {
   const SmsShellRouteData();
 

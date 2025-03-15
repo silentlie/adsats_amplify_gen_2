@@ -25,8 +25,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       actions: [
         ThemeToggleButton(),
-        if (!isBarebone)
-        const NotificationsWidget(),
+        if (!isBarebone) const NotificationsWidget(),
         if (!isBarebone)
           IconButton(
             icon: const Icon(Icons.menu),

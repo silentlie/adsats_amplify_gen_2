@@ -22,8 +22,9 @@ class SettingsNotifier extends _$SettingsNotifier {
         };
         final isExtended = sf.getBool('isNavigationRailExtended') ?? false;
         return Settings(
-            themeMode: themeMode,
-            isNavigationRailExtended: isExtended,);
+          themeMode: themeMode,
+          isNavigationRailExtended: isExtended,
+        );
       },
       error: (error, stackTrace) {
         throw error;

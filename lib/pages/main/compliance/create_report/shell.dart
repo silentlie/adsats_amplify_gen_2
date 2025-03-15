@@ -5,8 +5,6 @@ import 'package:go_router/go_router.dart';
 export 'package:adsats_amplify_gen_2/pages/main/compliance/create_report/internal_audit_report/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/compliance/create_report/external_audit_report/route.dart';
 
-
-
 class CreateReportShellRouteData extends StatefulShellRouteInfo {
   const CreateReportShellRouteData();
 

@@ -43,9 +43,7 @@ class _DateTimeRangePickerState extends State<DateTimeRangePicker> {
         widget.onSubmitted(_dateTimeRange);
         setState(() {});
       },
-      child: Text(
-        _formatDateRange()
-      ),
+      child: Text(_formatDateRange()),
     );
   }
 

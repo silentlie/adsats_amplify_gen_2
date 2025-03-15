@@ -15,6 +15,7 @@ abstract class ShellRouteInfo extends ShellRouteData implements RouteInfoBase {
   const ShellRouteInfo();
 }
 
-abstract class StatefulShellRouteInfo extends StatefulShellRouteData implements RouteInfoBase {
+abstract class StatefulShellRouteInfo extends StatefulShellRouteData
+    implements RouteInfoBase {
   const StatefulShellRouteInfo();
 }

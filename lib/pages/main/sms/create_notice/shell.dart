@@ -29,7 +29,8 @@ class CreateNoticeShellRouteData extends StatefulShellRouteInfo {
 }
 
 class CreateNoticeShell extends StatelessWidget {
-  const CreateNoticeShell({super.key,
+  const CreateNoticeShell({
+    super.key,
     required this.navigationShell,
   });
   final StatefulNavigationShell navigationShell;

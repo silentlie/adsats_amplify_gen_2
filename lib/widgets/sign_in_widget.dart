@@ -28,8 +28,7 @@ class SignInWidget extends StatelessWidget {
               ),
             ),
             Container(
-              constraints:
-                  const BoxConstraints(maxWidth: 500.0, minWidth: 100),
+              constraints: const BoxConstraints(maxWidth: 500.0, minWidth: 100),
               child: SignInForm(),
             ),
           ],
