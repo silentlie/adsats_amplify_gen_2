@@ -196,7 +196,7 @@ const schema = a
     }),
     ReportDocument: a.model({
       reportId: a.id().required(),
-      reports: a.belongsTo("Report", "noticeId"),
+      reports: a.belongsTo("Report", "reportId"),
       name: a.string().required(),
     }),
     ReportStaff: a
