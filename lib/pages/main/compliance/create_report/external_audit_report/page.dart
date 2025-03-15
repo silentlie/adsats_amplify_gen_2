@@ -22,7 +22,7 @@ class ExternalAuditReportPage extends StatelessWidget {
                     details: "{}",
                     recipients: [],
                     status: ReportStatus.Open,
-                    type: ReportType.Internal_audit_report,
+                    type: ReportType.External_audit_report,
                     documents: []),
             report != null,
           );
@@ -44,7 +44,7 @@ class ExternalAuditReportPage extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.all(8),
                           child: const Text(
-                            'Internal Audit Report',
+                            'External Audit Report',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
