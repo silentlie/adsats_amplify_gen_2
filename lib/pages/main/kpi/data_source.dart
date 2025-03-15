@@ -46,32 +46,27 @@ class KPIDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            staff.noticeToCrews
-                .toString(),
+            staff.noticeToCrews.toString(),
           ),
         ),
         DataCell(
           getCenterText(
-            staff.safetyNotices
-                .toString(),
+            staff.safetyNotices.toString(),
           ),
         ),
         DataCell(
           getCenterText(
-            staff.hazardReports
-                .toString(),
+            staff.hazardReports.toString(),
           ),
         ),
         DataCell(
           getCenterText(
-            staff.internalAuditReports
-                .toString(),
+            staff.internalAuditReports.toString(),
           ),
         ),
         DataCell(
           getCenterText(
-            staff.externalAuditReports
-                .toString(),
+            staff.externalAuditReports.toString(),
           ),
         ),
       ],
