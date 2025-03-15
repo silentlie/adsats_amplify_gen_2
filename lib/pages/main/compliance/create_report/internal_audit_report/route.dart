@@ -1,5 +1,7 @@
 import 'package:adsats_amplify_gen_2/API/query_providers.dart';
+import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/compliance/create_report/documents.dart';
 import 'package:adsats_amplify_gen_2/pages/main/compliance/create_report/report_actions_row.dart';
 import 'package:adsats_amplify_gen_2/pages/main/compliance/create_report/report_basic_details.dart';
 import 'package:adsats_amplify_gen_2/pages/main/compliance/create_report/report_recipients.dart';
@@ -14,7 +16,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 part 'page.dart';
-part 'components.dart';
+part '../components.dart';
 
 class InternalAuditReportShellBranchData extends StatefulShellBranchData {
   const InternalAuditReportShellBranchData();

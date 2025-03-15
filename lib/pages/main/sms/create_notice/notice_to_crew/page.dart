@@ -10,7 +10,7 @@ class NoticeToCrewPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      overrides: [noticeNotifierProvider],
+      overrides: [noticeNotifierProvider, selectedFilesProvider],
       child: Consumer(
         builder: (context, ref, child) {
           final notifier = ref.read(noticeNotifierProvider.notifier);

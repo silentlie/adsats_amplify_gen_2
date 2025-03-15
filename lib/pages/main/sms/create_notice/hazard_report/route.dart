@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/API/query_providers.dart';
+import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/actions_row_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/basic_details_widget.dart';

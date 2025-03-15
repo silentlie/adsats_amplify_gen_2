@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/compliance/create_report/s3.dart';
 import 'package:adsats_amplify_gen_2/pages/main/compliance/view_report/repo.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'state.g.dart';
 part 'state.freezed.dart';
 
-@Riverpod(dependencies: [isQualityManager, userDetails])
+@Riverpod(dependencies: [SelectedFiles, isQualityManager, userDetails])
 class ReportNotifier extends _$ReportNotifier {
   ReportNotifier();
   Report? _initialReport;
@@ -51,18 +53,18 @@ class ReportNotifier extends _$ReportNotifier {
           //   _initialReport!,
           //   state.report,
           // ),
-          // ..._initialReport!.documents!
-          //     .where((element) => !state.report.documents!.contains(element))
-          //     .map((e) => deleteReportDocumentFile(e, _initialReport!))
+          ..._initialReport!.documents!
+              .where((element) => !state.report.documents!.contains(element))
+              .map((e) => deleteReportDocumentFile(e, _initialReport!))
         ],
       false => [
           create(state.report),
           // ...state.report.aircraft!.map((e) => create(e)),
         ]
     };
-    // final newFiles = ref.watch(selectedFilesProvider);
-    // futures
-    //     .addAll(newFiles.map((e) => uploadReportDocumentFile(e, state.report)));
+    final newFiles = ref.watch(selectedFilesProvider);
+    futures
+        .addAll(newFiles.map((e) => uploadReportDocumentFile(e, state.report)));
     if (isSend) {
       // final finalRecipients = await fetchJoinRecipients(
       //   roles: _roles,
@@ -84,14 +86,14 @@ class ReportNotifier extends _$ReportNotifier {
 
   void updateReport({
     String? subject,
-    Staff? author,
+    Staff? auditor,
     bool? archived,
     ReportStatus? status,
     TemporalDateTime? reportedAt,
     // List<Aircraft>? aircraft,
     // List<Role>? roles,
     List<Staff>? recipients,
-    // List<ReportDocument>? documents,
+    List<ReportDocument>? documents,
     TemporalDateTime? closeAt,
     Staff? closer,
   }) {
@@ -101,11 +103,11 @@ class ReportNotifier extends _$ReportNotifier {
     // }
     state.report = state.report.copyWith(
       subject: subject,
-      author: author,
+      auditor: auditor,
       archived: archived,
       status: status,
       reportedAt: reportedAt,
-      // documents: documents,
+      documents: documents,
       recipients: recipients
           ?.map((e) => ReportStaff(report: state.report, staff: e))
           .toList(),
@@ -145,14 +147,14 @@ class ReportNotifier extends _$ReportNotifier {
     );
   }
 
-  // void removeReportDocument(ReportDocument document) {
-  //   state.report.documents!.remove(document);
-  //   state = state.copyWith(
-  //     report: state.report.copyWith(
-  //       documents: [...state.report.documents!],
-  //     ),
-  //   );
-  // }
+  void removeReportDocument(ReportDocument document) {
+    state.report.documents!.remove(document);
+    state = state.copyWith(
+      report: state.report.copyWith(
+        documents: [...state.report.documents!],
+      ),
+    );
+  }
 
   void switchEditMode() {
     if (state.editMode) ref.invalidate(reportRepoProvider);
@@ -165,7 +167,7 @@ class ReportNotifier extends _$ReportNotifier {
 
   bool editPermit() {
     return ref.watch(isQualityManagerProvider) ||
-        state.report.author?.id ==
+        state.report.auditor?.id ==
             ref.watch(userDetailsProvider).valueOrNull!.id;
   }
 

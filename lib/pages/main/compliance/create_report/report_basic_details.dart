@@ -44,9 +44,9 @@ class ReportBasicDetails extends ConsumerWidget {
                                 e.id ==
                                 ref.watch(userDetailsProvider).valueOrNull!.id,
                           )
-                        : report.author!;
+                        : report.auditor!;
                     notifier.updateReport(
-                      author: initialSelection,
+                      auditor: initialSelection,
                     );
                     return GlobalDropdownMenu<Staff>(
                       entries: value.map(
@@ -57,9 +57,9 @@ class ReportBasicDetails extends ConsumerWidget {
                       enabled: isEditMode,
                       initialSelection: initialSelection,
                       onSelected: (value) {
-                        notifier.updateReport(author: value);
+                        notifier.updateReport(auditor: value);
                       },
-                      text: "Author of this report",
+                      text: "Auditor of this report",
                     );
                   },
                 ),

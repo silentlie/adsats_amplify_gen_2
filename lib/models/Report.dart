@@ -32,11 +32,12 @@ class Report extends amplify_core.Model {
   final ReportStatus? _status;
   final bool? _archived;
   final String? _details;
-  final Staff? _author;
+  final Staff? _auditor;
   final amplify_core.TemporalDateTime? _reportedAt;
   final Staff? _closer;
   final amplify_core.TemporalDateTime? _closeAt;
   final List<ReportStaff>? _recipients;
+  final List<ReportDocument>? _documents;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -99,8 +100,8 @@ class Report extends amplify_core.Model {
     }
   }
 
-  Staff? get author {
-    return _author;
+  Staff? get auditor {
+    return _auditor;
   }
 
   amplify_core.TemporalDateTime? get reportedAt {
@@ -119,6 +120,10 @@ class Report extends amplify_core.Model {
     return _recipients;
   }
 
+  List<ReportDocument>? get documents {
+    return _documents;
+  }
+
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -134,11 +139,12 @@ class Report extends amplify_core.Model {
       status,
       required archived,
       required details,
-      author,
+      auditor,
       reportedAt,
       closer,
       closeAt,
       recipients,
+      documents,
       createdAt,
       updatedAt})
       : _subject = subject,
@@ -146,11 +152,12 @@ class Report extends amplify_core.Model {
         _status = status,
         _archived = archived,
         _details = details,
-        _author = author,
+        _auditor = auditor,
         _reportedAt = reportedAt,
         _closer = closer,
         _closeAt = closeAt,
         _recipients = recipients,
+        _documents = documents,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
@@ -161,11 +168,12 @@ class Report extends amplify_core.Model {
       ReportStatus? status,
       required bool archived,
       required String details,
-      Staff? author,
+      Staff? auditor,
       amplify_core.TemporalDateTime? reportedAt,
       Staff? closer,
       amplify_core.TemporalDateTime? closeAt,
-      List<ReportStaff>? recipients}) {
+      List<ReportStaff>? recipients,
+      List<ReportDocument>? documents}) {
     return Report._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
         subject: subject,
@@ -173,13 +181,16 @@ class Report extends amplify_core.Model {
         status: status,
         archived: archived,
         details: details,
-        author: author,
+        auditor: auditor,
         reportedAt: reportedAt,
         closer: closer,
         closeAt: closeAt,
         recipients: recipients != null
             ? List<ReportStaff>.unmodifiable(recipients)
-            : recipients);
+            : recipients,
+        documents: documents != null
+            ? List<ReportDocument>.unmodifiable(documents)
+            : documents);
   }
 
   bool equals(Object other) {
@@ -196,11 +207,12 @@ class Report extends amplify_core.Model {
         _status == other._status &&
         _archived == other._archived &&
         _details == other._details &&
-        _author == other._author &&
+        _auditor == other._auditor &&
         _reportedAt == other._reportedAt &&
         _closer == other._closer &&
         _closeAt == other._closeAt &&
-        DeepCollectionEquality().equals(_recipients, other._recipients);
+        DeepCollectionEquality().equals(_recipients, other._recipients) &&
+        DeepCollectionEquality().equals(_documents, other._documents);
   }
 
   @override
@@ -224,7 +236,7 @@ class Report extends amplify_core.Model {
         ", ");
     buffer.write("details=" + "$_details" + ", ");
     buffer.write(
-        "author=" + (_author != null ? _author.toString() : "null") + ", ");
+        "auditor=" + (_auditor != null ? _auditor.toString() : "null") + ", ");
     buffer.write("reportedAt=" +
         (_reportedAt != null ? _reportedAt.format() : "null") +
         ", ");
@@ -248,11 +260,12 @@ class Report extends amplify_core.Model {
       ReportStatus? status,
       bool? archived,
       String? details,
-      Staff? author,
+      Staff? auditor,
       amplify_core.TemporalDateTime? reportedAt,
       Staff? closer,
       amplify_core.TemporalDateTime? closeAt,
-      List<ReportStaff>? recipients}) {
+      List<ReportStaff>? recipients,
+      List<ReportDocument>? documents}) {
     return Report._internal(
         id: id,
         subject: subject ?? this.subject,
@@ -260,11 +273,12 @@ class Report extends amplify_core.Model {
         status: status ?? this.status,
         archived: archived ?? this.archived,
         details: details ?? this.details,
-        author: author ?? this.author,
+        auditor: auditor ?? this.auditor,
         reportedAt: reportedAt ?? this.reportedAt,
         closer: closer ?? this.closer,
         closeAt: closeAt ?? this.closeAt,
-        recipients: recipients ?? this.recipients);
+        recipients: recipients ?? this.recipients,
+        documents: documents ?? this.documents);
   }
 
   Report copyWithModelFieldValues(
@@ -273,11 +287,12 @@ class Report extends amplify_core.Model {
       ModelFieldValue<ReportStatus?>? status,
       ModelFieldValue<bool>? archived,
       ModelFieldValue<String>? details,
-      ModelFieldValue<Staff?>? author,
+      ModelFieldValue<Staff?>? auditor,
       ModelFieldValue<amplify_core.TemporalDateTime?>? reportedAt,
       ModelFieldValue<Staff?>? closer,
       ModelFieldValue<amplify_core.TemporalDateTime?>? closeAt,
-      ModelFieldValue<List<ReportStaff>?>? recipients}) {
+      ModelFieldValue<List<ReportStaff>?>? recipients,
+      ModelFieldValue<List<ReportDocument>?>? documents}) {
     return Report._internal(
         id: id,
         subject: subject == null ? this.subject : subject.value,
@@ -285,11 +300,12 @@ class Report extends amplify_core.Model {
         status: status == null ? this.status : status.value,
         archived: archived == null ? this.archived : archived.value,
         details: details == null ? this.details : details.value,
-        author: author == null ? this.author : author.value,
+        auditor: auditor == null ? this.auditor : auditor.value,
         reportedAt: reportedAt == null ? this.reportedAt : reportedAt.value,
         closer: closer == null ? this.closer : closer.value,
         closeAt: closeAt == null ? this.closeAt : closeAt.value,
-        recipients: recipients == null ? this.recipients : recipients.value);
+        recipients: recipients == null ? this.recipients : recipients.value,
+        documents: documents == null ? this.documents : documents.value);
   }
 
   Report.fromJson(Map<String, dynamic> json)
@@ -301,11 +317,11 @@ class Report extends amplify_core.Model {
             json['status'], ReportStatus.values),
         _archived = json['archived'],
         _details = json['details'],
-        _author = json['author'] != null
-            ? json['author']['serializedData'] != null
+        _auditor = json['auditor'] != null
+            ? json['auditor']['serializedData'] != null
                 ? Staff.fromJson(new Map<String, dynamic>.from(
-                    json['author']['serializedData']))
-                : Staff.fromJson(new Map<String, dynamic>.from(json['author']))
+                    json['auditor']['serializedData']))
+                : Staff.fromJson(new Map<String, dynamic>.from(json['auditor']))
             : null,
         _reportedAt = json['reportedAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['reportedAt'])
@@ -334,6 +350,21 @@ class Report extends amplify_core.Model {
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
                 : null),
+        _documents = json['documents'] is Map
+            ? (json['documents']['items'] is List
+                ? (json['documents']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => ReportDocument.fromJson(
+                        new Map<String, dynamic>.from(e)))
+                    .toList()
+                : null)
+            : (json['documents'] is List
+                ? (json['documents'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => ReportDocument.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
+                : null),
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -348,12 +379,14 @@ class Report extends amplify_core.Model {
         'status': amplify_core.enumToString(_status),
         'archived': _archived,
         'details': _details,
-        'author': _author?.toJson(),
+        'auditor': _auditor?.toJson(),
         'reportedAt': _reportedAt?.format(),
         'closer': _closer?.toJson(),
         'closeAt': _closeAt?.format(),
         'recipients':
             _recipients?.map((ReportStaff? e) => e?.toJson()).toList(),
+        'documents':
+            _documents?.map((ReportDocument? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
@@ -365,11 +398,12 @@ class Report extends amplify_core.Model {
         'status': _status,
         'archived': _archived,
         'details': _details,
-        'author': _author,
+        'auditor': _auditor,
         'reportedAt': _reportedAt,
         'closer': _closer,
         'closeAt': _closeAt,
         'recipients': _recipients,
+        'documents': _documents,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
@@ -383,8 +417,8 @@ class Report extends amplify_core.Model {
   static final STATUS = amplify_core.QueryField(fieldName: "status");
   static final ARCHIVED = amplify_core.QueryField(fieldName: "archived");
   static final DETAILS = amplify_core.QueryField(fieldName: "details");
-  static final AUTHOR = amplify_core.QueryField(
-      fieldName: "author",
+  static final AUDITOR = amplify_core.QueryField(
+      fieldName: "auditor",
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
           ofModelName: 'Staff'));
@@ -400,6 +434,11 @@ class Report extends amplify_core.Model {
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
           ofModelName: 'ReportStaff'));
+  static final DOCUMENTS = amplify_core.QueryField(
+      fieldName: "documents",
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'ReportDocument'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Report";
@@ -449,9 +488,9 @@ class Report extends amplify_core.Model {
             amplify_core.ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: Report.AUTHOR,
+        key: Report.AUDITOR,
         isRequired: false,
-        targetNames: ['authorId'],
+        targetNames: ['auditorId'],
         ofModelName: 'Staff'));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
@@ -477,6 +516,12 @@ class Report extends amplify_core.Model {
         isRequired: false,
         ofModelName: 'ReportStaff',
         associatedKey: ReportStaff.REPORT));
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
+        key: Report.DOCUMENTS,
+        isRequired: false,
+        ofModelName: 'ReportDocument',
+        associatedKey: ReportDocument.REPORTS));
 
     modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(

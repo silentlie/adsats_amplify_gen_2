@@ -19,7 +19,7 @@ query ListCrewDocumentCategories(\$roleName: String!) {
 ''';
 
 const listReports = '''
-query ListNotices(\$filter: ModelReportFilterInput) {
+query ListReports(\$filter: ModelReportFilterInput) {
   listReports(filter: \$filter) {
     items {
       id
@@ -31,7 +31,7 @@ query ListNotices(\$filter: ModelReportFilterInput) {
       details
       createdAt
       updatedAt
-      author {
+      auditor {
         id
         name
         email
@@ -55,6 +55,12 @@ query ListNotices(\$filter: ModelReportFilterInput) {
           }
         }
       }
+      documents {
+        items {
+          id
+          name
+        }
+      }
     }
   }
 }
@@ -71,7 +77,7 @@ query GetReportDetails(\$id: ID!) {
     details
     createdAt
     updatedAt
-    author {
+    auditor {
       id
       name
       email
@@ -93,6 +99,12 @@ query GetReportDetails(\$id: ID!) {
           email
           archived
         }
+      }
+    }
+    documents {
+      items {
+        id
+        name
       }
     }
   }
@@ -266,23 +278,6 @@ query ListNotices(\$filter: ModelNoticeFilterInput) {
             name
             archived
             description
-          }
-        }
-      }
-      documents {
-        items {
-          id
-          name
-        }
-      }
-      recipients {
-        items {
-          id
-          staff {
-            id
-            name
-            email
-            archived
           }
         }
       }

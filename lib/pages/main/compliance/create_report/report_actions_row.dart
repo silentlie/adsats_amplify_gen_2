@@ -1,6 +1,8 @@
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
+import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/compliance/create_report/state.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -57,24 +59,24 @@ class ReportActionsRow extends ConsumerWidget {
                     : Icons.edit_outlined,
               ),
             ),
-          // if (isEditMode)
-          //   ElevatedButton.icon(
-          //     onPressed: () async {
-          //       FilePickerResult? filePickerResult =
-          //           await FilePicker.platform.pickFiles(
-          //         allowMultiple: true,
-          //         type: FileType.any,
-          //         withData: false,
-          //         // Ensure to get file stream for better performance
-          //         withReadStream: true,
-          //       );
-          //       ref
-          //           .read(selectedFilesProvider.notifier)
-          //           .addFiles(filePickerResult?.files ?? []);
-          //     },
-          //     label: const Text("Pick file"),
-          //     icon: Icon(Icons.description_outlined),
-          //   ),
+          if (isEditMode)
+            ElevatedButton.icon(
+              onPressed: () async {
+                FilePickerResult? filePickerResult =
+                    await FilePicker.platform.pickFiles(
+                  allowMultiple: true,
+                  type: FileType.any,
+                  withData: false,
+                  // Ensure to get file stream for better performance
+                  withReadStream: true,
+                );
+                ref
+                    .read(selectedFilesProvider.notifier)
+                    .addFiles(filePickerResult?.files ?? []);
+              },
+              label: const Text("Pick file"),
+              icon: Icon(Icons.description_outlined),
+            ),
           if (isEditMode)
             ElevatedButton.icon(
               onPressed: () async {

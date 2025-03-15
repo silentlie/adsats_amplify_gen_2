@@ -1,23 +1,23 @@
 import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/state.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/compliance/create_report/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/compliance/create_report/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NoticeDocumentsWidget extends ConsumerWidget {
-  const NoticeDocumentsWidget({super.key});
+class ReportDocuments extends ConsumerWidget {
+  const ReportDocuments({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
     final newFiles = ref.watch(selectedFilesProvider);
     final uploadedFiles = ref.watch(
-      noticeNotifierProvider.select(
-        (value) => value.notice.documents!,
+      reportNotifierProvider.select(
+        (value) => value.report.documents!,
       ),
     );
-    final notifier = ref.read(noticeNotifierProvider.notifier);
-    final isEditMode = ref.watch(noticeNotifierProvider.select(
+    final notifier = ref.read(reportNotifierProvider.notifier);
+    final isEditMode = ref.watch(reportNotifierProvider.select(
       (value) => value.editMode,
     ));
     final children = <Widget>[
@@ -29,16 +29,16 @@ class NoticeDocumentsWidget extends ConsumerWidget {
             padding: const EdgeInsets.all(2.0),
             child: GestureDetector(
               onTap: () {
-                getNoticeDocumentFileUrl(
+                getReportDocumentFileUrl(
                   document,
-                  ref.read(noticeNotifierProvider).notice,
+                  ref.read(reportNotifierProvider).report,
                 );
               },
               child: Chip(
                 label: Text(document.name),
                 color: WidgetStatePropertyAll(colorScheme.onPrimary),
                 onDeleted: isEditMode
-                    ? () => notifier.removeNoticeDocument(document)
+                    ? () => notifier.removeReportDocument(document)
                     : null,
               ),
             ),

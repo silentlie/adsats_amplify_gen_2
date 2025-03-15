@@ -32,6 +32,7 @@ import 'Notice.dart';
 import 'NoticeDocument.dart';
 import 'NoticeStaff.dart';
 import 'Report.dart';
+import 'ReportDocument.dart';
 import 'ReportStaff.dart';
 import 'Role.dart';
 import 'RoleStaff.dart';
@@ -53,6 +54,7 @@ export 'NoticeStaff.dart';
 export 'NoticeStatus.dart';
 export 'NoticeType.dart';
 export 'Report.dart';
+export 'ReportDocument.dart';
 export 'ReportStaff.dart';
 export 'ReportStatus.dart';
 export 'ReportType.dart';
@@ -66,7 +68,7 @@ export 'Subcategory.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "940b5ec87da15ed06d34434eecfaf3af";
+  String version = "9c7dbf7dbb0a77971ab799d4e08abc67";
   @override
   List<amplify_core.ModelSchema> modelSchemas = [
     Aircraft.schema,
@@ -81,6 +83,7 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     NoticeDocument.schema,
     NoticeStaff.schema,
     Report.schema,
+    ReportDocument.schema,
     ReportStaff.schema,
     Role.schema,
     RoleStaff.schema,
@@ -120,6 +123,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return NoticeStaff.classType;
       case "Report":
         return Report.classType;
+      case "ReportDocument":
+        return ReportDocument.classType;
       case "ReportStaff":
         return ReportStaff.classType;
       case "Role":

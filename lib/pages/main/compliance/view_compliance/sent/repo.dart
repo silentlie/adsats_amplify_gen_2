@@ -15,7 +15,7 @@ FutureOr<List<Report>> reportsSentRepo(
   ReportFilterState filter,
 ) async {
   final filterJson = filter.toJson();
-  filterJson["authorId"] = {"eq": filter.user.id};
+  filterJson["auditorId"] = {"eq": filter.user.id};
   final request = GraphQLRequest<String>(
     document: listReports,
     variables: {"filter": filterJson},

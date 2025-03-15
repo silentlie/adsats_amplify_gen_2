@@ -10,7 +10,7 @@ class InternalAuditReportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      overrides: [reportNotifierProvider],
+      overrides: [reportNotifierProvider, selectedFilesProvider],
       child: Consumer(
         builder: (context, ref, child) {
           final notifier = ref.read(reportNotifierProvider.notifier);
@@ -23,6 +23,7 @@ class InternalAuditReportPage extends StatelessWidget {
                   recipients: [],
                   status: ReportStatus.Open,
                   type: ReportType.Internal_audit_report,
+                  documents: []
                 ),
             report != null,
           );
@@ -56,6 +57,8 @@ class InternalAuditReportPage extends StatelessWidget {
                         InternalAuditReportBody(),
                         const Divider(),
                         ReportRecipients(),
+                        const Divider(),
+                        ReportDocuments(),
                         const Divider(),
                         ReportActionsRow(),
                       ],

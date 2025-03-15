@@ -1,4 +1,4 @@
-part of 'route.dart';
+part of 'internal_audit_report/route.dart';
 
 class DiscrepanciesWidget extends ConsumerWidget {
   const DiscrepanciesWidget({super.key});

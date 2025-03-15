@@ -685,7 +685,7 @@ class Staff extends amplify_core.Model {
         key: Staff.REPORTS,
         isRequired: false,
         ofModelName: 'Report',
-        associatedKey: Report.AUTHOR));
+        associatedKey: Report.AUDITOR));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
         key: Staff.REPORTNOTIFICATIONS,
