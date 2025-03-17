@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/pages/main/kpi/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/main/kpi/filter.dart';
@@ -35,8 +36,10 @@ class KPIRoute extends RouteInfo {
   }
 
   @override
-  FutureOr<String?> redirect(BuildContext context, GoRouterState state) {
-    // TODO: implement redirect
-    return super.redirect(context, state);
+  FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
+    final ref = ProviderScope.containerOf(context);
+    final isAdmin = ref.read(isAdminProvider);
+    if (isAdmin) return null;
+    return HomeRoute().location;
   }
 }

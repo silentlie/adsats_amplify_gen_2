@@ -46,13 +46,7 @@ class AdminShellRouteData extends StatefulShellRouteInfo {
   @override
   FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
     final ref = ProviderScope.containerOf(context);
-    final user = await ref.read(userDetailsProvider.future);
-    final isAdmin = user.roles?.any(
-          (role) {
-            return role.role?.name == "Admin";
-          },
-        ) ??
-        false;
+    final isAdmin = ref.read(isAdminProvider);
     if (isAdmin) return null;
     return HomeRoute().location;
   }

@@ -89,32 +89,32 @@ class KPIPage extends ConsumerWidget {
                   );
                 },
               ),
-              DataColumn2(
-                label: getCenterText("Internal Audit Reports"),
-                size: ColumnSize.L,
-                onSort: (columnIndex, ascending) {
-                  sortNotifier.apply(
-                    columnIndex: columnIndex,
-                    sortAscending: ascending,
-                    getField: (staff) {
-                      return staff.internalAuditReports;
-                    },
-                  );
-                },
-              ),
-              DataColumn2(
-                label: getCenterText("External Audit Reports"),
-                size: ColumnSize.L,
-                onSort: (columnIndex, ascending) {
-                  sortNotifier.apply(
-                    columnIndex: columnIndex,
-                    sortAscending: ascending,
-                    getField: (staff) {
-                      return staff.externalAuditReports;
-                    },
-                  );
-                },
-              ),
+              // DataColumn2(
+              //   label: getCenterText("Internal Audit Reports"),
+              //   size: ColumnSize.L,
+              //   onSort: (columnIndex, ascending) {
+              //     sortNotifier.apply(
+              //       columnIndex: columnIndex,
+              //       sortAscending: ascending,
+              //       getField: (staff) {
+              //         return staff.internalAuditReports;
+              //       },
+              //     );
+              //   },
+              // ),
+              // DataColumn2(
+              //   label: getCenterText("External Audit Reports"),
+              //   size: ColumnSize.L,
+              //   onSort: (columnIndex, ascending) {
+              //     sortNotifier.apply(
+              //       columnIndex: columnIndex,
+              //       sortAscending: ascending,
+              //       getField: (staff) {
+              //         return staff.externalAuditReports;
+              //       },
+              //     );
+              //   },
+              // ),
             ],
             source: dataSource,
             headingRowColor: WidgetStateColor.resolveWith((states) {

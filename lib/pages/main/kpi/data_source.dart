@@ -59,16 +59,16 @@ class KPIDataSource extends DataTableSource {
             staff.hazardReports.toString(),
           ),
         ),
-        DataCell(
-          getCenterText(
-            staff.internalAuditReports.toString(),
-          ),
-        ),
-        DataCell(
-          getCenterText(
-            staff.externalAuditReports.toString(),
-          ),
-        ),
+        // DataCell(
+        //   getCenterText(
+        //     staff.internalAuditReports.toString(),
+        //   ),
+        // ),
+        // DataCell(
+        //   getCenterText(
+        //     staff.externalAuditReports.toString(),
+        //   ),
+        // ),
       ],
     );
   }
