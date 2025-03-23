@@ -59,8 +59,7 @@ class StaffView extends ConsumerWidget {
                   labelText: 'Staff Name',
                 ),
                 onChanged: (value) {
-                  // need to implement change name on cognito
-                  // staff = staff.copyWith(name: value);
+                  staff = staff.copyWith(name: value);
                 },
                 initialValue: staff.name,
                 enabled: !isEditing,

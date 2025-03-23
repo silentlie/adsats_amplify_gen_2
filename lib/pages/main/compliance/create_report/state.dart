@@ -16,12 +16,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'state.g.dart';
 part 'state.freezed.dart';
 
-@Riverpod(dependencies: [
-  SelectedFiles,
-  isQualityManager,
-  userDetails,
-  staffByRoleName,
-])
+@Riverpod(dependencies: [SelectedFiles, isQualityManager, userDetails])
 class ReportNotifier extends _$ReportNotifier {
   ReportNotifier();
   Report? _initialReport;
