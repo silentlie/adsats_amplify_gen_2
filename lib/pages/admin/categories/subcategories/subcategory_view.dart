@@ -31,7 +31,9 @@ class SubcategoryView extends ConsumerWidget {
           name: "",
           archived: false,
         );
-    List<StaffSubcategory> staffSubcategories = subcategory.staff ?? [];
+    List<StaffSubcategory> staffSubcategories = List.from(
+      subcategory.staff ?? [],
+    );
     return AlertDialog.adaptive(
       title: Text(
         isEditing ? 'Editing ${subcategory.name}' : 'Add an subcategory',
