@@ -132,6 +132,7 @@ class SubcategoryView extends ConsumerWidget {
                                 );
                               }
                             }
+                            setState(() {});
                           },
                           items: value.map(
                             (e) {
