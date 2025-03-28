@@ -10,10 +10,16 @@ type Handler = Schema["createUser"]["functionHandler"];
 const client = new CognitoIdentityProviderClient();
 
 export const handler: Handler = async (event) => {
-  const { email, temporaryPassword } = event.arguments;
+  const { email, name, temporaryPassword } = event.arguments;
   const input: AdminCreateUserCommandInput = {
     UserPoolId: env.AMPLIFY_AUTH_USERPOOL_ID,
     Username: email,
+    UserAttributes: [
+      {
+        Name: "name",
+        Value: name,
+      },
+    ],
     DesiredDeliveryMediums: ["EMAIL"],
     // MessageAction: "RESEND",
     TemporaryPassword: temporaryPassword,

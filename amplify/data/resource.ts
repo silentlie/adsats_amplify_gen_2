@@ -3,24 +3,29 @@ import { createUser } from "./cognito-admin/create-user/resource";
 import { deleteUser } from "./cognito-admin/delete-user/resouce";
 import { enableUser } from "./cognito-admin/enable-user/resouce";
 import { disableUser } from "./cognito-admin/disable-user/resouce";
-import { sendmail } from "./send-email/resouce";
+import { sendNoticeEmail } from "./send-email/send-notice-email/resouce";
 
 const schema = a
   .schema({
-    sendEmail: a
+    sendNoticeEmail: a
       .mutation()
       .arguments({
         subject: a.string().required(),
-        htmlBody: a.string().required(),
+        type: a.enum(["Notice_to_Crew", "Safety_notice", "Hazard_report"]),
+        status: a.enum(["Draft", "Open", "Pending", "Resolved"]),
+        details: a.json().required(),
+        noticedAt: a.datetime(),
+        deadlineAt: a.datetime(),
         author: a.string(),
         recipients: a.string().required().array().required(),
       })
-      .handler(a.handler.function(sendmail))
+      .handler(a.handler.function(sendNoticeEmail))
       .returns(a.json()),
     createUser: a
       .mutation()
       .arguments({
         email: a.email().required(),
+        name: a.string().required(),
         temporaryPassword: a.string().required(),
       })
       .handler(a.handler.function(createUser))
@@ -48,8 +53,7 @@ const schema = a
       .returns(a.json()),
     Staff: a.model({
       id: a.id().required(),
-      firstName: a.string().required(),
-      lastName: a.string().required(),
+      name: a.string().required(),
       email: a.email().required(),
       archived: a.boolean().required().default(false),
       documents: a.hasMany("Document", "staffId"),
