@@ -1,3 +1,0 @@
-[merge "unchange_env"]
-    name = "Keep env during merge"
-    driver = true
