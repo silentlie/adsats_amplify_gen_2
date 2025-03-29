@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/view_cms/actions.dart';
@@ -39,7 +41,30 @@ class ReportDataSource extends DataTableSource {
           getCenterText(report.type!.name.replaceAll('_', ' ')),
         ),
         DataCell(
-          getCenterText(report.status?.name ?? ""),
+          Center(
+            child: Container(
+              width: 60,
+              height: 20,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(20),
+                // maybe make it follow color scheme
+                color: switch (report.status) {
+                  ReportStatus.Pending => Colors.amber,
+                  ReportStatus.Closed
+                      when jsonDecode(
+                              report.details)["is_discrepancies_found"] ==
+                          true =>
+                    Colors.lime,
+                  ReportStatus.Closed => Colors.green,
+                  _ => null,
+                },
+              ),
+              child: Center(
+                child: Text(report.status!.name),
+              ),
+            ),
+          ),
         ),
         DataCell(
           Center(
