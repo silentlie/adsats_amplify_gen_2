@@ -6,7 +6,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-const basePath = "http://127.0.0.1:8000";
+final domainName = "${Uri.base.host}${Uri.base.hasPort ? ":${Uri.base.port}" : ""}";
 
 Future<void> sendEmail({
   required String subject,
@@ -111,7 +111,7 @@ String buildNoticeEmailMain(Notice notice) {
 }
 
 String generateNoticeLink(Notice notice) {
-  return '$basePath/sms/${notice.id}';
+  return '$domainName/sms/${notice.id}';
 }
 
 String buildReportEmailMain(Report report) {
@@ -155,7 +155,7 @@ String buildReportEmailMain(Report report) {
 }
 
 String generateReportLink(Report report) {
-  return '$basePath/cms/${report.id}';
+  return '$domainName/cms/${report.id}';
 }
 
 const styles = '''

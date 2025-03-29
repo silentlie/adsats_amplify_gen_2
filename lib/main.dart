@@ -13,6 +13,9 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  String domain =
+      "${Uri.base.host}${Uri.base.hasPort ? ":${Uri.base.port}" : ""}";
+  print(domain);
   await configureAmplify();
   setPathUrlStrategy();
   GoRouter.optionURLReflectsImperativeAPIs = true;
