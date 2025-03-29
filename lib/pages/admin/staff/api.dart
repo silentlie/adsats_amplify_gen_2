@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 
 Future<String> createUser({
   required String email,
-  required String name,
   required String tempPassword,
 }) async {
   final response = await Amplify.API
@@ -17,7 +16,6 @@ Future<String> createUser({
           document: createUserAdmin,
           variables: {
             "email": email,
-            "name": name,
             "temporaryPassword": tempPassword,
           },
         ),

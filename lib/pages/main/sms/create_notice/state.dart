@@ -71,7 +71,7 @@ class NoticeNotifier extends _$NoticeNotifier {
             return create(NoticeStaff(staff: e, notice: state.notice));
           },
         ),
-        sendEmail(state.notice, finalRecipients),
+        sendNoticeEmail(state.notice, finalRecipients),
       ]);
     }
     await Future.wait(futures);

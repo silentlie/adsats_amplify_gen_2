@@ -35,6 +35,7 @@ dependencies:
   flutter_hooks: ^0.21.2
   riverpod: ^2.6.1
   hooks_riverpod: ^2.6.1
+  flutter_dotenv: ^5.2.1
 
 
 dev_dependencies:
@@ -56,3 +57,4 @@ flutter:
     - assets/ADSATS_logo.svg
     - assets/svg/
     - assets/svg/ADSATS_logo.svg
+    - assets/.env

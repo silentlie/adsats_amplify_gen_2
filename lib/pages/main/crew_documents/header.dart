@@ -27,7 +27,7 @@ class CrewDocumentHeader extends ConsumerWidget {
     final currentPath = GoRouter.of(context).state.uri.path;
     final isProfileRoute = currentPath == ProfileRoute().location;
     final text = Text(
-      '${staff.name}\'s ${category.name}',
+      '${staff.firstName} ${staff.lastName}\'s ${category.name}',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,

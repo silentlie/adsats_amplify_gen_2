@@ -49,7 +49,7 @@ class NewDocumentDialog extends ConsumerWidget {
                         (e) {
                           return DropdownMenuEntry(
                             value: e,
-                            label: e.name,
+                            label: "${e.firstName} ${e.lastName}",
                           );
                         },
                       ).toList(),

@@ -8,7 +8,7 @@ class HomePage extends ConsumerWidget {
     final notificationsWidgets = buildNotifications(context, ref);
     final userName = ref.watch(
       userDetailsProvider.select(
-        (value) => value.valueOrNull?.name,
+        (value) => value.valueOrNull?.firstName,
       ),
     );
     return Column(

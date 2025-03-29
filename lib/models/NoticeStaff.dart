@@ -22,6 +22,7 @@
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
+
 /** This is an auto generated class representing the NoticeStaff type in your schema. */
 class NoticeStaff extends amplify_core.Model {
   static const classType = const _NoticeStaffModelType();
@@ -34,234 +35,200 @@ class NoticeStaff extends amplify_core.Model {
 
   @override
   getInstanceType() => classType;
-
-  @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+  
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-
+  
   NoticeStaffModelIdentifier get modelIdentifier {
-    return NoticeStaffModelIdentifier(id: id);
+      return NoticeStaffModelIdentifier(
+        id: id
+      );
   }
-
+  
   amplify_core.TemporalDateTime? get readAt {
     return _readAt;
   }
-
+  
   Notice? get notice {
     return _notice;
   }
-
+  
   Staff? get staff {
     return _staff;
   }
-
+  
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
-
+  
   amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-
-  const NoticeStaff._internal(
-      {required this.id, readAt, notice, staff, createdAt, updatedAt})
-      : _readAt = readAt,
-        _notice = notice,
-        _staff = staff,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
-
-  factory NoticeStaff(
-      {String? id,
-      amplify_core.TemporalDateTime? readAt,
-      Notice? notice,
-      Staff? staff}) {
+  
+  const NoticeStaff._internal({required this.id, readAt, notice, staff, createdAt, updatedAt}): _readAt = readAt, _notice = notice, _staff = staff, _createdAt = createdAt, _updatedAt = updatedAt;
+  
+  factory NoticeStaff({String? id, amplify_core.TemporalDateTime? readAt, Notice? notice, Staff? staff}) {
     return NoticeStaff._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        readAt: readAt,
-        notice: notice,
-        staff: staff);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      readAt: readAt,
+      notice: notice,
+      staff: staff);
   }
-
+  
   bool equals(Object other) {
     return this == other;
   }
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is NoticeStaff &&
-        id == other.id &&
-        _readAt == other._readAt &&
-        _notice == other._notice &&
-        _staff == other._staff;
+      id == other.id &&
+      _readAt == other._readAt &&
+      _notice == other._notice &&
+      _staff == other._staff;
   }
-
+  
   @override
   int get hashCode => toString().hashCode;
-
+  
   @override
   String toString() {
     var buffer = new StringBuffer();
-
+    
     buffer.write("NoticeStaff {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write(
-        "readAt=" + (_readAt != null ? _readAt.format() : "null") + ", ");
-    buffer.write(
-        "notice=" + (_notice != null ? _notice.toString() : "null") + ", ");
-    buffer
-        .write("staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+    buffer.write("readAt=" + (_readAt != null ? _readAt.format() : "null") + ", ");
+    buffer.write("notice=" + (_notice != null ? _notice.toString() : "null") + ", ");
+    buffer.write("staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
+    buffer.write("createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
-
+    
     return buffer.toString();
   }
-
-  NoticeStaff copyWith(
-      {amplify_core.TemporalDateTime? readAt, Notice? notice, Staff? staff}) {
+  
+  NoticeStaff copyWith({amplify_core.TemporalDateTime? readAt, Notice? notice, Staff? staff}) {
     return NoticeStaff._internal(
-        id: id,
-        readAt: readAt ?? this.readAt,
-        notice: notice ?? this.notice,
-        staff: staff ?? this.staff);
+      id: id,
+      readAt: readAt ?? this.readAt,
+      notice: notice ?? this.notice,
+      staff: staff ?? this.staff);
   }
-
-  NoticeStaff copyWithModelFieldValues(
-      {ModelFieldValue<amplify_core.TemporalDateTime?>? readAt,
-      ModelFieldValue<Notice?>? notice,
-      ModelFieldValue<Staff?>? staff}) {
+  
+  NoticeStaff copyWithModelFieldValues({
+    ModelFieldValue<amplify_core.TemporalDateTime?>? readAt,
+    ModelFieldValue<Notice?>? notice,
+    ModelFieldValue<Staff?>? staff
+  }) {
     return NoticeStaff._internal(
-        id: id,
-        readAt: readAt == null ? this.readAt : readAt.value,
-        notice: notice == null ? this.notice : notice.value,
-        staff: staff == null ? this.staff : staff.value);
+      id: id,
+      readAt: readAt == null ? this.readAt : readAt.value,
+      notice: notice == null ? this.notice : notice.value,
+      staff: staff == null ? this.staff : staff.value
+    );
   }
-
-  NoticeStaff.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _readAt = json['readAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['readAt'])
-            : null,
-        _notice = json['notice'] != null
-            ? json['notice']['serializedData'] != null
-                ? Notice.fromJson(new Map<String, dynamic>.from(
-                    json['notice']['serializedData']))
-                : Notice.fromJson(new Map<String, dynamic>.from(json['notice']))
-            : null,
-        _staff = json['staff'] != null
-            ? json['staff']['serializedData'] != null
-                ? Staff.fromJson(new Map<String, dynamic>.from(
-                    json['staff']['serializedData']))
-                : Staff.fromJson(new Map<String, dynamic>.from(json['staff']))
-            : null,
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
-
+  
+  NoticeStaff.fromJson(Map<String, dynamic> json)  
+    : id = json['id'],
+      _readAt = json['readAt'] != null ? amplify_core.TemporalDateTime.fromString(json['readAt']) : null,
+      _notice = json['notice'] != null
+        ? json['notice']['serializedData'] != null
+          ? Notice.fromJson(new Map<String, dynamic>.from(json['notice']['serializedData']))
+          : Notice.fromJson(new Map<String, dynamic>.from(json['notice']))
+        : null,
+      _staff = json['staff'] != null
+        ? json['staff']['serializedData'] != null
+          ? Staff.fromJson(new Map<String, dynamic>.from(json['staff']['serializedData']))
+          : Staff.fromJson(new Map<String, dynamic>.from(json['staff']))
+        : null,
+      _createdAt = json['createdAt'] != null ? amplify_core.TemporalDateTime.fromString(json['createdAt']) : null,
+      _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
+  
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'readAt': _readAt?.format(),
-        'notice': _notice?.toJson(),
-        'staff': _staff?.toJson(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
-
+    'id': id, 'readAt': _readAt?.format(), 'notice': _notice?.toJson(), 'staff': _staff?.toJson(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+  };
+  
   Map<String, Object?> toMap() => {
-        'id': id,
-        'readAt': _readAt,
-        'notice': _notice,
-        'staff': _staff,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'readAt': _readAt,
+    'notice': _notice,
+    'staff': _staff,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt
+  };
 
-  static final amplify_core.QueryModelIdentifier<NoticeStaffModelIdentifier>
-      MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<NoticeStaffModelIdentifier>();
+  static final amplify_core.QueryModelIdentifier<NoticeStaffModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<NoticeStaffModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final READAT = amplify_core.QueryField(fieldName: "readAt");
   static final NOTICE = amplify_core.QueryField(
-      fieldName: "notice",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Notice'));
+    fieldName: "notice",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Notice'));
   static final STAFF = amplify_core.QueryField(
-      fieldName: "staff",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Staff'));
-  static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+    fieldName: "staff",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Staff'));
+  static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "NoticeStaff";
     modelSchemaDefinition.pluralName = "NoticeStaffs";
-
+    
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
-          authStrategy: amplify_core.AuthStrategy.PRIVATE,
-          operations: const [
-            amplify_core.ModelOperation.CREATE,
-            amplify_core.ModelOperation.UPDATE,
-            amplify_core.ModelOperation.DELETE,
-            amplify_core.ModelOperation.READ
-          ])
+        authStrategy: amplify_core.AuthStrategy.PRIVATE,
+        operations: const [
+          amplify_core.ModelOperation.CREATE,
+          amplify_core.ModelOperation.UPDATE,
+          amplify_core.ModelOperation.DELETE,
+          amplify_core.ModelOperation.READ
+        ])
     ];
-
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
-
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: NoticeStaff.READAT,
-        isRequired: false,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.dateTime)));
-
+      key: NoticeStaff.READAT,
+      isRequired: false,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: NoticeStaff.NOTICE,
-        isRequired: false,
-        targetNames: ['noticeId'],
-        ofModelName: 'Notice'));
-
+      key: NoticeStaff.NOTICE,
+      isRequired: false,
+      targetNames: ['noticeId'],
+      ofModelName: 'Notice'
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: NoticeStaff.STAFF,
-        isRequired: false,
-        targetNames: ['staffId'],
-        ofModelName: 'Staff'));
-
-    modelSchemaDefinition.addField(
-        amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(
-        amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+      key: NoticeStaff.STAFF,
+      isRequired: false,
+      targetNames: ['staffId'],
+      ofModelName: 'Staff'
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
+      fieldName: 'createdAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
+      fieldName: 'updatedAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
+    ));
   });
 }
 
 class _NoticeStaffModelType extends amplify_core.ModelType<NoticeStaff> {
   const _NoticeStaffModelType();
-
+  
   @override
   NoticeStaff fromJson(Map<String, dynamic> jsonData) {
     return NoticeStaff.fromJson(jsonData);
   }
-
+  
   @override
   String modelName() {
     return 'NoticeStaff';
@@ -272,37 +239,41 @@ class _NoticeStaffModelType extends amplify_core.ModelType<NoticeStaff> {
  * This is an auto generated class representing the model identifier
  * of [NoticeStaff] in your schema.
  */
-class NoticeStaffModelIdentifier
-    implements amplify_core.ModelIdentifier<NoticeStaff> {
+class NoticeStaffModelIdentifier implements amplify_core.ModelIdentifier<NoticeStaff> {
   final String id;
 
   /** Create an instance of NoticeStaffModelIdentifier using [id] the primary key. */
-  const NoticeStaffModelIdentifier({required this.id});
-
+  const NoticeStaffModelIdentifier({
+    required this.id});
+  
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
-
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
-
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-
+  
   @override
   String toString() => 'NoticeStaffModelIdentifier(id: $id)';
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-
-    return other is NoticeStaffModelIdentifier && id == other.id;
+    
+    return other is NoticeStaffModelIdentifier &&
+      id == other.id;
   }
-
+  
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode =>
+    id.hashCode;
 }

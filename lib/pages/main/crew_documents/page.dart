@@ -112,7 +112,7 @@ class CrewsView extends ConsumerWidget {
           children: value.map(
             (e) {
               return ExpansionTile(
-                title: Text(e.name),
+                title: Text("${e.firstName} ${e.lastName}"),
                 leading: Icon(Icons.person_outline),
                 children: role.categories!.map(
                   (category) {

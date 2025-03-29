@@ -37,7 +37,7 @@ sealed class StaffKPI with _$StaffKPI {
     required final Staff staff,
   }) = _StaffKPI;
 
-  String get name => staff.name;
+  String get name => "${staff.firstName} ${staff.lastName}";
   bool get archived => staff.archived;
   int get noticeToCrews => staff.notices!.where(
         (element) {

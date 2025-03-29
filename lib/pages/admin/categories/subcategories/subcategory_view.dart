@@ -138,7 +138,7 @@ class SubcategoryView extends ConsumerWidget {
                           },
                           items: value.map(
                             (e) {
-                              return MultiSelectItem(e, e.name);
+                              return MultiSelectItem(e, "${e.firstName} ${e.lastName}");
                             },
                           ).toList(),
                           initialValue: staffSubcategories.map(
@@ -170,7 +170,7 @@ class SubcategoryView extends ConsumerWidget {
                                 ).toList();
                               },
                               initialSelection: ss.accessLevel,
-                              text: ss.staff!.name,
+                              text: "${ss.staff!.firstName} ${ss.staff!.lastName}",
                             );
                           },
                         )

@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
+import 'package:adsats_amplify_gen_2/API/send_email.dart';
+import 'package:adsats_amplify_gen_2/helper/format_type_name.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/s3.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -73,33 +75,18 @@ Future<void> updateAircraftNotice(
   }
 }
 
-Future<void> sendEmail(Notice notice, Iterable<Staff> staff) async {
-  try {
-    final request = GraphQLRequest<String>(
-      document: sendNoticeEmail,
-      variables: {
-        "subject": notice.subject,
-        "recipients": staff
-            .map(
-              (e) => e.email,
-            )
-            .toList(),
-        "status": notice.status!.name,
-        "type": notice.type!.name,
-        "noticedAt": notice.noticedAt?.toString(),
-        "deadlineAt": notice.deadlineAt?.toString(),
-        "details": notice.details,
-        "author": notice.author!.name,
-      },
-    );
-    final response = await Amplify.API.query(request: request).response;
-    if (response.errors.isNotEmpty) {
-      throw response.errors.first;
-    }
-    // Map<String, dynamic> jsonMap = json.decode(response.data!);
-  } on ApiException catch (e) {
-    debugPrint('send notice email failed: $e');
-  }
+Future<void> sendNoticeEmail(Notice notice, Iterable<Staff> staff) async {
+  final subject =
+      "${formatType(notice.type!.name)}: ${notice.subject} [${notice.status}]";
+  final htmlBody = "";
+  final author = "${notice.author!.firstName} ${notice.author!.lastName}";
+  final recipients = staff.map((e) => e.email).toList();
+  await sendEmail(
+    subject: subject,
+    author: author,
+    htmlBody: htmlBody,
+    recipients: recipients,
+  );
 }
 
 Future<Iterable<Staff>> fetchJoinRecipients({

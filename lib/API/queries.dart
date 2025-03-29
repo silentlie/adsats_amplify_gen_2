@@ -7,7 +7,8 @@ query listStaffKPI(
   listStaff(filter: \$staffFilter) {
     items {
       id
-      name
+      firstName
+      lastName
       archived
       notices(filter: \$noticeFilter) {
         items {
@@ -36,7 +37,8 @@ query ListCrewDocumentCategories(\$roleName: String!) {
           id
           staff {
             id
-            name
+            firstName
+            lastName
           }
         }
       }
@@ -60,14 +62,16 @@ query ListReports(\$filter: ModelReportFilterInput) {
       updatedAt
       auditor {
         id
-        name
+        firstName
+        lastName
         email
         archived
       }
       closeAt
       closer {
         id
-        name
+        firstName
+        lastName
         email
         archived
       }
@@ -76,7 +80,8 @@ query ListReports(\$filter: ModelReportFilterInput) {
           id
           staff {
             id
-            name
+            firstName
+            lastName
             email
             archived
           }
@@ -106,14 +111,16 @@ query GetReportDetails(\$id: ID!) {
     updatedAt
     auditor {
       id
-      name
+      firstName
+      lastName
       email
       archived
     }
     closeAt
     closer {
       id
-      name
+      firstName
+      lastName
       email
       archived
     }
@@ -122,7 +129,8 @@ query GetReportDetails(\$id: ID!) {
         id
         staff {
           id
-          name
+          firstName
+          lastName
           email
           archived
         }
@@ -242,7 +250,8 @@ query ListCrewDocumentCrews(\$aircraftId: ID!, \$roleId: ID!) {
       items {
         staff {
           id
-          name
+          firstName
+          lastName
           aircraft(filter: {aircraftId: {eq: \$aircraftId}}) {
             items {
               id
@@ -293,7 +302,8 @@ query ListNotices(\$filter: ModelNoticeFilterInput) {
       details
       author {
         id
-        name
+        firstName
+        lastName
         email
         archived
       }
@@ -325,7 +335,8 @@ query GetNoticeDetails(\$id: ID!) {
     details
     author {
       id
-      name
+      firstName
+      lastName
       email
       archived
     }
@@ -351,7 +362,8 @@ query GetNoticeDetails(\$id: ID!) {
         id
         staff {
           id
-          name
+          firstName
+          lastName
           email
           archived
         }
@@ -379,7 +391,8 @@ query ListSubcategories(\$filter: ModelSubcategoryFilterInput, \$id: ID!) {
             accessLevel
             staff {
               id
-              name
+              firstName
+              lastName
               email
               archived
             }
@@ -431,7 +444,8 @@ query ListAircraft(\$filter: ModelAircraftFilterInput) {
           id
           staff {
             id
-            name
+            firstName
+            lastName
             email
             archived
           }
@@ -456,7 +470,8 @@ query ListRoles(\$filter: ModelRoleFilterInput) {
           id
           staff {
             id
-            name
+            firstName
+            lastName
             email
             archived
           }
@@ -476,7 +491,8 @@ query ListStaff(\$filter: ModelStaffFilterInput) {
   listStaff(filter: \$filter) {
     items {
       id
-      name
+      firstName
+      lastName
       email
       createdAt
       archived
@@ -535,7 +551,8 @@ query ListDocuments(\$filter: ModelDocumentFilterInput) {
       archived
       staff {
         id
-        name
+        firstName
+        lastName
       }
       subcategory {
         id
@@ -562,7 +579,8 @@ const getStaff = '''
 query GetStaff(\$id: ID!) {
   getStaff(id: \$id) {
     id
-    name
+    firstName
+    lastName
     email
     archived
     aircraft {
@@ -611,7 +629,8 @@ query GetStaff(\$id: ID!) {
           type
           author {
             id
-            name
+            firstName
+            lastName
           }
         }
       }
