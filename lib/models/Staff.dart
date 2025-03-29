@@ -27,7 +27,8 @@ import 'package:collection/collection.dart';
 class Staff extends amplify_core.Model {
   static const classType = const _StaffModelType();
   final String id;
-  final String? _name;
+  final String? _firstName;
+  final String? _lastName;
   final String? _email;
   final bool? _archived;
   final List<Document>? _documents;
@@ -55,9 +56,22 @@ class Staff extends amplify_core.Model {
     return StaffModelIdentifier(id: id);
   }
 
-  String get name {
+  String get firstName {
     try {
-      return _name!;
+      return _firstName!;
+    } catch (e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  String get lastName {
+    try {
+      return _lastName!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
           amplify_core.AmplifyExceptionMessages
@@ -144,7 +158,8 @@ class Staff extends amplify_core.Model {
 
   const Staff._internal(
       {required this.id,
-      required name,
+      required firstName,
+      required lastName,
       required email,
       required archived,
       documents,
@@ -159,7 +174,8 @@ class Staff extends amplify_core.Model {
       closedReport,
       createdAt,
       updatedAt})
-      : _name = name,
+      : _firstName = firstName,
+        _lastName = lastName,
         _email = email,
         _archived = archived,
         _documents = documents,
@@ -177,7 +193,8 @@ class Staff extends amplify_core.Model {
 
   factory Staff(
       {String? id,
-      required String name,
+      required String firstName,
+      required String lastName,
       required String email,
       required bool archived,
       List<Document>? documents,
@@ -192,7 +209,8 @@ class Staff extends amplify_core.Model {
       List<Report>? closedReport}) {
     return Staff._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
-        name: name,
+        firstName: firstName,
+        lastName: lastName,
         email: email,
         archived: archived,
         documents: documents != null
@@ -230,7 +248,8 @@ class Staff extends amplify_core.Model {
     if (identical(other, this)) return true;
     return other is Staff &&
         id == other.id &&
-        _name == other._name &&
+        _firstName == other._firstName &&
+        _lastName == other._lastName &&
         _email == other._email &&
         _archived == other._archived &&
         DeepCollectionEquality().equals(_documents, other._documents) &&
@@ -255,7 +274,8 @@ class Staff extends amplify_core.Model {
 
     buffer.write("Staff {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("name=" + "$_name" + ", ");
+    buffer.write("firstName=" + "$_firstName" + ", ");
+    buffer.write("lastName=" + "$_lastName" + ", ");
     buffer.write("email=" + "$_email" + ", ");
     buffer.write("archived=" +
         (_archived != null ? _archived.toString() : "null") +
@@ -271,7 +291,8 @@ class Staff extends amplify_core.Model {
   }
 
   Staff copyWith(
-      {String? name,
+      {String? firstName,
+      String? lastName,
       String? email,
       bool? archived,
       List<Document>? documents,
@@ -286,7 +307,8 @@ class Staff extends amplify_core.Model {
       List<Report>? closedReport}) {
     return Staff._internal(
         id: id,
-        name: name ?? this.name,
+        firstName: firstName ?? this.firstName,
+        lastName: lastName ?? this.lastName,
         email: email ?? this.email,
         archived: archived ?? this.archived,
         documents: documents ?? this.documents,
@@ -302,7 +324,8 @@ class Staff extends amplify_core.Model {
   }
 
   Staff copyWithModelFieldValues(
-      {ModelFieldValue<String>? name,
+      {ModelFieldValue<String>? firstName,
+      ModelFieldValue<String>? lastName,
       ModelFieldValue<String>? email,
       ModelFieldValue<bool>? archived,
       ModelFieldValue<List<Document>?>? documents,
@@ -317,7 +340,8 @@ class Staff extends amplify_core.Model {
       ModelFieldValue<List<Report>?>? closedReport}) {
     return Staff._internal(
         id: id,
-        name: name == null ? this.name : name.value,
+        firstName: firstName == null ? this.firstName : firstName.value,
+        lastName: lastName == null ? this.lastName : lastName.value,
         email: email == null ? this.email : email.value,
         archived: archived == null ? this.archived : archived.value,
         documents: documents == null ? this.documents : documents.value,
@@ -340,7 +364,8 @@ class Staff extends amplify_core.Model {
 
   Staff.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _name = json['name'],
+        _firstName = json['firstName'],
+        _lastName = json['lastName'],
         _email = json['email'],
         _archived = json['archived'],
         _documents = json['documents'] is Map
@@ -502,7 +527,8 @@ class Staff extends amplify_core.Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'name': _name,
+        'firstName': _firstName,
+        'lastName': _lastName,
         'email': _email,
         'archived': _archived,
         'documents': _documents?.map((Document? e) => e?.toJson()).toList(),
@@ -525,7 +551,8 @@ class Staff extends amplify_core.Model {
 
   Map<String, Object?> toMap() => {
         'id': id,
-        'name': _name,
+        'firstName': _firstName,
+        'lastName': _lastName,
         'email': _email,
         'archived': _archived,
         'documents': _documents,
@@ -546,7 +573,8 @@ class Staff extends amplify_core.Model {
       MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<StaffModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
-  static final NAME = amplify_core.QueryField(fieldName: "name");
+  static final FIRSTNAME = amplify_core.QueryField(fieldName: "firstName");
+  static final LASTNAME = amplify_core.QueryField(fieldName: "lastName");
   static final EMAIL = amplify_core.QueryField(fieldName: "email");
   static final ARCHIVED = amplify_core.QueryField(fieldName: "archived");
   static final DOCUMENTS = amplify_core.QueryField(
@@ -622,7 +650,13 @@ class Staff extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Staff.NAME,
+        key: Staff.FIRSTNAME,
+        isRequired: true,
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+        key: Staff.LASTNAME,
         isRequired: true,
         ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.string)));

@@ -2,16 +2,17 @@ import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-const sendNoticeEmail = '''
-mutation SendNoticeEmail(\$subject: String!, \$recipients: [String!]!, \$status: SendNoticeEmailStatus!, \$type: SendNoticeEmailType!, \$noticedAt: AWSDateTime, \$details: AWSJSON!, \$deadlineAt: AWSDateTime, \$author: String) {
-  sendNoticeEmail(
-    details: \$details
+const sendEmailDocument = '''
+mutation SendEmail(
+  \$subject: String!,
+  \$recipients: [String!]!,
+  \$htmlBody: String!,
+  \$author: String
+) {
+  sendEmail(
     recipients: \$recipients
     subject: \$subject
-    status: \$status
-    type: \$type
-    noticedAt: \$noticedAt
-    deadlineAt: \$deadlineAt
+    htmlBody: \$htmlBody
     author: \$author
   )
 }
@@ -19,12 +20,10 @@ mutation SendNoticeEmail(\$subject: String!, \$recipients: [String!]!, \$status:
 const createUserAdmin = '''
 mutation CreateUser(
   \$email: AWSEmail!,
-  \$name: String!
   \$temporaryPassword: String!
 ) {
   createUser(
     email: \$email,
-    name: \$name,
     temporaryPassword: \$temporaryPassword
   )
 }

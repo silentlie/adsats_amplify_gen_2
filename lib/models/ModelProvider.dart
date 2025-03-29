@@ -60,15 +60,13 @@ export 'ReportStatus.dart';
 export 'ReportType.dart';
 export 'Role.dart';
 export 'RoleStaff.dart';
-export 'SendNoticeEmailStatus.dart';
-export 'SendNoticeEmailType.dart';
 export 'Staff.dart';
 export 'StaffSubcategory.dart';
 export 'Subcategory.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "9c7dbf7dbb0a77971ab799d4e08abc67";
+  String version = "bcdde3b14a547f3b02b77098a0b9dcac";
   @override
   List<amplify_core.ModelSchema> modelSchemas = [
     Aircraft.schema,

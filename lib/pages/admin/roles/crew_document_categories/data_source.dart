@@ -6,8 +6,8 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class CrewDocumentCategoryDataSource extends DataTableSource {
-  CrewDocumentCategoryDataSource(
+class FlightCrewRecordsCategoryDataSource extends DataTableSource {
+  FlightCrewRecordsCategoryDataSource(
       {required this.sortedData, required this.context});
   List<CrewDocumentCategory> sortedData;
   BuildContext context;
@@ -22,15 +22,15 @@ class CrewDocumentCategoryDataSource extends DataTableSource {
 
   @override
   DataRow2 getRow(int index) {
-    final crewDocumentCategory = sortedData[index];
+    final flightCrewRecordsCategory = sortedData[index];
     return DataRow2.byIndex(
       onTap: () {
         showDialog(
           context: context,
           builder: (context) {
-            return CrewDocumentCategoryView(
-              roleId: crewDocumentCategory.role!.id,
-              category: crewDocumentCategory,
+            return FlightCrewRecordsCategoryView(
+              roleId: flightCrewRecordsCategory.role!.id,
+              category: flightCrewRecordsCategory,
             );
           },
         );
@@ -38,10 +38,10 @@ class CrewDocumentCategoryDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(crewDocumentCategory.name),
+          getCenterText(flightCrewRecordsCategory.name),
         ),
         DataCell(
-          getCenterText(crewDocumentCategory.description ?? ""),
+          getCenterText(flightCrewRecordsCategory.description ?? ""),
         ),
         DataCell(
           Center(
@@ -52,29 +52,29 @@ class CrewDocumentCategoryDataSource extends DataTableSource {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(20),
                 // maybe make it follow color scheme
-                color: crewDocumentCategory.archived
+                color: flightCrewRecordsCategory.archived
                     ? Colors.grey
                     : Colors.blue.shade600,
               ),
               child: Center(
-                child: Text(crewDocumentCategory.archived ? "Yes" : "No"),
+                child: Text(flightCrewRecordsCategory.archived ? "Yes" : "No"),
               ),
             ),
           ),
         ),
         DataCell(
           getCenterText(
-            crewDocumentCategory.createdAt != null
+            flightCrewRecordsCategory.createdAt != null
                 ? DateFormat('dd/MM/yyyy').format(
-                    crewDocumentCategory.createdAt!.getDateTimeInUtc(),
+                    flightCrewRecordsCategory.createdAt!.getDateTimeInUtc(),
                   )
                 : "",
           ),
         ),
         DataCell(
           Center(
-            child: CrewDocumentCategoryActions(
-              category: crewDocumentCategory,
+            child: FlightCrewRecordsCategoryActions(
+              category: flightCrewRecordsCategory,
             ),
           ),
         ),

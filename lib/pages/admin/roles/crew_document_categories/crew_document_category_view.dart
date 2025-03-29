@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class CrewDocumentCategoryView extends ConsumerWidget {
-  const CrewDocumentCategoryView(
+class FlightCrewRecordsCategoryView extends ConsumerWidget {
+  const FlightCrewRecordsCategoryView(
       {super.key, this.category, required this.roleId});
 
   final CrewDocumentCategory? category;
@@ -27,7 +27,9 @@ class CrewDocumentCategoryView extends ConsumerWidget {
         );
     return AlertDialog.adaptive(
       title: Text(
-        isEditing ? 'Editing ${category.name}' : 'Add a crew document category',
+        isEditing
+            ? 'Editing ${category.name}'
+            : 'Add a Flight Crew Records Category',
       ),
       content: SingleChildScrollView(
         child: Column(
@@ -132,12 +134,12 @@ class CrewDocumentCategoryView extends ConsumerWidget {
                 create(category),
               ]);
             }
-            ref.invalidate(crewDocumentCategoriesRepoProvider);
+            ref.invalidate(flightCrewRecordsCategoriesRepoProvider);
             if (!context.mounted) return;
             if (context.canPop()) {
               context.pop();
             } else {
-              CrewDocumentCategoriesRoute(roleId: roleId).go(context);
+              FlightCrewRecordsCategoriesRoute(roleId: roleId).go(context);
             }
           },
           label: Text(isEditing ? 'Apply' : 'Create'),

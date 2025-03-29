@@ -82,9 +82,10 @@ class NoticeRecipientsWidget extends ConsumerWidget {
                   },
                   items: value.map(
                     (e) {
-                      return MultiSelectItem(e, e.name);
+                      return MultiSelectItem(e, "${e.firstName} ${e.lastName}");
                     },
                   ).toList(),
+                  initialValue: state.recipients,
                 );
               },
             ),
@@ -119,7 +120,8 @@ class NoticeRecipientsWidget extends ConsumerWidget {
                   Text("Recipients:"),
                   ...state.recipients.map((e) => Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Chip(label: Text(e.name)),
+                        child:
+                            Chip(label: Text("${e.firstName} ${e.lastName}")),
                       )),
                   if (state.recipients.isEmpty) Text("None"),
                 ],

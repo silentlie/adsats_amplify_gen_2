@@ -6,8 +6,8 @@ part of 'filter.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$crewDocumentCategoryFilterHash() =>
-    r'de817df2666d7daee07a31281da17c29a050c6aa';
+String _$flightCrewRecordsCategoryFilterHash() =>
+    r'daff433fbb8dd85e89dac9d9d441fde5996e3f6a';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,37 +30,38 @@ class _SystemHash {
   }
 }
 
-abstract class _$CrewDocumentCategoryFilter
-    extends BuildlessAutoDisposeNotifier<CrewDocumentCategoryFilterState> {
+abstract class _$FlightCrewRecordsCategoryFilter
+    extends BuildlessAutoDisposeNotifier<FlightCrewRecordsCategoryFilterState> {
   late final String roleId;
 
-  CrewDocumentCategoryFilterState build(
+  FlightCrewRecordsCategoryFilterState build(
     String roleId,
   );
 }
 
-/// See also [CrewDocumentCategoryFilter].
-@ProviderFor(CrewDocumentCategoryFilter)
-const crewDocumentCategoryFilterProvider = CrewDocumentCategoryFilterFamily();
+/// See also [FlightCrewRecordsCategoryFilter].
+@ProviderFor(FlightCrewRecordsCategoryFilter)
+const flightCrewRecordsCategoryFilterProvider =
+    FlightCrewRecordsCategoryFilterFamily();
 
-/// See also [CrewDocumentCategoryFilter].
-class CrewDocumentCategoryFilterFamily
-    extends Family<CrewDocumentCategoryFilterState> {
-  /// See also [CrewDocumentCategoryFilter].
-  const CrewDocumentCategoryFilterFamily();
+/// See also [FlightCrewRecordsCategoryFilter].
+class FlightCrewRecordsCategoryFilterFamily
+    extends Family<FlightCrewRecordsCategoryFilterState> {
+  /// See also [FlightCrewRecordsCategoryFilter].
+  const FlightCrewRecordsCategoryFilterFamily();
 
-  /// See also [CrewDocumentCategoryFilter].
-  CrewDocumentCategoryFilterProvider call(
+  /// See also [FlightCrewRecordsCategoryFilter].
+  FlightCrewRecordsCategoryFilterProvider call(
     String roleId,
   ) {
-    return CrewDocumentCategoryFilterProvider(
+    return FlightCrewRecordsCategoryFilterProvider(
       roleId,
     );
   }
 
   @override
-  CrewDocumentCategoryFilterProvider getProviderOverride(
-    covariant CrewDocumentCategoryFilterProvider provider,
+  FlightCrewRecordsCategoryFilterProvider getProviderOverride(
+    covariant FlightCrewRecordsCategoryFilterProvider provider,
   ) {
     return call(
       provider.roleId,
@@ -81,31 +82,31 @@ class CrewDocumentCategoryFilterFamily
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'crewDocumentCategoryFilterProvider';
+  String? get name => r'flightCrewRecordsCategoryFilterProvider';
 }
 
-/// See also [CrewDocumentCategoryFilter].
-class CrewDocumentCategoryFilterProvider
-    extends AutoDisposeNotifierProviderImpl<CrewDocumentCategoryFilter,
-        CrewDocumentCategoryFilterState> {
-  /// See also [CrewDocumentCategoryFilter].
-  CrewDocumentCategoryFilterProvider(
+/// See also [FlightCrewRecordsCategoryFilter].
+class FlightCrewRecordsCategoryFilterProvider
+    extends AutoDisposeNotifierProviderImpl<FlightCrewRecordsCategoryFilter,
+        FlightCrewRecordsCategoryFilterState> {
+  /// See also [FlightCrewRecordsCategoryFilter].
+  FlightCrewRecordsCategoryFilterProvider(
     String roleId,
   ) : this._internal(
-          () => CrewDocumentCategoryFilter()..roleId = roleId,
-          from: crewDocumentCategoryFilterProvider,
-          name: r'crewDocumentCategoryFilterProvider',
+          () => FlightCrewRecordsCategoryFilter()..roleId = roleId,
+          from: flightCrewRecordsCategoryFilterProvider,
+          name: r'flightCrewRecordsCategoryFilterProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$crewDocumentCategoryFilterHash,
-          dependencies: CrewDocumentCategoryFilterFamily._dependencies,
+                  : _$flightCrewRecordsCategoryFilterHash,
+          dependencies: FlightCrewRecordsCategoryFilterFamily._dependencies,
           allTransitiveDependencies:
-              CrewDocumentCategoryFilterFamily._allTransitiveDependencies,
+              FlightCrewRecordsCategoryFilterFamily._allTransitiveDependencies,
           roleId: roleId,
         );
 
-  CrewDocumentCategoryFilterProvider._internal(
+  FlightCrewRecordsCategoryFilterProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -118,8 +119,8 @@ class CrewDocumentCategoryFilterProvider
   final String roleId;
 
   @override
-  CrewDocumentCategoryFilterState runNotifierBuild(
-    covariant CrewDocumentCategoryFilter notifier,
+  FlightCrewRecordsCategoryFilterState runNotifierBuild(
+    covariant FlightCrewRecordsCategoryFilter notifier,
   ) {
     return notifier.build(
       roleId,
@@ -127,10 +128,10 @@ class CrewDocumentCategoryFilterProvider
   }
 
   @override
-  Override overrideWith(CrewDocumentCategoryFilter Function() create) {
+  Override overrideWith(FlightCrewRecordsCategoryFilter Function() create) {
     return ProviderOverride(
       origin: this,
-      override: CrewDocumentCategoryFilterProvider._internal(
+      override: FlightCrewRecordsCategoryFilterProvider._internal(
         () => create()..roleId = roleId,
         from: from,
         name: null,
@@ -143,14 +144,14 @@ class CrewDocumentCategoryFilterProvider
   }
 
   @override
-  AutoDisposeNotifierProviderElement<CrewDocumentCategoryFilter,
-      CrewDocumentCategoryFilterState> createElement() {
-    return _CrewDocumentCategoryFilterProviderElement(this);
+  AutoDisposeNotifierProviderElement<FlightCrewRecordsCategoryFilter,
+      FlightCrewRecordsCategoryFilterState> createElement() {
+    return _FlightCrewRecordsCategoryFilterProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is CrewDocumentCategoryFilterProvider &&
+    return other is FlightCrewRecordsCategoryFilterProvider &&
         other.roleId == roleId;
   }
 
@@ -165,19 +166,21 @@ class CrewDocumentCategoryFilterProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin CrewDocumentCategoryFilterRef
-    on AutoDisposeNotifierProviderRef<CrewDocumentCategoryFilterState> {
+mixin FlightCrewRecordsCategoryFilterRef
+    on AutoDisposeNotifierProviderRef<FlightCrewRecordsCategoryFilterState> {
   /// The parameter `roleId` of this provider.
   String get roleId;
 }
 
-class _CrewDocumentCategoryFilterProviderElement
-    extends AutoDisposeNotifierProviderElement<CrewDocumentCategoryFilter,
-        CrewDocumentCategoryFilterState> with CrewDocumentCategoryFilterRef {
-  _CrewDocumentCategoryFilterProviderElement(super.provider);
+class _FlightCrewRecordsCategoryFilterProviderElement
+    extends AutoDisposeNotifierProviderElement<FlightCrewRecordsCategoryFilter,
+        FlightCrewRecordsCategoryFilterState>
+    with FlightCrewRecordsCategoryFilterRef {
+  _FlightCrewRecordsCategoryFilterProviderElement(super.provider);
 
   @override
-  String get roleId => (origin as CrewDocumentCategoryFilterProvider).roleId;
+  String get roleId =>
+      (origin as FlightCrewRecordsCategoryFilterProvider).roleId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

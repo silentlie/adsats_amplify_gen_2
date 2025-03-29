@@ -10,31 +10,32 @@ part 'filter.g.dart';
 part 'filter.freezed.dart';
 
 @Riverpod(dependencies: [])
-class CrewDocumentCategoryFilter extends _$CrewDocumentCategoryFilter {
+class FlightCrewRecordsCategoryFilter
+    extends _$FlightCrewRecordsCategoryFilter {
   @override
-  CrewDocumentCategoryFilterState build(String roleId) {
-    return CrewDocumentCategoryFilterState(roleId: roleId);
+  FlightCrewRecordsCategoryFilterState build(String roleId) {
+    return FlightCrewRecordsCategoryFilterState(roleId: roleId);
   }
 
   void search(String name) {
     state = state.copyWith(search: name);
   }
 
-  void apply(CrewDocumentCategoryFilterState newState) {
+  void apply(FlightCrewRecordsCategoryFilterState newState) {
     state = newState;
   }
 }
 
 @freezed
-sealed class CrewDocumentCategoryFilterState
-    with _$CrewDocumentCategoryFilterState {
-  CrewDocumentCategoryFilterState._();
-  factory CrewDocumentCategoryFilterState({
+sealed class FlightCrewRecordsCategoryFilterState
+    with _$FlightCrewRecordsCategoryFilterState {
+  FlightCrewRecordsCategoryFilterState._();
+  factory FlightCrewRecordsCategoryFilterState({
     @Default("") String search,
     @Default(false) bool? archived,
     DateTimeRange? createdAt,
     required String roleId,
-  }) = _CrewDocumentCategoryFilterState;
+  }) = _FlightCrewRecordsCategoryFilterState;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> result = {};
@@ -47,8 +48,8 @@ sealed class CrewDocumentCategoryFilterState
   }
 }
 
-class CrewDocumentCategoryFilterView extends ConsumerWidget {
-  const CrewDocumentCategoryFilterView({
+class FlightCrewRecordsCategoryFilterView extends ConsumerWidget {
+  const FlightCrewRecordsCategoryFilterView({
     super.key,
     required this.roleId,
   });
@@ -57,7 +58,7 @@ class CrewDocumentCategoryFilterView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var filter = ref.watch(crewDocumentCategoryFilterProvider(roleId));
+    var filter = ref.watch(flightCrewRecordsCategoryFilterProvider(roleId));
     return AlertDialog.adaptive(
       title: const Text('Filter By:'),
       content: Column(
@@ -95,7 +96,7 @@ class CrewDocumentCategoryFilterView extends ConsumerWidget {
         ),
         TextButton(
           onPressed: () {
-            ref.invalidate(crewDocumentCategoryFilterProvider);
+            ref.invalidate(flightCrewRecordsCategoryFilterProvider);
             Navigator.pop(context);
           },
           child: const Text("Reset filter"),
@@ -104,7 +105,7 @@ class CrewDocumentCategoryFilterView extends ConsumerWidget {
         TextButton(
           onPressed: () {
             ref
-                .read(crewDocumentCategoryFilterProvider(roleId).notifier)
+                .read(flightCrewRecordsCategoryFilterProvider(roleId).notifier)
                 .apply(filter);
             Navigator.pop(context);
           },

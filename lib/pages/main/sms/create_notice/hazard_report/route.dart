@@ -1,4 +1,3 @@
-import 'package:adsats_amplify_gen_2/API/query_providers.dart';
 import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/actions_row_widget.dart';
@@ -7,7 +6,6 @@ import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/documents_widg
 import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/recipients_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/state.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
-import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';

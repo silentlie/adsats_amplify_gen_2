@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
+import 'package:adsats_amplify_gen_2/API/send_email.dart';
+import 'package:adsats_amplify_gen_2/helper/format_type_name.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/s3.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -73,35 +75,6 @@ Future<void> updateAircraftNotice(
   }
 }
 
-Future<void> sendEmail(Notice notice, Iterable<Staff> staff) async {
-  try {
-    final request = GraphQLRequest<String>(
-      document: sendNoticeEmail,
-      variables: {
-        "subject": notice.subject,
-        "recipients": staff
-            .map(
-              (e) => e.email,
-            )
-            .toList(),
-        "status": notice.status!.name,
-        "type": notice.type!.name,
-        "noticedAt": notice.noticedAt?.toString(),
-        "deadlineAt": notice.deadlineAt?.toString(),
-        "details": notice.details,
-        "author": notice.author!.name,
-      },
-    );
-    final response = await Amplify.API.query(request: request).response;
-    if (response.errors.isNotEmpty) {
-      throw response.errors.first;
-    }
-    // Map<String, dynamic> jsonMap = json.decode(response.data!);
-  } on ApiException catch (e) {
-    debugPrint('send notice email failed: $e');
-  }
-}
-
 Future<Iterable<Staff>> fetchJoinRecipients({
   required Notice notice,
   required List<Role> roles,
@@ -130,7 +103,7 @@ Future<Iterable<Staff>> fetchJoinRecipients({
   try {
     final request =
         GraphQLRequest<String>(document: listJoinRecipients, variables: {
-      "aircraft": aircraftFilter,
+      "aircraftFilter": aircraftFilter,
       "rolesFilter": rolesFilter,
     });
     final response = await Amplify.API.query(request: request).response;
@@ -142,9 +115,9 @@ Future<Iterable<Staff>> fetchJoinRecipients({
         .map((e) => Staff.fromJson(e))
         .where(
           (element) =>
-              (element.aircraft?.isNotEmpty ?? false) &&
-              (element.roles?.isNotEmpty ?? false),
+              (element.aircraft!.isNotEmpty) && (element.roles!.isNotEmpty),
         );
+
     recipients.addAll(staff);
     return recipients.fold<Map<String, Staff>>({}, (map, staff) {
       map.putIfAbsent(staff.id, () => staff);
@@ -157,4 +130,70 @@ Future<Iterable<Staff>> fetchJoinRecipients({
     debugPrint('Dart Exception: fetchJoinRecipients failed: $e');
     rethrow;
   }
+}
+
+Future<void> updateNoticeStaff(
+  Notice? oldNotice,
+  Notice newNotice,
+  Iterable<Staff> recipients,
+) async {
+  try {
+    // Create a copy of recipients to avoid modifying the original list
+    final newRecipients = List<Staff>.from(recipients);
+
+    // Wait for all futures to complete
+    await Future.wait([
+      sendNoticeEmail(newNotice, recipients),
+      // Handle existing recipients
+      ...oldNotice?.recipients!.map(
+            (e) {
+              if (newRecipients.contains(e.staff)) {
+                // Keep existing staff and remove from new recipients
+                newRecipients.remove(e.staff);
+                return update(
+                  NoticeStaff(
+                    id: e.id,
+                    staff: e.staff,
+                    notice: e.notice,
+                  ),
+                );
+              } else {
+                // Remove staff that are no longer recipients
+                return delete(e);
+              }
+            },
+          ) ??
+          [],
+      // Add new recipients
+      ...newRecipients.map(
+        (staff) => create(
+          NoticeStaff(
+            notice: newNotice,
+            staff: staff,
+          ),
+        ),
+      ),
+    ]);
+  } on ApiException catch (e) {
+    debugPrint('ApiExecption: send notice failed: $e');
+    rethrow;
+  } on Exception catch (e) {
+    debugPrint('Dart Exception: send notice failed: $e');
+    rethrow;
+  }
+}
+
+Future<void> sendNoticeEmail(Notice notice, Iterable<Staff> staff) async {
+  if (staff.isEmpty) return;
+  final subject =
+      "${formatEnum(notice.type!.name)}: ${notice.subject} [${notice.status!.name}]";
+  final htmlBody = buildNoticeEmailMain(notice);
+  final sender = "${notice.author!.firstName} ${notice.author!.lastName}";
+  final recipients = staff.map((e) => e.email).toList();
+  await sendEmail(
+    subject: subject,
+    sender: sender,
+    htmlMain: htmlBody,
+    recipients: recipients,
+  );
 }

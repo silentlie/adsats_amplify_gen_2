@@ -7,7 +7,8 @@ query listStaffKPI(
   listStaff(filter: \$staffFilter) {
     items {
       id
-      name
+      firstName
+      lastName
       archived
       notices(filter: \$noticeFilter) {
         items {
@@ -26,7 +27,7 @@ query listStaffKPI(
 }
 ''';
 const listStaffByRole = '''
-query ListCrewDocumentCategories(\$roleName: String!) {
+query ListStaffByRole(\$roleName: String!) {
   listRoles(filter: {name: {eq: \$roleName}}) {
     items {
       id
@@ -36,7 +37,9 @@ query ListCrewDocumentCategories(\$roleName: String!) {
           id
           staff {
             id
-            name
+            firstName
+            lastName
+            email
           }
         }
       }
@@ -60,14 +63,16 @@ query ListReports(\$filter: ModelReportFilterInput) {
       updatedAt
       auditor {
         id
-        name
+        firstName
+        lastName
         email
         archived
       }
       closeAt
       closer {
         id
-        name
+        firstName
+        lastName
         email
         archived
       }
@@ -76,7 +81,8 @@ query ListReports(\$filter: ModelReportFilterInput) {
           id
           staff {
             id
-            name
+            firstName
+            lastName
             email
             archived
           }
@@ -106,14 +112,16 @@ query GetReportDetails(\$id: ID!) {
     updatedAt
     auditor {
       id
-      name
+      firstName
+      lastName
       email
       archived
     }
     closeAt
     closer {
       id
-      name
+      firstName
+      lastName
       email
       archived
     }
@@ -122,7 +130,8 @@ query GetReportDetails(\$id: ID!) {
         id
         staff {
           id
-          name
+          firstName
+          lastName
           email
           archived
         }
@@ -137,8 +146,8 @@ query GetReportDetails(\$id: ID!) {
   }
 }
 ''';
-const getCrewDocumentCategoryDetails = '''
-query GetCrewDocumentCategoryDetails(\$id: ID) {
+const getFlightCrewRecordsCategoryDetails = '''
+query GetFlightCrewRecordsCategoryDetails(\$id: ID) {
   getCrewDocumentCategory(id: \$id) {
     crewDocuments {
       items {
@@ -149,13 +158,13 @@ query GetCrewDocumentCategoryDetails(\$id: ID) {
   }
 }
 ''';
-//TODO use listRoles instead
 const listJoinRecipients = '''
 query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFilter: ModelAircraftStaffFilterInput) {
   listStaff {
     items {
       id
-      name
+      firstName
+      lastName
       email
       archived
       createdAt
@@ -174,8 +183,8 @@ query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFil
   }
 }
 ''';
-const listCrewDocumentCategories = '''
-query ListCrewDocumentCategories(\$filter: ModelCrewDocumentCategoryFilterInput, \$id: ID!) {
+const listFlightCrewRecordsCategories = '''
+query ListFlightCrewRecordsCategories(\$filter: ModelCrewDocumentCategoryFilterInput, \$id: ID!) {
   getRole(id: \$id) {
     id
     name
@@ -219,8 +228,8 @@ query ListProfileMeta(\$id: ID!) {
   }
 }
 ''';
-const listCrewDocuments = '''
-query ListCrewDocumentsCrews(\$filter: ModelCrewDocumentFilterInput) {
+const listFlightCrewRecords = '''
+query ListFlightCrewRecords(\$filter: ModelCrewDocumentFilterInput) {
   listCrewDocuments(filter: \$filter) {
     items {
       id
@@ -234,15 +243,16 @@ query ListCrewDocumentsCrews(\$filter: ModelCrewDocumentFilterInput) {
   }
 }
 ''';
-const listCrewDocumentCrews = '''
-query ListCrewDocumentCrews(\$aircraftId: ID!, \$roleId: ID!) {
+const listFlightCrewRecordsCrews = '''
+query ListFlightCrewRecordsCrews(\$aircraftId: ID!, \$roleId: ID!) {
   getRole(id: \$roleId) {
     id
     staff {
       items {
         staff {
           id
-          name
+          firstName
+          lastName
           aircraft(filter: {aircraftId: {eq: \$aircraftId}}) {
             items {
               id
@@ -255,8 +265,8 @@ query ListCrewDocumentCrews(\$aircraftId: ID!, \$roleId: ID!) {
   }
 }
 ''';
-const listCrewDocumentMeta = '''
-query ListCrewDocumentMeta {
+const listFlightCrewRecordsMeta = '''
+query ListFlightCrewRecordsMeta {
   listRoles(filter: {archived: {eq: false}}) {
     items {
       id
@@ -293,7 +303,8 @@ query ListNotices(\$filter: ModelNoticeFilterInput) {
       details
       author {
         id
-        name
+        firstName
+        lastName
         email
         archived
       }
@@ -325,7 +336,8 @@ query GetNoticeDetails(\$id: ID!) {
     details
     author {
       id
-      name
+      firstName
+      lastName
       email
       archived
     }
@@ -351,7 +363,8 @@ query GetNoticeDetails(\$id: ID!) {
         id
         staff {
           id
-          name
+          firstName
+          lastName
           email
           archived
         }
@@ -379,7 +392,8 @@ query ListSubcategories(\$filter: ModelSubcategoryFilterInput, \$id: ID!) {
             accessLevel
             staff {
               id
-              name
+              firstName
+              lastName
               email
               archived
             }
@@ -431,7 +445,8 @@ query ListAircraft(\$filter: ModelAircraftFilterInput) {
           id
           staff {
             id
-            name
+            firstName
+            lastName
             email
             archived
           }
@@ -456,7 +471,8 @@ query ListRoles(\$filter: ModelRoleFilterInput) {
           id
           staff {
             id
-            name
+            firstName
+            lastName
             email
             archived
           }
@@ -476,7 +492,8 @@ query ListStaff(\$filter: ModelStaffFilterInput) {
   listStaff(filter: \$filter) {
     items {
       id
-      name
+      firstName
+      lastName
       email
       createdAt
       archived
@@ -535,7 +552,8 @@ query ListDocuments(\$filter: ModelDocumentFilterInput) {
       archived
       staff {
         id
-        name
+        firstName
+        lastName
       }
       subcategory {
         id
@@ -562,7 +580,8 @@ const getStaff = '''
 query GetStaff(\$id: ID!) {
   getStaff(id: \$id) {
     id
-    name
+    firstName
+    lastName
     email
     archived
     aircraft {
@@ -611,7 +630,8 @@ query GetStaff(\$id: ID!) {
           type
           author {
             id
-            name
+            firstName
+            lastName
           }
         }
       }

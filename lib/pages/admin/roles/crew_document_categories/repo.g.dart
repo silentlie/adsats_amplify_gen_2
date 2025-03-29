@@ -6,8 +6,8 @@ part of 'repo.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$crewDocumentCategoriesRepoHash() =>
-    r'd8403df3c66f983c7df55358244a62db464fce56';
+String _$flightCrewRecordsCategoriesRepoHash() =>
+    r'4a601dcc4eacde134eeeb265b0bc4284fff0dcda';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,27 +30,28 @@ class _SystemHash {
   }
 }
 
-/// See also [crewDocumentCategoriesRepo].
-@ProviderFor(crewDocumentCategoriesRepo)
-const crewDocumentCategoriesRepoProvider = CrewDocumentCategoriesRepoFamily();
+/// See also [flightCrewRecordsCategoriesRepo].
+@ProviderFor(flightCrewRecordsCategoriesRepo)
+const flightCrewRecordsCategoriesRepoProvider =
+    FlightCrewRecordsCategoriesRepoFamily();
 
-/// See also [crewDocumentCategoriesRepo].
-class CrewDocumentCategoriesRepoFamily extends Family<AsyncValue<Role>> {
-  /// See also [crewDocumentCategoriesRepo].
-  const CrewDocumentCategoriesRepoFamily();
+/// See also [flightCrewRecordsCategoriesRepo].
+class FlightCrewRecordsCategoriesRepoFamily extends Family<AsyncValue<Role>> {
+  /// See also [flightCrewRecordsCategoriesRepo].
+  const FlightCrewRecordsCategoriesRepoFamily();
 
-  /// See also [crewDocumentCategoriesRepo].
-  CrewDocumentCategoriesRepoProvider call(
-    CrewDocumentCategoryFilterState filter,
+  /// See also [flightCrewRecordsCategoriesRepo].
+  FlightCrewRecordsCategoriesRepoProvider call(
+    FlightCrewRecordsCategoryFilterState filter,
   ) {
-    return CrewDocumentCategoriesRepoProvider(
+    return FlightCrewRecordsCategoriesRepoProvider(
       filter,
     );
   }
 
   @override
-  CrewDocumentCategoriesRepoProvider getProviderOverride(
-    covariant CrewDocumentCategoriesRepoProvider provider,
+  FlightCrewRecordsCategoriesRepoProvider getProviderOverride(
+    covariant FlightCrewRecordsCategoriesRepoProvider provider,
   ) {
     return call(
       provider.filter,
@@ -71,33 +72,33 @@ class CrewDocumentCategoriesRepoFamily extends Family<AsyncValue<Role>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'crewDocumentCategoriesRepoProvider';
+  String? get name => r'flightCrewRecordsCategoriesRepoProvider';
 }
 
-/// See also [crewDocumentCategoriesRepo].
-class CrewDocumentCategoriesRepoProvider
+/// See also [flightCrewRecordsCategoriesRepo].
+class FlightCrewRecordsCategoriesRepoProvider
     extends AutoDisposeFutureProvider<Role> {
-  /// See also [crewDocumentCategoriesRepo].
-  CrewDocumentCategoriesRepoProvider(
-    CrewDocumentCategoryFilterState filter,
+  /// See also [flightCrewRecordsCategoriesRepo].
+  FlightCrewRecordsCategoriesRepoProvider(
+    FlightCrewRecordsCategoryFilterState filter,
   ) : this._internal(
-          (ref) => crewDocumentCategoriesRepo(
-            ref as CrewDocumentCategoriesRepoRef,
+          (ref) => flightCrewRecordsCategoriesRepo(
+            ref as FlightCrewRecordsCategoriesRepoRef,
             filter,
           ),
-          from: crewDocumentCategoriesRepoProvider,
-          name: r'crewDocumentCategoriesRepoProvider',
+          from: flightCrewRecordsCategoriesRepoProvider,
+          name: r'flightCrewRecordsCategoriesRepoProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$crewDocumentCategoriesRepoHash,
-          dependencies: CrewDocumentCategoriesRepoFamily._dependencies,
+                  : _$flightCrewRecordsCategoriesRepoHash,
+          dependencies: FlightCrewRecordsCategoriesRepoFamily._dependencies,
           allTransitiveDependencies:
-              CrewDocumentCategoriesRepoFamily._allTransitiveDependencies,
+              FlightCrewRecordsCategoriesRepoFamily._allTransitiveDependencies,
           filter: filter,
         );
 
-  CrewDocumentCategoriesRepoProvider._internal(
+  FlightCrewRecordsCategoriesRepoProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -107,16 +108,16 @@ class CrewDocumentCategoriesRepoProvider
     required this.filter,
   }) : super.internal();
 
-  final CrewDocumentCategoryFilterState filter;
+  final FlightCrewRecordsCategoryFilterState filter;
 
   @override
   Override overrideWith(
-    FutureOr<Role> Function(CrewDocumentCategoriesRepoRef provider) create,
+    FutureOr<Role> Function(FlightCrewRecordsCategoriesRepoRef provider) create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: CrewDocumentCategoriesRepoProvider._internal(
-        (ref) => create(ref as CrewDocumentCategoriesRepoRef),
+      override: FlightCrewRecordsCategoriesRepoProvider._internal(
+        (ref) => create(ref as FlightCrewRecordsCategoriesRepoRef),
         from: from,
         name: null,
         dependencies: null,
@@ -129,12 +130,12 @@ class CrewDocumentCategoriesRepoProvider
 
   @override
   AutoDisposeFutureProviderElement<Role> createElement() {
-    return _CrewDocumentCategoriesRepoProviderElement(this);
+    return _FlightCrewRecordsCategoriesRepoProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is CrewDocumentCategoriesRepoProvider &&
+    return other is FlightCrewRecordsCategoriesRepoProvider &&
         other.filter == filter;
   }
 
@@ -149,19 +150,19 @@ class CrewDocumentCategoriesRepoProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin CrewDocumentCategoriesRepoRef on AutoDisposeFutureProviderRef<Role> {
+mixin FlightCrewRecordsCategoriesRepoRef on AutoDisposeFutureProviderRef<Role> {
   /// The parameter `filter` of this provider.
-  CrewDocumentCategoryFilterState get filter;
+  FlightCrewRecordsCategoryFilterState get filter;
 }
 
-class _CrewDocumentCategoriesRepoProviderElement
+class _FlightCrewRecordsCategoriesRepoProviderElement
     extends AutoDisposeFutureProviderElement<Role>
-    with CrewDocumentCategoriesRepoRef {
-  _CrewDocumentCategoriesRepoProviderElement(super.provider);
+    with FlightCrewRecordsCategoriesRepoRef {
+  _FlightCrewRecordsCategoriesRepoProviderElement(super.provider);
 
   @override
-  CrewDocumentCategoryFilterState get filter =>
-      (origin as CrewDocumentCategoriesRepoProvider).filter;
+  FlightCrewRecordsCategoryFilterState get filter =>
+      (origin as FlightCrewRecordsCategoriesRepoProvider).filter;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

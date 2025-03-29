@@ -10,12 +10,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'repo.g.dart';
 
 @Riverpod(dependencies: [])
-FutureOr<Role> crewDocumentCategoriesRepo(
+FutureOr<Role> flightCrewRecordsCategoriesRepo(
   Ref ref,
-  CrewDocumentCategoryFilterState filter,
+  FlightCrewRecordsCategoryFilterState filter,
 ) async {
   final request = GraphQLRequest<String>(
-    document: listCrewDocumentCategories,
+    document: listFlightCrewRecordsCategories,
     variables: {
       "filter": filter.toJson(),
       "id": filter.roleId,

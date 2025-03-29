@@ -33,7 +33,20 @@ class StaffPage extends ConsumerWidget {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (staff) {
-                      return staff.name;
+                      return staff.firstName;
+                    },
+                  );
+                },
+              ),
+              DataColumn2(
+                label: getCenterText("Name"),
+                size: ColumnSize.S,
+                onSort: (columnIndex, ascending) {
+                  sortNotifier.apply(
+                    columnIndex: columnIndex,
+                    sortAscending: ascending,
+                    getField: (staff) {
+                      return staff.lastName;
                     },
                   );
                 },

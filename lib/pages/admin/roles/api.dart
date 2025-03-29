@@ -13,7 +13,7 @@ Future<Role> deleteRole(Role role) async {
     );
     role.categories?.forEach(
       (category) {
-        futures.add(deleteCrewDocumentCategory(category));
+        futures.add(deleteFlightCrewRecordsCategory(category));
       },
     );
     futures.add(delete(role));

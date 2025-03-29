@@ -1,15 +1,16 @@
 part of 'route.dart';
 
-class CrewDocumentCategoriesPage extends ConsumerWidget {
-  const CrewDocumentCategoriesPage({super.key, required this.roleId});
+class FlightCrewRecordsCategoriesPage extends ConsumerWidget {
+  const FlightCrewRecordsCategoriesPage({super.key, required this.roleId});
 
   final String roleId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(crewDocumentCategoryFilterProvider(roleId));
-    final dataAsync = ref.watch(crewDocumentCategoriesRepoProvider(filter));
-    final sortState = ref.watch(crewDocumentCategorySortProvider);
+    final filter = ref.watch(flightCrewRecordsCategoryFilterProvider(roleId));
+    final dataAsync =
+        ref.watch(flightCrewRecordsCategoriesRepoProvider(filter));
+    final sortState = ref.watch(flightCrewRecordsCategorySortProvider);
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
@@ -17,16 +18,16 @@ class CrewDocumentCategoriesPage extends ConsumerWidget {
         value: dataAsync,
         data: (value) {
           final data = value.categories!;
-          data.sort(compareCrewDocumentCategory(
+          data.sort(compareFlightCrewRecordsCategory(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
-          final dataSource = CrewDocumentCategoryDataSource(
+          final dataSource = FlightCrewRecordsCategoryDataSource(
             sortedData: data,
             context: context,
           );
           final sortNotifier =
-              ref.read(crewDocumentCategorySortProvider.notifier);
+              ref.read(flightCrewRecordsCategorySortProvider.notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
@@ -116,7 +117,7 @@ class CrewDocumentCategoriesPage extends ConsumerWidget {
             onPageChanged: (rowIndex) {
               // debugPrint((rowIndex / _rowsPerPage).toString());
             },
-            header: CrewDocumentCategoryHeader(
+            header: FlightCrewRecordsCategoryHeader(
               role: value,
             ),
             dataRowHeight: 62,

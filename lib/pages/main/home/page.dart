@@ -8,7 +8,7 @@ class HomePage extends ConsumerWidget {
     final notificationsWidgets = buildNotifications(context, ref);
     final userName = ref.watch(
       userDetailsProvider.select(
-        (value) => value.valueOrNull?.name,
+        (value) => value.valueOrNull?.firstName,
       ),
     );
     return Column(
@@ -84,14 +84,14 @@ class HomePage extends ConsumerWidget {
                       onPressed: () => SmsInboxRoute().go(context),
                     ),
                     NavigateIconButton(
-                      icon: ComplianceShellRouteData().icon.icon!,
-                      name: ComplianceShellRouteData().label,
-                      onPressed: () => ComplianceSentRoute().go(context),
+                      icon: CmsShellRouteData().icon.icon!,
+                      name: CmsShellRouteData().label,
+                      onPressed: () => CmsSentRoute().go(context),
                     ),
                     NavigateIconButton(
-                      icon: CrewDocumentsRoute().icon.icon!,
-                      name: CrewDocumentsRoute().label,
-                      onPressed: () => CrewDocumentsRoute().go(context),
+                      icon: FlightCrewRecordsRoute().icon.icon!,
+                      name: FlightCrewRecordsRoute().label,
+                      onPressed: () => FlightCrewRecordsRoute().go(context),
                     ),
                     NavigateIconButton(
                       icon: ProfileRoute().icon.icon!,

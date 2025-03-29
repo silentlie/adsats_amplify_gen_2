@@ -23,7 +23,8 @@ class StaffView extends ConsumerWidget {
     final isEditing = this.staff != null;
     var staff = this.staff ??
         Staff(
-          name: "",
+          firstName: "",
+          lastName: "",
           email: "",
           archived: false,
         );
@@ -45,7 +46,9 @@ class StaffView extends ConsumerWidget {
     };
     return AlertDialog.adaptive(
       title: Text(
-        isEditing ? 'Editing ${staff.name}' : 'Add an staff',
+        isEditing
+            ? 'Editing ${staff.firstName} ${staff.lastName}'
+            : 'Add an staff',
       ),
       content: SingleChildScrollView(
         child: Column(
@@ -56,13 +59,25 @@ class StaffView extends ConsumerWidget {
               child: TextFormField(
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Staff Name',
+                  labelText: 'First Name',
                 ),
                 onChanged: (value) {
-                  staff = staff.copyWith(name: value);
+                  staff = staff.copyWith(firstName: value);
                 },
-                initialValue: staff.name,
-                enabled: !isEditing,
+                initialValue: staff.firstName,
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(8),
+              child: TextFormField(
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Last Name',
+                ),
+                onChanged: (value) {
+                  staff = staff.copyWith(lastName: value);
+                },
+                initialValue: staff.lastName,
               ),
             ),
             Container(
@@ -224,13 +239,13 @@ class StaffView extends ConsumerWidget {
               ]);
             } else {
               String id = await createUser(
-                name: staff.name,
                 email: staff.email,
                 tempPassword: "LM00r3??",
               );
               final newStaff = Staff(
                 id: id,
-                name: staff.name,
+                firstName: staff.firstName,
+                lastName: staff.lastName,
                 archived: staff.archived,
                 email: staff.email,
               );

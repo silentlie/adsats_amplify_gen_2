@@ -79,7 +79,7 @@ class RoleView extends ConsumerWidget {
                   },
                   items: value.map(
                     (e) {
-                      return MultiSelectItem(e, e.name);
+                      return MultiSelectItem(e, "${e.firstName} ${e.lastName}");
                     },
                   ).toList(),
                   initialValue: staff,

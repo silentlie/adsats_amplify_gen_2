@@ -116,7 +116,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
             const SizedBox(height: 10),
             Center(
               child: Text(
-                user.name,
+                "${user.firstName} ${user.lastName}",
                 style: const TextStyle(
                   fontSize: 16,
                 ),

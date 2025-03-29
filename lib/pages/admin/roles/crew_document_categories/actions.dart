@@ -7,8 +7,8 @@ import 'package:adsats_amplify_gen_2/pages/admin/roles/crew_document_categories/
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CrewDocumentCategoryActions extends ConsumerWidget {
-  const CrewDocumentCategoryActions({super.key, required this.category});
+class FlightCrewRecordsCategoryActions extends ConsumerWidget {
+  const FlightCrewRecordsCategoryActions({super.key, required this.category});
 
   final CrewDocumentCategory category;
 
@@ -23,7 +23,7 @@ class CrewDocumentCategoryActions extends ConsumerWidget {
             showDialog(
               context: context,
               builder: (context) {
-                return CrewDocumentCategoryView(
+                return FlightCrewRecordsCategoryView(
                   category: category,
                   roleId: category.role!.id,
                 );
@@ -61,11 +61,11 @@ class CrewDocumentCategoryActions extends ConsumerWidget {
               context,
               Text("Are you sure?"),
               Text(
-                "Do you want to delete this category?\nIt also deletes any crew document under this category",
+                "Do you want to delete this category?\nIt also deletes any Flight Crew Records under this Category",
               ),
             );
             if (!result) return;
-            await deleteCrewDocumentCategory(category);
+            await deleteFlightCrewRecordsCategory(category);
             ref.invalidate(subcategoriesRepoProvider);
             controller.close();
           },

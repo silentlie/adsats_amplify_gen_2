@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
+import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/view_notice/read_check.dart';
@@ -49,7 +50,7 @@ class ActionsRowWidget extends ConsumerWidget {
             label: const Text('Cancel'),
             icon: Icon(Icons.cancel_outlined),
           ),
-          if (notifier.isEditable()) readButton(ref),
+          if (notifier.isEditable()) readButton(ref, context),
           if (notifier.isEditable() && notifier.editPermit())
             ElevatedButton.icon(
               onPressed: () {
@@ -153,7 +154,7 @@ class ActionsRowWidget extends ConsumerWidget {
     );
   }
 
-  Widget readButton(WidgetRef ref) {
+  Widget readButton(WidgetRef ref, BuildContext context) {
     return AsyncValueWidget(
       value: ref.watch(readCheckProvider),
       data: (value) {
@@ -172,6 +173,13 @@ class ActionsRowWidget extends ConsumerWidget {
                 },
               ));
               ref.invalidate(readCheckProvider);
+              ref.invalidate(userDetailsProvider);
+              if (!context.mounted) return;
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                SmsInboxRoute().go(context);
+              }
             },
             label: const Text('Mark as read'),
             icon: Icon(Icons.mark_email_unread_outlined),

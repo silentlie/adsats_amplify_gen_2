@@ -123,12 +123,9 @@ class KPIPage extends ConsumerWidget {
             columnSpacing: 0,
             empty: const Text("There is nothing"),
             initialFirstRowIndex: 0,
-            rowsPerPage: sortState.rowsPerPage,
+            rowsPerPage: sortState.rowsPerPage * 1000,
             availableRowsPerPage: [
-              sortState.rowsPerPage,
-              sortState.rowsPerPage * 2,
-              sortState.rowsPerPage * 5,
-              sortState.rowsPerPage * 10,
+              sortState.rowsPerPage * 1000,
             ],
             onRowsPerPageChanged: (value) {
               // No need to wrap in setState, behave diff in this package

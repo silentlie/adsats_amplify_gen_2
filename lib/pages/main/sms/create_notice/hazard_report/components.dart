@@ -17,8 +17,7 @@ class MitigateCommentWidget extends ConsumerWidget {
     bool isIncludedComment = ref.watch(noticeNotifierProvider.select((value) {
       final isIncluded = value.details["included_comment"] as bool?;
       if (isIncluded == null) {
-        details["included_comment"] = false;
-        notifier.updateNotice(details: details);
+        notifier.updateDetails({"included_comment": false});
         return false;
       }
       return isIncluded;
@@ -38,8 +37,9 @@ class MitigateCommentWidget extends ConsumerWidget {
                 groupValue: isIncludedComment,
                 onChanged: (value) {
                   if (isEditMode) {
-                    details['included_comment'] = value!;
-                    notifier.updateDetails(details);
+                    notifier.updateDetailsTriggerWatch({
+                      'included_comment': value,
+                    });
                   }
                 },
               ),
@@ -51,8 +51,9 @@ class MitigateCommentWidget extends ConsumerWidget {
                 groupValue: isIncludedComment,
                 onChanged: (value) {
                   if (isEditMode) {
-                    details['included_comment'] = value!;
-                    notifier.updateDetails(details);
+                    notifier.updateDetailsTriggerWatch({
+                      'included_comment': value,
+                    });
                   }
                 },
               ),
@@ -67,8 +68,7 @@ class MitigateCommentWidget extends ConsumerWidget {
             labelText:
                 'In your opinion, how could the hazard or event be mitigated?',
             onSaved: (value) {
-              details["mitigation"] = value;
-              notifier.updateNotice(details: details);
+              notifier.updateDetails({"mitigation": value});
             },
             initialValue: details["mitigation"],
             enabled: isEditMode,
@@ -146,14 +146,10 @@ class RiskWidget extends ConsumerWidget {
         (value) => value.editMode,
       ),
     );
-    final details = ref.read(noticeNotifierProvider.select(
-      (value) => value.details,
-    ));
     int likelihood = ref.watch(noticeNotifierProvider.select((value) {
       final likely = value.details["likelihood"] as int?;
       if (likely == null) {
-        details["likelihood"] = 0;
-        notifier.updateNotice(details: details);
+        notifier.updateDetails({"likelihood": 0});
         return 0;
       }
       return likely;
@@ -161,8 +157,7 @@ class RiskWidget extends ConsumerWidget {
     int severity = ref.watch(noticeNotifierProvider.select((value) {
       final severe = value.details["severity"] as int?;
       if (severe == null) {
-        details["severity"] = 0;
-        notifier.updateNotice(details: details);
+        notifier.updateDetails({"severity": 0});
         return 0;
       }
       return severe;
@@ -219,8 +214,8 @@ class RiskWidget extends ConsumerWidget {
                           selected: index == likelihood,
                           onSelectChanged: (value) {
                             if (isEditMode) {
-                              details['likelihood'] = index;
-                              notifier.updateDetails(details);
+                              notifier
+                                  .updateDetailsTriggerWatch({"likelihood": 0});
                             }
                           },
                           color: WidgetStateColor.resolveWith(
@@ -286,8 +281,8 @@ class RiskWidget extends ConsumerWidget {
                           selected: index == severity,
                           onSelectChanged: (value) {
                             if (isEditMode) {
-                              details['severity'] = index;
-                              notifier.updateDetails(details);
+                              notifier
+                                  .updateDetailsTriggerWatch({"severity": 0});
                             }
                           },
                           color: WidgetStateColor.resolveWith(
@@ -407,6 +402,9 @@ class SafetyOfficersSection extends ConsumerWidget {
       "isConfidential",
       () => false,
     );
+    final recipients = ref.read(noticeNotifierProvider.select(
+      (value) => value.recipients,
+    ));
     return Column(
       children: [
         const Divider(),
@@ -429,8 +427,7 @@ class SafetyOfficersSection extends ConsumerWidget {
             ],
             enabled: isEditMode,
             onSelected: (value) {
-              details["isConfidential"] = value!;
-              notifier.updateNotice(details: details);
+              notifier.updateDetails({"isConfidential": value});
             },
             hintText: "Is this report confidential?",
             expandedInsets: EdgeInsets.zero,
@@ -441,8 +438,7 @@ class SafetyOfficersSection extends ConsumerWidget {
         GlobalTextFormField(
           labelText: "Interim Action/Comment",
           onSaved: (value) {
-            details["interim_comment"] = value;
-            notifier.updateNotice(details: details);
+            notifier.updateDetails({"interim_comment": value});
           },
           initialValue: details["interim_comment"],
           enabled: isEditMode,
@@ -460,8 +456,7 @@ class SafetyOfficersSection extends ConsumerWidget {
                   const Duration(days: 365 * 10),
                 ),
                 onSelected: (value) {
-                  details["reviewedAt"] = value.toString();
-                  notifier.updateNotice(details: details);
+                  notifier.updateDetails({"reviewedAt": value});
                 },
                 enabled: isEditMode,
                 initialValue: details["reviewedAt"] == null
@@ -490,8 +485,7 @@ class SafetyOfficersSection extends ConsumerWidget {
                   expandedInsets: EdgeInsets.zero,
                   label: const Text("Reviewed likelihood"),
                   onSelected: (value) {
-                    details["reviewed_likelihood"] = value;
-                    notifier.updateNotice(details: details);
+                    notifier.updateDetails({"reviewed_likelihood": value});
                   },
                 ),
               ),
@@ -515,8 +509,7 @@ class SafetyOfficersSection extends ConsumerWidget {
                   expandedInsets: EdgeInsets.zero,
                   label: const Text("Reviewed severity"),
                   onSelected: (value) {
-                    details["reviewed_severity"] = value;
-                    notifier.updateNotice(details: details);
+                    notifier.updateDetails({"reviewed_severity": value});
                   },
                 ),
               ),
@@ -526,8 +519,7 @@ class SafetyOfficersSection extends ConsumerWidget {
         GlobalTextFormField(
           labelText: "Additional comments",
           onSaved: (value) {
-            details["additional_comment"] = value;
-            notifier.updateNotice(details: details);
+            notifier.updateDetails({"additional_comment": value});
           },
           initialValue: details["additional_comment"],
           enabled: isEditMode,
@@ -545,8 +537,7 @@ class SafetyOfficersSection extends ConsumerWidget {
                   const Duration(days: 365 * 10),
                 ),
                 onSelected: (value) {
-                  details["closedAt"] = value.toString();
-                  notifier.updateNotice(details: details);
+                  notifier.updateDetails({"closedAt": value});
                 },
                 enabled: isEditMode,
                 initialValue: details["closedAt"] == null
@@ -557,25 +548,21 @@ class SafetyOfficersSection extends ConsumerWidget {
               ),
             ),
             Flexible(
-              child: AsyncValueWidget(
-                value: ref.watch(listStaffProvider()),
-                data: (value) {
-                  return GlobalDropdownMenu(
-                    entries: value.map(
-                      (e) {
-                        return DropdownMenuEntry(value: e, label: e.name);
-                      },
-                    ).toList(),
-                    onSelected: (value) {
-                      details["signature"] = value!;
-                    },
-                    enabled: isEditMode,
-                    initialSelection: details["signature"] == null
-                        ? null
-                        : Staff.fromJson(details["signature"]),
-                    text: "Safety officer closed this notice",
-                  );
+              child: GlobalDropdownMenu(
+                entries: recipients.map(
+                  (e) {
+                    return DropdownMenuEntry(
+                        value: e, label: "${e.firstName} ${e.lastName}");
+                  },
+                ).toList(),
+                onSelected: (value) {
+                  notifier.updateDetails({"signature": value});
                 },
+                enabled: isEditMode,
+                initialSelection: details["signature"] == null
+                    ? null
+                    : Staff.fromJson(details["signature"]),
+                text: "Safety officer closed this notice",
               ),
             ),
           ],

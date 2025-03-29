@@ -55,7 +55,7 @@ class RoleActions extends ConsumerWidget {
               context,
               Text("Are you sure?"),
               Text(
-                  "Do you want to delete this role?\nIt also delete all its categories and crew documents "),
+                  "Do you want to delete this role?\nIt also delete all its Categories and Flight Crew Records "),
             );
             if (result) {
               await deleteRole(role);

@@ -43,7 +43,8 @@ List<ListTile> buildNotifications(BuildContext context, WidgetRef ref) {
             style: const TextStyle(fontWeight: FontWeight.bold),
             children: <TextSpan>[
               TextSpan(
-                text: e.notice?.author?.name,
+                text:
+                    "${e.notice?.author?.firstName} ${e.notice?.author?.lastName}",
                 style: const TextStyle(fontWeight: FontWeight.normal),
               ),
             ],
