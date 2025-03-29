@@ -11,6 +11,7 @@ List<RouteBase> get $appRoutes => [
     ];
 
 RouteBase get $rootShellRouteData => ShellRouteData.$route(
+      navigatorKey: RootShellRouteData.$navigatorKey,
       factory: $RootShellRouteDataExtension._fromState,
       routes: [
         StatefulShellRouteData.$route(
@@ -166,6 +167,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                     GoRouteData.$route(
                       path: ':id',
                       name: 'View Report',
+                      parentNavigatorKey: ViewReportRoute.$parentNavigatorKey,
                       factory: $ViewReportRouteExtension._fromState,
                     ),
                   ],

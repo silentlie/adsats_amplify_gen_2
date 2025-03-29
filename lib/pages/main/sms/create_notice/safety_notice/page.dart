@@ -95,8 +95,7 @@ class SafetyNoticeBody extends ConsumerWidget {
         GlobalTextFormField(
           labelText: "Potential safety risk",
           onSaved: (value) {
-            details["title"] = value;
-            notifier.updateNotice(details: details);
+            notifier.updateDetails({"title": value});
           },
           initialValue: details["title"],
           enabled: isEditMode,
@@ -104,8 +103,7 @@ class SafetyNoticeBody extends ConsumerWidget {
         GlobalTextFormField(
           labelText: "Message",
           onSaved: (value) {
-            details["message"] = value!;
-            notifier.updateNotice(details: details);
+            notifier.updateDetails({"message": value});
           },
           initialValue: details["message"],
           enabled: isEditMode,

@@ -12,6 +12,8 @@ class ViewReportRoute extends RouteInfo {
   const ViewReportRoute({required this.id});
   final String id;
 
+  static final $parentNavigatorKey = rootShellNavigatorKey;
+
   @override
   Icon get icon => const Icon(Icons.fact_check_outlined);
   @override

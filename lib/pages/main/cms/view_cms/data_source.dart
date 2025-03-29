@@ -30,7 +30,7 @@ class ReportDataSource extends DataTableSource {
     final report = sortedData[index];
     return DataRow2.byIndex(
       onTap: () {
-        ViewReportRoute(id: report.id).go(context);
+        ViewReportRoute(id: report.id).push(context);
       },
       index: index,
       cells: [

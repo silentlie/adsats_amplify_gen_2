@@ -65,19 +65,15 @@ class NoticeNotifier extends _$NoticeNotifier {
         roles: _roles,
         notice: state.notice,
       );
-      futures.addAll([
-        ...finalRecipients.map(
-          (e) {
-            return create(NoticeStaff(staff: e, notice: state.notice));
-          },
-        ),
-        sendNoticeEmail(state.notice, finalRecipients),
-      ]);
+      await updateNoticeStaff(
+        _initialNotice,
+        state.notice,
+        finalRecipients,
+      );
     }
     await Future.wait(futures);
   }
 
-  //This does not trigger rebuild on watch
   void updateNotice({
     String? subject,
     Staff? author,
@@ -114,9 +110,26 @@ class NoticeNotifier extends _$NoticeNotifier {
   }
 
   //This does trigger rebuild
-  void updateDetails(Map<String, dynamic> details) {
+  void updateDetailsTriggerWatch(Map<String, dynamic> details) {
+    final updatedDetails = {
+      ...state.details,
+      ...details,
+    };
     state = state.copyWith(
-      notice: state.notice.copyWith(details: jsonEncode(details)),
+      notice: state.notice.copyWith(
+        details: jsonEncode(updatedDetails),
+      ),
+    );
+  }
+
+  //This does trigger rebuild
+  void updateDetails(Map<String, dynamic> details) {
+    final updatedDetails = {
+      ...state.details,
+      ...details,
+    };
+    state = state.copyWith(
+      notice: state.notice.copyWith(details: jsonEncode(updatedDetails)),
     );
   }
 

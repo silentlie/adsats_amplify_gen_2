@@ -66,6 +66,6 @@ FutureOr<Iterable<Staff>> listJoinStaff(
   Map<String, dynamic> jsonMap = json.decode(response.data!);
   final staff = (jsonMap["getRole"]["staff"]["items"] as List)
       .map((e) => Staff.fromJson(e["staff"]))
-      .where((element) => element.aircraft?.isNotEmpty ?? false);
+      .where((element) => element.aircraft!.isNotEmpty);
   return staff;
 }

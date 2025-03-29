@@ -14,6 +14,7 @@ part 'router.g.dart';
 part 'dialog_page.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
+final rootShellNavigatorKey = GlobalKey<NavigatorState>();
 
 @Riverpod(keepAlive: true)
 class Router extends _$Router {
@@ -263,6 +264,8 @@ class Router extends _$Router {
 ])
 class RootShellRouteData extends ShellRouteData {
   const RootShellRouteData();
+
+  static final $navigatorKey = rootShellNavigatorKey;
 
   @override
   Widget builder(

@@ -95,8 +95,7 @@ class HazardReportBody extends ConsumerWidget {
         GlobalTextFormField(
           labelText: "Location",
           onSaved: (value) {
-            details["location"] = value;
-            notifier.updateNotice(details: details);
+            notifier.updateDetails({"location": value});
           },
           initialValue: details["location"],
           enabled: isEditMode,
@@ -104,8 +103,7 @@ class HazardReportBody extends ConsumerWidget {
         GlobalTextFormField(
           labelText: "Describe the Hazard or the Event",
           onSaved: (value) {
-            details["description"] = value;
-            notifier.updateNotice(details: details);
+            notifier.updateDetails({"description": value});
           },
           initialValue: details["description"],
           enabled: isEditMode,

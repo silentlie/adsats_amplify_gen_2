@@ -85,6 +85,7 @@ class NoticeRecipientsWidget extends ConsumerWidget {
                       return MultiSelectItem(e, "${e.firstName} ${e.lastName}");
                     },
                   ).toList(),
+                  initialValue: state.recipients,
                 );
               },
             ),

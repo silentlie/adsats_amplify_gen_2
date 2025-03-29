@@ -12,7 +12,7 @@ class ViewNoticeRoute extends RouteInfo {
   const ViewNoticeRoute({required this.id});
   final String id;
 
-  static final $parentNavigatorKey = rootNavigatorKey;
+  static final $parentNavigatorKey = rootShellNavigatorKey;
 
   @override
   Icon get icon => const Icon(Icons.support_outlined);

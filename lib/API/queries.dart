@@ -39,6 +39,7 @@ query ListStaffByRole(\$roleName: String!) {
             id
             firstName
             lastName
+            email
           }
         }
       }
@@ -157,13 +158,13 @@ query GetFlightCrewRecordsCategoryDetails(\$id: ID) {
   }
 }
 ''';
-//TODO use listRoles instead
 const listJoinRecipients = '''
 query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFilter: ModelAircraftStaffFilterInput) {
   listStaff {
     items {
       id
-      name
+      firstName
+      lastName
       email
       archived
       createdAt

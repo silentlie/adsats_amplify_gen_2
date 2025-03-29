@@ -85,8 +85,7 @@ class NoticeToCrewBody extends ConsumerWidget {
     return GlobalTextFormField(
       labelText: "Message",
       onSaved: (value) {
-        details["message"] = value!;
-        notifier.updateNotice(details: details);
+        notifier.updateDetails({"message": value});
       },
       initialValue: details["message"],
       enabled: ref.watch(

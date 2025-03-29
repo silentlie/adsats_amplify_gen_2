@@ -10,7 +10,7 @@ const basePath = "http://127.0.0.1:8000";
 
 Future<void> sendEmail({
   required String subject,
-  required String author,
+  required String sender,
   required String htmlMain,
   required List<String> recipients,
 }) async {
@@ -21,7 +21,7 @@ Future<void> sendEmail({
         "subject": subject,
         "recipients": recipients,
         "htmlBody": buildEmailHTML(htmlMain),
-        "author": author,
+        "author": sender,
       },
     );
     final response = await Amplify.API.query(request: request).response;
