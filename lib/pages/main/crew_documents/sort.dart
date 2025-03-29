@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'sort.g.dart';
 part 'sort.freezed.dart';
 
-int Function(CrewDocument, CrewDocument) compareCrewDocument({
+int Function(CrewDocument, CrewDocument) compareFlightCrewRecord({
   required bool sortAscending,
   required Comparable Function(CrewDocument crewDocument) getField,
 }) {
@@ -20,10 +20,10 @@ int Function(CrewDocument, CrewDocument) compareCrewDocument({
 }
 
 @Riverpod()
-class CrewDocumentSort extends _$CrewDocumentSort {
+class FlightCrewRecordSort extends _$FlightCrewRecordSort {
   @override
-  CrewDocumentSortState build() {
-    return CrewDocumentSortState(
+  FlightCrewRecordSortState build() {
+    return FlightCrewRecordSortState(
       getField: (crewDocument) {
         return crewDocument.createdAt!;
       },
@@ -48,11 +48,11 @@ class CrewDocumentSort extends _$CrewDocumentSort {
 }
 
 @freezed
-sealed class CrewDocumentSortState with _$CrewDocumentSortState {
-  factory CrewDocumentSortState({
+sealed class FlightCrewRecordSortState with _$FlightCrewRecordSortState {
+  factory FlightCrewRecordSortState({
     @Default(false) bool sortAscending,
     @Default(3) int sortColumnIndex,
     required Comparable Function(CrewDocument crewDocument) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
-  }) = _CrewDocumentSortState;
+  }) = _FlightCrewRecordSortState;
 }

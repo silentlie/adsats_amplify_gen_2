@@ -1,3 +1,3 @@
-String formatType(String type) {
+String formatEnum(String type) {
   return type.replaceAll('_', ' ');
 }

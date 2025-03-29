@@ -117,27 +117,27 @@ class Router extends _$Router {
           ),
         ],
       ),
-      TypedStatefulShellBranch<ComplianceShellBranchData>(
+      TypedStatefulShellBranch<CmsShellBranchData>(
         routes: [
-          TypedGoRoute<ComplianceRoute>(
-            path: '/compliance',
-            name: 'Compliance',
+          TypedGoRoute<CmsRoute>(
+            path: '/cms',
+            name: 'CMS',
             routes: [
-              TypedStatefulShellRoute<ComplianceShellRouteData>(
+              TypedStatefulShellRoute<CmsShellRouteData>(
                 branches: [
-                  TypedStatefulShellBranch<ComplianceInboxShellBranchData>(
+                  TypedStatefulShellBranch<CmsInboxShellBranchData>(
                     routes: <TypedRoute<RouteData>>[
-                      TypedGoRoute<ComplianceInboxRoute>(
+                      TypedGoRoute<CmsInboxRoute>(
                         path: 'inbox',
-                        name: 'Compliance Inbox',
+                        name: 'CMS Inbox',
                       ),
                     ],
                   ),
-                  TypedStatefulShellBranch<ComplianceSentShellBranchData>(
+                  TypedStatefulShellBranch<CmsSentShellBranchData>(
                     routes: <TypedRoute<RouteData>>[
-                      TypedGoRoute<ComplianceSentRoute>(
+                      TypedGoRoute<CmsSentRoute>(
                         path: 'sent',
-                        name: 'Compliance Sent',
+                        name: 'CMS Sent',
                       ),
                     ],
                   ),
@@ -171,11 +171,11 @@ class Router extends _$Router {
           ),
         ],
       ),
-      TypedStatefulShellBranch<CrewDocumentsShellBranchData>(
+      TypedStatefulShellBranch<FlightCrewRecordsShellBranchData>(
         routes: <TypedRoute<RouteData>>[
-          TypedGoRoute<CrewDocumentsRoute>(
-            path: '/crew-documents',
-            name: 'Crew Documents',
+          TypedGoRoute<FlightCrewRecordsRoute>(
+            path: '/flight-crew-records',
+            name: 'Flight Crew Records',
           ),
         ],
       ),
@@ -229,9 +229,9 @@ class Router extends _$Router {
               path: '/admin/roles',
               name: 'Roles',
               routes: [
-                TypedGoRoute<CrewDocumentCategoriesRoute>(
+                TypedGoRoute<FlightCrewRecordsCategoriesRoute>(
                   path: ':roleId',
-                  name: 'Crew Document Categories',
+                  name: 'Flight Crew RecordsCategories',
                 ),
               ]),
         ],

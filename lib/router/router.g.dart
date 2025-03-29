@@ -108,23 +108,22 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
               ],
             ),
             StatefulShellBranchData.$branch(
-              initialLocation: ComplianceShellBranchData.$initialLocation,
+              initialLocation: CmsShellBranchData.$initialLocation,
               routes: [
                 GoRouteData.$route(
-                  path: '/compliance',
-                  name: 'Compliance',
-                  factory: $ComplianceRouteExtension._fromState,
+                  path: '/cms',
+                  name: 'CMS',
+                  factory: $CmsRouteExtension._fromState,
                   routes: [
                     StatefulShellRouteData.$route(
-                      factory: $ComplianceShellRouteDataExtension._fromState,
+                      factory: $CmsShellRouteDataExtension._fromState,
                       branches: [
                         StatefulShellBranchData.$branch(
                           routes: [
                             GoRouteData.$route(
                               path: 'inbox',
-                              name: 'Compliance Inbox',
-                              factory:
-                                  $ComplianceInboxRouteExtension._fromState,
+                              name: 'CMS Inbox',
+                              factory: $CmsInboxRouteExtension._fromState,
                             ),
                           ],
                         ),
@@ -132,8 +131,8 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                           routes: [
                             GoRouteData.$route(
                               path: 'sent',
-                              name: 'Compliance Sent',
-                              factory: $ComplianceSentRouteExtension._fromState,
+                              name: 'CMS Sent',
+                              factory: $CmsSentRouteExtension._fromState,
                             ),
                           ],
                         ),
@@ -176,9 +175,9 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
             StatefulShellBranchData.$branch(
               routes: [
                 GoRouteData.$route(
-                  path: '/crew-documents',
-                  name: 'Crew Documents',
-                  factory: $CrewDocumentsRouteExtension._fromState,
+                  path: '/flight-crew-records',
+                  name: 'Flight Crew Records',
+                  factory: $FlightCrewRecordsRouteExtension._fromState,
                 ),
               ],
             ),
@@ -241,8 +240,9 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                   routes: [
                     GoRouteData.$route(
                       path: ':roleId',
-                      name: 'Crew Document Categories',
-                      factory: $CrewDocumentCategoriesRouteExtension._fromState,
+                      name: 'Flight Crew RecordsCategories',
+                      factory:
+                          $FlightCrewRecordsCategoriesRouteExtension._fromState,
                     ),
                   ],
                 ),
@@ -457,12 +457,11 @@ extension $ViewNoticeRouteExtension on ViewNoticeRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $ComplianceRouteExtension on ComplianceRoute {
-  static ComplianceRoute _fromState(GoRouterState state) =>
-      const ComplianceRoute();
+extension $CmsRouteExtension on CmsRoute {
+  static CmsRoute _fromState(GoRouterState state) => const CmsRoute();
 
   String get location => GoRouteData.$location(
-        '/compliance',
+        '/cms',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -475,17 +474,16 @@ extension $ComplianceRouteExtension on ComplianceRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $ComplianceShellRouteDataExtension on ComplianceShellRouteData {
-  static ComplianceShellRouteData _fromState(GoRouterState state) =>
-      const ComplianceShellRouteData();
+extension $CmsShellRouteDataExtension on CmsShellRouteData {
+  static CmsShellRouteData _fromState(GoRouterState state) =>
+      const CmsShellRouteData();
 }
 
-extension $ComplianceInboxRouteExtension on ComplianceInboxRoute {
-  static ComplianceInboxRoute _fromState(GoRouterState state) =>
-      const ComplianceInboxRoute();
+extension $CmsInboxRouteExtension on CmsInboxRoute {
+  static CmsInboxRoute _fromState(GoRouterState state) => const CmsInboxRoute();
 
   String get location => GoRouteData.$location(
-        '/compliance/inbox',
+        '/cms/inbox',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -498,12 +496,11 @@ extension $ComplianceInboxRouteExtension on ComplianceInboxRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $ComplianceSentRouteExtension on ComplianceSentRoute {
-  static ComplianceSentRoute _fromState(GoRouterState state) =>
-      const ComplianceSentRoute();
+extension $CmsSentRouteExtension on CmsSentRoute {
+  static CmsSentRoute _fromState(GoRouterState state) => const CmsSentRoute();
 
   String get location => GoRouteData.$location(
-        '/compliance/sent',
+        '/cms/sent',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -526,7 +523,7 @@ extension $InternalAuditReportRouteExtension on InternalAuditReportRoute {
       const InternalAuditReportRoute();
 
   String get location => GoRouteData.$location(
-        '/compliance/internal-audit-report',
+        '/cms/internal-audit-report',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -544,7 +541,7 @@ extension $ExternalAuditReportRouteExtension on ExternalAuditReportRoute {
       const ExternalAuditReportRoute();
 
   String get location => GoRouteData.$location(
-        '/compliance/external-audit-report',
+        '/cms/external-audit-report',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -563,7 +560,7 @@ extension $ViewReportRouteExtension on ViewReportRoute {
       );
 
   String get location => GoRouteData.$location(
-        '/compliance/${Uri.encodeComponent(id)}',
+        '/cms/${Uri.encodeComponent(id)}',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -576,12 +573,12 @@ extension $ViewReportRouteExtension on ViewReportRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $CrewDocumentsRouteExtension on CrewDocumentsRoute {
-  static CrewDocumentsRoute _fromState(GoRouterState state) =>
-      const CrewDocumentsRoute();
+extension $FlightCrewRecordsRouteExtension on FlightCrewRecordsRoute {
+  static FlightCrewRecordsRoute _fromState(GoRouterState state) =>
+      const FlightCrewRecordsRoute();
 
   String get location => GoRouteData.$location(
-        '/crew-documents',
+        '/flight-crew-records',
       );
 
   void go(BuildContext context) => context.go(location);
@@ -702,9 +699,10 @@ extension $RolesRouteExtension on RolesRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $CrewDocumentCategoriesRouteExtension on CrewDocumentCategoriesRoute {
-  static CrewDocumentCategoriesRoute _fromState(GoRouterState state) =>
-      CrewDocumentCategoriesRoute(
+extension $FlightCrewRecordsCategoriesRouteExtension
+    on FlightCrewRecordsCategoriesRoute {
+  static FlightCrewRecordsCategoriesRoute _fromState(GoRouterState state) =>
+      FlightCrewRecordsCategoriesRoute(
         roleId: state.pathParameters['roleId']!,
       );
 

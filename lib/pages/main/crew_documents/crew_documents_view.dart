@@ -10,8 +10,8 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CrewDocumentsView extends ConsumerWidget {
-  const CrewDocumentsView({
+class FlightCrewRecordsView extends ConsumerWidget {
+  const FlightCrewRecordsView({
     super.key,
     required this.staff,
     required this.category,
@@ -21,23 +21,23 @@ class CrewDocumentsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(crewDocumentFilterProvider(staff, category));
-    final dataAsync = ref.watch(crewDocumentsRepoProvider(filter));
-    final sortState = ref.watch(crewDocumentSortProvider);
+    final filter = ref.watch(flightCrewRecordFilterProvider(staff, category));
+    final dataAsync = ref.watch(flightCrewRecordsRepoProvider(filter));
+    final sortState = ref.watch(flightCrewRecordSortProvider);
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
       child: AsyncValueWidget(
         value: dataAsync,
         data: (data) {
-          data.sort(compareCrewDocument(
+          data.sort(compareFlightCrewRecord(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
-          final dataSource = CrewDocumentDataSource(
+          final dataSource = FlightCrewRecordsDataSource(
             sortedData: data,
           );
-          final sortNotifier = ref.read(crewDocumentSortProvider.notifier);
+          final sortNotifier = ref.read(flightCrewRecordSortProvider.notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
@@ -114,7 +114,7 @@ class CrewDocumentsView extends ConsumerWidget {
             onPageChanged: (rowIndex) {
               // debugPrint((rowIndex / _rowsPerPage).toString());
             },
-            header: CrewDocumentHeader(
+            header: FlightCrewRecordsHeader(
               category: category,
               staff: staff,
             ),

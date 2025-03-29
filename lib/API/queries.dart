@@ -27,7 +27,7 @@ query listStaffKPI(
 }
 ''';
 const listStaffByRole = '''
-query ListCrewDocumentCategories(\$roleName: String!) {
+query ListStaffByRole(\$roleName: String!) {
   listRoles(filter: {name: {eq: \$roleName}}) {
     items {
       id
@@ -145,8 +145,8 @@ query GetReportDetails(\$id: ID!) {
   }
 }
 ''';
-const getCrewDocumentCategoryDetails = '''
-query GetCrewDocumentCategoryDetails(\$id: ID) {
+const getFlightCrewRecordsCategoryDetails = '''
+query GetFlightCrewRecordsCategoryDetails(\$id: ID) {
   getCrewDocumentCategory(id: \$id) {
     crewDocuments {
       items {
@@ -182,8 +182,8 @@ query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFil
   }
 }
 ''';
-const listCrewDocumentCategories = '''
-query ListCrewDocumentCategories(\$filter: ModelCrewDocumentCategoryFilterInput, \$id: ID!) {
+const listFlightCrewRecordsCategories = '''
+query ListFlightCrewRecordsCategories(\$filter: ModelCrewDocumentCategoryFilterInput, \$id: ID!) {
   getRole(id: \$id) {
     id
     name
@@ -227,8 +227,8 @@ query ListProfileMeta(\$id: ID!) {
   }
 }
 ''';
-const listCrewDocuments = '''
-query ListCrewDocumentsCrews(\$filter: ModelCrewDocumentFilterInput) {
+const listFlightCrewRecords = '''
+query ListFlightCrewRecords(\$filter: ModelCrewDocumentFilterInput) {
   listCrewDocuments(filter: \$filter) {
     items {
       id
@@ -242,8 +242,8 @@ query ListCrewDocumentsCrews(\$filter: ModelCrewDocumentFilterInput) {
   }
 }
 ''';
-const listCrewDocumentCrews = '''
-query ListCrewDocumentCrews(\$aircraftId: ID!, \$roleId: ID!) {
+const listFlightCrewRecordsCrews = '''
+query ListFlightCrewRecordsCrews(\$aircraftId: ID!, \$roleId: ID!) {
   getRole(id: \$roleId) {
     id
     staff {
@@ -264,8 +264,8 @@ query ListCrewDocumentCrews(\$aircraftId: ID!, \$roleId: ID!) {
   }
 }
 ''';
-const listCrewDocumentMeta = '''
-query ListCrewDocumentMeta {
+const listFlightCrewRecordsMeta = '''
+query ListFlightCrewRecordsMeta {
   listRoles(filter: {archived: {eq: false}}) {
     items {
       id

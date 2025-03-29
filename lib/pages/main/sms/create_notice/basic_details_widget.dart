@@ -51,7 +51,8 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
                     return GlobalDropdownMenu<Staff>(
                       entries: value.map(
                         (e) {
-                          return DropdownMenuEntry(value: e, label: "${e.firstName} ${e.lastName}");
+                          return DropdownMenuEntry(
+                              value: e, label: "${e.firstName} ${e.lastName}");
                         },
                       ).toList(),
                       enabled: isEditMode,

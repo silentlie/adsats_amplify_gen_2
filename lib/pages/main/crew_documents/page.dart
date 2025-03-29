@@ -1,7 +1,7 @@
 part of 'route.dart';
 
-class CrewDocumentsPage extends ConsumerWidget {
-  const CrewDocumentsPage({super.key});
+class FlightCrewRecordsPage extends ConsumerWidget {
+  const FlightCrewRecordsPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -10,10 +10,10 @@ class CrewDocumentsPage extends ConsumerWidget {
         constraints: BoxConstraints(maxWidth: 1536),
         child: Card(
           child: AsyncValueWidget(
-            value: ref.watch(crewDocumentsMetaProvider),
+            value: ref.watch(flightCrewRecordsMetaProvider),
             data: (value) {
               final (aircraft, roles) = value;
-              return CrewDocumentsBody(aircraft: aircraft, roles: roles);
+              return FlightCrewRecordsBody(aircraft: aircraft, roles: roles);
             },
           ),
         ),
@@ -22,8 +22,8 @@ class CrewDocumentsPage extends ConsumerWidget {
   }
 }
 
-class CrewDocumentsBody extends HookConsumerWidget {
-  const CrewDocumentsBody({
+class FlightCrewRecordsBody extends HookConsumerWidget {
+  const FlightCrewRecordsBody({
     super.key,
     required this.aircraft,
     required this.roles,
@@ -124,7 +124,7 @@ class CrewsView extends ConsumerWidget {
                           context: context,
                           builder: (context) {
                             return Dialog(
-                              child: CrewDocumentsView(
+                              child: FlightCrewRecordsView(
                                 staff: e,
                                 category: category,
                               ),

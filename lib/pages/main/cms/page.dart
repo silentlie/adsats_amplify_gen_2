@@ -1,0 +1,52 @@
+part of 'route.dart';
+
+class CmsPage extends StatelessWidget {
+  const CmsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Card(
+        child: Container(
+          padding: EdgeInsets.all(8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Quick navigation:",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Wrap(
+                children: [
+                  NavigateIconButton(
+                    icon: CmsInboxRoute().icon.icon!,
+                    name: CmsInboxRoute().label,
+                    onPressed: () => CmsInboxRoute().go(context),
+                  ),
+                  NavigateIconButton(
+                    icon: CmsSentRoute().icon.icon!,
+                    name: CmsSentRoute().label,
+                    onPressed: () => CmsSentRoute().go(context),
+                  ),
+                  NavigateIconButton(
+                    icon: InternalAuditReportRoute().icon.icon!,
+                    name: InternalAuditReportRoute().label,
+                    onPressed: () => InternalAuditReportRoute().go(context),
+                  ),
+                  NavigateIconButton(
+                    icon: ExternalAuditReportRoute().icon.icon!,
+                    name: ExternalAuditReportRoute().label,
+                    onPressed: () => ExternalAuditReportRoute().go(context),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

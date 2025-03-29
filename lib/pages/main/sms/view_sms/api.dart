@@ -76,15 +76,16 @@ Future<void> updateAircraftNotice(
 }
 
 Future<void> sendNoticeEmail(Notice notice, Iterable<Staff> staff) async {
+  if (staff.isEmpty) return;
   final subject =
-      "${formatType(notice.type!.name)}: ${notice.subject} [${notice.status}]";
-  final htmlBody = "";
+      "${formatEnum(notice.type!.name)}: ${notice.subject} [${notice.status}]";
+  final htmlBody = buildNoticeEmailMain(notice);
   final author = "${notice.author!.firstName} ${notice.author!.lastName}";
   final recipients = staff.map((e) => e.email).toList();
   await sendEmail(
     subject: subject,
     author: author,
-    htmlBody: htmlBody,
+    htmlMain: htmlBody,
     recipients: recipients,
   );
 }

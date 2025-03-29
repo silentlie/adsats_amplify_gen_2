@@ -68,15 +68,35 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
   String version = "bcdde3b14a547f3b02b77098a0b9dcac";
   @override
-  List<amplify_core.ModelSchema> modelSchemas = [Aircraft.schema, AircraftDocument.schema, AircraftNotice.schema, AircraftStaff.schema, Category.schema, CrewDocument.schema, CrewDocumentCategory.schema, Document.schema, Notice.schema, NoticeDocument.schema, NoticeStaff.schema, Report.schema, ReportDocument.schema, ReportStaff.schema, Role.schema, RoleStaff.schema, Staff.schema, StaffSubcategory.schema, Subcategory.schema];
+  List<amplify_core.ModelSchema> modelSchemas = [
+    Aircraft.schema,
+    AircraftDocument.schema,
+    AircraftNotice.schema,
+    AircraftStaff.schema,
+    Category.schema,
+    CrewDocument.schema,
+    CrewDocumentCategory.schema,
+    Document.schema,
+    Notice.schema,
+    NoticeDocument.schema,
+    NoticeStaff.schema,
+    Report.schema,
+    ReportDocument.schema,
+    ReportStaff.schema,
+    Role.schema,
+    RoleStaff.schema,
+    Staff.schema,
+    StaffSubcategory.schema,
+    Subcategory.schema
+  ];
   @override
   List<amplify_core.ModelSchema> customTypeSchemas = [];
   static final ModelProvider _instance = ModelProvider();
 
   static ModelProvider get instance => _instance;
-  
+
   amplify_core.ModelType getModelTypeByModelName(String modelName) {
-    switch(modelName) {
+    switch (modelName) {
       case "Aircraft":
         return Aircraft.classType;
       case "AircraftDocument":
@@ -116,11 +136,12 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
       case "Subcategory":
         return Subcategory.classType;
       default:
-        throw Exception("Failed to find model in model provider for model name: " + modelName);
+        throw Exception(
+            "Failed to find model in model provider for model name: " +
+                modelName);
     }
   }
 }
-
 
 class ModelFieldValue<T> {
   const ModelFieldValue.value(this.value);

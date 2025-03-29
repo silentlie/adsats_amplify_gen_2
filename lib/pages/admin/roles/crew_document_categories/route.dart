@@ -13,8 +13,8 @@ import 'package:go_router/go_router.dart';
 
 part 'page.dart';
 
-class CrewDocumentCategoriesRoute extends RouteInfo {
-  const CrewDocumentCategoriesRoute({required this.roleId});
+class FlightCrewRecordsCategoriesRoute extends RouteInfo {
+  const FlightCrewRecordsCategoriesRoute({required this.roleId});
   final String roleId;
 
   @override
@@ -22,12 +22,12 @@ class CrewDocumentCategoriesRoute extends RouteInfo {
   @override
   Icon get selectedIcon => const Icon(Icons.view_agenda);
   @override
-  String get label => 'Crew Document Categories';
+  String get label => 'Flight Crew Records Categories';
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
     return MaterialPage(
-        child: CrewDocumentCategoriesPage(
+        child: FlightCrewRecordsCategoriesPage(
       roleId: roleId,
     ));
   }

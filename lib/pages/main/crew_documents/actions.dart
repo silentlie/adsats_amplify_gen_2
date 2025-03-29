@@ -7,12 +7,12 @@ import 'package:adsats_amplify_gen_2/pages/main/crew_documents/s3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CrewDocumentActions extends ConsumerWidget {
-  const CrewDocumentActions({
+class FlightCrewRecordActions extends ConsumerWidget {
+  const FlightCrewRecordActions({
     super.key,
-    required this.crewDocument,
+    required this.flightCrewRecord,
   });
-  final CrewDocument crewDocument;
+  final CrewDocument flightCrewRecord;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +23,7 @@ class CrewDocumentActions extends ConsumerWidget {
       menuChildren: [
         IconButton(
           onPressed: () async {
-            await getCrewDocumentFileUrl(crewDocument);
+            await getFlightCrewRecordFileUrl(flightCrewRecord);
           },
           icon: const Icon(Icons.download_outlined),
           tooltip: "Download",
@@ -35,24 +35,24 @@ class CrewDocumentActions extends ConsumerWidget {
                 context,
                 Text("Are you sure?"),
                 Text(
-                  "Do you want to ${crewDocument.archived ? "unarchive" : "archive"} this crew document?",
+                  "Do you want to ${flightCrewRecord.archived ? "unarchive" : "archive"} this Flight Crew Record?",
                 ),
               );
               if (result) {
-                await update(
-                    crewDocument.copyWith(archived: !crewDocument.archived));
-                ref.invalidate(crewDocumentsRepoProvider);
+                await update(flightCrewRecord.copyWith(
+                    archived: !flightCrewRecord.archived));
+                ref.invalidate(flightCrewRecordsRepoProvider);
                 controller.close();
               }
             },
             icon: Icon(
-              crewDocument.archived
+              flightCrewRecord.archived
                   ? Icons.unarchive_outlined
                   : Icons.archive_outlined,
             ),
-            tooltip: crewDocument.archived
-                ? "Unarchive this crew document"
-                : "Archive this crew document",
+            tooltip: flightCrewRecord.archived
+                ? "Unarchive this Flight Crew Record"
+                : "Archive this Flight Crew Record",
           ),
         if (isAdmin)
           IconButton(
@@ -61,11 +61,11 @@ class CrewDocumentActions extends ConsumerWidget {
                 context,
                 Text("Are you sure?"),
                 Text(
-                    "Do you want to delete this crew document?\nIt also deletes its documents"),
+                    "Do you want to delete this Flight Crew Record?\nIt also deletes its documents"),
               );
               if (result) {
-                await deleteCrewDocument(crewDocument);
-                ref.invalidate(crewDocumentsRepoProvider);
+                await deleteFlightCrewRecord(flightCrewRecord);
+                ref.invalidate(flightCrewRecordsRepoProvider);
                 controller.close();
               }
             },

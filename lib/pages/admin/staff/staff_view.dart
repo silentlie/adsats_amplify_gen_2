@@ -46,7 +46,9 @@ class StaffView extends ConsumerWidget {
     };
     return AlertDialog.adaptive(
       title: Text(
-        isEditing ? 'Editing ${staff.firstName} ${staff.lastName}' : 'Add an staff',
+        isEditing
+            ? 'Editing ${staff.firstName} ${staff.lastName}'
+            : 'Add an staff',
       ),
       content: SingleChildScrollView(
         child: Column(

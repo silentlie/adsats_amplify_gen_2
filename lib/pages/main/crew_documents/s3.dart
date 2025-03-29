@@ -6,7 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<void> getCrewDocumentFileUrl(CrewDocument crewDocument) async {
+Future<void> getFlightCrewRecordFileUrl(CrewDocument crewDocument) async {
   try {
     String pathStr =
         "crewDocuments/${crewDocument.staff!.id}/${crewDocument.id}/${crewDocument.name}";
@@ -23,20 +23,20 @@ Future<void> getCrewDocumentFileUrl(CrewDocument crewDocument) async {
     // debugPrint('url: ${result.url}');
     launchUrl(result.url);
   } on StorageException catch (e) {
-    debugPrint('get crew document url in s3 failed: ${e.message}');
+    debugPrint('get Flight Crew Records url in s3 failed: ${e.message}');
   } catch (e) {
     debugPrint('Unknown Error: $e');
   }
 }
 
-Future<void> uploadCrewDocumentFiles(
+Future<void> uploadFlightCrewRecordsFiles(
   List<PlatformFile> selectedFiles,
   Staff staff,
   CrewDocumentCategory category,
 ) async {
   await Future.wait(
     selectedFiles.map(
-      (file) => uploadCrewDocumentFile(
+      (file) => uploadFlightCrewRecordFile(
         file,
         staff,
         category,
@@ -45,13 +45,13 @@ Future<void> uploadCrewDocumentFiles(
   );
 }
 
-Future<void> uploadCrewDocumentFile(
+Future<void> uploadFlightCrewRecordFile(
   PlatformFile file,
   Staff staff,
   CrewDocumentCategory category,
 ) async {
   try {
-    final crewDocument = CrewDocument(
+    final flightCrewRecord = CrewDocument(
       name: file.name,
       archived: false,
       staff: staff,
@@ -60,7 +60,7 @@ Future<void> uploadCrewDocumentFile(
 
     // Create the document and get its ID
     final response = await Amplify.API
-        .mutate(request: ModelMutations.create(crewDocument))
+        .mutate(request: ModelMutations.create(flightCrewRecord))
         .response;
 
     String id = response.data!.id;
@@ -79,7 +79,7 @@ Future<void> uploadCrewDocumentFile(
   } on StorageException catch (e) {
     debugPrint('Storage Exception: ${e.message} ,${e.recoverySuggestion}');
   } on ApiException catch (e) {
-    debugPrint('create crew document failed: ${e.message}');
+    debugPrint('create Flight Crew Records failed: ${e.message}');
   } catch (e) {
     debugPrint('Unknown Error: $e');
   }
@@ -96,17 +96,17 @@ Future<void> archive(CrewDocument crewDocument) async {
       return;
     }
   } on ApiException catch (e) {
-    debugPrint('archive crew document failed: ${e.message}');
+    debugPrint('archive Flight Crew Records failed: ${e.message}');
   } catch (e) {
     debugPrint('Unknown Error: $e');
   }
 }
 
-Future<void> deleteCrewDocument(CrewDocument crewDocument) async {
+Future<void> deleteFlightCrewRecord(CrewDocument flightCrewRecord) async {
   try {
     final request = ModelMutations.deleteById(
       CrewDocument.classType,
-      CrewDocumentModelIdentifier(id: crewDocument.id),
+      CrewDocumentModelIdentifier(id: flightCrewRecord.id),
     );
     final response = await Amplify.API.mutate(request: request).response;
     final data = response.data;
@@ -117,13 +117,14 @@ Future<void> deleteCrewDocument(CrewDocument crewDocument) async {
     // final result =
     await Amplify.Storage.remove(
       path: StoragePath.fromString(
-          'crewDocuments/${crewDocument.staff!.id}/${crewDocument.id}/${crewDocument.name}'),
+          'crewDocuments/${flightCrewRecord.staff!.id}/${flightCrewRecord.id}/${flightCrewRecord.name}'),
     ).result;
     // print('Removed file: ${result.removedItem.path}');
   } on StorageException catch (e) {
-    debugPrint('delete crew document in s3 failed: ${e.message}');
+    debugPrint('delete Flight Crew Records in s3 failed: ${e.message}');
   } on ApiException catch (e) {
-    debugPrint('delete crew document in graphQL/Appsync failed: ${e.message}');
+    debugPrint(
+        'delete Flight Crew Records in graphQL/Appsync failed: ${e.message}');
   } catch (e) {
     debugPrint('Unknown Error: $e');
   }

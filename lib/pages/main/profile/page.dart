@@ -62,7 +62,7 @@ class ProfileDocumentsView extends HookConsumerWidget {
                             context: context,
                             builder: (context) {
                               return Dialog(
-                                child: CrewDocumentsView(
+                                child: FlightCrewRecordsView(
                                   staff: user,
                                   category: category,
                                 ),

@@ -6,8 +6,8 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class CrewDocumentDataSource extends DataTableSource {
-  CrewDocumentDataSource({
+class FlightCrewRecordsDataSource extends DataTableSource {
+  FlightCrewRecordsDataSource({
     required this.sortedData,
   });
   List<CrewDocument> sortedData;
@@ -22,15 +22,15 @@ class CrewDocumentDataSource extends DataTableSource {
 
   @override
   DataRow2 getRow(int index) {
-    final crewDocument = sortedData[index];
+    final flightCrewRecord = sortedData[index];
     return DataRow2.byIndex(
       onTap: () {
-        getCrewDocumentFileUrl(crewDocument);
+        getFlightCrewRecordFileUrl(flightCrewRecord);
       },
       index: index,
       cells: [
         DataCell(
-          getCenterText(crewDocument.name),
+          getCenterText(flightCrewRecord.name),
         ),
         DataCell(
           Center(
@@ -41,27 +41,28 @@ class CrewDocumentDataSource extends DataTableSource {
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(20),
                 // maybe make it follow color scheme
-                color:
-                    crewDocument.archived ? Colors.grey : Colors.blue.shade600,
+                color: flightCrewRecord.archived
+                    ? Colors.grey
+                    : Colors.blue.shade600,
               ),
               child: Center(
-                child: Text(crewDocument.archived ? "Yes" : "No"),
+                child: Text(flightCrewRecord.archived ? "Yes" : "No"),
               ),
             ),
           ),
         ),
         DataCell(
           getCenterText(
-            crewDocument.createdAt != null
+            flightCrewRecord.createdAt != null
                 ? DateFormat('dd/MM/yyyy').format(
-                    crewDocument.createdAt!.getDateTimeInUtc(),
+                    flightCrewRecord.createdAt!.getDateTimeInUtc(),
                   )
                 : "",
           ),
         ),
         DataCell(
           Center(
-            child: CrewDocumentActions(crewDocument: crewDocument),
+            child: FlightCrewRecordActions(flightCrewRecord: flightCrewRecord),
           ),
         ),
       ],

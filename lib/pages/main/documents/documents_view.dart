@@ -179,7 +179,8 @@ class OldDocumentsView extends ConsumerWidget {
                 DateFormat('dd/MM/yyyy').format(
                   document.createdAt!.getDateTimeInUtc(),
                 ),
-                if (document.staff != null) "${document.staff!.firstName} ${document.staff!.lastName}",
+                if (document.staff != null)
+                  "${document.staff!.firstName} ${document.staff!.lastName}",
                 ...document.aircraft!.map(
                   (e) => e.aircraft!.name,
                 ),

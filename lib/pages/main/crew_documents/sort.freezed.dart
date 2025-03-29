@@ -14,25 +14,25 @@ part of 'sort.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$CrewDocumentSortState {
+mixin _$FlightCrewRecordSortState {
   bool get sortAscending;
   int get sortColumnIndex;
   Comparable Function(CrewDocument crewDocument) get getField;
   int get rowsPerPage;
 
-  /// Create a copy of CrewDocumentSortState
+  /// Create a copy of FlightCrewRecordSortState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $CrewDocumentSortStateCopyWith<CrewDocumentSortState> get copyWith =>
-      _$CrewDocumentSortStateCopyWithImpl<CrewDocumentSortState>(
-          this as CrewDocumentSortState, _$identity);
+  $FlightCrewRecordSortStateCopyWith<FlightCrewRecordSortState> get copyWith =>
+      _$FlightCrewRecordSortStateCopyWithImpl<FlightCrewRecordSortState>(
+          this as FlightCrewRecordSortState, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is CrewDocumentSortState &&
+            other is FlightCrewRecordSortState &&
             (identical(other.sortAscending, sortAscending) ||
                 other.sortAscending == sortAscending) &&
             (identical(other.sortColumnIndex, sortColumnIndex) ||
@@ -49,15 +49,15 @@ mixin _$CrewDocumentSortState {
 
   @override
   String toString() {
-    return 'CrewDocumentSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
+    return 'FlightCrewRecordSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
   }
 }
 
 /// @nodoc
-abstract mixin class $CrewDocumentSortStateCopyWith<$Res> {
-  factory $CrewDocumentSortStateCopyWith(CrewDocumentSortState value,
-          $Res Function(CrewDocumentSortState) _then) =
-      _$CrewDocumentSortStateCopyWithImpl;
+abstract mixin class $FlightCrewRecordSortStateCopyWith<$Res> {
+  factory $FlightCrewRecordSortStateCopyWith(FlightCrewRecordSortState value,
+          $Res Function(FlightCrewRecordSortState) _then) =
+      _$FlightCrewRecordSortStateCopyWithImpl;
   @useResult
   $Res call(
       {bool sortAscending,
@@ -67,14 +67,14 @@ abstract mixin class $CrewDocumentSortStateCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CrewDocumentSortStateCopyWithImpl<$Res>
-    implements $CrewDocumentSortStateCopyWith<$Res> {
-  _$CrewDocumentSortStateCopyWithImpl(this._self, this._then);
+class _$FlightCrewRecordSortStateCopyWithImpl<$Res>
+    implements $FlightCrewRecordSortStateCopyWith<$Res> {
+  _$FlightCrewRecordSortStateCopyWithImpl(this._self, this._then);
 
-  final CrewDocumentSortState _self;
-  final $Res Function(CrewDocumentSortState) _then;
+  final FlightCrewRecordSortState _self;
+  final $Res Function(FlightCrewRecordSortState) _then;
 
-  /// Create a copy of CrewDocumentSortState
+  /// Create a copy of FlightCrewRecordSortState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -107,8 +107,8 @@ class _$CrewDocumentSortStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _CrewDocumentSortState implements CrewDocumentSortState {
-  _CrewDocumentSortState(
+class _FlightCrewRecordSortState implements FlightCrewRecordSortState {
+  _FlightCrewRecordSortState(
       {this.sortAscending = false,
       this.sortColumnIndex = 3,
       required this.getField,
@@ -126,20 +126,21 @@ class _CrewDocumentSortState implements CrewDocumentSortState {
   @JsonKey()
   final int rowsPerPage;
 
-  /// Create a copy of CrewDocumentSortState
+  /// Create a copy of FlightCrewRecordSortState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$CrewDocumentSortStateCopyWith<_CrewDocumentSortState> get copyWith =>
-      __$CrewDocumentSortStateCopyWithImpl<_CrewDocumentSortState>(
-          this, _$identity);
+  _$FlightCrewRecordSortStateCopyWith<_FlightCrewRecordSortState>
+      get copyWith =>
+          __$FlightCrewRecordSortStateCopyWithImpl<_FlightCrewRecordSortState>(
+              this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CrewDocumentSortState &&
+            other is _FlightCrewRecordSortState &&
             (identical(other.sortAscending, sortAscending) ||
                 other.sortAscending == sortAscending) &&
             (identical(other.sortColumnIndex, sortColumnIndex) ||
@@ -156,16 +157,16 @@ class _CrewDocumentSortState implements CrewDocumentSortState {
 
   @override
   String toString() {
-    return 'CrewDocumentSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
+    return 'FlightCrewRecordSortState(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$CrewDocumentSortStateCopyWith<$Res>
-    implements $CrewDocumentSortStateCopyWith<$Res> {
-  factory _$CrewDocumentSortStateCopyWith(_CrewDocumentSortState value,
-          $Res Function(_CrewDocumentSortState) _then) =
-      __$CrewDocumentSortStateCopyWithImpl;
+abstract mixin class _$FlightCrewRecordSortStateCopyWith<$Res>
+    implements $FlightCrewRecordSortStateCopyWith<$Res> {
+  factory _$FlightCrewRecordSortStateCopyWith(_FlightCrewRecordSortState value,
+          $Res Function(_FlightCrewRecordSortState) _then) =
+      __$FlightCrewRecordSortStateCopyWithImpl;
   @override
   @useResult
   $Res call(
@@ -176,14 +177,14 @@ abstract mixin class _$CrewDocumentSortStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$CrewDocumentSortStateCopyWithImpl<$Res>
-    implements _$CrewDocumentSortStateCopyWith<$Res> {
-  __$CrewDocumentSortStateCopyWithImpl(this._self, this._then);
+class __$FlightCrewRecordSortStateCopyWithImpl<$Res>
+    implements _$FlightCrewRecordSortStateCopyWith<$Res> {
+  __$FlightCrewRecordSortStateCopyWithImpl(this._self, this._then);
 
-  final _CrewDocumentSortState _self;
-  final $Res Function(_CrewDocumentSortState) _then;
+  final _FlightCrewRecordSortState _self;
+  final $Res Function(_FlightCrewRecordSortState) _then;
 
-  /// Create a copy of CrewDocumentSortState
+  /// Create a copy of FlightCrewRecordSortState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -193,7 +194,7 @@ class __$CrewDocumentSortStateCopyWithImpl<$Res>
     Object? getField = null,
     Object? rowsPerPage = null,
   }) {
-    return _then(_CrewDocumentSortState(
+    return _then(_FlightCrewRecordSortState(
       sortAscending: null == sortAscending
           ? _self.sortAscending
           : sortAscending // ignore: cast_nullable_to_non_nullable

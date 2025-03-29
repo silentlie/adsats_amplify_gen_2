@@ -10,7 +10,7 @@ import 'package:go_router/go_router.dart';
 export 'package:adsats_amplify_gen_2/pages/main/home/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/documents/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/sms/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/compliance/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/cms/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/crew_documents/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/profile/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/help/route.dart';
@@ -58,8 +58,8 @@ class MainShell extends ConsumerWidget {
     HomeRoute(),
     DocumentsRoute(),
     SmsShellRouteData(),
-    ComplianceShellRouteData(),
-    CrewDocumentsRoute(),
+    CmsShellRouteData(),
+    FlightCrewRecordsRoute(),
   ];
 
   Widget body(BuildContext context, WidgetRef ref) {
@@ -152,11 +152,11 @@ class MainShell extends ConsumerWidget {
         "New Notice",
         () => NoticeToCrewRoute().push(context)
       ),
-      ComplianceInboxRoute().location: (
+      CmsInboxRoute().location: (
         "New Report",
         () => InternalAuditReportRoute().push(context)
       ),
-      ComplianceSentRoute().location: (
+      CmsSentRoute().location: (
         "New Report",
         () => InternalAuditReportRoute().push(context)
       ),

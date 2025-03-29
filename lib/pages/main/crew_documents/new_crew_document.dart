@@ -7,8 +7,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NewCrewDocument extends ConsumerWidget {
-  const NewCrewDocument({
+class NewFlightCrewRecord extends ConsumerWidget {
+  const NewFlightCrewRecord({
     super.key,
     required this.category,
   });
@@ -21,7 +21,7 @@ class NewCrewDocument extends ConsumerWidget {
 
     return AlertDialog.adaptive(
       title: const Text(
-        'Add crew documents',
+        'Add Flight Crew Records',
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class NewCrewDocument extends ConsumerWidget {
             if (!result) {
               return;
             }
-            await uploadCrewDocumentFiles(
+            await uploadFlightCrewRecordsFiles(
               files,
               user,
               category,

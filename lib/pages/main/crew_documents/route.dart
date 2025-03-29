@@ -10,22 +10,22 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 part 'page.dart';
 
-class CrewDocumentsShellBranchData extends StatefulShellBranchData {
-  const CrewDocumentsShellBranchData();
+class FlightCrewRecordsShellBranchData extends StatefulShellBranchData {
+  const FlightCrewRecordsShellBranchData();
 }
 
-class CrewDocumentsRoute extends RouteInfo {
-  const CrewDocumentsRoute();
+class FlightCrewRecordsRoute extends RouteInfo {
+  const FlightCrewRecordsRoute();
 
   @override
   Icon get icon => const Icon(Icons.contact_page_outlined);
   @override
   Icon get selectedIcon => const Icon(Icons.contact_page);
   @override
-  String get label => 'Crew Docs';
+  String get label => 'Flight Crew Records';
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return MaterialPage(child: CrewDocumentsPage());
+    return MaterialPage(child: FlightCrewRecordsPage());
   }
 }

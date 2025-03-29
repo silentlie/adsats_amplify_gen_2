@@ -6,7 +6,8 @@ part of 'repo.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$crewDocumentsRepoHash() => r'82008cdac322326f137b3e137a4bc38b3d1ca36c';
+String _$flightCrewRecordsRepoHash() =>
+    r'bbb9dc958d3ef94d20523b7191b653ea190999ed';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,27 +30,28 @@ class _SystemHash {
   }
 }
 
-/// See also [crewDocumentsRepo].
-@ProviderFor(crewDocumentsRepo)
-const crewDocumentsRepoProvider = CrewDocumentsRepoFamily();
+/// See also [flightCrewRecordsRepo].
+@ProviderFor(flightCrewRecordsRepo)
+const flightCrewRecordsRepoProvider = FlightCrewRecordsRepoFamily();
 
-/// See also [crewDocumentsRepo].
-class CrewDocumentsRepoFamily extends Family<AsyncValue<List<CrewDocument>>> {
-  /// See also [crewDocumentsRepo].
-  const CrewDocumentsRepoFamily();
+/// See also [flightCrewRecordsRepo].
+class FlightCrewRecordsRepoFamily
+    extends Family<AsyncValue<List<CrewDocument>>> {
+  /// See also [flightCrewRecordsRepo].
+  const FlightCrewRecordsRepoFamily();
 
-  /// See also [crewDocumentsRepo].
-  CrewDocumentsRepoProvider call(
-    CrewDocumentFilterState filter,
+  /// See also [flightCrewRecordsRepo].
+  FlightCrewRecordsRepoProvider call(
+    FlightCrewRecordFilterState filter,
   ) {
-    return CrewDocumentsRepoProvider(
+    return FlightCrewRecordsRepoProvider(
       filter,
     );
   }
 
   @override
-  CrewDocumentsRepoProvider getProviderOverride(
-    covariant CrewDocumentsRepoProvider provider,
+  FlightCrewRecordsRepoProvider getProviderOverride(
+    covariant FlightCrewRecordsRepoProvider provider,
   ) {
     return call(
       provider.filter,
@@ -70,33 +72,33 @@ class CrewDocumentsRepoFamily extends Family<AsyncValue<List<CrewDocument>>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'crewDocumentsRepoProvider';
+  String? get name => r'flightCrewRecordsRepoProvider';
 }
 
-/// See also [crewDocumentsRepo].
-class CrewDocumentsRepoProvider
+/// See also [flightCrewRecordsRepo].
+class FlightCrewRecordsRepoProvider
     extends AutoDisposeFutureProvider<List<CrewDocument>> {
-  /// See also [crewDocumentsRepo].
-  CrewDocumentsRepoProvider(
-    CrewDocumentFilterState filter,
+  /// See also [flightCrewRecordsRepo].
+  FlightCrewRecordsRepoProvider(
+    FlightCrewRecordFilterState filter,
   ) : this._internal(
-          (ref) => crewDocumentsRepo(
-            ref as CrewDocumentsRepoRef,
+          (ref) => flightCrewRecordsRepo(
+            ref as FlightCrewRecordsRepoRef,
             filter,
           ),
-          from: crewDocumentsRepoProvider,
-          name: r'crewDocumentsRepoProvider',
+          from: flightCrewRecordsRepoProvider,
+          name: r'flightCrewRecordsRepoProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$crewDocumentsRepoHash,
-          dependencies: CrewDocumentsRepoFamily._dependencies,
+                  : _$flightCrewRecordsRepoHash,
+          dependencies: FlightCrewRecordsRepoFamily._dependencies,
           allTransitiveDependencies:
-              CrewDocumentsRepoFamily._allTransitiveDependencies,
+              FlightCrewRecordsRepoFamily._allTransitiveDependencies,
           filter: filter,
         );
 
-  CrewDocumentsRepoProvider._internal(
+  FlightCrewRecordsRepoProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -106,16 +108,17 @@ class CrewDocumentsRepoProvider
     required this.filter,
   }) : super.internal();
 
-  final CrewDocumentFilterState filter;
+  final FlightCrewRecordFilterState filter;
 
   @override
   Override overrideWith(
-    FutureOr<List<CrewDocument>> Function(CrewDocumentsRepoRef provider) create,
+    FutureOr<List<CrewDocument>> Function(FlightCrewRecordsRepoRef provider)
+        create,
   ) {
     return ProviderOverride(
       origin: this,
-      override: CrewDocumentsRepoProvider._internal(
-        (ref) => create(ref as CrewDocumentsRepoRef),
+      override: FlightCrewRecordsRepoProvider._internal(
+        (ref) => create(ref as FlightCrewRecordsRepoRef),
         from: from,
         name: null,
         dependencies: null,
@@ -128,12 +131,12 @@ class CrewDocumentsRepoProvider
 
   @override
   AutoDisposeFutureProviderElement<List<CrewDocument>> createElement() {
-    return _CrewDocumentsRepoProviderElement(this);
+    return _FlightCrewRecordsRepoProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is CrewDocumentsRepoProvider && other.filter == filter;
+    return other is FlightCrewRecordsRepoProvider && other.filter == filter;
   }
 
   @override
@@ -147,41 +150,43 @@ class CrewDocumentsRepoProvider
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin CrewDocumentsRepoRef on AutoDisposeFutureProviderRef<List<CrewDocument>> {
+mixin FlightCrewRecordsRepoRef
+    on AutoDisposeFutureProviderRef<List<CrewDocument>> {
   /// The parameter `filter` of this provider.
-  CrewDocumentFilterState get filter;
+  FlightCrewRecordFilterState get filter;
 }
 
-class _CrewDocumentsRepoProviderElement
+class _FlightCrewRecordsRepoProviderElement
     extends AutoDisposeFutureProviderElement<List<CrewDocument>>
-    with CrewDocumentsRepoRef {
-  _CrewDocumentsRepoProviderElement(super.provider);
+    with FlightCrewRecordsRepoRef {
+  _FlightCrewRecordsRepoProviderElement(super.provider);
 
   @override
-  CrewDocumentFilterState get filter =>
-      (origin as CrewDocumentsRepoProvider).filter;
+  FlightCrewRecordFilterState get filter =>
+      (origin as FlightCrewRecordsRepoProvider).filter;
 }
 
-String _$crewDocumentsMetaHash() => r'6fa635b12ff588c2ab20d93bccd0419a93b48ce2';
+String _$flightCrewRecordsMetaHash() =>
+    r'9fb769a4bb73b7938808d9d61971e10b150b1f6a';
 
-/// See also [crewDocumentsMeta].
-@ProviderFor(crewDocumentsMeta)
-final crewDocumentsMetaProvider =
+/// See also [flightCrewRecordsMeta].
+@ProviderFor(flightCrewRecordsMeta)
+final flightCrewRecordsMetaProvider =
     AutoDisposeFutureProvider<(Iterable<Aircraft>, Iterable<Role>)>.internal(
-  crewDocumentsMeta,
-  name: r'crewDocumentsMetaProvider',
+  flightCrewRecordsMeta,
+  name: r'flightCrewRecordsMetaProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$crewDocumentsMetaHash,
+      : _$flightCrewRecordsMetaHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef CrewDocumentsMetaRef
+typedef FlightCrewRecordsMetaRef
     = AutoDisposeFutureProviderRef<(Iterable<Aircraft>, Iterable<Role>)>;
-String _$listJoinStaffHash() => r'09433bd6994bce048a46465d310211e762e33036';
+String _$listJoinStaffHash() => r'2cd3c100e32adc5ae2d732dd0a6dd03559998861';
 
 /// See also [listJoinStaff].
 @ProviderFor(listJoinStaff)

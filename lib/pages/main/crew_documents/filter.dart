@@ -11,34 +11,34 @@ part 'filter.g.dart';
 part 'filter.freezed.dart';
 
 @Riverpod(dependencies: [])
-class CrewDocumentFilter extends _$CrewDocumentFilter {
+class FlightCrewRecordFilter extends _$FlightCrewRecordFilter {
   @override
-  CrewDocumentFilterState build(
+  FlightCrewRecordFilterState build(
     Staff staff,
     CrewDocumentCategory category,
   ) {
-    return CrewDocumentFilterState(staff: staff, category: category);
+    return FlightCrewRecordFilterState(staff: staff, category: category);
   }
 
   void search(String name) {
     state = state.copyWith(search: name);
   }
 
-  void apply(CrewDocumentFilterState newState) {
+  void apply(FlightCrewRecordFilterState newState) {
     state = newState;
   }
 }
 
 @freezed
-sealed class CrewDocumentFilterState with _$CrewDocumentFilterState {
-  CrewDocumentFilterState._();
-  factory CrewDocumentFilterState({
+sealed class FlightCrewRecordFilterState with _$FlightCrewRecordFilterState {
+  FlightCrewRecordFilterState._();
+  factory FlightCrewRecordFilterState({
     required final Staff staff,
     required final CrewDocumentCategory category,
     @Default("") String search,
     @Default(false) bool? archived,
     DateTimeRange? createdAt,
-  }) = _CrewDocumentFilterState;
+  }) = _FlightCrewRecordFilterState;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> result = {
@@ -54,8 +54,8 @@ sealed class CrewDocumentFilterState with _$CrewDocumentFilterState {
   }
 }
 
-class CrewDocumentFilterView extends ConsumerWidget {
-  const CrewDocumentFilterView({
+class FlightCrewRecordFilterView extends ConsumerWidget {
+  const FlightCrewRecordFilterView({
     super.key,
     required this.staff,
     required this.category,
@@ -65,7 +65,7 @@ class CrewDocumentFilterView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var filter = ref.watch(crewDocumentFilterProvider(staff, category));
+    var filter = ref.watch(flightCrewRecordFilterProvider(staff, category));
     return AlertDialog.adaptive(
       title: const Text('Filter By:'),
       content: Column(
@@ -103,7 +103,7 @@ class CrewDocumentFilterView extends ConsumerWidget {
         ),
         TextButton(
           onPressed: () {
-            ref.invalidate(crewDocumentFilterProvider);
+            ref.invalidate(flightCrewRecordFilterProvider);
             Navigator.pop(context);
           },
           child: const Text("Reset filter"),
@@ -112,7 +112,7 @@ class CrewDocumentFilterView extends ConsumerWidget {
         TextButton(
           onPressed: () {
             ref
-                .read(crewDocumentFilterProvider(staff, category).notifier)
+                .read(flightCrewRecordFilterProvider(staff, category).notifier)
                 .apply(filter);
             Navigator.pop(context);
           },

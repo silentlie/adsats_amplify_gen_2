@@ -6,8 +6,8 @@ part of 'filter.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$crewDocumentFilterHash() =>
-    r'f15ca1b63b8f70d363b9fd58be173625c3d14b6e';
+String _$flightCrewRecordFilterHash() =>
+    r'251d0e1439ee5149e18161107fb69dfcbbdc7734';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,40 +30,40 @@ class _SystemHash {
   }
 }
 
-abstract class _$CrewDocumentFilter
-    extends BuildlessAutoDisposeNotifier<CrewDocumentFilterState> {
+abstract class _$FlightCrewRecordFilter
+    extends BuildlessAutoDisposeNotifier<FlightCrewRecordFilterState> {
   late final Staff staff;
   late final CrewDocumentCategory category;
 
-  CrewDocumentFilterState build(
+  FlightCrewRecordFilterState build(
     Staff staff,
     CrewDocumentCategory category,
   );
 }
 
-/// See also [CrewDocumentFilter].
-@ProviderFor(CrewDocumentFilter)
-const crewDocumentFilterProvider = CrewDocumentFilterFamily();
+/// See also [FlightCrewRecordFilter].
+@ProviderFor(FlightCrewRecordFilter)
+const flightCrewRecordFilterProvider = FlightCrewRecordFilterFamily();
 
-/// See also [CrewDocumentFilter].
-class CrewDocumentFilterFamily extends Family<CrewDocumentFilterState> {
-  /// See also [CrewDocumentFilter].
-  const CrewDocumentFilterFamily();
+/// See also [FlightCrewRecordFilter].
+class FlightCrewRecordFilterFamily extends Family<FlightCrewRecordFilterState> {
+  /// See also [FlightCrewRecordFilter].
+  const FlightCrewRecordFilterFamily();
 
-  /// See also [CrewDocumentFilter].
-  CrewDocumentFilterProvider call(
+  /// See also [FlightCrewRecordFilter].
+  FlightCrewRecordFilterProvider call(
     Staff staff,
     CrewDocumentCategory category,
   ) {
-    return CrewDocumentFilterProvider(
+    return FlightCrewRecordFilterProvider(
       staff,
       category,
     );
   }
 
   @override
-  CrewDocumentFilterProvider getProviderOverride(
-    covariant CrewDocumentFilterProvider provider,
+  FlightCrewRecordFilterProvider getProviderOverride(
+    covariant FlightCrewRecordFilterProvider provider,
   ) {
     return call(
       provider.staff,
@@ -85,34 +85,34 @@ class CrewDocumentFilterFamily extends Family<CrewDocumentFilterState> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'crewDocumentFilterProvider';
+  String? get name => r'flightCrewRecordFilterProvider';
 }
 
-/// See also [CrewDocumentFilter].
-class CrewDocumentFilterProvider extends AutoDisposeNotifierProviderImpl<
-    CrewDocumentFilter, CrewDocumentFilterState> {
-  /// See also [CrewDocumentFilter].
-  CrewDocumentFilterProvider(
+/// See also [FlightCrewRecordFilter].
+class FlightCrewRecordFilterProvider extends AutoDisposeNotifierProviderImpl<
+    FlightCrewRecordFilter, FlightCrewRecordFilterState> {
+  /// See also [FlightCrewRecordFilter].
+  FlightCrewRecordFilterProvider(
     Staff staff,
     CrewDocumentCategory category,
   ) : this._internal(
-          () => CrewDocumentFilter()
+          () => FlightCrewRecordFilter()
             ..staff = staff
             ..category = category,
-          from: crewDocumentFilterProvider,
-          name: r'crewDocumentFilterProvider',
+          from: flightCrewRecordFilterProvider,
+          name: r'flightCrewRecordFilterProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$crewDocumentFilterHash,
-          dependencies: CrewDocumentFilterFamily._dependencies,
+                  : _$flightCrewRecordFilterHash,
+          dependencies: FlightCrewRecordFilterFamily._dependencies,
           allTransitiveDependencies:
-              CrewDocumentFilterFamily._allTransitiveDependencies,
+              FlightCrewRecordFilterFamily._allTransitiveDependencies,
           staff: staff,
           category: category,
         );
 
-  CrewDocumentFilterProvider._internal(
+  FlightCrewRecordFilterProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -127,8 +127,8 @@ class CrewDocumentFilterProvider extends AutoDisposeNotifierProviderImpl<
   final CrewDocumentCategory category;
 
   @override
-  CrewDocumentFilterState runNotifierBuild(
-    covariant CrewDocumentFilter notifier,
+  FlightCrewRecordFilterState runNotifierBuild(
+    covariant FlightCrewRecordFilter notifier,
   ) {
     return notifier.build(
       staff,
@@ -137,10 +137,10 @@ class CrewDocumentFilterProvider extends AutoDisposeNotifierProviderImpl<
   }
 
   @override
-  Override overrideWith(CrewDocumentFilter Function() create) {
+  Override overrideWith(FlightCrewRecordFilter Function() create) {
     return ProviderOverride(
       origin: this,
-      override: CrewDocumentFilterProvider._internal(
+      override: FlightCrewRecordFilterProvider._internal(
         () => create()
           ..staff = staff
           ..category = category,
@@ -156,14 +156,14 @@ class CrewDocumentFilterProvider extends AutoDisposeNotifierProviderImpl<
   }
 
   @override
-  AutoDisposeNotifierProviderElement<CrewDocumentFilter,
-      CrewDocumentFilterState> createElement() {
-    return _CrewDocumentFilterProviderElement(this);
+  AutoDisposeNotifierProviderElement<FlightCrewRecordFilter,
+      FlightCrewRecordFilterState> createElement() {
+    return _FlightCrewRecordFilterProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is CrewDocumentFilterProvider &&
+    return other is FlightCrewRecordFilterProvider &&
         other.staff == staff &&
         other.category == category;
   }
@@ -180,8 +180,8 @@ class CrewDocumentFilterProvider extends AutoDisposeNotifierProviderImpl<
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-mixin CrewDocumentFilterRef
-    on AutoDisposeNotifierProviderRef<CrewDocumentFilterState> {
+mixin FlightCrewRecordFilterRef
+    on AutoDisposeNotifierProviderRef<FlightCrewRecordFilterState> {
   /// The parameter `staff` of this provider.
   Staff get staff;
 
@@ -189,16 +189,16 @@ mixin CrewDocumentFilterRef
   CrewDocumentCategory get category;
 }
 
-class _CrewDocumentFilterProviderElement
-    extends AutoDisposeNotifierProviderElement<CrewDocumentFilter,
-        CrewDocumentFilterState> with CrewDocumentFilterRef {
-  _CrewDocumentFilterProviderElement(super.provider);
+class _FlightCrewRecordFilterProviderElement
+    extends AutoDisposeNotifierProviderElement<FlightCrewRecordFilter,
+        FlightCrewRecordFilterState> with FlightCrewRecordFilterRef {
+  _FlightCrewRecordFilterProviderElement(super.provider);
 
   @override
-  Staff get staff => (origin as CrewDocumentFilterProvider).staff;
+  Staff get staff => (origin as FlightCrewRecordFilterProvider).staff;
   @override
   CrewDocumentCategory get category =>
-      (origin as CrewDocumentFilterProvider).category;
+      (origin as FlightCrewRecordFilterProvider).category;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

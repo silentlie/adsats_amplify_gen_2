@@ -222,12 +222,12 @@ class AdminShell extends ConsumerWidget {
       );
     } else if (goRouterState.pathParameters.containsKey('roleId')) {
       actions[currentPath] = (
-        "New Crew Document Category",
+        "New Flight Crew Records Category",
         () {
           showDialog(
             context: context,
             builder: (context) {
-              return CrewDocumentCategoryView(
+              return FlightCrewRecordsCategoryView(
                 roleId: goRouterState.pathParameters['roleId']!,
               );
             },

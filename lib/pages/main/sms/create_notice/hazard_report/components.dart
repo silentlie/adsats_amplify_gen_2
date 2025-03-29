@@ -563,7 +563,8 @@ class SafetyOfficersSection extends ConsumerWidget {
                   return GlobalDropdownMenu(
                     entries: value.map(
                       (e) {
-                        return DropdownMenuEntry(value: e, label: "${e.firstName} ${e.lastName}");
+                        return DropdownMenuEntry(
+                            value: e, label: "${e.firstName} ${e.lastName}");
                       },
                     ).toList(),
                     onSelected: (value) {

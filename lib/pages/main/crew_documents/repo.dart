@@ -10,12 +10,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'repo.g.dart';
 
 @Riverpod(dependencies: [])
-FutureOr<List<CrewDocument>> crewDocumentsRepo(
+FutureOr<List<CrewDocument>> flightCrewRecordsRepo(
   Ref ref,
-  CrewDocumentFilterState filter,
+  FlightCrewRecordFilterState filter,
 ) async {
   final request = GraphQLRequest<String>(
-    document: listCrewDocuments,
+    document: listFlightCrewRecords,
     variables: {"filter": filter.toJson()},
   );
   final response = await Amplify.API.query(request: request).response;
@@ -31,10 +31,10 @@ FutureOr<List<CrewDocument>> crewDocumentsRepo(
 }
 
 @Riverpod()
-FutureOr<(Iterable<Aircraft>, Iterable<Role>)> crewDocumentsMeta(
+FutureOr<(Iterable<Aircraft>, Iterable<Role>)> flightCrewRecordsMeta(
     Ref ref) async {
   final request = GraphQLRequest<String>(
-    document: listCrewDocumentMeta,
+    document: listFlightCrewRecordsMeta,
   );
   final response = await Amplify.API.query(request: request).response;
   if (response.errors.isNotEmpty) {
@@ -55,7 +55,7 @@ FutureOr<Iterable<Staff>> listJoinStaff(
   Role role,
 ) async {
   final request =
-      GraphQLRequest<String>(document: listCrewDocumentCrews, variables: {
+      GraphQLRequest<String>(document: listFlightCrewRecordsCrews, variables: {
     "aircraftId": aircraft.id,
     "roleId": role.id,
   });

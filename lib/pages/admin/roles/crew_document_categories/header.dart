@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class CrewDocumentCategoryHeader extends ConsumerWidget {
-  const CrewDocumentCategoryHeader({
+class FlightCrewRecordsCategoryHeader extends ConsumerWidget {
+  const FlightCrewRecordsCategoryHeader({
     super.key,
     required this.role,
   });
@@ -18,7 +18,7 @@ class CrewDocumentCategoryHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(crewDocumentCategoryFilterProvider(role.id));
+    final filter = ref.watch(flightCrewRecordsCategoryFilterProvider(role.id));
     final text = Text(
       role.name,
       style: TextStyle(
@@ -49,7 +49,7 @@ class CrewDocumentCategoryHeader extends ConsumerWidget {
             ),
             IconButton(
               onPressed: () =>
-                  ref.invalidate(crewDocumentCategoriesRepoProvider),
+                  ref.invalidate(flightCrewRecordsCategoriesRepoProvider),
               icon: const Icon(Icons.refresh),
             ),
             ElevatedButton.icon(
@@ -57,13 +57,13 @@ class CrewDocumentCategoryHeader extends ConsumerWidget {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return CrewDocumentCategoryView(
+                    return FlightCrewRecordsCategoryView(
                       roleId: role.id,
                     );
                   },
                 );
               },
-              label: const Text('Add a crew document category'),
+              label: const Text('Add a Flight Crew Records Category'),
               icon: const Icon(
                 Icons.add,
                 size: 25,
@@ -77,7 +77,7 @@ class CrewDocumentCategoryHeader extends ConsumerWidget {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return CrewDocumentCategoryFilterView(
+                    return FlightCrewRecordsCategoryFilterView(
                       roleId: role.id,
                     );
                   },
@@ -92,7 +92,8 @@ class CrewDocumentCategoryHeader extends ConsumerWidget {
             SearchBarWidget(
               onSubmitted: (value) {
                 ref
-                    .read(crewDocumentCategoryFilterProvider(role.id).notifier)
+                    .read(flightCrewRecordsCategoryFilterProvider(role.id)
+                        .notifier)
                     .search(value);
               },
               initialValue: filter.search,

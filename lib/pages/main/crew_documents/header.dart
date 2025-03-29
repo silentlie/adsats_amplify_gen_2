@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class CrewDocumentHeader extends ConsumerWidget {
-  const CrewDocumentHeader({
+class FlightCrewRecordsHeader extends ConsumerWidget {
+  const FlightCrewRecordsHeader({
     super.key,
     required this.staff,
     required this.category,
@@ -20,9 +20,9 @@ class CrewDocumentHeader extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(crewDocumentFilterProvider(staff, category));
+    final filter = ref.watch(flightCrewRecordFilterProvider(staff, category));
     final filterNotifier = ref.read(
-      crewDocumentFilterProvider(staff, category).notifier,
+      flightCrewRecordFilterProvider(staff, category).notifier,
     );
     final currentPath = GoRouter.of(context).state.uri.path;
     final isProfileRoute = currentPath == ProfileRoute().location;
@@ -45,7 +45,7 @@ class CrewDocumentHeader extends ConsumerWidget {
         child: Row(
           children: [
             IconButton(
-              onPressed: () => ref.invalidate(crewDocumentsRepoProvider),
+              onPressed: () => ref.invalidate(flightCrewRecordsRepoProvider),
               icon: const Icon(Icons.refresh),
             ),
             //Could enable admin to add documents as well
@@ -55,13 +55,13 @@ class CrewDocumentHeader extends ConsumerWidget {
                   showDialog(
                     context: context,
                     builder: (context) {
-                      return NewCrewDocument(
+                      return NewFlightCrewRecord(
                         category: category,
                       );
                     },
                   );
                 },
-                label: const Text('Add crew documents'),
+                label: const Text('Add Flight Crew Records'),
                 icon: const Icon(
                   Icons.add,
                   size: 25,
@@ -75,7 +75,7 @@ class CrewDocumentHeader extends ConsumerWidget {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return CrewDocumentFilterView(
+                    return FlightCrewRecordFilterView(
                       category: category,
                       staff: staff,
                     );

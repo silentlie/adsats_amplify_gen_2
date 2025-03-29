@@ -23,7 +23,6 @@ import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:collection/collection.dart';
 
-
 /** This is an auto generated class representing the CrewDocumentCategory type in your schema. */
 class CrewDocumentCategory extends amplify_core.Model {
   static const classType = const _CrewDocumentCategoryModelType();
@@ -38,263 +37,318 @@ class CrewDocumentCategory extends amplify_core.Model {
 
   @override
   getInstanceType() => classType;
-  
-  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+
+  @Deprecated(
+      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-  
+
   CrewDocumentCategoryModelIdentifier get modelIdentifier {
-      return CrewDocumentCategoryModelIdentifier(
-        id: id
-      );
+    return CrewDocumentCategoryModelIdentifier(id: id);
   }
-  
+
   String get name {
     try {
       return _name!;
-    } catch(e) {
+    } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
+          amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   bool get archived {
     try {
       return _archived!;
-    } catch(e) {
+    } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion:
-            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString()
-          );
+          amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
     }
   }
-  
+
   String? get description {
     return _description;
   }
-  
+
   Role? get role {
     return _role;
   }
-  
+
   List<CrewDocument>? get crewDocuments {
     return _crewDocuments;
   }
-  
+
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
-  
+
   amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-  
-  const CrewDocumentCategory._internal({required this.id, required name, required archived, description, role, crewDocuments, createdAt, updatedAt}): _name = name, _archived = archived, _description = description, _role = role, _crewDocuments = crewDocuments, _createdAt = createdAt, _updatedAt = updatedAt;
-  
-  factory CrewDocumentCategory({String? id, required String name, required bool archived, String? description, Role? role, List<CrewDocument>? crewDocuments}) {
+
+  const CrewDocumentCategory._internal(
+      {required this.id,
+      required name,
+      required archived,
+      description,
+      role,
+      crewDocuments,
+      createdAt,
+      updatedAt})
+      : _name = name,
+        _archived = archived,
+        _description = description,
+        _role = role,
+        _crewDocuments = crewDocuments,
+        _createdAt = createdAt,
+        _updatedAt = updatedAt;
+
+  factory CrewDocumentCategory(
+      {String? id,
+      required String name,
+      required bool archived,
+      String? description,
+      Role? role,
+      List<CrewDocument>? crewDocuments}) {
     return CrewDocumentCategory._internal(
-      id: id == null ? amplify_core.UUID.getUUID() : id,
-      name: name,
-      archived: archived,
-      description: description,
-      role: role,
-      crewDocuments: crewDocuments != null ? List<CrewDocument>.unmodifiable(crewDocuments) : crewDocuments);
+        id: id == null ? amplify_core.UUID.getUUID() : id,
+        name: name,
+        archived: archived,
+        description: description,
+        role: role,
+        crewDocuments: crewDocuments != null
+            ? List<CrewDocument>.unmodifiable(crewDocuments)
+            : crewDocuments);
   }
-  
+
   bool equals(Object other) {
     return this == other;
   }
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is CrewDocumentCategory &&
-      id == other.id &&
-      _name == other._name &&
-      _archived == other._archived &&
-      _description == other._description &&
-      _role == other._role &&
-      DeepCollectionEquality().equals(_crewDocuments, other._crewDocuments);
+        id == other.id &&
+        _name == other._name &&
+        _archived == other._archived &&
+        _description == other._description &&
+        _role == other._role &&
+        DeepCollectionEquality().equals(_crewDocuments, other._crewDocuments);
   }
-  
+
   @override
   int get hashCode => toString().hashCode;
-  
+
   @override
   String toString() {
     var buffer = new StringBuffer();
-    
+
     buffer.write("CrewDocumentCategory {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
-    buffer.write("archived=" + (_archived != null ? _archived.toString() : "null") + ", ");
+    buffer.write("archived=" +
+        (_archived != null ? _archived.toString() : "null") +
+        ", ");
     buffer.write("description=" + "$_description" + ", ");
     buffer.write("role=" + (_role != null ? _role.toString() : "null") + ", ");
-    buffer.write("createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ");
-    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
-    
+
     return buffer.toString();
   }
-  
-  CrewDocumentCategory copyWith({String? name, bool? archived, String? description, Role? role, List<CrewDocument>? crewDocuments}) {
-    return CrewDocumentCategory._internal(
-      id: id,
-      name: name ?? this.name,
-      archived: archived ?? this.archived,
-      description: description ?? this.description,
-      role: role ?? this.role,
-      crewDocuments: crewDocuments ?? this.crewDocuments);
-  }
-  
-  CrewDocumentCategory copyWithModelFieldValues({
-    ModelFieldValue<String>? name,
-    ModelFieldValue<bool>? archived,
-    ModelFieldValue<String?>? description,
-    ModelFieldValue<Role?>? role,
-    ModelFieldValue<List<CrewDocument>?>? crewDocuments
-  }) {
-    return CrewDocumentCategory._internal(
-      id: id,
-      name: name == null ? this.name : name.value,
-      archived: archived == null ? this.archived : archived.value,
-      description: description == null ? this.description : description.value,
-      role: role == null ? this.role : role.value,
-      crewDocuments: crewDocuments == null ? this.crewDocuments : crewDocuments.value
-    );
-  }
-  
-  CrewDocumentCategory.fromJson(Map<String, dynamic> json)  
-    : id = json['id'],
-      _name = json['name'],
-      _archived = json['archived'],
-      _description = json['description'],
-      _role = json['role'] != null
-        ? json['role']['serializedData'] != null
-          ? Role.fromJson(new Map<String, dynamic>.from(json['role']['serializedData']))
-          : Role.fromJson(new Map<String, dynamic>.from(json['role']))
-        : null,
-      _crewDocuments = json['crewDocuments']  is Map
-        ? (json['crewDocuments']['items'] is List
-          ? (json['crewDocuments']['items'] as List)
-              .where((e) => e != null)
-              .map((e) => CrewDocument.fromJson(new Map<String, dynamic>.from(e)))
-              .toList()
-          : null)
-        : (json['crewDocuments'] is List
-          ? (json['crewDocuments'] as List)
-              .where((e) => e?['serializedData'] != null)
-              .map((e) => CrewDocument.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
-              .toList()
-          : null),
-      _createdAt = json['createdAt'] != null ? amplify_core.TemporalDateTime.fromString(json['createdAt']) : null,
-      _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
-  
-  Map<String, dynamic> toJson() => {
-    'id': id, 'name': _name, 'archived': _archived, 'description': _description, 'role': _role?.toJson(), 'crewDocuments': _crewDocuments?.map((CrewDocument? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
-  };
-  
-  Map<String, Object?> toMap() => {
-    'id': id,
-    'name': _name,
-    'archived': _archived,
-    'description': _description,
-    'role': _role,
-    'crewDocuments': _crewDocuments,
-    'createdAt': _createdAt,
-    'updatedAt': _updatedAt
-  };
 
-  static final amplify_core.QueryModelIdentifier<CrewDocumentCategoryModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<CrewDocumentCategoryModelIdentifier>();
+  CrewDocumentCategory copyWith(
+      {String? name,
+      bool? archived,
+      String? description,
+      Role? role,
+      List<CrewDocument>? crewDocuments}) {
+    return CrewDocumentCategory._internal(
+        id: id,
+        name: name ?? this.name,
+        archived: archived ?? this.archived,
+        description: description ?? this.description,
+        role: role ?? this.role,
+        crewDocuments: crewDocuments ?? this.crewDocuments);
+  }
+
+  CrewDocumentCategory copyWithModelFieldValues(
+      {ModelFieldValue<String>? name,
+      ModelFieldValue<bool>? archived,
+      ModelFieldValue<String?>? description,
+      ModelFieldValue<Role?>? role,
+      ModelFieldValue<List<CrewDocument>?>? crewDocuments}) {
+    return CrewDocumentCategory._internal(
+        id: id,
+        name: name == null ? this.name : name.value,
+        archived: archived == null ? this.archived : archived.value,
+        description: description == null ? this.description : description.value,
+        role: role == null ? this.role : role.value,
+        crewDocuments:
+            crewDocuments == null ? this.crewDocuments : crewDocuments.value);
+  }
+
+  CrewDocumentCategory.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        _name = json['name'],
+        _archived = json['archived'],
+        _description = json['description'],
+        _role = json['role'] != null
+            ? json['role']['serializedData'] != null
+                ? Role.fromJson(new Map<String, dynamic>.from(
+                    json['role']['serializedData']))
+                : Role.fromJson(new Map<String, dynamic>.from(json['role']))
+            : null,
+        _crewDocuments = json['crewDocuments'] is Map
+            ? (json['crewDocuments']['items'] is List
+                ? (json['crewDocuments']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) =>
+                        CrewDocument.fromJson(new Map<String, dynamic>.from(e)))
+                    .toList()
+                : null)
+            : (json['crewDocuments'] is List
+                ? (json['crewDocuments'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => CrewDocument.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
+                : null),
+        _createdAt = json['createdAt'] != null
+            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
+            : null,
+        _updatedAt = json['updatedAt'] != null
+            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
+            : null;
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': _name,
+        'archived': _archived,
+        'description': _description,
+        'role': _role?.toJson(),
+        'crewDocuments':
+            _crewDocuments?.map((CrewDocument? e) => e?.toJson()).toList(),
+        'createdAt': _createdAt?.format(),
+        'updatedAt': _updatedAt?.format()
+      };
+
+  Map<String, Object?> toMap() => {
+        'id': id,
+        'name': _name,
+        'archived': _archived,
+        'description': _description,
+        'role': _role,
+        'crewDocuments': _crewDocuments,
+        'createdAt': _createdAt,
+        'updatedAt': _updatedAt
+      };
+
+  static final amplify_core
+      .QueryModelIdentifier<CrewDocumentCategoryModelIdentifier>
+      MODEL_IDENTIFIER =
+      amplify_core.QueryModelIdentifier<CrewDocumentCategoryModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static final ARCHIVED = amplify_core.QueryField(fieldName: "archived");
   static final DESCRIPTION = amplify_core.QueryField(fieldName: "description");
   static final ROLE = amplify_core.QueryField(
-    fieldName: "role",
-    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Role'));
+      fieldName: "role",
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'Role'));
   static final CREWDOCUMENTS = amplify_core.QueryField(
-    fieldName: "crewDocuments",
-    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'CrewDocument'));
-  static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+      fieldName: "crewDocuments",
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'CrewDocument'));
+  static var schema = amplify_core.Model.defineSchema(
+      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "CrewDocumentCategory";
     modelSchemaDefinition.pluralName = "CrewDocumentCategories";
-    
+
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
-        authStrategy: amplify_core.AuthStrategy.PRIVATE,
-        operations: const [
-          amplify_core.ModelOperation.CREATE,
-          amplify_core.ModelOperation.UPDATE,
-          amplify_core.ModelOperation.DELETE,
-          amplify_core.ModelOperation.READ
-        ])
+          authStrategy: amplify_core.AuthStrategy.PRIVATE,
+          operations: const [
+            amplify_core.ModelOperation.CREATE,
+            amplify_core.ModelOperation.UPDATE,
+            amplify_core.ModelOperation.DELETE,
+            amplify_core.ModelOperation.READ
+          ])
     ];
-    
+
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
-    
+
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: CrewDocumentCategory.NAME,
-      isRequired: true,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
-    ));
-    
+        key: CrewDocumentCategory.NAME,
+        isRequired: true,
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: CrewDocumentCategory.ARCHIVED,
-      isRequired: true,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)
-    ));
-    
+        key: CrewDocumentCategory.ARCHIVED,
+        isRequired: true,
+        ofType:
+            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)));
+
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-      key: CrewDocumentCategory.DESCRIPTION,
-      isRequired: false,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
-    ));
-    
+        key: CrewDocumentCategory.DESCRIPTION,
+        isRequired: false,
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
+
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-      key: CrewDocumentCategory.ROLE,
-      isRequired: false,
-      targetNames: ['roleId'],
-      ofModelName: 'Role'
-    ));
-    
+        key: CrewDocumentCategory.ROLE,
+        isRequired: false,
+        targetNames: ['roleId'],
+        ofModelName: 'Role'));
+
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-      key: CrewDocumentCategory.CREWDOCUMENTS,
-      isRequired: false,
-      ofModelName: 'CrewDocument',
-      associatedKey: CrewDocument.CATEGORY
-    ));
-    
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'createdAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
-    ));
-    
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
-      fieldName: 'updatedAt',
-      isRequired: false,
-      isReadOnly: true,
-      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
-    ));
+        key: CrewDocumentCategory.CREWDOCUMENTS,
+        isRequired: false,
+        ofModelName: 'CrewDocument',
+        associatedKey: CrewDocument.CATEGORY));
+
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'createdAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(
+        amplify_core.ModelFieldDefinition.nonQueryField(
+            fieldName: 'updatedAt',
+            isRequired: false,
+            isReadOnly: true,
+            ofType: amplify_core.ModelFieldType(
+                amplify_core.ModelFieldTypeEnum.dateTime)));
   });
 }
 
-class _CrewDocumentCategoryModelType extends amplify_core.ModelType<CrewDocumentCategory> {
+class _CrewDocumentCategoryModelType
+    extends amplify_core.ModelType<CrewDocumentCategory> {
   const _CrewDocumentCategoryModelType();
-  
+
   @override
   CrewDocumentCategory fromJson(Map<String, dynamic> jsonData) {
     return CrewDocumentCategory.fromJson(jsonData);
   }
-  
+
   @override
   String modelName() {
     return 'CrewDocumentCategory';
@@ -305,41 +359,37 @@ class _CrewDocumentCategoryModelType extends amplify_core.ModelType<CrewDocument
  * This is an auto generated class representing the model identifier
  * of [CrewDocumentCategory] in your schema.
  */
-class CrewDocumentCategoryModelIdentifier implements amplify_core.ModelIdentifier<CrewDocumentCategory> {
+class CrewDocumentCategoryModelIdentifier
+    implements amplify_core.ModelIdentifier<CrewDocumentCategory> {
   final String id;
 
   /** Create an instance of CrewDocumentCategoryModelIdentifier using [id] the primary key. */
-  const CrewDocumentCategoryModelIdentifier({
-    required this.id});
-  
+  const CrewDocumentCategoryModelIdentifier({required this.id});
+
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
-    'id': id
-  });
-  
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-    .entries
-    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
-    .toList();
-  
+      .entries
+      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
+      .toList();
+
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-  
+
   @override
   String toString() => 'CrewDocumentCategoryModelIdentifier(id: $id)';
-  
+
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-    
-    return other is CrewDocumentCategoryModelIdentifier &&
-      id == other.id;
+
+    return other is CrewDocumentCategoryModelIdentifier && id == other.id;
   }
-  
+
   @override
-  int get hashCode =>
-    id.hashCode;
+  int get hashCode => id.hashCode;
 }

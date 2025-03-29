@@ -25,7 +25,7 @@ class RoleDataSource extends DataTableSource {
     final role = sortedData[index];
     return DataRow2.byIndex(
       onTap: () {
-        CrewDocumentCategoriesRoute(roleId: role.id).push(context);
+        FlightCrewRecordsCategoriesRoute(roleId: role.id).push(context);
       },
       onLongPress: () {
         showDialog(
