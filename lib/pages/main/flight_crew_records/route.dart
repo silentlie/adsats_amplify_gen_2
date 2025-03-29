@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/crew_documents/crew_documents_view.dart';
-import 'package:adsats_amplify_gen_2/pages/main/crew_documents/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/flight_crew_records_view.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:flutter/material.dart';

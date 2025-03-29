@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/crew_documents/actions.dart';
-import 'package:adsats_amplify_gen_2/pages/main/crew_documents/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/actions.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/s3.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';

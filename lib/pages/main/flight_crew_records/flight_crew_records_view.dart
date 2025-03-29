@@ -1,10 +1,10 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/crew_documents/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/main/crew_documents/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/main/crew_documents/header.dart';
-import 'package:adsats_amplify_gen_2/pages/main/crew_documents/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/main/crew_documents/sort.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/filter.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/header.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/sort.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';

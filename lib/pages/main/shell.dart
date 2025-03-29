@@ -11,7 +11,7 @@ export 'package:adsats_amplify_gen_2/pages/main/home/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/documents/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/sms/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/cms/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/crew_documents/route.dart';
+export 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/profile/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/help/route.dart';
 export 'package:adsats_amplify_gen_2/pages/main/reset_password//route.dart';
@@ -96,7 +96,7 @@ class MainShell extends ConsumerWidget {
           groupAlignment: -1,
           extended: isExtended,
           labelType: isExtended ? null : NavigationRailLabelType.selected,
-          minExtendedWidth: 192,
+          minExtendedWidth: 205,
         ),
         VerticalDivider(
           width: 0,

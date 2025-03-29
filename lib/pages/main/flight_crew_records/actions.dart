@@ -2,8 +2,8 @@ import 'package:adsats_amplify_gen_2/API/mutations.dart' hide delete;
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/crew_documents/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/main/crew_documents/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/s3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
