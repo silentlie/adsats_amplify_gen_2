@@ -1,1 +1,1 @@
-.env merge=unchange_env
+assets/.env merge=unchange_env
