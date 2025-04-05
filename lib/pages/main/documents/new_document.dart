@@ -3,6 +3,8 @@ import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/filter.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
@@ -180,6 +182,8 @@ class NewDocumentDialog extends ConsumerWidget {
                   subcategory!,
                   aircraft,
                 );
+                ref.invalidate(documentsRepoProvider(
+                    ref.read(documentFilterProvider(subcategory!))));
                 if (!context.mounted) return;
                 if (context.canPop()) {
                   context.pop();

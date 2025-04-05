@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -142,6 +143,33 @@ Future<void> deleteDocument(Document document) async {
     debugPrint('delete document in s3 failed: ${e.message}');
   } on ApiException catch (e) {
     debugPrint('delete document in graphQL/Appsync failed: ${e.message}');
+  } catch (e) {
+    debugPrint('Unknown Error: $e');
+  }
+}
+
+Future<void> renameDocument(Document document, String newName) async {
+  try {
+    await update(document.copyWith(name: newName));
+    await Amplify.Storage.copy(
+      source:
+          StoragePath.fromString('documents/${document.id}/${document.name}'),
+      destination: StoragePath.fromString('documents/${document.id}/$newName'),
+    ).result.then(
+      (value) async {
+        await Amplify.Storage.remove(
+          path: StoragePath.fromString(
+              'documents/${document.id}/${document.name}'),
+        ).result;
+        // print('Removed file: ${result.removedItem.path}');
+        return value;
+      },
+    );
+    // print('Copy file: ${result.url}');
+  } on StorageException catch (e) {
+    debugPrint('rename document in s3 failed: ${e.message}');
+  } on ApiException catch (e) {
+    debugPrint('rename document in graphQL/Appsync failed: ${e.message}');
   } catch (e) {
     debugPrint('Unknown Error: $e');
   }

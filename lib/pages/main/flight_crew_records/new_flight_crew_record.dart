@@ -1,7 +1,6 @@
-import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
-import 'package:adsats_amplify_gen_2/models/CrewDocumentCategory.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/s3.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -11,14 +10,14 @@ class NewFlightCrewRecord extends ConsumerWidget {
   const NewFlightCrewRecord({
     super.key,
     required this.category,
+    required this.staff,
   });
   final CrewDocumentCategory category;
+  final Staff staff;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final user = ref.watch(userDetailsProvider).value!;
-
     return AlertDialog.adaptive(
       title: const Text(
         'Add Flight Crew Records',
@@ -95,7 +94,7 @@ class NewFlightCrewRecord extends ConsumerWidget {
             }
             await uploadFlightCrewRecordsFiles(
               files,
-              user,
+              staff,
               category,
             );
             if (context.mounted) {

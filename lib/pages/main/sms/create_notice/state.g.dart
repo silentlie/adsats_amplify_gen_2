@@ -6,7 +6,7 @@ part of 'state.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$noticeNotifierHash() => r'91e876bd8014ceac89d799dea13d90d4f1d15852';
+String _$noticeNotifierHash() => r'423072a0378e93e1387ceddb8e63bb1f7d2952a3';
 
 /// See also [NoticeNotifier].
 @ProviderFor(NoticeNotifier)

@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/CrewDocumentCategory.dart';
 import 'package:adsats_amplify_gen_2/models/Staff.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/filter.dart';
@@ -33,6 +34,7 @@ class FlightCrewRecordsHeader extends ConsumerWidget {
         fontWeight: FontWeight.bold,
       ),
     );
+    final isAdmin = ref.watch(isAdminProvider);
     final orientation = MediaQuery.orientationOf(context);
     final isLandscape = orientation == Orientation.landscape;
     return ListTile(
@@ -49,7 +51,7 @@ class FlightCrewRecordsHeader extends ConsumerWidget {
               icon: const Icon(Icons.refresh),
             ),
             //Could enable admin to add documents as well
-            if (isProfileRoute)
+            if (isProfileRoute || isAdmin)
               ElevatedButton.icon(
                 onPressed: () {
                   showDialog(
@@ -57,6 +59,7 @@ class FlightCrewRecordsHeader extends ConsumerWidget {
                     builder: (context) {
                       return NewFlightCrewRecord(
                         category: category,
+                        staff: staff,
                       );
                     },
                   );

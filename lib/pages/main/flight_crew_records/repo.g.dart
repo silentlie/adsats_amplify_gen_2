@@ -186,7 +186,7 @@ final flightCrewRecordsMetaProvider =
 // ignore: unused_element
 typedef FlightCrewRecordsMetaRef
     = AutoDisposeFutureProviderRef<(Iterable<Aircraft>, Iterable<Role>)>;
-String _$listJoinStaffHash() => r'2cd3c100e32adc5ae2d732dd0a6dd03559998861';
+String _$listJoinStaffHash() => r'c89875fef6688c520359c87a4e47fd7a603b85fa';
 
 /// See also [listJoinStaff].
 @ProviderFor(listJoinStaff)

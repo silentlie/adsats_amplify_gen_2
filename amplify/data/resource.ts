@@ -58,11 +58,12 @@ const schema = a
       aircraft: a.hasMany("AircraftStaff", "staffId"),
       roles: a.hasMany("RoleStaff", "staffId"),
       subcategories: a.hasMany("StaffSubcategory", "staffId"),
-      crewDocuments: a.hasMany("CrewDocument", "staffId"),
+      flightCrewRecords: a.hasMany("FlightCrewRecord", "staffId"),
       reports: a.hasMany("Report", "auditorId"),
       reportNotifications: a.hasMany("ReportStaff", "staffId"),
       closedReport: a.hasMany("Report", "closerId"),
     }),
+    Session: a.model({}),
     Category: a.model({
       name: a.string().required(),
       archived: a.boolean().required().default(false),
@@ -86,13 +87,15 @@ const schema = a
       staffId: a.id(),
       staff: a.belongsTo("Staff", "staffId"),
       aircraft: a.hasMany("AircraftDocument", "documentId"),
+      expiredAt: a.datetime(),
+      issuedAt: a.datetime(),
     }),
     Role: a.model({
       name: a.string().required(),
       archived: a.boolean().required().default(false),
       description: a.string(),
       staff: a.hasMany("RoleStaff", "roleId"),
-      categories: a.hasMany("CrewDocumentCategory", "roleId"),
+      categories: a.hasMany("FlightCrewRecordCategory", "roleId"),
     }),
     RoleStaff: a.model({
       roleId: a.id().required(),
@@ -159,21 +162,23 @@ const schema = a
       notices: a.belongsTo("Notice", "noticeId"),
       name: a.string().required(),
     }),
-    CrewDocumentCategory: a.model({
+    FlightCrewRecordCategory: a.model({
       name: a.string().required(),
       archived: a.boolean().required().default(false),
       description: a.string(),
       roleId: a.id().required(),
       role: a.belongsTo("Role", "roleId"),
-      crewDocuments: a.hasMany("CrewDocument", "categoryId"),
+      flightCrewRecords: a.hasMany("FlightCrewRecord", "categoryId"),
     }),
-    CrewDocument: a.model({
+    FlightCrewRecord: a.model({
       categoryId: a.id().required(),
       staffId: a.id().required(),
       name: a.string().required(),
       archived: a.boolean().required().default(false),
-      category: a.belongsTo("CrewDocumentCategory", "categoryId"),
+      category: a.belongsTo("FlightCrewRecordCategory", "categoryId"),
       staff: a.belongsTo("Staff", "staffId"),
+      expiredAt: a.datetime(),
+      issuedAt: a.datetime(),
     }),
     Report: a.model({
       subject: a.string().required(),
