@@ -185,3 +185,23 @@ FutureOr<List<Document>> listDocuments(
   }
   return response.data!.items.cast<Document>();
 }
+
+@Riverpod(dependencies: [])
+FutureOr<List<Session>> listSessions(
+  Ref ref, [
+  QueryPredicate? where,
+]) async {
+  final request = ModelQueries.list<Session>(
+    Session.classType,
+    where: where,
+  );
+  final response = await Amplify.API
+      .query<PaginatedResult<Session>>(
+        request: request,
+      )
+      .response;
+  if (response.errors.isNotEmpty) {
+    throw response.errors.first;
+  }
+  return response.data!.items.cast<Session>();
+}

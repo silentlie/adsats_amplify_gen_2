@@ -18,7 +18,6 @@ class SessionManager extends _$SessionManager {
     ref.onDispose(() {
       _stopHeartbeat();
     });
-
     // Start the heartbeat session
     await _startHeartbeat();
   }
@@ -26,19 +25,16 @@ class SessionManager extends _$SessionManager {
   Future<void> _startHeartbeat() async {
     try {
       // Get current user UUID
-      final user = await ref.watch(userDetailsProvider.future);
-
+      final user = await ref.read(userDetailsProvider.future);
       // Create new session
       _currentSession = Session(
         staff: user,
       );
-
       // Save initial session
       await create(_currentSession!);
-
       // Start periodic updates
       _heartbeatTimer =
-          Timer.periodic(const Duration(seconds: 5), (timer) async {
+          Timer.periodic(const Duration(minutes: 1), (timer) async {
         if (_currentSession != null) {
           await update(_currentSession!);
         }
