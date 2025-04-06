@@ -72,7 +72,11 @@ class ReportNotifier extends _$ReportNotifier {
       // );
       final finalRecipients =
           await ref.watch(staffByRoleNameProvider("Quality Manager").future);
-      await updateReportStaff(_initialReport, state.report, finalRecipients,);
+      await updateReportStaff(
+        _initialReport,
+        state.report,
+        finalRecipients,
+      );
     }
     await Future.wait(futures);
   }

@@ -14,14 +14,14 @@ class FlightCrewRecordsCategoryView extends ConsumerWidget {
   const FlightCrewRecordsCategoryView(
       {super.key, this.category, required this.roleId});
 
-  final CrewDocumentCategory? category;
+  final FlightCrewRecordCategory? category;
   final String roleId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isEditing = this.category != null;
     var category = this.category ??
-        CrewDocumentCategory(
+        FlightCrewRecordCategory(
           name: "",
           archived: false,
         );

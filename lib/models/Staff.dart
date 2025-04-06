@@ -37,10 +37,11 @@ class Staff extends amplify_core.Model {
   final List<AircraftStaff>? _aircraft;
   final List<RoleStaff>? _roles;
   final List<StaffSubcategory>? _subcategories;
-  final List<CrewDocument>? _crewDocuments;
+  final List<FlightCrewRecord>? _flightCrewRecords;
   final List<Report>? _reports;
   final List<ReportStaff>? _reportNotifications;
   final List<Report>? _closedReport;
+  final List<Session>? _sessions;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -132,8 +133,8 @@ class Staff extends amplify_core.Model {
     return _subcategories;
   }
 
-  List<CrewDocument>? get crewDocuments {
-    return _crewDocuments;
+  List<FlightCrewRecord>? get flightCrewRecords {
+    return _flightCrewRecords;
   }
 
   List<Report>? get reports {
@@ -146,6 +147,10 @@ class Staff extends amplify_core.Model {
 
   List<Report>? get closedReport {
     return _closedReport;
+  }
+
+  List<Session>? get sessions {
+    return _sessions;
   }
 
   amplify_core.TemporalDateTime? get createdAt {
@@ -168,10 +173,11 @@ class Staff extends amplify_core.Model {
       aircraft,
       roles,
       subcategories,
-      crewDocuments,
+      flightCrewRecords,
       reports,
       reportNotifications,
       closedReport,
+      sessions,
       createdAt,
       updatedAt})
       : _firstName = firstName,
@@ -184,10 +190,11 @@ class Staff extends amplify_core.Model {
         _aircraft = aircraft,
         _roles = roles,
         _subcategories = subcategories,
-        _crewDocuments = crewDocuments,
+        _flightCrewRecords = flightCrewRecords,
         _reports = reports,
         _reportNotifications = reportNotifications,
         _closedReport = closedReport,
+        _sessions = sessions,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
@@ -203,10 +210,11 @@ class Staff extends amplify_core.Model {
       List<AircraftStaff>? aircraft,
       List<RoleStaff>? roles,
       List<StaffSubcategory>? subcategories,
-      List<CrewDocument>? crewDocuments,
+      List<FlightCrewRecord>? flightCrewRecords,
       List<Report>? reports,
       List<ReportStaff>? reportNotifications,
-      List<Report>? closedReport}) {
+      List<Report>? closedReport,
+      List<Session>? sessions}) {
     return Staff._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
         firstName: firstName,
@@ -227,16 +235,18 @@ class Staff extends amplify_core.Model {
         subcategories: subcategories != null
             ? List<StaffSubcategory>.unmodifiable(subcategories)
             : subcategories,
-        crewDocuments: crewDocuments != null
-            ? List<CrewDocument>.unmodifiable(crewDocuments)
-            : crewDocuments,
+        flightCrewRecords: flightCrewRecords != null
+            ? List<FlightCrewRecord>.unmodifiable(flightCrewRecords)
+            : flightCrewRecords,
         reports: reports != null ? List<Report>.unmodifiable(reports) : reports,
         reportNotifications: reportNotifications != null
             ? List<ReportStaff>.unmodifiable(reportNotifications)
             : reportNotifications,
         closedReport: closedReport != null
             ? List<Report>.unmodifiable(closedReport)
-            : closedReport);
+            : closedReport,
+        sessions:
+            sessions != null ? List<Session>.unmodifiable(sessions) : sessions);
   }
 
   bool equals(Object other) {
@@ -258,11 +268,13 @@ class Staff extends amplify_core.Model {
         DeepCollectionEquality().equals(_aircraft, other._aircraft) &&
         DeepCollectionEquality().equals(_roles, other._roles) &&
         DeepCollectionEquality().equals(_subcategories, other._subcategories) &&
-        DeepCollectionEquality().equals(_crewDocuments, other._crewDocuments) &&
+        DeepCollectionEquality()
+            .equals(_flightCrewRecords, other._flightCrewRecords) &&
         DeepCollectionEquality().equals(_reports, other._reports) &&
         DeepCollectionEquality()
             .equals(_reportNotifications, other._reportNotifications) &&
-        DeepCollectionEquality().equals(_closedReport, other._closedReport);
+        DeepCollectionEquality().equals(_closedReport, other._closedReport) &&
+        DeepCollectionEquality().equals(_sessions, other._sessions);
   }
 
   @override
@@ -301,10 +313,11 @@ class Staff extends amplify_core.Model {
       List<AircraftStaff>? aircraft,
       List<RoleStaff>? roles,
       List<StaffSubcategory>? subcategories,
-      List<CrewDocument>? crewDocuments,
+      List<FlightCrewRecord>? flightCrewRecords,
       List<Report>? reports,
       List<ReportStaff>? reportNotifications,
-      List<Report>? closedReport}) {
+      List<Report>? closedReport,
+      List<Session>? sessions}) {
     return Staff._internal(
         id: id,
         firstName: firstName ?? this.firstName,
@@ -317,10 +330,11 @@ class Staff extends amplify_core.Model {
         aircraft: aircraft ?? this.aircraft,
         roles: roles ?? this.roles,
         subcategories: subcategories ?? this.subcategories,
-        crewDocuments: crewDocuments ?? this.crewDocuments,
+        flightCrewRecords: flightCrewRecords ?? this.flightCrewRecords,
         reports: reports ?? this.reports,
         reportNotifications: reportNotifications ?? this.reportNotifications,
-        closedReport: closedReport ?? this.closedReport);
+        closedReport: closedReport ?? this.closedReport,
+        sessions: sessions ?? this.sessions);
   }
 
   Staff copyWithModelFieldValues(
@@ -334,10 +348,11 @@ class Staff extends amplify_core.Model {
       ModelFieldValue<List<AircraftStaff>?>? aircraft,
       ModelFieldValue<List<RoleStaff>?>? roles,
       ModelFieldValue<List<StaffSubcategory>?>? subcategories,
-      ModelFieldValue<List<CrewDocument>?>? crewDocuments,
+      ModelFieldValue<List<FlightCrewRecord>?>? flightCrewRecords,
       ModelFieldValue<List<Report>?>? reports,
       ModelFieldValue<List<ReportStaff>?>? reportNotifications,
-      ModelFieldValue<List<Report>?>? closedReport}) {
+      ModelFieldValue<List<Report>?>? closedReport,
+      ModelFieldValue<List<Session>?>? sessions}) {
     return Staff._internal(
         id: id,
         firstName: firstName == null ? this.firstName : firstName.value,
@@ -352,14 +367,16 @@ class Staff extends amplify_core.Model {
         roles: roles == null ? this.roles : roles.value,
         subcategories:
             subcategories == null ? this.subcategories : subcategories.value,
-        crewDocuments:
-            crewDocuments == null ? this.crewDocuments : crewDocuments.value,
+        flightCrewRecords: flightCrewRecords == null
+            ? this.flightCrewRecords
+            : flightCrewRecords.value,
         reports: reports == null ? this.reports : reports.value,
         reportNotifications: reportNotifications == null
             ? this.reportNotifications
             : reportNotifications.value,
         closedReport:
-            closedReport == null ? this.closedReport : closedReport.value);
+            closedReport == null ? this.closedReport : closedReport.value,
+        sessions: sessions == null ? this.sessions : sessions.value);
   }
 
   Staff.fromJson(Map<String, dynamic> json)
@@ -458,18 +475,18 @@ class Staff extends amplify_core.Model {
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
                 : null),
-        _crewDocuments = json['crewDocuments'] is Map
-            ? (json['crewDocuments']['items'] is List
-                ? (json['crewDocuments']['items'] as List)
+        _flightCrewRecords = json['flightCrewRecords'] is Map
+            ? (json['flightCrewRecords']['items'] is List
+                ? (json['flightCrewRecords']['items'] as List)
                     .where((e) => e != null)
-                    .map((e) =>
-                        CrewDocument.fromJson(new Map<String, dynamic>.from(e)))
+                    .map((e) => FlightCrewRecord.fromJson(
+                        new Map<String, dynamic>.from(e)))
                     .toList()
                 : null)
-            : (json['crewDocuments'] is List
-                ? (json['crewDocuments'] as List)
+            : (json['flightCrewRecords'] is List
+                ? (json['flightCrewRecords'] as List)
                     .where((e) => e?['serializedData'] != null)
-                    .map((e) => CrewDocument.fromJson(
+                    .map((e) => FlightCrewRecord.fromJson(
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
                 : null),
@@ -518,6 +535,21 @@ class Staff extends amplify_core.Model {
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
                 : null),
+        _sessions = json['sessions'] is Map
+            ? (json['sessions']['items'] is List
+                ? (json['sessions']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) =>
+                        Session.fromJson(new Map<String, dynamic>.from(e)))
+                    .toList()
+                : null)
+            : (json['sessions'] is List
+                ? (json['sessions'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => Session.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
+                : null),
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -539,12 +571,14 @@ class Staff extends amplify_core.Model {
         'roles': _roles?.map((RoleStaff? e) => e?.toJson()).toList(),
         'subcategories':
             _subcategories?.map((StaffSubcategory? e) => e?.toJson()).toList(),
-        'crewDocuments':
-            _crewDocuments?.map((CrewDocument? e) => e?.toJson()).toList(),
+        'flightCrewRecords': _flightCrewRecords
+            ?.map((FlightCrewRecord? e) => e?.toJson())
+            .toList(),
         'reports': _reports?.map((Report? e) => e?.toJson()).toList(),
         'reportNotifications':
             _reportNotifications?.map((ReportStaff? e) => e?.toJson()).toList(),
         'closedReport': _closedReport?.map((Report? e) => e?.toJson()).toList(),
+        'sessions': _sessions?.map((Session? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
@@ -561,10 +595,11 @@ class Staff extends amplify_core.Model {
         'aircraft': _aircraft,
         'roles': _roles,
         'subcategories': _subcategories,
-        'crewDocuments': _crewDocuments,
+        'flightCrewRecords': _flightCrewRecords,
         'reports': _reports,
         'reportNotifications': _reportNotifications,
         'closedReport': _closedReport,
+        'sessions': _sessions,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
@@ -607,11 +642,11 @@ class Staff extends amplify_core.Model {
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
           ofModelName: 'StaffSubcategory'));
-  static final CREWDOCUMENTS = amplify_core.QueryField(
-      fieldName: "crewDocuments",
+  static final FLIGHTCREWRECORDS = amplify_core.QueryField(
+      fieldName: "flightCrewRecords",
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'CrewDocument'));
+          ofModelName: 'FlightCrewRecord'));
   static final REPORTS = amplify_core.QueryField(
       fieldName: "reports",
       fieldType: amplify_core.ModelFieldType(
@@ -627,6 +662,11 @@ class Staff extends amplify_core.Model {
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
           ofModelName: 'Report'));
+  static final SESSIONS = amplify_core.QueryField(
+      fieldName: "sessions",
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'Session'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Staff";
@@ -710,10 +750,10 @@ class Staff extends amplify_core.Model {
         associatedKey: StaffSubcategory.STAFF));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Staff.CREWDOCUMENTS,
+        key: Staff.FLIGHTCREWRECORDS,
         isRequired: false,
-        ofModelName: 'CrewDocument',
-        associatedKey: CrewDocument.STAFF));
+        ofModelName: 'FlightCrewRecord',
+        associatedKey: FlightCrewRecord.STAFF));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
         key: Staff.REPORTS,
@@ -732,6 +772,12 @@ class Staff extends amplify_core.Model {
         isRequired: false,
         ofModelName: 'Report',
         associatedKey: Report.CLOSER));
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
+        key: Staff.SESSIONS,
+        isRequired: false,
+        ofModelName: 'Session',
+        associatedKey: Session.STAFF));
 
     modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(

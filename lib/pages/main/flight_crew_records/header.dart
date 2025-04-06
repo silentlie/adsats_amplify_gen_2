@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
-import 'package:adsats_amplify_gen_2/models/CrewDocumentCategory.dart';
+import 'package:adsats_amplify_gen_2/models/FlightCrewRecordCategory.dart';
 import 'package:adsats_amplify_gen_2/models/Staff.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/new_flight_crew_record.dart';
@@ -17,7 +17,7 @@ class FlightCrewRecordsHeader extends ConsumerWidget {
     required this.category,
   });
   final Staff staff;
-  final CrewDocumentCategory category;
+  final FlightCrewRecordCategory category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

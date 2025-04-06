@@ -23,15 +23,15 @@ import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:collection/collection.dart';
 
-/** This is an auto generated class representing the Role type in your schema. */
-class Role extends amplify_core.Model {
-  static const classType = const _RoleModelType();
+/** This is an auto generated class representing the FlightCrewRecordCategory type in your schema. */
+class FlightCrewRecordCategory extends amplify_core.Model {
+  static const classType = const _FlightCrewRecordCategoryModelType();
   final String id;
   final String? _name;
   final bool? _archived;
   final String? _description;
-  final List<RoleStaff>? _staff;
-  final List<FlightCrewRecordCategory>? _categories;
+  final Role? _role;
+  final List<FlightCrewRecord>? _flightCrewRecords;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -43,8 +43,8 @@ class Role extends amplify_core.Model {
   @override
   String getId() => id;
 
-  RoleModelIdentifier get modelIdentifier {
-    return RoleModelIdentifier(id: id);
+  FlightCrewRecordCategoryModelIdentifier get modelIdentifier {
+    return FlightCrewRecordCategoryModelIdentifier(id: id);
   }
 
   String get name {
@@ -77,12 +77,12 @@ class Role extends amplify_core.Model {
     return _description;
   }
 
-  List<RoleStaff>? get staff {
-    return _staff;
+  Role? get role {
+    return _role;
   }
 
-  List<FlightCrewRecordCategory>? get categories {
-    return _categories;
+  List<FlightCrewRecord>? get flightCrewRecords {
+    return _flightCrewRecords;
   }
 
   amplify_core.TemporalDateTime? get createdAt {
@@ -93,39 +93,39 @@ class Role extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const Role._internal(
+  const FlightCrewRecordCategory._internal(
       {required this.id,
       required name,
       required archived,
       description,
-      staff,
-      categories,
+      role,
+      flightCrewRecords,
       createdAt,
       updatedAt})
       : _name = name,
         _archived = archived,
         _description = description,
-        _staff = staff,
-        _categories = categories,
+        _role = role,
+        _flightCrewRecords = flightCrewRecords,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory Role(
+  factory FlightCrewRecordCategory(
       {String? id,
       required String name,
       required bool archived,
       String? description,
-      List<RoleStaff>? staff,
-      List<FlightCrewRecordCategory>? categories}) {
-    return Role._internal(
+      Role? role,
+      List<FlightCrewRecord>? flightCrewRecords}) {
+    return FlightCrewRecordCategory._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
         name: name,
         archived: archived,
         description: description,
-        staff: staff != null ? List<RoleStaff>.unmodifiable(staff) : staff,
-        categories: categories != null
-            ? List<FlightCrewRecordCategory>.unmodifiable(categories)
-            : categories);
+        role: role,
+        flightCrewRecords: flightCrewRecords != null
+            ? List<FlightCrewRecord>.unmodifiable(flightCrewRecords)
+            : flightCrewRecords);
   }
 
   bool equals(Object other) {
@@ -135,13 +135,14 @@ class Role extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Role &&
+    return other is FlightCrewRecordCategory &&
         id == other.id &&
         _name == other._name &&
         _archived == other._archived &&
         _description == other._description &&
-        DeepCollectionEquality().equals(_staff, other._staff) &&
-        DeepCollectionEquality().equals(_categories, other._categories);
+        _role == other._role &&
+        DeepCollectionEquality()
+            .equals(_flightCrewRecords, other._flightCrewRecords);
   }
 
   @override
@@ -151,13 +152,14 @@ class Role extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("Role {");
+    buffer.write("FlightCrewRecordCategory {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("archived=" +
         (_archived != null ? _archived.toString() : "null") +
         ", ");
     buffer.write("description=" + "$_description" + ", ");
+    buffer.write("role=" + (_role != null ? _role.toString() : "null") + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
@@ -168,68 +170,61 @@ class Role extends amplify_core.Model {
     return buffer.toString();
   }
 
-  Role copyWith(
+  FlightCrewRecordCategory copyWith(
       {String? name,
       bool? archived,
       String? description,
-      List<RoleStaff>? staff,
-      List<FlightCrewRecordCategory>? categories}) {
-    return Role._internal(
+      Role? role,
+      List<FlightCrewRecord>? flightCrewRecords}) {
+    return FlightCrewRecordCategory._internal(
         id: id,
         name: name ?? this.name,
         archived: archived ?? this.archived,
         description: description ?? this.description,
-        staff: staff ?? this.staff,
-        categories: categories ?? this.categories);
+        role: role ?? this.role,
+        flightCrewRecords: flightCrewRecords ?? this.flightCrewRecords);
   }
 
-  Role copyWithModelFieldValues(
+  FlightCrewRecordCategory copyWithModelFieldValues(
       {ModelFieldValue<String>? name,
       ModelFieldValue<bool>? archived,
       ModelFieldValue<String?>? description,
-      ModelFieldValue<List<RoleStaff>?>? staff,
-      ModelFieldValue<List<FlightCrewRecordCategory>?>? categories}) {
-    return Role._internal(
+      ModelFieldValue<Role?>? role,
+      ModelFieldValue<List<FlightCrewRecord>?>? flightCrewRecords}) {
+    return FlightCrewRecordCategory._internal(
         id: id,
         name: name == null ? this.name : name.value,
         archived: archived == null ? this.archived : archived.value,
         description: description == null ? this.description : description.value,
-        staff: staff == null ? this.staff : staff.value,
-        categories: categories == null ? this.categories : categories.value);
+        role: role == null ? this.role : role.value,
+        flightCrewRecords: flightCrewRecords == null
+            ? this.flightCrewRecords
+            : flightCrewRecords.value);
   }
 
-  Role.fromJson(Map<String, dynamic> json)
+  FlightCrewRecordCategory.fromJson(Map<String, dynamic> json)
       : id = json['id'],
         _name = json['name'],
         _archived = json['archived'],
         _description = json['description'],
-        _staff = json['staff'] is Map
-            ? (json['staff']['items'] is List
-                ? (json['staff']['items'] as List)
+        _role = json['role'] != null
+            ? json['role']['serializedData'] != null
+                ? Role.fromJson(new Map<String, dynamic>.from(
+                    json['role']['serializedData']))
+                : Role.fromJson(new Map<String, dynamic>.from(json['role']))
+            : null,
+        _flightCrewRecords = json['flightCrewRecords'] is Map
+            ? (json['flightCrewRecords']['items'] is List
+                ? (json['flightCrewRecords']['items'] as List)
                     .where((e) => e != null)
-                    .map((e) =>
-                        RoleStaff.fromJson(new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['staff'] is List
-                ? (json['staff'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => RoleStaff.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _categories = json['categories'] is Map
-            ? (json['categories']['items'] is List
-                ? (json['categories']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) => FlightCrewRecordCategory.fromJson(
+                    .map((e) => FlightCrewRecord.fromJson(
                         new Map<String, dynamic>.from(e)))
                     .toList()
                 : null)
-            : (json['categories'] is List
-                ? (json['categories'] as List)
+            : (json['flightCrewRecords'] is List
+                ? (json['flightCrewRecords'] as List)
                     .where((e) => e?['serializedData'] != null)
-                    .map((e) => FlightCrewRecordCategory.fromJson(
+                    .map((e) => FlightCrewRecord.fromJson(
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
                 : null),
@@ -245,9 +240,9 @@ class Role extends amplify_core.Model {
         'name': _name,
         'archived': _archived,
         'description': _description,
-        'staff': _staff?.map((RoleStaff? e) => e?.toJson()).toList(),
-        'categories': _categories
-            ?.map((FlightCrewRecordCategory? e) => e?.toJson())
+        'role': _role?.toJson(),
+        'flightCrewRecords': _flightCrewRecords
+            ?.map((FlightCrewRecord? e) => e?.toJson())
             .toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
@@ -258,33 +253,34 @@ class Role extends amplify_core.Model {
         'name': _name,
         'archived': _archived,
         'description': _description,
-        'staff': _staff,
-        'categories': _categories,
+        'role': _role,
+        'flightCrewRecords': _flightCrewRecords,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
 
-  static final amplify_core.QueryModelIdentifier<RoleModelIdentifier>
-      MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<RoleModelIdentifier>();
+  static final amplify_core
+      .QueryModelIdentifier<FlightCrewRecordCategoryModelIdentifier>
+      MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<
+          FlightCrewRecordCategoryModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final NAME = amplify_core.QueryField(fieldName: "name");
   static final ARCHIVED = amplify_core.QueryField(fieldName: "archived");
   static final DESCRIPTION = amplify_core.QueryField(fieldName: "description");
-  static final STAFF = amplify_core.QueryField(
-      fieldName: "staff",
+  static final ROLE = amplify_core.QueryField(
+      fieldName: "role",
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'RoleStaff'));
-  static final CATEGORIES = amplify_core.QueryField(
-      fieldName: "categories",
+          ofModelName: 'Role'));
+  static final FLIGHTCREWRECORDS = amplify_core.QueryField(
+      fieldName: "flightCrewRecords",
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'FlightCrewRecordCategory'));
+          ofModelName: 'FlightCrewRecord'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "Role";
-    modelSchemaDefinition.pluralName = "Roles";
+    modelSchemaDefinition.name = "FlightCrewRecordCategory";
+    modelSchemaDefinition.pluralName = "FlightCrewRecordCategories";
 
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
@@ -300,34 +296,34 @@ class Role extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Role.NAME,
+        key: FlightCrewRecordCategory.NAME,
         isRequired: true,
         ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Role.ARCHIVED,
+        key: FlightCrewRecordCategory.ARCHIVED,
         isRequired: true,
         ofType:
             amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Role.DESCRIPTION,
+        key: FlightCrewRecordCategory.DESCRIPTION,
         isRequired: false,
         ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.string)));
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Role.STAFF,
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
+        key: FlightCrewRecordCategory.ROLE,
         isRequired: false,
-        ofModelName: 'RoleStaff',
-        associatedKey: RoleStaff.ROLE));
+        targetNames: ['roleId'],
+        ofModelName: 'Role'));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Role.CATEGORIES,
+        key: FlightCrewRecordCategory.FLIGHTCREWRECORDS,
         isRequired: false,
-        ofModelName: 'FlightCrewRecordCategory',
-        associatedKey: FlightCrewRecordCategory.ROLE));
+        ofModelName: 'FlightCrewRecord',
+        associatedKey: FlightCrewRecord.CATEGORY));
 
     modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
@@ -347,29 +343,31 @@ class Role extends amplify_core.Model {
   });
 }
 
-class _RoleModelType extends amplify_core.ModelType<Role> {
-  const _RoleModelType();
+class _FlightCrewRecordCategoryModelType
+    extends amplify_core.ModelType<FlightCrewRecordCategory> {
+  const _FlightCrewRecordCategoryModelType();
 
   @override
-  Role fromJson(Map<String, dynamic> jsonData) {
-    return Role.fromJson(jsonData);
+  FlightCrewRecordCategory fromJson(Map<String, dynamic> jsonData) {
+    return FlightCrewRecordCategory.fromJson(jsonData);
   }
 
   @override
   String modelName() {
-    return 'Role';
+    return 'FlightCrewRecordCategory';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [Role] in your schema.
+ * of [FlightCrewRecordCategory] in your schema.
  */
-class RoleModelIdentifier implements amplify_core.ModelIdentifier<Role> {
+class FlightCrewRecordCategoryModelIdentifier
+    implements amplify_core.ModelIdentifier<FlightCrewRecordCategory> {
   final String id;
 
-  /** Create an instance of RoleModelIdentifier using [id] the primary key. */
-  const RoleModelIdentifier({required this.id});
+  /** Create an instance of FlightCrewRecordCategoryModelIdentifier using [id] the primary key. */
+  const FlightCrewRecordCategoryModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -384,7 +382,7 @@ class RoleModelIdentifier implements amplify_core.ModelIdentifier<Role> {
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'RoleModelIdentifier(id: $id)';
+  String toString() => 'FlightCrewRecordCategoryModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -392,7 +390,7 @@ class RoleModelIdentifier implements amplify_core.ModelIdentifier<Role> {
       return true;
     }
 
-    return other is RoleModelIdentifier && id == other.id;
+    return other is FlightCrewRecordCategoryModelIdentifier && id == other.id;
   }
 
   @override

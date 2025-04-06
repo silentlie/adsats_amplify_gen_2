@@ -12,7 +12,7 @@ class NewFlightCrewRecord extends ConsumerWidget {
     required this.category,
     required this.staff,
   });
-  final CrewDocumentCategory category;
+  final FlightCrewRecordCategory category;
   final Staff staff;
 
   @override

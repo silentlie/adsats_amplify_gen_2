@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FlightCrewRecordFilterState {
   Staff get staff;
-  CrewDocumentCategory get category;
+  FlightCrewRecordCategory get category;
   String get search;
   bool? get archived;
   DateTimeRange? get createdAt;
@@ -64,7 +64,7 @@ abstract mixin class $FlightCrewRecordFilterStateCopyWith<$Res> {
   @useResult
   $Res call(
       {Staff staff,
-      CrewDocumentCategory category,
+      FlightCrewRecordCategory category,
       String search,
       bool? archived,
       DateTimeRange? createdAt});
@@ -97,7 +97,7 @@ class _$FlightCrewRecordFilterStateCopyWithImpl<$Res>
       category: null == category
           ? _self.category
           : category // ignore: cast_nullable_to_non_nullable
-              as CrewDocumentCategory,
+              as FlightCrewRecordCategory,
       search: null == search
           ? _self.search
           : search // ignore: cast_nullable_to_non_nullable
@@ -128,7 +128,7 @@ class _FlightCrewRecordFilterState extends FlightCrewRecordFilterState {
   @override
   final Staff staff;
   @override
-  final CrewDocumentCategory category;
+  final FlightCrewRecordCategory category;
   @override
   @JsonKey()
   final String search;
@@ -183,7 +183,7 @@ abstract mixin class _$FlightCrewRecordFilterStateCopyWith<$Res>
   @useResult
   $Res call(
       {Staff staff,
-      CrewDocumentCategory category,
+      FlightCrewRecordCategory category,
       String search,
       bool? archived,
       DateTimeRange? createdAt});
@@ -216,7 +216,7 @@ class __$FlightCrewRecordFilterStateCopyWithImpl<$Res>
       category: null == category
           ? _self.category
           : category // ignore: cast_nullable_to_non_nullable
-              as CrewDocumentCategory,
+              as FlightCrewRecordCategory,
       search: null == search
           ? _self.search
           : search // ignore: cast_nullable_to_non_nullable

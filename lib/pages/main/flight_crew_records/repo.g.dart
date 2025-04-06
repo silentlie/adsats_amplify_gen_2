@@ -7,7 +7,7 @@ part of 'repo.dart';
 // **************************************************************************
 
 String _$flightCrewRecordsRepoHash() =>
-    r'bbb9dc958d3ef94d20523b7191b653ea190999ed';
+    r'40c7d90b2cc7b664b829b91d17b8e95a5ac753d2';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -36,7 +36,7 @@ const flightCrewRecordsRepoProvider = FlightCrewRecordsRepoFamily();
 
 /// See also [flightCrewRecordsRepo].
 class FlightCrewRecordsRepoFamily
-    extends Family<AsyncValue<List<CrewDocument>>> {
+    extends Family<AsyncValue<List<FlightCrewRecord>>> {
   /// See also [flightCrewRecordsRepo].
   const FlightCrewRecordsRepoFamily();
 
@@ -77,7 +77,7 @@ class FlightCrewRecordsRepoFamily
 
 /// See also [flightCrewRecordsRepo].
 class FlightCrewRecordsRepoProvider
-    extends AutoDisposeFutureProvider<List<CrewDocument>> {
+    extends AutoDisposeFutureProvider<List<FlightCrewRecord>> {
   /// See also [flightCrewRecordsRepo].
   FlightCrewRecordsRepoProvider(
     FlightCrewRecordFilterState filter,
@@ -112,7 +112,7 @@ class FlightCrewRecordsRepoProvider
 
   @override
   Override overrideWith(
-    FutureOr<List<CrewDocument>> Function(FlightCrewRecordsRepoRef provider)
+    FutureOr<List<FlightCrewRecord>> Function(FlightCrewRecordsRepoRef provider)
         create,
   ) {
     return ProviderOverride(
@@ -130,7 +130,7 @@ class FlightCrewRecordsRepoProvider
   }
 
   @override
-  AutoDisposeFutureProviderElement<List<CrewDocument>> createElement() {
+  AutoDisposeFutureProviderElement<List<FlightCrewRecord>> createElement() {
     return _FlightCrewRecordsRepoProviderElement(this);
   }
 
@@ -151,13 +151,13 @@ class FlightCrewRecordsRepoProvider
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 mixin FlightCrewRecordsRepoRef
-    on AutoDisposeFutureProviderRef<List<CrewDocument>> {
+    on AutoDisposeFutureProviderRef<List<FlightCrewRecord>> {
   /// The parameter `filter` of this provider.
   FlightCrewRecordFilterState get filter;
 }
 
 class _FlightCrewRecordsRepoProviderElement
-    extends AutoDisposeFutureProviderElement<List<CrewDocument>>
+    extends AutoDisposeFutureProviderElement<List<FlightCrewRecord>>
     with FlightCrewRecordsRepoRef {
   _FlightCrewRecordsRepoProviderElement(super.provider);
 

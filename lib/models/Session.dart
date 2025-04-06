@@ -22,13 +22,10 @@
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-/** This is an auto generated class representing the CrewDocument type in your schema. */
-class CrewDocument extends amplify_core.Model {
-  static const classType = const _CrewDocumentModelType();
+/** This is an auto generated class representing the Session type in your schema. */
+class Session extends amplify_core.Model {
+  static const classType = const _SessionModelType();
   final String id;
-  final String? _name;
-  final bool? _archived;
-  final CrewDocumentCategory? _category;
   final Staff? _staff;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
@@ -41,38 +38,8 @@ class CrewDocument extends amplify_core.Model {
   @override
   String getId() => id;
 
-  CrewDocumentModelIdentifier get modelIdentifier {
-    return CrewDocumentModelIdentifier(id: id);
-  }
-
-  String get name {
-    try {
-      return _name!;
-    } catch (e) {
-      throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
-  }
-
-  bool get archived {
-    try {
-      return _archived!;
-    } catch (e) {
-      throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
-    }
-  }
-
-  CrewDocumentCategory? get category {
-    return _category;
+  SessionModelIdentifier get modelIdentifier {
+    return SessionModelIdentifier(id: id);
   }
 
   Staff? get staff {
@@ -87,33 +54,14 @@ class CrewDocument extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const CrewDocument._internal(
-      {required this.id,
-      required name,
-      required archived,
-      category,
-      staff,
-      createdAt,
-      updatedAt})
-      : _name = name,
-        _archived = archived,
-        _category = category,
-        _staff = staff,
+  const Session._internal({required this.id, staff, createdAt, updatedAt})
+      : _staff = staff,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory CrewDocument(
-      {String? id,
-      required String name,
-      required bool archived,
-      CrewDocumentCategory? category,
-      Staff? staff}) {
-    return CrewDocument._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        name: name,
-        archived: archived,
-        category: category,
-        staff: staff);
+  factory Session({String? id, Staff? staff}) {
+    return Session._internal(
+        id: id == null ? amplify_core.UUID.getUUID() : id, staff: staff);
   }
 
   bool equals(Object other) {
@@ -123,12 +71,7 @@ class CrewDocument extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is CrewDocument &&
-        id == other.id &&
-        _name == other._name &&
-        _archived == other._archived &&
-        _category == other._category &&
-        _staff == other._staff;
+    return other is Session && id == other.id && _staff == other._staff;
   }
 
   @override
@@ -138,15 +81,8 @@ class CrewDocument extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("CrewDocument {");
+    buffer.write("Session {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write("name=" + "$_name" + ", ");
-    buffer.write("archived=" +
-        (_archived != null ? _archived.toString() : "null") +
-        ", ");
-    buffer.write("category=" +
-        (_category != null ? _category.toString() : "null") +
-        ", ");
     buffer
         .write("staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
     buffer.write("createdAt=" +
@@ -159,43 +95,17 @@ class CrewDocument extends amplify_core.Model {
     return buffer.toString();
   }
 
-  CrewDocument copyWith(
-      {String? name,
-      bool? archived,
-      CrewDocumentCategory? category,
-      Staff? staff}) {
-    return CrewDocument._internal(
-        id: id,
-        name: name ?? this.name,
-        archived: archived ?? this.archived,
-        category: category ?? this.category,
-        staff: staff ?? this.staff);
+  Session copyWith({Staff? staff}) {
+    return Session._internal(id: id, staff: staff ?? this.staff);
   }
 
-  CrewDocument copyWithModelFieldValues(
-      {ModelFieldValue<String>? name,
-      ModelFieldValue<bool>? archived,
-      ModelFieldValue<CrewDocumentCategory?>? category,
-      ModelFieldValue<Staff?>? staff}) {
-    return CrewDocument._internal(
-        id: id,
-        name: name == null ? this.name : name.value,
-        archived: archived == null ? this.archived : archived.value,
-        category: category == null ? this.category : category.value,
-        staff: staff == null ? this.staff : staff.value);
+  Session copyWithModelFieldValues({ModelFieldValue<Staff?>? staff}) {
+    return Session._internal(
+        id: id, staff: staff == null ? this.staff : staff.value);
   }
 
-  CrewDocument.fromJson(Map<String, dynamic> json)
+  Session.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _name = json['name'],
-        _archived = json['archived'],
-        _category = json['category'] != null
-            ? json['category']['serializedData'] != null
-                ? CrewDocumentCategory.fromJson(new Map<String, dynamic>.from(
-                    json['category']['serializedData']))
-                : CrewDocumentCategory.fromJson(
-                    new Map<String, dynamic>.from(json['category']))
-            : null,
         _staff = json['staff'] != null
             ? json['staff']['serializedData'] != null
                 ? Staff.fromJson(new Map<String, dynamic>.from(
@@ -211,9 +121,6 @@ class CrewDocument extends amplify_core.Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'name': _name,
-        'archived': _archived,
-        'category': _category?.toJson(),
         'staff': _staff?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
@@ -221,25 +128,15 @@ class CrewDocument extends amplify_core.Model {
 
   Map<String, Object?> toMap() => {
         'id': id,
-        'name': _name,
-        'archived': _archived,
-        'category': _category,
         'staff': _staff,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
 
-  static final amplify_core.QueryModelIdentifier<CrewDocumentModelIdentifier>
+  static final amplify_core.QueryModelIdentifier<SessionModelIdentifier>
       MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<CrewDocumentModelIdentifier>();
+      amplify_core.QueryModelIdentifier<SessionModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
-  static final NAME = amplify_core.QueryField(fieldName: "name");
-  static final ARCHIVED = amplify_core.QueryField(fieldName: "archived");
-  static final CATEGORY = amplify_core.QueryField(
-      fieldName: "category",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'CrewDocumentCategory'));
   static final STAFF = amplify_core.QueryField(
       fieldName: "staff",
       fieldType: amplify_core.ModelFieldType(
@@ -247,8 +144,8 @@ class CrewDocument extends amplify_core.Model {
           ofModelName: 'Staff'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "CrewDocument";
-    modelSchemaDefinition.pluralName = "CrewDocuments";
+    modelSchemaDefinition.name = "Session";
+    modelSchemaDefinition.pluralName = "Sessions";
 
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
@@ -263,26 +160,8 @@ class CrewDocument extends amplify_core.Model {
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CrewDocument.NAME,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
-
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: CrewDocument.ARCHIVED,
-        isRequired: true,
-        ofType:
-            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)));
-
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: CrewDocument.CATEGORY,
-        isRequired: false,
-        targetNames: ['categoryId'],
-        ofModelName: 'CrewDocumentCategory'));
-
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: CrewDocument.STAFF,
+        key: Session.STAFF,
         isRequired: false,
         targetNames: ['staffId'],
         ofModelName: 'Staff'));
@@ -305,30 +184,29 @@ class CrewDocument extends amplify_core.Model {
   });
 }
 
-class _CrewDocumentModelType extends amplify_core.ModelType<CrewDocument> {
-  const _CrewDocumentModelType();
+class _SessionModelType extends amplify_core.ModelType<Session> {
+  const _SessionModelType();
 
   @override
-  CrewDocument fromJson(Map<String, dynamic> jsonData) {
-    return CrewDocument.fromJson(jsonData);
+  Session fromJson(Map<String, dynamic> jsonData) {
+    return Session.fromJson(jsonData);
   }
 
   @override
   String modelName() {
-    return 'CrewDocument';
+    return 'Session';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [CrewDocument] in your schema.
+ * of [Session] in your schema.
  */
-class CrewDocumentModelIdentifier
-    implements amplify_core.ModelIdentifier<CrewDocument> {
+class SessionModelIdentifier implements amplify_core.ModelIdentifier<Session> {
   final String id;
 
-  /** Create an instance of CrewDocumentModelIdentifier using [id] the primary key. */
-  const CrewDocumentModelIdentifier({required this.id});
+  /** Create an instance of SessionModelIdentifier using [id] the primary key. */
+  const SessionModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -343,7 +221,7 @@ class CrewDocumentModelIdentifier
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'CrewDocumentModelIdentifier(id: $id)';
+  String toString() => 'SessionModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -351,7 +229,7 @@ class CrewDocumentModelIdentifier
       return true;
     }
 
-    return other is CrewDocumentModelIdentifier && id == other.id;
+    return other is SessionModelIdentifier && id == other.id;
   }
 
   @override

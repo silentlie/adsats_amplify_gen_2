@@ -6,10 +6,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-Future<void> getFlightCrewRecordFileUrl(CrewDocument crewDocument) async {
+Future<void> getFlightCrewRecordFileUrl(
+    FlightCrewRecord flightCrewRecord) async {
   try {
     String pathStr =
-        "crewDocuments/${crewDocument.staff!.id}/${crewDocument.id}/${crewDocument.name}";
+        "flightCrewRecords/${flightCrewRecord.staff!.id}/${flightCrewRecord.id}/${flightCrewRecord.name}";
 
     final result = await Amplify.Storage.getUrl(
       path: StoragePath.fromString(pathStr),
@@ -32,7 +33,7 @@ Future<void> getFlightCrewRecordFileUrl(CrewDocument crewDocument) async {
 Future<void> uploadFlightCrewRecordsFiles(
   List<PlatformFile> selectedFiles,
   Staff staff,
-  CrewDocumentCategory category,
+  FlightCrewRecordCategory category,
 ) async {
   await Future.wait(
     selectedFiles.map(
@@ -48,10 +49,10 @@ Future<void> uploadFlightCrewRecordsFiles(
 Future<void> uploadFlightCrewRecordFile(
   PlatformFile file,
   Staff staff,
-  CrewDocumentCategory category,
+  FlightCrewRecordCategory category,
 ) async {
   try {
-    final flightCrewRecord = CrewDocument(
+    final flightCrewRecord = FlightCrewRecord(
       name: file.name,
       archived: false,
       staff: staff,
@@ -68,8 +69,8 @@ Future<void> uploadFlightCrewRecordFile(
     // Concurrently upload the file and create AircraftDocument entries
     final result = await Amplify.Storage.uploadFile(
       localFile: AWSFile.fromStream(file.readStream!, size: file.size),
-      path:
-          StoragePath.fromString("crewDocuments/${staff.id}/$id/${file.name}"),
+      path: StoragePath.fromString(
+          "flightCrewRecords/${staff.id}/$id/${file.name}"),
       onProgress: (progress) {
         // Optional debug print for progress
         debugPrint('Fraction completed: ${progress.fractionCompleted}');
@@ -85,9 +86,10 @@ Future<void> uploadFlightCrewRecordFile(
   }
 }
 
-Future<void> archive(CrewDocument crewDocument) async {
+Future<void> archive(FlightCrewRecord flightCrewRecord) async {
   try {
-    final newDocument = crewDocument.copyWith(archived: !crewDocument.archived);
+    final newDocument =
+        flightCrewRecord.copyWith(archived: !flightCrewRecord.archived);
     final request = ModelMutations.update(newDocument);
     final response = await Amplify.API.mutate(request: request).response;
     final data = response.data;
@@ -102,11 +104,11 @@ Future<void> archive(CrewDocument crewDocument) async {
   }
 }
 
-Future<void> deleteFlightCrewRecord(CrewDocument flightCrewRecord) async {
+Future<void> deleteFlightCrewRecord(FlightCrewRecord flightCrewRecord) async {
   try {
     final request = ModelMutations.deleteById(
-      CrewDocument.classType,
-      CrewDocumentModelIdentifier(id: flightCrewRecord.id),
+      FlightCrewRecord.classType,
+      FlightCrewRecordModelIdentifier(id: flightCrewRecord.id),
     );
     final response = await Amplify.API.mutate(request: request).response;
     final data = response.data;
@@ -117,7 +119,7 @@ Future<void> deleteFlightCrewRecord(CrewDocument flightCrewRecord) async {
     // final result =
     await Amplify.Storage.remove(
       path: StoragePath.fromString(
-          'crewDocuments/${flightCrewRecord.staff!.id}/${flightCrewRecord.id}/${flightCrewRecord.name}'),
+          'flightCrewRecords/${flightCrewRecord.staff!.id}/${flightCrewRecord.id}/${flightCrewRecord.name}'),
     ).result;
     // print('Removed file: ${result.removedItem.path}');
   } on StorageException catch (e) {

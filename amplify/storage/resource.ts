@@ -6,7 +6,7 @@ export const storage = defineStorage({
     "documents/*": [
       allow.authenticated.to(["read", "write", "delete"]),
     ],
-    "crewDocuments/*": [
+    "flightCrewRecords/*": [
       allow.authenticated.to(["read", "write", "delete"]),
     ],
     "noticeDocuments/*": [

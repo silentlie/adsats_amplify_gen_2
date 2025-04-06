@@ -148,8 +148,8 @@ query GetReportDetails(\$id: ID!) {
 ''';
 const getFlightCrewRecordsCategoryDetails = '''
 query GetFlightCrewRecordsCategoryDetails(\$id: ID) {
-  getCrewDocumentCategory(id: \$id) {
-    crewDocuments {
+  getFlightCrewRecordCategory(id: \$id) {
+    flightCrewRecords {
       items {
         id
       }
@@ -184,7 +184,7 @@ query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFil
 }
 ''';
 const listFlightCrewRecordsCategories = '''
-query ListFlightCrewRecordsCategories(\$filter: ModelCrewDocumentCategoryFilterInput, \$id: ID!) {
+query ListFlightCrewRecordsCategories(\$filter: ModelFlightCrewRecordCategoryFilterInput, \$id: ID!) {
   getRole(id: \$id) {
     id
     name
@@ -229,8 +229,8 @@ query ListProfileMeta(\$id: ID!) {
 }
 ''';
 const listFlightCrewRecords = '''
-query ListFlightCrewRecords(\$filter: ModelCrewDocumentFilterInput) {
-  listCrewDocuments(filter: \$filter) {
+query ListFlightCrewRecords(\$filter: ModelFlightCrewRecordFilterInput) {
+  listFlightCrewRecords(filter: \$filter) {
     items {
       id
       categoryId

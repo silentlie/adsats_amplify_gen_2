@@ -25,9 +25,9 @@ import 'AircraftDocument.dart';
 import 'AircraftNotice.dart';
 import 'AircraftStaff.dart';
 import 'Category.dart';
-import 'CrewDocument.dart';
-import 'CrewDocumentCategory.dart';
 import 'Document.dart';
+import 'FlightCrewRecord.dart';
+import 'FlightCrewRecordCategory.dart';
 import 'Notice.dart';
 import 'NoticeDocument.dart';
 import 'NoticeStaff.dart';
@@ -36,6 +36,7 @@ import 'ReportDocument.dart';
 import 'ReportStaff.dart';
 import 'Role.dart';
 import 'RoleStaff.dart';
+import 'Session.dart';
 import 'Staff.dart';
 import 'StaffSubcategory.dart';
 import 'Subcategory.dart';
@@ -45,9 +46,9 @@ export 'AircraftDocument.dart';
 export 'AircraftNotice.dart';
 export 'AircraftStaff.dart';
 export 'Category.dart';
-export 'CrewDocument.dart';
-export 'CrewDocumentCategory.dart';
 export 'Document.dart';
+export 'FlightCrewRecord.dart';
+export 'FlightCrewRecordCategory.dart';
 export 'Notice.dart';
 export 'NoticeDocument.dart';
 export 'NoticeStaff.dart';
@@ -60,13 +61,14 @@ export 'ReportStatus.dart';
 export 'ReportType.dart';
 export 'Role.dart';
 export 'RoleStaff.dart';
+export 'Session.dart';
 export 'Staff.dart';
 export 'StaffSubcategory.dart';
 export 'Subcategory.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "bcdde3b14a547f3b02b77098a0b9dcac";
+  String version = "081ae363c21867c7472c326e13ffecd7";
   @override
   List<amplify_core.ModelSchema> modelSchemas = [
     Aircraft.schema,
@@ -74,9 +76,9 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     AircraftNotice.schema,
     AircraftStaff.schema,
     Category.schema,
-    CrewDocument.schema,
-    CrewDocumentCategory.schema,
     Document.schema,
+    FlightCrewRecord.schema,
+    FlightCrewRecordCategory.schema,
     Notice.schema,
     NoticeDocument.schema,
     NoticeStaff.schema,
@@ -85,6 +87,7 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     ReportStaff.schema,
     Role.schema,
     RoleStaff.schema,
+    Session.schema,
     Staff.schema,
     StaffSubcategory.schema,
     Subcategory.schema
@@ -107,12 +110,12 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return AircraftStaff.classType;
       case "Category":
         return Category.classType;
-      case "CrewDocument":
-        return CrewDocument.classType;
-      case "CrewDocumentCategory":
-        return CrewDocumentCategory.classType;
       case "Document":
         return Document.classType;
+      case "FlightCrewRecord":
+        return FlightCrewRecord.classType;
+      case "FlightCrewRecordCategory":
+        return FlightCrewRecordCategory.classType;
       case "Notice":
         return Notice.classType;
       case "NoticeDocument":
@@ -129,6 +132,8 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return Role.classType;
       case "RoleStaff":
         return RoleStaff.classType;
+      case "Session":
+        return Session.classType;
       case "Staff":
         return Staff.classType;
       case "StaffSubcategory":

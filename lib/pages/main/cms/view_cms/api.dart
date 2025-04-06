@@ -49,23 +49,24 @@ Future<void> updateReportStaff(
     sendReportEmail(newReport, recipients),
     // Handle existing recipients
     ...oldReport?.recipients!.map(
-      (e) {
-        if (newRecipients.contains(e.staff)) {
-          // Keep existing staff and remove from new recipients
-          newRecipients.remove(e.staff);
-          return update(
-            ReportStaff(
-              id: e.id,
-              staff: e.staff,
-              report: e.report,
-            ),
-          );
-        } else {
-          // Remove staff that are no longer recipients
-          return delete(e);
-        }
-      },
-    ) ?? [],
+          (e) {
+            if (newRecipients.contains(e.staff)) {
+              // Keep existing staff and remove from new recipients
+              newRecipients.remove(e.staff);
+              return update(
+                ReportStaff(
+                  id: e.id,
+                  staff: e.staff,
+                  report: e.report,
+                ),
+              );
+            } else {
+              // Remove staff that are no longer recipients
+              return delete(e);
+            }
+          },
+        ) ??
+        [],
     // Add new recipients
     ...newRecipients.map(
       (staff) => create(

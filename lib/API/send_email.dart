@@ -6,7 +6,8 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-final domainName = "${Uri.base.host}${Uri.base.hasPort ? ":${Uri.base.port}" : ""}";
+final domainName =
+    "${Uri.base.host}${Uri.base.hasPort ? ":${Uri.base.port}" : ""}";
 
 Future<void> sendEmail({
   required String subject,

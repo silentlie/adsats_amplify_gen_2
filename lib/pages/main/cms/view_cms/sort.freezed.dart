@@ -94,7 +94,7 @@ class _$ReportSortStateCopyWithImpl<$Res>
           : sortColumnIndex // ignore: cast_nullable_to_non_nullable
               as int,
       getField: null == getField
-          ? _self.getField!
+          ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
               as Comparable<dynamic> Function(Report),
       rowsPerPage: null == rowsPerPage

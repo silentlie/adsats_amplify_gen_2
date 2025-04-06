@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 class FlightCrewRecordsCategoryDataSource extends DataTableSource {
   FlightCrewRecordsCategoryDataSource(
       {required this.sortedData, required this.context});
-  List<CrewDocumentCategory> sortedData;
+  List<FlightCrewRecordCategory> sortedData;
   BuildContext context;
   @override
   int get rowCount => sortedData.length;

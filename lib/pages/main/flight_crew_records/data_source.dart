@@ -10,7 +10,7 @@ class FlightCrewRecordsDataSource extends DataTableSource {
   FlightCrewRecordsDataSource({
     required this.sortedData,
   });
-  List<CrewDocument> sortedData;
+  List<FlightCrewRecord> sortedData;
   @override
   int get rowCount => sortedData.length;
 

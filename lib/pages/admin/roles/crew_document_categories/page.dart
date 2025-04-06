@@ -37,8 +37,8 @@ class FlightCrewRecordsCategoriesPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (crewDocumentCategory) {
-                      return crewDocumentCategory.name;
+                    getField: (flightCrewRecordCategory) {
+                      return flightCrewRecordCategory.name;
                     },
                   );
                 },
@@ -50,8 +50,8 @@ class FlightCrewRecordsCategoriesPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (crewDocumentCategory) {
-                      return crewDocumentCategory.description ?? "";
+                    getField: (flightCrewRecordCategory) {
+                      return flightCrewRecordCategory.description ?? "";
                     },
                   );
                 },
@@ -63,8 +63,8 @@ class FlightCrewRecordsCategoriesPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (crewDocumentCategory) {
-                      return crewDocumentCategory.archived.hashCode;
+                    getField: (flightCrewRecordCategory) {
+                      return flightCrewRecordCategory.archived.hashCode;
                     },
                   );
                 },
@@ -76,8 +76,8 @@ class FlightCrewRecordsCategoriesPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (crewDocumentCategory) {
-                      return crewDocumentCategory.createdAt!;
+                    getField: (flightCrewRecordCategory) {
+                      return flightCrewRecordCategory.createdAt!;
                     },
                   );
                 },
@@ -89,8 +89,8 @@ class FlightCrewRecordsCategoriesPage extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (crewDocumentCategory) {
-                      return crewDocumentCategory.hashCode;
+                    getField: (flightCrewRecordCategory) {
+                      return flightCrewRecordCategory.hashCode;
                     },
                   );
                 },

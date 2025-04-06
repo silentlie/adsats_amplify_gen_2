@@ -15,7 +15,7 @@ class FlightCrewRecordFilter extends _$FlightCrewRecordFilter {
   @override
   FlightCrewRecordFilterState build(
     Staff staff,
-    CrewDocumentCategory category,
+    FlightCrewRecordCategory category,
   ) {
     return FlightCrewRecordFilterState(staff: staff, category: category);
   }
@@ -34,7 +34,7 @@ sealed class FlightCrewRecordFilterState with _$FlightCrewRecordFilterState {
   FlightCrewRecordFilterState._();
   factory FlightCrewRecordFilterState({
     required final Staff staff,
-    required final CrewDocumentCategory category,
+    required final FlightCrewRecordCategory category,
     @Default("") String search,
     @Default(false) bool? archived,
     DateTimeRange? createdAt,
@@ -61,7 +61,7 @@ class FlightCrewRecordFilterView extends ConsumerWidget {
     required this.category,
   });
   final Staff staff;
-  final CrewDocumentCategory category;
+  final FlightCrewRecordCategory category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

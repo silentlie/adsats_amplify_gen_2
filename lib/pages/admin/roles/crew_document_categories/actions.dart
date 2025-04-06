@@ -10,7 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class FlightCrewRecordsCategoryActions extends ConsumerWidget {
   const FlightCrewRecordsCategoryActions({super.key, required this.category});
 
-  final CrewDocumentCategory category;
+  final FlightCrewRecordCategory category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

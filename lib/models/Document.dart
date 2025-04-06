@@ -32,6 +32,8 @@ class Document extends amplify_core.Model {
   final Subcategory? _subcategory;
   final Staff? _staff;
   final List<AircraftDocument>? _aircraft;
+  final amplify_core.TemporalDateTime? _expiredAt;
+  final amplify_core.TemporalDateTime? _issuedAt;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -85,6 +87,14 @@ class Document extends amplify_core.Model {
     return _aircraft;
   }
 
+  amplify_core.TemporalDateTime? get expiredAt {
+    return _expiredAt;
+  }
+
+  amplify_core.TemporalDateTime? get issuedAt {
+    return _issuedAt;
+  }
+
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -100,6 +110,8 @@ class Document extends amplify_core.Model {
       subcategory,
       staff,
       aircraft,
+      expiredAt,
+      issuedAt,
       createdAt,
       updatedAt})
       : _name = name,
@@ -107,6 +119,8 @@ class Document extends amplify_core.Model {
         _subcategory = subcategory,
         _staff = staff,
         _aircraft = aircraft,
+        _expiredAt = expiredAt,
+        _issuedAt = issuedAt,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
@@ -116,7 +130,9 @@ class Document extends amplify_core.Model {
       required bool archived,
       Subcategory? subcategory,
       Staff? staff,
-      List<AircraftDocument>? aircraft}) {
+      List<AircraftDocument>? aircraft,
+      amplify_core.TemporalDateTime? expiredAt,
+      amplify_core.TemporalDateTime? issuedAt}) {
     return Document._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
         name: name,
@@ -125,7 +141,9 @@ class Document extends amplify_core.Model {
         staff: staff,
         aircraft: aircraft != null
             ? List<AircraftDocument>.unmodifiable(aircraft)
-            : aircraft);
+            : aircraft,
+        expiredAt: expiredAt,
+        issuedAt: issuedAt);
   }
 
   bool equals(Object other) {
@@ -141,7 +159,9 @@ class Document extends amplify_core.Model {
         _archived == other._archived &&
         _subcategory == other._subcategory &&
         _staff == other._staff &&
-        DeepCollectionEquality().equals(_aircraft, other._aircraft);
+        DeepCollectionEquality().equals(_aircraft, other._aircraft) &&
+        _expiredAt == other._expiredAt &&
+        _issuedAt == other._issuedAt;
   }
 
   @override
@@ -162,6 +182,11 @@ class Document extends amplify_core.Model {
         ", ");
     buffer
         .write("staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
+    buffer.write("expiredAt=" +
+        (_expiredAt != null ? _expiredAt.format() : "null") +
+        ", ");
+    buffer.write(
+        "issuedAt=" + (_issuedAt != null ? _issuedAt.format() : "null") + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
@@ -177,14 +202,18 @@ class Document extends amplify_core.Model {
       bool? archived,
       Subcategory? subcategory,
       Staff? staff,
-      List<AircraftDocument>? aircraft}) {
+      List<AircraftDocument>? aircraft,
+      amplify_core.TemporalDateTime? expiredAt,
+      amplify_core.TemporalDateTime? issuedAt}) {
     return Document._internal(
         id: id,
         name: name ?? this.name,
         archived: archived ?? this.archived,
         subcategory: subcategory ?? this.subcategory,
         staff: staff ?? this.staff,
-        aircraft: aircraft ?? this.aircraft);
+        aircraft: aircraft ?? this.aircraft,
+        expiredAt: expiredAt ?? this.expiredAt,
+        issuedAt: issuedAt ?? this.issuedAt);
   }
 
   Document copyWithModelFieldValues(
@@ -192,14 +221,18 @@ class Document extends amplify_core.Model {
       ModelFieldValue<bool>? archived,
       ModelFieldValue<Subcategory?>? subcategory,
       ModelFieldValue<Staff?>? staff,
-      ModelFieldValue<List<AircraftDocument>?>? aircraft}) {
+      ModelFieldValue<List<AircraftDocument>?>? aircraft,
+      ModelFieldValue<amplify_core.TemporalDateTime?>? expiredAt,
+      ModelFieldValue<amplify_core.TemporalDateTime?>? issuedAt}) {
     return Document._internal(
         id: id,
         name: name == null ? this.name : name.value,
         archived: archived == null ? this.archived : archived.value,
         subcategory: subcategory == null ? this.subcategory : subcategory.value,
         staff: staff == null ? this.staff : staff.value,
-        aircraft: aircraft == null ? this.aircraft : aircraft.value);
+        aircraft: aircraft == null ? this.aircraft : aircraft.value,
+        expiredAt: expiredAt == null ? this.expiredAt : expiredAt.value,
+        issuedAt: issuedAt == null ? this.issuedAt : issuedAt.value);
   }
 
   Document.fromJson(Map<String, dynamic> json)
@@ -234,6 +267,12 @@ class Document extends amplify_core.Model {
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
                 : null),
+        _expiredAt = json['expiredAt'] != null
+            ? amplify_core.TemporalDateTime.fromString(json['expiredAt'])
+            : null,
+        _issuedAt = json['issuedAt'] != null
+            ? amplify_core.TemporalDateTime.fromString(json['issuedAt'])
+            : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -249,6 +288,8 @@ class Document extends amplify_core.Model {
         'staff': _staff?.toJson(),
         'aircraft':
             _aircraft?.map((AircraftDocument? e) => e?.toJson()).toList(),
+        'expiredAt': _expiredAt?.format(),
+        'issuedAt': _issuedAt?.format(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
@@ -260,6 +301,8 @@ class Document extends amplify_core.Model {
         'subcategory': _subcategory,
         'staff': _staff,
         'aircraft': _aircraft,
+        'expiredAt': _expiredAt,
+        'issuedAt': _issuedAt,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
@@ -285,6 +328,8 @@ class Document extends amplify_core.Model {
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
           ofModelName: 'AircraftDocument'));
+  static final EXPIREDAT = amplify_core.QueryField(fieldName: "expiredAt");
+  static final ISSUEDAT = amplify_core.QueryField(fieldName: "issuedAt");
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Document";
@@ -332,6 +377,18 @@ class Document extends amplify_core.Model {
         isRequired: false,
         ofModelName: 'AircraftDocument',
         associatedKey: AircraftDocument.DOCUMENT));
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+        key: Document.EXPIREDAT,
+        isRequired: false,
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+        key: Document.ISSUEDAT,
+        isRequired: false,
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.dateTime)));
 
     modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(

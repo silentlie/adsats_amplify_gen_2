@@ -17,7 +17,7 @@ T _$identity<T>(T value) => value;
 mixin _$FlightCrewRecordSortState {
   bool get sortAscending;
   int get sortColumnIndex;
-  Comparable Function(CrewDocument crewDocument) get getField;
+  Comparable Function(FlightCrewRecord flightCrewRecord) get getField;
   int get rowsPerPage;
 
   /// Create a copy of FlightCrewRecordSortState
@@ -62,7 +62,7 @@ abstract mixin class $FlightCrewRecordSortStateCopyWith<$Res> {
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(CrewDocument) getField,
+      Comparable<dynamic> Function(FlightCrewRecord) getField,
       int rowsPerPage});
 }
 
@@ -94,9 +94,9 @@ class _$FlightCrewRecordSortStateCopyWithImpl<$Res>
           : sortColumnIndex // ignore: cast_nullable_to_non_nullable
               as int,
       getField: null == getField
-          ? _self.getField!
+          ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(CrewDocument),
+              as Comparable<dynamic> Function(FlightCrewRecord),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ class _FlightCrewRecordSortState implements FlightCrewRecordSortState {
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable<dynamic> Function(CrewDocument) getField;
+  final Comparable<dynamic> Function(FlightCrewRecord) getField;
   @override
   @JsonKey()
   final int rowsPerPage;
@@ -172,7 +172,7 @@ abstract mixin class _$FlightCrewRecordSortStateCopyWith<$Res>
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(CrewDocument) getField,
+      Comparable<dynamic> Function(FlightCrewRecord) getField,
       int rowsPerPage});
 }
 
@@ -206,7 +206,7 @@ class __$FlightCrewRecordSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(CrewDocument),
+              as Comparable<dynamic> Function(FlightCrewRecord),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

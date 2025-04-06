@@ -12,7 +12,7 @@ class FlightCrewRecordActions extends ConsumerWidget {
     super.key,
     required this.flightCrewRecord,
   });
-  final CrewDocument flightCrewRecord;
+  final FlightCrewRecord flightCrewRecord;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

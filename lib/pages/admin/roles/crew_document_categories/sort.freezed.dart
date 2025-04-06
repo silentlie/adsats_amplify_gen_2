@@ -17,7 +17,8 @@ T _$identity<T>(T value) => value;
 mixin _$FlightCrewRecordsCategorySortState {
   bool get sortAscending;
   int get sortColumnIndex;
-  Comparable Function(CrewDocumentCategory crewDocumentCategory) get getField;
+  Comparable Function(FlightCrewRecordCategory flightCrewRecordCategory)
+      get getField;
   int get rowsPerPage;
 
   /// Create a copy of FlightCrewRecordsCategorySortState
@@ -65,7 +66,7 @@ abstract mixin class $FlightCrewRecordsCategorySortStateCopyWith<$Res> {
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(CrewDocumentCategory) getField,
+      Comparable<dynamic> Function(FlightCrewRecordCategory) getField,
       int rowsPerPage});
 }
 
@@ -97,9 +98,9 @@ class _$FlightCrewRecordsCategorySortStateCopyWithImpl<$Res>
           : sortColumnIndex // ignore: cast_nullable_to_non_nullable
               as int,
       getField: null == getField
-          ? _self.getField!
+          ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(CrewDocumentCategory),
+              as Comparable<dynamic> Function(FlightCrewRecordCategory),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -125,7 +126,7 @@ class _FlightCrewRecordsCategorySortState
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable<dynamic> Function(CrewDocumentCategory) getField;
+  final Comparable<dynamic> Function(FlightCrewRecordCategory) getField;
   @override
   @JsonKey()
   final int rowsPerPage;
@@ -177,7 +178,7 @@ abstract mixin class _$FlightCrewRecordsCategorySortStateCopyWith<$Res>
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(CrewDocumentCategory) getField,
+      Comparable<dynamic> Function(FlightCrewRecordCategory) getField,
       int rowsPerPage});
 }
 
@@ -211,7 +212,7 @@ class __$FlightCrewRecordsCategorySortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(CrewDocumentCategory),
+              as Comparable<dynamic> Function(FlightCrewRecordCategory),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

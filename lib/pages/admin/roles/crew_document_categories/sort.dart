@@ -6,10 +6,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'sort.g.dart';
 part 'sort.freezed.dart';
 
-int Function(CrewDocumentCategory, CrewDocumentCategory)
+int Function(FlightCrewRecordCategory, FlightCrewRecordCategory)
     compareFlightCrewRecordsCategory({
   required bool sortAscending,
-  required Comparable Function(CrewDocumentCategory crewDocumentCategory)
+  required Comparable Function(
+          FlightCrewRecordCategory flightCrewRecordCategory)
       getField,
 }) {
   return (a, b) {
@@ -26,8 +27,8 @@ class FlightCrewRecordsCategorySort extends _$FlightCrewRecordsCategorySort {
   @override
   FlightCrewRecordsCategorySortState build() {
     return FlightCrewRecordsCategorySortState(
-      getField: (crewDocumentCategory) {
-        return crewDocumentCategory.createdAt!;
+      getField: (flightCrewRecordCategory) {
+        return flightCrewRecordCategory.createdAt!;
       },
     );
   }
@@ -39,7 +40,8 @@ class FlightCrewRecordsCategorySort extends _$FlightCrewRecordsCategorySort {
   void apply({
     required int columnIndex,
     required bool sortAscending,
-    required Comparable Function(CrewDocumentCategory crewDocumentCategory)
+    required Comparable Function(
+            FlightCrewRecordCategory flightCrewRecordCategory)
         getField,
   }) {
     state = state.copyWith(
@@ -56,7 +58,8 @@ sealed class FlightCrewRecordsCategorySortState
   factory FlightCrewRecordsCategorySortState({
     @Default(false) bool sortAscending,
     @Default(3) int sortColumnIndex,
-    required Comparable Function(CrewDocumentCategory crewDocumentCategory)
+    required Comparable Function(
+            FlightCrewRecordCategory flightCrewRecordCategory)
         getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
   }) = _FlightCrewRecordsCategorySortState;

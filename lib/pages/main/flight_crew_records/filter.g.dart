@@ -7,7 +7,7 @@ part of 'filter.dart';
 // **************************************************************************
 
 String _$flightCrewRecordFilterHash() =>
-    r'251d0e1439ee5149e18161107fb69dfcbbdc7734';
+    r'c8c130209ab95724f9c52068053f3427de57dcaa';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -33,11 +33,11 @@ class _SystemHash {
 abstract class _$FlightCrewRecordFilter
     extends BuildlessAutoDisposeNotifier<FlightCrewRecordFilterState> {
   late final Staff staff;
-  late final CrewDocumentCategory category;
+  late final FlightCrewRecordCategory category;
 
   FlightCrewRecordFilterState build(
     Staff staff,
-    CrewDocumentCategory category,
+    FlightCrewRecordCategory category,
   );
 }
 
@@ -53,7 +53,7 @@ class FlightCrewRecordFilterFamily extends Family<FlightCrewRecordFilterState> {
   /// See also [FlightCrewRecordFilter].
   FlightCrewRecordFilterProvider call(
     Staff staff,
-    CrewDocumentCategory category,
+    FlightCrewRecordCategory category,
   ) {
     return FlightCrewRecordFilterProvider(
       staff,
@@ -94,7 +94,7 @@ class FlightCrewRecordFilterProvider extends AutoDisposeNotifierProviderImpl<
   /// See also [FlightCrewRecordFilter].
   FlightCrewRecordFilterProvider(
     Staff staff,
-    CrewDocumentCategory category,
+    FlightCrewRecordCategory category,
   ) : this._internal(
           () => FlightCrewRecordFilter()
             ..staff = staff
@@ -124,7 +124,7 @@ class FlightCrewRecordFilterProvider extends AutoDisposeNotifierProviderImpl<
   }) : super.internal();
 
   final Staff staff;
-  final CrewDocumentCategory category;
+  final FlightCrewRecordCategory category;
 
   @override
   FlightCrewRecordFilterState runNotifierBuild(
@@ -186,7 +186,7 @@ mixin FlightCrewRecordFilterRef
   Staff get staff;
 
   /// The parameter `category` of this provider.
-  CrewDocumentCategory get category;
+  FlightCrewRecordCategory get category;
 }
 
 class _FlightCrewRecordFilterProviderElement
@@ -197,7 +197,7 @@ class _FlightCrewRecordFilterProviderElement
   @override
   Staff get staff => (origin as FlightCrewRecordFilterProvider).staff;
   @override
-  CrewDocumentCategory get category =>
+  FlightCrewRecordCategory get category =>
       (origin as FlightCrewRecordFilterProvider).category;
 }
 // ignore_for_file: type=lint

@@ -10,7 +10,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'repo.g.dart';
 
 @Riverpod(dependencies: [])
-FutureOr<List<CrewDocument>> flightCrewRecordsRepo(
+FutureOr<List<FlightCrewRecord>> flightCrewRecordsRepo(
   Ref ref,
   FlightCrewRecordFilterState filter,
 ) async {
@@ -23,9 +23,9 @@ FutureOr<List<CrewDocument>> flightCrewRecordsRepo(
     throw response.errors.first;
   }
   Map<String, dynamic> jsonMap = json.decode(response.data!);
-  return (jsonMap["listCrewDocuments"]["items"] as List).map(
+  return (jsonMap["listFlightCrewRecords"]["items"] as List).map(
     (document) {
-      return CrewDocument.fromJson(document);
+      return FlightCrewRecord.fromJson(document);
     },
   ).toList();
 }

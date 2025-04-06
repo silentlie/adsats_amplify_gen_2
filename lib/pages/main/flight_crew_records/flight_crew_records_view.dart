@@ -17,7 +17,7 @@ class FlightCrewRecordsView extends ConsumerWidget {
     required this.category,
   });
   final Staff staff;
-  final CrewDocumentCategory category;
+  final FlightCrewRecordCategory category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -47,8 +47,8 @@ class FlightCrewRecordsView extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (crewDocument) {
-                      return crewDocument.name;
+                    getField: (flightCrewRecord) {
+                      return flightCrewRecord.name;
                     },
                   );
                 },
@@ -60,8 +60,8 @@ class FlightCrewRecordsView extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (crewDocument) {
-                      return crewDocument.archived.hashCode;
+                    getField: (flightCrewRecord) {
+                      return flightCrewRecord.archived.hashCode;
                     },
                   );
                 },
@@ -73,8 +73,8 @@ class FlightCrewRecordsView extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (crewDocument) {
-                      return crewDocument.createdAt!;
+                    getField: (flightCrewRecord) {
+                      return flightCrewRecord.createdAt!;
                     },
                   );
                 },
@@ -86,8 +86,8 @@ class FlightCrewRecordsView extends ConsumerWidget {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (crewDocument) {
-                      return crewDocument.hashCode;
+                    getField: (flightCrewRecord) {
+                      return flightCrewRecord.hashCode;
                     },
                   );
                 },

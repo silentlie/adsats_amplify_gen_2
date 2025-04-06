@@ -7,7 +7,7 @@ part of 'sort.dart';
 // **************************************************************************
 
 String _$flightCrewRecordsCategorySortHash() =>
-    r'91f1103ac82fa37ca0c194074db30657008336ec';
+    r'7f316f7d8546089dc9a7ede3d7fe5c1646c820e6';
 
 /// See also [FlightCrewRecordsCategorySort].
 @ProviderFor(FlightCrewRecordsCategorySort)
