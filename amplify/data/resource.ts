@@ -62,8 +62,12 @@ const schema = a
       reports: a.hasMany("Report", "auditorId"),
       reportNotifications: a.hasMany("ReportStaff", "staffId"),
       closedReport: a.hasMany("Report", "closerId"),
+      sessions: a.hasMany("Session", "staffId"),
     }),
-    Session: a.model({}),
+    Session: a.model({
+      staffId: a.id().required(),
+      staff: a.belongsTo("Staff", "staffId"),
+    }),
     Category: a.model({
       name: a.string().required(),
       archived: a.boolean().required().default(false),
