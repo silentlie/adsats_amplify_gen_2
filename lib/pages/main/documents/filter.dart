@@ -34,6 +34,8 @@ sealed class DocumentFilterState with _$DocumentFilterState {
     @Default("") String search,
     @Default(false) bool? archived,
     DateTimeRange? createdAt,
+    DateTimeRange? issuedAt,
+    DateTimeRange? expiredAt,
   }) = _DocumentFilterState;
 
   Map<String, dynamic> toJson() {
@@ -42,6 +44,12 @@ sealed class DocumentFilterState with _$DocumentFilterState {
     archived != null ? result["archived"] = {"eq": archived} : null;
     createdAt != null
         ? result["createdAt"] = {"between": betweenDateRange(createdAt!)}
+        : null;
+    issuedAt != null
+        ? result["issuedAt"] = {"between": betweenDateRange(issuedAt!)}
+        : null;
+    expiredAt != null
+        ? result["expiredAt"] = {"between": betweenDateRange(expiredAt!)}
         : null;
     result["subcategoryId"] = {"eq": subcategory.id};
     return result;
@@ -79,11 +87,43 @@ class DocumentsFilterView extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.all(8),
             child: DateTimeRangePicker(
-              text: "Select document date range",
+              text: "Select document uploaded time range",
               onSubmitted: (value) {
                 filter = filter.copyWith(createdAt: value);
               },
               initialDateRange: filter.createdAt,
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: DateTimeRangePicker(
+              text: "Select document issued time range",
+              onSubmitted: (value) {
+                filter = filter.copyWith(issuedAt: value);
+              },
+              initialDateRange: filter.issuedAt,
+              firstDate: DateTime.now().subtract(
+                const Duration(days: 365 * 10),
+              ),
+              lastDate: DateTime.now().add(
+                const Duration(days: 365 * 10),
+              ),
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: DateTimeRangePicker(
+              text: "Select document expired time range",
+              onSubmitted: (value) {
+                filter = filter.copyWith(expiredAt: value);
+              },
+              initialDateRange: filter.expiredAt,
+              firstDate: DateTime.now().subtract(
+                const Duration(days: 365 * 10),
+              ),
+              lastDate: DateTime.now().add(
+                const Duration(days: 365 * 10),
+              ),
             ),
           ),
         ],

@@ -9,6 +9,7 @@ class GlobalTextFormField extends StatelessWidget {
     this.enabled = true,
     this.readOnly = false,
     required this.onSaved,
+    this.onChanged,
     this.isEmail = false,
     this.isFileName = false,
     this.maxLines,
@@ -22,6 +23,7 @@ class GlobalTextFormField extends StatelessWidget {
   final bool enabled;
   final bool readOnly;
   final ValueChanged<String?> onSaved;
+  final ValueChanged<String?>? onChanged;
   final bool isEmail;
   final bool isFileName;
   final int? maxLines;
@@ -71,6 +73,7 @@ class GlobalTextFormField extends StatelessWidget {
           }
           return null;
         },
+        onChanged: onChanged,
         onSaved: onSaved,
         initialValue: initialValue,
         autovalidateMode: AutovalidateMode.onUserInteraction,

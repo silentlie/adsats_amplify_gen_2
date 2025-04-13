@@ -7,10 +7,14 @@ class DateTimeRangePicker extends StatefulWidget {
     this.text = "Select a date range",
     required this.onSubmitted,
     this.initialDateRange,
+    this.firstDate,
+    this.lastDate,
   });
   final ValueChanged<DateTimeRange?> onSubmitted;
   final String text;
   final DateTimeRange? initialDateRange;
+  final DateTime? firstDate;
+  final DateTime? lastDate;
 
   @override
   State<DateTimeRangePicker> createState() => _DateTimeRangePickerState();
@@ -24,8 +28,8 @@ class _DateTimeRangePickerState extends State<DateTimeRangePicker> {
       onPressed: () async {
         _dateTimeRange = await showDateRangePicker(
           context: context,
-          firstDate: DateTime(2000),
-          lastDate: DateTime.now(),
+          firstDate: widget.firstDate ?? DateTime(2000),
+          lastDate: widget.lastDate ?? DateTime.now(),
           initialDateRange: _dateTimeRange,
           builder: (context, child) {
             return Column(

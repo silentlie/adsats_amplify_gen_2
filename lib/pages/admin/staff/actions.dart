@@ -3,6 +3,7 @@ import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/api.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/sessions_view.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/staff_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,6 +31,21 @@ class StaffActions extends ConsumerWidget {
             );
           },
           icon: const Icon(Icons.edit_outlined),
+        ),
+        IconButton(
+          onPressed: () async {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return Dialog(
+                  child: SessionsView(
+                    staff: staff,
+                  ),
+                );
+              },
+            );
+          },
+          icon: const Icon(Icons.sensors_outlined),
         ),
         IconButton(
           onPressed: () async {

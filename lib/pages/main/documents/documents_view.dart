@@ -42,6 +42,7 @@ class DocumentsView extends ConsumerWidget {
           ));
           final dataSource = DocumentDataSource(
             sortedData: data,
+            context: context,
           );
           final sortNotifier = ref.read(documentSortProvider.notifier);
           return PaginatedDataTable2(
@@ -68,6 +69,32 @@ class DocumentsView extends ConsumerWidget {
                     sortAscending: ascending,
                     getField: (document) {
                       return document.archived.hashCode;
+                    },
+                  );
+                },
+              ),
+              DataColumn2(
+                label: getCenterText("Issued at"),
+                size: ColumnSize.L,
+                onSort: (columnIndex, ascending) {
+                  sortNotifier.apply(
+                    columnIndex: columnIndex,
+                    sortAscending: ascending,
+                    getField: (document) {
+                      return document.issuedAt!;
+                    },
+                  );
+                },
+              ),
+              DataColumn2(
+                label: getCenterText("Expired at"),
+                size: ColumnSize.L,
+                onSort: (columnIndex, ascending) {
+                  sortNotifier.apply(
+                    columnIndex: columnIndex,
+                    sortAscending: ascending,
+                    getField: (document) {
+                      return document.updatedAt!;
                     },
                   );
                 },

@@ -1222,5 +1222,138 @@ class _ListDocumentsProviderElement
   @override
   QueryPredicate<Model>? get where => (origin as ListDocumentsProvider).where;
 }
+
+String _$listSessionsHash() => r'd387c41fafd893fe4b3388dc25d257345bedb9b0';
+
+/// See also [listSessions].
+@ProviderFor(listSessions)
+const listSessionsProvider = ListSessionsFamily();
+
+/// See also [listSessions].
+class ListSessionsFamily extends Family<AsyncValue<List<Session>>> {
+  /// See also [listSessions].
+  const ListSessionsFamily();
+
+  /// See also [listSessions].
+  ListSessionsProvider call([
+    QueryPredicate<Model>? where,
+  ]) {
+    return ListSessionsProvider(
+      where,
+    );
+  }
+
+  @override
+  ListSessionsProvider getProviderOverride(
+    covariant ListSessionsProvider provider,
+  ) {
+    return call(
+      provider.where,
+    );
+  }
+
+  static final Iterable<ProviderOrFamily> _dependencies =
+      const <ProviderOrFamily>[];
+
+  @override
+  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
+
+  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
+      const <ProviderOrFamily>{};
+
+  @override
+  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
+      _allTransitiveDependencies;
+
+  @override
+  String? get name => r'listSessionsProvider';
+}
+
+/// See also [listSessions].
+class ListSessionsProvider extends AutoDisposeFutureProvider<List<Session>> {
+  /// See also [listSessions].
+  ListSessionsProvider([
+    QueryPredicate<Model>? where,
+  ]) : this._internal(
+          (ref) => listSessions(
+            ref as ListSessionsRef,
+            where,
+          ),
+          from: listSessionsProvider,
+          name: r'listSessionsProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$listSessionsHash,
+          dependencies: ListSessionsFamily._dependencies,
+          allTransitiveDependencies:
+              ListSessionsFamily._allTransitiveDependencies,
+          where: where,
+        );
+
+  ListSessionsProvider._internal(
+    super._createNotifier, {
+    required super.name,
+    required super.dependencies,
+    required super.allTransitiveDependencies,
+    required super.debugGetCreateSourceHash,
+    required super.from,
+    required this.where,
+  }) : super.internal();
+
+  final QueryPredicate<Model>? where;
+
+  @override
+  Override overrideWith(
+    FutureOr<List<Session>> Function(ListSessionsRef provider) create,
+  ) {
+    return ProviderOverride(
+      origin: this,
+      override: ListSessionsProvider._internal(
+        (ref) => create(ref as ListSessionsRef),
+        from: from,
+        name: null,
+        dependencies: null,
+        allTransitiveDependencies: null,
+        debugGetCreateSourceHash: null,
+        where: where,
+      ),
+    );
+  }
+
+  @override
+  AutoDisposeFutureProviderElement<List<Session>> createElement() {
+    return _ListSessionsProviderElement(this);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ListSessionsProvider && other.where == where;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, where.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+mixin ListSessionsRef on AutoDisposeFutureProviderRef<List<Session>> {
+  /// The parameter `where` of this provider.
+  QueryPredicate<Model>? get where;
+}
+
+class _ListSessionsProviderElement
+    extends AutoDisposeFutureProviderElement<List<Session>>
+    with ListSessionsRef {
+  _ListSessionsProviderElement(super.provider);
+
+  @override
+  QueryPredicate<Model>? get where => (origin as ListSessionsProvider).where;
+}
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

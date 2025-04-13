@@ -1,6 +1,7 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/Document.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/edit_document_view.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,19 @@ class DocumentActions extends ConsumerWidget {
           icon: const Icon(Icons.download_outlined),
           tooltip: "Download",
         ),
+        if (isAdmin)
+          IconButton(
+            onPressed: () async {
+              controller.close();
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return EditDocumentView(document: document);
+                },
+              );
+            },
+            icon: const Icon(Icons.edit_outlined),
+          ),
         if (isAdmin)
           IconButton(
             onPressed: () async {

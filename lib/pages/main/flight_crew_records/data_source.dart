@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/actions.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/edit_flight_crew_record_view.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -9,8 +9,10 @@ import 'package:intl/intl.dart';
 class FlightCrewRecordsDataSource extends DataTableSource {
   FlightCrewRecordsDataSource({
     required this.sortedData,
+    required this.context,
   });
   List<FlightCrewRecord> sortedData;
+  BuildContext context;
   @override
   int get rowCount => sortedData.length;
 
@@ -25,7 +27,14 @@ class FlightCrewRecordsDataSource extends DataTableSource {
     final flightCrewRecord = sortedData[index];
     return DataRow2.byIndex(
       onTap: () {
-        getFlightCrewRecordFileUrl(flightCrewRecord);
+        showDialog(
+          context: context,
+          builder: (context) {
+            return EditFlightCrewRecordView(
+              record: flightCrewRecord,
+            );
+          },
+        );
       },
       index: index,
       cells: [
@@ -49,6 +58,24 @@ class FlightCrewRecordsDataSource extends DataTableSource {
                 child: Text(flightCrewRecord.archived ? "Yes" : "No"),
               ),
             ),
+          ),
+        ),
+        DataCell(
+          getCenterText(
+            flightCrewRecord.createdAt != null
+                ? DateFormat('dd/MM/yyyy').format(
+                    flightCrewRecord.issuedAt!.getDateTimeInUtc(),
+                  )
+                : "",
+          ),
+        ),
+        DataCell(
+          getCenterText(
+            flightCrewRecord.createdAt != null
+                ? DateFormat('dd/MM/yyyy').format(
+                    flightCrewRecord.expiredAt!.getDateTimeInUtc(),
+                  )
+                : "",
           ),
         ),
         DataCell(

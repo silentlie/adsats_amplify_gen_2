@@ -7,6 +7,8 @@ import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/create_report/s3.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/view_cms/api.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/view_cms/inbox/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/view_cms/sent/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/view_report/repo.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
@@ -79,6 +81,8 @@ class ReportNotifier extends _$ReportNotifier {
       );
     }
     await Future.wait(futures);
+    ref.invalidate(reportsSentRepoProvider);
+    ref.invalidate(reportsInboxRepoProvider);
   }
 
   void updateReport({

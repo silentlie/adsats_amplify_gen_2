@@ -103,12 +103,6 @@ class QualityManagerSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final status = ref.watch(reportNotifierProvider.select((value) {
-      return value.report.status!;
-    }));
-    if (status != ReportStatus.Closed) {
-      return SizedBox();
-    }
     final report = ref.read(reportNotifierProvider).report;
     final notifier = ref.read(reportNotifierProvider.notifier);
     final isEditMode = ref.watch(

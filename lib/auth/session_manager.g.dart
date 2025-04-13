@@ -6,7 +6,7 @@ part of 'session_manager.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$sessionManagerHash() => r'5cf855a46ca36b9ea513438c7ae6dd20cd8a4c38';
+String _$sessionManagerHash() => r'9e2b93672362e3fc66d6f41b3962a3cc074867ef';
 
 /// See also [SessionManager].
 @ProviderFor(SessionManager)
@@ -17,10 +17,10 @@ final sessionManagerProvider =
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$sessionManagerHash,
-  dependencies: <ProviderOrFamily>[userIdProvider],
+  dependencies: <ProviderOrFamily>[userDetailsProvider],
   allTransitiveDependencies: <ProviderOrFamily>{
-    userIdProvider,
-    ...?userIdProvider.allTransitiveDependencies
+    userDetailsProvider,
+    ...?userDetailsProvider.allTransitiveDependencies
   },
 );
 

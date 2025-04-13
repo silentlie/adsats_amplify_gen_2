@@ -1,120 +1,81 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/header.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/sort.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/sort.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-class FlightCrewRecordsView extends ConsumerWidget {
-  const FlightCrewRecordsView({
+class SessionsView extends ConsumerWidget {
+  const SessionsView({
     super.key,
     required this.staff,
-    required this.category,
   });
+
   final Staff staff;
-  final FlightCrewRecordCategory category;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(flightCrewRecordFilterProvider(staff, category));
-    final dataAsync = ref.watch(flightCrewRecordsRepoProvider(filter));
-    final sortState = ref.watch(flightCrewRecordSortProvider);
+    final dataAsync = ref.watch(sessionsRepoProvider(staff));
+    final sortState = ref.watch(sessionSortProvider);
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
       child: AsyncValueWidget(
         value: dataAsync,
         data: (data) {
-          data.sort(compareFlightCrewRecord(
+          data.sort(compareSession(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
-          final dataSource = FlightCrewRecordsDataSource(
+          final dataSource = SessionDataSource(
             sortedData: data,
             context: context,
           );
-          final sortNotifier = ref.read(flightCrewRecordSortProvider.notifier);
+          final sortNotifier = ref.read(sessionSortProvider.notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
-                label: getCenterText("Name"),
+                label: getCenterText("Start time"),
                 size: ColumnSize.S,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (flightCrewRecord) {
-                      return flightCrewRecord.name;
+                    getField: (session) {
+                      return session.createdAt!.getDateTimeInUtc();
                     },
                   );
                 },
               ),
               DataColumn2(
-                label: getCenterText("Archived"),
-                size: ColumnSize.L,
+                label: getCenterText("Duration"),
+                size: ColumnSize.S,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (flightCrewRecord) {
-                      return flightCrewRecord.archived.hashCode;
+                    getField: (session) {
+                      return session.createdAt!
+                          .getDateTimeInUtc()
+                          .difference(session.updatedAt!.getDateTimeInUtc());
                     },
                   );
                 },
               ),
               DataColumn2(
-                label: getCenterText("Issued at"),
-                size: ColumnSize.L,
+                label: getCenterText("End time"),
+                size: ColumnSize.S,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
                     columnIndex: columnIndex,
                     sortAscending: ascending,
-                    getField: (flightCrewRecord) {
-                      return flightCrewRecord.issuedAt!;
-                    },
-                  );
-                },
-              ),
-              DataColumn2(
-                label: getCenterText("Expired at"),
-                size: ColumnSize.L,
-                onSort: (columnIndex, ascending) {
-                  sortNotifier.apply(
-                    columnIndex: columnIndex,
-                    sortAscending: ascending,
-                    getField: (flightCrewRecord) {
-                      return flightCrewRecord.expiredAt!;
-                    },
-                  );
-                },
-              ),
-              DataColumn2(
-                label: getCenterText("Uploaded at"),
-                size: ColumnSize.L,
-                onSort: (columnIndex, ascending) {
-                  sortNotifier.apply(
-                    columnIndex: columnIndex,
-                    sortAscending: ascending,
-                    getField: (flightCrewRecord) {
-                      return flightCrewRecord.createdAt!;
-                    },
-                  );
-                },
-              ),
-              DataColumn2(
-                label: getCenterText("Action"),
-                fixedWidth: 80,
-                onSort: (columnIndex, ascending) {
-                  sortNotifier.apply(
-                    columnIndex: columnIndex,
-                    sortAscending: ascending,
-                    getField: (flightCrewRecord) {
-                      return flightCrewRecord.hashCode;
+                    getField: (session) {
+                      return session.updatedAt!.getDateTimeInUtc();
                     },
                   );
                 },
@@ -141,9 +102,14 @@ class FlightCrewRecordsView extends ConsumerWidget {
             onPageChanged: (rowIndex) {
               // debugPrint((rowIndex / _rowsPerPage).toString());
             },
-            header: FlightCrewRecordsHeader(
-              category: category,
-              staff: staff,
+            header: ListTile(
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  context.canPop() ? context.pop() : HomeRoute().go(context);
+                },
+              ),
+              title: Text("${staff.firstName} ${staff.lastName}"),
             ),
             dataRowHeight: 62,
             showCheckboxColumn: false,

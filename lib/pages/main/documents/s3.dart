@@ -1,4 +1,3 @@
-import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -34,6 +33,8 @@ Future<void> uploadFiles(
   Staff staff,
   Subcategory subcategory,
   List<Aircraft> aircraft,
+  TemporalDateTime? issuedAt,
+  TemporalDateTime? expiredAt,
 ) async {
   await Future.wait(
     selectedFiles.map(
@@ -42,6 +43,8 @@ Future<void> uploadFiles(
         staff,
         subcategory,
         aircraft,
+        issuedAt,
+        expiredAt,
       ),
     ),
   );
@@ -52,6 +55,8 @@ Future<void> uploadFile(
   Staff staff,
   Subcategory subcategory,
   List<Aircraft> aircraft,
+  TemporalDateTime? issuedAt,
+  TemporalDateTime? expiredAt,
 ) async {
   try {
     final document = Document(
@@ -59,6 +64,8 @@ Future<void> uploadFile(
       archived: false,
       staff: staff,
       subcategory: subcategory,
+      issuedAt: issuedAt,
+      expiredAt: expiredAt,
     );
 
     // Create the document and get its ID
@@ -150,7 +157,6 @@ Future<void> deleteDocument(Document document) async {
 
 Future<void> renameDocument(Document document, String newName) async {
   try {
-    await update(document.copyWith(name: newName));
     await Amplify.Storage.copy(
       source:
           StoragePath.fromString('documents/${document.id}/${document.name}'),

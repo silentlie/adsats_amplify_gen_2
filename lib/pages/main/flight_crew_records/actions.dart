@@ -2,6 +2,7 @@ import 'package:adsats_amplify_gen_2/API/mutations.dart' hide delete;
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/edit_flight_crew_record_view.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/s3.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,20 @@ class FlightCrewRecordActions extends ConsumerWidget {
           icon: const Icon(Icons.download_outlined),
           tooltip: "Download",
         ),
+        if (isAdmin)
+          IconButton(
+            onPressed: () async {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return EditFlightCrewRecordView(
+                    record: flightCrewRecord,
+                  );
+                },
+              );
+            },
+            icon: const Icon(Icons.edit_outlined),
+          ),
         if (isAdmin)
           IconButton(
             onPressed: () async {

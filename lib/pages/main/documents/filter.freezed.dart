@@ -19,6 +19,8 @@ mixin _$DocumentFilterState {
   String get search;
   bool? get archived;
   DateTimeRange? get createdAt;
+  DateTimeRange? get issuedAt;
+  DateTimeRange? get expiredAt;
 
   /// Create a copy of DocumentFilterState
   /// with the given fields replaced by the non-null parameter values.
@@ -39,16 +41,20 @@ mixin _$DocumentFilterState {
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.issuedAt, issuedAt) ||
+                other.issuedAt == issuedAt) &&
+            (identical(other.expiredAt, expiredAt) ||
+                other.expiredAt == expiredAt));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, subcategory, search, archived, createdAt);
+  int get hashCode => Object.hash(runtimeType, subcategory, search, archived,
+      createdAt, issuedAt, expiredAt);
 
   @override
   String toString() {
-    return 'DocumentFilterState(subcategory: $subcategory, search: $search, archived: $archived, createdAt: $createdAt)';
+    return 'DocumentFilterState(subcategory: $subcategory, search: $search, archived: $archived, createdAt: $createdAt, issuedAt: $issuedAt, expiredAt: $expiredAt)';
   }
 }
 
@@ -62,7 +68,9 @@ abstract mixin class $DocumentFilterStateCopyWith<$Res> {
       {Subcategory subcategory,
       String search,
       bool? archived,
-      DateTimeRange? createdAt});
+      DateTimeRange? createdAt,
+      DateTimeRange? issuedAt,
+      DateTimeRange? expiredAt});
 }
 
 /// @nodoc
@@ -82,6 +90,8 @@ class _$DocumentFilterStateCopyWithImpl<$Res>
     Object? search = null,
     Object? archived = freezed,
     Object? createdAt = freezed,
+    Object? issuedAt = freezed,
+    Object? expiredAt = freezed,
   }) {
     return _then(_self.copyWith(
       subcategory: null == subcategory
@@ -100,6 +110,14 @@ class _$DocumentFilterStateCopyWithImpl<$Res>
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTimeRange?,
+      issuedAt: freezed == issuedAt
+          ? _self.issuedAt
+          : issuedAt // ignore: cast_nullable_to_non_nullable
+              as DateTimeRange?,
+      expiredAt: freezed == expiredAt
+          ? _self.expiredAt
+          : expiredAt // ignore: cast_nullable_to_non_nullable
+              as DateTimeRange?,
     ));
   }
 }
@@ -111,7 +129,9 @@ class _DocumentFilterState extends DocumentFilterState {
       {required this.subcategory,
       this.search = "",
       this.archived = false,
-      this.createdAt})
+      this.createdAt,
+      this.issuedAt,
+      this.expiredAt})
       : super._();
 
   @override
@@ -124,6 +144,10 @@ class _DocumentFilterState extends DocumentFilterState {
   final bool? archived;
   @override
   final DateTimeRange? createdAt;
+  @override
+  final DateTimeRange? issuedAt;
+  @override
+  final DateTimeRange? expiredAt;
 
   /// Create a copy of DocumentFilterState
   /// with the given fields replaced by the non-null parameter values.
@@ -145,16 +169,20 @@ class _DocumentFilterState extends DocumentFilterState {
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.issuedAt, issuedAt) ||
+                other.issuedAt == issuedAt) &&
+            (identical(other.expiredAt, expiredAt) ||
+                other.expiredAt == expiredAt));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, subcategory, search, archived, createdAt);
+  int get hashCode => Object.hash(runtimeType, subcategory, search, archived,
+      createdAt, issuedAt, expiredAt);
 
   @override
   String toString() {
-    return 'DocumentFilterState(subcategory: $subcategory, search: $search, archived: $archived, createdAt: $createdAt)';
+    return 'DocumentFilterState(subcategory: $subcategory, search: $search, archived: $archived, createdAt: $createdAt, issuedAt: $issuedAt, expiredAt: $expiredAt)';
   }
 }
 
@@ -170,7 +198,9 @@ abstract mixin class _$DocumentFilterStateCopyWith<$Res>
       {Subcategory subcategory,
       String search,
       bool? archived,
-      DateTimeRange? createdAt});
+      DateTimeRange? createdAt,
+      DateTimeRange? issuedAt,
+      DateTimeRange? expiredAt});
 }
 
 /// @nodoc
@@ -190,6 +220,8 @@ class __$DocumentFilterStateCopyWithImpl<$Res>
     Object? search = null,
     Object? archived = freezed,
     Object? createdAt = freezed,
+    Object? issuedAt = freezed,
+    Object? expiredAt = freezed,
   }) {
     return _then(_DocumentFilterState(
       subcategory: null == subcategory
@@ -207,6 +239,14 @@ class __$DocumentFilterStateCopyWithImpl<$Res>
       createdAt: freezed == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTimeRange?,
+      issuedAt: freezed == issuedAt
+          ? _self.issuedAt
+          : issuedAt // ignore: cast_nullable_to_non_nullable
+              as DateTimeRange?,
+      expiredAt: freezed == expiredAt
+          ? _self.expiredAt
+          : expiredAt // ignore: cast_nullable_to_non_nullable
               as DateTimeRange?,
     ));
   }

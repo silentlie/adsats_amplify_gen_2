@@ -550,19 +550,25 @@ query ListDocuments(\$filter: ModelDocumentFilterInput) {
       name
       createdAt
       archived
+      issuedAt
+      expiredAt
       staff {
         id
         firstName
         lastName
+        email
+        archived
       }
       subcategory {
-        id
-        name
-        category {
           id
           name
+          archived
+          category {
+            id
+            name
+            archived
+          }
         }
-      }
       aircraft {
         items {
           id

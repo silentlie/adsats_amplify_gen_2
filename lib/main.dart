@@ -5,8 +5,8 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:amplify_storage_s3/amplify_storage_s3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
-import 'package:url_strategy/url_strategy.dart';
 
 import 'amplify_outputs.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -14,7 +14,7 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureAmplify();
-  setPathUrlStrategy();
+  usePathUrlStrategy();
   GoRouter.optionURLReflectsImperativeAPIs = true;
   runApp(
     ProviderScope(

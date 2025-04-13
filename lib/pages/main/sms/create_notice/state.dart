@@ -7,6 +7,8 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/api.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/s3.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/view_notice/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/inbox/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/view_sms/sent/repo.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -72,6 +74,8 @@ class NoticeNotifier extends _$NoticeNotifier {
       );
     }
     await Future.wait(futures);
+    ref.invalidate(noticesSentRepoProvider);
+    ref.invalidate(noticesInboxRepoProvider);
   }
 
   void updateNotice({

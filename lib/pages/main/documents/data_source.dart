@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/actions.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/edit_document_view.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -9,8 +9,10 @@ import 'package:intl/intl.dart';
 class DocumentDataSource extends DataTableSource {
   DocumentDataSource({
     required this.sortedData,
+    required this.context,
   });
   List<Document> sortedData;
+  BuildContext context;
   @override
   int get rowCount => sortedData.length;
 
@@ -25,7 +27,12 @@ class DocumentDataSource extends DataTableSource {
     final document = sortedData[index];
     return DataRow2.byIndex(
       onTap: () {
-        getFileUrl(document);
+        showDialog(
+          context: context,
+          builder: (context) {
+            return EditDocumentView(document: document);
+          },
+        );
       },
       index: index,
       cells: [
@@ -47,6 +54,24 @@ class DocumentDataSource extends DataTableSource {
                 child: Text(document.archived ? "Yes" : "No"),
               ),
             ),
+          ),
+        ),
+        DataCell(
+          getCenterText(
+            document.issuedAt != null
+                ? DateFormat('dd/MM/yyyy').format(
+                    document.issuedAt!.getDateTimeInUtc(),
+                  )
+                : "",
+          ),
+        ),
+        DataCell(
+          getCenterText(
+            document.expiredAt != null
+                ? DateFormat('dd/MM/yyyy').format(
+                    document.expiredAt!.getDateTimeInUtc(),
+                  )
+                : "",
           ),
         ),
         DataCell(
