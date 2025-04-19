@@ -62,7 +62,7 @@ abstract mixin class $FlightCrewRecordSortStateCopyWith<$Res> {
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(FlightCrewRecord) getField,
+      Comparable Function(FlightCrewRecord flightCrewRecord) getField,
       int rowsPerPage});
 }
 
@@ -96,7 +96,7 @@ class _$FlightCrewRecordSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(FlightCrewRecord),
+              as Comparable Function(FlightCrewRecord flightCrewRecord),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ class _FlightCrewRecordSortState implements FlightCrewRecordSortState {
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable<dynamic> Function(FlightCrewRecord) getField;
+  final Comparable Function(FlightCrewRecord flightCrewRecord) getField;
   @override
   @JsonKey()
   final int rowsPerPage;
@@ -172,7 +172,7 @@ abstract mixin class _$FlightCrewRecordSortStateCopyWith<$Res>
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(FlightCrewRecord) getField,
+      Comparable Function(FlightCrewRecord flightCrewRecord) getField,
       int rowsPerPage});
 }
 
@@ -206,7 +206,7 @@ class __$FlightCrewRecordSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(FlightCrewRecord),
+              as Comparable Function(FlightCrewRecord flightCrewRecord),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

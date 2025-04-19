@@ -9,9 +9,9 @@ import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class StaffView extends ConsumerWidget {
   const StaffView({super.key, this.staff});
@@ -92,6 +92,10 @@ class StaffView extends ConsumerWidget {
                   staff = staff.copyWith(email: value);
                 },
                 enabled: !isEditing,
+                validator: (value) {
+                  if (value?.isNotEmpty ?? false) return null;
+                  return "Please enter email";
+                },
               ),
             ),
             GlobalDropdownMenu<bool>(
@@ -108,16 +112,18 @@ class StaffView extends ConsumerWidget {
             AsyncValueWidget(
               value: ref.watch(listAircraftProvider()),
               data: (value) {
-                return GlobalMultiSelect<Aircraft>(
-                  text: "Choose Aircraft",
-                  onConfirm: (p0) {
-                    aircraft = p0;
+                return MultiSelectFormField<Aircraft>(
+                  title: "Choose Aircraft",
+                  items: value,
+                  toCard: (value) {
+                    return CheckListCard(
+                      value: value,
+                      title: Text(value.name),
+                    );
                   },
-                  items: value.map(
-                    (e) {
-                      return MultiSelectItem(e, e.name);
-                    },
-                  ).toList(),
+                  onChange: (newValue) {
+                    aircraft = newValue;
+                  },
                   initialValue: aircraft,
                 );
               },
@@ -125,16 +131,18 @@ class StaffView extends ConsumerWidget {
             AsyncValueWidget(
               value: ref.watch(listRolesProvider()),
               data: (value) {
-                return GlobalMultiSelect<Role>(
-                  text: "Choose Roles",
-                  onConfirm: (p0) {
-                    roles = p0;
+                return MultiSelectFormField<Role>(
+                  title: "Choose Roles",
+                  items: value,
+                  toCard: (value) {
+                    return CheckListCard(
+                      value: value,
+                      title: Text(value.name),
+                    );
                   },
-                  items: value.map(
-                    (e) {
-                      return MultiSelectItem(e, e.name);
-                    },
-                  ).toList(),
+                  onChange: (newValue) {
+                    roles = newValue;
+                  },
                   initialValue: roles,
                 );
               },
@@ -146,11 +154,18 @@ class StaffView extends ConsumerWidget {
                   builder: (context, setState) {
                     return Column(
                       children: [
-                        GlobalMultiSelect<Subcategory>(
-                          text: "Accessible",
-                          onConfirm: (p0) {
+                        MultiSelectFormField<Subcategory>(
+                          title: "Accessible",
+                          items: value,
+                          toCard: (value) {
+                            return CheckListCard(
+                              value: value,
+                              title: Text(value.name),
+                            );
+                          },
+                          onChange: (newValue) {
                             staffSubcategories = {
-                              for (var newSubcategory in p0)
+                              for (var newSubcategory in newValue)
                                 newSubcategory:
                                     staffSubcategories[newSubcategory] ??
                                         StaffSubcategory(
@@ -161,11 +176,6 @@ class StaffView extends ConsumerWidget {
                             };
                             setState(() {});
                           },
-                          items: value.map(
-                            (e) {
-                              return MultiSelectItem(e, e.name);
-                            },
-                          ).toList(),
                           initialValue: staffSubcategories.keys.toList(),
                         ),
                         ...staffSubcategories.entries.map(

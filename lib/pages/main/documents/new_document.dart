@@ -14,9 +14,9 @@ import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class NewDocumentDialog extends ConsumerWidget {
   const NewDocumentDialog({
@@ -101,23 +101,23 @@ class NewDocumentDialog extends ConsumerWidget {
                   initialSelection: archived,
                   text: "Archived",
                 ),
-                ConstrainedBox(
-                  constraints: BoxConstraints(maxWidth: 666),
-                  child: GlobalMultiSelect<Aircraft>(
-                    text: "Add aircraft",
-                    onConfirm: (selectedOptions) {
-                      aircraft = selectedOptions;
+                MultiSelectFormField<Aircraft>(
+                  title: "Select aircraft",
+                  items: user.aircraft!.map(
+                    (e) {
+                      return e.aircraft!;
                     },
-                    items: user.aircraft?.map(
-                          (e) {
-                            return MultiSelectItem(
-                              e.aircraft!,
-                              e.aircraft!.name,
-                            );
-                          },
-                        ).toList() ??
-                        [],
-                  ),
+                  ).toList(),
+                  toCard: (value) {
+                    return CheckListCard<Aircraft>(
+                      value: value,
+                      title: Text(value.name),
+                      // how to use this based on initial selections
+                      selected: true,
+                    );
+                  },
+                  initialValue: aircraft,
+                  padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
                 ),
                 DatePickerWidget(
                   text: "Issued date",
@@ -224,6 +224,7 @@ class NewDocumentDialog extends ConsumerWidget {
                   uploader,
                   subcategory!,
                   aircraft,
+                  archived,
                   issuedAt,
                   expiredAt,
                 );

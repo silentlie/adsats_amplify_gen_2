@@ -1,6 +1,15 @@
+import 'package:adsats_amplify_gen_2/API/mutations.dart';
+import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/s3.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
+import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class EditFlightCrewRecordView extends ConsumerWidget {
   const EditFlightCrewRecordView({super.key, required this.record});
@@ -9,6 +18,130 @@ class EditFlightCrewRecordView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AlertDialog.adaptive();
+    ThemeData themeData = Theme.of(context);
+    final colorScheme = themeData.colorScheme;
+    FlightCrewRecord record = this.record;
+    return AlertDialog.adaptive(
+      title: Text(
+        'Edit Record: ${record.name}',
+        style: themeData.textTheme.headlineMedium,
+      ),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GlobalTextFormField(
+              labelText: "Document name",
+              onSaved: (value) {
+                record = record.copyWith(name: value);
+              },
+              onChanged: (value) {
+                record = record.copyWith(name: value);
+              },
+              initialValue: record.name,
+              isFileName: true,
+            ),
+            GlobalDropdownMenu(
+              entries: const [
+                DropdownMenuEntry(value: false, label: "False"),
+                DropdownMenuEntry(value: true, label: "True"),
+                DropdownMenuEntry(value: null, label: "All"),
+              ],
+              onSelected: (value) {
+                record = record.copyWith(archived: value);
+              },
+              initialSelection: record.archived,
+              text: "Archived",
+            ),
+            DatePickerWidget(
+              text: "Issued date",
+              firstDate: DateTime.now().subtract(
+                const Duration(days: 365 * 10),
+              ),
+              lastDate: DateTime.now().add(
+                const Duration(days: 365 * 10),
+              ),
+              onSelected: (value) {
+                record = record.copyWith(issuedAt: value);
+              },
+              initialValue: record.issuedAt,
+            ),
+            DatePickerWidget(
+              text: "Expired date",
+              firstDate: DateTime.now().subtract(
+                const Duration(days: 365 * 10),
+              ),
+              lastDate: DateTime.now().add(
+                const Duration(days: 365 * 10),
+              ),
+              onSelected: (value) {
+                record = record.copyWith(expiredAt: value);
+              },
+              initialValue: record.expiredAt,
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        // cancel
+        ElevatedButton.icon(
+          onPressed: () async {
+            final result = await showConfirmDialog(
+              context,
+              Text("Are you sure?"),
+              Text("Do you want to cancel?"),
+            );
+            if (!result) {
+              return;
+            }
+            if (!context.mounted) return;
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              FlightCrewRecordsRoute().go(context);
+            }
+          },
+          label: const Text('Cancel'),
+          icon: Icon(Icons.cancel_outlined),
+        ),
+        // apply
+        ElevatedButton.icon(
+          onPressed: () async {
+            final result = await showConfirmDialog(
+              context,
+              Text("Are you sure?"),
+              Text("Do you want to apply these changes?"),
+            );
+            if (!result) {
+              return;
+            }
+            if (this.record.name != record.name) {
+              await renameFlightCrewRecord(this.record, record.name);
+            }
+            await update(record);
+            ref.invalidate(flightCrewRecordsRepoProvider);
+            if (!context.mounted) return;
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              DocumentsRoute().go(context);
+            }
+          },
+          style: ButtonStyle(
+            // Change button background color
+            backgroundColor:
+                WidgetStateProperty.all<Color>(colorScheme.secondary),
+          ),
+          label: Text(
+            'Apply changes',
+            style: TextStyle(color: colorScheme.onSecondary),
+          ),
+          icon: Icon(
+            Icons.upload_file,
+            color: colorScheme.onSecondary,
+          ),
+        )
+      ],
+    );
   }
 }

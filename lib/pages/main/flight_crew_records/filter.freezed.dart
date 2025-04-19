@@ -20,6 +20,8 @@ mixin _$FlightCrewRecordFilterState {
   String get search;
   bool? get archived;
   DateTimeRange? get createdAt;
+  DateTimeRange? get issuedAt;
+  DateTimeRange? get expiredAt;
 
   /// Create a copy of FlightCrewRecordFilterState
   /// with the given fields replaced by the non-null parameter values.
@@ -42,16 +44,20 @@ mixin _$FlightCrewRecordFilterState {
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.issuedAt, issuedAt) ||
+                other.issuedAt == issuedAt) &&
+            (identical(other.expiredAt, expiredAt) ||
+                other.expiredAt == expiredAt));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, staff, category, search, archived, createdAt);
+  int get hashCode => Object.hash(runtimeType, staff, category, search,
+      archived, createdAt, issuedAt, expiredAt);
 
   @override
   String toString() {
-    return 'FlightCrewRecordFilterState(staff: $staff, category: $category, search: $search, archived: $archived, createdAt: $createdAt)';
+    return 'FlightCrewRecordFilterState(staff: $staff, category: $category, search: $search, archived: $archived, createdAt: $createdAt, issuedAt: $issuedAt, expiredAt: $expiredAt)';
   }
 }
 
@@ -67,7 +73,9 @@ abstract mixin class $FlightCrewRecordFilterStateCopyWith<$Res> {
       FlightCrewRecordCategory category,
       String search,
       bool? archived,
-      DateTimeRange? createdAt});
+      DateTimeRange? createdAt,
+      DateTimeRange? issuedAt,
+      DateTimeRange? expiredAt});
 }
 
 /// @nodoc
@@ -88,6 +96,8 @@ class _$FlightCrewRecordFilterStateCopyWithImpl<$Res>
     Object? search = null,
     Object? archived = freezed,
     Object? createdAt = freezed,
+    Object? issuedAt = freezed,
+    Object? expiredAt = freezed,
   }) {
     return _then(_self.copyWith(
       staff: null == staff
@@ -110,6 +120,14 @@ class _$FlightCrewRecordFilterStateCopyWithImpl<$Res>
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTimeRange?,
+      issuedAt: freezed == issuedAt
+          ? _self.issuedAt
+          : issuedAt // ignore: cast_nullable_to_non_nullable
+              as DateTimeRange?,
+      expiredAt: freezed == expiredAt
+          ? _self.expiredAt
+          : expiredAt // ignore: cast_nullable_to_non_nullable
+              as DateTimeRange?,
     ));
   }
 }
@@ -122,7 +140,9 @@ class _FlightCrewRecordFilterState extends FlightCrewRecordFilterState {
       required this.category,
       this.search = "",
       this.archived = false,
-      this.createdAt})
+      this.createdAt,
+      this.issuedAt,
+      this.expiredAt})
       : super._();
 
   @override
@@ -137,6 +157,10 @@ class _FlightCrewRecordFilterState extends FlightCrewRecordFilterState {
   final bool? archived;
   @override
   final DateTimeRange? createdAt;
+  @override
+  final DateTimeRange? issuedAt;
+  @override
+  final DateTimeRange? expiredAt;
 
   /// Create a copy of FlightCrewRecordFilterState
   /// with the given fields replaced by the non-null parameter values.
@@ -159,16 +183,20 @@ class _FlightCrewRecordFilterState extends FlightCrewRecordFilterState {
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.issuedAt, issuedAt) ||
+                other.issuedAt == issuedAt) &&
+            (identical(other.expiredAt, expiredAt) ||
+                other.expiredAt == expiredAt));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, staff, category, search, archived, createdAt);
+  int get hashCode => Object.hash(runtimeType, staff, category, search,
+      archived, createdAt, issuedAt, expiredAt);
 
   @override
   String toString() {
-    return 'FlightCrewRecordFilterState(staff: $staff, category: $category, search: $search, archived: $archived, createdAt: $createdAt)';
+    return 'FlightCrewRecordFilterState(staff: $staff, category: $category, search: $search, archived: $archived, createdAt: $createdAt, issuedAt: $issuedAt, expiredAt: $expiredAt)';
   }
 }
 
@@ -186,7 +214,9 @@ abstract mixin class _$FlightCrewRecordFilterStateCopyWith<$Res>
       FlightCrewRecordCategory category,
       String search,
       bool? archived,
-      DateTimeRange? createdAt});
+      DateTimeRange? createdAt,
+      DateTimeRange? issuedAt,
+      DateTimeRange? expiredAt});
 }
 
 /// @nodoc
@@ -207,6 +237,8 @@ class __$FlightCrewRecordFilterStateCopyWithImpl<$Res>
     Object? search = null,
     Object? archived = freezed,
     Object? createdAt = freezed,
+    Object? issuedAt = freezed,
+    Object? expiredAt = freezed,
   }) {
     return _then(_FlightCrewRecordFilterState(
       staff: null == staff
@@ -228,6 +260,14 @@ class __$FlightCrewRecordFilterStateCopyWithImpl<$Res>
       createdAt: freezed == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTimeRange?,
+      issuedAt: freezed == issuedAt
+          ? _self.issuedAt
+          : issuedAt // ignore: cast_nullable_to_non_nullable
+              as DateTimeRange?,
+      expiredAt: freezed == expiredAt
+          ? _self.expiredAt
+          : expiredAt // ignore: cast_nullable_to_non_nullable
               as DateTimeRange?,
     ));
   }

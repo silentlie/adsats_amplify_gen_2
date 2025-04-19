@@ -62,7 +62,7 @@ abstract mixin class $DocumentSortStateCopyWith<$Res> {
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Document) getField,
+      Comparable Function(Document document) getField,
       int rowsPerPage});
 }
 
@@ -96,7 +96,7 @@ class _$DocumentSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Document),
+              as Comparable Function(Document document),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ class _DocumentSortState implements DocumentSortState {
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable<dynamic> Function(Document) getField;
+  final Comparable Function(Document document) getField;
   @override
   @JsonKey()
   final int rowsPerPage;
@@ -170,7 +170,7 @@ abstract mixin class _$DocumentSortStateCopyWith<$Res>
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Document) getField,
+      Comparable Function(Document document) getField,
       int rowsPerPage});
 }
 
@@ -204,7 +204,7 @@ class __$DocumentSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Document),
+              as Comparable Function(Document document),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

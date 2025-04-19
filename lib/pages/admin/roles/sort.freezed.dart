@@ -62,7 +62,7 @@ abstract mixin class $RoleSortStateCopyWith<$Res> {
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Role) getField,
+      Comparable Function(Role role) getField,
       int rowsPerPage});
 }
 
@@ -96,7 +96,7 @@ class _$RoleSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Role),
+              as Comparable Function(Role role),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ class _RoleSortState implements RoleSortState {
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable<dynamic> Function(Role) getField;
+  final Comparable Function(Role role) getField;
   @override
   @JsonKey()
   final int rowsPerPage;
@@ -170,7 +170,7 @@ abstract mixin class _$RoleSortStateCopyWith<$Res>
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Role) getField,
+      Comparable Function(Role role) getField,
       int rowsPerPage});
 }
 
@@ -204,7 +204,7 @@ class __$RoleSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Role),
+              as Comparable Function(Role role),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

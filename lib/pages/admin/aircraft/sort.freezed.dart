@@ -62,7 +62,7 @@ abstract mixin class $AircraftSortStateCopyWith<$Res> {
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Aircraft) getField,
+      Comparable Function(Aircraft aircraft) getField,
       int rowsPerPage});
 }
 
@@ -96,7 +96,7 @@ class _$AircraftSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Aircraft),
+              as Comparable Function(Aircraft aircraft),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ class _AircraftSortState implements AircraftSortState {
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable<dynamic> Function(Aircraft) getField;
+  final Comparable Function(Aircraft aircraft) getField;
   @override
   @JsonKey()
   final int rowsPerPage;
@@ -170,7 +170,7 @@ abstract mixin class _$AircraftSortStateCopyWith<$Res>
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Aircraft) getField,
+      Comparable Function(Aircraft aircraft) getField,
       int rowsPerPage});
 }
 
@@ -204,7 +204,7 @@ class __$AircraftSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Aircraft),
+              as Comparable Function(Aircraft aircraft),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

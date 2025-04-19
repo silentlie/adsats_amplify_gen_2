@@ -62,7 +62,7 @@ abstract mixin class $CategorySortStateCopyWith<$Res> {
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Category) getField,
+      Comparable Function(Category category) getField,
       int rowsPerPage});
 }
 
@@ -96,7 +96,7 @@ class _$CategorySortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Category),
+              as Comparable Function(Category category),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ class _CategorySortState implements CategorySortState {
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable<dynamic> Function(Category) getField;
+  final Comparable Function(Category category) getField;
   @override
   @JsonKey()
   final int rowsPerPage;
@@ -170,7 +170,7 @@ abstract mixin class _$CategorySortStateCopyWith<$Res>
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Category) getField,
+      Comparable Function(Category category) getField,
       int rowsPerPage});
 }
 
@@ -204,7 +204,7 @@ class __$CategorySortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Category),
+              as Comparable Function(Category category),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

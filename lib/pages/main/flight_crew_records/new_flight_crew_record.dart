@@ -1,7 +1,11 @@
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/s3.dart';
+import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -18,6 +22,9 @@ class NewFlightCrewRecord extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
+    bool archived = false;
+    TemporalDateTime? issuedAt;
+    TemporalDateTime? expiredAt;
     return AlertDialog.adaptive(
       title: const Text(
         'Add Flight Crew Records',
@@ -26,21 +33,61 @@ class NewFlightCrewRecord extends ConsumerWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      content: Consumer(
-        builder: (context, ref, child) {
-          final selectedFiles = ref.watch(selectedFilesProvider);
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: selectedFiles.map((file) {
-              return Chip(
-                label: Text(file.name),
-                onDeleted: () {
-                  ref.read(selectedFilesProvider.notifier).removeFile(file);
-                },
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GlobalDropdownMenu(
+            entries: const [
+              DropdownMenuEntry(value: false, label: "False"),
+              DropdownMenuEntry(value: true, label: "True"),
+              DropdownMenuEntry(value: null, label: "All"),
+            ],
+            onSelected: (value) {
+              archived = value!;
+            },
+            initialSelection: archived,
+            text: "Archived",
+          ),
+          DatePickerWidget(
+            text: "Issued date",
+            firstDate: DateTime.now().subtract(
+              const Duration(days: 365 * 10),
+            ),
+            lastDate: DateTime.now().add(
+              const Duration(days: 365 * 10),
+            ),
+            onSelected: (value) {
+              issuedAt = value;
+            },
+          ),
+          DatePickerWidget(
+            text: "Expired date",
+            firstDate: DateTime.now().subtract(
+              const Duration(days: 365 * 10),
+            ),
+            lastDate: DateTime.now().add(
+              const Duration(days: 365 * 10),
+            ),
+            onSelected: (value) {
+              expiredAt = value;
+            },
+          ),
+          Consumer(
+            builder: (context, ref, child) {
+              final selectedFiles = ref.watch(selectedFilesProvider);
+              return Column(
+                children: selectedFiles.map((file) {
+                  return Chip(
+                    label: Text(file.name),
+                    onDeleted: () {
+                      ref.read(selectedFilesProvider.notifier).removeFile(file);
+                    },
+                  );
+                }).toList(),
               );
-            }).toList(),
-          );
-        },
+            },
+          )
+        ],
       ),
       actions: [
         // cancel
@@ -87,7 +134,7 @@ class NewFlightCrewRecord extends ConsumerWidget {
             final result = await showConfirmDialog(
               context,
               Text("Are you sure?"),
-              Text("Do you want to upload these documents?"),
+              Text("Do you want to upload these records?"),
             );
             if (!result) {
               return;
@@ -96,7 +143,11 @@ class NewFlightCrewRecord extends ConsumerWidget {
               files,
               staff,
               category,
+              archived,
+              issuedAt,
+              expiredAt,
             );
+            ref.invalidate(flightCrewRecordsRepoProvider);
             if (context.mounted) {
               Navigator.pop(context);
             }

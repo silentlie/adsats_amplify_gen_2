@@ -62,7 +62,7 @@ abstract mixin class $StaffSortStateCopyWith<$Res> {
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Staff) getField,
+      Comparable Function(Staff staff) getField,
       int rowsPerPage});
 }
 
@@ -96,7 +96,7 @@ class _$StaffSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Staff),
+              as Comparable Function(Staff staff),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ class _StaffSortState implements StaffSortState {
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable<dynamic> Function(Staff) getField;
+  final Comparable Function(Staff staff) getField;
   @override
   @JsonKey()
   final int rowsPerPage;
@@ -170,7 +170,7 @@ abstract mixin class _$StaffSortStateCopyWith<$Res>
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Staff) getField,
+      Comparable Function(Staff staff) getField,
       int rowsPerPage});
 }
 
@@ -204,7 +204,7 @@ class __$StaffSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Staff),
+              as Comparable Function(Staff staff),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

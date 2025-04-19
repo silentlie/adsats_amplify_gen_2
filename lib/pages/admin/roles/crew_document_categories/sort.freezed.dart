@@ -66,7 +66,8 @@ abstract mixin class $FlightCrewRecordsCategorySortStateCopyWith<$Res> {
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(FlightCrewRecordCategory) getField,
+      Comparable Function(FlightCrewRecordCategory flightCrewRecordCategory)
+          getField,
       int rowsPerPage});
 }
 
@@ -100,7 +101,8 @@ class _$FlightCrewRecordsCategorySortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(FlightCrewRecordCategory),
+              as Comparable Function(
+                  FlightCrewRecordCategory flightCrewRecordCategory),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -126,7 +128,8 @@ class _FlightCrewRecordsCategorySortState
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable<dynamic> Function(FlightCrewRecordCategory) getField;
+  final Comparable Function(FlightCrewRecordCategory flightCrewRecordCategory)
+      getField;
   @override
   @JsonKey()
   final int rowsPerPage;
@@ -178,7 +181,8 @@ abstract mixin class _$FlightCrewRecordsCategorySortStateCopyWith<$Res>
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(FlightCrewRecordCategory) getField,
+      Comparable Function(FlightCrewRecordCategory flightCrewRecordCategory)
+          getField,
       int rowsPerPage});
 }
 
@@ -212,7 +216,8 @@ class __$FlightCrewRecordsCategorySortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(FlightCrewRecordCategory),
+              as Comparable Function(
+                  FlightCrewRecordCategory flightCrewRecordCategory),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

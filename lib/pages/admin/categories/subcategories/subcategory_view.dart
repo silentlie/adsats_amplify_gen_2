@@ -9,9 +9,9 @@ import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class SubcategoryView extends ConsumerWidget {
   const SubcategoryView({
@@ -111,15 +111,23 @@ class SubcategoryView extends ConsumerWidget {
                   builder: (context, setState) {
                     return Column(
                       children: [
-                        GlobalMultiSelect<Staff>(
-                          text: "Accessible Staff",
-                          onConfirm: (p0) {
+                        MultiSelectFormField<Staff>(
+                          title: "Accessible Staff",
+                          items: value,
+                          toCard: (value) {
+                            return CheckListCard(
+                              value: value,
+                              title:
+                                  Text("${value.firstName} ${value.lastName}"),
+                            );
+                          },
+                          onChange: (options) {
                             staffSubcategories.removeWhere(
                               (ss) {
-                                return !p0.contains(ss.staff);
+                                return !options.contains(ss.staff);
                               },
                             );
-                            for (var staff in p0) {
+                            for (var staff in options) {
                               if (!staffSubcategories.any(
                                 (ss) {
                                   return ss.staff == staff;
@@ -136,12 +144,6 @@ class SubcategoryView extends ConsumerWidget {
                             }
                             setState(() {});
                           },
-                          items: value.map(
-                            (e) {
-                              return MultiSelectItem(
-                                  e, "${e.firstName} ${e.lastName}");
-                            },
-                          ).toList(),
                           initialValue: staffSubcategories.map(
                             (e) {
                               return e.staff!;

@@ -62,7 +62,7 @@ class FlightCrewRecordsDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            flightCrewRecord.createdAt != null
+            flightCrewRecord.issuedAt != null
                 ? DateFormat('dd/MM/yyyy').format(
                     flightCrewRecord.issuedAt!.getDateTimeInUtc(),
                   )
@@ -71,7 +71,7 @@ class FlightCrewRecordsDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            flightCrewRecord.createdAt != null
+            flightCrewRecord.expiredAt != null
                 ? DateFormat('dd/MM/yyyy').format(
                     flightCrewRecord.expiredAt!.getDateTimeInUtc(),
                   )

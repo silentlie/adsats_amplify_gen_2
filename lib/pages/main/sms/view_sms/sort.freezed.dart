@@ -62,7 +62,7 @@ abstract mixin class $NoticeSortStateCopyWith<$Res> {
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Notice) getField,
+      Comparable Function(Notice notice) getField,
       int rowsPerPage});
 }
 
@@ -96,7 +96,7 @@ class _$NoticeSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Notice),
+              as Comparable Function(Notice notice),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -121,7 +121,7 @@ class _NoticeSortState implements NoticeSortState {
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable<dynamic> Function(Notice) getField;
+  final Comparable Function(Notice notice) getField;
   @override
   @JsonKey()
   final int rowsPerPage;
@@ -170,7 +170,7 @@ abstract mixin class _$NoticeSortStateCopyWith<$Res>
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable<dynamic> Function(Notice) getField,
+      Comparable Function(Notice notice) getField,
       int rowsPerPage});
 }
 
@@ -204,7 +204,7 @@ class __$NoticeSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable<dynamic> Function(Notice),
+              as Comparable Function(Notice notice),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

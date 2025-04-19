@@ -186,7 +186,7 @@ class EditDocumentView extends ConsumerWidget {
                 final result = await showConfirmDialog(
                   context,
                   Text("Are you sure?"),
-                  Text("Do you want to upload these documents?"),
+                  Text("Do you want to apply these changes?"),
                 );
                 if (!result) {
                   return;

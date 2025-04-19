@@ -5,8 +5,8 @@ import 'package:adsats_amplify_gen_2/pages/main/sms/create_notice/state.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:multi_select_flutter/multi_select_flutter.dart';
 
 class NoticeRecipientsWidget extends ConsumerWidget {
   const NoticeRecipientsWidget({super.key});
@@ -29,14 +29,18 @@ class NoticeRecipientsWidget extends ConsumerWidget {
             child: AsyncValueWidget(
               value: ref.watch(listAircraftProvider()),
               data: (value) {
-                return GlobalMultiSelect<Aircraft>(
-                  text: "Aircraft",
-                  onConfirm: (p0) {
-                    notifier.updateNotice(aircraft: p0);
+                return MultiSelectFormField<Aircraft>(
+                  title: "Aircraft",
+                  items: value,
+                  toCard: (value) {
+                    return CheckListCard(
+                      value: value,
+                      title: Text(value.name),
+                    );
                   },
-                  items: value.map((e) {
-                    return MultiSelectItem(e, e.name);
-                  }).toList(),
+                  onSaved: (newValue) {
+                    notifier.updateNotice(aircraft: newValue);
+                  },
                   initialValue: state.aircraft,
                 );
               },
@@ -56,16 +60,18 @@ class NoticeRecipientsWidget extends ConsumerWidget {
                   ).toList());
                   return Text("This notice will be sent to Safety Officers");
                 }
-                return GlobalMultiSelect<Role>(
-                  text: "Roles",
-                  onConfirm: (p0) {
-                    notifier.updateNotice(roles: p0);
+                return MultiSelectFormField<Role>(
+                  title: "Roles",
+                  items: value,
+                  toCard: (value) {
+                    return CheckListCard(
+                      value: value,
+                      title: Text(value.name),
+                    );
                   },
-                  items: value.map(
-                    (e) {
-                      return MultiSelectItem(e, e.name);
-                    },
-                  ).toList(),
+                  onSaved: (newValue) {
+                    notifier.updateNotice(roles: newValue);
+                  },
                 );
               },
             ),
@@ -75,17 +81,20 @@ class NoticeRecipientsWidget extends ConsumerWidget {
             child: AsyncValueWidget(
               value: ref.watch(listStaffProvider()),
               data: (value) {
-                return GlobalMultiSelect<Staff>(
-                  text: "Recipients",
-                  onConfirm: (p0) {
-                    notifier.updateNotice(recipients: p0);
+                return MultiSelectFormField<Staff>(
+                  title: "Recipients",
+                  items: value,
+                  toCard: (value) {
+                    return CheckListCard(
+                      value: value,
+                      title: Text("${value.firstName} ${value.lastName}"),
+                    );
                   },
-                  items: value.map(
-                    (e) {
-                      return MultiSelectItem(e, "${e.firstName} ${e.lastName}");
-                    },
-                  ).toList(),
+                  onSaved: (newValue) {
+                    notifier.updateNotice(recipients: newValue);
+                  },
                   initialValue: state.recipients,
+
                 );
               },
             ),

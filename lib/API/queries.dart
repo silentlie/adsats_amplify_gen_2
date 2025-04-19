@@ -239,6 +239,15 @@ query ListFlightCrewRecords(\$filter: ModelFlightCrewRecordFilterInput) {
       archived
       createdAt
       updatedAt
+      issuedAt
+      expiredAt
+      staff {
+        id
+        firstName
+        lastName
+        email
+        archived
+      }
     }
   }
 }

@@ -33,6 +33,7 @@ Future<void> uploadFiles(
   Staff staff,
   Subcategory subcategory,
   List<Aircraft> aircraft,
+  bool archived,
   TemporalDateTime? issuedAt,
   TemporalDateTime? expiredAt,
 ) async {
@@ -43,6 +44,7 @@ Future<void> uploadFiles(
         staff,
         subcategory,
         aircraft,
+        archived,
         issuedAt,
         expiredAt,
       ),
@@ -55,13 +57,14 @@ Future<void> uploadFile(
   Staff staff,
   Subcategory subcategory,
   List<Aircraft> aircraft,
+  bool archived,
   TemporalDateTime? issuedAt,
   TemporalDateTime? expiredAt,
 ) async {
   try {
     final document = Document(
       name: file.name,
-      archived: false,
+      archived: archived,
       staff: staff,
       subcategory: subcategory,
       issuedAt: issuedAt,

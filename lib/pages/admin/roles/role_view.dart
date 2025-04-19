@@ -9,9 +9,9 @@ import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:multi_select_flutter/util/multi_select_item.dart';
 
 class RoleView extends ConsumerWidget {
   const RoleView({super.key, this.role});
@@ -72,16 +72,18 @@ class RoleView extends ConsumerWidget {
             AsyncValueWidget(
               value: ref.watch(listStaffProvider()),
               data: (value) {
-                return GlobalMultiSelect<Staff>(
-                  text: "Staff",
-                  onConfirm: (p0) {
-                    staff = p0;
+                return MultiSelectFormField<Staff>(
+                  title: "Staff",
+                  items: value,
+                  toCard: (value) {
+                    return CheckListCard(
+                      value: value,
+                      title: Text("${value.firstName} ${value.lastName}"),
+                    );
                   },
-                  items: value.map(
-                    (e) {
-                      return MultiSelectItem(e, "${e.firstName} ${e.lastName}");
-                    },
-                  ).toList(),
+                  onChange: (newValue) {
+                    staff = newValue;
+                  },
                   initialValue: staff,
                 );
               },

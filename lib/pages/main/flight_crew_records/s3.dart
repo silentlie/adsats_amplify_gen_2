@@ -34,6 +34,9 @@ Future<void> uploadFlightCrewRecordsFiles(
   List<PlatformFile> selectedFiles,
   Staff staff,
   FlightCrewRecordCategory category,
+  bool archived,
+  TemporalDateTime? issuedAt,
+  TemporalDateTime? expiredAt,
 ) async {
   await Future.wait(
     selectedFiles.map(
@@ -41,6 +44,9 @@ Future<void> uploadFlightCrewRecordsFiles(
         file,
         staff,
         category,
+        archived,
+        issuedAt,
+        expiredAt,
       ),
     ),
   );
@@ -50,23 +56,27 @@ Future<void> uploadFlightCrewRecordFile(
   PlatformFile file,
   Staff staff,
   FlightCrewRecordCategory category,
+  bool archived,
+  TemporalDateTime? issuedAt,
+  TemporalDateTime? expiredAt,
 ) async {
   try {
     final flightCrewRecord = FlightCrewRecord(
       name: file.name,
-      archived: false,
+      archived: archived,
       staff: staff,
       category: category,
+      issuedAt: issuedAt,
+      expiredAt: expiredAt,
     );
-
-    // Create the document and get its ID
+    // Create the flightCrewRecord and get its ID
     final response = await Amplify.API
         .mutate(request: ModelMutations.create(flightCrewRecord))
         .response;
 
     String id = response.data!.id;
-    debugPrint("document.id: $id");
-    // Concurrently upload the file and create AircraftDocument entries
+    debugPrint("flightCrewRecord.id: $id");
+    // Concurrently upload the file and create AircraftFlightCrewRecord entries
     final result = await Amplify.Storage.uploadFile(
       localFile: AWSFile.fromStream(file.readStream!, size: file.size),
       path: StoragePath.fromString(
@@ -88,9 +98,9 @@ Future<void> uploadFlightCrewRecordFile(
 
 Future<void> archive(FlightCrewRecord flightCrewRecord) async {
   try {
-    final newDocument =
+    final newFlightCrewRecord =
         flightCrewRecord.copyWith(archived: !flightCrewRecord.archived);
-    final request = ModelMutations.update(newDocument);
+    final request = ModelMutations.update(newFlightCrewRecord);
     final response = await Amplify.API.mutate(request: request).response;
     final data = response.data;
     if (data == null) {
@@ -127,6 +137,35 @@ Future<void> deleteFlightCrewRecord(FlightCrewRecord flightCrewRecord) async {
   } on ApiException catch (e) {
     debugPrint(
         'delete Flight Crew Records in graphQL/Appsync failed: ${e.message}');
+  } catch (e) {
+    debugPrint('Unknown Error: $e');
+  }
+}
+
+Future<void> renameFlightCrewRecord(
+    FlightCrewRecord flightCrewRecord, String newName) async {
+  try {
+    await Amplify.Storage.copy(
+      source: StoragePath.fromString(
+          'flightCrewRecords/${flightCrewRecord.id}/${flightCrewRecord.name}'),
+      destination: StoragePath.fromString(
+          'flightCrewRecords/${flightCrewRecord.id}/$newName'),
+    ).result.then(
+      (value) async {
+        await Amplify.Storage.remove(
+          path: StoragePath.fromString(
+              'flightCrewRecords/${flightCrewRecord.id}/${flightCrewRecord.name}'),
+        ).result;
+        // print('Removed file: ${result.removedItem.path}');
+        return value;
+      },
+    );
+    // print('Copy file: ${result.url}');
+  } on StorageException catch (e) {
+    debugPrint('rename flightCrewRecord in s3 failed: ${e.message}');
+  } on ApiException catch (e) {
+    debugPrint(
+        'rename flightCrewRecord in graphQL/Appsync failed: ${e.message}');
   } catch (e) {
     debugPrint('Unknown Error: $e');
   }
