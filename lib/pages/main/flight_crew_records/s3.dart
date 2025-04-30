@@ -37,6 +37,7 @@ Future<void> uploadFlightCrewRecordsFiles(
   bool archived,
   TemporalDateTime? issuedAt,
   TemporalDateTime? expiredAt,
+  void Function(String fileName, double progress) onProgressUpdate,
 ) async {
   await Future.wait(
     selectedFiles.map(
@@ -47,6 +48,7 @@ Future<void> uploadFlightCrewRecordsFiles(
         archived,
         issuedAt,
         expiredAt,
+        onProgressUpdate
       ),
     ),
   );
@@ -59,6 +61,7 @@ Future<void> uploadFlightCrewRecordFile(
   bool archived,
   TemporalDateTime? issuedAt,
   TemporalDateTime? expiredAt,
+  void Function(String fileName, double progress) onProgressUpdate,
 ) async {
   try {
     final flightCrewRecord = FlightCrewRecord(
@@ -82,8 +85,7 @@ Future<void> uploadFlightCrewRecordFile(
       path: StoragePath.fromString(
           "flightCrewRecords/${staff.id}/$id/${file.name}"),
       onProgress: (progress) {
-        // Optional debug print for progress
-        debugPrint('Fraction completed: ${progress.fractionCompleted}');
+        onProgressUpdate(file.name, progress.fractionCompleted);
       },
     ).result;
     debugPrint('Successfully uploaded file: ${result.uploadedItem.path}');

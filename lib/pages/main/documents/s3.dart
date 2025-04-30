@@ -36,6 +36,7 @@ Future<void> uploadFiles(
   bool archived,
   TemporalDateTime? issuedAt,
   TemporalDateTime? expiredAt,
+  void Function(String fileName, double progress) onProgressUpdate,
 ) async {
   await Future.wait(
     selectedFiles.map(
@@ -47,6 +48,7 @@ Future<void> uploadFiles(
         archived,
         issuedAt,
         expiredAt,
+        onProgressUpdate,
       ),
     ),
   );
@@ -60,6 +62,7 @@ Future<void> uploadFile(
   bool archived,
   TemporalDateTime? issuedAt,
   TemporalDateTime? expiredAt,
+  void Function(String fileName, double progress) onProgressUpdate,
 ) async {
   try {
     final document = Document(
@@ -84,8 +87,7 @@ Future<void> uploadFile(
       localFile: AWSFile.fromStream(file.readStream!, size: file.size),
       path: StoragePath.fromString("documents/$id/${file.name}"),
       onProgress: (progress) {
-        // Optional debug print for progress
-        debugPrint('Fraction completed: ${progress.fractionCompleted}');
+        onProgressUpdate(file.name, progress.fractionCompleted);
       },
     ).result;
 
