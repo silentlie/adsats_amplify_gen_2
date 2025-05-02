@@ -1,10 +1,10 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/edit_flight_crew_record_view.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class FlightCrewRecordsDataSource extends DataTableSource {
   FlightCrewRecordsDataSource({
@@ -62,29 +62,17 @@ class FlightCrewRecordsDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            flightCrewRecord.issuedAt != null
-                ? DateFormat('dd/MM/yyyy').format(
-                    flightCrewRecord.issuedAt!.getDateTimeInUtc(),
-                  )
-                : "",
+            toDateString(flightCrewRecord.issuedAt?.getDateTimeInUtc())
           ),
         ),
         DataCell(
           getCenterText(
-            flightCrewRecord.expiredAt != null
-                ? DateFormat('dd/MM/yyyy').format(
-                    flightCrewRecord.expiredAt!.getDateTimeInUtc(),
-                  )
-                : "",
+            toDateString(flightCrewRecord.expiredAt?.getDateTimeInUtc())
           ),
         ),
         DataCell(
           getCenterText(
-            flightCrewRecord.createdAt != null
-                ? DateFormat('dd/MM/yyyy').format(
-                    flightCrewRecord.createdAt!.getDateTimeInUtc(),
-                  )
-                : "",
+            toDateString(flightCrewRecord.createdAt?.getDateTimeInUtc())
           ),
         ),
         DataCell(

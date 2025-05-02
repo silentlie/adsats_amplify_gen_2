@@ -1,10 +1,10 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/staff_view.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class StaffDataSource extends DataTableSource {
   StaffDataSource({required this.sortedData, required this.context});
@@ -74,11 +74,7 @@ class StaffDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            staff.createdAt != null
-                ? DateFormat('dd/MM/yyyy').format(
-                    staff.createdAt!.getDateTimeInUtc(),
-                  )
-                : "",
+            toDateString(staff.createdAt?.getDateTimeInUtc())
           ),
         ),
         DataCell(

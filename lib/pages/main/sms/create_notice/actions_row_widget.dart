@@ -80,7 +80,7 @@ class ActionsRowWidget extends ConsumerWidget {
                     .read(selectedFilesProvider.notifier)
                     .addFiles(filePickerResult?.files ?? []);
               },
-              label: const Text("Pick file"),
+              label: const Text("Attachments Documents"),
               icon: Icon(Icons.description_outlined),
             ),
           if (isEditMode)

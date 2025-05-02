@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/header.dart';
@@ -14,7 +15,6 @@ import 'package:adsats_amplify_gen_2/widgets/loading_view.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 
 class DocumentsView extends ConsumerWidget {
   const DocumentsView({
@@ -206,9 +206,7 @@ class OldDocumentsView extends ConsumerWidget {
               ),
               subtitle: Text([
                 document.archived ? "Archived" : "Active",
-                DateFormat('dd/MM/yyyy').format(
-                  document.createdAt!.getDateTimeInUtc(),
-                ),
+                toDateString(document.createdAt?.getDateTimeInUtc()),
                 if (document.staff != null)
                   "${document.staff!.firstName} ${document.staff!.lastName}",
                 ...document.aircraft!.map(

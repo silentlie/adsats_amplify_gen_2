@@ -1,11 +1,11 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/role_view.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class RoleDataSource extends DataTableSource {
   RoleDataSource({required this.sortedData, required this.context});
@@ -64,11 +64,7 @@ class RoleDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            role.createdAt != null
-                ? DateFormat('dd/MM/yyyy').format(
-                    role.createdAt!.getDateTimeInUtc(),
-                  )
-                : "",
+            toDateString(role.createdAt?.getDateTimeInUtc())
           ),
         ),
         DataCell(

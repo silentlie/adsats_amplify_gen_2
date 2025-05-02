@@ -1,10 +1,10 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
 import 'package:adsats_amplify_gen_2/models/Subcategory.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/subcategory_view.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class SubcategoryDataSource extends DataTableSource {
   SubcategoryDataSource({required this.sortedData, required this.context});
@@ -62,11 +62,7 @@ class SubcategoryDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            subcategory.createdAt != null
-                ? DateFormat('dd/MM/yyyy').format(
-                    subcategory.createdAt!.getDateTimeInUtc(),
-                  )
-                : "",
+            toDateString(subcategory.createdAt?.getDateTimeInUtc())
           ),
         ),
         DataCell(

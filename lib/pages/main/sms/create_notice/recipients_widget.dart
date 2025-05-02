@@ -114,7 +114,7 @@ class NoticeRecipientsWidget extends ConsumerWidget {
                         child: Chip(label: Text(e.name)),
                       ),
                     ),
-                    if (state.aircraft.isEmpty) Text("None"),
+                    if (state.aircraft.isEmpty) Text("Nil"),
                   ],
                 ),
               ),
@@ -132,7 +132,7 @@ class NoticeRecipientsWidget extends ConsumerWidget {
                         child:
                             Chip(label: Text("${e.firstName} ${e.lastName}")),
                       )),
-                  if (state.recipients.isEmpty) Text("None"),
+                  if (state.recipients.isEmpty) Text("Nil"),
                 ],
               ),
             ),

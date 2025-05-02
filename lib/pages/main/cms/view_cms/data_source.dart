@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/view_cms/actions.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class ReportDataSource extends DataTableSource {
   ReportDataSource({
@@ -85,11 +85,7 @@ class ReportDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            report.reportedAt != null
-                ? DateFormat('dd/MM/yyyy').format(
-                    report.reportedAt!.getDateTimeInUtc(),
-                  )
-                : "",
+            toDateString(report.reportedAt?.getDateTimeInUtc())
           ),
         ),
         DataCell(

@@ -74,7 +74,7 @@ class ReportActionsRow extends ConsumerWidget {
                     .read(selectedFilesProvider.notifier)
                     .addFiles(filePickerResult?.files ?? []);
               },
-              label: const Text("Pick file"),
+              label: const Text("Attached Documents"),
               icon: Icon(Icons.description_outlined),
             ),
           if (isEditMode)

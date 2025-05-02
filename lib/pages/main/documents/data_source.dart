@@ -1,10 +1,10 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/edit_document_view.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class DocumentDataSource extends DataTableSource {
   DocumentDataSource({
@@ -57,31 +57,13 @@ class DocumentDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(
-            document.issuedAt != null
-                ? DateFormat('dd/MM/yyyy').format(
-                    document.issuedAt!.getDateTimeInUtc(),
-                  )
-                : "",
-          ),
+          getCenterText(toDateString(document.issuedAt?.getDateTimeInUtc())),
         ),
         DataCell(
-          getCenterText(
-            document.expiredAt != null
-                ? DateFormat('dd/MM/yyyy').format(
-                    document.expiredAt!.getDateTimeInUtc(),
-                  )
-                : "",
-          ),
+          getCenterText(toDateString(document.expiredAt?.getDateTimeInUtc())),
         ),
         DataCell(
-          getCenterText(
-            document.createdAt != null
-                ? DateFormat('dd/MM/yyyy').format(
-                    document.createdAt!.getDateTimeInUtc(),
-                  )
-                : "",
-          ),
+          getCenterText(toDateString(document.createdAt?.getDateTimeInUtc())),
         ),
         DataCell(
           Center(

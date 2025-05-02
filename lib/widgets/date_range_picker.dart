@@ -1,5 +1,5 @@
+import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class DateTimeRangePicker extends StatefulWidget {
   const DateTimeRangePicker({
@@ -55,8 +55,8 @@ class _DateTimeRangePickerState extends State<DateTimeRangePicker> {
     if (_dateTimeRange == null) {
       return widget.text;
     } else {
-      final start = DateFormat('dd/MM/yyyy').format(_dateTimeRange!.start);
-      final end = DateFormat('dd/MM/yyyy').format(_dateTimeRange!.end);
+      final start = toDateString(_dateTimeRange!.start);
+      final end = toDateString(_dateTimeRange!.end);
       return "$start - $end";
     }
   }

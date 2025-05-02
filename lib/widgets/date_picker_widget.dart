@@ -1,6 +1,6 @@
+import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class DatePickerWidget extends StatefulWidget {
   const DatePickerWidget({
@@ -58,10 +58,6 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
         ),
       ),
     );
-  }
-
-  String toDateString(DateTime? date) {
-    return date != null ? DateFormat('dd/MM/yyyy').format(date) : "";
   }
 
   TemporalDateTime? toTemporalDateTime(DateTime? date) {

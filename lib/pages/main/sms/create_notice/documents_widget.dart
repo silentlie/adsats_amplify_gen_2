@@ -21,8 +21,8 @@ class NoticeDocumentsWidget extends ConsumerWidget {
       (value) => value.editMode,
     ));
     final children = <Widget>[
-      Text("Documents: "),
-      if (newFiles.isEmpty && uploadedFiles.isEmpty) Text("None"),
+      Text("Documents Attached: "),
+      if (newFiles.isEmpty && uploadedFiles.isEmpty) Text("Nil"),
       ...uploadedFiles.map(
         (document) {
           return Padding(

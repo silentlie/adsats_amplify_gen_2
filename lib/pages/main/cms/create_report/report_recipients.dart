@@ -23,7 +23,7 @@ class ReportRecipients extends ConsumerWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Chip(label: Text("${e.firstName} ${e.lastName}")),
               )),
-          if (state.recipients.isEmpty) Text("None"),
+          if (state.recipients.isEmpty) Text("Nil"),
         ],
       ),
     );
