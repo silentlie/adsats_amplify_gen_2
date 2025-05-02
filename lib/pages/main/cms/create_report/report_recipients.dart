@@ -11,7 +11,7 @@ class ReportRecipients extends ConsumerWidget {
       (value) => value.editMode,
     ));
     if (editMode) {
-      return Text("This report will be sent to Quality Managers");
+      return Text("This report will be sent to Compliance Managers");
     }
     final state = ref.read(reportNotifierProvider);
     return SingleChildScrollView(

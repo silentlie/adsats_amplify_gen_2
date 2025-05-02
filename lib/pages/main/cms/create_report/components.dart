@@ -82,6 +82,9 @@ class DiscrepanciesWidget extends ConsumerWidget {
             initialValue: details["peding_comment"],
             enabled: isEditMode,
             maxLines: 3,
+            validator: (string) {
+              return null;
+            },
           ),
         if (!isDiscrepanciesFound)
           GlobalTextFormField(

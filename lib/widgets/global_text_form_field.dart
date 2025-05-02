@@ -16,6 +16,7 @@ class GlobalTextFormField extends StatelessWidget {
     this.minLines,
     this.decoration,
     this.padding = const EdgeInsets.all(8.0),
+    this.validator,
   });
   final String labelText;
   final String? initialValue;
@@ -30,6 +31,7 @@ class GlobalTextFormField extends StatelessWidget {
   final int? minLines;
   final InputDecoration? decoration;
   final EdgeInsetsGeometry padding;
+  final String? Function(String? string)? validator;
 
   String? validatorTextFormField(String? value) {
     final RegExp emailRegExp = RegExp(
@@ -64,7 +66,7 @@ class GlobalTextFormField extends StatelessWidget {
         readOnly: readOnly,
         minLines: minLines,
         maxLines: maxLines,
-        validator: validatorTextFormField,
+        validator: validator ?? validatorTextFormField,
         controller: controller,
         buildCounter: (context,
             {required currentLength, required isFocused, required maxLength}) {

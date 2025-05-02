@@ -51,7 +51,7 @@ class FlightCrewRecordSort extends _$FlightCrewRecordSort {
 sealed class FlightCrewRecordSortState with _$FlightCrewRecordSortState {
   factory FlightCrewRecordSortState({
     @Default(false) bool sortAscending,
-    @Default(3) int sortColumnIndex,
+    @Default(0) int sortColumnIndex,
     required Comparable Function(FlightCrewRecord flightCrewRecord) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
   }) = _FlightCrewRecordSortState;

@@ -39,7 +39,7 @@ class FlightCrewRecordsDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(flightCrewRecord.name),
+          Text(flightCrewRecord.name),
         ),
         DataCell(
           Center(

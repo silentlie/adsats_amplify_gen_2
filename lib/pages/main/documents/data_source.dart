@@ -37,7 +37,7 @@ class DocumentDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(document.name),
+          Text(document.name),
         ),
         DataCell(
           Center(

@@ -40,7 +40,7 @@ class HomePage extends ConsumerWidget {
                 ),
                 if (notificationsWidgets.isEmpty)
                   const ListTile(
-                    title: Text("There is no pending notice"),
+                    title: Text("There are no pending notices"),
                   ),
                 ...notificationsWidgets,
                 TextButton.icon(
@@ -68,11 +68,6 @@ class HomePage extends ConsumerWidget {
                 ),
                 Wrap(
                   children: [
-                    NavigateIconButton(
-                      icon: HomeRoute().icon.icon!,
-                      name: HomeRoute().label,
-                      onPressed: () => HomeRoute().go(context),
-                    ),
                     NavigateIconButton(
                       icon: DocumentsRoute().icon.icon!,
                       name: DocumentsRoute().label,

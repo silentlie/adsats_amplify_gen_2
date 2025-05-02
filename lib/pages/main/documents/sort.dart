@@ -51,7 +51,7 @@ class DocumentSort extends _$DocumentSort {
 sealed class DocumentSortState with _$DocumentSortState {
   factory DocumentSortState({
     @Default(false) bool sortAscending,
-    @Default(3) int sortColumnIndex,
+    @Default(0) int sortColumnIndex,
     required Comparable Function(Document document) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
   }) = _DocumentSortState;
