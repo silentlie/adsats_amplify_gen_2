@@ -21,7 +21,6 @@ class SessionDataSource extends DataTableSource {
   @override
   DataRow2 getRow(int index) {
     final session = sortedData[index];
-    final formattedDateTime = DateFormat('yyyy-MM-dd HH:mm:ss zzz');
     final startTime = session.createdAt!.getDateTimeInUtc();
     final endTime = session.updatedAt!.getDateTimeInUtc();
     final duration = endTime.difference(startTime);
@@ -29,10 +28,10 @@ class SessionDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(formattedDateTime.format(startTime)),
+          getCenterText(formatDateTimeUTC(startTime)),
         ),
         DataCell(
-          getCenterText(formattedDateTime.format(endTime)),
+          getCenterText(formatDateTimeUTC(endTime)),
         ),
         DataCell(
           getCenterText(
@@ -41,5 +40,16 @@ class SessionDataSource extends DataTableSource {
         ),
       ],
     );
+  }
+
+  String formatDateTimeUTC(DateTime dateTime) {
+    final utc = dateTime.toUtc();
+
+    final day = DateFormat('dd').format(utc);
+    final month = DateFormat('MMM', 'en_US').format(utc).toUpperCase();
+    final year = DateFormat('yyyy').format(utc);
+    final time = DateFormat('HH:mm:ss').format(utc);
+
+    return '$day$month$year $time UTC';
   }
 }
