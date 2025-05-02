@@ -127,12 +127,15 @@ class FlightCrewRecordsView extends ConsumerWidget {
             columnSpacing: 0,
             empty: const Text("There is nothing"),
             initialFirstRowIndex: 0,
-            rowsPerPage: sortState.rowsPerPage,
+            rowsPerPage: sortState.rowsPerPage * 100,
             availableRowsPerPage: [
               sortState.rowsPerPage,
               sortState.rowsPerPage * 2,
               sortState.rowsPerPage * 5,
               sortState.rowsPerPage * 10,
+              sortState.rowsPerPage * 20,
+              sortState.rowsPerPage * 50,
+              sortState.rowsPerPage * 100,
             ],
             onRowsPerPageChanged: (value) {
               // No need to wrap in setState, behave diff in this package

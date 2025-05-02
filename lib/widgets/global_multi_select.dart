@@ -2,7 +2,6 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 
-
 class MultiSelectFormField<T extends Model> extends FormField<List<T>> {
   MultiSelectFormField({
     super.key,
@@ -191,7 +190,10 @@ class _MultiSelectFormFieldContent<T extends Model> extends StatelessWidget {
               icon: Icon(Icons.arrow_circle_left_outlined),
             ),
             ElevatedButton.icon(
-              onPressed: () => ctr.deselectAll(),
+              onPressed: () {
+                ctr.deselectAll();
+                _updateSelection([]);
+              },
               style: ElevatedButton.styleFrom(
                 foregroundColor: theme.colorScheme.onSurface,
               ),
@@ -199,7 +201,10 @@ class _MultiSelectFormFieldContent<T extends Model> extends StatelessWidget {
               icon: Icon(Icons.remove_done_outlined),
             ),
             ElevatedButton.icon(
-              onPressed: () => ctr.selectAll(),
+              onPressed: () {
+                ctr.selectAll();
+                _updateSelection(items);
+              },
               style: ElevatedButton.styleFrom(
                 foregroundColor: theme.colorScheme.primary,
                 backgroundColor: theme.colorScheme.primaryContainer,

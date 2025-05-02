@@ -95,6 +95,9 @@ class DiscrepanciesWidget extends ConsumerWidget {
             initialValue: details["comments"],
             enabled: isEditMode,
             minLines: 3,
+            validator: (string) {
+              return null;
+            },
           ),
       ],
     );
