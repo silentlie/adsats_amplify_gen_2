@@ -24,7 +24,7 @@ class SessionDataSource extends DataTableSource {
     final formattedDateTime = DateFormat('yyyy-MM-dd HH:mm:ss zzz');
     final startTime = session.createdAt!.getDateTimeInUtc();
     final endTime = session.updatedAt!.getDateTimeInUtc();
-    final duration = startTime.difference(endTime);
+    final duration = endTime.difference(startTime);
     return DataRow2.byIndex(
       index: index,
       cells: [
@@ -32,12 +32,12 @@ class SessionDataSource extends DataTableSource {
           getCenterText(formattedDateTime.format(startTime)),
         ),
         DataCell(
+          getCenterText(formattedDateTime.format(endTime)),
+        ),
+        DataCell(
           getCenterText(
             "${duration.inHours}h ${duration.inMinutes.remainder(60)}m",
           ),
-        ),
-        DataCell(
-          getCenterText(formattedDateTime.format(endTime)),
         ),
       ],
     );

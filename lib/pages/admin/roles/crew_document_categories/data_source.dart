@@ -38,7 +38,7 @@ class FlightCrewRecordsCategoryDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(flightCrewRecordsCategory.name),
+          Text(flightCrewRecordsCategory.name),
         ),
         DataCell(
           getCenterText(flightCrewRecordsCategory.description ?? ""),

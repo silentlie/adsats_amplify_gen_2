@@ -40,7 +40,7 @@ class RoleDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(role.name),
+          Text(role.name),
         ),
         DataCell(
           getCenterText(role.description ?? ""),

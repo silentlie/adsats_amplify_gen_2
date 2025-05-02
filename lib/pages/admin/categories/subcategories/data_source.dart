@@ -37,7 +37,7 @@ class SubcategoryDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(subcategory.name),
+          Text(subcategory.name),
         ),
         DataCell(
           getCenterText(subcategory.description ?? ""),

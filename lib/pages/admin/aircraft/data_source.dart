@@ -36,7 +36,7 @@ class AircraftDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(aircraft.name),
+          Text(aircraft.name),
         ),
         DataCell(
           getCenterText(aircraft.description ?? ""),

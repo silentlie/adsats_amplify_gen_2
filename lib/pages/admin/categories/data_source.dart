@@ -40,7 +40,7 @@ class CategoryDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(category.name),
+          Text(category.name),
         ),
         DataCell(
           getCenterText(category.description ?? ""),

@@ -25,7 +25,7 @@ class KPIDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(staff.name),
+          Text(staff.name),
         ),
         DataCell(
           Center(

@@ -33,7 +33,7 @@ class NoticeDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(notice.subject),
+          Text(notice.subject),
         ),
         DataCell(
           getCenterText(notice.type!.name.replaceAll('_', ' ')),

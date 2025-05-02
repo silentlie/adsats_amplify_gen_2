@@ -37,7 +37,7 @@ class StaffDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(staff.firstName),
+          Text(staff.firstName),
         ),
         DataCell(
           getCenterText(staff.lastName),

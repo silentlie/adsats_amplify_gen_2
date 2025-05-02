@@ -35,7 +35,7 @@ class ReportDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(report.subject),
+          Text(report.subject),
         ),
         DataCell(
           getCenterText(report.type!.name.replaceAll('_', ' ')),
