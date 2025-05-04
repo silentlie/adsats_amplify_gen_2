@@ -73,9 +73,7 @@ class StaffDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(
-            toDateString(staff.createdAt?.getDateTimeInUtc())
-          ),
+          getCenterText(toDateString(staff.createdAt?.getDateTimeInUtc())),
         ),
         DataCell(
           Center(

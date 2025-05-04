@@ -41,15 +41,8 @@ Future<void> uploadFlightCrewRecordsFiles(
 ) async {
   await Future.wait(
     selectedFiles.map(
-      (file) => uploadFlightCrewRecordFile(
-        file,
-        staff,
-        category,
-        archived,
-        issuedAt,
-        expiredAt,
-        onProgressUpdate
-      ),
+      (file) => uploadFlightCrewRecordFile(file, staff, category, archived,
+          issuedAt, expiredAt, onProgressUpdate),
     ),
   );
 }

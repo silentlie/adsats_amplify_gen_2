@@ -100,7 +100,9 @@ class FlightCrewRecordsHeader extends ConsumerWidget {
             IconButton(
               icon: Icon(Icons.cancel_outlined),
               onPressed: () {
-                context.canPop() ? context.pop() : FlightCrewRecordsRoute().go(context);
+                context.canPop()
+                    ? context.pop()
+                    : FlightCrewRecordsRoute().go(context);
               },
             ),
           ],

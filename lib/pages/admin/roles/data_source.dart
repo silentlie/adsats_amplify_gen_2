@@ -63,9 +63,7 @@ class RoleDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(
-            toDateString(role.createdAt?.getDateTimeInUtc())
-          ),
+          getCenterText(toDateString(role.createdAt?.getDateTimeInUtc())),
         ),
         DataCell(
           Center(

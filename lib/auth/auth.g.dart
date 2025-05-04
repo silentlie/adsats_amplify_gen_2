@@ -80,7 +80,8 @@ final isSafetyOfficerProvider = AutoDisposeProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef IsSafetyOfficerRef = AutoDisposeProviderRef<bool>;
-String _$isComplianceManagerHash() => r'8360bb921e6ba37c508682f4d751756ef98fcc70';
+String _$isComplianceManagerHash() =>
+    r'8360bb921e6ba37c508682f4d751756ef98fcc70';
 
 /// See also [isComplianceManager].
 @ProviderFor(isComplianceManager)

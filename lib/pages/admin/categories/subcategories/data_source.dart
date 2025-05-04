@@ -62,8 +62,7 @@ class SubcategoryDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            toDateString(subcategory.createdAt?.getDateTimeInUtc())
-          ),
+              toDateString(subcategory.createdAt?.getDateTimeInUtc())),
         ),
         DataCell(
           Center(

@@ -63,9 +63,8 @@ class FlightCrewRecordsCategoryDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(
-            toDateString(flightCrewRecordsCategory.createdAt?.getDateTimeInUtc())
-          ),
+          getCenterText(toDateString(
+              flightCrewRecordsCategory.createdAt?.getDateTimeInUtc())),
         ),
         DataCell(
           Center(
