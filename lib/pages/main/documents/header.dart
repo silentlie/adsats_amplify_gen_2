@@ -2,9 +2,11 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/new_document.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class DocumentHeader extends ConsumerWidget {
   const DocumentHeader({
@@ -81,7 +83,13 @@ class DocumentHeader extends ConsumerWidget {
                 filterNotifier.search(value);
               },
               initialValue: filter.search,
-            )
+            ),
+            IconButton(
+              icon: Icon(Icons.cancel_outlined),
+              onPressed: () {
+                context.canPop() ? context.pop() : DocumentsRoute().go(context);
+              },
+            ),
           ],
         ),
       ),

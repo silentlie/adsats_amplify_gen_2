@@ -106,13 +106,19 @@ class SessionsView extends ConsumerWidget {
               // debugPrint((rowIndex / _rowsPerPage).toString());
             },
             header: ListTile(
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back),
+              trailing: IconButton(
+                icon: Icon(Icons.cancel_outlined),
                 onPressed: () {
                   context.canPop() ? context.pop() : HomeRoute().go(context);
                 },
               ),
-              title: Text("${staff.firstName} ${staff.lastName}"),
+              leading: Text(
+                "${staff.firstName} ${staff.lastName}",
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
             dataRowHeight: 62,
             showCheckboxColumn: false,

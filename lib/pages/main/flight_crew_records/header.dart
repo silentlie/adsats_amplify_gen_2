@@ -96,7 +96,13 @@ class FlightCrewRecordsHeader extends ConsumerWidget {
                 filterNotifier.search(value);
               },
               initialValue: filter.search,
-            )
+            ),
+            IconButton(
+              icon: Icon(Icons.cancel_outlined),
+              onPressed: () {
+                context.canPop() ? context.pop() : FlightCrewRecordsRoute().go(context);
+              },
+            ),
           ],
         ),
       ),

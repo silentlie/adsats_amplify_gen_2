@@ -72,15 +72,14 @@ class MainShell extends ConsumerWidget {
     return Row(
       children: [
         NavigationRail(
-          leading: IconButton(
+          leading: TextButton.icon(
             onPressed: () {
               ref
                   .read(settingsNotifierProvider.notifier)
                   .changeNavigationRailExtended();
             },
-            icon: Icon(
-              isExtended ? Icons.chevron_left : Icons.chevron_right,
-            ),
+            label: isExtended ? Text("Colapse") : Icon(Icons.chevron_right),
+            icon: isExtended ? Icon(Icons.chevron_left) : null,
           ),
           destinations: routes.map(
             (route) {
