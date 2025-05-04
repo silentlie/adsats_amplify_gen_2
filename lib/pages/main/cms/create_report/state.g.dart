@@ -171,14 +171,14 @@ final reportNotifierProvider =
       : _$reportNotifierHash,
   dependencies: <ProviderOrFamily>[
     selectedFilesProvider,
-    isQualityManagerProvider,
+    isComplianceManagerProvider,
     userDetailsProvider
   ],
   allTransitiveDependencies: <ProviderOrFamily>{
     selectedFilesProvider,
     ...?selectedFilesProvider.allTransitiveDependencies,
-    isQualityManagerProvider,
-    ...?isQualityManagerProvider.allTransitiveDependencies,
+    isComplianceManagerProvider,
+    ...?isComplianceManagerProvider.allTransitiveDependencies,
     userDetailsProvider,
     ...?userDetailsProvider.allTransitiveDependencies
   },

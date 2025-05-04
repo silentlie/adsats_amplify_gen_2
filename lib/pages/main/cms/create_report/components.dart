@@ -104,8 +104,8 @@ class DiscrepanciesWidget extends ConsumerWidget {
   }
 }
 
-class QualityManagerSection extends ConsumerWidget {
-  const QualityManagerSection({super.key});
+class CopmlianceManagerSection extends ConsumerWidget {
+  const CopmlianceManagerSection({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -133,7 +133,7 @@ class QualityManagerSection extends ConsumerWidget {
       children: [
         const Divider(),
         Text(
-          "Quality Manager Section",
+          "Compliance Manager Section",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
@@ -183,7 +183,7 @@ class QualityManagerSection extends ConsumerWidget {
                     },
                     enabled: isEditMode,
                     initialSelection: report.closer,
-                    text: "Quality Manager",
+                    text: "Compliance Manager",
                   );
                 },
               ),

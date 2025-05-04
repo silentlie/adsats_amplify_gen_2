@@ -90,14 +90,14 @@ bool isSafetyOfficer(Ref ref) {
 }
 
 @Riverpod(dependencies: [userDetails])
-bool isQualityManager(Ref ref) {
+bool isComplianceManager(Ref ref) {
   return ref.watch(
         userDetailsProvider.select(
           (user) {
             return user.valueOrNull?.roles?.any(
               (role) {
                 final roleName = role.role?.name;
-                return roleName == "Quality Manager" || roleName == "Admin";
+                return roleName == "Compliance Manager" || roleName == "Admin";
               },
             );
           },

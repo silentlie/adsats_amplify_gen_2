@@ -15,7 +15,7 @@ class ReportBasicDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final report = ref.read(reportNotifierProvider).report;
-    final isQualityManager = ref.watch(isQualityManagerProvider);
+    final isComplianceManager = ref.watch(isComplianceManagerProvider);
     final notifier = ref.read(reportNotifierProvider.notifier);
     final isEditMode = ref.watch(reportNotifierProvider.select(
       (value) => value.editMode,
@@ -23,7 +23,7 @@ class ReportBasicDetails extends ConsumerWidget {
     return Column(
       children: [
         const Divider(),
-        if (isQualityManager)
+        if (isComplianceManager)
           Row(
             children: [
               Expanded(
@@ -101,7 +101,7 @@ class ReportBasicDetails extends ConsumerWidget {
                           if (element != ReportStatus.Closed) {
                             return true;
                           }
-                          return isQualityManager;
+                          return isComplianceManager;
                         },
                       )
                       .map((e) => DropdownMenuEntry(value: e, label: e.name))

@@ -98,7 +98,7 @@ class InternalAuditReportBody extends ConsumerWidget {
           enabled: isEditMode,
         ),
         DiscrepanciesWidget(),
-        if (ref.watch(isQualityManagerProvider)) QualityManagerSection(),
+        if (ref.watch(isComplianceManagerProvider)) CopmlianceManagerSection(),
       ],
     );
   }

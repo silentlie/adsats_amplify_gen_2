@@ -19,7 +19,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'state.g.dart';
 part 'state.freezed.dart';
 
-@Riverpod(dependencies: [SelectedFiles, isQualityManager, userDetails])
+@Riverpod(dependencies: [SelectedFiles, isComplianceManager, userDetails])
 class ReportNotifier extends _$ReportNotifier {
   ReportNotifier();
   Report? _initialReport;
@@ -73,7 +73,7 @@ class ReportNotifier extends _$ReportNotifier {
       //   report: state.report,
       // );
       final finalRecipients =
-          await ref.watch(staffByRoleNameProvider("Quality Manager").future);
+          await ref.watch(staffByRoleNameProvider("Compliance Manager").future);
       await updateReportStaff(
         _initialReport,
         state.report,
@@ -184,7 +184,7 @@ class ReportNotifier extends _$ReportNotifier {
   }
 
   bool editPermit() {
-    return ref.watch(isQualityManagerProvider) ||
+    return ref.watch(isComplianceManagerProvider) ||
         state.report.auditor?.id ==
             ref.watch(userDetailsProvider).valueOrNull!.id;
   }

@@ -19,7 +19,7 @@ class ReportActions extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = MenuController();
-    final isQualityManager = ref.watch(isQualityManagerProvider);
+    final isComplianceManager = ref.watch(isComplianceManagerProvider);
     return MenuAnchor(
       controller: controller,
       alignmentOffset: Offset(50, -40),
@@ -31,7 +31,7 @@ class ReportActions extends ConsumerWidget {
           icon: const Icon(Icons.remove_red_eye_outlined),
           tooltip: "View this notice",
         ),
-        if (isQualityManager)
+        if (isComplianceManager)
           IconButton(
             onPressed: () async {
               final result = await showConfirmDialog(
@@ -56,7 +56,7 @@ class ReportActions extends ConsumerWidget {
                 ? "Unarchive this report"
                 : "Archive this report",
           ),
-        if (isQualityManager)
+        if (isComplianceManager)
           IconButton(
             onPressed: () async {
               final result = await showConfirmDialog(

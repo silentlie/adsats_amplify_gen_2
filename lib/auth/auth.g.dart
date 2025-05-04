@@ -80,16 +80,16 @@ final isSafetyOfficerProvider = AutoDisposeProvider<bool>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef IsSafetyOfficerRef = AutoDisposeProviderRef<bool>;
-String _$isQualityManagerHash() => r'8360bb921e6ba37c508682f4d751756ef98fcc70';
+String _$isComplianceManagerHash() => r'8360bb921e6ba37c508682f4d751756ef98fcc70';
 
-/// See also [isQualityManager].
-@ProviderFor(isQualityManager)
-final isQualityManagerProvider = AutoDisposeProvider<bool>.internal(
-  isQualityManager,
-  name: r'isQualityManagerProvider',
+/// See also [isComplianceManager].
+@ProviderFor(isComplianceManager)
+final isComplianceManagerProvider = AutoDisposeProvider<bool>.internal(
+  isComplianceManager,
+  name: r'isComplianceManagerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$isQualityManagerHash,
+      : _$isComplianceManagerHash,
   dependencies: <ProviderOrFamily>[userDetailsProvider],
   allTransitiveDependencies: <ProviderOrFamily>{
     userDetailsProvider,
@@ -99,6 +99,6 @@ final isQualityManagerProvider = AutoDisposeProvider<bool>.internal(
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef IsQualityManagerRef = AutoDisposeProviderRef<bool>;
+typedef IsComplianceManagerRef = AutoDisposeProviderRef<bool>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
