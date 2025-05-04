@@ -16,7 +16,9 @@ FutureOr<List<FlightCrewRecord>> flightCrewRecordsRepo(
 ) async {
   final request = GraphQLRequest<String>(
     document: listFlightCrewRecords,
-    variables: {"filter": filter.toJson()},
+    variables: {
+      "filter": filter.toJson(),
+    },
   );
   final response = await Amplify.API.query(request: request).response;
   if (response.errors.isNotEmpty) {

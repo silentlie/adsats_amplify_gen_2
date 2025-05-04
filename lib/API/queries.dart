@@ -4,7 +4,7 @@ query listStaffKPI(
   \$noticeFilter: ModelNoticeFilterInput,
   \$reportFilter: ModelReportFilterInput,
 ) {
-  listStaff(filter: \$staffFilter) {
+  listStaff(filter: \$staffFilter, limit: 10000) {
     items {
       id
       firstName
@@ -28,7 +28,7 @@ query listStaffKPI(
 ''';
 const listStaffByRole = '''
 query ListStaffByRole(\$roleName: String!) {
-  listRoles(filter: {name: {eq: \$roleName}}) {
+  listRoles(filter: {name: {eq: \$roleName}}, limit: 10000) {
     items {
       id
       name
@@ -50,7 +50,7 @@ query ListStaffByRole(\$roleName: String!) {
 
 const listReports = '''
 query ListReports(\$filter: ModelReportFilterInput) {
-  listReports(filter: \$filter) {
+  listReports(filter: \$filter, limit: 10000) {
     items {
       id
       type
@@ -160,7 +160,7 @@ query GetFlightCrewRecordsCategoryDetails(\$id: ID) {
 ''';
 const listJoinRecipients = '''
 query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFilter: ModelAircraftStaffFilterInput) {
-  listStaff {
+  listStaff(limit: 10000) {
     items {
       id
       firstName
@@ -209,7 +209,7 @@ query ListFlightCrewRecordsCategories(\$filter: ModelFlightCrewRecordCategoryFil
 ''';
 const listProfileMeta = '''
 query ListProfileMeta(\$id: ID!) {
-  listRoles(filter: {archived: {eq: false}}) {
+  listRoles(filter: {archived: {eq: false}}, limit: 10000) {
     items {
       id
       name
@@ -230,7 +230,7 @@ query ListProfileMeta(\$id: ID!) {
 ''';
 const listFlightCrewRecords = '''
 query ListFlightCrewRecords(\$filter: ModelFlightCrewRecordFilterInput) {
-  listFlightCrewRecords(filter: \$filter) {
+  listFlightCrewRecords(filter: \$filter, limit: 10000) {
     items {
       id
       categoryId
@@ -254,7 +254,7 @@ query ListFlightCrewRecords(\$filter: ModelFlightCrewRecordFilterInput) {
 ''';
 const listFlightCrewRecordsCrews = '''
 query ListFlightCrewRecordsCrews(\$aircraftId: ID!, \$roleId: ID!) {
-  getRole(id: \$roleId) {
+  getRole(id: \$roleId, limit: 10000) {
     id
     staff {
       items {
@@ -276,7 +276,7 @@ query ListFlightCrewRecordsCrews(\$aircraftId: ID!, \$roleId: ID!) {
 ''';
 const listFlightCrewRecordsMeta = '''
 query ListFlightCrewRecordsMeta {
-  listRoles(filter: {archived: {eq: false}}) {
+  listRoles(filter: {archived: {eq: false}}, limit: 10000) {
     items {
       id
       name
@@ -298,7 +298,7 @@ query ListFlightCrewRecordsMeta {
 ''';
 const listNotices = '''
 query ListNotices(\$filter: ModelNoticeFilterInput) {
-  listNotices(filter: \$filter) {
+  listNotices(filter: \$filter, limit: 10000) {
     items {
       id
       type
@@ -384,7 +384,7 @@ query GetNoticeDetails(\$id: ID!) {
 ''';
 const listSubcategories = '''
 query ListSubcategories(\$filter: ModelSubcategoryFilterInput, \$id: ID!) {
-  getCategory(id: \$id) {
+  getCategory(id: \$id, limit: 10000) {
     id
     name
     subcategories(filter: \$filter) {
@@ -421,7 +421,7 @@ query ListSubcategories(\$filter: ModelSubcategoryFilterInput, \$id: ID!) {
 ''';
 const listCategories = '''
 query ListCategories(\$filter: ModelCategoryFilterInput) {
-  listCategories(filter: \$filter) {
+  listCategories(filter: \$filter, limit: 10000) {
     items {
       id
       name
@@ -441,7 +441,7 @@ query ListCategories(\$filter: ModelCategoryFilterInput) {
 ''';
 const listAircraft = '''
 query ListAircraft(\$filter: ModelAircraftFilterInput) {
-  listAircraft(filter: \$filter) {
+  listAircraft(filter: \$filter, limit: 10000) {
     items {
       id
       name
@@ -467,7 +467,7 @@ query ListAircraft(\$filter: ModelAircraftFilterInput) {
 ''';
 const listRoles = '''
 query ListRoles(\$filter: ModelRoleFilterInput) {
-  listRoles(filter: \$filter) {
+  listRoles(filter: \$filter, limit: 10000) {
     items {
       id
       name
@@ -498,7 +498,7 @@ query ListRoles(\$filter: ModelRoleFilterInput) {
 ''';
 const listStaff = '''
 query ListStaff(\$filter: ModelStaffFilterInput) {
-  listStaff(filter: \$filter) {
+  listStaff(filter: \$filter, limit: 10000) {
     items {
       id
       firstName
