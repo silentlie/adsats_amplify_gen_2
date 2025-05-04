@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/API/queries.dart';
+import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/filter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -32,7 +33,7 @@ FutureOr<List<FlightCrewRecord>> flightCrewRecordsRepo(
   ).toList();
 }
 
-@Riverpod()
+@Riverpod(dependencies: [userDetails])
 FutureOr<(Iterable<Aircraft>, Iterable<Role>)> flightCrewRecordsMeta(
     Ref ref) async {
   final request = GraphQLRequest<String>(
@@ -47,7 +48,21 @@ FutureOr<(Iterable<Aircraft>, Iterable<Role>)> flightCrewRecordsMeta(
       .map((item) => Aircraft.fromJson(item));
   final roles = (jsonMap["listRoles"]["items"] as List)
       .map((item) => Role.fromJson(item));
-  return (aircraft, roles);
+  final userDetails = await ref.read(userDetailsProvider.future);
+  // Reorder aircraft based on userDetails.aircraft
+  final userAircraftIds = userDetails.aircraft?.map((a) => a.id).toSet() ?? {};
+  final reorderedAircraft = [
+    ...aircraft.where((a) => userAircraftIds.contains(a.id)),
+    ...aircraft.where((a) => !userAircraftIds.contains(a.id)),
+  ];
+
+  // Reorder roles based on userDetails.roles
+  final userRoleIds = userDetails.roles?.map((r) => r.role?.id).toSet() ?? {};
+  final reorderedRoles = [
+    ...roles.where((r) => userRoleIds.contains(r.id)),
+    ...roles.where((r) => !userRoleIds.contains(r.id)),
+  ];
+  return (reorderedAircraft, reorderedRoles);
 }
 
 @Riverpod()
