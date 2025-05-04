@@ -84,9 +84,7 @@ class ReportDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(
-            toDateString(report.reportedAt?.getDateTimeInUtc())
-          ),
+          getCenterText(toDateString(report.reportedAt?.getDateTimeInUtc())),
         ),
         DataCell(
           Center(

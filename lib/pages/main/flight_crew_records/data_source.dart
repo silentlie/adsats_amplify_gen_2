@@ -62,18 +62,15 @@ class FlightCrewRecordsDataSource extends DataTableSource {
         ),
         DataCell(
           getCenterText(
-            toDateString(flightCrewRecord.issuedAt?.getDateTimeInUtc())
-          ),
+              toDateString(flightCrewRecord.issuedAt?.getDateTimeInUtc())),
         ),
         DataCell(
           getCenterText(
-            toDateString(flightCrewRecord.expiredAt?.getDateTimeInUtc())
-          ),
+              toDateString(flightCrewRecord.expiredAt?.getDateTimeInUtc())),
         ),
         DataCell(
           getCenterText(
-            toDateString(flightCrewRecord.createdAt?.getDateTimeInUtc())
-          ),
+              toDateString(flightCrewRecord.createdAt?.getDateTimeInUtc())),
         ),
         DataCell(
           Center(

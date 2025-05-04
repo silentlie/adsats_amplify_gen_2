@@ -94,7 +94,6 @@ class NoticeRecipientsWidget extends ConsumerWidget {
                     notifier.updateNotice(recipients: newValue);
                   },
                   initialValue: state.recipients,
-
                 );
               },
             ),

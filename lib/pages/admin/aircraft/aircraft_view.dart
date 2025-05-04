@@ -95,7 +95,6 @@ class AircraftView extends ConsumerWidget {
                   },
                   initialValue: staff,
                 );
-
               },
             ),
           ],

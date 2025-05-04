@@ -59,9 +59,7 @@ class AircraftDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(
-            toDateString(aircraft.createdAt?.getDateTimeInUtc())
-          ),
+          getCenterText(toDateString(aircraft.createdAt?.getDateTimeInUtc())),
         ),
         DataCell(
           Center(
