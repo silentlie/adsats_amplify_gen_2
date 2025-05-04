@@ -254,7 +254,7 @@ query ListFlightCrewRecords(\$filter: ModelFlightCrewRecordFilterInput) {
 ''';
 const listFlightCrewRecordsCrews = '''
 query ListFlightCrewRecordsCrews(\$aircraftId: ID!, \$roleId: ID!) {
-  getRole(id: \$roleId, limit: 10000) {
+  getRole(id: \$roleId) {
     id
     staff {
       items {
@@ -384,7 +384,7 @@ query GetNoticeDetails(\$id: ID!) {
 ''';
 const listSubcategories = '''
 query ListSubcategories(\$filter: ModelSubcategoryFilterInput, \$id: ID!) {
-  getCategory(id: \$id, limit: 10000) {
+  getCategory(id: \$id) {
     id
     name
     subcategories(filter: \$filter) {
