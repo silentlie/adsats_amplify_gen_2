@@ -51,7 +51,7 @@ class SubcategorySort extends _$SubcategorySort {
 sealed class SubcategorySortState with _$SubcategorySortState {
   factory SubcategorySortState({
     @Default(false) bool sortAscending,
-    @Default(3) int sortColumnIndex,
+    @Default(0) int sortColumnIndex,
     required Comparable Function(Subcategory subcategory) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
   }) = _SubcategorySortState;

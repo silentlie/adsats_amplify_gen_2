@@ -51,7 +51,7 @@ class CategorySort extends _$CategorySort {
 sealed class CategorySortState with _$CategorySortState {
   factory CategorySortState({
     @Default(false) bool sortAscending,
-    @Default(3) int sortColumnIndex,
+    @Default(0) int sortColumnIndex,
     required Comparable Function(Category category) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
   }) = _CategorySortState;

@@ -57,7 +57,7 @@ sealed class FlightCrewRecordsCategorySortState
     with _$FlightCrewRecordsCategorySortState {
   factory FlightCrewRecordsCategorySortState({
     @Default(false) bool sortAscending,
-    @Default(3) int sortColumnIndex,
+    @Default(0) int sortColumnIndex,
     required Comparable Function(
             FlightCrewRecordCategory flightCrewRecordCategory)
         getField,

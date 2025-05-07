@@ -51,7 +51,7 @@ class ReportSort extends _$ReportSort {
 sealed class ReportSortState with _$ReportSortState {
   factory ReportSortState({
     @Default(false) bool sortAscending,
-    @Default(3) int sortColumnIndex,
+    @Default(0) int sortColumnIndex,
     required Comparable Function(Report report) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
   }) = _ReportSortState;

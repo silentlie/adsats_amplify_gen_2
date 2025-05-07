@@ -86,7 +86,7 @@ class ActionsRowWidget extends ConsumerWidget {
           if (isEditMode)
             ElevatedButton.icon(
               onPressed: () async {
-                if (!formState.validate()) return;
+                // if (!formState.validate()) return;
                 final result = await showConfirmDialog(
                   context,
                   Text("Are you sure?"),

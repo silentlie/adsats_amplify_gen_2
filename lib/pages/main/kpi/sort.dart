@@ -51,7 +51,7 @@ class StaffKPISort extends _$StaffKPISort {
 sealed class StaffKPISortState with _$StaffKPISortState {
   factory StaffKPISortState({
     @Default(false) bool sortAscending,
-    @Default(2) int sortColumnIndex,
+    @Default(0) int sortColumnIndex,
     required Comparable Function(StaffKPI staffKPI) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
   }) = _StaffKPISortState;

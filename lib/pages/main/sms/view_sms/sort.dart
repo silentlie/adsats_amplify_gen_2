@@ -51,7 +51,7 @@ class NoticeSort extends _$NoticeSort {
 sealed class NoticeSortState with _$NoticeSortState {
   factory NoticeSortState({
     @Default(false) bool sortAscending,
-    @Default(3) int sortColumnIndex,
+    @Default(0) int sortColumnIndex,
     required Comparable Function(Notice notice) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
   }) = _NoticeSortState;

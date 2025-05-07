@@ -80,7 +80,7 @@ class ReportActionsRow extends ConsumerWidget {
           if (isEditMode)
             ElevatedButton.icon(
               onPressed: () async {
-                if (!notifier.validate()) return;
+                // if (!notifier.validate()) return;
                 final result = await showConfirmDialog(
                   context,
                   Text("Are you sure?"),

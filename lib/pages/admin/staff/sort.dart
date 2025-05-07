@@ -51,7 +51,7 @@ class StaffSort extends _$StaffSort {
 sealed class StaffSortState with _$StaffSortState {
   factory StaffSortState({
     @Default(false) bool sortAscending,
-    @Default(5) int sortColumnIndex,
+    @Default(0) int sortColumnIndex,
     required Comparable Function(Staff staff) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
   }) = _StaffSortState;

@@ -50,14 +50,14 @@ FutureOr<(Iterable<Aircraft>, Iterable<Role>)> flightCrewRecordsMeta(
       .map((item) => Role.fromJson(item));
   final userDetails = await ref.read(userDetailsProvider.future);
   // Reorder aircraft based on userDetails.aircraft
-  final userAircraftIds = userDetails.aircraft?.map((a) => a.id).toSet() ?? {};
+  final userAircraftIds = userDetails.aircraft!.map((a) => a.aircraft!.id);
   final reorderedAircraft = [
     ...aircraft.where((a) => userAircraftIds.contains(a.id)),
     ...aircraft.where((a) => !userAircraftIds.contains(a.id)),
   ];
 
   // Reorder roles based on userDetails.roles
-  final userRoleIds = userDetails.roles?.map((r) => r.role?.id).toSet() ?? {};
+  final userRoleIds = userDetails.roles!.map((r) => r.role!.id);
   final reorderedRoles = [
     ...roles.where((r) => userRoleIds.contains(r.id)),
     ...roles.where((r) => !userRoleIds.contains(r.id)),

@@ -51,7 +51,7 @@ class RoleSort extends _$RoleSort {
 sealed class RoleSortState with _$RoleSortState {
   factory RoleSortState({
     @Default(false) bool sortAscending,
-    @Default(3) int sortColumnIndex,
+    @Default(0) int sortColumnIndex,
     required Comparable Function(Role role) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
   }) = _RoleSortState;

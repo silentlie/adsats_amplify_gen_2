@@ -51,7 +51,7 @@ class AircraftSort extends _$AircraftSort {
 sealed class AircraftSortState with _$AircraftSortState {
   factory AircraftSortState({
     @Default(false) bool sortAscending,
-    @Default(3) int sortColumnIndex,
+    @Default(0) int sortColumnIndex,
     required Comparable Function(Aircraft aircraft) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
   }) = _AircraftSortState;
