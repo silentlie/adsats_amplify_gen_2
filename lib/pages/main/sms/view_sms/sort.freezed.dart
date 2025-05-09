@@ -110,7 +110,7 @@ class _$NoticeSortStateCopyWithImpl<$Res>
 class _NoticeSortState implements NoticeSortState {
   _NoticeSortState(
       {this.sortAscending = false,
-      this.sortColumnIndex = 3,
+      this.sortColumnIndex = 0,
       required this.getField,
       this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage});
 

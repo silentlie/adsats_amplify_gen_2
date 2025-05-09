@@ -110,7 +110,7 @@ class _$DocumentSortStateCopyWithImpl<$Res>
 class _DocumentSortState implements DocumentSortState {
   _DocumentSortState(
       {this.sortAscending = false,
-      this.sortColumnIndex = 3,
+      this.sortColumnIndex = 0,
       required this.getField,
       this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage});
 

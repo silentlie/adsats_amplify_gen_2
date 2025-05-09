@@ -110,7 +110,7 @@ class _$CategorySortStateCopyWithImpl<$Res>
 class _CategorySortState implements CategorySortState {
   _CategorySortState(
       {this.sortAscending = false,
-      this.sortColumnIndex = 3,
+      this.sortColumnIndex = 0,
       required this.getField,
       this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage});
 

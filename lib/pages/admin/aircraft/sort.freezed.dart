@@ -110,7 +110,7 @@ class _$AircraftSortStateCopyWithImpl<$Res>
 class _AircraftSortState implements AircraftSortState {
   _AircraftSortState(
       {this.sortAscending = false,
-      this.sortColumnIndex = 3,
+      this.sortColumnIndex = 0,
       required this.getField,
       this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage});
 

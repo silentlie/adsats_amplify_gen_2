@@ -110,7 +110,7 @@ class _$SubcategorySortStateCopyWithImpl<$Res>
 class _SubcategorySortState implements SubcategorySortState {
   _SubcategorySortState(
       {this.sortAscending = false,
-      this.sortColumnIndex = 3,
+      this.sortColumnIndex = 0,
       required this.getField,
       this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage});
 

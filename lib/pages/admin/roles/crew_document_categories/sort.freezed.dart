@@ -117,7 +117,7 @@ class _FlightCrewRecordsCategorySortState
     implements FlightCrewRecordsCategorySortState {
   _FlightCrewRecordsCategorySortState(
       {this.sortAscending = false,
-      this.sortColumnIndex = 3,
+      this.sortColumnIndex = 0,
       required this.getField,
       this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage});
 

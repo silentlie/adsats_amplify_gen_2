@@ -110,7 +110,7 @@ class _$StaffSortStateCopyWithImpl<$Res>
 class _StaffSortState implements StaffSortState {
   _StaffSortState(
       {this.sortAscending = false,
-      this.sortColumnIndex = 5,
+      this.sortColumnIndex = 0,
       required this.getField,
       this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage});
 

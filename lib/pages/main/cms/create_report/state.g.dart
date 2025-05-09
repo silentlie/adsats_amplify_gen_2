@@ -158,7 +158,7 @@ class _StaffByRoleNameProviderElement
   String get roleName => (origin as StaffByRoleNameProvider).roleName;
 }
 
-String _$reportNotifierHash() => r'ae7e1de138cf3c39f40e261529ce3c2e65cd5d85';
+String _$reportNotifierHash() => r'2c8d6ef775938a005acb1b354662c98535c559d1';
 
 /// See also [ReportNotifier].
 @ProviderFor(ReportNotifier)

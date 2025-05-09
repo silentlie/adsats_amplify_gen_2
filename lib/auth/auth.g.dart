@@ -81,7 +81,7 @@ final isSafetyOfficerProvider = AutoDisposeProvider<bool>.internal(
 // ignore: unused_element
 typedef IsSafetyOfficerRef = AutoDisposeProviderRef<bool>;
 String _$isComplianceManagerHash() =>
-    r'8360bb921e6ba37c508682f4d751756ef98fcc70';
+    r'b183cccda764ae6e183290791ed74f9c78b7d550';
 
 /// See also [isComplianceManager].
 @ProviderFor(isComplianceManager)

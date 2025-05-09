@@ -110,7 +110,7 @@ class _$FlightCrewRecordSortStateCopyWithImpl<$Res>
 class _FlightCrewRecordSortState implements FlightCrewRecordSortState {
   _FlightCrewRecordSortState(
       {this.sortAscending = false,
-      this.sortColumnIndex = 3,
+      this.sortColumnIndex = 0,
       required this.getField,
       this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage});
 

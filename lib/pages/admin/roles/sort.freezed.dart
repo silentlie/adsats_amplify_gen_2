@@ -110,7 +110,7 @@ class _$RoleSortStateCopyWithImpl<$Res>
 class _RoleSortState implements RoleSortState {
   _RoleSortState(
       {this.sortAscending = false,
-      this.sortColumnIndex = 3,
+      this.sortColumnIndex = 0,
       required this.getField,
       this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage});
 

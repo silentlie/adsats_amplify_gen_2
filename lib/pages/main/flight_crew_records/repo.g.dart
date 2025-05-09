@@ -167,7 +167,7 @@ class _FlightCrewRecordsRepoProviderElement
 }
 
 String _$flightCrewRecordsMetaHash() =>
-    r'9fb769a4bb73b7938808d9d61971e10b150b1f6a';
+    r'e224d28dce8fea55195a821307c3115804e7c030';
 
 /// See also [flightCrewRecordsMeta].
 @ProviderFor(flightCrewRecordsMeta)
@@ -178,8 +178,11 @@ final flightCrewRecordsMetaProvider =
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
       : _$flightCrewRecordsMetaHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
+  dependencies: <ProviderOrFamily>[userDetailsProvider],
+  allTransitiveDependencies: <ProviderOrFamily>{
+    userDetailsProvider,
+    ...?userDetailsProvider.allTransitiveDependencies
+  },
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')

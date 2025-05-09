@@ -110,7 +110,7 @@ class _$StaffKPISortStateCopyWithImpl<$Res>
 class _StaffKPISortState implements StaffKPISortState {
   _StaffKPISortState(
       {this.sortAscending = false,
-      this.sortColumnIndex = 2,
+      this.sortColumnIndex = 0,
       required this.getField,
       this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage});
 
