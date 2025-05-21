@@ -90,7 +90,7 @@ class ActionsRowWidget extends ConsumerWidget {
                 final result = await showConfirmDialog(
                   context,
                   Text("Are you sure?"),
-                  Text("Do you want to submid and save?"),
+                  Text("Do you want to save?"),
                 );
                 if (result) {
                   await notifier.submit(false);

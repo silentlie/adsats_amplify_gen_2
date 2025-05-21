@@ -62,6 +62,7 @@ class NoticeNotifier extends _$NoticeNotifier {
     final newFiles = ref.watch(selectedFilesProvider);
     futures
         .addAll(newFiles.map((e) => uploadNoticeDocumentFile(e, state.notice)));
+    await Future.wait(futures);
     if (isSend) {
       final finalRecipients = await fetchJoinRecipients(
         roles: _roles,
@@ -73,7 +74,6 @@ class NoticeNotifier extends _$NoticeNotifier {
         finalRecipients,
       );
     }
-    await Future.wait(futures);
     ref.invalidate(noticesSentRepoProvider);
     ref.invalidate(noticesInboxRepoProvider);
   }

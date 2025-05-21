@@ -67,6 +67,7 @@ class ReportNotifier extends _$ReportNotifier {
     final newFiles = ref.watch(selectedFilesProvider);
     futures
         .addAll(newFiles.map((e) => uploadReportDocumentFile(e, state.report)));
+    await Future.wait(futures);
     if (isSend) {
       // final finalRecipients = await fetchJoinRecipients(
       //   roles: _roles,
@@ -80,7 +81,6 @@ class ReportNotifier extends _$ReportNotifier {
         finalRecipients,
       );
     }
-    await Future.wait(futures);
     ref.invalidate(reportsSentRepoProvider);
     ref.invalidate(reportsInboxRepoProvider);
   }
