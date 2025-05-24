@@ -126,14 +126,19 @@ class NoticeNotifier extends _$NoticeNotifier {
     );
   }
 
-  //This does trigger rebuild
+  //This does not trigger rebuild
   void updateDetails(Map<String, dynamic> details) {
     final updatedDetails = {
       ...state.details,
       ...details,
     };
-    state = state.copyWith(
-      notice: state.notice.copyWith(details: jsonEncode(updatedDetails)),
+    // state = state.copyWith(
+    //   notice: state.notice.copyWith(
+    //     details: jsonEncode(updatedDetails),
+    //   ),
+    // );
+    state.notice = state.notice.copyWith(
+      details: jsonEncode(updatedDetails),
     );
   }
 
