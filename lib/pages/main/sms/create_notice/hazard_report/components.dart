@@ -214,8 +214,9 @@ class RiskWidget extends ConsumerWidget {
                           selected: index == likelihood,
                           onSelectChanged: (value) {
                             if (isEditMode) {
-                              notifier
-                                  .updateDetailsTriggerWatch({"likelihood": 0});
+                              notifier.updateDetailsTriggerWatch(
+                                {"likelihood": index},
+                              );
                             }
                           },
                           color: WidgetStateColor.resolveWith(
@@ -281,8 +282,9 @@ class RiskWidget extends ConsumerWidget {
                           selected: index == severity,
                           onSelectChanged: (value) {
                             if (isEditMode) {
-                              notifier
-                                  .updateDetailsTriggerWatch({"severity": 0});
+                              notifier.updateDetailsTriggerWatch(
+                                {"severity": index},
+                              );
                             }
                           },
                           color: WidgetStateColor.resolveWith(
