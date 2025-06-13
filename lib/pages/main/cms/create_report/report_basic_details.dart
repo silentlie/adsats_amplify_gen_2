@@ -23,50 +23,49 @@ class ReportBasicDetails extends ConsumerWidget {
     return Column(
       children: [
         const Divider(),
-        if (isComplianceManager)
-          Row(
-            children: [
-              Expanded(
-                child: GlobalTextFormField(
-                  labelText: 'Report ID',
-                  enabled: false,
-                  initialValue: report.id,
-                  onSaved: (value) {},
-                ),
+        Row(
+          children: [
+            Expanded(
+              child: GlobalTextFormField(
+                labelText: 'Report ID',
+                enabled: false,
+                initialValue: report.id,
+                onSaved: (value) {},
               ),
-              Expanded(
-                child: AsyncValueWidget(
-                  value: ref.watch(listStaffProvider()),
-                  data: (value) {
-                    final initialSelection = !notifier.isEditable()
-                        ? value.firstWhere(
-                            (e) =>
-                                e.id ==
-                                ref.watch(userDetailsProvider).valueOrNull!.id,
-                          )
-                        : report.auditor!;
-                    notifier.updateReport(
-                      auditor: initialSelection,
-                    );
-                    return GlobalDropdownMenu<Staff>(
-                      entries: value.map(
-                        (e) {
-                          return DropdownMenuEntry(
-                              value: e, label: "${e.firstName} ${e.lastName}");
-                        },
-                      ).toList(),
-                      enabled: isEditMode,
-                      initialSelection: initialSelection,
-                      onSelected: (value) {
-                        notifier.updateReport(auditor: value);
+            ),
+            Expanded(
+              child: AsyncValueWidget(
+                value: ref.watch(listStaffProvider()),
+                data: (value) {
+                  final initialSelection = !notifier.isEditable()
+                      ? value.firstWhere(
+                          (e) =>
+                              e.id ==
+                              ref.watch(userDetailsProvider).valueOrNull!.id,
+                        )
+                      : report.auditor!;
+                  notifier.updateReport(
+                    auditor: initialSelection,
+                  );
+                  return GlobalDropdownMenu<Staff>(
+                    entries: value.map(
+                      (e) {
+                        return DropdownMenuEntry(
+                            value: e, label: "${e.firstName} ${e.lastName}");
                       },
-                      text: "Auditor of this report",
-                    );
-                  },
-                ),
+                    ).toList(),
+                    enabled: isComplianceManager && isEditMode,
+                    initialSelection: initialSelection,
+                    onSelected: (value) {
+                      notifier.updateReport(auditor: value);
+                    },
+                    text: "Auditor of this report",
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
         DatePickerWidget(
           text: "Report Date",
           onSelected: (value) {

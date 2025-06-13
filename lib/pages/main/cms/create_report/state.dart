@@ -31,6 +31,8 @@ class ReportNotifier extends _$ReportNotifier {
         subject: "",
         archived: false,
         details: "",
+        documents: [],
+        recipients: [],
       ),
       editMode: false,
     );

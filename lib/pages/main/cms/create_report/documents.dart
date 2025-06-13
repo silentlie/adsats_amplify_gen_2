@@ -13,7 +13,7 @@ class ReportDocuments extends ConsumerWidget {
     final newFiles = ref.watch(selectedFilesProvider);
     final uploadedFiles = ref.watch(
       reportNotifierProvider.select(
-        (value) => value.report.documents!,
+        (value) => value.report.documents ?? [],
       ),
     );
     final notifier = ref.read(reportNotifierProvider.notifier);

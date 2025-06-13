@@ -30,6 +30,9 @@ class NoticeNotifier extends _$NoticeNotifier {
         subject: "",
         archived: false,
         details: "",
+        aircraft: [],
+        documents: [],
+        recipients: [],
       ),
       editMode: false,
     );

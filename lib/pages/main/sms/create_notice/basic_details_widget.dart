@@ -23,50 +23,49 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
     return Column(
       children: [
         const Divider(),
-        if (isSafetyOfficer)
-          Row(
-            children: [
-              Expanded(
-                child: GlobalTextFormField(
-                  labelText: 'Notice ID',
-                  enabled: false,
-                  initialValue: notice.id,
-                  onSaved: (value) {},
-                ),
+        Row(
+          children: [
+            Expanded(
+              child: GlobalTextFormField(
+                labelText: 'Notice ID',
+                enabled: false,
+                initialValue: notice.id,
+                onSaved: (value) {},
               ),
-              Expanded(
-                child: AsyncValueWidget(
-                  value: ref.watch(listStaffProvider()),
-                  data: (value) {
-                    final initialSelection = !notifier.isEditable()
-                        ? value.firstWhere(
-                            (e) =>
-                                e.id ==
-                                ref.watch(userDetailsProvider).valueOrNull!.id,
-                          )
-                        : notice.author!;
-                    notifier.updateNotice(
-                      author: initialSelection,
-                    );
-                    return GlobalDropdownMenu<Staff>(
-                      entries: value.map(
-                        (e) {
-                          return DropdownMenuEntry(
-                              value: e, label: "${e.firstName} ${e.lastName}");
-                        },
-                      ).toList(),
-                      enabled: isEditMode,
-                      initialSelection: initialSelection,
-                      onSelected: (value) {
-                        notifier.updateNotice(author: value);
+            ),
+            Expanded(
+              child: AsyncValueWidget(
+                value: ref.watch(listStaffProvider()),
+                data: (value) {
+                  final initialSelection = !notifier.isEditable()
+                      ? value.firstWhere(
+                          (e) =>
+                              e.id ==
+                              ref.watch(userDetailsProvider).valueOrNull!.id,
+                        )
+                      : notice.author!;
+                  notifier.updateNotice(
+                    author: initialSelection,
+                  );
+                  return GlobalDropdownMenu<Staff>(
+                    entries: value.map(
+                      (e) {
+                        return DropdownMenuEntry(
+                            value: e, label: "${e.firstName} ${e.lastName}");
                       },
-                      text: "Author of this notice",
-                    );
-                  },
-                ),
+                    ).toList(),
+                    enabled: isSafetyOfficer && isEditMode,
+                    initialSelection: initialSelection,
+                    onSelected: (value) {
+                      notifier.updateNotice(author: value);
+                    },
+                    text: "Author of this notice",
+                  );
+                },
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
         Row(
           children: [
             Expanded(

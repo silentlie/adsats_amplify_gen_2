@@ -13,7 +13,7 @@ class NoticeDocumentsWidget extends ConsumerWidget {
     final newFiles = ref.watch(selectedFilesProvider);
     final uploadedFiles = ref.watch(
       noticeNotifierProvider.select(
-        (value) => value.notice.documents!,
+        (value) => value.notice.documents ?? [],
       ),
     );
     final notifier = ref.read(noticeNotifierProvider.notifier);

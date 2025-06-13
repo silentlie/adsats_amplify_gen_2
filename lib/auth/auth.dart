@@ -97,7 +97,7 @@ bool isComplianceManager(Ref ref) {
             return user.valueOrNull?.roles?.any(
               (role) {
                 final roleName = role.role?.name;
-                return roleName == "Compliance Manager" || roleName == "Admin";
+                return roleName == "Compliance Manager" || roleName == "Admins";
               },
             );
           },
