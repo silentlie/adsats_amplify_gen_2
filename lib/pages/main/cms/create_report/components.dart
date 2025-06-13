@@ -126,6 +126,11 @@ class CopmlianceManagerSection extends ConsumerWidget {
         return isIncluded;
       }),
     );
+    final isClosed = ref.watch(
+      reportNotifierProvider.select(
+        (value) => value.report.status == ReportStatus.Closed,
+      ),
+    );
     return Column(
       children: [
         const Divider(),
@@ -146,47 +151,48 @@ class CopmlianceManagerSection extends ConsumerWidget {
             enabled: isEditMode,
             maxLines: 3,
           ),
-        Row(
-          children: [
-            Flexible(
-              child: DatePickerWidget(
-                text: "Closed date",
-                firstDate: DateTime.now().subtract(
-                  const Duration(days: 365 * 10),
+        if (isClosed)
+          Row(
+            children: [
+              Flexible(
+                child: DatePickerWidget(
+                  text: "Closed date",
+                  firstDate: DateTime.now().subtract(
+                    const Duration(days: 365 * 10),
+                  ),
+                  lastDate: DateTime.now().add(
+                    const Duration(days: 365 * 10),
+                  ),
+                  onSelected: (value) {
+                    notifier.updateReport(closeAt: value);
+                  },
+                  enabled: isEditMode,
+                  initialValue: report.closeAt,
                 ),
-                lastDate: DateTime.now().add(
-                  const Duration(days: 365 * 10),
-                ),
-                onSelected: (value) {
-                  notifier.updateReport(closeAt: value);
-                },
-                enabled: isEditMode,
-                initialValue: report.closeAt,
               ),
-            ),
-            Flexible(
-              child: AsyncValueWidget(
-                value: ref.watch(listStaffProvider()),
-                data: (value) {
-                  return GlobalDropdownMenu(
-                    entries: value.map(
-                      (e) {
-                        return DropdownMenuEntry(
-                            value: e, label: "${e.firstName} ${e.lastName}");
+              Flexible(
+                child: AsyncValueWidget(
+                  value: ref.watch(listStaffProvider()),
+                  data: (value) {
+                    return GlobalDropdownMenu(
+                      entries: value.map(
+                        (e) {
+                          return DropdownMenuEntry(
+                              value: e, label: "${e.firstName} ${e.lastName}");
+                        },
+                      ).toList(),
+                      onSelected: (value) {
+                        notifier.updateReport(closer: value);
                       },
-                    ).toList(),
-                    onSelected: (value) {
-                      notifier.updateReport(closer: value);
-                    },
-                    enabled: isEditMode,
-                    initialSelection: report.closer,
-                    text: "Compliance Manager",
-                  );
-                },
+                      enabled: isEditMode,
+                      initialSelection: report.closer,
+                      text: "Compliance Manager",
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
-        )
+            ],
+          )
       ],
     );
   }
