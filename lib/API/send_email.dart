@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/helper/format_staff_name.dart';
 import 'package:adsats_amplify_gen_2/helper/format_type_name.dart';
@@ -29,7 +31,11 @@ Future<void> sendEmail({
     if (response.errors.isNotEmpty) {
       throw response.errors.first;
     }
-    // Map<String, dynamic> jsonMap = json.decode(response.data!);
+    Map<String, dynamic> jsonMap = json.decode(response.data!);
+    print(subject);
+    print(recipients);
+    print(sender);
+    print(jsonMap);
   } on ApiException catch (e) {
     debugPrint('send email failed: $e');
   }
@@ -91,9 +97,12 @@ String buildNoticeEmailMain(Notice notice) {
 
   <p>Please review the notice by clicking the link below:</p>
 
-  <a href="${generateNoticeLink(notice)}" class="action-link">
+  <a href="https://${generateNoticeLink(notice)}" target="_blank" class="action-link">
     View Notice
   </a>
+
+  <p>If the above link doesn't work, you can copy and paste this URL into your browser:</p>
+  <p>https://${generateNoticeLink(notice)}</p>
 
   <ul class="modern-list">
     <li>Review the notification details</li>
