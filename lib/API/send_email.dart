@@ -144,9 +144,12 @@ String buildReportEmailMain(Report report) {
 
   <p>Please review the report by clicking the link below:</p>
 
-  <a href="${generateReportLink(report)}" class="action-link">
+  <a href="https://${generateReportLink(report)}" class="action-link">
     View Report
   </a>
+
+  <p>If the above link doesn't work, you can copy and paste this URL into your browser:</p>
+  <p>https://${generateNoticeLink(report)}</p>
 
   <ul class="modern-list">
     <li>Review the audit details</li>
