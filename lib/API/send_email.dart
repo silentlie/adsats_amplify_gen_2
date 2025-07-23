@@ -149,7 +149,7 @@ String buildReportEmailMain(Report report) {
   </a>
 
   <p>If the above link doesn't work, you can copy and paste this URL into your browser:</p>
-  <p>https://${generateNoticeLink(report)}</p>
+  <p>https://${generateReportLink(report)}</p>
 
   <ul class="modern-list">
     <li>Review the audit details</li>
