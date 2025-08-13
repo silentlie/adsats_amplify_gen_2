@@ -47,7 +47,7 @@ class HazardReportPage extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.all(8),
                           child: const Text(
-                            'Notice to Crew',
+                            'Hazard Report',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
