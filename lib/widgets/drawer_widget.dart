@@ -38,14 +38,14 @@ class DrawerWidget extends ConsumerWidget {
               _close(context);
             },
           ),
-          ListTile(
-            leading: ResetPasswordRoute().icon,
-            title: const Text('Reset password'),
-            onTap: () {
-              ResetPasswordRoute().push(context);
-              _close(context);
-            },
-          ),
+          // ListTile(
+          //   leading: ResetPasswordRoute().icon,
+          //   title: const Text('Reset password'),
+          //   onTap: () {
+          //     ResetPasswordRoute().push(context);
+          //     _close(context);
+          //   },
+          // ),
           if (ref.watch(isAdminProvider))
             ListTile(
               leading: Icon(Icons.admin_panel_settings_outlined),
