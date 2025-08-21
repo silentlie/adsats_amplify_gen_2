@@ -28,7 +28,7 @@ Future<Report> deleteReport(Report report) async {
     await Future.wait(futures);
     return report;
   } on ApiException catch (e) {
-    debugPrint('ApiExecption: delete Report with ${report.id} failed: $e');
+    debugPrint('ApiException: delete Report with ${report.id} failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint('Dart Exception: delete Report with ${report.id} failed: $e');

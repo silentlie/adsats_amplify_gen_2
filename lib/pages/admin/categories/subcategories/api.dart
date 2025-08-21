@@ -34,7 +34,7 @@ Future<Subcategory> deleteSubcategory(Subcategory subcategory) async {
     return subcategory;
   } on ApiException catch (e) {
     debugPrint(
-        'ApiExecption: delete Subcategory with ${subcategory.id} failed: $e');
+        'ApiException: delete Subcategory with ${subcategory.id} failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint(
@@ -79,7 +79,7 @@ Future<void> updateStaffSubcategory(
     }
     await Future.wait(futures);
   } on ApiException catch (e) {
-    debugPrint('ApiExecption: update StaffSubcategory failed: $e');
+    debugPrint('ApiException: update StaffSubcategory failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint('Dart Exception: update StaffSubcategory failed: $e');

@@ -36,7 +36,7 @@ Future<Notice> deleteNotice(Notice notice) async {
     await Future.wait(futures);
     return notice;
   } on ApiException catch (e) {
-    debugPrint('ApiExecption: delete Notice with ${notice.id} failed: $e');
+    debugPrint('ApiException: delete Notice with ${notice.id} failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint('Dart Exception: delete Notice with ${notice.id} failed: $e');
@@ -124,7 +124,7 @@ Future<Iterable<Staff>> fetchJoinRecipients({
       return map;
     }).values;
   } on ApiException catch (e) {
-    debugPrint('ApiExecption: fetchJoinRecipients failed: $e');
+    debugPrint('ApiException: fetchJoinRecipients failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint('Dart Exception: fetchJoinRecipients failed: $e');
@@ -175,7 +175,7 @@ Future<void> updateNoticeStaff(
       ),
     ]);
   } on ApiException catch (e) {
-    debugPrint('ApiExecption: send notice failed: $e');
+    debugPrint('ApiException: send notice failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint('Dart Exception: send notice failed: $e');

@@ -53,7 +53,7 @@ Future<T> create<T extends Model>(T model) async {
     return response.data as T;
   } on ApiException catch (e) {
     debugPrint(
-        'ApiExecption: create ${model.runtimeType} with ${model.modelIdentifier} failed: $e');
+        'ApiException: create ${model.runtimeType} with ${model.modelIdentifier} failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint(
@@ -72,7 +72,7 @@ Future<T> update<T extends Model>(T model) async {
     return response.data as T;
   } on ApiException catch (e) {
     debugPrint(
-        'ApiExecption: update ${model.runtimeType} with ${model.modelIdentifier} failed: $e');
+        'ApiException: update ${model.runtimeType} with ${model.modelIdentifier} failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint(
@@ -91,7 +91,7 @@ Future<T> delete<T extends Model>(T model) async {
     return response.data as T;
   } on ApiException catch (e) {
     debugPrint(
-        'ApiExecption: delete ${model.runtimeType} with ${model.modelIdentifier} failed: $e');
+        'ApiException: delete ${model.runtimeType} with ${model.modelIdentifier} failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint(
