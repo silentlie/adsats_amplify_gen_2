@@ -32,7 +32,7 @@ Future<FlightCrewRecordCategory> deleteFlightCrewRecordsCategory(
     return category;
   } on ApiException catch (e) {
     debugPrint(
-        'ApiExecption: delete Flight Crew Records Category with ${category.id} failed: $e');
+        'ApiException: delete Flight Crew Records Category with ${category.id} failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint(

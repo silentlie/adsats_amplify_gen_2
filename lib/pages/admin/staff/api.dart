@@ -98,7 +98,7 @@ Future<Staff> deleteStaff(Staff staff) async {
     await Future.wait(futures);
     return staff;
   } on ApiException catch (e) {
-    debugPrint('ApiExecption: delete Staff with ${staff.id} failed: $e');
+    debugPrint('ApiException: delete Staff with ${staff.id} failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint('Dart Exception: delete Staff with ${staff.id} failed: $e');
@@ -124,7 +124,7 @@ Future<void> updateAircraftStaff(Staff staff, List<Aircraft> aircraft) async {
     }
     await Future.wait(futures);
   } on ApiException catch (e) {
-    debugPrint('ApiExecption: update AircraftStaff failed: $e');
+    debugPrint('ApiException: update AircraftStaff failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint('Dart Exception: update AircraftStaff failed: $e');
@@ -153,7 +153,7 @@ Future<void> updateRoleStaff(Staff staff, List<Role> roles) async {
 
     await Future.wait(futures);
   } on ApiException catch (e) {
-    debugPrint('ApiExecption: update RoleStaff failed: $e');
+    debugPrint('ApiException: update RoleStaff failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint('Dart Exception: update RoleStaff failed: $e');
@@ -194,7 +194,7 @@ Future<void> updateStaffSubcategory(
     }
     await Future.wait(futures);
   } on ApiException catch (e) {
-    debugPrint('ApiExecption: update RoleStaff failed: $e');
+    debugPrint('ApiException: update RoleStaff failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint('Dart Exception: update RoleStaff failed: $e');

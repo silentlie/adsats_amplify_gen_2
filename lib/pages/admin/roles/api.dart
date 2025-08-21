@@ -20,7 +20,7 @@ Future<Role> deleteRole(Role role) async {
     await Future.wait(futures);
     return role;
   } on ApiException catch (e) {
-    debugPrint('ApiExecption: delete Role with ${role.id} failed: $e');
+    debugPrint('ApiException: delete Role with ${role.id} failed: $e');
     rethrow;
   } on Exception catch (e) {
     debugPrint('Dart Exception: delete Role with ${role.id} failed: $e');
