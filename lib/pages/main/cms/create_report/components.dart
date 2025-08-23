@@ -77,9 +77,9 @@ class DiscrepanciesWidget extends ConsumerWidget {
           GlobalTextFormField(
             labelText: "Pending Comment",
             onSaved: (value) {
-              notifier.updateDetails({'peding_comment': value});
+              notifier.updateDetails({'pending_comment': value});
             },
-            initialValue: details["peding_comment"],
+            initialValue: details["pending_comment"],
             enabled: isEditMode,
             maxLines: 3,
             validator: (string) {
@@ -101,8 +101,8 @@ class DiscrepanciesWidget extends ConsumerWidget {
   }
 }
 
-class CopmlianceManagerSection extends ConsumerWidget {
-  const CopmlianceManagerSection({super.key});
+class ComplianceManagerSection extends ConsumerWidget {
+  const ComplianceManagerSection({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

@@ -132,7 +132,7 @@ class ExternalAuditReportBody extends ConsumerWidget {
           minLines: 5,
         ),
         DiscrepanciesWidget(),
-        if (ref.watch(isComplianceManagerProvider)) CopmlianceManagerSection()
+        if (ref.watch(isComplianceManagerProvider)) ComplianceManagerSection()
       ],
     );
   }

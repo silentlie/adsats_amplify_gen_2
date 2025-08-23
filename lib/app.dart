@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/widgets/auth_button_resolver.dart';
 import 'package:adsats_amplify_gen_2/widgets/sign_in_widget.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
@@ -26,6 +27,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           _ => null
         };
       },
+      stringResolver: AuthStringResolver(buttons: AuthButtonResolver()),
       child: MaterialApp.router(
         scaffoldMessengerKey: GlobalKey(),
         title: "ADSATS - Aviation Document Storage and Tracking System",
