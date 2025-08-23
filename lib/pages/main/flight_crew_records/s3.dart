@@ -142,14 +142,14 @@ Future<void> renameFlightCrewRecord(
   try {
     await Amplify.Storage.copy(
       source: StoragePath.fromString(
-          'flightCrewRecords/${flightCrewRecord.id}/${flightCrewRecord.name}'),
+          'flightCrewRecords/${flightCrewRecord.staff!.id}/${flightCrewRecord.id}/${flightCrewRecord.name}'),
       destination: StoragePath.fromString(
-          'flightCrewRecords/${flightCrewRecord.id}/$newName'),
+          'flightCrewRecords/${flightCrewRecord.staff!.id}/${flightCrewRecord.id}/$newName'),
     ).result.then(
       (value) async {
         await Amplify.Storage.remove(
           path: StoragePath.fromString(
-              'flightCrewRecords/${flightCrewRecord.id}/${flightCrewRecord.name}'),
+              'flightCrewRecords/${flightCrewRecord.staff!.id}/${flightCrewRecord.id}/${flightCrewRecord.name}'),
         ).result;
         // print('Removed file: ${result.removedItem.path}');
         return value;

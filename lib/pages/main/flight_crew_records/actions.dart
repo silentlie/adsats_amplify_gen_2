@@ -25,6 +25,7 @@ class FlightCrewRecordActions extends ConsumerWidget {
         IconButton(
           onPressed: () async {
             await getFlightCrewRecordFileUrl(flightCrewRecord);
+            controller.close();
           },
           icon: const Icon(Icons.download_outlined),
           tooltip: "Download",
@@ -40,12 +41,14 @@ class FlightCrewRecordActions extends ConsumerWidget {
                   );
                 },
               );
+              controller.close();
             },
             icon: const Icon(Icons.edit_outlined),
           ),
         if (isAdmin)
           IconButton(
             onPressed: () async {
+              controller.close();
               final result = await showConfirmDialog(
                 context,
                 Text("Are you sure?"),
@@ -72,6 +75,7 @@ class FlightCrewRecordActions extends ConsumerWidget {
         if (isAdmin)
           IconButton(
             onPressed: () async {
+              controller.close();
               final result = await showConfirmDialog(
                 context,
                 Text("Are you sure?"),
