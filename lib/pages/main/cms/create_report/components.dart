@@ -28,39 +28,26 @@ class DiscrepanciesWidget extends ConsumerWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              const Text(
-                'Were Any Discrepancies Found?',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Radio(
-                value: true,
-                groupValue: isDiscrepanciesFound,
-                onChanged: (value) {
-                  if (isEditMode) {
-                    notifier.updateDetailsTriggerWatch(
-                        {'is_discrepancies_found': value});
-                  }
-                },
-              ),
-              const Text(
-                'Yes',
-              ),
-              Radio(
-                value: false,
-                groupValue: isDiscrepanciesFound,
-                onChanged: (value) {
-                  if (isEditMode) {
-                    notifier.updateDetailsTriggerWatch(
-                        {'is_discrepancies_found': value});
-                  }
-                },
-              ),
-              const Text(
-                'No',
-              ),
-            ],
+          child: RadioGroup<bool>(
+            groupValue: isDiscrepanciesFound,
+            onChanged: (value) {
+              if (isEditMode) {
+                notifier.updateDetailsTriggerWatch(
+                    {'is_discrepancies_found': value});
+              }
+            },
+            child: Row(
+              children: [
+                const Text(
+                  'Were Any Discrepancies Found?',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Radio<bool>(value: true),
+                const Text('Yes'),
+                Radio<bool>(value: false),
+                const Text('No'),
+              ],
+            ),
           ),
         ),
         if (isDiscrepanciesFound)

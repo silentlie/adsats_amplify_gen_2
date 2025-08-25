@@ -17,7 +17,7 @@ FutureOr<List<StaffKPI>> staffKPIRepo(
   StaffKPIFilterState filter,
 ) async {
   final request = GraphQLRequest<String>(
-    document: listStaffKPI,
+    document: listStaffKPIGraphQL,
     variables: filter.toJson(),
   );
   final response = await Amplify.API.query(request: request).response;

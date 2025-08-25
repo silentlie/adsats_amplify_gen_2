@@ -1,4 +1,4 @@
-const listStaffKPI = '''
+const listStaffKPIGraphQL = '''
 query listStaffKPI(
   \$staffFilter: ModelStaffFilterInput,
   \$noticeFilter: ModelNoticeFilterInput,
@@ -47,7 +47,6 @@ query ListStaffByRole(\$roleName: String!) {
   }
 }
 ''';
-
 const listReports = '''
 query ListReports(\$filter: ModelReportFilterInput) {
   listReports(filter: \$filter, limit: 10000) {

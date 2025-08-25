@@ -26,41 +26,25 @@ class MitigateCommentWidget extends ConsumerWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              const Text(
-                'Include mitigation comment?',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Radio(
-                value: true,
-                groupValue: isIncludedComment,
-                onChanged: (value) {
-                  if (isEditMode) {
-                    notifier.updateDetailsTriggerWatch({
-                      'included_comment': value,
-                    });
-                  }
-                },
-              ),
-              const Text(
-                'Yes',
-              ),
-              Radio(
-                value: false,
-                groupValue: isIncludedComment,
-                onChanged: (value) {
-                  if (isEditMode) {
-                    notifier.updateDetailsTriggerWatch({
-                      'included_comment': value,
-                    });
-                  }
-                },
-              ),
-              const Text(
-                'No',
-              ),
-            ],
+          child: RadioGroup<bool>(
+            groupValue: isIncludedComment,
+            onChanged: (value) {
+              if (isEditMode) {
+                notifier.updateDetailsTriggerWatch({'included_comment': value});
+              }
+            },
+            child: Row(
+              children: [
+                const Text(
+                  'Include mitigation comment?',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Radio<bool>(value: true),
+                const Text('Yes'),
+                Radio<bool>(value: false),
+                const Text('No'),
+              ],
+            ),
           ),
         ),
         if (isIncludedComment)
@@ -82,7 +66,7 @@ class MitigateCommentWidget extends ConsumerWidget {
 class RiskWidget extends ConsumerWidget {
   const RiskWidget({super.key});
 
-  final List<Map<String, dynamic>> likelihoodofOccurrence = const [
+  final List<Map<String, dynamic>> likelihoodOfOccurrence = const [
     {
       "Definition": "Extremely improbable",
       "Meaning": "Almost inconceivable that the event will occur",
@@ -99,7 +83,7 @@ class RiskWidget extends ConsumerWidget {
       "value": "3"
     },
     {
-      "Definition": "Occassional",
+      "Definition": "Occasional",
       "Meaning": "Likely to occur sometimes",
       "value": "4"
     },
@@ -182,7 +166,7 @@ class RiskWidget extends ConsumerWidget {
                     ),
                   ),
                   DataTable(
-                    columns: likelihoodofOccurrence.first.keys.map(
+                    columns: likelihoodOfOccurrence.first.keys.map(
                       (column) {
                         return DataColumn(
                           label: Flexible(
@@ -194,10 +178,10 @@ class RiskWidget extends ConsumerWidget {
                       },
                     ).toList(),
                     rows: List.generate(
-                      likelihoodofOccurrence.length,
+                      likelihoodOfOccurrence.length,
                       (index) {
                         Map<String, dynamic> row =
-                            likelihoodofOccurrence[index];
+                            likelihoodOfOccurrence[index];
                         return DataRow(
                           cells: row.values.map(
                             (column) {
