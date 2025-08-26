@@ -9,7 +9,7 @@ export 'route_info.dart';
 
 part 'router.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod(keepAlive: true, dependencies: [userId])
 class Router extends _$Router {
   @override
   GoRouter build() {

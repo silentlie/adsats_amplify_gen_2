@@ -17,9 +17,13 @@ final class RouterProvider extends $NotifierProvider<Router, GoRouter> {
           retry: null,
           name: r'routerProvider',
           isAutoDispose: false,
-          dependencies: null,
-          $allTransitiveDependencies: null,
+          dependencies: const <ProviderOrFamily>[userIdProvider],
+          $allTransitiveDependencies: const <ProviderOrFamily>[
+            RouterProvider.$allTransitiveDependencies0,
+          ],
         );
+
+  static const $allTransitiveDependencies0 = userIdProvider;
 
   @override
   String debugGetCreateSourceHash() => _$routerHash();
@@ -37,7 +41,7 @@ final class RouterProvider extends $NotifierProvider<Router, GoRouter> {
   }
 }
 
-String _$routerHash() => r'1c462b6ee3d3e49a92379255ac5005e643e1372c';
+String _$routerHash() => r'7c83c1d5a200b32f0a0171505f1fadf3fef7b6ea';
 
 abstract class _$Router extends $Notifier<GoRouter> {
   GoRouter build();
