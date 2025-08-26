@@ -6,335 +6,225 @@ part of 'repo.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$flightCrewRecordsRepoHash() =>
-    r'40c7d90b2cc7b664b829b91d17b8e95a5ac753d2';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [flightCrewRecordsRepo].
 @ProviderFor(flightCrewRecordsRepo)
-const flightCrewRecordsRepoProvider = FlightCrewRecordsRepoFamily();
+const flightCrewRecordsRepoProvider = FlightCrewRecordsRepoFamily._();
 
-/// See also [flightCrewRecordsRepo].
-class FlightCrewRecordsRepoFamily
-    extends Family<AsyncValue<List<FlightCrewRecord>>> {
-  /// See also [flightCrewRecordsRepo].
-  const FlightCrewRecordsRepoFamily();
-
-  /// See also [flightCrewRecordsRepo].
-  FlightCrewRecordsRepoProvider call(
-    FlightCrewRecordFilterState filter,
-  ) {
-    return FlightCrewRecordsRepoProvider(
-      filter,
-    );
-  }
-
-  @override
-  FlightCrewRecordsRepoProvider getProviderOverride(
-    covariant FlightCrewRecordsRepoProvider provider,
-  ) {
-    return call(
-      provider.filter,
-    );
-  }
-
-  static final Iterable<ProviderOrFamily> _dependencies =
-      const <ProviderOrFamily>[];
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      const <ProviderOrFamily>{};
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'flightCrewRecordsRepoProvider';
-}
-
-/// See also [flightCrewRecordsRepo].
-class FlightCrewRecordsRepoProvider
-    extends AutoDisposeFutureProvider<List<FlightCrewRecord>> {
-  /// See also [flightCrewRecordsRepo].
-  FlightCrewRecordsRepoProvider(
-    FlightCrewRecordFilterState filter,
-  ) : this._internal(
-          (ref) => flightCrewRecordsRepo(
-            ref as FlightCrewRecordsRepoRef,
-            filter,
-          ),
-          from: flightCrewRecordsRepoProvider,
+final class FlightCrewRecordsRepoProvider extends $FunctionalProvider<
+        AsyncValue<List<FlightCrewRecord>>,
+        List<FlightCrewRecord>,
+        FutureOr<List<FlightCrewRecord>>>
+    with
+        $FutureModifier<List<FlightCrewRecord>>,
+        $FutureProvider<List<FlightCrewRecord>> {
+  const FlightCrewRecordsRepoProvider._(
+      {required FlightCrewRecordsRepoFamily super.from,
+      required FlightCrewRecordFilterState super.argument})
+      : super(
+          retry: null,
           name: r'flightCrewRecordsRepoProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$flightCrewRecordsRepoHash,
-          dependencies: FlightCrewRecordsRepoFamily._dependencies,
-          allTransitiveDependencies:
-              FlightCrewRecordsRepoFamily._allTransitiveDependencies,
-          filter: filter,
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
-  FlightCrewRecordsRepoProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.filter,
-  }) : super.internal();
-
-  final FlightCrewRecordFilterState filter;
+  @override
+  String debugGetCreateSourceHash() => _$flightCrewRecordsRepoHash();
 
   @override
-  Override overrideWith(
-    FutureOr<List<FlightCrewRecord>> Function(FlightCrewRecordsRepoRef provider)
-        create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: FlightCrewRecordsRepoProvider._internal(
-        (ref) => create(ref as FlightCrewRecordsRepoRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        filter: filter,
-      ),
-    );
+  String toString() {
+    return r'flightCrewRecordsRepoProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<FlightCrewRecord>> createElement() {
-    return _FlightCrewRecordsRepoProviderElement(this);
+  $FutureProviderElement<List<FlightCrewRecord>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<FlightCrewRecord>> create(Ref ref) {
+    final argument = this.argument as FlightCrewRecordFilterState;
+    return flightCrewRecordsRepo(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is FlightCrewRecordsRepoProvider && other.filter == filter;
+    return other is FlightCrewRecordsRepoProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, filter.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin FlightCrewRecordsRepoRef
-    on AutoDisposeFutureProviderRef<List<FlightCrewRecord>> {
-  /// The parameter `filter` of this provider.
-  FlightCrewRecordFilterState get filter;
-}
+String _$flightCrewRecordsRepoHash() =>
+    r'40c7d90b2cc7b664b829b91d17b8e95a5ac753d2';
 
-class _FlightCrewRecordsRepoProviderElement
-    extends AutoDisposeFutureProviderElement<List<FlightCrewRecord>>
-    with FlightCrewRecordsRepoRef {
-  _FlightCrewRecordsRepoProviderElement(super.provider);
+final class FlightCrewRecordsRepoFamily extends $Family
+    with
+        $FunctionalFamilyOverride<FutureOr<List<FlightCrewRecord>>,
+            FlightCrewRecordFilterState> {
+  const FlightCrewRecordsRepoFamily._()
+      : super(
+          retry: null,
+          name: r'flightCrewRecordsRepoProvider',
+          dependencies: const <ProviderOrFamily>[],
+          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          isAutoDispose: true,
+        );
+
+  FlightCrewRecordsRepoProvider call(
+    FlightCrewRecordFilterState filter,
+  ) =>
+      FlightCrewRecordsRepoProvider._(argument: filter, from: this);
 
   @override
-  FlightCrewRecordFilterState get filter =>
-      (origin as FlightCrewRecordsRepoProvider).filter;
+  String toString() => r'flightCrewRecordsRepoProvider';
+}
+
+@ProviderFor(flightCrewRecordsMeta)
+const flightCrewRecordsMetaProvider = FlightCrewRecordsMetaProvider._();
+
+final class FlightCrewRecordsMetaProvider extends $FunctionalProvider<
+        AsyncValue<(Iterable<Aircraft>, Iterable<Role>)>,
+        (Iterable<Aircraft>, Iterable<Role>),
+        FutureOr<(Iterable<Aircraft>, Iterable<Role>)>>
+    with
+        $FutureModifier<(Iterable<Aircraft>, Iterable<Role>)>,
+        $FutureProvider<(Iterable<Aircraft>, Iterable<Role>)> {
+  const FlightCrewRecordsMetaProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'flightCrewRecordsMetaProvider',
+          isAutoDispose: true,
+          dependencies: const <ProviderOrFamily>[userDetailsProvider],
+          $allTransitiveDependencies: const <ProviderOrFamily>[
+            FlightCrewRecordsMetaProvider.$allTransitiveDependencies0,
+            FlightCrewRecordsMetaProvider.$allTransitiveDependencies1,
+          ],
+        );
+
+  static const $allTransitiveDependencies0 = userDetailsProvider;
+  static const $allTransitiveDependencies1 =
+      UserDetailsProvider.$allTransitiveDependencies0;
+
+  @override
+  String debugGetCreateSourceHash() => _$flightCrewRecordsMetaHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<(Iterable<Aircraft>, Iterable<Role>)> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<(Iterable<Aircraft>, Iterable<Role>)> create(Ref ref) {
+    return flightCrewRecordsMeta(ref);
+  }
 }
 
 String _$flightCrewRecordsMetaHash() =>
     r'e224d28dce8fea55195a821307c3115804e7c030';
 
-/// See also [flightCrewRecordsMeta].
-@ProviderFor(flightCrewRecordsMeta)
-final flightCrewRecordsMetaProvider =
-    AutoDisposeFutureProvider<(Iterable<Aircraft>, Iterable<Role>)>.internal(
-  flightCrewRecordsMeta,
-  name: r'flightCrewRecordsMetaProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$flightCrewRecordsMetaHash,
-  dependencies: <ProviderOrFamily>[userDetailsProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    userDetailsProvider,
-    ...?userDetailsProvider.allTransitiveDependencies
-  },
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef FlightCrewRecordsMetaRef
-    = AutoDisposeFutureProviderRef<(Iterable<Aircraft>, Iterable<Role>)>;
-String _$listJoinStaffHash() => r'c89875fef6688c520359c87a4e47fd7a603b85fa';
-
-/// See also [listJoinStaff].
 @ProviderFor(listJoinStaff)
-const listJoinStaffProvider = ListJoinStaffFamily();
+const listJoinStaffProvider = ListJoinStaffFamily._();
 
-/// See also [listJoinStaff].
-class ListJoinStaffFamily extends Family<AsyncValue<Iterable<Staff>>> {
-  /// See also [listJoinStaff].
-  const ListJoinStaffFamily();
-
-  /// See also [listJoinStaff].
-  ListJoinStaffProvider call(
-    Aircraft aircraft,
-    Role role,
-  ) {
-    return ListJoinStaffProvider(
-      aircraft,
-      role,
-    );
-  }
-
-  @override
-  ListJoinStaffProvider getProviderOverride(
-    covariant ListJoinStaffProvider provider,
-  ) {
-    return call(
-      provider.aircraft,
-      provider.role,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'listJoinStaffProvider';
-}
-
-/// See also [listJoinStaff].
-class ListJoinStaffProvider extends AutoDisposeFutureProvider<Iterable<Staff>> {
-  /// See also [listJoinStaff].
-  ListJoinStaffProvider(
-    Aircraft aircraft,
-    Role role,
-  ) : this._internal(
-          (ref) => listJoinStaff(
-            ref as ListJoinStaffRef,
-            aircraft,
-            role,
-          ),
-          from: listJoinStaffProvider,
+final class ListJoinStaffProvider extends $FunctionalProvider<
+        AsyncValue<Iterable<Staff>>, Iterable<Staff>, FutureOr<Iterable<Staff>>>
+    with $FutureModifier<Iterable<Staff>>, $FutureProvider<Iterable<Staff>> {
+  const ListJoinStaffProvider._(
+      {required ListJoinStaffFamily super.from,
+      required (
+        Aircraft,
+        Role,
+      )
+          super.argument})
+      : super(
+          retry: null,
           name: r'listJoinStaffProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$listJoinStaffHash,
-          dependencies: ListJoinStaffFamily._dependencies,
-          allTransitiveDependencies:
-              ListJoinStaffFamily._allTransitiveDependencies,
-          aircraft: aircraft,
-          role: role,
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
-  ListJoinStaffProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.aircraft,
-    required this.role,
-  }) : super.internal();
-
-  final Aircraft aircraft;
-  final Role role;
+  @override
+  String debugGetCreateSourceHash() => _$listJoinStaffHash();
 
   @override
-  Override overrideWith(
-    FutureOr<Iterable<Staff>> Function(ListJoinStaffRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ListJoinStaffProvider._internal(
-        (ref) => create(ref as ListJoinStaffRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        aircraft: aircraft,
-        role: role,
-      ),
-    );
+  String toString() {
+    return r'listJoinStaffProvider'
+        ''
+        '$argument';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<Iterable<Staff>> createElement() {
-    return _ListJoinStaffProviderElement(this);
+  $FutureProviderElement<Iterable<Staff>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Iterable<Staff>> create(Ref ref) {
+    final argument = this.argument as (
+      Aircraft,
+      Role,
+    );
+    return listJoinStaff(
+      ref,
+      argument.$1,
+      argument.$2,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ListJoinStaffProvider &&
-        other.aircraft == aircraft &&
-        other.role == role;
+    return other is ListJoinStaffProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, aircraft.hashCode);
-    hash = _SystemHash.combine(hash, role.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ListJoinStaffRef on AutoDisposeFutureProviderRef<Iterable<Staff>> {
-  /// The parameter `aircraft` of this provider.
-  Aircraft get aircraft;
+String _$listJoinStaffHash() => r'c89875fef6688c520359c87a4e47fd7a603b85fa';
 
-  /// The parameter `role` of this provider.
-  Role get role;
-}
+final class ListJoinStaffFamily extends $Family
+    with
+        $FunctionalFamilyOverride<
+            FutureOr<Iterable<Staff>>,
+            (
+              Aircraft,
+              Role,
+            )> {
+  const ListJoinStaffFamily._()
+      : super(
+          retry: null,
+          name: r'listJoinStaffProvider',
+          dependencies: null,
+          $allTransitiveDependencies: null,
+          isAutoDispose: true,
+        );
 
-class _ListJoinStaffProviderElement
-    extends AutoDisposeFutureProviderElement<Iterable<Staff>>
-    with ListJoinStaffRef {
-  _ListJoinStaffProviderElement(super.provider);
+  ListJoinStaffProvider call(
+    Aircraft aircraft,
+    Role role,
+  ) =>
+      ListJoinStaffProvider._(argument: (
+        aircraft,
+        role,
+      ), from: this);
 
   @override
-  Aircraft get aircraft => (origin as ListJoinStaffProvider).aircraft;
-  @override
-  Role get role => (origin as ListJoinStaffProvider).role;
+  String toString() => r'listJoinStaffProvider';
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

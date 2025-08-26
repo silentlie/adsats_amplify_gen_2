@@ -3,7 +3,7 @@ import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/role_view.dart';
-import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 

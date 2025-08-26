@@ -4,7 +4,7 @@ import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/api.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/repo.dart';
-import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';

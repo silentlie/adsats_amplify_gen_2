@@ -6,25 +6,53 @@ part of 'notifications.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$notificationsHash() => r'107d514081232a09270c34581648aca9af709162';
-
-/// See also [notifications].
 @ProviderFor(notifications)
-final notificationsProvider = AutoDisposeProvider<List<NoticeStaff>>.internal(
-  notifications,
-  name: r'notificationsProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$notificationsHash,
-  dependencies: <ProviderOrFamily>[userDetailsProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    userDetailsProvider,
-    ...?userDetailsProvider.allTransitiveDependencies
-  },
-);
+const notificationsProvider = NotificationsProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef NotificationsRef = AutoDisposeProviderRef<List<NoticeStaff>>;
+final class NotificationsProvider extends $FunctionalProvider<List<NoticeStaff>,
+    List<NoticeStaff>, List<NoticeStaff>> with $Provider<List<NoticeStaff>> {
+  const NotificationsProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'notificationsProvider',
+          isAutoDispose: true,
+          dependencies: const <ProviderOrFamily>[userDetailsProvider],
+          $allTransitiveDependencies: const <ProviderOrFamily>[
+            NotificationsProvider.$allTransitiveDependencies0,
+            NotificationsProvider.$allTransitiveDependencies1,
+          ],
+        );
+
+  static const $allTransitiveDependencies0 = userDetailsProvider;
+  static const $allTransitiveDependencies1 =
+      UserDetailsProvider.$allTransitiveDependencies0;
+
+  @override
+  String debugGetCreateSourceHash() => _$notificationsHash();
+
+  @$internal
+  @override
+  $ProviderElement<List<NoticeStaff>> $createElement(
+          $ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  List<NoticeStaff> create(Ref ref) {
+    return notifications(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<NoticeStaff> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<NoticeStaff>>(value),
+    );
+  }
+}
+
+String _$notificationsHash() => r'643b7b3472e5fcfb5a67b5e57158ac4f539c002d';
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

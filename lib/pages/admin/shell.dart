@@ -1,10 +1,7 @@
-import 'dart:async';
-
-import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/aircraft_view.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/category_view.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/subcategory_view.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/roles/crew_document_categories/crew_document_category_view.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/crew_document_category_view.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/role_view.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/staff_view.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
@@ -15,42 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-export 'package:adsats_amplify_gen_2/pages/admin/aircraft/route.dart';
-export 'package:adsats_amplify_gen_2/pages/admin/roles/route.dart';
-export 'package:adsats_amplify_gen_2/pages/admin/staff/route.dart';
-export 'package:adsats_amplify_gen_2/pages/admin/categories/route.dart';
-
-class AdminShellRouteData extends StatefulShellRouteInfo {
-  const AdminShellRouteData();
-
-  static String $initialLocation = AircraftRoute().location;
-
-  @override
-  Icon get icon => const Icon(Icons.admin_panel_settings_outlined);
-  @override
-  Icon get selectedIcon => const Icon(Icons.admin_panel_settings);
-  @override
-  String get label => 'Admin';
-
-  @override
-  Widget builder(
-    BuildContext context,
-    GoRouterState state,
-    StatefulNavigationShell navigationShell,
-  ) {
-    return AdminShell(
-      navigationShell: navigationShell,
-    );
-  }
-
-  @override
-  FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
-    final ref = ProviderScope.containerOf(context);
-    final isAdmin = ref.read(isAdminProvider);
-    if (isAdmin) return null;
-    return HomeRoute().location;
-  }
-}
+export 'aircraft/page.dart';
+export 'categories/page.dart';
+export 'roles/page.dart';
+export 'staff/page.dart';
 
 class AdminShell extends ConsumerWidget {
   const AdminShell({
@@ -97,7 +62,7 @@ class AdminShell extends ConsumerWidget {
                   .read(settingsNotifierProvider.notifier)
                   .changeNavigationRailExtended();
             },
-            label: isExtended ? Text("Colapse") : Icon(Icons.chevron_right),
+            label: isExtended ? Text("Collapse") : Icon(Icons.chevron_right),
             icon: isExtended ? Icon(Icons.chevron_left) : null,
           ),
           destinations: routes.map(

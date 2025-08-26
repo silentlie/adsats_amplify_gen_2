@@ -1,4 +1,15 @@
-part of 'route.dart';
+
+
+import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/pages/main/kpi/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/main/kpi/filter.dart';
+import 'package:adsats_amplify_gen_2/pages/main/kpi/header.dart';
+import 'package:adsats_amplify_gen_2/pages/main/kpi/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/kpi/sort.dart';
+import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
+import 'package:data_table_2/data_table_2.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class KPIPage extends ConsumerWidget {
   const KPIPage({super.key});
@@ -150,7 +161,7 @@ class KPIPage extends ConsumerWidget {
             fit: FlexFit.loose,
             // render empty rows to match rows per page
             renderEmptyRowsInTheEnd: false,
-            // customise border of table
+            // customize border of table
             border: const TableBorder(),
             hidePaginator: false,
             wrapInCard: true,

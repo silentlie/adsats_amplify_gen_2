@@ -1,4 +1,10 @@
-part of 'route.dart';
+
+import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/notification/notifications.dart';
+import 'package:adsats_amplify_gen_2/router/routes/route.dart';
+import 'package:adsats_amplify_gen_2/widgets/navigate_icon_button.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -8,7 +14,7 @@ class HomePage extends ConsumerWidget {
     final notificationsWidgets = buildNotifications(context, ref);
     final userName = ref.watch(
       userDetailsProvider.select(
-        (value) => value.valueOrNull?.firstName,
+        (value) => value.value?.firstName,
       ),
     );
     return Column(

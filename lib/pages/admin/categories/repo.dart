@@ -4,7 +4,6 @@ import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/models/Category.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart' hide Category;
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'repo.g.dart';

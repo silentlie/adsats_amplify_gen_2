@@ -4,7 +4,6 @@ import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'repo.g.dart';

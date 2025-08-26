@@ -6,100 +6,217 @@ part of 'auth.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+@ProviderFor(userId)
+const userIdProvider = UserIdProvider._();
+
+final class UserIdProvider
+    extends $FunctionalProvider<AsyncValue<String>, String, FutureOr<String>>
+    with $FutureModifier<String>, $FutureProvider<String> {
+  const UserIdProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'userIdProvider',
+          isAutoDispose: true,
+          dependencies: const <ProviderOrFamily>[],
+          $allTransitiveDependencies: const <ProviderOrFamily>[],
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$userIdHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<String> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<String> create(Ref ref) {
+    return userId(ref);
+  }
+}
+
 String _$userIdHash() => r'2b1762f5114422db6a7aaca8a84656d84c75397a';
 
-/// See also [userId].
-@ProviderFor(userId)
-final userIdProvider = AutoDisposeFutureProvider<String>.internal(
-  userId,
-  name: r'userIdProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$userIdHash,
-  dependencies: const <ProviderOrFamily>[],
-  allTransitiveDependencies: const <ProviderOrFamily>{},
-);
+@ProviderFor(userDetails)
+const userDetailsProvider = UserDetailsProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef UserIdRef = AutoDisposeFutureProviderRef<String>;
+final class UserDetailsProvider
+    extends $FunctionalProvider<AsyncValue<Staff>, Staff, FutureOr<Staff>>
+    with $FutureModifier<Staff>, $FutureProvider<Staff> {
+  const UserDetailsProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'userDetailsProvider',
+          isAutoDispose: true,
+          dependencies: const <ProviderOrFamily>[userIdProvider],
+          $allTransitiveDependencies: const <ProviderOrFamily>[
+            UserDetailsProvider.$allTransitiveDependencies0,
+          ],
+        );
+
+  static const $allTransitiveDependencies0 = userIdProvider;
+
+  @override
+  String debugGetCreateSourceHash() => _$userDetailsHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<Staff> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<Staff> create(Ref ref) {
+    return userDetails(ref);
+  }
+}
+
 String _$userDetailsHash() => r'617c1a9b729b2a31e8876ff773bb18e8232f7932';
 
-/// See also [userDetails].
-@ProviderFor(userDetails)
-final userDetailsProvider = AutoDisposeFutureProvider<Staff>.internal(
-  userDetails,
-  name: r'userDetailsProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$userDetailsHash,
-  dependencies: <ProviderOrFamily>[userIdProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    userIdProvider,
-    ...?userIdProvider.allTransitiveDependencies
-  },
-);
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef UserDetailsRef = AutoDisposeFutureProviderRef<Staff>;
-String _$isAdminHash() => r'96b4f4ec96cebc4d7a5cbe0327080f9cde2a7e5c';
-
-/// See also [isAdmin].
 @ProviderFor(isAdmin)
-final isAdminProvider = AutoDisposeProvider<bool>.internal(
-  isAdmin,
-  name: r'isAdminProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$isAdminHash,
-  dependencies: <ProviderOrFamily>[userDetailsProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    userDetailsProvider,
-    ...?userDetailsProvider.allTransitiveDependencies
-  },
-);
+const isAdminProvider = IsAdminProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef IsAdminRef = AutoDisposeProviderRef<bool>;
-String _$isSafetyOfficerHash() => r'a43178c78a2686af64559b3f401b46ec08feeb4f';
+final class IsAdminProvider extends $FunctionalProvider<bool, bool, bool>
+    with $Provider<bool> {
+  const IsAdminProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'isAdminProvider',
+          isAutoDispose: true,
+          dependencies: const <ProviderOrFamily>[userDetailsProvider],
+          $allTransitiveDependencies: const <ProviderOrFamily>[
+            IsAdminProvider.$allTransitiveDependencies0,
+            IsAdminProvider.$allTransitiveDependencies1,
+          ],
+        );
 
-/// See also [isSafetyOfficer].
+  static const $allTransitiveDependencies0 = userDetailsProvider;
+  static const $allTransitiveDependencies1 =
+      UserDetailsProvider.$allTransitiveDependencies0;
+
+  @override
+  String debugGetCreateSourceHash() => _$isAdminHash();
+
+  @$internal
+  @override
+  $ProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  bool create(Ref ref) {
+    return isAdmin(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+}
+
+String _$isAdminHash() => r'583d0661f1e286971d06d62b0b7bac36ee595497';
+
 @ProviderFor(isSafetyOfficer)
-final isSafetyOfficerProvider = AutoDisposeProvider<bool>.internal(
-  isSafetyOfficer,
-  name: r'isSafetyOfficerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$isSafetyOfficerHash,
-  dependencies: <ProviderOrFamily>[userDetailsProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    userDetailsProvider,
-    ...?userDetailsProvider.allTransitiveDependencies
-  },
-);
+const isSafetyOfficerProvider = IsSafetyOfficerProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef IsSafetyOfficerRef = AutoDisposeProviderRef<bool>;
-String _$isComplianceManagerHash() =>
-    r'b183cccda764ae6e183290791ed74f9c78b7d550';
+final class IsSafetyOfficerProvider
+    extends $FunctionalProvider<bool, bool, bool> with $Provider<bool> {
+  const IsSafetyOfficerProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'isSafetyOfficerProvider',
+          isAutoDispose: true,
+          dependencies: const <ProviderOrFamily>[userDetailsProvider],
+          $allTransitiveDependencies: const <ProviderOrFamily>[
+            IsSafetyOfficerProvider.$allTransitiveDependencies0,
+            IsSafetyOfficerProvider.$allTransitiveDependencies1,
+          ],
+        );
 
-/// See also [isComplianceManager].
+  static const $allTransitiveDependencies0 = userDetailsProvider;
+  static const $allTransitiveDependencies1 =
+      UserDetailsProvider.$allTransitiveDependencies0;
+
+  @override
+  String debugGetCreateSourceHash() => _$isSafetyOfficerHash();
+
+  @$internal
+  @override
+  $ProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  bool create(Ref ref) {
+    return isSafetyOfficer(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+}
+
+String _$isSafetyOfficerHash() => r'c0b54f11ad87adabf41d83a4d56ecd2ca7d48fc4';
+
 @ProviderFor(isComplianceManager)
-final isComplianceManagerProvider = AutoDisposeProvider<bool>.internal(
-  isComplianceManager,
-  name: r'isComplianceManagerProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$isComplianceManagerHash,
-  dependencies: <ProviderOrFamily>[userDetailsProvider],
-  allTransitiveDependencies: <ProviderOrFamily>{
-    userDetailsProvider,
-    ...?userDetailsProvider.allTransitiveDependencies
-  },
-);
+const isComplianceManagerProvider = IsComplianceManagerProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef IsComplianceManagerRef = AutoDisposeProviderRef<bool>;
+final class IsComplianceManagerProvider
+    extends $FunctionalProvider<bool, bool, bool> with $Provider<bool> {
+  const IsComplianceManagerProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'isComplianceManagerProvider',
+          isAutoDispose: true,
+          dependencies: const <ProviderOrFamily>[userDetailsProvider],
+          $allTransitiveDependencies: const <ProviderOrFamily>[
+            IsComplianceManagerProvider.$allTransitiveDependencies0,
+            IsComplianceManagerProvider.$allTransitiveDependencies1,
+          ],
+        );
+
+  static const $allTransitiveDependencies0 = userDetailsProvider;
+  static const $allTransitiveDependencies1 =
+      UserDetailsProvider.$allTransitiveDependencies0;
+
+  @override
+  String debugGetCreateSourceHash() => _$isComplianceManagerHash();
+
+  @$internal
+  @override
+  $ProviderElement<bool> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
+
+  @override
+  bool create(Ref ref) {
+    return isComplianceManager(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(bool value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<bool>(value),
+    );
+  }
+}
+
+String _$isComplianceManagerHash() =>
+    r'844e6715a4ef2ae2900a84f7527f3bb5bfd2a566';
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

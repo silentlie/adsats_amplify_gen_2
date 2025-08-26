@@ -6,20 +6,55 @@ part of 'sort.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+@ProviderFor(StaffSort)
+const staffSortProvider = StaffSortProvider._();
+
+final class StaffSortProvider
+    extends $NotifierProvider<StaffSort, StaffSortState> {
+  const StaffSortProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'staffSortProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$staffSortHash();
+
+  @$internal
+  @override
+  StaffSort create() => StaffSort();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(StaffSortState value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<StaffSortState>(value),
+    );
+  }
+}
+
 String _$staffSortHash() => r'34e2fce13e3bc44c68d87a480e259e5f8b6b132e';
 
-/// See also [StaffSort].
-@ProviderFor(StaffSort)
-final staffSortProvider =
-    AutoDisposeNotifierProvider<StaffSort, StaffSortState>.internal(
-  StaffSort.new,
-  name: r'staffSortProvider',
-  debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$staffSortHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+abstract class _$StaffSort extends $Notifier<StaffSortState> {
+  StaffSortState build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<StaffSortState, StaffSortState>;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<StaffSortState, StaffSortState>,
+        StaffSortState,
+        Object?,
+        Object?>;
+    element.handleValue(ref, created);
+  }
+}
 
-typedef _$StaffSort = AutoDisposeNotifier<StaffSortState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

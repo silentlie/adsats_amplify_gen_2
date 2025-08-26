@@ -3,7 +3,7 @@ import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/s3.dart';
-import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';

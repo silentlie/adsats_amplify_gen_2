@@ -6,21 +6,55 @@ part of 'selected_files.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$selectedFilesHash() => r'45a39146ba4e200235ef7649ced84df839d07455';
-
-/// See also [SelectedFiles].
 @ProviderFor(SelectedFiles)
-final selectedFilesProvider =
-    AutoDisposeNotifierProvider<SelectedFiles, List<PlatformFile>>.internal(
-  SelectedFiles.new,
-  name: r'selectedFilesProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$selectedFilesHash,
-  dependencies: const <ProviderOrFamily>[],
-  allTransitiveDependencies: const <ProviderOrFamily>{},
-);
+const selectedFilesProvider = SelectedFilesProvider._();
 
-typedef _$SelectedFiles = AutoDisposeNotifier<List<PlatformFile>>;
+final class SelectedFilesProvider
+    extends $NotifierProvider<SelectedFiles, List<PlatformFile>> {
+  const SelectedFilesProvider._()
+      : super(
+          from: null,
+          argument: null,
+          retry: null,
+          name: r'selectedFilesProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$selectedFilesHash();
+
+  @$internal
+  @override
+  SelectedFiles create() => SelectedFiles();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(List<PlatformFile> value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<List<PlatformFile>>(value),
+    );
+  }
+}
+
+String _$selectedFilesHash() => r'0dc6f88e1342910e4d3cd9d6356a46166d16d4c0';
+
+abstract class _$SelectedFiles extends $Notifier<List<PlatformFile>> {
+  List<PlatformFile> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<List<PlatformFile>, List<PlatformFile>>;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<List<PlatformFile>, List<PlatformFile>>,
+        List<PlatformFile>,
+        Object?,
+        Object?>;
+    element.handleValue(ref, created);
+  }
+}
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

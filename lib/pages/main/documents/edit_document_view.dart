@@ -5,7 +5,7 @@ import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
-import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
@@ -51,7 +51,7 @@ class EditDocumentView extends ConsumerWidget {
                   isFileName: true,
                 ),
                 AsyncValueWidget(
-                  value: ref.watch(ListStaffProvider()),
+                  value: ref.watch(listStaffProvider()),
                   data: (data) {
                     return GlobalDropdownMenu<Staff>(
                       entries: data.map(

@@ -7,30 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-export 'package:adsats_amplify_gen_2/pages/main/home/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/documents/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/sms/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/cms/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/profile/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/help/route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/reset_password//route.dart';
-export 'package:adsats_amplify_gen_2/pages/main/kpi/route.dart';
-
-class MainShellRouteData extends StatefulShellRouteData {
-  const MainShellRouteData();
-
-  @override
-  Widget builder(
-    BuildContext context,
-    GoRouterState state,
-    StatefulNavigationShell navigationShell,
-  ) {
-    return MainShell(
-      navigationShell: navigationShell,
-    );
-  }
-}
+export 'home/page.dart';
+export 'profile/page.dart';
+export 'documents/page.dart';
+export 'flight_crew_records/page.dart';
+export 'help/page.dart';
+export 'kpi/page.dart';
+export 'sms/page.dart';
+export 'cms/page.dart';
 
 class MainShell extends ConsumerWidget {
   const MainShell({
@@ -78,7 +62,7 @@ class MainShell extends ConsumerWidget {
                   .read(settingsNotifierProvider.notifier)
                   .changeNavigationRailExtended();
             },
-            label: isExtended ? Text("Colapse") : Icon(Icons.chevron_right),
+            label: isExtended ? Text("Collapse") : Icon(Icons.chevron_right),
             icon: isExtended ? Icon(Icons.chevron_left) : null,
           ),
           destinations: routes.map(

@@ -1,4 +1,4 @@
-part of 'router.dart';
+import 'package:flutter/material.dart';
 
 class DialogPage extends Page<void> {
   /// A page to display a dialog.

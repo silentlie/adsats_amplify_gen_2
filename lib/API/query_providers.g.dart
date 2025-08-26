@@ -6,1354 +6,771 @@ part of 'query_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$listStaffHash() => r'6269ce3e05ac16293962bdc8302f8d5f2e8f6a9a';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [listStaff].
 @ProviderFor(listStaff)
-const listStaffProvider = ListStaffFamily();
+const listStaffProvider = ListStaffFamily._();
 
-/// See also [listStaff].
-class ListStaffFamily extends Family<AsyncValue<List<Staff>>> {
-  /// See also [listStaff].
-  const ListStaffFamily();
-
-  /// See also [listStaff].
-  ListStaffProvider call([
-    QueryPredicate<Model>? where,
-  ]) {
-    return ListStaffProvider(
-      where,
-    );
-  }
-
-  @override
-  ListStaffProvider getProviderOverride(
-    covariant ListStaffProvider provider,
-  ) {
-    return call(
-      provider.where,
-    );
-  }
-
-  static final Iterable<ProviderOrFamily> _dependencies =
-      const <ProviderOrFamily>[];
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      const <ProviderOrFamily>{};
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'listStaffProvider';
-}
-
-/// See also [listStaff].
-class ListStaffProvider extends AutoDisposeFutureProvider<List<Staff>> {
-  /// See also [listStaff].
-  ListStaffProvider([
-    QueryPredicate<Model>? where,
-  ]) : this._internal(
-          (ref) => listStaff(
-            ref as ListStaffRef,
-            where,
-          ),
-          from: listStaffProvider,
+final class ListStaffProvider extends $FunctionalProvider<
+        AsyncValue<List<Staff>>, List<Staff>, FutureOr<List<Staff>>>
+    with $FutureModifier<List<Staff>>, $FutureProvider<List<Staff>> {
+  const ListStaffProvider._(
+      {required ListStaffFamily super.from,
+      required QueryPredicate? super.argument})
+      : super(
+          retry: null,
           name: r'listStaffProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$listStaffHash,
-          dependencies: ListStaffFamily._dependencies,
-          allTransitiveDependencies: ListStaffFamily._allTransitiveDependencies,
-          where: where,
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
-  ListStaffProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.where,
-  }) : super.internal();
-
-  final QueryPredicate<Model>? where;
+  @override
+  String debugGetCreateSourceHash() => _$listStaffHash();
 
   @override
-  Override overrideWith(
-    FutureOr<List<Staff>> Function(ListStaffRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ListStaffProvider._internal(
-        (ref) => create(ref as ListStaffRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        where: where,
-      ),
-    );
+  String toString() {
+    return r'listStaffProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<Staff>> createElement() {
-    return _ListStaffProviderElement(this);
+  $FutureProviderElement<List<Staff>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Staff>> create(Ref ref) {
+    final argument = this.argument as QueryPredicate?;
+    return listStaff(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ListStaffProvider && other.where == where;
+    return other is ListStaffProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, where.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ListStaffRef on AutoDisposeFutureProviderRef<List<Staff>> {
-  /// The parameter `where` of this provider.
-  QueryPredicate<Model>? get where;
-}
+String _$listStaffHash() => r'6269ce3e05ac16293962bdc8302f8d5f2e8f6a9a';
 
-class _ListStaffProviderElement
-    extends AutoDisposeFutureProviderElement<List<Staff>> with ListStaffRef {
-  _ListStaffProviderElement(super.provider);
+final class ListStaffFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Staff>>, QueryPredicate?> {
+  const ListStaffFamily._()
+      : super(
+          retry: null,
+          name: r'listStaffProvider',
+          dependencies: const <ProviderOrFamily>[],
+          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          isAutoDispose: true,
+        );
+
+  ListStaffProvider call([
+    QueryPredicate? where,
+  ]) =>
+      ListStaffProvider._(argument: where, from: this);
 
   @override
-  QueryPredicate<Model>? get where => (origin as ListStaffProvider).where;
+  String toString() => r'listStaffProvider';
+}
+
+@ProviderFor(listNotices)
+const listNoticesProvider = ListNoticesFamily._();
+
+final class ListNoticesProvider extends $FunctionalProvider<
+        AsyncValue<List<Notice>>, List<Notice>, FutureOr<List<Notice>>>
+    with $FutureModifier<List<Notice>>, $FutureProvider<List<Notice>> {
+  const ListNoticesProvider._(
+      {required ListNoticesFamily super.from,
+      required QueryPredicate? super.argument})
+      : super(
+          retry: null,
+          name: r'listNoticesProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$listNoticesHash();
+
+  @override
+  String toString() {
+    return r'listNoticesProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<List<Notice>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Notice>> create(Ref ref) {
+    final argument = this.argument as QueryPredicate?;
+    return listNotices(
+      ref,
+      argument,
+    );
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is ListNoticesProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
 }
 
 String _$listNoticesHash() => r'4b44b92433835e58547a0572a9082542a11de0b8';
 
-/// See also [listNotices].
-@ProviderFor(listNotices)
-const listNoticesProvider = ListNoticesFamily();
-
-/// See also [listNotices].
-class ListNoticesFamily extends Family<AsyncValue<List<Notice>>> {
-  /// See also [listNotices].
-  const ListNoticesFamily();
-
-  /// See also [listNotices].
-  ListNoticesProvider call([
-    QueryPredicate<Model>? where,
-  ]) {
-    return ListNoticesProvider(
-      where,
-    );
-  }
-
-  @override
-  ListNoticesProvider getProviderOverride(
-    covariant ListNoticesProvider provider,
-  ) {
-    return call(
-      provider.where,
-    );
-  }
-
-  static final Iterable<ProviderOrFamily> _dependencies =
-      const <ProviderOrFamily>[];
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      const <ProviderOrFamily>{};
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'listNoticesProvider';
-}
-
-/// See also [listNotices].
-class ListNoticesProvider extends AutoDisposeFutureProvider<List<Notice>> {
-  /// See also [listNotices].
-  ListNoticesProvider([
-    QueryPredicate<Model>? where,
-  ]) : this._internal(
-          (ref) => listNotices(
-            ref as ListNoticesRef,
-            where,
-          ),
-          from: listNoticesProvider,
+final class ListNoticesFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Notice>>, QueryPredicate?> {
+  const ListNoticesFamily._()
+      : super(
+          retry: null,
           name: r'listNoticesProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$listNoticesHash,
-          dependencies: ListNoticesFamily._dependencies,
-          allTransitiveDependencies:
-              ListNoticesFamily._allTransitiveDependencies,
-          where: where,
+          dependencies: const <ProviderOrFamily>[],
+          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          isAutoDispose: true,
         );
 
-  ListNoticesProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.where,
-  }) : super.internal();
-
-  final QueryPredicate<Model>? where;
+  ListNoticesProvider call([
+    QueryPredicate? where,
+  ]) =>
+      ListNoticesProvider._(argument: where, from: this);
 
   @override
-  Override overrideWith(
-    FutureOr<List<Notice>> Function(ListNoticesRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ListNoticesProvider._internal(
-        (ref) => create(ref as ListNoticesRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        where: where,
-      ),
-    );
+  String toString() => r'listNoticesProvider';
+}
+
+@ProviderFor(listAircraft)
+const listAircraftProvider = ListAircraftFamily._();
+
+final class ListAircraftProvider extends $FunctionalProvider<
+        AsyncValue<List<Aircraft>>, List<Aircraft>, FutureOr<List<Aircraft>>>
+    with $FutureModifier<List<Aircraft>>, $FutureProvider<List<Aircraft>> {
+  const ListAircraftProvider._(
+      {required ListAircraftFamily super.from,
+      required QueryPredicate? super.argument})
+      : super(
+          retry: null,
+          name: r'listAircraftProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$listAircraftHash();
+
+  @override
+  String toString() {
+    return r'listAircraftProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<Notice>> createElement() {
-    return _ListNoticesProviderElement(this);
+  $FutureProviderElement<List<Aircraft>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Aircraft>> create(Ref ref) {
+    final argument = this.argument as QueryPredicate?;
+    return listAircraft(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ListNoticesProvider && other.where == where;
+    return other is ListAircraftProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, where.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ListNoticesRef on AutoDisposeFutureProviderRef<List<Notice>> {
-  /// The parameter `where` of this provider.
-  QueryPredicate<Model>? get where;
-}
-
-class _ListNoticesProviderElement
-    extends AutoDisposeFutureProviderElement<List<Notice>> with ListNoticesRef {
-  _ListNoticesProviderElement(super.provider);
-
-  @override
-  QueryPredicate<Model>? get where => (origin as ListNoticesProvider).where;
 }
 
 String _$listAircraftHash() => r'e9e2a962b7c0b316834b5cb3c0e9b5e45cb56e7e';
 
-/// See also [listAircraft].
-@ProviderFor(listAircraft)
-const listAircraftProvider = ListAircraftFamily();
-
-/// See also [listAircraft].
-class ListAircraftFamily extends Family<AsyncValue<List<Aircraft>>> {
-  /// See also [listAircraft].
-  const ListAircraftFamily();
-
-  /// See also [listAircraft].
-  ListAircraftProvider call([
-    QueryPredicate<Model>? where,
-  ]) {
-    return ListAircraftProvider(
-      where,
-    );
-  }
-
-  @override
-  ListAircraftProvider getProviderOverride(
-    covariant ListAircraftProvider provider,
-  ) {
-    return call(
-      provider.where,
-    );
-  }
-
-  static final Iterable<ProviderOrFamily> _dependencies =
-      const <ProviderOrFamily>[];
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      const <ProviderOrFamily>{};
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'listAircraftProvider';
-}
-
-/// See also [listAircraft].
-class ListAircraftProvider extends AutoDisposeFutureProvider<List<Aircraft>> {
-  /// See also [listAircraft].
-  ListAircraftProvider([
-    QueryPredicate<Model>? where,
-  ]) : this._internal(
-          (ref) => listAircraft(
-            ref as ListAircraftRef,
-            where,
-          ),
-          from: listAircraftProvider,
+final class ListAircraftFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Aircraft>>, QueryPredicate?> {
+  const ListAircraftFamily._()
+      : super(
+          retry: null,
           name: r'listAircraftProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$listAircraftHash,
-          dependencies: ListAircraftFamily._dependencies,
-          allTransitiveDependencies:
-              ListAircraftFamily._allTransitiveDependencies,
-          where: where,
+          dependencies: const <ProviderOrFamily>[],
+          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          isAutoDispose: true,
         );
 
-  ListAircraftProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.where,
-  }) : super.internal();
-
-  final QueryPredicate<Model>? where;
+  ListAircraftProvider call([
+    QueryPredicate? where,
+  ]) =>
+      ListAircraftProvider._(argument: where, from: this);
 
   @override
-  Override overrideWith(
-    FutureOr<List<Aircraft>> Function(ListAircraftRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ListAircraftProvider._internal(
-        (ref) => create(ref as ListAircraftRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        where: where,
-      ),
-    );
+  String toString() => r'listAircraftProvider';
+}
+
+@ProviderFor(listRoles)
+const listRolesProvider = ListRolesFamily._();
+
+final class ListRolesProvider extends $FunctionalProvider<
+        AsyncValue<List<Role>>, List<Role>, FutureOr<List<Role>>>
+    with $FutureModifier<List<Role>>, $FutureProvider<List<Role>> {
+  const ListRolesProvider._(
+      {required ListRolesFamily super.from,
+      required QueryPredicate? super.argument})
+      : super(
+          retry: null,
+          name: r'listRolesProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$listRolesHash();
+
+  @override
+  String toString() {
+    return r'listRolesProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<Aircraft>> createElement() {
-    return _ListAircraftProviderElement(this);
+  $FutureProviderElement<List<Role>> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Role>> create(Ref ref) {
+    final argument = this.argument as QueryPredicate?;
+    return listRoles(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ListAircraftProvider && other.where == where;
+    return other is ListRolesProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, where.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ListAircraftRef on AutoDisposeFutureProviderRef<List<Aircraft>> {
-  /// The parameter `where` of this provider.
-  QueryPredicate<Model>? get where;
-}
-
-class _ListAircraftProviderElement
-    extends AutoDisposeFutureProviderElement<List<Aircraft>>
-    with ListAircraftRef {
-  _ListAircraftProviderElement(super.provider);
-
-  @override
-  QueryPredicate<Model>? get where => (origin as ListAircraftProvider).where;
 }
 
 String _$listRolesHash() => r'61544f5ded5fbb6d8e0affac00c36b5909b969ac';
 
-/// See also [listRoles].
-@ProviderFor(listRoles)
-const listRolesProvider = ListRolesFamily();
-
-/// See also [listRoles].
-class ListRolesFamily extends Family<AsyncValue<List<Role>>> {
-  /// See also [listRoles].
-  const ListRolesFamily();
-
-  /// See also [listRoles].
-  ListRolesProvider call([
-    QueryPredicate<Model>? where,
-  ]) {
-    return ListRolesProvider(
-      where,
-    );
-  }
-
-  @override
-  ListRolesProvider getProviderOverride(
-    covariant ListRolesProvider provider,
-  ) {
-    return call(
-      provider.where,
-    );
-  }
-
-  static final Iterable<ProviderOrFamily> _dependencies =
-      const <ProviderOrFamily>[];
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      const <ProviderOrFamily>{};
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'listRolesProvider';
-}
-
-/// See also [listRoles].
-class ListRolesProvider extends AutoDisposeFutureProvider<List<Role>> {
-  /// See also [listRoles].
-  ListRolesProvider([
-    QueryPredicate<Model>? where,
-  ]) : this._internal(
-          (ref) => listRoles(
-            ref as ListRolesRef,
-            where,
-          ),
-          from: listRolesProvider,
+final class ListRolesFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Role>>, QueryPredicate?> {
+  const ListRolesFamily._()
+      : super(
+          retry: null,
           name: r'listRolesProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$listRolesHash,
-          dependencies: ListRolesFamily._dependencies,
-          allTransitiveDependencies: ListRolesFamily._allTransitiveDependencies,
-          where: where,
+          dependencies: const <ProviderOrFamily>[],
+          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          isAutoDispose: true,
         );
 
-  ListRolesProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.where,
-  }) : super.internal();
-
-  final QueryPredicate<Model>? where;
+  ListRolesProvider call([
+    QueryPredicate? where,
+  ]) =>
+      ListRolesProvider._(argument: where, from: this);
 
   @override
-  Override overrideWith(
-    FutureOr<List<Role>> Function(ListRolesRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ListRolesProvider._internal(
-        (ref) => create(ref as ListRolesRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        where: where,
-      ),
-    );
+  String toString() => r'listRolesProvider';
+}
+
+@ProviderFor(listCategories)
+const listCategoriesProvider = ListCategoriesFamily._();
+
+final class ListCategoriesProvider extends $FunctionalProvider<
+        AsyncValue<List<Category>>, List<Category>, FutureOr<List<Category>>>
+    with $FutureModifier<List<Category>>, $FutureProvider<List<Category>> {
+  const ListCategoriesProvider._(
+      {required ListCategoriesFamily super.from,
+      required QueryPredicate? super.argument})
+      : super(
+          retry: null,
+          name: r'listCategoriesProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$listCategoriesHash();
+
+  @override
+  String toString() {
+    return r'listCategoriesProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<Role>> createElement() {
-    return _ListRolesProviderElement(this);
+  $FutureProviderElement<List<Category>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Category>> create(Ref ref) {
+    final argument = this.argument as QueryPredicate?;
+    return listCategories(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ListRolesProvider && other.where == where;
+    return other is ListCategoriesProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, where.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ListRolesRef on AutoDisposeFutureProviderRef<List<Role>> {
-  /// The parameter `where` of this provider.
-  QueryPredicate<Model>? get where;
-}
-
-class _ListRolesProviderElement
-    extends AutoDisposeFutureProviderElement<List<Role>> with ListRolesRef {
-  _ListRolesProviderElement(super.provider);
-
-  @override
-  QueryPredicate<Model>? get where => (origin as ListRolesProvider).where;
 }
 
 String _$listCategoriesHash() => r'862168f45f6078ab26c10df0e495f3dc7c9a278a';
 
-/// See also [listCategories].
-@ProviderFor(listCategories)
-const listCategoriesProvider = ListCategoriesFamily();
-
-/// See also [listCategories].
-class ListCategoriesFamily extends Family<AsyncValue<List<Category>>> {
-  /// See also [listCategories].
-  const ListCategoriesFamily();
-
-  /// See also [listCategories].
-  ListCategoriesProvider call([
-    QueryPredicate<Model>? where,
-  ]) {
-    return ListCategoriesProvider(
-      where,
-    );
-  }
-
-  @override
-  ListCategoriesProvider getProviderOverride(
-    covariant ListCategoriesProvider provider,
-  ) {
-    return call(
-      provider.where,
-    );
-  }
-
-  static final Iterable<ProviderOrFamily> _dependencies =
-      const <ProviderOrFamily>[];
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      const <ProviderOrFamily>{};
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'listCategoriesProvider';
-}
-
-/// See also [listCategories].
-class ListCategoriesProvider extends AutoDisposeFutureProvider<List<Category>> {
-  /// See also [listCategories].
-  ListCategoriesProvider([
-    QueryPredicate<Model>? where,
-  ]) : this._internal(
-          (ref) => listCategories(
-            ref as ListCategoriesRef,
-            where,
-          ),
-          from: listCategoriesProvider,
+final class ListCategoriesFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Category>>, QueryPredicate?> {
+  const ListCategoriesFamily._()
+      : super(
+          retry: null,
           name: r'listCategoriesProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$listCategoriesHash,
-          dependencies: ListCategoriesFamily._dependencies,
-          allTransitiveDependencies:
-              ListCategoriesFamily._allTransitiveDependencies,
-          where: where,
+          dependencies: const <ProviderOrFamily>[],
+          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          isAutoDispose: true,
         );
 
-  ListCategoriesProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.where,
-  }) : super.internal();
-
-  final QueryPredicate<Model>? where;
+  ListCategoriesProvider call([
+    QueryPredicate? where,
+  ]) =>
+      ListCategoriesProvider._(argument: where, from: this);
 
   @override
-  Override overrideWith(
-    FutureOr<List<Category>> Function(ListCategoriesRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ListCategoriesProvider._internal(
-        (ref) => create(ref as ListCategoriesRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        where: where,
-      ),
-    );
+  String toString() => r'listCategoriesProvider';
+}
+
+@ProviderFor(listSubcategories)
+const listSubcategoriesProvider = ListSubcategoriesFamily._();
+
+final class ListSubcategoriesProvider extends $FunctionalProvider<
+        AsyncValue<List<Subcategory>>,
+        List<Subcategory>,
+        FutureOr<List<Subcategory>>>
+    with
+        $FutureModifier<List<Subcategory>>,
+        $FutureProvider<List<Subcategory>> {
+  const ListSubcategoriesProvider._(
+      {required ListSubcategoriesFamily super.from,
+      required QueryPredicate? super.argument})
+      : super(
+          retry: null,
+          name: r'listSubcategoriesProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$listSubcategoriesHash();
+
+  @override
+  String toString() {
+    return r'listSubcategoriesProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<Category>> createElement() {
-    return _ListCategoriesProviderElement(this);
+  $FutureProviderElement<List<Subcategory>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Subcategory>> create(Ref ref) {
+    final argument = this.argument as QueryPredicate?;
+    return listSubcategories(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ListCategoriesProvider && other.where == where;
+    return other is ListSubcategoriesProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, where.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ListCategoriesRef on AutoDisposeFutureProviderRef<List<Category>> {
-  /// The parameter `where` of this provider.
-  QueryPredicate<Model>? get where;
-}
-
-class _ListCategoriesProviderElement
-    extends AutoDisposeFutureProviderElement<List<Category>>
-    with ListCategoriesRef {
-  _ListCategoriesProviderElement(super.provider);
-
-  @override
-  QueryPredicate<Model>? get where => (origin as ListCategoriesProvider).where;
 }
 
 String _$listSubcategoriesHash() => r'47c1dcfeb0e4f0836010d5bacf2b9164c46d324b';
 
-/// See also [listSubcategories].
-@ProviderFor(listSubcategories)
-const listSubcategoriesProvider = ListSubcategoriesFamily();
-
-/// See also [listSubcategories].
-class ListSubcategoriesFamily extends Family<AsyncValue<List<Subcategory>>> {
-  /// See also [listSubcategories].
-  const ListSubcategoriesFamily();
-
-  /// See also [listSubcategories].
-  ListSubcategoriesProvider call([
-    QueryPredicate<Model>? where,
-  ]) {
-    return ListSubcategoriesProvider(
-      where,
-    );
-  }
-
-  @override
-  ListSubcategoriesProvider getProviderOverride(
-    covariant ListSubcategoriesProvider provider,
-  ) {
-    return call(
-      provider.where,
-    );
-  }
-
-  static final Iterable<ProviderOrFamily> _dependencies =
-      const <ProviderOrFamily>[];
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      const <ProviderOrFamily>{};
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'listSubcategoriesProvider';
-}
-
-/// See also [listSubcategories].
-class ListSubcategoriesProvider
-    extends AutoDisposeFutureProvider<List<Subcategory>> {
-  /// See also [listSubcategories].
-  ListSubcategoriesProvider([
-    QueryPredicate<Model>? where,
-  ]) : this._internal(
-          (ref) => listSubcategories(
-            ref as ListSubcategoriesRef,
-            where,
-          ),
-          from: listSubcategoriesProvider,
+final class ListSubcategoriesFamily extends $Family
+    with
+        $FunctionalFamilyOverride<FutureOr<List<Subcategory>>,
+            QueryPredicate?> {
+  const ListSubcategoriesFamily._()
+      : super(
+          retry: null,
           name: r'listSubcategoriesProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$listSubcategoriesHash,
-          dependencies: ListSubcategoriesFamily._dependencies,
-          allTransitiveDependencies:
-              ListSubcategoriesFamily._allTransitiveDependencies,
-          where: where,
+          dependencies: const <ProviderOrFamily>[],
+          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          isAutoDispose: true,
         );
 
-  ListSubcategoriesProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.where,
-  }) : super.internal();
-
-  final QueryPredicate<Model>? where;
+  ListSubcategoriesProvider call([
+    QueryPredicate? where,
+  ]) =>
+      ListSubcategoriesProvider._(argument: where, from: this);
 
   @override
-  Override overrideWith(
-    FutureOr<List<Subcategory>> Function(ListSubcategoriesRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ListSubcategoriesProvider._internal(
-        (ref) => create(ref as ListSubcategoriesRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        where: where,
-      ),
-    );
+  String toString() => r'listSubcategoriesProvider';
+}
+
+@ProviderFor(listNoticeStaff)
+const listNoticeStaffProvider = ListNoticeStaffFamily._();
+
+final class ListNoticeStaffProvider extends $FunctionalProvider<
+        AsyncValue<List<NoticeStaff>>,
+        List<NoticeStaff>,
+        FutureOr<List<NoticeStaff>>>
+    with
+        $FutureModifier<List<NoticeStaff>>,
+        $FutureProvider<List<NoticeStaff>> {
+  const ListNoticeStaffProvider._(
+      {required ListNoticeStaffFamily super.from,
+      required QueryPredicate? super.argument})
+      : super(
+          retry: null,
+          name: r'listNoticeStaffProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$listNoticeStaffHash();
+
+  @override
+  String toString() {
+    return r'listNoticeStaffProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<Subcategory>> createElement() {
-    return _ListSubcategoriesProviderElement(this);
+  $FutureProviderElement<List<NoticeStaff>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<NoticeStaff>> create(Ref ref) {
+    final argument = this.argument as QueryPredicate?;
+    return listNoticeStaff(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ListSubcategoriesProvider && other.where == where;
+    return other is ListNoticeStaffProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, where.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ListSubcategoriesRef on AutoDisposeFutureProviderRef<List<Subcategory>> {
-  /// The parameter `where` of this provider.
-  QueryPredicate<Model>? get where;
-}
-
-class _ListSubcategoriesProviderElement
-    extends AutoDisposeFutureProviderElement<List<Subcategory>>
-    with ListSubcategoriesRef {
-  _ListSubcategoriesProviderElement(super.provider);
-
-  @override
-  QueryPredicate<Model>? get where =>
-      (origin as ListSubcategoriesProvider).where;
 }
 
 String _$listNoticeStaffHash() => r'a02e5240c4f7bac5e556248d137a3be5e5747877';
 
-/// See also [listNoticeStaff].
-@ProviderFor(listNoticeStaff)
-const listNoticeStaffProvider = ListNoticeStaffFamily();
-
-/// See also [listNoticeStaff].
-class ListNoticeStaffFamily extends Family<AsyncValue<List<NoticeStaff>>> {
-  /// See also [listNoticeStaff].
-  const ListNoticeStaffFamily();
-
-  /// See also [listNoticeStaff].
-  ListNoticeStaffProvider call([
-    QueryPredicate<Model>? where,
-  ]) {
-    return ListNoticeStaffProvider(
-      where,
-    );
-  }
-
-  @override
-  ListNoticeStaffProvider getProviderOverride(
-    covariant ListNoticeStaffProvider provider,
-  ) {
-    return call(
-      provider.where,
-    );
-  }
-
-  static final Iterable<ProviderOrFamily> _dependencies =
-      const <ProviderOrFamily>[];
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      const <ProviderOrFamily>{};
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'listNoticeStaffProvider';
-}
-
-/// See also [listNoticeStaff].
-class ListNoticeStaffProvider
-    extends AutoDisposeFutureProvider<List<NoticeStaff>> {
-  /// See also [listNoticeStaff].
-  ListNoticeStaffProvider([
-    QueryPredicate<Model>? where,
-  ]) : this._internal(
-          (ref) => listNoticeStaff(
-            ref as ListNoticeStaffRef,
-            where,
-          ),
-          from: listNoticeStaffProvider,
+final class ListNoticeStaffFamily extends $Family
+    with
+        $FunctionalFamilyOverride<FutureOr<List<NoticeStaff>>,
+            QueryPredicate?> {
+  const ListNoticeStaffFamily._()
+      : super(
+          retry: null,
           name: r'listNoticeStaffProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$listNoticeStaffHash,
-          dependencies: ListNoticeStaffFamily._dependencies,
-          allTransitiveDependencies:
-              ListNoticeStaffFamily._allTransitiveDependencies,
-          where: where,
+          dependencies: const <ProviderOrFamily>[],
+          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          isAutoDispose: true,
         );
 
-  ListNoticeStaffProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.where,
-  }) : super.internal();
-
-  final QueryPredicate<Model>? where;
+  ListNoticeStaffProvider call([
+    QueryPredicate? where,
+  ]) =>
+      ListNoticeStaffProvider._(argument: where, from: this);
 
   @override
-  Override overrideWith(
-    FutureOr<List<NoticeStaff>> Function(ListNoticeStaffRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ListNoticeStaffProvider._internal(
-        (ref) => create(ref as ListNoticeStaffRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        where: where,
-      ),
-    );
+  String toString() => r'listNoticeStaffProvider';
+}
+
+@ProviderFor(listReportStaff)
+const listReportStaffProvider = ListReportStaffFamily._();
+
+final class ListReportStaffProvider extends $FunctionalProvider<
+        AsyncValue<List<ReportStaff>>,
+        List<ReportStaff>,
+        FutureOr<List<ReportStaff>>>
+    with
+        $FutureModifier<List<ReportStaff>>,
+        $FutureProvider<List<ReportStaff>> {
+  const ListReportStaffProvider._(
+      {required ListReportStaffFamily super.from,
+      required QueryPredicate? super.argument})
+      : super(
+          retry: null,
+          name: r'listReportStaffProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$listReportStaffHash();
+
+  @override
+  String toString() {
+    return r'listReportStaffProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<NoticeStaff>> createElement() {
-    return _ListNoticeStaffProviderElement(this);
+  $FutureProviderElement<List<ReportStaff>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<ReportStaff>> create(Ref ref) {
+    final argument = this.argument as QueryPredicate?;
+    return listReportStaff(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ListNoticeStaffProvider && other.where == where;
+    return other is ListReportStaffProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, where.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ListNoticeStaffRef on AutoDisposeFutureProviderRef<List<NoticeStaff>> {
-  /// The parameter `where` of this provider.
-  QueryPredicate<Model>? get where;
-}
-
-class _ListNoticeStaffProviderElement
-    extends AutoDisposeFutureProviderElement<List<NoticeStaff>>
-    with ListNoticeStaffRef {
-  _ListNoticeStaffProviderElement(super.provider);
-
-  @override
-  QueryPredicate<Model>? get where => (origin as ListNoticeStaffProvider).where;
 }
 
 String _$listReportStaffHash() => r'948c826c550936d2bb6b59dc26f7ce92a65205f2';
 
-/// See also [listReportStaff].
-@ProviderFor(listReportStaff)
-const listReportStaffProvider = ListReportStaffFamily();
-
-/// See also [listReportStaff].
-class ListReportStaffFamily extends Family<AsyncValue<List<ReportStaff>>> {
-  /// See also [listReportStaff].
-  const ListReportStaffFamily();
-
-  /// See also [listReportStaff].
-  ListReportStaffProvider call([
-    QueryPredicate<Model>? where,
-  ]) {
-    return ListReportStaffProvider(
-      where,
-    );
-  }
-
-  @override
-  ListReportStaffProvider getProviderOverride(
-    covariant ListReportStaffProvider provider,
-  ) {
-    return call(
-      provider.where,
-    );
-  }
-
-  static final Iterable<ProviderOrFamily> _dependencies =
-      const <ProviderOrFamily>[];
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      const <ProviderOrFamily>{};
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'listReportStaffProvider';
-}
-
-/// See also [listReportStaff].
-class ListReportStaffProvider
-    extends AutoDisposeFutureProvider<List<ReportStaff>> {
-  /// See also [listReportStaff].
-  ListReportStaffProvider([
-    QueryPredicate<Model>? where,
-  ]) : this._internal(
-          (ref) => listReportStaff(
-            ref as ListReportStaffRef,
-            where,
-          ),
-          from: listReportStaffProvider,
+final class ListReportStaffFamily extends $Family
+    with
+        $FunctionalFamilyOverride<FutureOr<List<ReportStaff>>,
+            QueryPredicate?> {
+  const ListReportStaffFamily._()
+      : super(
+          retry: null,
           name: r'listReportStaffProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$listReportStaffHash,
-          dependencies: ListReportStaffFamily._dependencies,
-          allTransitiveDependencies:
-              ListReportStaffFamily._allTransitiveDependencies,
-          where: where,
+          dependencies: const <ProviderOrFamily>[],
+          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          isAutoDispose: true,
         );
 
-  ListReportStaffProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.where,
-  }) : super.internal();
-
-  final QueryPredicate<Model>? where;
+  ListReportStaffProvider call([
+    QueryPredicate? where,
+  ]) =>
+      ListReportStaffProvider._(argument: where, from: this);
 
   @override
-  Override overrideWith(
-    FutureOr<List<ReportStaff>> Function(ListReportStaffRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ListReportStaffProvider._internal(
-        (ref) => create(ref as ListReportStaffRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        where: where,
-      ),
-    );
+  String toString() => r'listReportStaffProvider';
+}
+
+@ProviderFor(listDocuments)
+const listDocumentsProvider = ListDocumentsFamily._();
+
+final class ListDocumentsProvider extends $FunctionalProvider<
+        AsyncValue<List<Document>>, List<Document>, FutureOr<List<Document>>>
+    with $FutureModifier<List<Document>>, $FutureProvider<List<Document>> {
+  const ListDocumentsProvider._(
+      {required ListDocumentsFamily super.from,
+      required QueryPredicate? super.argument})
+      : super(
+          retry: null,
+          name: r'listDocumentsProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$listDocumentsHash();
+
+  @override
+  String toString() {
+    return r'listDocumentsProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<ReportStaff>> createElement() {
-    return _ListReportStaffProviderElement(this);
+  $FutureProviderElement<List<Document>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Document>> create(Ref ref) {
+    final argument = this.argument as QueryPredicate?;
+    return listDocuments(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ListReportStaffProvider && other.where == where;
+    return other is ListDocumentsProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, where.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ListReportStaffRef on AutoDisposeFutureProviderRef<List<ReportStaff>> {
-  /// The parameter `where` of this provider.
-  QueryPredicate<Model>? get where;
-}
-
-class _ListReportStaffProviderElement
-    extends AutoDisposeFutureProviderElement<List<ReportStaff>>
-    with ListReportStaffRef {
-  _ListReportStaffProviderElement(super.provider);
-
-  @override
-  QueryPredicate<Model>? get where => (origin as ListReportStaffProvider).where;
 }
 
 String _$listDocumentsHash() => r'91cd9ce0a6491dbe49a50e68f028c1ae75d135fc';
 
-/// See also [listDocuments].
-@ProviderFor(listDocuments)
-const listDocumentsProvider = ListDocumentsFamily();
-
-/// See also [listDocuments].
-class ListDocumentsFamily extends Family<AsyncValue<List<Document>>> {
-  /// See also [listDocuments].
-  const ListDocumentsFamily();
-
-  /// See also [listDocuments].
-  ListDocumentsProvider call([
-    QueryPredicate<Model>? where,
-  ]) {
-    return ListDocumentsProvider(
-      where,
-    );
-  }
-
-  @override
-  ListDocumentsProvider getProviderOverride(
-    covariant ListDocumentsProvider provider,
-  ) {
-    return call(
-      provider.where,
-    );
-  }
-
-  static final Iterable<ProviderOrFamily> _dependencies =
-      const <ProviderOrFamily>[];
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      const <ProviderOrFamily>{};
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'listDocumentsProvider';
-}
-
-/// See also [listDocuments].
-class ListDocumentsProvider extends AutoDisposeFutureProvider<List<Document>> {
-  /// See also [listDocuments].
-  ListDocumentsProvider([
-    QueryPredicate<Model>? where,
-  ]) : this._internal(
-          (ref) => listDocuments(
-            ref as ListDocumentsRef,
-            where,
-          ),
-          from: listDocumentsProvider,
+final class ListDocumentsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Document>>, QueryPredicate?> {
+  const ListDocumentsFamily._()
+      : super(
+          retry: null,
           name: r'listDocumentsProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$listDocumentsHash,
-          dependencies: ListDocumentsFamily._dependencies,
-          allTransitiveDependencies:
-              ListDocumentsFamily._allTransitiveDependencies,
-          where: where,
+          dependencies: const <ProviderOrFamily>[],
+          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          isAutoDispose: true,
         );
 
-  ListDocumentsProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.where,
-  }) : super.internal();
-
-  final QueryPredicate<Model>? where;
+  ListDocumentsProvider call([
+    QueryPredicate? where,
+  ]) =>
+      ListDocumentsProvider._(argument: where, from: this);
 
   @override
-  Override overrideWith(
-    FutureOr<List<Document>> Function(ListDocumentsRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ListDocumentsProvider._internal(
-        (ref) => create(ref as ListDocumentsRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        where: where,
-      ),
-    );
+  String toString() => r'listDocumentsProvider';
+}
+
+@ProviderFor(listSessions)
+const listSessionsProvider = ListSessionsFamily._();
+
+final class ListSessionsProvider extends $FunctionalProvider<
+        AsyncValue<List<Session>>, List<Session>, FutureOr<List<Session>>>
+    with $FutureModifier<List<Session>>, $FutureProvider<List<Session>> {
+  const ListSessionsProvider._(
+      {required ListSessionsFamily super.from,
+      required QueryPredicate? super.argument})
+      : super(
+          retry: null,
+          name: r'listSessionsProvider',
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
+        );
+
+  @override
+  String debugGetCreateSourceHash() => _$listSessionsHash();
+
+  @override
+  String toString() {
+    return r'listSessionsProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<Document>> createElement() {
-    return _ListDocumentsProviderElement(this);
+  $FutureProviderElement<List<Session>> $createElement(
+          $ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Session>> create(Ref ref) {
+    final argument = this.argument as QueryPredicate?;
+    return listSessions(
+      ref,
+      argument,
+    );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ListDocumentsProvider && other.where == where;
+    return other is ListSessionsProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, where.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ListDocumentsRef on AutoDisposeFutureProviderRef<List<Document>> {
-  /// The parameter `where` of this provider.
-  QueryPredicate<Model>? get where;
-}
-
-class _ListDocumentsProviderElement
-    extends AutoDisposeFutureProviderElement<List<Document>>
-    with ListDocumentsRef {
-  _ListDocumentsProviderElement(super.provider);
-
-  @override
-  QueryPredicate<Model>? get where => (origin as ListDocumentsProvider).where;
 }
 
 String _$listSessionsHash() => r'd387c41fafd893fe4b3388dc25d257345bedb9b0';
 
-/// See also [listSessions].
-@ProviderFor(listSessions)
-const listSessionsProvider = ListSessionsFamily();
-
-/// See also [listSessions].
-class ListSessionsFamily extends Family<AsyncValue<List<Session>>> {
-  /// See also [listSessions].
-  const ListSessionsFamily();
-
-  /// See also [listSessions].
-  ListSessionsProvider call([
-    QueryPredicate<Model>? where,
-  ]) {
-    return ListSessionsProvider(
-      where,
-    );
-  }
-
-  @override
-  ListSessionsProvider getProviderOverride(
-    covariant ListSessionsProvider provider,
-  ) {
-    return call(
-      provider.where,
-    );
-  }
-
-  static final Iterable<ProviderOrFamily> _dependencies =
-      const <ProviderOrFamily>[];
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      const <ProviderOrFamily>{};
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'listSessionsProvider';
-}
-
-/// See also [listSessions].
-class ListSessionsProvider extends AutoDisposeFutureProvider<List<Session>> {
-  /// See also [listSessions].
-  ListSessionsProvider([
-    QueryPredicate<Model>? where,
-  ]) : this._internal(
-          (ref) => listSessions(
-            ref as ListSessionsRef,
-            where,
-          ),
-          from: listSessionsProvider,
+final class ListSessionsFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Session>>, QueryPredicate?> {
+  const ListSessionsFamily._()
+      : super(
+          retry: null,
           name: r'listSessionsProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$listSessionsHash,
-          dependencies: ListSessionsFamily._dependencies,
-          allTransitiveDependencies:
-              ListSessionsFamily._allTransitiveDependencies,
-          where: where,
+          dependencies: const <ProviderOrFamily>[],
+          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          isAutoDispose: true,
         );
 
-  ListSessionsProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.where,
-  }) : super.internal();
-
-  final QueryPredicate<Model>? where;
+  ListSessionsProvider call([
+    QueryPredicate? where,
+  ]) =>
+      ListSessionsProvider._(argument: where, from: this);
 
   @override
-  Override overrideWith(
-    FutureOr<List<Session>> Function(ListSessionsRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: ListSessionsProvider._internal(
-        (ref) => create(ref as ListSessionsRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        where: where,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<List<Session>> createElement() {
-    return _ListSessionsProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is ListSessionsProvider && other.where == where;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, where.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin ListSessionsRef on AutoDisposeFutureProviderRef<List<Session>> {
-  /// The parameter `where` of this provider.
-  QueryPredicate<Model>? get where;
-}
-
-class _ListSessionsProviderElement
-    extends AutoDisposeFutureProviderElement<List<Session>>
-    with ListSessionsRef {
-  _ListSessionsProviderElement(super.provider);
-
-  @override
-  QueryPredicate<Model>? get where => (origin as ListSessionsProvider).where;
+  String toString() => r'listSessionsProvider';
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

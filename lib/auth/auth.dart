@@ -61,7 +61,7 @@ bool isAdmin(Ref ref) {
   return ref.watch(
         userDetailsProvider.select(
           (user) {
-            return user.valueOrNull?.roles?.any(
+            return user.value?.roles?.any(
               (role) {
                 return role.role?.name == "Admin";
               },
@@ -77,7 +77,7 @@ bool isSafetyOfficer(Ref ref) {
   return ref.watch(
         userDetailsProvider.select(
           (user) {
-            return user.valueOrNull?.roles?.any(
+            return user.value?.roles?.any(
               (role) {
                 final roleName = role.role?.name;
                 return roleName == "Safety Officer" || roleName == "Admin";
@@ -94,7 +94,7 @@ bool isComplianceManager(Ref ref) {
   return ref.watch(
         userDetailsProvider.select(
           (user) {
-            return user.valueOrNull?.roles?.any(
+            return user.value?.roles?.any(
               (role) {
                 final roleName = role.role?.name;
                 return roleName == "Compliance Manager" || roleName == "Admin";

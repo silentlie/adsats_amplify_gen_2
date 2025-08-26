@@ -2,7 +2,7 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/new_document.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
-import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

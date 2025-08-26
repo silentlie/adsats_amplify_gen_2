@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/to_string.dart';
-import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/future_value_widget.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
@@ -97,7 +97,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(
       userDetailsProvider.select(
-        (asyncValue) => asyncValue.valueOrNull,
+        (asyncValue) => asyncValue.value,
       ),
     );
     Widget? avatar;

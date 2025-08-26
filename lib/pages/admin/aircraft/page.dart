@@ -1,4 +1,14 @@
-part of 'route.dart';
+
+import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/aircraft/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/aircraft/header.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/aircraft/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/aircraft/sort.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
+import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
+import 'package:data_table_2/data_table_2.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AircraftPage extends ConsumerWidget {
   const AircraftPage({super.key});

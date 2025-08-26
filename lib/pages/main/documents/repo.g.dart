@@ -6,173 +6,93 @@ part of 'repo.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$documentsRepoHash() => r'f7a431cc6e6b440c5bf890b33ecedabb326f091c';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-abstract class _$DocumentsRepo
-    extends BuildlessAutoDisposeAsyncNotifier<List<Document>> {
-  late final DocumentFilterState filter;
-
-  FutureOr<List<Document>> build(
-    DocumentFilterState filter,
-  );
-}
-
-/// See also [DocumentsRepo].
 @ProviderFor(DocumentsRepo)
-const documentsRepoProvider = DocumentsRepoFamily();
+const documentsRepoProvider = DocumentsRepoFamily._();
 
-/// See also [DocumentsRepo].
-class DocumentsRepoFamily extends Family<AsyncValue<List<Document>>> {
-  /// See also [DocumentsRepo].
-  const DocumentsRepoFamily();
-
-  /// See also [DocumentsRepo].
-  DocumentsRepoProvider call(
-    DocumentFilterState filter,
-  ) {
-    return DocumentsRepoProvider(
-      filter,
-    );
-  }
-
-  @override
-  DocumentsRepoProvider getProviderOverride(
-    covariant DocumentsRepoProvider provider,
-  ) {
-    return call(
-      provider.filter,
-    );
-  }
-
-  static final Iterable<ProviderOrFamily> _dependencies =
-      const <ProviderOrFamily>[];
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static final Iterable<ProviderOrFamily> _allTransitiveDependencies =
-      const <ProviderOrFamily>{};
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'documentsRepoProvider';
-}
-
-/// See also [DocumentsRepo].
-class DocumentsRepoProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    DocumentsRepo, List<Document>> {
-  /// See also [DocumentsRepo].
-  DocumentsRepoProvider(
-    DocumentFilterState filter,
-  ) : this._internal(
-          () => DocumentsRepo()..filter = filter,
-          from: documentsRepoProvider,
+final class DocumentsRepoProvider
+    extends $AsyncNotifierProvider<DocumentsRepo, List<Document>> {
+  const DocumentsRepoProvider._(
+      {required DocumentsRepoFamily super.from,
+      required DocumentFilterState super.argument})
+      : super(
+          retry: null,
           name: r'documentsRepoProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$documentsRepoHash,
-          dependencies: DocumentsRepoFamily._dependencies,
-          allTransitiveDependencies:
-              DocumentsRepoFamily._allTransitiveDependencies,
-          filter: filter,
+          isAutoDispose: true,
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
-  DocumentsRepoProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.filter,
-  }) : super.internal();
-
-  final DocumentFilterState filter;
+  @override
+  String debugGetCreateSourceHash() => _$documentsRepoHash();
 
   @override
-  FutureOr<List<Document>> runNotifierBuild(
-    covariant DocumentsRepo notifier,
-  ) {
-    return notifier.build(
-      filter,
-    );
+  String toString() {
+    return r'documentsRepoProvider'
+        ''
+        '($argument)';
   }
 
+  @$internal
   @override
-  Override overrideWith(DocumentsRepo Function() create) {
-    return ProviderOverride(
-      origin: this,
-      override: DocumentsRepoProvider._internal(
-        () => create()..filter = filter,
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        filter: filter,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeAsyncNotifierProviderElement<DocumentsRepo, List<Document>>
-      createElement() {
-    return _DocumentsRepoProviderElement(this);
-  }
+  DocumentsRepo create() => DocumentsRepo();
 
   @override
   bool operator ==(Object other) {
-    return other is DocumentsRepoProvider && other.filter == filter;
+    return other is DocumentsRepoProvider && other.argument == argument;
   }
 
   @override
   int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, filter.hashCode);
-
-    return _SystemHash.finish(hash);
+    return argument.hashCode;
   }
 }
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin DocumentsRepoRef on AutoDisposeAsyncNotifierProviderRef<List<Document>> {
-  /// The parameter `filter` of this provider.
-  DocumentFilterState get filter;
-}
+String _$documentsRepoHash() => r'f7a431cc6e6b440c5bf890b33ecedabb326f091c';
 
-class _DocumentsRepoProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<DocumentsRepo,
-        List<Document>> with DocumentsRepoRef {
-  _DocumentsRepoProviderElement(super.provider);
+final class DocumentsRepoFamily extends $Family
+    with
+        $ClassFamilyOverride<DocumentsRepo, AsyncValue<List<Document>>,
+            List<Document>, FutureOr<List<Document>>, DocumentFilterState> {
+  const DocumentsRepoFamily._()
+      : super(
+          retry: null,
+          name: r'documentsRepoProvider',
+          dependencies: const <ProviderOrFamily>[],
+          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          isAutoDispose: true,
+        );
+
+  DocumentsRepoProvider call(
+    DocumentFilterState filter,
+  ) =>
+      DocumentsRepoProvider._(argument: filter, from: this);
 
   @override
-  DocumentFilterState get filter => (origin as DocumentsRepoProvider).filter;
+  String toString() => r'documentsRepoProvider';
 }
+
+abstract class _$DocumentsRepo extends $AsyncNotifier<List<Document>> {
+  late final _$args = ref.$arg as DocumentFilterState;
+  DocumentFilterState get filter => _$args;
+
+  FutureOr<List<Document>> build(
+    DocumentFilterState filter,
+  );
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build(
+      _$args,
+    );
+    final ref = this.ref as $Ref<AsyncValue<List<Document>>, List<Document>>;
+    final element = ref.element as $ClassProviderElement<
+        AnyNotifier<AsyncValue<List<Document>>, List<Document>>,
+        AsyncValue<List<Document>>,
+        Object?,
+        Object?>;
+    element.handleValue(ref, created);
+  }
+}
+
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

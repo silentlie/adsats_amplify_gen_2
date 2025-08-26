@@ -4,7 +4,7 @@ import 'package:adsats_amplify_gen_2/models/Staff.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/new_flight_crew_record.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
-import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

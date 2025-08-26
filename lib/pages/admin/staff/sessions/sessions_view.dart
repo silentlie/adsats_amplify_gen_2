@@ -3,7 +3,7 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/sort.dart';
-import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';

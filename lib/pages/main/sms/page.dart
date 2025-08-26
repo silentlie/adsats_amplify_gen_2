@@ -1,4 +1,10 @@
-part of 'route.dart';
+import 'package:adsats_amplify_gen_2/router/routes/route.dart';
+import 'package:adsats_amplify_gen_2/widgets/navigate_icon_button.dart';
+import 'package:flutter/material.dart';
+
+export 'notices/shell.dart';
+export 'create/shell.dart';
+export 'notice/page.dart';
 
 class SMSPage extends StatelessWidget {
   const SMSPage({super.key});
