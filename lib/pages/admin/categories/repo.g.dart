@@ -59,7 +59,7 @@ final class CategoriesRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$categoriesRepoHash() => r'32d2f3e7e82a6818c77c006e04ae8be5bf745302';
+String _$categoriesRepoHash() => r'339fc24e13cf5abc1a7baa322277a317a0f33989';
 
 final class CategoriesRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Category>>, AdminFilterState> {

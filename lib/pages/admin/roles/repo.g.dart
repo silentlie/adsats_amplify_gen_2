@@ -58,7 +58,7 @@ final class RolesRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$rolesRepoHash() => r'b31d31bca8be9313f28178d7bb1c22d2b7b199a0';
+String _$rolesRepoHash() => r'8d822a421b00bed69bd5e266b0f334ff66444d65';
 
 final class RolesRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Role>>, AdminFilterState> {

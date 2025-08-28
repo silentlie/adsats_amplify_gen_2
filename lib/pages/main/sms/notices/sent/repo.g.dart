@@ -59,7 +59,7 @@ final class NoticesSentRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$noticesSentRepoHash() => r'bff1de633e8f2b1e301bca0d8d376740d5428c26';
+String _$noticesSentRepoHash() => r'07d18667620283c82d48c15fdc2bf923028f4057';
 
 final class NoticesSentRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Notice>>, NoticeFilterState> {

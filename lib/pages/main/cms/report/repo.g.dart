@@ -57,7 +57,7 @@ final class ReportRepoProvider
   }
 }
 
-String _$reportRepoHash() => r'79e39c23dec3191ae4629fa61ef06e0435856796';
+String _$reportRepoHash() => r'1f1004260ca717afe7a62c047c6b8a7367b624e6';
 
 final class ReportRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Report>, String> {

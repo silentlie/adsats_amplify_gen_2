@@ -6,24 +6,32 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 class AmplifyAppSyncAPI {
   const AmplifyAppSyncAPI();
 
-  Future<T> getById<T extends Model>(
-    ModelType<T> modelType,
-    ModelIdentifier<T> modelIdentifier,
-  ) async {
+  Future<T?> getById<T extends Model>({
+    required ModelType<T> modelType,
+    required ModelIdentifier<T> modelIdentifier,
+  }) async {
     final req = ModelQueries.get<T>(modelType, modelIdentifier);
     final res = await Amplify.API.query(request: req).response;
     if (res.errors.isNotEmpty) throw res.errors.first;
-    return res.data as T;
+    return res.data;
   }
 
-  Future<List<T>> getAll<T extends Model>(
-    ModelType<T> modelType,
+  Future<List<T>> listAll<T extends Model>({
+    required ModelType<T> modelType,
     QueryPredicate? where,
-  ) async {
-    final req = ModelQueries.list<T>(modelType, where: where);
-    final res = await Amplify.API.query(request: req).response;
+    int limit = 10000,
+  }) async {
+    var req = ModelQueries.list<T>(modelType, where: where, limit: limit);
+    var res = await Amplify.API.query(request: req).response;
     if (res.errors.isNotEmpty) throw res.errors.first;
-    return res.data!.items.cast<T>();
+    final items = res.data!.items.cast<T>();
+    while (res.data?.hasNextResult ?? false) {
+      req = res.data!.requestForNextResult!;
+      res = await Amplify.API.query(request: req).response;
+      if (res.errors.isNotEmpty) throw res.errors.first;
+      items.addAll(res.data!.items.cast<T>());
+    }
+    return items;
   }
 
   Future<T> create<T extends Model>(T model) async {
@@ -47,18 +55,20 @@ class AmplifyAppSyncAPI {
     return res.data!;
   }
 
-  Future<T> deleteById<T extends Model>(
-    ModelType<T> modelType,
-    ModelIdentifier<T> modelIdentifier,
-  ) async {
+  Future<T> deleteById<T extends Model>({
+    required ModelType<T> modelType,
+    required ModelIdentifier<T> modelIdentifier,
+  }) async {
     final req = ModelMutations.deleteById<T>(modelType, modelIdentifier);
     final res = await Amplify.API.mutate(request: req).response;
     if (res.errors.isNotEmpty) throw res.errors.first;
     return res.data!;
   }
 
-  Future<Map<String, dynamic>> run(
-      String documents, Map<String, dynamic> variables) async {
+  Future<Map<String, dynamic>> query({
+    required String documents,
+    required Map<String, dynamic> variables,
+  }) async {
     final req = GraphQLRequest<String>(
       document: documents,
       variables: variables,

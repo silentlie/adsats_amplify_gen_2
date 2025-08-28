@@ -122,7 +122,7 @@ final class StaffByRoleNameProvider extends $FunctionalProvider<
   }
 }
 
-String _$staffByRoleNameHash() => r'17c8873037db96189e4df888667e312df0472305';
+String _$staffByRoleNameHash() => r'eafab32c74528d3dc96a3d3f7c10db69dd228b3a';
 
 final class StaffByRoleNameFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Staff>>, String> {

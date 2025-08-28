@@ -59,7 +59,7 @@ final class StaffRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$staffRepoHash() => r'5fa86eb6ff2808fd958b9fb53d7fee26595ff2a9';
+String _$staffRepoHash() => r'5f7210ffd83d1abc7a6148a1a8cd90878cb737d5';
 
 final class StaffRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Staff>>, AdminFilterState> {

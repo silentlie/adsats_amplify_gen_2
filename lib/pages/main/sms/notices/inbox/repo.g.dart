@@ -61,7 +61,7 @@ final class NoticesInboxRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$noticesInboxRepoHash() => r'cb997a034097d8e5f0752d9d0387f3c6e80f6fd6';
+String _$noticesInboxRepoHash() => r'266c6baebf8d88a7127894b6647219f5d24a08af';
 
 final class NoticesInboxRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Notice>>, NoticeFilterState> {

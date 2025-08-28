@@ -42,7 +42,7 @@ final class ProfileRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$profileRepoHash() => r'56f7295520a028c4e62e4b2d527d72deaba1386f';
+String _$profileRepoHash() => r'26d01984f7f49bd6056ded8b0a270a026c704fd5';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

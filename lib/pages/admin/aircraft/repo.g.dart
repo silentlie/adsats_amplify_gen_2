@@ -59,7 +59,7 @@ final class AircraftRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$aircraftRepoHash() => r'7387b3b2264d0ce9e2f8ad8eb7008e7c242fe043';
+String _$aircraftRepoHash() => r'd79a2b5d276f754200248bd3b2b34c109b27ac60';
 
 final class AircraftRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Aircraft>>, AdminFilterState> {

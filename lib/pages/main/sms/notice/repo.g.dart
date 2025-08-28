@@ -57,7 +57,7 @@ final class NoticeRepoProvider
   }
 }
 
-String _$noticeRepoHash() => r'f118cbebf51f0c881909b837f61e7e1897d6c634';
+String _$noticeRepoHash() => r'cd548f4e51d573de76b9bf38384497697c422105';
 
 final class NoticeRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Notice>, String> {

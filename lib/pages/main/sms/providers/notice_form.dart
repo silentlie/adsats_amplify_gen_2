@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:adsats_amplify_gen_2/API/database_repository.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -15,12 +16,11 @@ class NoticeForm extends _$NoticeForm {
   factory NoticeForm.withNotice(Notice notice, bool isNew) {
     final n = NoticeForm();
     n._draftNotice = notice;
-    n._isNew = isNew;
+    n._initialNotice = notice;
     return n;
   }
 
   bool seeded = false;
-  late final bool _isNew;
   late Notice _draftNotice;
   late final Notice? _initialNotice;
   Map<String, dynamic> _draftDetails = {};
@@ -35,7 +35,6 @@ class NoticeForm extends _$NoticeForm {
       seeded,
       "NoticeForm must be initialized with NoticeForm.withNotice()",
     );
-    _initialNotice = !_isNew ? _draftNotice : null;
     _draftDetails = json.decode(_draftNotice.details) as Map<String, dynamic>;
     _aircraft = _draftNotice.aircraft?.map((e) => e.aircraft!).toList() ?? [];
     _recipients = _draftNotice.recipients?.map((e) => e.staff!).toList() ?? [];
@@ -47,7 +46,7 @@ class NoticeForm extends _$NoticeForm {
   }
 
   bool isNew() {
-    return _isNew;
+    return _initialNotice == null;
   }
 
   // check if user is safety officer or author of the notice
@@ -134,9 +133,54 @@ class NoticeForm extends _$NoticeForm {
 
   Future<void> submit(bool send) async {
     commit();
-    final List<Future> futures = switch (_isNew) { true => [], false => [
-      ]
-    };
+    final repo = ref.read(databaseRepositoryProvider);
+
+    final List<Future<Model>> futures = [];
+    if (_initialNotice == null) {
+      // Create new notice
+      futures.add(repo.create(state.notice));
+      // Create new relations with aircraft
+      futures.addAll(
+        _aircraft.map(
+          (e) => repo.create(AircraftNotice(
+            aircraft: e,
+            notice: state.notice,
+          )),
+        ),
+      );
+    } else {
+      // Update existing notice
+      futures.add(repo.update(state.notice));
+      // Keep track of old aircraft notices
+      final oldMap = {
+        for (var old in _initialNotice.aircraft!) old.aircraft!.id: old
+      };
+      // Create new relation if not exists
+      for (final newAircraft in _aircraft) {
+        final old = oldMap.remove(newAircraft.id);
+        if (old == null) {
+          futures.add(repo.create(AircraftNotice(
+            aircraft: newAircraft,
+            notice: state.notice,
+          )));
+        }
+      }
+      // Delete old relations not in new list
+      for (final old in oldMap.values) {
+        futures.add(repo.delete(old));
+      }
+      // Delete documents not in new list
+      _initialNotice.documents?.where((doc) {
+        return !state.notice.documents!.contains(doc);
+      }).forEach((doc) {
+        futures.add(repo.delete(doc));
+      });
+    }
+    for (final doc in ref.watch(selectedFilesProvider)) {
+      final noticeDocument = NoticeDocument(name: doc.name, notices: state.notice);
+      futures.add(repo.create(noticeDocument));
+      // TODO: Upload document to S3
+    }
     await Future.wait(futures);
   }
 }

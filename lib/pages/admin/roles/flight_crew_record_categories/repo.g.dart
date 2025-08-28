@@ -61,7 +61,7 @@ final class FlightCrewRecordsCategoriesRepoProvider
 }
 
 String _$flightCrewRecordsCategoriesRepoHash() =>
-    r'4a601dcc4eacde134eeeb265b0bc4284fff0dcda';
+    r'6276951a79b13eed376eef48408bd222a0e1d7b0';
 
 final class FlightCrewRecordsCategoriesRepoFamily extends $Family
     with

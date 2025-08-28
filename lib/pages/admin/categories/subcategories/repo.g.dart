@@ -58,7 +58,7 @@ final class SubcategoriesRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$subcategoriesRepoHash() => r'3c044fc9e199e1ae65863a20d0dd85e1e9ca5aca';
+String _$subcategoriesRepoHash() => r'720abce959e2878061c079ce35f44bfd1a8d6f56';
 
 final class SubcategoriesRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Category>, SubcategoryFilterState> {

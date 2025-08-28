@@ -54,7 +54,7 @@ final class NoticeFormProvider
   }
 }
 
-String _$noticeFormHash() => r'5cde443877b65a7642fd8df91e2fd15743cf7a67';
+String _$noticeFormHash() => r'0b998f39b1f7073c1c35b6efb6285ca3c7cc81c1';
 
 abstract class _$NoticeForm extends $Notifier<NoticeFormState> {
   NoticeFormState build();

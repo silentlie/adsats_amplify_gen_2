@@ -61,7 +61,7 @@ final class ReportsInboxRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$reportsInboxRepoHash() => r'656cf3f61d7c6026e2df81b76008750a82315e13';
+String _$reportsInboxRepoHash() => r'91883f362b96445cfe88391e22c085b89c5c391f';
 
 final class ReportsInboxRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Report>>, ReportFilterState> {
