@@ -69,7 +69,7 @@ Future<void> deleteUser(String id) async {
 Future<Staff> deleteStaff(Staff staff) async {
   try {
     final request = GraphQLRequest<String>(
-      document: getStaffDetails,
+      document: getStaffDetailsGraphQL,
       variables: {"id": staff.id},
     );
     final response = await Amplify.API.query(request: request).response;

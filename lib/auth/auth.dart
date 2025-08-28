@@ -30,7 +30,7 @@ Future<Staff> userDetails(Ref ref) async {
   return await Amplify.API
       .query(
         request: GraphQLRequest(
-          document: getStaff,
+          document: getStaffGraphQL,
           variables: {
             "id": id,
           },

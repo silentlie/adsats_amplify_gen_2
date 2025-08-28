@@ -6,7 +6,6 @@ import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/api.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create/s3.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notice/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/inbox/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/sent/repo.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -20,28 +19,22 @@ part 'state.freezed.dart';
 @Riverpod(dependencies: [SelectedFiles, isSafetyOfficer, userDetails])
 class NoticeNotifier extends _$NoticeNotifier {
   NoticeNotifier();
-  Notice? _initialNotice;
+  factory NoticeNotifier.withNotice(Notice notice, bool isNew) {
+    final n = NoticeNotifier();
+    n._notice = notice;
+    n._isNew = isNew;
+    return n;
+  }
+  late Notice _notice;
+  late final bool _isNew;
   List<Role> _roles = [];
   @override
   NoticeState build() {
     return NoticeState(
       formKey: GlobalKey<FormState>(),
-      notice: Notice(
-        subject: "",
-        archived: false,
-        details: "",
-        aircraft: [],
-        documents: [],
-        recipients: [],
-      ),
-      editMode: false,
+      notice: _notice,
+      editMode: _isNew,
     );
-  }
-
-  void setNotice(Notice notice, bool isInitialNotice) {
-    state.notice = notice;
-    state.editMode = !isInitialNotice;
-    if (isInitialNotice) _initialNotice = notice;
   }
 
   Future<void> submit(bool isSend) async {
@@ -50,12 +43,12 @@ class NoticeNotifier extends _$NoticeNotifier {
       true => [
           update(state.notice),
           updateAircraftNotice(
-            _initialNotice!,
+            _notice,
             state.notice,
           ),
-          ..._initialNotice!.documents!
+          ..._notice.documents!
               .where((element) => !state.notice.documents!.contains(element))
-              .map((e) => deleteNoticeDocumentFile(e, _initialNotice!))
+              .map((e) => deleteNoticeDocumentFile(e, _notice))
         ],
       false => [
           create(state.notice),
@@ -72,7 +65,7 @@ class NoticeNotifier extends _$NoticeNotifier {
         notice: state.notice,
       );
       await updateNoticeStaff(
-        _initialNotice,
+        _notice,
         state.notice,
         finalRecipients,
       );
@@ -161,18 +154,17 @@ class NoticeNotifier extends _$NoticeNotifier {
   }
 
   void switchEditMode() {
-    if (state.editMode) ref.invalidate(noticeRepoProvider);
+    // if (state.editMode) ref.invalidate(noticeRepoProvider);
     state = state.copyWith(editMode: !state.editMode);
   }
 
   bool isEditable() {
-    return _initialNotice != null;
+    return !_isNew;
   }
 
   bool editPermit() {
     return ref.watch(isSafetyOfficerProvider) ||
-        state.notice.author?.id ==
-            ref.watch(userDetailsProvider).value!.id;
+        state.notice.author?.id == ref.watch(userDetailsProvider).value!.id;
   }
 
   void resetFormKey() {
@@ -191,15 +183,15 @@ sealed class NoticeState with _$NoticeState {
 
   Map<String, dynamic> get details {
     String detailsStr = notice.details;
-    return json.decode(detailsStr) as Map<String, dynamic>;
+    return Map<String, dynamic>.unmodifiable(json.decode(detailsStr));
   }
 
   List<Aircraft> get aircraft {
-    return notice.aircraft!.map((e) => e.aircraft!).toList();
+    return notice.aircraft!.map((e) => e.aircraft!).toList(growable: false);
   }
 
   List<Staff> get recipients {
-    return notice.recipients!.map((e) => e.staff!).toList();
+    return notice.recipients!.map((e) => e.staff!).toList(growable: false);
   }
 
   bool get isDraft {

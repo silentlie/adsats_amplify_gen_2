@@ -12,7 +12,7 @@ part 'repo.g.dart';
 FutureOr<Iterable<Role>> profileRepo(Ref ref) async {
   final id = await ref.watch(userIdProvider.future);
   final request = GraphQLRequest<String>(
-    document: listProfileMeta,
+    document: listProfileMetaGraphQL,
     variables: {"id": id},
   );
   final response = await Amplify.API.query(request: request).response;

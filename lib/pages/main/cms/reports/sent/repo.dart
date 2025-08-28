@@ -16,7 +16,7 @@ FutureOr<List<Report>> reportsSentRepo(
   final filterJson = filter.toJson();
   filterJson["auditorId"] = {"eq": filter.user.id};
   final request = GraphQLRequest<String>(
-    document: listReports,
+    document: listReportsGraphQL,
     variables: {"filter": filterJson},
   );
   final response = await Amplify.API.query(request: request).response;

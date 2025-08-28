@@ -224,7 +224,7 @@ sealed class ReportState with _$ReportState {
 @riverpod
 FutureOr<List<Staff>> staffByRoleName(Ref ref, String roleName) async {
   final request = GraphQLRequest<String>(
-    document: listStaffByRole,
+    document: listStaffByRoleGraphQL,
     variables: {"roleName": roleName},
   );
   final response = await Amplify.API.query(request: request).response;

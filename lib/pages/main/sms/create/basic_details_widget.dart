@@ -37,15 +37,8 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
               child: AsyncValueWidget(
                 value: ref.watch(listStaffProvider()),
                 data: (value) {
-                  final initialSelection = !notifier.isEditable()
-                      ? value.firstWhere(
-                          (e) =>
-                              e.id ==
-                              ref.watch(userDetailsProvider).value!.id,
-                        )
-                      : notice.author!;
-                  notifier.updateNotice(
-                    author: initialSelection,
+                  final initialSelection = value.firstWhere(
+                    (e) => e.id == notice.author!.id,
                   );
                   return GlobalDropdownMenu<Staff>(
                     entries: value.map(

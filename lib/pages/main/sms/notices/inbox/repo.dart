@@ -27,7 +27,7 @@ FutureOr<List<Notice>> noticesInboxRepo(
           })
       .toList();
   final request = GraphQLRequest<String>(
-    document: listNotices,
+    document: listNoticesGraphQL,
     variables: {"filter": filterJson},
   );
   final response = await Amplify.API.query(request: request).response;

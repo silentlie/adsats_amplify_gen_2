@@ -26,7 +26,7 @@ query listStaffKPI(
   }
 }
 ''';
-const listStaffByRole = '''
+const listStaffByRoleGraphQL = '''
 query ListStaffByRole(\$roleName: String!) {
   listRoles(filter: {name: {eq: \$roleName}}, limit: 10000) {
     items {
@@ -47,7 +47,7 @@ query ListStaffByRole(\$roleName: String!) {
   }
 }
 ''';
-const listReports = '''
+const listReportsGraphQL = '''
 query ListReports(\$filter: ModelReportFilterInput) {
   listReports(filter: \$filter, limit: 10000) {
     items {
@@ -97,7 +97,7 @@ query ListReports(\$filter: ModelReportFilterInput) {
   }
 }
 ''';
-const getReportDetails = '''
+const getReportDetailsGraphQL = '''
 query GetReportDetails(\$id: ID!) {
   getReport(id: \$id) {
     id
@@ -145,7 +145,7 @@ query GetReportDetails(\$id: ID!) {
   }
 }
 ''';
-const getFlightCrewRecordsCategoryDetails = '''
+const getFlightCrewRecordsCategoryDetailsGraphQL = '''
 query GetFlightCrewRecordsCategoryDetails(\$id: ID) {
   getFlightCrewRecordCategory(id: \$id) {
     flightCrewRecords {
@@ -157,7 +157,7 @@ query GetFlightCrewRecordsCategoryDetails(\$id: ID) {
   }
 }
 ''';
-const listJoinRecipients = '''
+const listJoinRecipientsGraphQL = '''
 query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFilter: ModelAircraftStaffFilterInput) {
   listStaff(limit: 10000) {
     items {
@@ -182,7 +182,7 @@ query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFil
   }
 }
 ''';
-const listFlightCrewRecordsCategories = '''
+const listFlightCrewRecordsCategoriesGraphQL = '''
 query ListFlightCrewRecordsCategories(\$filter: ModelFlightCrewRecordCategoryFilterInput, \$id: ID!) {
   getRole(id: \$id) {
     id
@@ -206,7 +206,7 @@ query ListFlightCrewRecordsCategories(\$filter: ModelFlightCrewRecordCategoryFil
   }
 }
 ''';
-const listProfileMeta = '''
+const listProfileMetaGraphQL = '''
 query ListProfileMeta(\$id: ID!) {
   listRoles(filter: {archived: {eq: false}}, limit: 10000) {
     items {
@@ -227,7 +227,7 @@ query ListProfileMeta(\$id: ID!) {
   }
 }
 ''';
-const listFlightCrewRecords = '''
+const listFlightCrewRecordsGraphQL = '''
 query ListFlightCrewRecords(\$filter: ModelFlightCrewRecordFilterInput) {
   listFlightCrewRecords(filter: \$filter, limit: 10000) {
     items {
@@ -251,7 +251,7 @@ query ListFlightCrewRecords(\$filter: ModelFlightCrewRecordFilterInput) {
   }
 }
 ''';
-const listFlightCrewRecordsCrews = '''
+const listFlightCrewRecordsCrewsGraphQL = '''
 query ListFlightCrewRecordsCrews(\$aircraftId: ID!, \$roleId: ID!) {
   getRole(id: \$roleId) {
     id
@@ -273,7 +273,7 @@ query ListFlightCrewRecordsCrews(\$aircraftId: ID!, \$roleId: ID!) {
   }
 }
 ''';
-const listFlightCrewRecordsMeta = '''
+const listFlightCrewRecordsMetaGraphQL = '''
 query ListFlightCrewRecordsMeta {
   listRoles(filter: {archived: {eq: false}}, limit: 10000) {
     items {
@@ -295,7 +295,7 @@ query ListFlightCrewRecordsMeta {
   }
 }
 ''';
-const listNotices = '''
+const listNoticesGraphQL = '''
 query ListNotices(\$filter: ModelNoticeFilterInput) {
   listNotices(filter: \$filter, limit: 10000) {
     items {
@@ -331,7 +331,7 @@ query ListNotices(\$filter: ModelNoticeFilterInput) {
   }
 }
 ''';
-const getNoticeDetails = '''
+const getNoticeDetailsGraphQL = '''
 query GetNoticeDetails(\$id: ID!) {
   getNotice(id: \$id) {
     id
@@ -381,7 +381,7 @@ query GetNoticeDetails(\$id: ID!) {
   }
 }
 ''';
-const listSubcategories = '''
+const listSubcategoriesGraphQL = '''
 query ListSubcategories(\$filter: ModelSubcategoryFilterInput, \$id: ID!) {
   getCategory(id: \$id) {
     id
@@ -418,7 +418,7 @@ query ListSubcategories(\$filter: ModelSubcategoryFilterInput, \$id: ID!) {
   }
 }
 ''';
-const listCategories = '''
+const listCategoriesGraphQL = '''
 query ListCategories(\$filter: ModelCategoryFilterInput) {
   listCategories(filter: \$filter, limit: 10000) {
     items {
@@ -438,7 +438,7 @@ query ListCategories(\$filter: ModelCategoryFilterInput) {
   }
 }
 ''';
-const listAircraft = '''
+const listAircraftGraphQL = '''
 query ListAircraft(\$filter: ModelAircraftFilterInput) {
   listAircraft(filter: \$filter, limit: 10000) {
     items {
@@ -464,7 +464,7 @@ query ListAircraft(\$filter: ModelAircraftFilterInput) {
   }
 }
 ''';
-const listRoles = '''
+const listRolesGraphQL = '''
 query ListRoles(\$filter: ModelRoleFilterInput) {
   listRoles(filter: \$filter, limit: 10000) {
     items {
@@ -495,7 +495,7 @@ query ListRoles(\$filter: ModelRoleFilterInput) {
   }
 }
 ''';
-const listStaff = '''
+const listStaffGraphQL = '''
 query ListStaff(\$filter: ModelStaffFilterInput) {
   listStaff(filter: \$filter, limit: 10000) {
     items {
@@ -550,7 +550,7 @@ query ListStaff(\$filter: ModelStaffFilterInput) {
   }
 }
 ''';
-const listDocuments = '''
+const listDocumentsGraphQL = '''
 query ListDocuments(\$filter: ModelDocumentFilterInput) {
   listDocuments(filter: \$filter, limit: 10000) {
     items {
@@ -590,7 +590,7 @@ query ListDocuments(\$filter: ModelDocumentFilterInput) {
   }
 }
 ''';
-const getStaff = '''
+const getStaffGraphQL = '''
 query GetStaff(\$id: ID!) {
   getStaff(id: \$id) {
     id
@@ -653,7 +653,7 @@ query GetStaff(\$id: ID!) {
   }
 }
 ''';
-const getStaffDetails = '''
+const getStaffDetailsGraphQL = '''
 query GetStaffDetails(\$id: ID!) {
   getStaff(id: \$id) {
     id
@@ -685,7 +685,7 @@ query GetStaffDetails(\$id: ID!) {
   }
 }
 ''';
-const getAircraftDetails = '''
+const getAircraftDetailsGraphQL = '''
 query GetAircraftDetails(\$id: ID!) {
   getAircraft(id: \$id) {
     id
@@ -707,7 +707,7 @@ query GetAircraftDetails(\$id: ID!) {
   }
 }
 ''';
-const getSubcategoryDetails = '''
+const getSubcategoryDetailsGraphQL = '''
 query GetSubcategoryDetails(\$id: ID!) {
   getSubcategory(id: \$id) {
     id

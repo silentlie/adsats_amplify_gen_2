@@ -10,7 +10,7 @@ part 'repo.g.dart';
 @Riverpod()
 FutureOr<Report> reportRepo(Ref ref, String id) async {
   final request = GraphQLRequest<String>(
-    document: getReportDetails,
+    document: getReportDetailsGraphQL,
     variables: {"id": id},
   );
   final response = await Amplify.API.query(request: request).response;

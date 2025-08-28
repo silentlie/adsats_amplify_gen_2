@@ -21,7 +21,10 @@ class InternalAuditReportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      overrides: [reportNotifierProvider, selectedFilesProvider],
+      overrides: [
+        reportNotifierProvider,
+        selectedFilesProvider,
+      ],
       child: Consumer(
         builder: (context, ref, child) {
           final notifier = ref.read(reportNotifierProvider.notifier);

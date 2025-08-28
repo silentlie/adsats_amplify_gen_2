@@ -25,11 +25,7 @@ class DiscrepanciesWidget extends ConsumerWidget {
     bool isDiscrepanciesFound = ref.watch(
       reportNotifierProvider.select((value) {
         final isIncluded = value.details["is_discrepancies_found"] as bool?;
-        if (isIncluded == null) {
-          notifier.updateDetails({'is_discrepancies_found': false});
-          return false;
-        }
-        return isIncluded;
+        return isIncluded ?? false;
       }),
     );
     return Column(
@@ -114,11 +110,7 @@ class ComplianceManagerSection extends ConsumerWidget {
     bool isDiscrepanciesFound = ref.watch(
       reportNotifierProvider.select((value) {
         final isIncluded = value.details["is_discrepancies_found"] as bool?;
-        if (isIncluded == null) {
-          notifier.updateDetails({'is_discrepancies_found': false});
-          return false;
-        }
-        return isIncluded;
+        return isIncluded ?? false;
       }),
     );
     final isClosed = ref.watch(

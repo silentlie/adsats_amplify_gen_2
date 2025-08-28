@@ -6,10 +6,10 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
-Future<Aircraft> deleteAicraft(Aircraft aircraft) async {
+Future<Aircraft> deleteAircraft(Aircraft aircraft) async {
   try {
     final request = GraphQLRequest<String>(
-      document: getAircraftDetails,
+      document: getAircraftDetailsGraphQL,
       variables: {"id": aircraft.id},
     );
     final response = await Amplify.API.query(request: request).response;

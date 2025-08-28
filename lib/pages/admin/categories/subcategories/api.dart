@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 Future<Subcategory> deleteSubcategory(Subcategory subcategory) async {
   try {
     final request = GraphQLRequest<String>(
-      document: getSubcategoryDetails,
+      document: getSubcategoryDetailsGraphQL,
       variables: {"id": subcategory.id},
     );
     final response = await Amplify.API.query(request: request).response;

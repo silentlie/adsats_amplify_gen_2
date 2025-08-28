@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 Future<Report> deleteReport(Report report) async {
   try {
     final request = GraphQLRequest<String>(
-      document: getReportDetails,
+      document: getReportDetailsGraphQL,
       variables: {"id": report.id},
     );
     final response = await Amplify.API.query(request: request).response;

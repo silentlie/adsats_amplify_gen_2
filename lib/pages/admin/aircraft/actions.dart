@@ -63,7 +63,7 @@ class AircraftActions extends ConsumerWidget {
               Text("Do you want to delete this aircraft?"),
             );
             if (result) {
-              await deleteAicraft(aircraft);
+              await deleteAircraft(aircraft);
               ref.invalidate(aircraftRepoProvider);
               controller.close();
             }

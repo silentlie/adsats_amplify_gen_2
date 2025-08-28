@@ -14,7 +14,7 @@ FutureOr<List<Aircraft>> aircraftRepo(
   AdminFilterState filter,
 ) async {
   final request = GraphQLRequest<String>(
-    document: listAircraft,
+    document: listAircraftGraphQL,
     variables: {"filter": filter.toJson()},
   );
   final response = await Amplify.API.query(request: request).response;

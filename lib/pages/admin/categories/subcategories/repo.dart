@@ -14,7 +14,7 @@ FutureOr<Category> subcategoriesRepo(
   SubcategoryFilterState filter,
 ) async {
   final request = GraphQLRequest<String>(
-    document: listSubcategories,
+    document: listSubcategoriesGraphQL,
     variables: {
       "filter": filter.toJson(),
       "id": filter.categoryId,

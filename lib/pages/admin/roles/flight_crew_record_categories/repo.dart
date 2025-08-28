@@ -14,7 +14,7 @@ FutureOr<Role> flightCrewRecordsCategoriesRepo(
   FlightCrewRecordsCategoryFilterState filter,
 ) async {
   final request = GraphQLRequest<String>(
-    document: listFlightCrewRecordsCategories,
+    document: listFlightCrewRecordsCategoriesGraphQL,
     variables: {
       "filter": filter.toJson(),
       "id": filter.roleId,

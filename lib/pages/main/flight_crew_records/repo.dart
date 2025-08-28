@@ -15,7 +15,7 @@ FutureOr<List<FlightCrewRecord>> flightCrewRecordsRepo(
   FlightCrewRecordFilterState filter,
 ) async {
   final request = GraphQLRequest<String>(
-    document: listFlightCrewRecords,
+    document: listFlightCrewRecordsGraphQL,
     variables: {
       "filter": filter.toJson(),
     },
@@ -36,7 +36,7 @@ FutureOr<List<FlightCrewRecord>> flightCrewRecordsRepo(
 FutureOr<(Iterable<Aircraft>, Iterable<Role>)> flightCrewRecordsMeta(
     Ref ref) async {
   final request = GraphQLRequest<String>(
-    document: listFlightCrewRecordsMeta,
+    document: listFlightCrewRecordsMetaGraphQL,
   );
   final response = await Amplify.API.query(request: request).response;
   if (response.errors.isNotEmpty) {
@@ -71,7 +71,7 @@ FutureOr<Iterable<Staff>> listJoinStaff(
   Role role,
 ) async {
   final request =
-      GraphQLRequest<String>(document: listFlightCrewRecordsCrews, variables: {
+      GraphQLRequest<String>(document: listFlightCrewRecordsCrewsGraphQL, variables: {
     "aircraftId": aircraft.id,
     "roleId": role.id,
   });

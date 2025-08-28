@@ -14,7 +14,7 @@ FutureOr<List<Staff>> staffRepo(
   AdminFilterState filter,
 ) async {
   final request = GraphQLRequest<String>(
-    document: listStaff,
+    document: listStaffGraphQL,
     variables: {"filter": filter.toJson()},
   );
   final response = await Amplify.API.query(request: request).response;

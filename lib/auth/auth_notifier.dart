@@ -49,7 +49,7 @@ class AuthNotifier with ChangeNotifier {
     final response = await Amplify.API
         .query(
           request: GraphQLRequest(
-            document: getStaff,
+            document: getStaffGraphQL,
             variables: {
               "id": id,
             },

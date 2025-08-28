@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create/actions_row_widget.dart';
@@ -10,7 +11,7 @@ import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HazardReportPage extends StatelessWidget {
+class HazardReportPage extends ConsumerWidget {
   const HazardReportPage({
     super.key,
     this.notice,
@@ -18,29 +19,32 @@ class HazardReportPage extends StatelessWidget {
   final Notice? notice;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userDetails = ref.read(userDetailsProvider).value!;
     return ProviderScope(
       overrides: [
-        noticeNotifierProvider,
-        selectedFilesProvider,
-      ],
-      child: Consumer(
-        builder: (context, ref, child) {
-          final notifier = ref.read(noticeNotifierProvider.notifier);
-          notifier.setNotice(
+        noticeNotifierProvider.overrideWith(
+          () => NoticeNotifier.withNotice(
             notice ??
                 Notice(
                   subject: "",
                   archived: false,
                   details: "{}",
+                  author: userDetails,
                   type: NoticeType.Hazard_report,
                   status: NoticeStatus.Open,
                   aircraft: [],
                   documents: [],
                   recipients: [],
                 ),
-            notice != null,
-          );
+            notice == null,
+          ),
+        ),
+        selectedFilesProvider,
+      ],
+      // Ensure new ref have access to the override state
+      child: Consumer(
+        builder: (context, ref, child) {
           return Center(
             child: Form(
               key: ref.watch(

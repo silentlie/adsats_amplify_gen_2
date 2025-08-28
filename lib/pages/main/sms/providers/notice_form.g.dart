@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'state.dart';
+part of 'notice_form.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-@ProviderFor(NoticeNotifier)
-const noticeNotifierProvider = NoticeNotifierProvider._();
+@ProviderFor(NoticeForm)
+const noticeFormProvider = NoticeFormProvider._();
 
-final class NoticeNotifierProvider
-    extends $NotifierProvider<NoticeNotifier, NoticeState> {
-  const NoticeNotifierProvider._()
+final class NoticeFormProvider
+    extends $NotifierProvider<NoticeForm, NoticeFormState> {
+  const NoticeFormProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
-          name: r'noticeNotifierProvider',
+          name: r'noticeFormProvider',
           isAutoDispose: true,
           dependencies: const <ProviderOrFamily>[
             selectedFilesProvider,
@@ -24,10 +24,10 @@ final class NoticeNotifierProvider
             userDetailsProvider
           ],
           $allTransitiveDependencies: const <ProviderOrFamily>{
-            NoticeNotifierProvider.$allTransitiveDependencies0,
-            NoticeNotifierProvider.$allTransitiveDependencies1,
-            NoticeNotifierProvider.$allTransitiveDependencies2,
-            NoticeNotifierProvider.$allTransitiveDependencies3,
+            NoticeFormProvider.$allTransitiveDependencies0,
+            NoticeFormProvider.$allTransitiveDependencies1,
+            NoticeFormProvider.$allTransitiveDependencies2,
+            NoticeFormProvider.$allTransitiveDependencies3,
           },
         );
 
@@ -39,32 +39,35 @@ final class NoticeNotifierProvider
       IsSafetyOfficerProvider.$allTransitiveDependencies1;
 
   @override
-  String debugGetCreateSourceHash() => _$noticeNotifierHash();
+  String debugGetCreateSourceHash() => _$noticeFormHash();
 
   @$internal
   @override
-  NoticeNotifier create() => NoticeNotifier();
+  NoticeForm create() => NoticeForm();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(NoticeState value) {
+  Override overrideWithValue(NoticeFormState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<NoticeState>(value),
+      providerOverride: $SyncValueProvider<NoticeFormState>(value),
     );
   }
 }
 
-String _$noticeNotifierHash() => r'6b8eb09b19c4c0c7296c13e4326081742a9d81d2';
+String _$noticeFormHash() => r'5cde443877b65a7642fd8df91e2fd15743cf7a67';
 
-abstract class _$NoticeNotifier extends $Notifier<NoticeState> {
-  NoticeState build();
+abstract class _$NoticeForm extends $Notifier<NoticeFormState> {
+  NoticeFormState build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<NoticeState, NoticeState>;
+    final ref = this.ref as $Ref<NoticeFormState, NoticeFormState>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<NoticeState, NoticeState>, NoticeState, Object?, Object?>;
+        AnyNotifier<NoticeFormState, NoticeFormState>,
+        NoticeFormState,
+        Object?,
+        Object?>;
     element.handleValue(ref, created);
   }
 }

@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 Future<Notice> deleteNotice(Notice notice) async {
   try {
     final request = GraphQLRequest<String>(
-      document: getNoticeDetails,
+      document: getNoticeDetailsGraphQL,
       variables: {"id": notice.id},
     );
     final response = await Amplify.API.query(request: request).response;
@@ -102,7 +102,7 @@ Future<Iterable<Staff>> fetchJoinRecipients({
   };
   try {
     final request =
-        GraphQLRequest<String>(document: listJoinRecipients, variables: {
+        GraphQLRequest<String>(document: listJoinRecipientsGraphQL, variables: {
       "aircraftFilter": aircraftFilter,
       "rolesFilter": rolesFilter,
     });

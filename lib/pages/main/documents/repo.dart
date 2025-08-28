@@ -13,7 +13,7 @@ class DocumentsRepo extends _$DocumentsRepo {
   @override
   FutureOr<List<Document>> build(DocumentFilterState filter) async {
     final request = GraphQLRequest<String>(
-      document: listDocuments,
+      document: listDocumentsGraphQL,
       variables: {"filter": filter.toJson()},
     );
     final query = Amplify.API.query(request: request);

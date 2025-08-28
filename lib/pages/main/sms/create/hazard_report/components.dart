@@ -1,4 +1,3 @@
-
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create/state.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
@@ -24,11 +23,7 @@ class MitigateCommentWidget extends ConsumerWidget {
     ));
     bool isIncludedComment = ref.watch(noticeNotifierProvider.select((value) {
       final isIncluded = value.details["included_comment"] as bool?;
-      if (isIncluded == null) {
-        notifier.updateDetails({"included_comment": false});
-        return false;
-      }
-      return isIncluded;
+      return isIncluded ?? false;
     }));
     return Column(
       children: [
@@ -140,19 +135,11 @@ class RiskWidget extends ConsumerWidget {
     );
     int likelihood = ref.watch(noticeNotifierProvider.select((value) {
       final likely = value.details["likelihood"] as int?;
-      if (likely == null) {
-        notifier.updateDetails({"likelihood": 0});
-        return 0;
-      }
-      return likely;
+      return likely ?? 0;
     }));
     int severity = ref.watch(noticeNotifierProvider.select((value) {
       final severe = value.details["severity"] as int?;
-      if (severe == null) {
-        notifier.updateDetails({"severity": 0});
-        return 0;
-      }
-      return severe;
+      return severe ?? 0;
     }));
     return Column(
       children: [

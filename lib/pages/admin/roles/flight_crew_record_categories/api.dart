@@ -11,7 +11,7 @@ Future<FlightCrewRecordCategory> deleteFlightCrewRecordsCategory(
     FlightCrewRecordCategory category) async {
   try {
     final request = GraphQLRequest<String>(
-      document: getFlightCrewRecordsCategoryDetails,
+      document: getFlightCrewRecordsCategoryDetailsGraphQL,
       variables: {"id": category.id},
     );
     final response = await Amplify.API.query(request: request).response;
