@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
-import 'package:adsats_amplify_gen_2/helper/between_date_range.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/iso_between.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
@@ -52,10 +52,10 @@ sealed class NoticeFilterState with _$NoticeFilterState {
     type != null ? result["type"] = {"eq": type!.name} : null;
     status != null ? result["type"] = {"eq": status!.name} : null;
     noticedAt != null
-        ? result["noticedAt"] = {"between": betweenDateRange(noticedAt!)}
+        ? result["noticedAt"] = {"between": noticedAt!.isoBetween}
         : null;
     deadlineAt != null
-        ? result["deadlineAt"] = {"between": betweenDateRange(deadlineAt!)}
+        ? result["deadlineAt"] = {"between": deadlineAt!.isoBetween}
         : null;
     return result;
   }

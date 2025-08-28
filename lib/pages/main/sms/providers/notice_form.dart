@@ -2,12 +2,13 @@ import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
-import 'package:adsats_amplify_gen_2/helper/s3_extention.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/s3_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/storage_api.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
-import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/models/notice_form.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/notices/api.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/inbox/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/sent/repo.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -275,6 +276,9 @@ class NoticeForm extends _$NoticeForm {
     // Delete relations that not exist anymore
     for (final old in oldMap.values) {
       futures.add(database.delete(old));
+    }
+    if (send) {
+      futures.add(sendNoticeEmail(state.notice, recipients));
     }
     await Future.wait(futures);
   }

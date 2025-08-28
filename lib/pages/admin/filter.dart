@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/between_date_range.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/iso_between.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ sealed class AdminFilterState with _$AdminFilterState {
     search.isNotEmpty ? result["name"] = {"contains": search} : null;
     archived != null ? result["archived"] = {"eq": archived} : null;
     createdAt != null
-        ? result["createdAt"] = {"between": betweenDateRange(createdAt!)}
+        ? result["createdAt"] = {"between": createdAt!.isoBetween}
         : null;
     return result;
   }

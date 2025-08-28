@@ -1,5 +1,5 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/crew_document_category_view.dart';
@@ -38,10 +38,10 @@ class FlightCrewRecordsCategoryDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          Text(flightCrewRecordsCategory.name),
+          flightCrewRecordsCategory.name.centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(flightCrewRecordsCategory.description ?? ""),
+          (flightCrewRecordsCategory.description ?? "").centeredTextWidget(),
         ),
         DataCell(
           Center(
@@ -63,8 +63,8 @@ class FlightCrewRecordsCategoryDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(toDateString(
-              flightCrewRecordsCategory.createdAt?.getDateTimeInUtc())),
+          (flightCrewRecordsCategory.createdAt?.toCompactDateString ?? "")
+              .centeredTextWidget(),
         ),
         DataCell(
           Center(

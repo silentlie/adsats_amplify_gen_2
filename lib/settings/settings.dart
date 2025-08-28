@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/shared_perferences.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/shared_perferences.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

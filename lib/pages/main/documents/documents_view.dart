@@ -1,5 +1,5 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/header.dart';
@@ -48,7 +48,7 @@ class DocumentsView extends ConsumerWidget {
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
-                label: getCenterText("Name"),
+                label: "Name".centeredTextWidget(),
                 size: ColumnSize.S,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -61,7 +61,7 @@ class DocumentsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Archived"),
+                label: "Archived".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -74,7 +74,7 @@ class DocumentsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Issued at"),
+                label: "Issued at".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -87,7 +87,7 @@ class DocumentsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Expired at"),
+                label: "Expired at".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -100,7 +100,7 @@ class DocumentsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Created at"),
+                label: "Created at".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -113,7 +113,7 @@ class DocumentsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Action"),
+                label: "Action".centeredTextWidget(),
                 fixedWidth: 80,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -206,7 +206,7 @@ class OldDocumentsView extends ConsumerWidget {
               ),
               subtitle: Text([
                 document.archived ? "Archived" : "Active",
-                toDateString(document.createdAt?.getDateTimeInUtc()),
+                (document.createdAt?.toCompactDateString ?? ""),
                 if (document.staff != null)
                   "${document.staff!.firstName} ${document.staff!.lastName}",
                 ...document.aircraft!.map(

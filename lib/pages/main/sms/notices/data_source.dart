@@ -1,5 +1,6 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/actions.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
@@ -36,21 +37,22 @@ class NoticeDataSource extends DataTableSource {
           Text(notice.subject),
         ),
         DataCell(
-          getCenterText(notice.type!.name.replaceAll('_', ' ')),
+          notice.type!.label.centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(notice.status?.name ?? ""),
+          (notice.status?.name ?? "").centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(notice.aircraft
-                  ?.map(
-                    (e) {
-                      return e.aircraft!.name;
-                    },
-                  )
-                  .toList()
-                  .join(', ') ??
-              ""),
+          (notice.aircraft
+                      ?.map(
+                        (e) {
+                          return e.aircraft!.name;
+                        },
+                      )
+                      .toList()
+                      .join(', ') ??
+                  "")
+              .centeredTextWidget(),
         ),
         DataCell(
           Center(
@@ -70,10 +72,10 @@ class NoticeDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(toDateString(notice.noticedAt?.getDateTimeInUtc())),
+          (notice.noticedAt?.toCompactDateString ?? "").centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(toDateString(notice.deadlineAt?.getDateTimeInUtc())),
+          (notice.deadlineAt?.toCompactDateString ?? "").centeredTextWidget(),
         ),
         DataCell(
           Center(

@@ -1,7 +1,8 @@
 import 'dart:convert';
 
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/reports/actions.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
@@ -35,10 +36,10 @@ class ReportDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          Text(report.subject),
+          report.subject.centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(report.type!.name.replaceAll('_', ' ')),
+          report.type!.label.centeredTextWidget(),
         ),
         DataCell(
           Center(
@@ -84,7 +85,7 @@ class ReportDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(toDateString(report.reportedAt?.getDateTimeInUtc())),
+          (report.reportedAt?.toCompactDateString ?? "").centeredTextWidget(),
         ),
         DataCell(
           Center(

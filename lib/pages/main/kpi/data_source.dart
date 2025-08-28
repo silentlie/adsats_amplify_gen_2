@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/pages/main/kpi/repo.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
@@ -45,19 +45,13 @@ class KPIDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(
-            staff.noticeToCrews.toString(),
-          ),
+          staff.noticeToCrews.toString().centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(
-            staff.safetyNotices.toString(),
-          ),
+          staff.safetyNotices.toString().centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(
-            staff.hazardReports.toString(),
-          ),
+          staff.hazardReports.toString().centeredTextWidget(),
         ),
         // DataCell(
         //   getCenterText(

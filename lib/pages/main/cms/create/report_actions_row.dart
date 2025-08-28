@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
-import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/create/state.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:file_picker/file_picker.dart';

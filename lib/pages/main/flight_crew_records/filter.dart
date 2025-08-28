@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/between_date_range.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/iso_between.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
@@ -50,13 +50,13 @@ sealed class FlightCrewRecordFilterState with _$FlightCrewRecordFilterState {
     search.isNotEmpty ? result["name"] = {"contains": search} : null;
     archived != null ? result["archived"] = {"eq": archived} : null;
     createdAt != null
-        ? result["createdAt"] = {"between": betweenDateRange(createdAt!)}
+        ? result["createdAt"] = {"between": createdAt!.isoBetween}
         : null;
     issuedAt != null
-        ? result["issuedAt"] = {"between": betweenDateRange(issuedAt!)}
+        ? result["issuedAt"] = {"between": issuedAt!.isoBetween}
         : null;
     expiredAt != null
-        ? result["expiredAt"] = {"between": betweenDateRange(expiredAt!)}
+        ? result["expiredAt"] = {"between": expiredAt!.isoBetween}
         : null;
     return result;
   }

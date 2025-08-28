@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/between_date_range.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/iso_between.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:flutter/material.dart';
@@ -48,10 +48,10 @@ sealed class StaffKPIFilterState with _$StaffKPIFilterState {
     }
     if (timeRange != null) {
       variables["noticeFilter"] = {
-        "createdAt": {"between": betweenDateRange(timeRange!)}
+        "createdAt": {"between": timeRange!.isoBetween}
       };
       variables["reportFilter"] = {
-        "createdAt": {"between": betweenDateRange(timeRange!)}
+        "createdAt": {"between": timeRange!.isoBetween}
       };
     }
     return variables;

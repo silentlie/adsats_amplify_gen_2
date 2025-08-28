@@ -1,5 +1,5 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/edit_flight_crew_record_view.dart';
@@ -39,7 +39,7 @@ class FlightCrewRecordsDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          Text(flightCrewRecord.name),
+          flightCrewRecord.name.centeredTextWidget(),
         ),
         DataCell(
           Center(
@@ -61,16 +61,16 @@ class FlightCrewRecordsDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(
-              toDateString(flightCrewRecord.issuedAt?.getDateTimeInUtc())),
+          (flightCrewRecord.issuedAt?.toCompactDateString ?? "")
+              .centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(
-              toDateString(flightCrewRecord.expiredAt?.getDateTimeInUtc())),
+          (flightCrewRecord.expiredAt?.toCompactDateString ?? "")
+              .centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(
-              toDateString(flightCrewRecord.createdAt?.getDateTimeInUtc())),
+          (flightCrewRecord.createdAt?.toCompactDateString ?? "")
+              .centeredTextWidget(),
         ),
         DataCell(
           Center(

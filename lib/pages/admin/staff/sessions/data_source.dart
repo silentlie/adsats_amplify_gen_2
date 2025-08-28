@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
@@ -28,15 +28,14 @@ class SessionDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          getCenterText(formatDateTimeUTC(startTime)),
+          formatDateTimeUTC(startTime).centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(formatDateTimeUTC(endTime)),
+          formatDateTimeUTC(endTime).centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(
-            "${duration.inHours}h ${duration.inMinutes.remainder(60)}m",
-          ),
+          ("${duration.inHours}h ${duration.inMinutes.remainder(60)}m")
+              .centeredTextWidget(),
         ),
       ],
     );

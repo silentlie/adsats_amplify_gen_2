@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +33,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    controller.text = toDateString(date);
+    controller.text = (date?.toCompactDateString ?? "");
     return Padding(
       padding: widget.padding,
       child: TextFormField(
@@ -46,7 +46,7 @@ class _DatePickerWidgetState extends State<DatePickerWidget> {
             lastDate: widget.lastDate,
             initialDate: date,
           );
-          controller.text = toDateString(date);
+          controller.text = (date?.toCompactDateString ?? "");
           widget.onSelected(toTemporalDateTime(date));
         },
         controller: controller,

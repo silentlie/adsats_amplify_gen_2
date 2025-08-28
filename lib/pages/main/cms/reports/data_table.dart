@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/reports/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/reports/header.dart';
@@ -37,7 +37,7 @@ class ReportDataTable extends ConsumerWidget {
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
-                label: getCenterText("Subject"),
+                label: "Subject".centeredTextWidget(),
                 size: ColumnSize.S,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -50,7 +50,7 @@ class ReportDataTable extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Type"),
+                label: "Type".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -63,7 +63,7 @@ class ReportDataTable extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Status"),
+                label: "Status".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -76,7 +76,7 @@ class ReportDataTable extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Archived"),
+                label: "Archived".centeredTextWidget(),
                 fixedWidth: 100,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -89,7 +89,7 @@ class ReportDataTable extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Report date"),
+                label: "Report date".centeredTextWidget(),
                 fixedWidth: 100,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -102,7 +102,7 @@ class ReportDataTable extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Actions"),
+                label: "Actions".centeredTextWidget(),
                 fixedWidth: 80,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(

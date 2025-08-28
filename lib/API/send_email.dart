@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
-import 'package:adsats_amplify_gen_2/helper/format_staff_name.dart';
-import 'package:adsats_amplify_gen_2/helper/format_type_name.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +32,6 @@ Future<void> sendEmail({
       throw response.errors.first;
     }
     Map<String, dynamic> jsonMap = json.decode(response.data!);
-    print(subject);
-    print(recipients);
-    print(sender);
-    print(jsonMap);
   } on ApiException catch (e) {
     debugPrint('send email failed: $e');
   }
@@ -87,10 +83,10 @@ String buildNoticeEmailMain(Notice notice) {
   </div>
 
   <div class="notification-info">
-    <span class="notification-badge">${formatEnum(notice.type!.name)}</span>
-    <p><strong>Issued By:</strong> ${formatStaffName(notice.author!)}</p>
+    <span class="notification-badge">${notice.type!.label}</span>
+    <p><strong>Issued By:</strong> ${notice.author!.fullName}</p>
     <p><strong>Subject:</strong> ${notice.subject}</p>
-    <p><strong>Status:</strong> ${formatEnum(notice.status!.name)}</p>
+    <p><strong>Status:</strong> ${notice.status!.label}</p>
   </div>
 
   <div class="modern-divider"></div>
@@ -134,10 +130,10 @@ String buildReportEmailMain(Report report) {
   </div>
 
   <div class="notification-info">
-    <span class="notification-badge">${formatEnum(report.type!.name)}</span>
-    <p><strong>Issued By:</strong> ${formatStaffName(report.auditor!)}</p>
+    <span class="notification-badge">${report.type!.label}</span>
+    <p><strong>Issued By:</strong> ${report.auditor!.fullName}</p>
     <p><strong>Subject:</strong> ${report.subject}</p>
-    <p><strong>Status:</strong> ${formatEnum(report.status!.name)}</p>
+    <p><strong>Status:</strong> ${report.status!.label}</p>
   </div>
 
   <div class="modern-divider"></div>

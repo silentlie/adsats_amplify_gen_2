@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
-import 'package:adsats_amplify_gen_2/helper/between_date_range.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/iso_between.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
@@ -48,7 +48,7 @@ sealed class ReportFilterState with _$ReportFilterState {
     type != null ? result["type"] = {"eq": type!.name} : null;
     status != null ? result["type"] = {"eq": status!.name} : null;
     reportedAt != null
-        ? result["createdAt"] = {"between": betweenDateRange(reportedAt!)}
+        ? result["createdAt"] = {"between": reportedAt!.isoBetween}
         : null;
     return result;
   }

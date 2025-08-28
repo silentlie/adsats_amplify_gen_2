@@ -1,5 +1,4 @@
-
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/header.dart';
@@ -38,7 +37,7 @@ class RolesPage extends ConsumerWidget {
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
-                label: getCenterText("Name"),
+                label: "Name".centeredTextWidget(),
                 size: ColumnSize.S,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -51,7 +50,7 @@ class RolesPage extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Description"),
+                label: "Description".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -64,7 +63,7 @@ class RolesPage extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Archived"),
+                label: "Archived".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -77,7 +76,7 @@ class RolesPage extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Created at"),
+                label: "Created at".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -90,7 +89,7 @@ class RolesPage extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Action"),
+                label: "Action".centeredTextWidget(),
                 fixedWidth: 80,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(

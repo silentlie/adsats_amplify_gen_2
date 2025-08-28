@@ -1,5 +1,5 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/edit_document_view.dart';
@@ -37,7 +37,7 @@ class DocumentDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          Text(document.name),
+          document.name.centeredTextWidget(),
         ),
         DataCell(
           Center(
@@ -57,13 +57,13 @@ class DocumentDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(toDateString(document.issuedAt?.getDateTimeInUtc())),
+          (document.issuedAt?.toCompactDateString ?? "").centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(toDateString(document.expiredAt?.getDateTimeInUtc())),
+          (document.expiredAt?.toCompactDateString ?? "").centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(toDateString(document.createdAt?.getDateTimeInUtc())),
+          (document.createdAt?.toCompactDateString ?? "").centeredTextWidget(),
         ),
         DataCell(
           Center(

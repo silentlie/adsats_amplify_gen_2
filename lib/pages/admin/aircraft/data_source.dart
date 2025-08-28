@@ -1,5 +1,5 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/aircraft_view.dart';
@@ -39,7 +39,7 @@ class AircraftDataSource extends DataTableSource {
           Text(aircraft.name),
         ),
         DataCell(
-          getCenterText(aircraft.description ?? ""),
+          (aircraft.description ?? "").centeredTextWidget(),
         ),
         DataCell(
           Center(
@@ -59,7 +59,7 @@ class AircraftDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(toDateString(aircraft.createdAt?.getDateTimeInUtc())),
+          (aircraft.createdAt?.toCompactDateString ?? "").centeredTextWidget(),
         ),
         DataCell(
           Center(

@@ -1,5 +1,5 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/category_view.dart';
@@ -40,10 +40,10 @@ class CategoryDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          Text(category.name),
+          category.name.centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(category.description ?? ""),
+          (category.description ?? "").centeredTextWidget(),
         ),
         DataCell(
           Center(
@@ -63,7 +63,8 @@ class CategoryDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(toDateString(category.createdAt?.getDateTimeInUtc())),
+          (category.createdAt?.toCompactDateString ?? "")
+              .centeredTextWidget(),
         ),
         DataCell(
           Center(

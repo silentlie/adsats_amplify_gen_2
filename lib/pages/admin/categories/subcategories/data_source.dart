@@ -1,5 +1,5 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/Subcategory.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/subcategory_view.dart';
@@ -37,10 +37,10 @@ class SubcategoryDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          Text(subcategory.name),
+          subcategory.name.centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(subcategory.description ?? ""),
+          (subcategory.description ?? "").centeredTextWidget(),
         ),
         DataCell(
           Center(
@@ -61,8 +61,7 @@ class SubcategoryDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(
-              toDateString(subcategory.createdAt?.getDateTimeInUtc())),
+          (subcategory.createdAt?.toCompactDateString ?? "").centeredTextWidget(),
         ),
         DataCell(
           Center(

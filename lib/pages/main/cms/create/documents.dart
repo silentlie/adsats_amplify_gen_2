@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/create/s3.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/create/state.dart';
 import 'package:flutter/material.dart';

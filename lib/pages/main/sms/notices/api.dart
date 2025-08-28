@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/API/send_email.dart';
-import 'package:adsats_amplify_gen_2/helper/format_type_name.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create/s3.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -186,7 +186,7 @@ Future<void> updateNoticeStaff(
 Future<void> sendNoticeEmail(Notice notice, Iterable<Staff> staff) async {
   if (staff.isEmpty) return;
   final subject =
-      "${formatEnum(notice.type!.name)}: ${notice.subject} [${notice.status!.name}]";
+      "${notice.type!.label}: ${notice.subject} [${notice.status!.name}]";
   final htmlBody = buildNoticeEmailMain(notice);
   final sender = "${notice.author!.firstName} ${notice.author!.lastName}";
   final recipients = staff.map((e) => e.email).toList();

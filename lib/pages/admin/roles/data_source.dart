@@ -1,5 +1,5 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/role_view.dart';
@@ -40,10 +40,10 @@ class RoleDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          Text(role.name),
+          role.name.centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(role.description ?? ""),
+          (role.description ?? "").centeredTextWidget(),
         ),
         DataCell(
           Center(
@@ -63,7 +63,7 @@ class RoleDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(toDateString(role.createdAt?.getDateTimeInUtc())),
+          (role.createdAt?.toCompactDateString ?? "").centeredTextWidget(),
         ),
         DataCell(
           Center(

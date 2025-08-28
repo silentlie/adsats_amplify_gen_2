@@ -11,7 +11,6 @@ class SharedPerferences extends _$SharedPerferences {
       cacheOptions: const SharedPreferencesWithCacheOptions(
         allowList: <String>{
           'themeMode',
-          'isMessagerOpen',
           'isNavigationRailExtended',
         },
       ),

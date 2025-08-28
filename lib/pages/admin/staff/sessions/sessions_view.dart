@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/repo.dart';
@@ -40,7 +40,7 @@ class SessionsView extends ConsumerWidget {
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
-                label: getCenterText("Start time"),
+                label: 'Start Time'.centeredTextWidget(),
                 size: ColumnSize.S,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -53,7 +53,7 @@ class SessionsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Duration"),
+                label: 'Duration'.centeredTextWidget(),
                 size: ColumnSize.S,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -68,7 +68,7 @@ class SessionsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("End time"),
+                label: 'End Time'.centeredTextWidget(),
                 size: ColumnSize.S,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(

@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/filter.dart';
@@ -42,7 +42,7 @@ class FlightCrewRecordsView extends ConsumerWidget {
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
-                label: getCenterText("Name"),
+                label: "Name".centeredTextWidget(),
                 size: ColumnSize.S,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -55,7 +55,7 @@ class FlightCrewRecordsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Archived"),
+                label: "Archived".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -68,7 +68,7 @@ class FlightCrewRecordsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Issued at"),
+                label: "Issued at".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -81,7 +81,7 @@ class FlightCrewRecordsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Expired at"),
+                label: "Expired at".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -94,7 +94,7 @@ class FlightCrewRecordsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Uploaded at"),
+                label: "Uploaded at".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -107,7 +107,7 @@ class FlightCrewRecordsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Action"),
+                label: "Action".centeredTextWidget(),
                 fixedWidth: 80,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(

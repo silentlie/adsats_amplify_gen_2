@@ -1,5 +1,5 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
-import 'package:adsats_amplify_gen_2/helper/date_to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/staff_view.dart';
@@ -37,23 +37,21 @@ class StaffDataSource extends DataTableSource {
       index: index,
       cells: [
         DataCell(
-          Text(staff.firstName),
+          staff.firstName.centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(staff.lastName),
+          staff.lastName.centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(staff.email),
+          staff.email.centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(
-            staff.aircraft?.map((e) => e.aircraft!.name).join(', ') ?? "",
-          ),
+          (staff.aircraft?.map((e) => e.aircraft!.name).join(', ') ?? "")
+              .centeredTextWidget(),
         ),
         DataCell(
-          getCenterText(
-            staff.roles?.map((e) => e.role!.name).join(', ') ?? "",
-          ),
+          (staff.roles?.map((e) => e.role!.name).join(', ') ?? "")
+              .centeredTextWidget(),
         ),
         DataCell(
           Center(
@@ -73,7 +71,7 @@ class StaffDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          getCenterText(toDateString(staff.createdAt?.getDateTimeInUtc())),
+          (staff.createdAt?.toCompactDateString ?? "").centeredTextWidget(),
         ),
         DataCell(
           Center(

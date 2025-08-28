@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
-import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';

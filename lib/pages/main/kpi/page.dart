@@ -1,6 +1,4 @@
-
-
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/pages/main/kpi/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/main/kpi/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/main/kpi/header.dart';
@@ -36,7 +34,7 @@ class KPIPage extends ConsumerWidget {
           child: PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
-                label: getCenterText("Name"),
+                label: "Name".centeredTextWidget(),
                 size: ColumnSize.S,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -49,7 +47,7 @@ class KPIPage extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Archived"),
+                label: "Archived".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -62,7 +60,7 @@ class KPIPage extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Notices To Crew"),
+                label: "Notices To Crew".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -75,7 +73,7 @@ class KPIPage extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Safety Notices"),
+                label: "Safety Notices".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -88,7 +86,7 @@ class KPIPage extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: getCenterText("Hazard Reports"),
+                label: "Hazard Reports".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(

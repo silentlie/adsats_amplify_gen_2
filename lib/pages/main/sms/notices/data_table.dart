@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
 import 'package:adsats_amplify_gen_2/models/Notice.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/data_source.dart';
@@ -26,7 +26,7 @@ class NoticeDataTable extends ConsumerWidget {
       child: PaginatedDataTable2(
         columns: <DataColumn2>[
           DataColumn2(
-            label: getCenterText("Subject"),
+            label: "Subject".centeredTextWidget(),
             size: ColumnSize.S,
             onSort: (columnIndex, ascending) {
               sortNotifier.apply(
@@ -39,7 +39,7 @@ class NoticeDataTable extends ConsumerWidget {
             },
           ),
           DataColumn2(
-            label: getCenterText("Type"),
+            label: "Type".centeredTextWidget(),
             size: ColumnSize.L,
             onSort: (columnIndex, ascending) {
               sortNotifier.apply(
@@ -52,7 +52,7 @@ class NoticeDataTable extends ConsumerWidget {
             },
           ),
           DataColumn2(
-            label: getCenterText("Status"),
+            label: "Status".centeredTextWidget(),
             size: ColumnSize.L,
             onSort: (columnIndex, ascending) {
               sortNotifier.apply(
@@ -65,7 +65,7 @@ class NoticeDataTable extends ConsumerWidget {
             },
           ),
           DataColumn2(
-            label: getCenterText("Aircraft"),
+            label: "Aircraft".centeredTextWidget(),
             size: ColumnSize.L,
             onSort: (columnIndex, ascending) {
               sortNotifier.apply(
@@ -82,7 +82,7 @@ class NoticeDataTable extends ConsumerWidget {
             },
           ),
           DataColumn2(
-            label: getCenterText("Archived"),
+            label: "Archived".centeredTextWidget(),
             fixedWidth: 100,
             onSort: (columnIndex, ascending) {
               sortNotifier.apply(
@@ -95,7 +95,7 @@ class NoticeDataTable extends ConsumerWidget {
             },
           ),
           DataColumn2(
-            label: getCenterText("Notice date"),
+            label: "Notice date".centeredTextWidget(),
             fixedWidth: 100,
             onSort: (columnIndex, ascending) {
               sortNotifier.apply(
@@ -108,7 +108,7 @@ class NoticeDataTable extends ConsumerWidget {
             },
           ),
           DataColumn2(
-            label: getCenterText("Deadline"),
+            label: "Deadline".centeredTextWidget(),
             fixedWidth: 80,
             onSort: (columnIndex, ascending) {
               sortNotifier.apply(
@@ -121,7 +121,7 @@ class NoticeDataTable extends ConsumerWidget {
             },
           ),
           DataColumn2(
-            label: getCenterText("Actions"),
+            label: "Actions".centeredTextWidget(),
             fixedWidth: 80,
             onSort: (columnIndex, ascending) {
               sortNotifier.apply(
