@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
-import 'package:adsats_amplify_gen_2/API/query_providers.dart';
+import 'package:adsats_amplify_gen_2/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';

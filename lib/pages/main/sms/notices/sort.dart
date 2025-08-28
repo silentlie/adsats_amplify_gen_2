@@ -6,19 +6,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'sort.g.dart';
 part 'sort.freezed.dart';
 
-int Function(Notice, Notice) compareNotices({
-  required bool sortAscending,
-  required Comparable Function(Notice notice) getField,
-}) {
-  return (a, b) {
-    final aValue = getField(a);
-    final bValue = getField(b);
-    return sortAscending
-        ? Comparable.compare(aValue, bValue)
-        : Comparable.compare(bValue, aValue);
-  };
-}
-
 @Riverpod()
 class NoticeSort extends _$NoticeSort {
   @override
@@ -37,7 +24,7 @@ class NoticeSort extends _$NoticeSort {
   void apply({
     required int columnIndex,
     required bool sortAscending,
-    required Comparable Function(Notice notice) getField,
+    required Comparable? Function(Notice notice) getField,
   }) {
     state = state.copyWith(
       sortColumnIndex: columnIndex,
@@ -52,7 +39,7 @@ sealed class NoticeSortState with _$NoticeSortState {
   factory NoticeSortState({
     @Default(false) bool sortAscending,
     @Default(0) int sortColumnIndex,
-    required Comparable Function(Notice notice) getField,
+    required Comparable? Function(Notice notice) getField,
     @Default(PaginatedDataTable.defaultRowsPerPage) int rowsPerPage,
   }) = _NoticeSortState;
 }

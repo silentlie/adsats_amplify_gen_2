@@ -38,7 +38,7 @@ final class NoticeSortProvider
   }
 }
 
-String _$noticeSortHash() => r'2facc24001f1c018737c0f4f00ebffd1ee70eddb';
+String _$noticeSortHash() => r'88cf67bd66906b393ba968a627bc503fbf797f13';
 
 abstract class _$NoticeSort extends $Notifier<NoticeSortState> {
   NoticeSortState build();

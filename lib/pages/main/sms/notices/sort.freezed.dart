@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 mixin _$NoticeSortState {
   bool get sortAscending;
   int get sortColumnIndex;
-  Comparable Function(Notice notice) get getField;
+  Comparable? Function(Notice notice) get getField;
   int get rowsPerPage;
 
   /// Create a copy of NoticeSortState
@@ -61,7 +61,7 @@ abstract mixin class $NoticeSortStateCopyWith<$Res> {
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable Function(Notice notice) getField,
+      Comparable? Function(Notice notice) getField,
       int rowsPerPage});
 }
 
@@ -95,7 +95,7 @@ class _$NoticeSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable Function(Notice notice),
+              as Comparable? Function(Notice notice),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -196,7 +196,7 @@ extension NoticeSortStatePatterns on NoticeSortState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(bool sortAscending, int sortColumnIndex,
-            Comparable Function(Notice notice) getField, int rowsPerPage)?
+            Comparable? Function(Notice notice) getField, int rowsPerPage)?
         $default, {
     required TResult orElse(),
   }) {
@@ -226,7 +226,7 @@ extension NoticeSortStatePatterns on NoticeSortState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(bool sortAscending, int sortColumnIndex,
-            Comparable Function(Notice notice) getField, int rowsPerPage)
+            Comparable? Function(Notice notice) getField, int rowsPerPage)
         $default,
   ) {
     final _that = this;
@@ -252,7 +252,7 @@ extension NoticeSortStatePatterns on NoticeSortState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(bool sortAscending, int sortColumnIndex,
-            Comparable Function(Notice notice) getField, int rowsPerPage)?
+            Comparable? Function(Notice notice) getField, int rowsPerPage)?
         $default,
   ) {
     final _that = this;
@@ -282,7 +282,7 @@ class _NoticeSortState implements NoticeSortState {
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable Function(Notice notice) getField;
+  final Comparable? Function(Notice notice) getField;
   @override
   @JsonKey()
   final int rowsPerPage;
@@ -331,7 +331,7 @@ abstract mixin class _$NoticeSortStateCopyWith<$Res>
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable Function(Notice notice) getField,
+      Comparable? Function(Notice notice) getField,
       int rowsPerPage});
 }
 
@@ -365,7 +365,7 @@ class __$NoticeSortStateCopyWithImpl<$Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable Function(Notice notice),
+              as Comparable? Function(Notice notice),
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

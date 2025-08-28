@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
+import 'package:adsats_amplify_gen_2/helper/compare_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/Notice.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/header.dart';
@@ -8,7 +9,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class NoticeDataTable extends ConsumerWidget {
+class NoticeDataTable extends ConsumerWidget with CompareMixin {
   const NoticeDataTable({
     super.key,
     required this.value,
@@ -25,7 +26,7 @@ class NoticeDataTable extends ConsumerWidget {
       child: AsyncValueWidget(
         value: value,
         data: (data) {
-          data.sort(compareNotices(
+          data.sort(compareModels<Notice>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
@@ -57,7 +58,7 @@ class NoticeDataTable extends ConsumerWidget {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (notice) {
-                      return notice.type?.name ?? "";
+                      return notice.type?.name;
                     },
                   );
                 },
@@ -70,7 +71,7 @@ class NoticeDataTable extends ConsumerWidget {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (notice) {
-                      return notice.status?.name ?? "";
+                      return notice.status?.name;
                     },
                   );
                 },
@@ -109,7 +110,7 @@ class NoticeDataTable extends ConsumerWidget {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (notice) {
-                      return notice.noticedAt ?? notice.createdAt!;
+                      return notice.noticedAt;
                     },
                   );
                 },
@@ -122,7 +123,7 @@ class NoticeDataTable extends ConsumerWidget {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (notice) {
-                      return notice.deadlineAt ?? notice.createdAt!;
+                      return notice.deadlineAt;
                     },
                   );
                 },

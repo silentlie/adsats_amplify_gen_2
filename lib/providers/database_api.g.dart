@@ -1,31 +1,29 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'database_repository.dart';
+part of 'database_api.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-@ProviderFor(databaseRepository)
-const databaseRepositoryProvider = DatabaseRepositoryProvider._();
+@ProviderFor(databaseAPI)
+const databaseAPIProvider = DatabaseAPIProvider._();
 
-final class DatabaseRepositoryProvider extends $FunctionalProvider<
-    AmplifyAppSyncAPI,
-    AmplifyAppSyncAPI,
-    AmplifyAppSyncAPI> with $Provider<AmplifyAppSyncAPI> {
-  const DatabaseRepositoryProvider._()
+final class DatabaseAPIProvider extends $FunctionalProvider<AmplifyAppSyncAPI,
+    AmplifyAppSyncAPI, AmplifyAppSyncAPI> with $Provider<AmplifyAppSyncAPI> {
+  const DatabaseAPIProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
-          name: r'databaseRepositoryProvider',
+          name: r'databaseAPIProvider',
           isAutoDispose: false,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$databaseRepositoryHash();
+  String debugGetCreateSourceHash() => _$databaseAPIHash();
 
   @$internal
   @override
@@ -35,7 +33,7 @@ final class DatabaseRepositoryProvider extends $FunctionalProvider<
 
   @override
   AmplifyAppSyncAPI create(Ref ref) {
-    return databaseRepository(ref);
+    return databaseAPI(ref);
   }
 
   /// {@macro riverpod.override_with_value}
@@ -47,8 +45,7 @@ final class DatabaseRepositoryProvider extends $FunctionalProvider<
   }
 }
 
-String _$databaseRepositoryHash() =>
-    r'3e05116229435339d0acf0c7005119f88d98f862';
+String _$databaseAPIHash() => r'65bf8be47dfb8efc4cbdfe1f2c847b8a8d6a7980';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

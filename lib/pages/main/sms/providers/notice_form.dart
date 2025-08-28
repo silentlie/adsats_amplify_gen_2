@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:adsats_amplify_gen_2/API/database_repository.dart';
+import 'package:adsats_amplify_gen_2/providers/database_api.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
-import 'package:adsats_amplify_gen_2/API/s3_extention.dart';
-import 'package:adsats_amplify_gen_2/API/storage_repository.dart';
+import 'package:adsats_amplify_gen_2/helper/s3_extention.dart';
+import 'package:adsats_amplify_gen_2/providers/storage_api.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -128,17 +128,23 @@ class NoticeForm extends _$NoticeForm {
     );
   }
 
-  Future<void> submit(bool send) async {
+  // May need to create a notice repository
+  Future<void> submit(
+    bool send,
+    void Function(String fileName, double progress) onProgressUpdate,
+  ) async {
     commit();
-    await _syncNotice();
+    await _syncNotice(onProgressUpdate);
     await _syncRecipients(send);
     ref.invalidate(noticesSentRepoProvider);
     ref.invalidate(noticesInboxRepoProvider);
   }
 
-  Future<void> _syncNotice() async {
-    final database = ref.read(databaseRepositoryProvider);
-    final storage = ref.read(storageRepositoryProvider);
+  Future<void> _syncNotice(
+    void Function(String fileName, double progress) onProgressUpdate,
+  ) async {
+    final database = ref.read(databaseAPIProvider);
+    final storage = ref.read(storageAPIProvider);
 
     final List<Future<Model>> futures = [];
     final List<Future> storageFutures = [];
@@ -193,7 +199,9 @@ class NoticeForm extends _$NoticeForm {
       storage.uploadFile(
         file: doc,
         s3Path: noticeDocument.s3Path(state.notice),
-        onProgress: null,
+        onProgress: (progress) {
+          onProgressUpdate(doc.name, progress.fractionCompleted);
+        },
       );
     }
     await Future.wait(storageFutures);
@@ -202,7 +210,7 @@ class NoticeForm extends _$NoticeForm {
 
   Future<Iterable<Staff>> _finaliseRecipients() async {
     if (_aircraft.isEmpty || _roles.isEmpty) return const [];
-    final database = ref.read(databaseRepositoryProvider);
+    final database = ref.read(databaseAPIProvider);
     final recipients = <Staff>[..._recipients];
     await database.query(
       documents: listJoinRecipientsGraphQL,
@@ -239,7 +247,7 @@ class NoticeForm extends _$NoticeForm {
   Future<void> _syncRecipients(bool send) async {
     final recipients = await _finaliseRecipients();
     if (recipients.isEmpty) return;
-    final database = ref.read(databaseRepositoryProvider);
+    final database = ref.read(databaseAPIProvider);
     final futures = <Future>[];
     // Keep track old relations
     final oldMap = {
