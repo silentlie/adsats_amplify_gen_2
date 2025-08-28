@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:adsats_amplify_gen_2/providers/database_api.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/helper/s3_extention.dart';
-import 'package:adsats_amplify_gen_2/providers/storage_api.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/storage_api.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';

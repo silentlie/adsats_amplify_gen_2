@@ -1,9 +1,9 @@
 import 'package:adsats_amplify_gen_2/helper/center_text.dart';
 import 'package:adsats_amplify_gen_2/helper/compare_mixin.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
 import 'package:adsats_amplify_gen_2/models/Notice.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/header.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/sort.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class NoticeDataTable extends ConsumerWidget with CompareMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final sortState = ref.watch(noticeSortProvider);
+    final sortState = ref.watch(sortProvider<Notice>());
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
@@ -34,7 +34,7 @@ class NoticeDataTable extends ConsumerWidget with CompareMixin {
             sortedData: data,
             context: context,
           );
-          final sortNotifier = ref.read(noticeSortProvider.notifier);
+          final sortNotifier = ref.read(sortProvider<Notice>().notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
@@ -45,7 +45,7 @@ class NoticeDataTable extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (notice) {
-                      return notice.subject;
+                      return notice.subject.toLowerCase();
                     },
                   );
                 },
