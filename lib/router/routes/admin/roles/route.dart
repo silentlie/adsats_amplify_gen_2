@@ -1,4 +1,5 @@
 part of '../../route.dart';
+
 class RolesShellBranchData extends StatefulShellBranchData {
   const RolesShellBranchData();
   static const branch = TypedStatefulShellBranch<RolesShellBranchData>(
@@ -12,12 +13,9 @@ class RolesRoute extends RouteInfo with _$RolesRoute {
   const RolesRoute();
 
   static const route = TypedGoRoute<RolesRoute>(
-    path: '/admin/roles',
-    name: 'Roles',
-    routes: <TypedRoute<RouteData>>[
-      FlightCrewRecordsCategoriesRoute.route
-    ]
-  );
+      path: '/admin/roles',
+      name: 'Roles',
+      routes: <TypedRoute<RouteData>>[FlightCrewRecordsCategoriesRoute.route]);
 
   @override
   Icon get icon => const Icon(Icons.groups_outlined);

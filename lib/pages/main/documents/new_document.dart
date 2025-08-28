@@ -1,6 +1,6 @@
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/filter.dart';
@@ -30,7 +30,8 @@ class NewDocumentDialog extends ConsumerStatefulWidget {
   ConsumerState<NewDocumentDialog> createState() => _NewDocumentDialogState();
 }
 
-class _NewDocumentDialogState extends ConsumerState<NewDocumentDialog> {
+class _NewDocumentDialogState extends ConsumerState<NewDocumentDialog>
+    with ConfirmDialogMixin {
   bool _isLoading = false;
   final Map<String, double> _fileProgress = {};
 
@@ -191,9 +192,9 @@ class _NewDocumentDialogState extends ConsumerState<NewDocumentDialog> {
                 ElevatedButton.icon(
                   onPressed: () async {
                     final result = await showConfirmDialog(
-                      context,
-                      Text("Are you sure?"),
-                      Text("Do you want to cancel?"),
+                      context: context,
+                      title: Text("Are you sure?"),
+                      content: Text("Do you want to cancel?"),
                     );
                     if (!result) {
                       return;
@@ -235,9 +236,9 @@ class _NewDocumentDialogState extends ConsumerState<NewDocumentDialog> {
                       return;
                     }
                     final result = await showConfirmDialog(
-                      context,
-                      Text("Are you sure?"),
-                      Text("Do you want to upload these documents?"),
+                      context: context,
+                      title: Text("Are you sure?"),
+                      content: Text("Do you want to upload these documents?"),
                     );
                     if (!result) {
                       return;

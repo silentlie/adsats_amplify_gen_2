@@ -1,4 +1,5 @@
 part of '../../route.dart';
+
 class CategoriesShellBranchData extends StatefulShellBranchData {
   const CategoriesShellBranchData();
   static const branch = TypedStatefulShellBranch<CategoriesShellBranchData>(

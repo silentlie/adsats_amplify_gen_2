@@ -40,8 +40,7 @@ class ReportBasicDetails extends ConsumerWidget {
                   final initialSelection = !notifier.isEditable()
                       ? value.firstWhere(
                           (e) =>
-                              e.id ==
-                              ref.watch(userDetailsProvider).value!.id,
+                              e.id == ref.watch(userDetailsProvider).value!.id,
                         )
                       : report.auditor!;
                   notifier.updateReport(

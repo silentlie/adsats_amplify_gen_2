@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/api.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/repo.dart';
@@ -7,7 +7,7 @@ import 'package:adsats_amplify_gen_2/pages/admin/roles/role_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RoleActions extends ConsumerWidget {
+class RoleActions extends ConsumerWidget with ConfirmDialogMixin {
   const RoleActions({super.key, required this.role});
 
   final Role role;
@@ -34,9 +34,9 @@ class RoleActions extends ConsumerWidget {
         IconButton(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text("Do you want to delete this role?"),
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text("Do you want to delete this role?"),
             );
             if (result) {
               await update(role.copyWith(archived: !role.archived));
@@ -52,9 +52,9 @@ class RoleActions extends ConsumerWidget {
         IconButton(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text(
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text(
                   "Do you want to delete this role?\nIt also delete all its Categories and Flight Crew Records "),
             );
             if (result) {

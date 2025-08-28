@@ -2,14 +2,16 @@ part of '../../../../route.dart';
 
 class InternalAuditReportShellBranchData extends StatefulShellBranchData {
   const InternalAuditReportShellBranchData();
-  static const branch = TypedStatefulShellBranch<InternalAuditReportShellBranchData>(
+  static const branch =
+      TypedStatefulShellBranch<InternalAuditReportShellBranchData>(
     routes: <TypedRoute<RouteData>>[
       InternalAuditReportRoute.route,
     ],
   );
 }
 
-class InternalAuditReportRoute extends RouteInfo with _$InternalAuditReportRoute{
+class InternalAuditReportRoute extends RouteInfo
+    with _$InternalAuditReportRoute {
   const InternalAuditReportRoute();
   static const route = TypedGoRoute<InternalAuditReportRoute>(
     path: 'internal-audit-report',

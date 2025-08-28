@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/api.dart';
@@ -7,7 +7,8 @@ import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_catego
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FlightCrewRecordsCategoryActions extends ConsumerWidget {
+class FlightCrewRecordsCategoryActions extends ConsumerWidget
+    with ConfirmDialogMixin {
   const FlightCrewRecordsCategoryActions({super.key, required this.category});
 
   final FlightCrewRecordCategory category;
@@ -35,9 +36,9 @@ class FlightCrewRecordsCategoryActions extends ConsumerWidget {
         IconButton(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text(
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text(
                 "Do you want to ${category.archived ? "unarchive" : "archive"} this category?",
               ),
             );
@@ -58,9 +59,9 @@ class FlightCrewRecordsCategoryActions extends ConsumerWidget {
         IconButton(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text(
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text(
                 "Do you want to delete this category?\nIt also deletes any Flight Crew Records under this Category",
               ),
             );

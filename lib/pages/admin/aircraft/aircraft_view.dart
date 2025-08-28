@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/api.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/repo.dart';
@@ -13,7 +13,7 @@ import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class AircraftView extends ConsumerWidget {
+class AircraftView extends ConsumerWidget with ConfirmDialogMixin {
   const AircraftView({super.key, this.aircraft});
 
   final Aircraft? aircraft;
@@ -104,9 +104,9 @@ class AircraftView extends ConsumerWidget {
         ElevatedButton.icon(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text("Do you want to cancel?"),
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text("Do you want to cancel?"),
             );
             if (result && context.mounted) {
               Navigator.pop(context);
@@ -118,9 +118,9 @@ class AircraftView extends ConsumerWidget {
         ElevatedButton.icon(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text("Do you want to ?"),
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text("Do you want to ?"),
             );
             if (!result) {
               return;

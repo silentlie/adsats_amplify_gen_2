@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/Document.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/edit_document_view.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
@@ -7,7 +7,7 @@ import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DocumentActions extends ConsumerWidget {
+class DocumentActions extends ConsumerWidget with ConfirmDialogMixin {
   const DocumentActions({
     super.key,
     required this.document,
@@ -47,9 +47,9 @@ class DocumentActions extends ConsumerWidget {
           IconButton(
             onPressed: () async {
               final result = await showConfirmDialog(
-                context,
-                Text("Are you sure?"),
-                Text(
+                context: context,
+                title: Text("Are you sure?"),
+                content: Text(
                   "Do you want to ${document.archived ? "unarchive" : "archive"} this document?",
                 ),
               );
@@ -72,9 +72,9 @@ class DocumentActions extends ConsumerWidget {
           IconButton(
             onPressed: () async {
               final result = await showConfirmDialog(
-                context,
-                Text("Are you sure?"),
-                Text("Do you want to delete this document?"),
+                context: context,
+                title: Text("Are you sure?"),
+                content: Text("Do you want to delete this document?"),
               );
               if (result) {
                 await deleteDocument(document);

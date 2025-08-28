@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/api.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/repo.dart';
@@ -7,7 +7,7 @@ import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/subcat
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SubcategoryActions extends ConsumerWidget {
+class SubcategoryActions extends ConsumerWidget with ConfirmDialogMixin {
   const SubcategoryActions({super.key, required this.subcategory});
 
   final Subcategory subcategory;
@@ -35,9 +35,9 @@ class SubcategoryActions extends ConsumerWidget {
         IconButton(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text(
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text(
                 "Do you want to ${subcategory.archived ? "unarchive" : "archive"} this subcategory?",
               ),
             );
@@ -60,9 +60,9 @@ class SubcategoryActions extends ConsumerWidget {
         IconButton(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text(
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text(
                   "Do you want to delete this subcategory?\nIt also deletes its documents"),
             );
             if (result) {

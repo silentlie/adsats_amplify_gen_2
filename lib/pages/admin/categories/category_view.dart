@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/repo.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class CategoryView extends ConsumerWidget {
+class CategoryView extends ConsumerWidget with ConfirmDialogMixin {
   const CategoryView({super.key, this.category});
 
   final Category? category;
@@ -75,9 +75,9 @@ class CategoryView extends ConsumerWidget {
         ElevatedButton.icon(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text("Do you want to cancel?"),
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text("Do you want to cancel?"),
             );
             if (result && context.mounted) {
               Navigator.pop(context);
@@ -89,9 +89,9 @@ class CategoryView extends ConsumerWidget {
         ElevatedButton.icon(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text("Do you want to ?"),
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text("Do you want to ?"),
             );
             if (!result) {
               return;

@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart' hide delete;
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/edit_flight_crew_record_view.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
@@ -8,7 +8,7 @@ import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/s3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FlightCrewRecordActions extends ConsumerWidget {
+class FlightCrewRecordActions extends ConsumerWidget with ConfirmDialogMixin {
   const FlightCrewRecordActions({
     super.key,
     required this.flightCrewRecord,
@@ -50,9 +50,9 @@ class FlightCrewRecordActions extends ConsumerWidget {
             onPressed: () async {
               controller.close();
               final result = await showConfirmDialog(
-                context,
-                Text("Are you sure?"),
-                Text(
+                context: context,
+                title: Text("Are you sure?"),
+                content: Text(
                   "Do you want to ${flightCrewRecord.archived ? "unarchive" : "archive"} this Flight Crew Record?",
                 ),
               );
@@ -77,9 +77,9 @@ class FlightCrewRecordActions extends ConsumerWidget {
             onPressed: () async {
               controller.close();
               final result = await showConfirmDialog(
-                context,
-                Text("Are you sure?"),
-                Text(
+                context: context,
+                title: Text("Are you sure?"),
+                content: Text(
                     "Do you want to delete this Flight Crew Record?\nIt also deletes its documents"),
               );
               if (result) {

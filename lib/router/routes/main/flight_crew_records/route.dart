@@ -2,7 +2,8 @@ part of '../../route.dart';
 
 class FlightCrewRecordsShellBranchData extends StatefulShellBranchData {
   const FlightCrewRecordsShellBranchData();
-  static const branch = TypedStatefulShellBranch<FlightCrewRecordsShellBranchData>(
+  static const branch =
+      TypedStatefulShellBranch<FlightCrewRecordsShellBranchData>(
     routes: <TypedRoute<RouteData>>[
       FlightCrewRecordsRoute.route,
     ],

@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
@@ -24,7 +24,8 @@ class NewFlightCrewRecord extends ConsumerStatefulWidget {
       _NewFlightCrewRecordState();
 }
 
-class _NewFlightCrewRecordState extends ConsumerState<NewFlightCrewRecord> {
+class _NewFlightCrewRecordState extends ConsumerState<NewFlightCrewRecord>
+    with ConfirmDialogMixin {
   bool _isLoading = false;
   final Map<String, double> _fileProgress = {};
 
@@ -124,9 +125,9 @@ class _NewFlightCrewRecordState extends ConsumerState<NewFlightCrewRecord> {
             ElevatedButton.icon(
               onPressed: () async {
                 final result = await showConfirmDialog(
-                  context,
-                  Text("Are you sure?"),
-                  Text("Do you want to cancel?"),
+                  context: context,
+                  title: Text("Are you sure?"),
+                  content: Text("Do you want to cancel?"),
                 );
                 if (result && context.mounted) {
                   Navigator.pop(context);
@@ -161,9 +162,9 @@ class _NewFlightCrewRecordState extends ConsumerState<NewFlightCrewRecord> {
                   return;
                 }
                 final result = await showConfirmDialog(
-                  context,
-                  Text("Are you sure?"),
-                  Text("Do you want to upload these records?"),
+                  context: context,
+                  title: Text("Are you sure?"),
+                  content: Text("Do you want to upload these records?"),
                 );
                 if (!result) {
                   return;

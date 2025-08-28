@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class EditDocumentView extends ConsumerWidget {
+class EditDocumentView extends ConsumerWidget with ConfirmDialogMixin {
   const EditDocumentView({
     super.key,
     required this.document,
@@ -163,9 +163,9 @@ class EditDocumentView extends ConsumerWidget {
             ElevatedButton.icon(
               onPressed: () async {
                 final result = await showConfirmDialog(
-                  context,
-                  Text("Are you sure?"),
-                  Text("Do you want to cancel?"),
+                  context: context,
+                  title: Text("Are you sure?"),
+                  content: Text("Do you want to cancel?"),
                 );
                 if (!result) {
                   return;
@@ -184,9 +184,9 @@ class EditDocumentView extends ConsumerWidget {
             ElevatedButton.icon(
               onPressed: () async {
                 final result = await showConfirmDialog(
-                  context,
-                  Text("Are you sure?"),
-                  Text("Do you want to apply these changes?"),
+                  context: context,
+                  title: Text("Are you sure?"),
+                  content: Text("Do you want to apply these changes?"),
                 );
                 if (!result) {
                   return;

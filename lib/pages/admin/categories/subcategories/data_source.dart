@@ -61,7 +61,8 @@ class SubcategoryDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          (subcategory.createdAt?.toCompactDateString ?? "").centeredTextWidget(),
+          (subcategory.createdAt?.toCompactDateString ?? "")
+              .centeredTextWidget(),
         ),
         DataCell(
           Center(

@@ -49,6 +49,4 @@ class NoticeRepository extends _$NoticeRepository {
         .map((notice) => Notice.fromJson(notice))
         .toList();
   }
-
-
 }

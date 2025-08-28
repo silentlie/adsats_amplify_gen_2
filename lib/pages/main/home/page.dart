@@ -1,4 +1,3 @@
-
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/notification/notifications.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';

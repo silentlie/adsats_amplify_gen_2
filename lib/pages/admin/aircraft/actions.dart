@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/api.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/aircraft_view.dart';
@@ -7,7 +7,7 @@ import 'package:adsats_amplify_gen_2/pages/admin/aircraft/repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AircraftActions extends ConsumerWidget {
+class AircraftActions extends ConsumerWidget with ConfirmDialogMixin {
   const AircraftActions({super.key, required this.aircraft});
 
   final Aircraft aircraft;
@@ -34,9 +34,9 @@ class AircraftActions extends ConsumerWidget {
         IconButton(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text(
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text(
                 "Do you want to ${aircraft.archived ? "unarchive" : "archive"} this aircraft?",
               ),
             );
@@ -58,9 +58,9 @@ class AircraftActions extends ConsumerWidget {
         IconButton(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text("Do you want to delete this aircraft?"),
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text("Do you want to delete this aircraft?"),
             );
             if (result) {
               await deleteAircraft(aircraft);

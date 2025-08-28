@@ -1,6 +1,7 @@
 part of '../../../route.dart';
 
-class FlightCrewRecordsCategoriesRoute extends RouteInfo with _$FlightCrewRecordsCategoriesRoute {
+class FlightCrewRecordsCategoriesRoute extends RouteInfo
+    with _$FlightCrewRecordsCategoriesRoute {
   const FlightCrewRecordsCategoriesRoute({required this.roleId});
   static const route = TypedGoRoute<FlightCrewRecordsCategoriesRoute>(
     path: ':roleId',

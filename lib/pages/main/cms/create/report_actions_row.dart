@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/create/state.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class ReportActionsRow extends ConsumerWidget {
+class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
   const ReportActionsRow({super.key});
 
   @override
@@ -29,9 +29,9 @@ class ReportActionsRow extends ConsumerWidget {
           ElevatedButton.icon(
             onPressed: () async {
               final result = await showConfirmDialog(
-                context,
-                Text("Are you sure?"),
-                Text("Do you want to cancel?"),
+                context: context,
+                title: Text("Are you sure?"),
+                content: Text("Do you want to cancel?"),
               );
               if (result && context.mounted) {
                 if (context.canPop()) {
@@ -82,9 +82,9 @@ class ReportActionsRow extends ConsumerWidget {
               onPressed: () async {
                 // if (!notifier.validate()) return;
                 final result = await showConfirmDialog(
-                  context,
-                  Text("Are you sure?"),
-                  Text("Do you want to save?"),
+                  context: context,
+                  title: Text("Are you sure?"),
+                  content: Text("Do you want to save?"),
                 );
                 if (result) {
                   await notifier.submit(false);
@@ -115,9 +115,9 @@ class ReportActionsRow extends ConsumerWidget {
               onPressed: () async {
                 if (!notifier.validate()) return;
                 final result = await showConfirmDialog(
-                  context,
-                  Text("Are you sure?"),
-                  Text("Do you want to submit and send?"),
+                  context: context,
+                  title: Text("Are you sure?"),
+                  content: Text("Do you want to submit and send?"),
                 );
                 if (result) {
                   await notifier.submit(true);

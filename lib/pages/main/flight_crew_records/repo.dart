@@ -70,11 +70,12 @@ FutureOr<Iterable<Staff>> listJoinStaff(
   Aircraft aircraft,
   Role role,
 ) async {
-  final request =
-      GraphQLRequest<String>(document: listFlightCrewRecordsCrewsGraphQL, variables: {
-    "aircraftId": aircraft.id,
-    "roleId": role.id,
-  });
+  final request = GraphQLRequest<String>(
+      document: listFlightCrewRecordsCrewsGraphQL,
+      variables: {
+        "aircraftId": aircraft.id,
+        "roleId": role.id,
+      });
   final response = await Amplify.API.query(request: request).response;
   if (response.errors.isNotEmpty) {
     throw response.errors.first;

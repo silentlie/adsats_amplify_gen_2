@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/API/queries.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart' hide listNotices;
+import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart'
+    hide listNotices;
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/filter.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';

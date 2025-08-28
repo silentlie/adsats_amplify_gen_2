@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/api.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/repo.dart';
@@ -8,7 +8,7 @@ import 'package:adsats_amplify_gen_2/pages/admin/staff/staff_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class StaffActions extends ConsumerWidget {
+class StaffActions extends ConsumerWidget with ConfirmDialogMixin {
   const StaffActions({super.key, required this.staff});
 
   final Staff staff;
@@ -50,9 +50,9 @@ class StaffActions extends ConsumerWidget {
         IconButton(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text(
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text(
                 "Do you want to ${staff.archived ? "unarchive" : "archive"} this staff?",
               ),
             );
@@ -74,9 +74,9 @@ class StaffActions extends ConsumerWidget {
         IconButton(
           onPressed: () async {
             final result = await showConfirmDialog(
-              context,
-              Text("Are you sure?"),
-              Text("Do you want to delete this staff?"),
+              context: context,
+              title: Text("Are you sure?"),
+              content: Text("Do you want to delete this staff?"),
             );
             if (result) {
               await Future.wait([

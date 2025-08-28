@@ -7,7 +7,7 @@ class CmsShellRouteData extends StatefulShellRouteInfo {
       CmsInboxShellBranchData.branch,
       CmsSentShellBranchData.branch,
     ],
-  );  
+  );
 
   @override
   Icon get icon => const Icon(Icons.fact_check_outlined);

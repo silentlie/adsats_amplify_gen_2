@@ -63,8 +63,7 @@ class CategoryDataSource extends DataTableSource {
           ),
         ),
         DataCell(
-          (category.createdAt?.toCompactDateString ?? "")
-              .centeredTextWidget(),
+          (category.createdAt?.toCompactDateString ?? "").centeredTextWidget(),
         ),
         DataCell(
           Center(

@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
-import 'package:adsats_amplify_gen_2/helper/confirm_dialog.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/reports/api.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/reports/invalidate.dart';
@@ -8,7 +8,7 @@ import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ReportActions extends ConsumerWidget {
+class ReportActions extends ConsumerWidget with ConfirmDialogMixin {
   const ReportActions({
     super.key,
     required this.report,
@@ -35,9 +35,9 @@ class ReportActions extends ConsumerWidget {
           IconButton(
             onPressed: () async {
               final result = await showConfirmDialog(
-                context,
-                Text("Are you sure?"),
-                Text(
+                context: context,
+                title: Text("Are you sure?"),
+                content: Text(
                   "Do you want to ${report.archived ? "unarchive" : "archive"} this report?",
                 ),
               );
@@ -60,9 +60,9 @@ class ReportActions extends ConsumerWidget {
           IconButton(
             onPressed: () async {
               final result = await showConfirmDialog(
-                context,
-                Text("Are you sure?"),
-                Text("Do you want to delete this notice?"),
+                context: context,
+                title: Text("Are you sure?"),
+                content: Text("Do you want to delete this notice?"),
               );
               if (result) {
                 await deleteReport(report);
