@@ -15,8 +15,12 @@ part 'filter.freezed.dart';
 class NoticeFilter extends _$NoticeFilter {
   @override
   NoticeFilterState build() {
-    final user = ref.watch(userDetailsProvider).value!;
-    return NoticeFilterState(user: user, archived: false);
+    final user = ref.watch(userDetailsProvider.select(
+      (value) {
+        return value.value;
+      },
+    ));
+    return NoticeFilterState(user: user!, archived: false);
   }
 
   void search(String name) {

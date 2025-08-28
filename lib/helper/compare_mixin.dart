@@ -1,7 +1,5 @@
-import 'package:amplify_flutter/amplify_flutter.dart';
-
 mixin CompareMixin {
-  int Function(T, T) compareModels<T extends Model>({
+  int Function(T, T) compareModels<T>({
     required bool sortAscending,
     required Comparable? Function(T model) getField,
   }) {

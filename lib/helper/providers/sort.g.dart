@@ -9,8 +9,7 @@ part of 'sort.dart';
 @ProviderFor(Sort)
 const sortProvider = SortFamily._();
 
-final class SortProvider<T extends Model>
-    extends $NotifierProvider<Sort<T>, SortState<T>> {
+final class SortProvider<T> extends $NotifierProvider<Sort<T>, SortState<T>> {
   const SortProvider._({required SortFamily super.from})
       : super(
           argument: null,
@@ -35,7 +34,7 @@ final class SortProvider<T extends Model>
   @override
   Sort<T> create() => Sort<T>();
 
-  $R _captureGenerics<$R>($R Function<T extends Model>() cb) {
+  $R _captureGenerics<$R>($R Function<T>() cb) {
     return cb<T>();
   }
 
@@ -60,7 +59,7 @@ final class SortProvider<T extends Model>
   }
 }
 
-String _$sortHash() => r'767ff97536c2019edf18a704de368e692e651359';
+String _$sortHash() => r'5216a73491882c0b28f953232fe1f4cd1c25abe6';
 
 final class SortFamily extends $Family {
   const SortFamily._()
@@ -72,32 +71,30 @@ final class SortFamily extends $Family {
           isAutoDispose: true,
         );
 
-  SortProvider<T> call<T extends Model>() => SortProvider<T>._(from: this);
+  SortProvider<T> call<T>() => SortProvider<T>._(from: this);
 
   @override
   String toString() => r'sortProvider';
 
   /// {@macro riverpod.override_with}
-  Override overrideWith(Sort<T> Function<T extends Model>() create) =>
-      $FamilyOverride(
-          from: this,
-          createElement: (pointer) {
-            final provider = pointer.origin as SortProvider;
-            return provider._captureGenerics(<T extends Model>() {
-              provider as SortProvider<T>;
-              return provider.$view(create: create<T>).$createElement(pointer);
-            });
-          });
+  Override overrideWith(Sort<T> Function<T>() create) => $FamilyOverride(
+      from: this,
+      createElement: (pointer) {
+        final provider = pointer.origin as SortProvider;
+        return provider._captureGenerics(<T>() {
+          provider as SortProvider<T>;
+          return provider.$view(create: create<T>).$createElement(pointer);
+        });
+      });
 
   /// {@macro riverpod.override_with_build}
   Override overrideWithBuild(
-          SortState<T> Function<T extends Model>(Ref ref, Sort<T> notifier)
-              build) =>
+          SortState<T> Function<T>(Ref ref, Sort<T> notifier) build) =>
       $FamilyOverride(
           from: this,
           createElement: (pointer) {
             final provider = pointer.origin as SortProvider;
-            return provider._captureGenerics(<T extends Model>() {
+            return provider._captureGenerics(<T>() {
               provider as SortProvider<T>;
               return provider
                   .$view(runNotifierBuildOverride: build<T>)
@@ -106,7 +103,7 @@ final class SortFamily extends $Family {
           });
 }
 
-abstract class _$Sort<T extends Model> extends $Notifier<SortState<T>> {
+abstract class _$Sort<T> extends $Notifier<SortState<T>> {
   SortState<T> build();
   @$mustCallSuper
   @override

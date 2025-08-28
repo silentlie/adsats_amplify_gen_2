@@ -1,19 +1,25 @@
 import 'package:adsats_amplify_gen_2/helper/models/sort_state.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sort.g.dart';
 
 @Riverpod()
-class Sort<T extends Model> extends _$Sort<T> {
+class Sort<T> extends _$Sort<T> {
   @override
   SortState<T> build() {
     return SortState<T>(
       getField: (item) => switch (item) {
         Notice(:final noticedAt) => noticedAt,
         Report(:final reportedAt) => reportedAt,
+        Document(:final name) => name,
         _ => null,
+      },
+      sortColumnIndex: switch (T) {
+        const (Notice) => 5,
+        const (Report) => 5,
+        const (Document) => 0,
+        _ => -1,
       },
     );
   }

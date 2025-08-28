@@ -1,16 +1,37 @@
+import 'package:adsats_amplify_gen_2/helper/compare_mixin.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/notices/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/data_table.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/sent/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/repository/repository.dart';
+import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SmsSentPage extends ConsumerWidget {
+class SmsSentPage extends ConsumerWidget with CompareMixin {
   const SmsSentPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(noticeFilterProvider);
-    final dataAsync = ref.watch(noticesSentRepoProvider(filter));
-    return NoticeDataTable(value: dataAsync);
+    final dataAsync = ref.watch(noticeRepositoryProvider(InboxOrSent.sent));
+    final (asc, key) = ref.watch(
+      sortProvider<Notice>().select((s) => (s.sortAscending, s.getField)),
+    );
+    final sortedAsync = dataAsync.whenData((list) {
+      if (list.length < 2) return list;
+      return [...list]..sort(compareModels<Notice>(
+          sortAscending: asc,
+          getField: key,
+        ));
+    });
+    return AsyncValueWidget(
+      value: sortedAsync,
+      data: (data) => NoticeDataTable(
+        dataSource: NoticeDataSource(
+          sortedData: data,
+          context: context,
+        ),
+      ),
+    );
   }
 }

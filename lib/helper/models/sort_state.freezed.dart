@@ -13,7 +13,7 @@ part of 'sort_state.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$SortState<T extends Model> {
+mixin _$SortState<T> {
   bool get sortAscending;
   int get sortColumnIndex;
   Comparable? Function(T notice) get getField;
@@ -53,7 +53,7 @@ mixin _$SortState<T extends Model> {
 }
 
 /// @nodoc
-abstract mixin class $SortStateCopyWith<T extends Model, $Res> {
+abstract mixin class $SortStateCopyWith<T, $Res> {
   factory $SortStateCopyWith(
           SortState<T> value, $Res Function(SortState<T>) _then) =
       _$SortStateCopyWithImpl;
@@ -66,8 +66,7 @@ abstract mixin class $SortStateCopyWith<T extends Model, $Res> {
 }
 
 /// @nodoc
-class _$SortStateCopyWithImpl<T extends Model, $Res>
-    implements $SortStateCopyWith<T, $Res> {
+class _$SortStateCopyWithImpl<T, $Res> implements $SortStateCopyWith<T, $Res> {
   _$SortStateCopyWithImpl(this._self, this._then);
 
   final SortState<T> _self;
@@ -105,7 +104,7 @@ class _$SortStateCopyWithImpl<T extends Model, $Res>
 }
 
 /// Adds pattern-matching-related methods to [SortState].
-extension SortStatePatterns<T extends Model> on SortState<T> {
+extension SortStatePatterns<T> on SortState<T> {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -268,7 +267,7 @@ extension SortStatePatterns<T extends Model> on SortState<T> {
 
 /// @nodoc
 
-class _SortState<T extends Model> implements SortState<T> {
+class _SortState<T> implements SortState<T> {
   _SortState(
       {this.sortAscending = false,
       this.sortColumnIndex = 0,
@@ -321,7 +320,7 @@ class _SortState<T extends Model> implements SortState<T> {
 }
 
 /// @nodoc
-abstract mixin class _$SortStateCopyWith<T extends Model, $Res>
+abstract mixin class _$SortStateCopyWith<T, $Res>
     implements $SortStateCopyWith<T, $Res> {
   factory _$SortStateCopyWith(
           _SortState<T> value, $Res Function(_SortState<T>) _then) =
@@ -336,7 +335,7 @@ abstract mixin class _$SortStateCopyWith<T extends Model, $Res>
 }
 
 /// @nodoc
-class __$SortStateCopyWithImpl<T extends Model, $Res>
+class __$SortStateCopyWithImpl<T, $Res>
     implements _$SortStateCopyWith<T, $Res> {
   __$SortStateCopyWithImpl(this._self, this._then);
 
