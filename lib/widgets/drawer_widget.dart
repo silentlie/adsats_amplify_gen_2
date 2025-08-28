@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
-import 'package:adsats_amplify_gen_2/helper/to_string.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/iterable_join_string_extension.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/future_value_widget.dart';
@@ -134,19 +134,19 @@ class DrawerHeaderWidget extends ConsumerWidget {
             ),
             Center(
               child: Text(
-                'Roles: ${listToString(user.roles ?? [])}',
+                'Roles: ${(user.roles ?? []).joinRoleNames()}',
                 textAlign: TextAlign.center,
               ),
             ),
             Center(
               child: Text(
-                'Aircraft: ${listToString(user.aircraft ?? [])}',
+                'Aircraft: ${(user.aircraft ?? []).joinAircraftNames()}',
                 textAlign: TextAlign.center,
               ),
             ),
             Center(
               child: Text(
-                'Subcategories: ${listToString(user.subcategories ?? [])}',
+                'Subcategories: ${(user.subcategories ?? []).joinSubcategoryNames()}',
                 textAlign: TextAlign.center,
               ),
             ),
