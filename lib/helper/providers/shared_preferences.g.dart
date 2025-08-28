@@ -1,38 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'shared_perferences.dart';
+part of 'shared_preferences.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-@ProviderFor(SharedPerferences)
-const sharedPerferencesProvider = SharedPerferencesProvider._();
+@ProviderFor(SharedPreferences)
+const sharedPreferencesProvider = SharedPreferencesProvider._();
 
-final class SharedPerferencesProvider extends $AsyncNotifierProvider<
-    SharedPerferences, SharedPreferencesWithCache> {
-  const SharedPerferencesProvider._()
+final class SharedPreferencesProvider extends $AsyncNotifierProvider<
+    SharedPreferences, SharedPreferencesWithCache> {
+  const SharedPreferencesProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
-          name: r'sharedPerferencesProvider',
+          name: r'sharedPreferencesProvider',
           isAutoDispose: false,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$sharedPerferencesHash();
+  String debugGetCreateSourceHash() => _$sharedPreferencesHash();
 
   @$internal
   @override
-  SharedPerferences create() => SharedPerferences();
+  SharedPreferences create() => SharedPreferences();
 }
 
-String _$sharedPerferencesHash() => r'87a489ac5f39234d5f672800f78e10544797c586';
+String _$sharedPreferencesHash() => r'63a94eef9bfbf031df99e78e887006d4cba4e7e5';
 
-abstract class _$SharedPerferences
+abstract class _$SharedPreferences
     extends $AsyncNotifier<SharedPreferencesWithCache> {
   FutureOr<SharedPreferencesWithCache> build();
   @$mustCallSuper

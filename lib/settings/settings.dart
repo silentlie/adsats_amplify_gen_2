@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/providers/shared_perferences.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -10,7 +10,7 @@ part 'settings.freezed.dart';
 class SettingsNotifier extends _$SettingsNotifier {
   @override
   Settings build() {
-    final sfAsync = ref.watch(sharedPerferencesProvider);
+    final sfAsync = ref.watch(sharedPreferencesProvider);
     return sfAsync.when<Settings>(
       data: (sf) {
         final themeModeStr = sf.getString('themeMode');
@@ -36,7 +36,7 @@ class SettingsNotifier extends _$SettingsNotifier {
   void updateThemeMode(ThemeMode newThemeMode) {
     if (state.themeMode == newThemeMode) return;
     state = state.copyWith(themeMode: newThemeMode);
-    final sfProvider = ref.read(sharedPerferencesProvider.notifier);
+    final sfProvider = ref.read(sharedPreferencesProvider.notifier);
     sfProvider.saveData('themeMode', state.themeMode.name);
   }
 
@@ -44,7 +44,7 @@ class SettingsNotifier extends _$SettingsNotifier {
     state = state.copyWith(
       isNavigationRailExtended: !state.isNavigationRailExtended,
     );
-    final sfProvider = ref.read(sharedPerferencesProvider.notifier);
+    final sfProvider = ref.read(sharedPreferencesProvider.notifier);
     sfProvider.saveData(
       'isNavigationRailExtended',
       state.isNavigationRailExtended,
