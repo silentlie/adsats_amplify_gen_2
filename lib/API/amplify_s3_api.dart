@@ -8,11 +8,11 @@ class AmplifyS3API {
     ).result;
   }
 
-  Future<StorageUploadFileResult> uploadFile(
-    PlatformFile file,
-    String s3Path,
+  Future<StorageUploadFileResult> uploadFile({
+    required PlatformFile file,
+    required String s3Path,
     Function(StorageTransferProgress progress)? onProgress,
-  ) async {
+  }) async {
     return await Amplify.Storage.uploadFile(
       localFile: AWSFile.fromStream(
         file.readStream!,
