@@ -1,8 +1,8 @@
 import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/data_table.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/notices/widgets/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/notices/widgets/data_table.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notices.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:flutter/material.dart';

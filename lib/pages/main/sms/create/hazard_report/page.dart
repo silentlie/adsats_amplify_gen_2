@@ -1,11 +1,11 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create/actions_row_widget.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create/basic_details_widget.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create/documents_widget.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/create/widgets/actions_row_widget.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/create/widgets/basic_details_widget.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/create/widgets/documents_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create/hazard_report/components.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create/recipients_widget.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/create/widgets/recipients_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
 import 'package:flutter/material.dart';

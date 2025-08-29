@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/pages/main/sms/notices/widgets/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notices.dart';
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/filter.dart';

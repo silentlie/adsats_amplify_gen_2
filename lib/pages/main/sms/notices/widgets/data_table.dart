@@ -1,8 +1,8 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
 import 'package:adsats_amplify_gen_2/models/Notice.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/header.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/notices/widgets/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/notices/widgets/header.dart';
 import 'package:collection/collection.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
