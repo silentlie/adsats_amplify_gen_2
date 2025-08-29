@@ -19,7 +19,7 @@ final class EmailServiceProvider extends $FunctionalProvider<
           argument: null,
           retry: null,
           name: r'emailServiceProvider',
-          isAutoDispose: true,
+          isAutoDispose: false,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
@@ -47,7 +47,7 @@ final class EmailServiceProvider extends $FunctionalProvider<
   }
 }
 
-String _$emailServiceHash() => r'3dea5b2de75d11c5452245cea28acb18349c8f6f';
+String _$emailServiceHash() => r'ce6981e4f8ecd22afeb24b151463f9ebef16e1b0';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

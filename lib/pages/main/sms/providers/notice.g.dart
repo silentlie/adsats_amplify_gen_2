@@ -1,33 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'repo.dart';
+part of 'notice.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-@ProviderFor(noticeRepo)
-const noticeRepoProvider = NoticeRepoFamily._();
+@ProviderFor(notice)
+const noticeProvider = NoticeFamily._();
 
-final class NoticeRepoProvider
+final class NoticeProvider
     extends $FunctionalProvider<AsyncValue<Notice>, Notice, FutureOr<Notice>>
     with $FutureModifier<Notice>, $FutureProvider<Notice> {
-  const NoticeRepoProvider._(
-      {required NoticeRepoFamily super.from, required String super.argument})
+  const NoticeProvider._(
+      {required NoticeFamily super.from, required String super.argument})
       : super(
           retry: null,
-          name: r'noticeRepoProvider',
+          name: r'noticeProvider',
           isAutoDispose: true,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$noticeRepoHash();
+  String debugGetCreateSourceHash() => _$noticeHash();
 
   @override
   String toString() {
-    return r'noticeRepoProvider'
+    return r'noticeProvider'
         ''
         '($argument)';
   }
@@ -40,7 +40,7 @@ final class NoticeRepoProvider
   @override
   FutureOr<Notice> create(Ref ref) {
     final argument = this.argument as String;
-    return noticeRepo(
+    return notice(
       ref,
       argument,
     );
@@ -48,7 +48,7 @@ final class NoticeRepoProvider
 
   @override
   bool operator ==(Object other) {
-    return other is NoticeRepoProvider && other.argument == argument;
+    return other is NoticeProvider && other.argument == argument;
   }
 
   @override
@@ -57,26 +57,26 @@ final class NoticeRepoProvider
   }
 }
 
-String _$noticeRepoHash() => r'cd548f4e51d573de76b9bf38384497697c422105';
+String _$noticeHash() => r'd9c7fa850aa312869e9d2abf75d6e5444c722578';
 
-final class NoticeRepoFamily extends $Family
+final class NoticeFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Notice>, String> {
-  const NoticeRepoFamily._()
+  const NoticeFamily._()
       : super(
           retry: null,
-          name: r'noticeRepoProvider',
+          name: r'noticeProvider',
           dependencies: null,
           $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 
-  NoticeRepoProvider call(
+  NoticeProvider call(
     String id,
   ) =>
-      NoticeRepoProvider._(argument: id, from: this);
+      NoticeProvider._(argument: id, from: this);
 
   @override
-  String toString() => r'noticeRepoProvider';
+  String toString() => r'noticeProvider';
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

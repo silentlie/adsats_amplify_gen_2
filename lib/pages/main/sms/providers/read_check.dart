@@ -1,17 +1,17 @@
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create/state.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'read_check.g.dart';
 
-@Riverpod(dependencies: [userId, NoticeNotifier, listNoticeStaff])
+@Riverpod(dependencies: [userId, NoticeForm, listNoticeStaff])
 FutureOr<List<NoticeStaff>> readCheck(Ref ref) async {
   final userId = ref.watch(userIdProvider).value!;
   final notice = ref.watch(
-    noticeNotifierProvider.select(
+    noticeFormProvider.select(
       (value) => value.notice,
     ),
   );

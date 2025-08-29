@@ -2,8 +2,8 @@ import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notice/read_check.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create/state.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/read_check.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -18,14 +18,13 @@ class ActionsRowWidget extends ConsumerWidget with ConfirmDialogMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isEditMode = ref.watch(noticeNotifierProvider.select(
+    final isEditMode = ref.watch(noticeFormProvider.select(
       (value) => value.editMode,
     ));
-    final isDraft = ref.watch(noticeNotifierProvider.select(
+    final isDraft = ref.watch(noticeFormProvider.select(
       (value) => value.isDraft,
     ));
-    final notifier = ref.read(noticeNotifierProvider.notifier);
-    final formState = ref.watch(noticeNotifierProvider).formKey.currentState!;
+    final notifier = ref.read(noticeFormProvider.notifier);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -50,8 +49,8 @@ class ActionsRowWidget extends ConsumerWidget with ConfirmDialogMixin {
             label: const Text('Cancel'),
             icon: Icon(Icons.cancel_outlined),
           ),
-          if (notifier.isEditable()) readButton(ref, context),
-          if (notifier.isEditable() && notifier.editPermit())
+          if (!notifier.isNew()) readButton(ref, context),
+          if (!notifier.isNew() && notifier.editPermit())
             ElevatedButton.icon(
               onPressed: () {
                 notifier.switchEditMode();
@@ -86,14 +85,17 @@ class ActionsRowWidget extends ConsumerWidget with ConfirmDialogMixin {
           if (isEditMode)
             ElevatedButton.icon(
               onPressed: () async {
-                // if (!formState.validate()) return;
+                final formState = Form.maybeOf(context);
                 final result = await showConfirmDialog(
                   context: context,
                   title: Text("Are you sure?"),
                   content: Text("Do you want to save?"),
                 );
                 if (result) {
-                  await notifier.submit(false);
+                  formState?.save();
+                  await notifier.submit(false, (fileName, progress) {
+                    // TODO: update file upload progress
+                  });
                   if (!context.mounted) return;
                   if (context.canPop()) {
                     context.pop();
@@ -119,14 +121,18 @@ class ActionsRowWidget extends ConsumerWidget with ConfirmDialogMixin {
           if (isEditMode && !isDraft)
             ElevatedButton.icon(
               onPressed: () async {
-                if (!formState.validate()) return;
+                final formState = Form.maybeOf(context);
+                if (!(formState?.validate() ?? false)) return;
                 final result = await showConfirmDialog(
                   context: context,
                   title: Text("Are you sure?"),
                   content: Text("Do you want to submit and send?"),
                 );
                 if (result) {
-                  await notifier.submit(true);
+                  formState?.save();
+                  await notifier.submit(true, (fileName, progress) {
+                    // TODO: update file upload progress
+                  });
                   if (!context.mounted) return;
                   if (context.canPop()) {
                     context.pop();

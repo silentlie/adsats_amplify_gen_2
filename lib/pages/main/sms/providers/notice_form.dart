@@ -1,16 +1,11 @@
 import 'dart:convert';
 
-import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
-import 'package:adsats_amplify_gen_2/API/queries.dart';
-import 'package:adsats_amplify_gen_2/helper/extensions/s3_extension.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/storage_api.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/models/notice_form.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/api.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/inbox/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/sent/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notices.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/service.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -79,7 +74,7 @@ class NoticeForm extends _$NoticeForm {
     ));
   }
 
-  void updateNotice(
+  void updateNotice({
     String? subject,
     Staff? author,
     bool? archived,
@@ -89,7 +84,7 @@ class NoticeForm extends _$NoticeForm {
     List<Aircraft>? aircraft,
     List<Role>? roles,
     List<Staff>? recipients,
-  ) {
+  }) {
     if (roles != null) {
       _roles = roles;
     }
@@ -135,151 +130,18 @@ class NoticeForm extends _$NoticeForm {
     void Function(String fileName, double progress) onProgressUpdate,
   ) async {
     commit();
-    await _syncNotice(onProgressUpdate);
-    await _syncRecipients(send);
-    ref.invalidate(noticesSentRepoProvider);
-    ref.invalidate(noticesInboxRepoProvider);
-  }
-
-  Future<void> _syncNotice(
-    void Function(String fileName, double progress) onProgressUpdate,
-  ) async {
-    final database = ref.read(databaseAPIProvider);
-    final storage = ref.read(storageAPIProvider);
-
-    final List<Future<Model>> futures = [];
-    final List<Future> storageFutures = [];
-    if (_initialNotice == null) {
-      // Create new notice
-      futures.add(database.create(state.notice));
-      // Create new relations with aircraft
-      futures.addAll(
-        _aircraft.map(
-          (e) => database.create(AircraftNotice(
-            aircraft: e,
-            notice: state.notice,
-          )),
-        ),
-      );
-    } else {
-      // Update existing notice
-      futures.add(database.update(state.notice));
-      // Keep track of old aircraft notices
-      final oldMap = {
-        for (var old in _initialNotice.aircraft!) old.aircraft!.id: old
-      };
-      // Create new relation if not exists
-      for (final newAircraft in _aircraft) {
-        final old = oldMap.remove(newAircraft.id);
-        if (old == null) {
-          futures.add(database.create(AircraftNotice(
-            aircraft: newAircraft,
-            notice: state.notice,
-          )));
-        }
-      }
-      // Delete old relations not in new list
-      for (final old in oldMap.values) {
-        futures.add(database.delete(old));
-      }
-      // Delete documents not in new list
-      _initialNotice.documents?.where((doc) {
-        return !state.notice.documents!.contains(doc);
-      }).forEach((doc) {
-        futures.add(database.delete(doc));
-        storageFutures.add(storage.deleteFile(doc.s3Path(_initialNotice)));
-      });
-    }
-    // Upload new documents and create records in the database
-    for (final doc in ref.read(selectedFilesProvider)) {
-      final noticeDocument = NoticeDocument(
-        name: doc.name,
-        notices: state.notice,
-      );
-      futures.add(database.create(noticeDocument));
-      storage.uploadFile(
-        file: doc,
-        s3Path: noticeDocument.s3Path(state.notice),
-        onProgress: (progress) {
-          onProgressUpdate(doc.name, progress.fractionCompleted);
-        },
-      );
-    }
-    await Future.wait(storageFutures);
-    await Future.wait(futures);
-  }
-
-  Future<Iterable<Staff>> _finaliseRecipients() async {
-    if (_aircraft.isEmpty || _roles.isEmpty) return const [];
-    final database = ref.read(databaseAPIProvider);
-    final recipients = <Staff>[..._recipients];
-    await database.query(
-      document: listJoinRecipientsGraphQL,
-      variables: {
-        "aircraftFilter": {
-          "or": _aircraft
-              .map((aircraft) => {
-                    "aircraftId": {"eq": aircraft.id}
-                  })
-              .toList()
-        },
-        "rolesFilter": {
-          "or": _roles
-              .map((role) => {
-                    "roleId": {"eq": role.id}
-                  })
-              .toList()
-        },
-      },
-    ).then((value) {
-      for (var element in (value["listStaff"]["items"] as List)) {
-        final staff = Staff.fromJson(element);
-        if (staff.aircraft!.isNotEmpty && staff.roles!.isNotEmpty) {
-          recipients.add(staff);
-        }
-      }
-    });
-    return recipients.fold<Map<String, Staff>>({}, (map, staff) {
-      map.putIfAbsent(staff.id, () => staff);
-      return map;
-    }).values;
-  }
-
-  Future<void> _syncRecipients(bool send) async {
-    final recipients = await _finaliseRecipients();
-    if (recipients.isEmpty) return;
-    final database = ref.read(databaseAPIProvider);
-    final futures = <Future>[];
-    // Keep track old relations
-    final oldMap = {
-      for (final old in _initialNotice?.recipients ?? <NoticeStaff>[])
-        old.staff!.id: old
-    };
-    for (final newStaff in recipients) {
-      // Pop from oldMap
-      final old = oldMap.remove(newStaff.id);
-      // New relation
-      if (old == null) {
-        futures.add(database.create(NoticeStaff(
-          notice: state.notice,
-          staff: newStaff,
-        )));
-      } else if (send) {
-        // Reset read status if send for old relation still exist
-        futures.add(database.update(NoticeStaff(
-          id: old.id,
-          notice: state.notice,
-          staff: newStaff,
-        )));
-      }
-    }
-    // Delete relations that not exist anymore
-    for (final old in oldMap.values) {
-      futures.add(database.delete(old));
-    }
-    if (send) {
-      futures.add(sendNoticeEmail(state.notice, recipients));
-    }
-    await Future.wait(futures);
+    final service = ref.read(noticeServiceProvider);
+    await service.saveAndOptionallySend(
+      draft: state.notice,
+      initial: _initialNotice,
+      aircraft: _aircraft,
+      roles: _roles,
+      manualRecipients: _recipients,
+      selectedFiles: ref.read(selectedFilesProvider),
+      keepDocuments: _documents,
+      send: send,
+      onProgress: onProgressUpdate,
+    );
+    ref.invalidate(noticesProvider);
   }
 }

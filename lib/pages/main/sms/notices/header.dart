@@ -1,6 +1,6 @@
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notices.dart';
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/invalidate.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +28,7 @@ class NoticeHeader extends ConsumerWidget {
           children: [
             IconButton(
               onPressed: () {
-                invalidateViewSMS(ref);
+                ref.invalidate(noticesProvider);
               },
               icon: const Icon(Icons.refresh),
             ),

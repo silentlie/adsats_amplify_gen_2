@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create/state.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,12 +12,12 @@ class NoticeDocumentsWidget extends ConsumerWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final newFiles = ref.watch(selectedFilesProvider);
     final uploadedFiles = ref.watch(
-      noticeNotifierProvider.select(
+      noticeFormProvider.select(
         (value) => value.notice.documents ?? [],
       ),
     );
-    final notifier = ref.read(noticeNotifierProvider.notifier);
-    final isEditMode = ref.watch(noticeNotifierProvider.select(
+    final notifier = ref.read(noticeFormProvider.notifier);
+    final isEditMode = ref.watch(noticeFormProvider.select(
       (value) => value.editMode,
     ));
     final children = <Widget>[
@@ -31,15 +31,14 @@ class NoticeDocumentsWidget extends ConsumerWidget {
               onTap: () {
                 getNoticeDocumentFileUrl(
                   document,
-                  ref.read(noticeNotifierProvider).notice,
+                  ref.read(noticeFormProvider).notice,
                 );
               },
               child: Chip(
                 label: Text(document.name),
                 color: WidgetStatePropertyAll(colorScheme.onPrimary),
-                onDeleted: isEditMode
-                    ? () => notifier.removeNoticeDocument(document)
-                    : null,
+                onDeleted:
+                    isEditMode ? () => notifier.removeDocument(document) : null,
               ),
             ),
           );

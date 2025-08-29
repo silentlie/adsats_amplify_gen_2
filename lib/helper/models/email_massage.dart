@@ -3,5 +3,6 @@ class EmailMessage {
   // only the <main>…</main> block
   final String htmlMain;
   final String sender;
-  EmailMessage({required this.subject, required this.htmlMain, required this.sender});
+  EmailMessage(
+      {required this.subject, required this.htmlMain, required this.sender});
 }

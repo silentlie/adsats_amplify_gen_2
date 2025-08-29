@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'query_providers.g.dart';
 
+//TODO: transform to databaseAPIProvider then delete
 @Riverpod(dependencies: [])
 FutureOr<List<Staff>> listStaff(
   Ref ref, [

@@ -80,7 +80,8 @@ Future<void> updateReportStaff(
   ]);
 }
 
-Future<Map<String, dynamic>> sendReportEmail(Report report, Iterable<Staff> staff) async {
+Future<Map<String, dynamic>> sendReportEmail(
+    Report report, Iterable<Staff> staff) async {
   if (staff.isEmpty) return {};
   // TODO: use provider
   final emailService = AmplifyEmailRepository(AmplifyAppSyncAPI());

@@ -25,7 +25,7 @@ final class ReadCheckProvider extends $FunctionalProvider<
           isAutoDispose: true,
           dependencies: const <ProviderOrFamily>[
             userIdProvider,
-            noticeNotifierProvider,
+            noticeFormProvider,
             listNoticeStaffProvider
           ],
           $allTransitiveDependencies: const <ProviderOrFamily>{
@@ -39,13 +39,13 @@ final class ReadCheckProvider extends $FunctionalProvider<
         );
 
   static const $allTransitiveDependencies0 = userIdProvider;
-  static const $allTransitiveDependencies1 = noticeNotifierProvider;
+  static const $allTransitiveDependencies1 = noticeFormProvider;
   static const $allTransitiveDependencies2 =
-      NoticeNotifierProvider.$allTransitiveDependencies0;
+      NoticeFormProvider.$allTransitiveDependencies0;
   static const $allTransitiveDependencies3 =
-      NoticeNotifierProvider.$allTransitiveDependencies1;
+      NoticeFormProvider.$allTransitiveDependencies1;
   static const $allTransitiveDependencies4 =
-      NoticeNotifierProvider.$allTransitiveDependencies2;
+      NoticeFormProvider.$allTransitiveDependencies2;
   static const $allTransitiveDependencies5 = listNoticeStaffProvider;
 
   @override
@@ -63,7 +63,7 @@ final class ReadCheckProvider extends $FunctionalProvider<
   }
 }
 
-String _$readCheckHash() => r'39d85dac27fd9892b99279456b5688c8929c887a';
+String _$readCheckHash() => r'd1536312aa70d863a2fb5632cc37f44127e4ac3c';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

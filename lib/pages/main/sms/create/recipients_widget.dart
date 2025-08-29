@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create/state.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +13,12 @@ class NoticeRecipientsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.read(noticeNotifierProvider);
-    final notifier = ref.read(noticeNotifierProvider.notifier);
-    final isDraft = ref.watch(noticeNotifierProvider.select(
+    final state = ref.read(noticeFormProvider);
+    final notifier = ref.read(noticeFormProvider.notifier);
+    final isDraft = ref.watch(noticeFormProvider.select(
       (value) => value.isDraft,
     ));
-    final editMode = ref.watch(noticeNotifierProvider.select(
+    final editMode = ref.watch(noticeFormProvider.select(
       (value) => value.editMode,
     ));
     final isSafetyOfficer = ref.watch(isSafetyOfficerProvider);

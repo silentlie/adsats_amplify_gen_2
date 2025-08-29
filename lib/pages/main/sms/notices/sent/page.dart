@@ -3,7 +3,7 @@ import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/data_table.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/repository/repository.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notices.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +13,7 @@ class SmsSentPage extends ConsumerWidget with CompareMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final dataAsync = ref.watch(noticeRepositoryProvider(InboxOrSent.sent));
+    final dataAsync = ref.watch(noticesProvider(InboxOrSent.sent));
     final (asc, key) = ref.watch(
       sortProvider<Notice>().select((s) => (s.sortAscending, s.getField)),
     );

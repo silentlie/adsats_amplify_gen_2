@@ -2,8 +2,8 @@ import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/Notice.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/api.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/invalidate.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notices.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/service.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -17,6 +17,7 @@ class NoticeActions extends ConsumerWidget with ConfirmDialogMixin {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = MenuController();
     final isSafetyOfficer = ref.watch(isSafetyOfficerProvider);
+    final repository = ref.read(noticeServiceProvider);
     return MenuAnchor(
       controller: controller,
       alignmentOffset: Offset(50, -40),
@@ -40,7 +41,7 @@ class NoticeActions extends ConsumerWidget with ConfirmDialogMixin {
               );
               if (result) {
                 await update(notice.copyWith(archived: !notice.archived));
-                invalidateViewSMS(ref);
+                ref.invalidate(noticesProvider);
                 controller.close();
               }
             },
@@ -62,8 +63,8 @@ class NoticeActions extends ConsumerWidget with ConfirmDialogMixin {
                 content: Text("Do you want to delete this notice?"),
               );
               if (result) {
-                await deleteNotice(notice);
-                invalidateViewSMS(ref);
+                await repository.deleteNotice(notice);
+                ref.invalidate(noticesProvider);
                 controller.close();
               }
             },

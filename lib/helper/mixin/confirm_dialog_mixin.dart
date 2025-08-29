@@ -10,25 +10,24 @@ mixin ConfirmDialogMixin {
     bool barrierDismissible = true,
   }) async {
     return await showDialog<bool>(
-      context: context,
-      barrierDismissible: barrierDismissible,
-      useRootNavigator: true,
-      builder: (dialogContext) => AlertDialog(
-        title: title,
-        content: content,
-        actions: <Widget>[
-          TextButton(
-            onPressed: () =>
-                Navigator.of(dialogContext, rootNavigator: true).pop(false),
-            child: const Text('No'),
+          context: context,
+          barrierDismissible: barrierDismissible,
+          useRootNavigator: false,
+          builder: (dialogContext) => AlertDialog(
+            title: title,
+            content: content,
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.of(dialogContext).pop(false),
+                child: const Text('No'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(dialogContext).pop(true),
+                child: const Text('Yes'),
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () =>
-                Navigator.of(dialogContext, rootNavigator: true).pop(true),
-            child: const Text('Yes'),
-          ),
-        ],
-      ),
-    ) ?? false;
+        ) ??
+        false;
   }
 }

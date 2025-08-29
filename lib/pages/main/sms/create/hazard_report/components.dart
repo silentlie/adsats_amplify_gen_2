@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create/state.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
@@ -12,16 +12,16 @@ class MitigateCommentWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(noticeNotifierProvider.notifier);
+    final notifier = ref.read(noticeFormProvider.notifier);
     final isEditMode = ref.watch(
-      noticeNotifierProvider.select(
+      noticeFormProvider.select(
         (value) => value.editMode,
       ),
     );
-    final details = ref.read(noticeNotifierProvider.select(
+    final details = ref.read(noticeFormProvider.select(
       (value) => value.details,
     ));
-    bool isIncludedComment = ref.watch(noticeNotifierProvider.select((value) {
+    bool isIncludedComment = ref.watch(noticeFormProvider.select((value) {
       final isIncluded = value.details["included_comment"] as bool?;
       return isIncluded ?? false;
     }));
@@ -33,7 +33,8 @@ class MitigateCommentWidget extends ConsumerWidget {
             groupValue: isIncludedComment,
             onChanged: (value) {
               if (isEditMode) {
-                notifier.updateDetailsTriggerWatch({'included_comment': value});
+                notifier.updateDetails({'included_comment': value});
+                notifier.commit();
               }
             },
             child: Row(
@@ -127,17 +128,17 @@ class RiskWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(noticeNotifierProvider.notifier);
+    final notifier = ref.read(noticeFormProvider.notifier);
     final isEditMode = ref.watch(
-      noticeNotifierProvider.select(
+      noticeFormProvider.select(
         (value) => value.editMode,
       ),
     );
-    int likelihood = ref.watch(noticeNotifierProvider.select((value) {
+    int likelihood = ref.watch(noticeFormProvider.select((value) {
       final likely = value.details["likelihood"] as int?;
       return likely ?? 0;
     }));
-    int severity = ref.watch(noticeNotifierProvider.select((value) {
+    int severity = ref.watch(noticeFormProvider.select((value) {
       final severe = value.details["severity"] as int?;
       return severe ?? 0;
     }));
@@ -193,9 +194,10 @@ class RiskWidget extends ConsumerWidget {
                           selected: index == likelihood,
                           onSelectChanged: (value) {
                             if (isEditMode) {
-                              notifier.updateDetailsTriggerWatch(
+                              notifier.updateDetails(
                                 {"likelihood": index},
                               );
+                              notifier.commit();
                             }
                           },
                           color: WidgetStateColor.resolveWith(
@@ -261,9 +263,10 @@ class RiskWidget extends ConsumerWidget {
                           selected: index == severity,
                           onSelectChanged: (value) {
                             if (isEditMode) {
-                              notifier.updateDetailsTriggerWatch(
+                              notifier.updateDetails(
                                 {"severity": index},
                               );
+                              notifier.commit();
                             }
                           },
                           color: WidgetStateColor.resolveWith(
@@ -363,27 +366,27 @@ class SafetyOfficersSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isHidden = ref.watch(noticeNotifierProvider.select((value) {
+    final isHidden = ref.watch(noticeFormProvider.select((value) {
       final status = value.notice.status!;
       return status == NoticeStatus.Draft || status == NoticeStatus.Open;
     }));
     if (isHidden) {
       return SizedBox();
     }
-    final notifier = ref.read(noticeNotifierProvider.notifier);
+    final notifier = ref.read(noticeFormProvider.notifier);
     final isEditMode = ref.watch(
-      noticeNotifierProvider.select(
+      noticeFormProvider.select(
         (value) => value.editMode,
       ),
     );
-    final details = ref.read(noticeNotifierProvider.select(
+    final details = ref.read(noticeFormProvider.select(
       (value) => value.details,
     ));
     details.putIfAbsent(
       "isConfidential",
       () => false,
     );
-    final recipients = ref.read(noticeNotifierProvider.select(
+    final recipients = ref.read(noticeFormProvider.select(
       (value) => value.recipients,
     ));
     return Column(

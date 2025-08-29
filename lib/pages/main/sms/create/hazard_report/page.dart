@@ -6,7 +6,7 @@ import 'package:adsats_amplify_gen_2/pages/main/sms/create/basic_details_widget.
 import 'package:adsats_amplify_gen_2/pages/main/sms/create/documents_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create/hazard_report/components.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create/recipients_widget.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create/state.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,8 +25,8 @@ class HazardReportPage extends ConsumerWidget {
     ));
     return ProviderScope(
       overrides: [
-        noticeNotifierProvider.overrideWith(
-          () => NoticeNotifier.withNotice(
+        noticeFormProvider.overrideWith(
+          () => NoticeForm.withNotice(
             notice ??
                 Notice(
                   subject: "",
@@ -57,11 +57,7 @@ class HazardReportForm extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Center(
       child: Form(
-        key: ref.watch(
-          noticeNotifierProvider.select(
-            (value) => value.formKey,
-          ),
-        ),
+        key: GlobalKey<FormState>(),
         child: SingleChildScrollView(
           child: Container(
             constraints: const BoxConstraints(maxWidth: 1536.0),
@@ -102,13 +98,13 @@ class HazardReportBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(noticeNotifierProvider.notifier);
+    final notifier = ref.read(noticeFormProvider.notifier);
     final isEditMode = ref.watch(
-      noticeNotifierProvider.select(
+      noticeFormProvider.select(
         (value) => value.editMode,
       ),
     );
-    final details = ref.read(noticeNotifierProvider.select(
+    final details = ref.read(noticeFormProvider.select(
       (value) => value.details,
     ));
     return Column(

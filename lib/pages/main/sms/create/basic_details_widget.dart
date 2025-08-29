@@ -1,11 +1,11 @@
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,10 +14,10 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notice = ref.watch(noticeNotifierProvider).notice;
+    final notice = ref.watch(noticeFormProvider).notice;
     final isSafetyOfficer = ref.watch(isSafetyOfficerProvider);
-    final notifier = ref.read(noticeNotifierProvider.notifier);
-    final isEditMode = ref.watch(noticeNotifierProvider.select(
+    final notifier = ref.read(noticeFormProvider.notifier);
+    final isEditMode = ref.watch(noticeFormProvider.select(
       (value) => value.editMode,
     ));
     return Column(
@@ -122,7 +122,7 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
                   initialSelection: notice.status,
                   enabled: isEditMode,
                   onSelected: (value) {
-                    notifier.updateStatus(value!);
+                    notifier.switchStatus(value!);
                   },
                   hintText: "Status of this notice",
                   menuHeight: 200,
