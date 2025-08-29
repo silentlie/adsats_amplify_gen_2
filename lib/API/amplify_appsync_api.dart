@@ -66,14 +66,27 @@ class AmplifyAppSyncAPI {
   }
 
   Future<Map<String, dynamic>> query({
-    required String documents,
+    required String document,
     required Map<String, dynamic> variables,
   }) async {
     final req = GraphQLRequest<String>(
-      document: documents,
+      document: document,
       variables: variables,
     );
     final res = await Amplify.API.query(request: req).response;
+    if (res.errors.isNotEmpty) throw res.errors.first;
+    return jsonDecode(res.data!) as Map<String, dynamic>;
+  }
+
+  Future<Map<String, dynamic>> mutate({
+    required String document,
+    required Map<String, dynamic> variables,
+  }) async {
+    final req = GraphQLRequest<String>(
+      document: document,
+      variables: variables,
+    );
+    final res = await Amplify.API.mutate(request: req).response;
     if (res.errors.isNotEmpty) throw res.errors.first;
     return jsonDecode(res.data!) as Map<String, dynamic>;
   }

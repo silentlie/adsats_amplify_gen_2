@@ -19,7 +19,9 @@ class SafetyNoticePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userDetails = ref.read(userDetailsProvider).value!;
+    final userDetails = ref.read(userDetailsProvider.select(
+      (value) => value.value!,
+    ));
     return ProviderScope(
       overrides: [
         noticeNotifierProvider.overrideWith(
@@ -41,40 +43,49 @@ class SafetyNoticePage extends ConsumerWidget {
         ),
         selectedFilesProvider,
       ],
-      child: Center(
-        child: Form(
-          key: ref.watch(
-            noticeNotifierProvider.select(
-              (value) => value.formKey,
-            ),
+      child: SafetyNoticeForm(),
+    );
+  }
+}
+
+class SafetyNoticeForm extends ConsumerWidget {
+  const SafetyNoticeForm({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Center(
+      child: Form(
+        key: ref.watch(
+          noticeNotifierProvider.select(
+            (value) => value.formKey,
           ),
-          child: SingleChildScrollView(
-            child: Container(
-              constraints: const BoxConstraints(maxWidth: 1536.0),
-              child: Card(
-                child: Column(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      child: const Text(
-                        'Safety Notice',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ),
+        ),
+        child: SingleChildScrollView(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 1536.0),
+            child: Card(
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    child: const Text(
+                      'Safety Notice',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
                       ),
                     ),
-                    NoticeBasicDetailsWidget(),
-                    const Divider(),
-                    SafetyNoticeBody(),
-                    const Divider(),
-                    NoticeRecipientsWidget(),
-                    const Divider(),
-                    NoticeDocumentsWidget(),
-                    const Divider(),
-                    ActionsRowWidget()
-                  ],
-                ),
+                  ),
+                  NoticeBasicDetailsWidget(),
+                  const Divider(),
+                  SafetyNoticeBody(),
+                  const Divider(),
+                  NoticeRecipientsWidget(),
+                  const Divider(),
+                  NoticeDocumentsWidget(),
+                  const Divider(),
+                  ActionsRowWidget()
+                ],
               ),
             ),
           ),

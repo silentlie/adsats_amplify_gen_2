@@ -214,7 +214,7 @@ class NoticeForm extends _$NoticeForm {
     final database = ref.read(databaseAPIProvider);
     final recipients = <Staff>[..._recipients];
     await database.query(
-      documents: listJoinRecipientsGraphQL,
+      document: listJoinRecipientsGraphQL,
       variables: {
         "aircraftFilter": {
           "or": _aircraft

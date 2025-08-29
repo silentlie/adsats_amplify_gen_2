@@ -1,48 +1,33 @@
-import 'dart:convert';
-
+import 'package:adsats_amplify_gen_2/API/amplify_appsync_api.dart';
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
-import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
-import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
-import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter/material.dart';
+import 'package:adsats_amplify_gen_2/helper/models/email_massage.dart';
 import 'package:intl/intl.dart';
 
-final domainName =
-    "${Uri.base.host}${Uri.base.hasPort ? ":${Uri.base.port}" : ""}";
+class AmplifyEmailRepository {
+  final AmplifyAppSyncAPI _api;
+  const AmplifyEmailRepository(this._api);
 
-Future<void> sendEmail({
-  required String subject,
-  required String sender,
-  required String htmlMain,
-  required List<String> recipients,
-}) async {
-  try {
-    final request = GraphQLRequest<String>(
+  Future<Map<String, dynamic>> sendEmail({
+    required EmailMessage emailMessage,
+    required List<String> recipients,
+  }) {
+    return _api.mutate(
       document: sendEmailDocument,
       variables: {
-        "subject": subject,
-        "recipients": recipients,
-        "htmlBody": buildEmailHTML(htmlMain),
-        "author": sender,
+        'subject': emailMessage.subject,
+        'recipients': recipients,
+        'htmlBody': _buildEmailHTML(emailMessage.htmlMain),
+        'author': emailMessage.sender,
       },
     );
-    final response = await Amplify.API.query(request: request).response;
-    if (response.errors.isNotEmpty) {
-      throw response.errors.first;
-    }
-    Map<String, dynamic> jsonMap = json.decode(response.data!);
-  } on ApiException catch (e) {
-    debugPrint('send email failed: $e');
   }
-}
 
-String buildEmailHTML(String main) {
-  final now = DateTime.now();
-  final formattedDate = DateFormat('EEEE, d MMMM, yyyy').format(now);
-  final formattedTime = DateFormat('h:mm a').format(now);
-  final timezoneName = now.timeZoneName;
-  return '''
+  String _buildEmailHTML(String main) {
+    final now = DateTime.now();
+    final formattedDate = DateFormat('EEEE, d MMMM, yyyy').format(now);
+    final formattedTime = DateFormat('h:mm a').format(now);
+    final timezoneName = now.timeZoneName;
+    return '''
     <!DOCTYPE html>
     <html lang="en">
       <head>
@@ -50,7 +35,7 @@ String buildEmailHTML(String main) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>ADSATS Notification</title>
-        $styles
+        $_styles
       </head>
       <body>
         <div class="container">
@@ -71,103 +56,9 @@ String buildEmailHTML(String main) {
       </body>
     </html>
   ''';
-}
+  }
 
-String buildNoticeEmailMain(Notice notice) {
-  return '''
-<main>
-  <h2>Dear everyone,</h2>
-
-  <div class="modern-quote">
-    A new notice has been issued in the ADSATS system. Please review the details below:
-  </div>
-
-  <div class="notification-info">
-    <span class="notification-badge">${notice.type!.label}</span>
-    <p><strong>Issued By:</strong> ${notice.author!.fullName}</p>
-    <p><strong>Subject:</strong> ${notice.subject}</p>
-    <p><strong>Status:</strong> ${notice.status!.label}</p>
-  </div>
-
-  <div class="modern-divider"></div>
-
-  <p>Please review the notice by clicking the link below:</p>
-
-  <a href="https://${generateNoticeLink(notice)}" target="_blank" class="action-link">
-    View Notice
-  </a>
-
-  <p>If the above link doesn't work, you can copy and paste this URL into your browser:</p>
-  <p>https://${generateNoticeLink(notice)}</p>
-
-  <ul class="modern-list">
-    <li>Review the notification details</li>
-    <li>Click "Mark as read" to acknowledge receipt</li>
-    <li>Take necessary actions as required</li>
-  </ul>
-
-  <div class="modern-divider"></div>
-
-  <p>
-    Best regards,<br>
-    <strong>ADSATS Team</strong>
-  </p>
-</main>
-''';
-}
-
-String generateNoticeLink(Notice notice) {
-  return '$domainName/sms/${notice.id}';
-}
-
-String buildReportEmailMain(Report report) {
-  return '''
-<main>
-  <h2>Dear everyone,</h2>
-
-  <div class="modern-quote">
-    A new audit has been completed in the ADSATS system. Please review the details below:
-  </div>
-
-  <div class="notification-info">
-    <span class="notification-badge">${report.type!.label}</span>
-    <p><strong>Issued By:</strong> ${report.auditor!.fullName}</p>
-    <p><strong>Subject:</strong> ${report.subject}</p>
-    <p><strong>Status:</strong> ${report.status!.label}</p>
-  </div>
-
-  <div class="modern-divider"></div>
-
-  <p>Please review the report by clicking the link below:</p>
-
-  <a href="https://${generateReportLink(report)}" class="action-link">
-    View Report
-  </a>
-
-  <p>If the above link doesn't work, you can copy and paste this URL into your browser:</p>
-  <p>https://${generateReportLink(report)}</p>
-
-  <ul class="modern-list">
-    <li>Review the audit details</li>
-    <li>Click "Mark as read" to acknowledge receipt</li>
-    <li>Take necessary actions as required</li>
-  </ul>
-
-  <div class="modern-divider"></div>
-
-  <p>
-    Best regards,<br>
-    <strong>ADSATS Team</strong>
-  </p>
-</main>
-''';
-}
-
-String generateReportLink(Report report) {
-  return '$domainName/cms/${report.id}';
-}
-
-const styles = '''
+  static const _styles = '''
   <style type="text/css">
     /* Reset styles */
     * {
@@ -335,3 +226,4 @@ const styles = '''
     }
   </style>
 ''';
+}

@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:adsats_amplify_gen_2/API/amplify_appsync_api.dart';
+import 'package:adsats_amplify_gen_2/API/amplify_email_repository.dart';
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
-import 'package:adsats_amplify_gen_2/API/send_email.dart';
-import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/email_content_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/create/s3.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -185,15 +186,10 @@ Future<void> updateNoticeStaff(
 
 Future<void> sendNoticeEmail(Notice notice, Iterable<Staff> staff) async {
   if (staff.isEmpty) return;
-  final subject =
-      "${notice.type!.label}: ${notice.subject} [${notice.status!.name}]";
-  final htmlBody = buildNoticeEmailMain(notice);
-  final sender = "${notice.author!.firstName} ${notice.author!.lastName}";
-  final recipients = staff.map((e) => e.email).toList();
-  await sendEmail(
-    subject: subject,
-    sender: sender,
-    htmlMain: htmlBody,
-    recipients: recipients,
+  // TODO: use provider
+  final emailService = AmplifyEmailRepository(AmplifyAppSyncAPI());
+  await emailService.sendEmail(
+    emailMessage: notice.toEmailMessage(),
+    recipients: staff.map((e) => e.email).toList(),
   );
 }

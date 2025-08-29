@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:adsats_amplify_gen_2/API/amplify_appsync_api.dart';
+import 'package:adsats_amplify_gen_2/API/amplify_email_repository.dart';
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
-import 'package:adsats_amplify_gen_2/API/send_email.dart';
-import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/email_content_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
@@ -79,17 +80,12 @@ Future<void> updateReportStaff(
   ]);
 }
 
-Future<void> sendReportEmail(Report report, Iterable<Staff> staff) async {
-  if (staff.isEmpty) return;
-  final subject =
-      "${report.type!.label}: ${report.subject} [${report.status!.name}]";
-  final htmlBody = buildReportEmailMain(report);
-  final sender = "${report.auditor!.firstName} ${report.auditor!.lastName}";
-  final recipients = staff.map((e) => e.email).toList();
-  await sendEmail(
-    subject: subject,
-    sender: sender,
-    htmlMain: htmlBody,
-    recipients: recipients,
+Future<Map<String, dynamic>> sendReportEmail(Report report, Iterable<Staff> staff) async {
+  if (staff.isEmpty) return {};
+  // TODO: use provider
+  final emailService = AmplifyEmailRepository(AmplifyAppSyncAPI());
+  return await emailService.sendEmail(
+    emailMessage: report.toEmailMessage(),
+    recipients: staff.map((e) => e.email).toList(),
   );
 }
