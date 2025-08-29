@@ -9,24 +9,26 @@ mixin ConfirmDialogMixin {
     String noText = 'No',
     bool barrierDismissible = true,
   }) async {
-    final result = await showDialog<bool>(
+    return await showDialog<bool>(
       context: context,
       barrierDismissible: barrierDismissible,
-      builder: (_) => AlertDialog(
+      useRootNavigator: true,
+      builder: (dialogContext) => AlertDialog(
         title: title,
         content: content,
         actions: <Widget>[
           TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(noText),
+            onPressed: () =>
+                Navigator.of(dialogContext, rootNavigator: true).pop(false),
+            child: const Text('No'),
           ),
           TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: Text(yesText),
+            onPressed: () =>
+                Navigator.of(dialogContext, rootNavigator: true).pop(true),
+            child: const Text('Yes'),
           ),
         ],
       ),
-    );
-    return result ?? false;
+    ) ?? false;
   }
 }
