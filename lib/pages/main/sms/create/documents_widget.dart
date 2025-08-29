@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/create/s3.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,6 +20,7 @@ class NoticeDocumentsWidget extends ConsumerWidget {
     final isEditMode = ref.watch(noticeFormProvider.select(
       (value) => value.editMode,
     ));
+    final service = ref.read(noticeServiceProvider);
     final children = <Widget>[
       Text("Documents Attached: "),
       if (newFiles.isEmpty && uploadedFiles.isEmpty) Text("Nil"),
@@ -29,7 +30,7 @@ class NoticeDocumentsWidget extends ConsumerWidget {
             padding: const EdgeInsets.all(2.0),
             child: GestureDetector(
               onTap: () {
-                getNoticeDocumentFileUrl(
+                service.getFileURL(
                   document,
                   ref.read(noticeFormProvider).notice,
                 );

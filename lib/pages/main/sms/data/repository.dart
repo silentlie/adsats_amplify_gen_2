@@ -9,18 +9,20 @@ import 'package:file_picker/file_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NoticeRepository {
-  final AmplifyAppSyncAPI db;
-  final AmplifyS3API s3;
-  final AmplifyEmailRepository email;
+  final AmplifyAppSyncAPI _db;
+  final AmplifyS3API _s3;
+  final AmplifyEmailRepository _email;
 
   NoticeRepository({
-    required this.db,
-    required this.s3,
-    required this.email,
-  });
+    required AmplifyAppSyncAPI db,
+    required AmplifyS3API s3,
+    required AmplifyEmailRepository email,
+  }) : _email = email, _s3 = s3, _db = db;
+
+  // ---------- Public API ----------
 
   Future<Notice> getById(String id) async {
-    final res = await db.query(
+    final res = await _db.query(
       document: getNoticeDetailsGraphQL,
       variables: {"id": id},
     );
@@ -28,7 +30,7 @@ class NoticeRepository {
   }
 
   Future<List<String>> listNoticeIdsForInbox(String staffId) async {
-    final ids = await db.listAll(
+    final ids = await _db.listAll(
       modelType: NoticeStaff.classType,
       where: NoticeStaff.STAFF.eq(staffId),
     );
@@ -36,36 +38,41 @@ class NoticeRepository {
   }
 
   Future<List<Notice>> getNotices(Map<String, dynamic> variables) async {
-    final res = await db.query(
+    final res = await _db.query(
       document: listNoticesGraphQL,
       variables: variables,
     );
     return (res["listNotices"]["items"] as List)
-        .map((notice) => Notice.fromJson(notice))
+        .map((e) => Notice.fromJson(e))
         .toList();
   }
 
   Future<Notice> deleteNotice(Notice notice) async {
-    final res = await db.query(
+    // Load latest relations before deleting
+    final res = await _db.query(
       document: getNoticeDetailsGraphQL,
       variables: {"id": notice.id},
     );
-    Notice returnNotice = Notice.fromJson(res["getNotice"]);
-    final List<Future> futures = [];
-    returnNotice.recipients?.forEach(
-      (noticeStaff) => futures.add(db.delete(noticeStaff)),
-    );
-    returnNotice.aircraft?.forEach(
-      (aircraftNotice) => futures.add(db.delete(aircraftNotice)),
-    );
-    futures.add(removeDocuments(
-      initial: notice,
-      keep: [],
-      deleteFromStorage: (doc) async => await deleteFile(doc, notice),
+    final current = Notice.fromJson(res["getNotice"]);
+
+    final futures = <Future>[];
+    // Delete join rows
+    futures.addAll((current.recipients ?? const <NoticeStaff>[])
+        .map((ns) => _db.delete(ns)));
+    futures.addAll((current.aircraft ?? const <AircraftNotice>[])
+        .map((an) => _db.delete(an)));
+
+    // Delete documents (storage first, then DB)
+    futures.add(_removeDocuments(
+      initial: current,
+      keep: const [],
     ));
-    futures.add(db.delete(notice));
+
+    // Delete the notice itself
+    futures.add(_db.delete(current));
+
     await Future.wait(futures);
-    return returnNotice;
+    return current;
   }
 
   Future<void> saveAndOptionallySend({
@@ -81,142 +88,145 @@ class NoticeRepository {
   }) async {
     // 1) Upsert notice
     final saved =
-        initial == null ? await db.create(draft) : await db.update(draft);
-    // 2) Aircraft links
-    await upsertAircraftLinks(
-      notice: saved,
-      initial: initial,
-      newAircraft: aircraft,
-    );
+        initial == null ? await _db.create(draft) : await _db.update(draft);
 
-    // 3) Remove deleted docs (delete storage first, then DB to avoid orphans)
+    // 2) Aircraft links
+    await _upsertAircraftLinks(
+        notice: saved, initial: initial, newAircraft: aircraft);
+
+    // 3) Remove deleted docs (storage first, then DB)
     if (initial != null) {
-      await removeDocuments(
+      await _removeDocuments(
         initial: initial,
         keep: keepDocuments,
-        deleteFromStorage: (doc) => deleteFile(doc, initial),
       );
     }
 
     // 4) Upload new files (+ create NoticeDocument records)
-    await uploadDocuments(
+    await _uploadDocuments(
       files: selectedFiles,
       notice: saved,
       onProgress: onProgress,
-      createDoc: (doc) async => db.create(doc),
+      createDoc: (doc) => _db.create(doc),
     );
 
-    // 5) Resolve & sync recipients
-    final resolved = await findRecipients(
+    // 5) Resolve & sync recipients (+ optional email)
+    final recipients = await _findRecipients(
       aircraft: aircraft,
       roles: roles,
       manual: manualRecipients,
     );
-    if (resolved.isNotEmpty) {
-      await syncRecipients(
+
+    if (recipients.isNotEmpty) {
+      await _syncRecipients(
         notice: saved,
         initial: initial,
-        newRecipients: resolved,
+        newRecipients: recipients,
         resetReadOnSend: send,
       );
-      if (send && resolved.isNotEmpty) {
-        // final emailService = AmplifyEmailRepository(AmplifyAppSyncAPI());
-        await email.sendEmail(
+
+      if (send) {
+        await _email.sendEmail(
           emailMessage: saved.toEmailMessage(),
-          recipients: resolved.map((e) => e.email).toList(),
+          recipients: recipients.map((e) => e.email).toList(),
         );
       }
     }
   }
 
-  Future<void> syncRecipients({
+  Future<void> getFileURL(NoticeDocument doc, Notice notice) async {
+    final res = await _s3.getFileUrl(doc.s3Path(notice));
+    launchUrl(res.url);
+  }
+
+  // ---------- Private helpers ----------
+
+  Future<void> _syncRecipients({
     required Notice notice,
     required Notice? initial,
     required Iterable<Staff> newRecipients,
     required bool resetReadOnSend,
   }) async {
     final oldMap = {
-      for (final old in initial?.recipients ?? <NoticeStaff>[])
+      for (final old in initial?.recipients ?? const <NoticeStaff>[])
         old.staff!.id: old
     };
+
+    final ops = <Future>[];
     for (final s in newRecipients) {
       final old = oldMap.remove(s.id);
       if (old == null) {
-        await db.create(NoticeStaff(notice: notice, staff: s));
+        ops.add(_db.create(NoticeStaff(notice: notice, staff: s)));
       } else if (resetReadOnSend) {
-        await db.update(NoticeStaff(id: old.id, notice: notice, staff: s));
+        ops.add(_db.update(NoticeStaff(id: old.id, notice: notice, staff: s)));
       }
     }
-    for (final old in oldMap.values) {
-      await db.delete(old);
-    }
+    ops.addAll(oldMap.values.map((old) => _db.delete(old)));
+    await Future.wait(ops);
   }
 
-  Future<void> upsertAircraftLinks({
+  Future<void> _upsertAircraftLinks({
     required Notice notice,
     required Notice? initial,
     required List<Aircraft> newAircraft,
   }) async {
     if (initial == null) {
-      for (final a in newAircraft) {
-        await db.create(AircraftNotice(aircraft: a, notice: notice));
-      }
+      await Future.wait(newAircraft.map(
+        (a) => _db.create(AircraftNotice(aircraft: a, notice: notice)),
+      ));
       return;
     }
+
     final oldMap = {
-      for (final x in initial.aircraft ?? <AircraftNotice>[]) x.aircraft!.id: x
+      for (final x in initial.aircraft ?? const <AircraftNotice>[])
+        x.aircraft!.id: x
     };
+
+    final creates = <Future>[];
     for (final a in newAircraft) {
       final old = oldMap.remove(a.id);
       if (old == null) {
-        await db.create(AircraftNotice(aircraft: a, notice: notice));
+        creates.add(_db.create(AircraftNotice(aircraft: a, notice: notice)));
       }
     }
-    for (final old in oldMap.values) {
-      await db.delete(old);
-    }
+    final deletes = oldMap.values.map((old) => _db.delete(old));
+    await Future.wait([...creates, ...deletes]);
   }
 
-  Future<void> getFileURL(NoticeDocument doc, Notice notice) async {
-    final res = await s3.getFileUrl(doc.s3Path(notice));
-    launchUrl(res.url);
-  }
-
-  Future<void> removeDocuments({
+  Future<void> _removeDocuments({
     required Notice initial,
     required List<NoticeDocument> keep,
-    required Future<void> Function(NoticeDocument doc) deleteFromStorage,
   }) async {
     for (final doc in (initial.documents ?? const <NoticeDocument>[])) {
       if (!keep.contains(doc)) {
-        await deleteFromStorage(doc);
-        await db.delete(doc);
+        await _s3.deleteFile(doc.s3Path(initial));
+        await _db.delete(doc);
       }
     }
   }
 
-  Future<void> uploadDocuments({
+  Future<void> _uploadDocuments({
     required List<PlatformFile> files,
     required Notice notice,
     required void Function(String fileName, double progress) onProgress,
     required Future<void> Function(NoticeDocument doc) createDoc,
   }) async {
+    final uploads = <Future>[];
     for (final f in files) {
       final doc = NoticeDocument(name: f.name, notices: notice);
-      await createDoc(doc);
-      s3.uploadFile(
-        file: f,
-        s3Path: doc.s3Path(notice),
-        onProgress: (p) => onProgress(f.name, p.fractionCompleted),
+      await _db.create(doc);
+      uploads.add(
+        _s3.uploadFile(
+          file: f,
+          s3Path: doc.s3Path(notice),
+          onProgress: (p) => onProgress(f.name, p.fractionCompleted),
+        ),
       );
     }
+    await Future.wait(uploads);
   }
 
-  Future<void> deleteFile(NoticeDocument doc, Notice ofNotice) async {
-    await s3.deleteFile(doc.s3Path(ofNotice));
-  }
-
-  Future<Iterable<Staff>> findRecipients({
+  Future<Iterable<Staff>> _findRecipients({
     required List<Aircraft> aircraft,
     required List<Role> roles,
     required List<Staff> manual,
@@ -224,7 +234,7 @@ class NoticeRepository {
     if (aircraft.isEmpty || roles.isEmpty) return manual;
 
     final recipients = <Staff>[...manual];
-    final res = await db.query(
+    final res = await _db.query(
       document: listJoinRecipientsGraphQL,
       variables: {
         "aircraftFilter": {
@@ -246,7 +256,7 @@ class NoticeRepository {
 
     for (final e in (res["listStaff"]["items"] as List)) {
       final s = Staff.fromJson(e);
-      if (s.aircraft!.isNotEmpty && s.roles!.isNotEmpty) {
+      if ((s.aircraft?.isNotEmpty ?? false) && (s.roles?.isNotEmpty ?? false)) {
         recipients.add(s);
       }
     }
