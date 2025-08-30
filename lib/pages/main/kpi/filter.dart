@@ -71,8 +71,8 @@ class StaffKPIFilterView extends ConsumerWidget {
         children: [
           GlobalDropdownMenu(
             entries: const [
-              DropdownMenuEntry(value: false, label: "False"),
-              DropdownMenuEntry(value: true, label: "True"),
+              DropdownMenuEntry(value: true, label: "No"),
+              DropdownMenuEntry(value: true, label: "Yes"),
               DropdownMenuEntry(value: null, label: "All"),
             ],
             onSelected: (value) {

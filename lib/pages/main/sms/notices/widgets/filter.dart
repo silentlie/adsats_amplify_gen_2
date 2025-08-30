@@ -16,25 +16,42 @@ class NoticesFilterView extends ConsumerWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          GlobalDropdownMenu<NoticeType>(
+          GlobalDropdownMenu<NoticeType?>(
             entries: NoticeType.values.map(
               (e) {
-                return DropdownMenuEntry(
-                    value: e, label: e.name.replaceAll('_', ' '));
+                return DropdownMenuEntry<NoticeType?>(
+                  value: e,
+                  label: e.name.replaceAll('_', ' '),
+                );
               },
-            ).toList(),
+            ).toList()
+              ..add(
+                DropdownMenuEntry<NoticeType?>(
+                  value: null,
+                  label: "All",
+                ),
+              ),
             onSelected: (value) {
               filter = filter.copyWith(type: value);
             },
             initialSelection: filter.type,
             text: "Notice Type",
           ),
-          GlobalDropdownMenu<NoticeStatus>(
+          GlobalDropdownMenu<NoticeStatus?>(
             entries: NoticeStatus.values.map(
               (e) {
-                return DropdownMenuEntry(value: e, label: e.name);
+                return DropdownMenuEntry<NoticeStatus?>(
+                  value: e,
+                  label: e.name,
+                );
               },
-            ).toList(),
+            ).toList()
+              ..add(
+                DropdownMenuEntry<NoticeStatus?>(
+                  value: null,
+                  label: "All",
+                ),
+              ),
             onSelected: (value) {
               filter = filter.copyWith(status: value);
             },
@@ -43,8 +60,8 @@ class NoticesFilterView extends ConsumerWidget {
           ),
           GlobalDropdownMenu(
             entries: const [
-              DropdownMenuEntry(value: false, label: "False"),
-              DropdownMenuEntry(value: true, label: "True"),
+              DropdownMenuEntry(value: false, label: "No"),
+              DropdownMenuEntry(value: true, label: "Yes"),
               DropdownMenuEntry(value: null, label: "All"),
             ],
             onSelected: (value) {

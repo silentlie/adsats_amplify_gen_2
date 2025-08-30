@@ -23,7 +23,7 @@ sealed class NoticeFilterState with _$NoticeFilterState {
 
     archived != null ? result["archived"] = {"eq": archived} : null;
     type != null ? result["type"] = {"eq": type!.name} : null;
-    status != null ? result["type"] = {"eq": status!.name} : null;
+    status != null ? result["status"] = {"eq": status!.name} : null;
     noticedAt != null
         ? result["noticedAt"] = {"between": noticedAt!.isoBetween}
         : null;

@@ -60,8 +60,8 @@ class RoleView extends ConsumerWidget with ConfirmDialogMixin {
             ),
             GlobalDropdownMenu(
               entries: const [
-                DropdownMenuEntry(value: false, label: "False"),
-                DropdownMenuEntry(value: true, label: "True"),
+                DropdownMenuEntry(value: true, label: "No"),
+                DropdownMenuEntry(value: true, label: "Yes"),
               ],
               onSelected: (value) {
                 role = role.copyWith(archived: value!);

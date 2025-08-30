@@ -100,8 +100,8 @@ class StaffView extends ConsumerWidget with ConfirmDialogMixin {
             ),
             GlobalDropdownMenu<bool>(
               entries: const [
-                DropdownMenuEntry(value: false, label: "False"),
-                DropdownMenuEntry(value: true, label: "True"),
+                DropdownMenuEntry(value: true, label: "No"),
+                DropdownMenuEntry(value: true, label: "Yes"),
               ],
               onSelected: (value) {
                 staff = staff.copyWith(archived: value!);

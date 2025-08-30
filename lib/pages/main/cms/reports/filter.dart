@@ -46,7 +46,7 @@ sealed class ReportFilterState with _$ReportFilterState {
 
     archived != null ? result["archived"] = {"eq": archived} : null;
     type != null ? result["type"] = {"eq": type!.name} : null;
-    status != null ? result["type"] = {"eq": status!.name} : null;
+    status != null ? result["status"] = {"eq": status!.name} : null;
     reportedAt != null
         ? result["createdAt"] = {"between": reportedAt!.isoBetween}
         : null;
@@ -92,8 +92,8 @@ class ReportsFilterView extends ConsumerWidget {
           ),
           GlobalDropdownMenu(
             entries: const [
-              DropdownMenuEntry(value: false, label: "False"),
-              DropdownMenuEntry(value: true, label: "True"),
+              DropdownMenuEntry(value: true, label: "No"),
+              DropdownMenuEntry(value: true, label: "Yes"),
               DropdownMenuEntry(value: null, label: "All"),
             ],
             onSelected: (value) {
