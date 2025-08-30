@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/router/router.dart';
-import 'package:adsats_amplify_gen_2/widgets/auth_button_resolver.dart';
-import 'package:adsats_amplify_gen_2/widgets/sign_in_widget.dart';
+import 'package:adsats_amplify_gen_2/auth/auth_button_resolver.dart';
+import 'package:adsats_amplify_gen_2/auth/sign_in_widget.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
 import 'package:adsats_amplify_gen_2/theme/theme_data.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';

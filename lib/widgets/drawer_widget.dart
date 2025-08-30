@@ -1,8 +1,9 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/iterable_join_string_extension.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
+import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
-import 'package:adsats_amplify_gen_2/widgets/future_value_widget.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -96,13 +97,11 @@ class DrawerHeaderWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(
-      userDetailsProvider.select(
-        (asyncValue) => asyncValue.value,
-      ),
+      userDetailsProvider
     );
     Widget? avatar;
     avatar = const DefaultLogoWidget();
-    return FutureValueWidget(
+    return AsyncValueWidget<Staff>(
       value: user,
       data: (user) {
         return Column(
