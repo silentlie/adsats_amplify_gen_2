@@ -130,7 +130,7 @@ class EditDocumentView extends ConsumerWidget with ConfirmDialogMixin {
                 //   ),
                 // ),
                 DatePickerWidget(
-                  text: "Issued date",
+                  text: "Issue Date",
                   firstDate: DateTime.now().subtract(
                     const Duration(days: 365 * 10),
                   ),

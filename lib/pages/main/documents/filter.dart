@@ -74,8 +74,8 @@ class DocumentsFilterView extends ConsumerWidget {
         children: [
           GlobalDropdownMenu(
             entries: const [
-              DropdownMenuEntry(value: false, label: "False"),
-              DropdownMenuEntry(value: true, label: "True"),
+              DropdownMenuEntry(value: false, label: "No"),
+              DropdownMenuEntry(value: true, label: "Yes"),
               DropdownMenuEntry(value: null, label: "All"),
             ],
             onSelected: (value) {
@@ -87,7 +87,7 @@ class DocumentsFilterView extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.all(8),
             child: DateTimeRangePicker(
-              text: "Select document uploaded time range",
+              text: "Select document upload time range",
               onSubmitted: (value) {
                 filter = filter.copyWith(createdAt: value);
               },
@@ -97,7 +97,7 @@ class DocumentsFilterView extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.all(8),
             child: DateTimeRangePicker(
-              text: "Select document issued time range",
+              text: "Select document issue time range",
               onSubmitted: (value) {
                 filter = filter.copyWith(issuedAt: value);
               },
@@ -113,7 +113,7 @@ class DocumentsFilterView extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.all(8),
             child: DateTimeRangePicker(
-              text: "Select document expired time range",
+              text: "Select document expire time range",
               onSubmitted: (value) {
                 filter = filter.copyWith(expiredAt: value);
               },

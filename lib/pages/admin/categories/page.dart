@@ -76,7 +76,7 @@ class CategoriesPage extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: "Created at".centeredTextWidget(),
+                label: "Create Date".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(

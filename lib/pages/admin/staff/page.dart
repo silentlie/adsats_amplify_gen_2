@@ -113,7 +113,7 @@ class StaffPage extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: "Created at".centeredTextWidget(),
+                label: "Create Date".centeredTextWidget(),
                 fixedWidth: 100,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(

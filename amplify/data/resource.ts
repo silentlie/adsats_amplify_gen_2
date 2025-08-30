@@ -1,9 +1,9 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 import { createUser } from "./cognito-admin/create-user/resource";
-import { deleteUser } from "./cognito-admin/delete-user/resouce";
-import { enableUser } from "./cognito-admin/enable-user/resouce";
-import { disableUser } from "./cognito-admin/disable-user/resouce";
-import { sendmail } from "./send-email/resouce";
+import { deleteUser } from "./cognito-admin/delete-user/resource";
+import { enableUser } from "./cognito-admin/enable-user/resource";
+import { disableUser } from "./cognito-admin/disable-user/resource";
+import { sendmail } from "./send-email/resource";
 
 const schema = a
   .schema({
@@ -193,6 +193,7 @@ const schema = a
       auditorId: a.id().required(),
       auditor: a.belongsTo("Staff", "auditorId"),
       reportedAt: a.datetime(),
+      discrepanciesFound: a.boolean().required().default(false),
       closerId: a.id(),
       closer: a.belongsTo("Staff", "closerId"),
       closeAt: a.datetime(),

@@ -54,7 +54,7 @@ class EditFlightCrewRecordView extends ConsumerWidget with ConfirmDialogMixin {
               text: "Archived",
             ),
             DatePickerWidget(
-              text: "Issued date",
+              text: "Issue Date",
               firstDate: DateTime.now().subtract(
                 const Duration(days: 365 * 10),
               ),

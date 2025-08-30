@@ -138,7 +138,7 @@ class _NewDocumentDialogState extends ConsumerState<NewDocumentDialog>
                       padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
                     ),
                     DatePickerWidget(
-                      text: "Issued date",
+                      text: "Issue Date",
                       firstDate: DateTime.now().subtract(
                         const Duration(days: 365 * 10),
                       ),

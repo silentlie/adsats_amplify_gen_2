@@ -68,7 +68,7 @@ class FlightCrewRecordsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: "Issued at".centeredTextWidget(),
+                label: "Issue Date".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
