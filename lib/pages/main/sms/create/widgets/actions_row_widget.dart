@@ -1,5 +1,6 @@
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/read_check.dart';
@@ -25,6 +26,9 @@ class ActionsRowWidget extends ConsumerWidget with ConfirmDialogMixin {
       (value) => value.isDraft,
     ));
     final notifier = ref.read(noticeFormProvider.notifier);
+    final isSafetyOfficer = ref.watch(isSafetyOfficerProvider);
+    final type =
+        ref.read(noticeFormProvider.select((value) => value.notice.type!));
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -147,7 +151,7 @@ class ActionsRowWidget extends ConsumerWidget with ConfirmDialogMixin {
                 ),
               ),
               label: Text(
-                "Submit and Send",
+                "Send ${type.label} to ${isSafetyOfficer ? "crew" : "safety officers"}",
                 style: TextStyle(color: colorScheme.onSecondary),
               ),
               icon: Icon(

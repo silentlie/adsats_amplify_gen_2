@@ -21,25 +21,18 @@ class CreateNoticeShell extends StatelessWidget {
   }
 
   final List<RouteInfoBase> routes = const [
-    NoticeToCrewRoute(),
     SafetyNoticeRoute(),
     HazardReportRoute(),
+    NoticeToCrewRoute(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    print(navigationShell.currentIndex);
     return Column(
       children: [
         NavigationBar(
           destinations: [
-            NavigationDestination(
-              icon: NoticeToCrewRoute().icon,
-              label: NoticeToCrewRoute().label,
-              selectedIcon: NoticeToCrewRoute().selectedIcon,
-              tooltip: '''
-For anything that is not a Safety Notice or Hazard Report.
-General flight department administration.''',
-            ),
             NavigationDestination(
               icon: SafetyNoticeRoute().icon,
               label: SafetyNoticeRoute().label,
@@ -55,6 +48,14 @@ They are intended to highlight potential safety risks and are generally operatio
               tooltip: '''
 A proactive or reactive, operational (flight or ground),
 or maintenance event with the potential to cause or contribute to an aircraft incident or accident.''',
+            ),
+            NavigationDestination(
+              icon: NoticeToCrewRoute().icon,
+              label: NoticeToCrewRoute().label,
+              selectedIcon: NoticeToCrewRoute().selectedIcon,
+              tooltip: '''
+For anything that is not a Safety Notice or Hazard Report.
+General flight department administration.''',
             ),
           ],
           onDestinationSelected: onDestinationSelected,

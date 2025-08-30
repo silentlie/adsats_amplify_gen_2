@@ -72,15 +72,6 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                         StatefulShellBranchData.$branch(
                           routes: [
                             GoRouteData.$route(
-                              path: 'notice-to-crew',
-                              name: 'Notice To Crew',
-                              factory: _$NoticeToCrewRoute._fromState,
-                            ),
-                          ],
-                        ),
-                        StatefulShellBranchData.$branch(
-                          routes: [
-                            GoRouteData.$route(
                               path: 'safety-notice',
                               name: 'Safety Notice',
                               factory: _$SafetyNoticeRoute._fromState,
@@ -93,6 +84,15 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                               path: 'hazard-report',
                               name: 'Hazard Report',
                               factory: _$HazardReportRoute._fromState,
+                            ),
+                          ],
+                        ),
+                        StatefulShellBranchData.$branch(
+                          routes: [
+                            GoRouteData.$route(
+                              path: 'notice-to-crew',
+                              name: 'Notice To Crew',
+                              factory: _$NoticeToCrewRoute._fromState,
                             ),
                           ],
                         ),
@@ -399,29 +399,6 @@ extension $CreateNoticeShellRouteDataExtension on CreateNoticeShellRouteData {
       const CreateNoticeShellRouteData();
 }
 
-mixin _$NoticeToCrewRoute on GoRouteData {
-  static NoticeToCrewRoute _fromState(GoRouterState state) =>
-      const NoticeToCrewRoute();
-
-  @override
-  String get location => GoRouteData.$location(
-        '/sms/notice-to-crew',
-      );
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
 mixin _$SafetyNoticeRoute on GoRouteData {
   static SafetyNoticeRoute _fromState(GoRouterState state) =>
       const SafetyNoticeRoute();
@@ -452,6 +429,29 @@ mixin _$HazardReportRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
         '/sms/hazard-report',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin _$NoticeToCrewRoute on GoRouteData {
+  static NoticeToCrewRoute _fromState(GoRouterState state) =>
+      const NoticeToCrewRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/sms/notice-to-crew',
       );
 
   @override

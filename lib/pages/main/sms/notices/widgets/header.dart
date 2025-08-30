@@ -35,7 +35,7 @@ class NoticeHeader extends ConsumerWidget {
             ),
             ElevatedButton.icon(
               onPressed: () {
-                NoticeToCrewRoute().go(context);
+                SafetyNoticeRoute().go(context);
               },
               label: const Text('Create a new notice'),
               icon: const Icon(

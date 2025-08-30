@@ -5,9 +5,9 @@ class CreateNoticeShellRouteData extends StatefulShellRouteInfo {
 
   static const route = TypedStatefulShellRoute<CreateNoticeShellRouteData>(
     branches: [
-      NoticeToCrewShellBranchData.branch,
       SafetyNoticeShellBranchData.branch,
       HazardReportShellBranchData.branch,
+      NoticeToCrewShellBranchData.branch,
     ],
   );
 

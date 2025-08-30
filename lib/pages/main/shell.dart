@@ -127,22 +127,6 @@ class MainShell extends ConsumerWidget {
           );
         }
       ),
-      SmsInboxRoute().location: (
-        "New Notice",
-        () => NoticeToCrewRoute().push(context)
-      ),
-      SmsSentRoute().location: (
-        "New Notice",
-        () => NoticeToCrewRoute().push(context)
-      ),
-      CmsInboxRoute().location: (
-        "New Report",
-        () => InternalAuditReportRoute().push(context)
-      ),
-      CmsSentRoute().location: (
-        "New Report",
-        () => InternalAuditReportRoute().push(context)
-      ),
     };
     final action = actions[currentPath];
     if (action != null) {
