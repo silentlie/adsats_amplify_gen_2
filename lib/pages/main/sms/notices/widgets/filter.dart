@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/filter.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/filter.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:flutter/material.dart';

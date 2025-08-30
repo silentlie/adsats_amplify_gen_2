@@ -93,17 +93,17 @@ class HomePage extends ConsumerWidget {
                       name: FlightCrewRecordsRoute().label,
                       onPressed: () => FlightCrewRecordsRoute().go(context),
                     ),
-                    NavigateIconButton(
-                      icon: ProfileRoute().icon.icon!,
-                      name: ProfileRoute().label,
-                      onPressed: () => ProfileRoute().go(context),
-                    ),
-                    if (ref.watch(isAdminProvider))
-                      NavigateIconButton(
-                        icon: AdminShellRouteData().icon.icon!,
-                        name: AdminShellRouteData().label,
-                        onPressed: () => AircraftRoute().push(context),
-                      ),
+                    // NavigateIconButton(
+                    //   icon: ProfileRoute().icon.icon!,
+                    //   name: ProfileRoute().label,
+                    //   onPressed: () => ProfileRoute().go(context),
+                    // ),
+                    // if (ref.watch(isAdminProvider))
+                    //   NavigateIconButton(
+                    //     icon: AdminShellRouteData().icon.icon!,
+                    //     name: AdminShellRouteData().label,
+                    //     onPressed: () => AircraftRoute().push(context),
+                    //   ),
                   ],
                 )
               ],

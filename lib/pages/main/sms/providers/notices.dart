@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/sms/notices/filter.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/filter.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notices.g.dart';
