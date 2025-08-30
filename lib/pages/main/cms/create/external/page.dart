@@ -37,45 +37,36 @@ class ExternalAuditReportPage extends StatelessWidget {
                     documents: []),
             report != null,
           );
-          return Center(
-            child: Form(
-              key: ref.watch(
-                reportNotifierProvider.select(
-                  (value) {
-                    return value.formKey;
-                  },
-                ),
+          return Form(
+            key: ref.watch(
+              reportNotifierProvider.select(
+                (value) {
+                  return value.formKey;
+                },
               ),
-              child: SingleChildScrollView(
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 1536.0),
-                  child: Card(
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          child: const Text(
-                            'External Audit Report',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
-                        ),
-                        ReportBasicDetails(),
-                        const Divider(),
-                        ExternalAuditReportBody(),
-                        const Divider(),
-                        ReportRecipients(),
-                        const Divider(),
-                        ReportDocuments(),
-                        const Divider(),
-                        ReportActionsRow(),
-                      ],
+            ),
+            child: Column(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  child: const Text(
+                    'External Audit Report',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
                   ),
                 ),
-              ),
+                ReportBasicDetails(),
+                const Divider(),
+                ExternalAuditReportBody(),
+                const Divider(),
+                ReportRecipients(),
+                const Divider(),
+                ReportDocuments(),
+                const Divider(),
+                ReportActionsRow(),
+              ],
             ),
           );
         },
@@ -109,7 +100,7 @@ class ExternalAuditReportBody extends ConsumerWidget {
           enabled: isEditMode,
         ),
         GlobalTextFormField(
-          labelText: 'Bussiness relationship',
+          labelText: 'Business relationship',
           onSaved: (value) {
             notifier.updateDetails({'relationship': value});
           },

@@ -43,49 +43,42 @@ class NoticeToCrewPage extends ConsumerWidget {
         ),
         selectedFilesProvider,
       ],
+      // Ensure new ref have access to the override state
       child: const NoticeToCrewForm(),
     );
   }
 }
 
+// Ensure new ref have access to the override state
 class NoticeToCrewForm extends ConsumerWidget {
   const NoticeToCrewForm({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
-      child: Form(
-        key: GlobalKey<FormState>(),
-        child: SingleChildScrollView(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 1536.0),
-            child: Card(
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: const Text(
-                      'Notice to Crew',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  NoticeBasicDetailsWidget(),
-                  const Divider(),
-                  NoticeToCrewBody(),
-                  const Divider(),
-                  NoticeRecipientsWidget(),
-                  const Divider(),
-                  NoticeDocumentsWidget(),
-                  const Divider(),
-                  ActionsRowWidget()
-                ],
+    return Form(
+      key: GlobalKey<FormState>(),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: const Text(
+              'Notice to Crew',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
             ),
           ),
-        ),
+          NoticeBasicDetailsWidget(),
+          const Divider(),
+          NoticeToCrewBody(),
+          const Divider(),
+          NoticeRecipientsWidget(),
+          const Divider(),
+          NoticeDocumentsWidget(),
+          const Divider(),
+          ActionsRowWidget()
+        ],
       ),
     );
   }

@@ -17,24 +17,45 @@ class ViewNoticePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AsyncValueWidget(
-      value: ref.watch(noticeProvider(id)),
-      data: (value) {
-        return switch (value.type) {
-          NoticeType.Notice_to_Crew => NoticeToCrewPage(
-              notice: value,
-            ),
-          NoticeType.Safety_notice => SafetyNoticePage(
-              notice: value,
-            ),
-          NoticeType.Hazard_report => HazardReportPage(
-              notice: value,
-            ),
-          _ => Center(
-              child: Text("Unknown notice type"),
-            ),
-        };
-      },
+    return Center(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 1536.0),
+        child: Card(
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: AsyncValueWidget(
+                  value: ref.watch(noticeProvider(id)),
+                  data: (value) {
+                    return switch (value.type) {
+                      NoticeType.Notice_to_Crew => NoticeToCrewPage(
+                          notice: value,
+                        ),
+                      NoticeType.Safety_notice => SafetyNoticePage(
+                          notice: value,
+                        ),
+                      NoticeType.Hazard_report => HazardReportPage(
+                          notice: value,
+                        ),
+                      _ => Center(
+                          child: Text("Unknown notice type"),
+                        ),
+                    };
+                  },
+                ),
+              ),
+              Positioned(
+                right: 0,
+                top: 0,
+                child: IconButton(
+                  icon: const Icon(Icons.cancel_outlined),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

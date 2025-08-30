@@ -55,39 +55,30 @@ class HazardReportForm extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
-      child: Form(
-        key: GlobalKey<FormState>(),
-        child: SingleChildScrollView(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 1536.0),
-            child: Card(
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: const Text(
-                      'Hazard Report',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  NoticeBasicDetailsWidget(),
-                  const Divider(),
-                  HazardReportBody(),
-                  const Divider(),
-                  NoticeRecipientsWidget(),
-                  const Divider(),
-                  NoticeDocumentsWidget(),
-                  const Divider(),
-                  ActionsRowWidget()
-                ],
+    return Form(
+      key: GlobalKey<FormState>(),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: const Text(
+              'Hazard Report',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
             ),
           ),
-        ),
+          NoticeBasicDetailsWidget(),
+          const Divider(),
+          HazardReportBody(),
+          const Divider(),
+          NoticeRecipientsWidget(),
+          const Divider(),
+          NoticeDocumentsWidget(),
+          const Divider(),
+          ActionsRowWidget()
+        ],
       ),
     );
   }

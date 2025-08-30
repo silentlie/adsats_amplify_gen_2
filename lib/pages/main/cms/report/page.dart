@@ -16,21 +16,44 @@ class ViewReportPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return AsyncValueWidget(
-      value: ref.watch(reportRepoProvider(id)),
-      data: (value) {
-        return switch (value.type) {
-          ReportType.Internal_audit_report => InternalAuditReportPage(
-              report: value,
-            ),
-          ReportType.External_audit_report => ExternalAuditReportPage(
-              report: value,
-            ),
-          _ => Center(
-              child: Text("Unknown report type"),
-            )
-        };
-      },
+    return Center(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 1536.0),
+        child: Card(
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: AsyncValueWidget(
+                  value: ref.watch(reportRepoProvider(id)),
+                  data: (value) {
+                    return switch (value.type) {
+                      ReportType.Internal_audit_report =>
+                        InternalAuditReportPage(
+                          report: value,
+                        ),
+                      ReportType.External_audit_report =>
+                        ExternalAuditReportPage(
+                          report: value,
+                        ),
+                      _ => Center(
+                          child: Text("Unknown report type"),
+                        )
+                    };
+                  },
+                ),
+              ),
+              Positioned(
+                right: 0,
+                top: 0,
+                child: IconButton(
+                  icon: const Icon(Icons.cancel_outlined),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

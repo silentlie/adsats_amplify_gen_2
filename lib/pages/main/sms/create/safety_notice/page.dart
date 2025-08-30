@@ -43,49 +43,42 @@ class SafetyNoticePage extends ConsumerWidget {
         ),
         selectedFilesProvider,
       ],
+      // Ensure new ref have access to the override state
       child: SafetyNoticeForm(),
     );
   }
 }
 
+// Ensure new ref have access to the override state
 class SafetyNoticeForm extends ConsumerWidget {
   const SafetyNoticeForm({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Center(
-      child: Form(
-        key: GlobalKey<FormState>(),
-        child: SingleChildScrollView(
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 1536.0),
-            child: Card(
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    child: const Text(
-                      'Safety Notice',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  NoticeBasicDetailsWidget(),
-                  const Divider(),
-                  SafetyNoticeBody(),
-                  const Divider(),
-                  NoticeRecipientsWidget(),
-                  const Divider(),
-                  NoticeDocumentsWidget(),
-                  const Divider(),
-                  ActionsRowWidget()
-                ],
+    return Form(
+      key: GlobalKey<FormState>(),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: const Text(
+              'Safety Notice',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
             ),
           ),
-        ),
+          NoticeBasicDetailsWidget(),
+          const Divider(),
+          SafetyNoticeBody(),
+          const Divider(),
+          NoticeRecipientsWidget(),
+          const Divider(),
+          NoticeDocumentsWidget(),
+          const Divider(),
+          ActionsRowWidget()
+        ],
       ),
     );
   }
