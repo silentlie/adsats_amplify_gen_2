@@ -1,8 +1,8 @@
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/records.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/service.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -171,7 +171,8 @@ class _NewFlightCrewRecordState extends ConsumerState<NewFlightCrewRecord>
                 }
                 _showLoading(true);
                 try {
-                  await uploadFlightCrewRecordsFiles(
+                  final service = ref.read(recordsServiceProvider);
+                  await service.uploadBatch(
                     files,
                     widget.staff,
                     widget.category,
@@ -184,7 +185,7 @@ class _NewFlightCrewRecordState extends ConsumerState<NewFlightCrewRecord>
                       });
                     },
                   );
-                  ref.invalidate(flightCrewRecordsRepoProvider);
+                  ref.invalidate(recordsProvider);
                   if (context.mounted) {
                     Navigator.pop(context);
                   }

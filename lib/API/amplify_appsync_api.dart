@@ -20,16 +20,21 @@ class AmplifyAppSyncAPI {
     required ModelType<T> modelType,
     QueryPredicate? where,
     int limit = 10000,
+    void Function(void Function())? bindCancel,
   }) async {
     var req = ModelQueries.list<T>(modelType, where: where, limit: limit);
-    var res = await Amplify.API.query(request: req).response;
-    if (res.errors.isNotEmpty) throw res.errors.first;
-    final items = res.data!.items.cast<T>();
-    while (res.data?.hasNextResult ?? false) {
-      req = res.data!.requestForNextResult!;
-      res = await Amplify.API.query(request: req).response;
+    final items = <T>[];
+    while (true) {
+      var op = Amplify.API.query(request: req);
+      bindCancel?.call(op.cancel);
+      final res = await op.response;
       if (res.errors.isNotEmpty) throw res.errors.first;
       items.addAll(res.data!.items.cast<T>());
+      if (res.data?.hasNextResult ?? false) {
+        req = res.data!.requestForNextResult!;
+      } else {
+        break;
+      }
     }
     return items;
   }
@@ -67,13 +72,16 @@ class AmplifyAppSyncAPI {
 
   Future<Map<String, dynamic>> query({
     required String document,
-    required Map<String, dynamic> variables,
+    Map<String, dynamic> variables = const {},
+    void Function(void Function())? bindCancel,
   }) async {
     final req = GraphQLRequest<String>(
       document: document,
       variables: variables,
     );
-    final res = await Amplify.API.query(request: req).response;
+    final op = Amplify.API.query(request: req);
+    bindCancel?.call(op.cancel);
+    final res = await op.response;
     if (res.errors.isNotEmpty) throw res.errors.first;
     return jsonDecode(res.data!) as Map<String, dynamic>;
   }

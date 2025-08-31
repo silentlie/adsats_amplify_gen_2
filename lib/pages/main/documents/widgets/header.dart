@@ -1,15 +1,16 @@
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/new_document.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/providers/documents.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/providers/filter.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/filter.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/new.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class DocumentHeader extends ConsumerWidget {
-  const DocumentHeader({
+class DocumentsHeader extends ConsumerWidget {
+  const DocumentsHeader({
     super.key,
     required this.subcategory,
   });
@@ -40,7 +41,7 @@ class DocumentHeader extends ConsumerWidget {
         child: Row(
           children: [
             IconButton(
-              onPressed: () => ref.invalidate(documentsRepoProvider),
+              onPressed: () => ref.invalidate(documentsProvider),
               icon: const Icon(Icons.refresh),
             ),
             ElevatedButton.icon(
@@ -48,7 +49,7 @@ class DocumentHeader extends ConsumerWidget {
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return NewDocumentDialog(
+                    return NewDocumentView(
                       subcategory: subcategory,
                     );
                   },

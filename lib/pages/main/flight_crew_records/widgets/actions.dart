@@ -1,30 +1,30 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
-import 'package:adsats_amplify_gen_2/models/Document.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/edit_document_view.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/records.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/service.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/widgets/record.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DocumentActions extends ConsumerWidget with ConfirmDialogMixin {
-  const DocumentActions({
+class FlightCrewRecordActions extends ConsumerWidget with ConfirmDialogMixin {
+  const FlightCrewRecordActions({
     super.key,
-    required this.document,
+    required this.flightCrewRecord,
   });
-
-  final Document document;
+  final FlightCrewRecord flightCrewRecord;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isAdmin = ref.watch(isAdminProvider);
     final controller = MenuController();
+    final isAdmin = ref.watch(isAdminProvider);
+    final service = ref.read(recordsServiceProvider);
     return MenuAnchor(
       controller: controller,
       menuChildren: [
         IconButton(
           onPressed: () async {
-            await getFileUrl(document);
+            await service.getFileUrl(flightCrewRecord);
             controller.close();
           },
           icon: const Icon(Icons.download_outlined),
@@ -33,57 +33,61 @@ class DocumentActions extends ConsumerWidget with ConfirmDialogMixin {
         if (isAdmin)
           IconButton(
             onPressed: () async {
-              controller.close();
               showDialog(
                 context: context,
                 builder: (context) {
-                  return EditDocumentView(document: document);
+                  return EditFlightCrewRecordView(
+                    record: flightCrewRecord,
+                  );
                 },
               );
+              controller.close();
             },
             icon: const Icon(Icons.edit_outlined),
           ),
         if (isAdmin)
           IconButton(
             onPressed: () async {
+              controller.close();
               final result = await showConfirmDialog(
                 context: context,
                 title: Text("Are you sure?"),
                 content: Text(
-                  "Do you want to ${document.archived ? "unarchive" : "archive"} this document?",
+                  "Do you want to ${flightCrewRecord.archived ? "unarchive" : "archive"} this Flight Crew Record?",
                 ),
               );
               if (result) {
-                await archive(document);
-                ref.invalidate(documentsRepoProvider);
+                await service.archive(flightCrewRecord);
+                ref.invalidate(recordsProvider);
                 controller.close();
               }
             },
             icon: Icon(
-              document.archived
+              flightCrewRecord.archived
                   ? Icons.unarchive_outlined
                   : Icons.archive_outlined,
             ),
-            tooltip: document.archived
-                ? "Unarchive this document"
-                : "Archive this document",
+            tooltip: flightCrewRecord.archived
+                ? "Unarchive this Flight Crew Record"
+                : "Archive this Flight Crew Record",
           ),
         if (isAdmin)
           IconButton(
             onPressed: () async {
+              controller.close();
               final result = await showConfirmDialog(
                 context: context,
                 title: Text("Are you sure?"),
-                content: Text("Do you want to delete this document?"),
+                content: Text(
+                    "Do you want to delete this Flight Crew Record?\nIt also deletes its documents"),
               );
               if (result) {
-                await deleteDocument(document);
+                await service.delete(flightCrewRecord);
+                ref.invalidate(recordsProvider);
                 controller.close();
-                ref.invalidate(documentsRepoProvider);
               }
             },
             icon: const Icon(Icons.delete_outline),
-            tooltip: "Delete",
           ),
       ],
       builder: (context, controller, child) {

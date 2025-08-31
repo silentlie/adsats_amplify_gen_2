@@ -1,22 +1,17 @@
-import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/file_compare_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/actions.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/header.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/sort.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/providers/documents.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/header.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
-import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/new_document.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
-import 'package:adsats_amplify_gen_2/widgets/loading_view.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class DocumentsView extends ConsumerWidget {
+class DocumentsView extends ConsumerWidget with CompareMixin {
   const DocumentsView({
     super.key,
     required this.subcategory,
@@ -25,26 +20,25 @@ class DocumentsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(documentFilterProvider(subcategory));
     final dataAsync = ref.watch(
-      documentsRepoProvider(filter),
+      documentsProvider(subcategory),
     );
-    final sortState = ref.watch(documentSortProvider);
+    final sortState = ref.watch(sortProvider<Document>());
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
       child: AsyncValueWidget(
         value: dataAsync,
         data: (data) {
-          data.sort(compareDocument(
+          data.sort(compare<Document>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
-          final dataSource = DocumentDataSource(
+          final dataSource = DocumentsDataSource(
             sortedData: data,
             context: context,
           );
-          final sortNotifier = ref.read(documentSortProvider.notifier);
+          final sortNotifier = ref.read(sortProvider<Document>().notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
@@ -56,6 +50,9 @@ class DocumentsView extends ConsumerWidget {
                     sortAscending: ascending,
                     getField: (document) {
                       return document.name;
+                    },
+                    custom: (a, b, sortAscending) {
+                      return a.name.naturalCompareTo(b.name) * (sortAscending ? 1 : -1);
                     },
                   );
                 },
@@ -87,7 +84,7 @@ class DocumentsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: "Expired at".centeredTextWidget(),
+                label: "Expire Date".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(
@@ -150,7 +147,7 @@ class DocumentsView extends ConsumerWidget {
             onPageChanged: (rowIndex) {
               // debugPrint((rowIndex / _rowsPerPage).toString());
             },
-            header: DocumentHeader(
+            header: DocumentsHeader(
               subcategory: subcategory,
             ),
             dataRowHeight: 62,
@@ -177,133 +174,6 @@ class DocumentsView extends ConsumerWidget {
           );
         },
       ),
-    );
-  }
-}
-
-class OldDocumentsView extends ConsumerWidget {
-  const OldDocumentsView({
-    super.key,
-    required this.subcategory,
-  });
-  final Subcategory subcategory;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(documentFilterProvider(subcategory));
-    final documentsAsync = ref.watch(
-      documentsRepoProvider(filter),
-    );
-    var widgets = documentsAsync.when<List<Widget>>(
-      data: (documents) {
-        return documents.map(
-          (document) {
-            return ListTile(
-              leading: Icon(Icons.description_outlined),
-              title: Text(document.name),
-              trailing: DocumentActions(
-                document: document,
-              ),
-              subtitle: Text([
-                document.archived ? "Archived" : "Active",
-                (document.createdAt?.toCompactDateString ?? ""),
-                if (document.staff != null)
-                  "${document.staff!.firstName} ${document.staff!.lastName}",
-                ...document.aircraft!.map(
-                  (e) => e.aircraft!.name,
-                ),
-              ].join(" - ")),
-              titleAlignment: ListTileTitleAlignment.center,
-              onTap: () => getFileUrl(document),
-            );
-          },
-        ).toList();
-      },
-      error: (error, stackTrace) {
-        final colorScheme = ColorScheme.of(context);
-        return [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              error.toString(),
-              style: TextStyle(color: colorScheme.error),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: TextButton.icon(
-              onPressed: () {
-                ref.invalidate(documentsRepoProvider(filter));
-              },
-              label: Text("Retry"),
-              icon: Icon(Icons.refresh),
-            ),
-          ),
-        ];
-      },
-      loading: () => [LoadingView()],
-    );
-    if (widgets.isEmpty) {
-      widgets = [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text("There is no document"),
-        ),
-      ];
-    }
-    return Column(
-      children: [
-        ListTile(
-          leading: ElevatedButton.icon(
-            onPressed: () async {
-              await showDialog(
-                context: context,
-                builder: (context) => NewDocumentDialog(
-                  subcategory: subcategory,
-                ),
-              );
-              ref.invalidate(documentsRepoProvider(filter));
-            },
-            label: const Text('Add a document'),
-            icon: const Icon(
-              Icons.add,
-              size: 25,
-            ),
-          ),
-          title: SearchBarWidget(
-            onSubmitted: (value) {
-              ref
-                  .read(documentFilterProvider(subcategory).notifier)
-                  .search(value);
-            },
-            initialValue: filter.search,
-          ),
-          trailing: Row(
-            children: [
-              ElevatedButton.icon(
-                onPressed: () {
-                  ref.invalidate(documentsRepoProvider(filter));
-                },
-                label: Text("Refresh"),
-                icon: Icon(Icons.refresh_outlined),
-              ),
-              ElevatedButton.icon(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return DocumentsFilterView(subcategory: subcategory);
-                    },
-                  );
-                },
-                label: Text("Filter"),
-                icon: Icon(Icons.filter_alt_outlined),
-              ),
-            ],
-          ),
-        ),
-        ...widgets
-      ],
     );
   }
 }

@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/pages/main/documents/new_document.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/new.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
 import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
@@ -123,7 +123,7 @@ class MainShell extends ConsumerWidget {
         () {
           showDialog(
             context: context,
-            builder: (context) => NewDocumentDialog(),
+            builder: (context) => NewDocumentView(),
           );
         }
       ),

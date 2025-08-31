@@ -1,66 +1,9 @@
-import 'package:adsats_amplify_gen_2/helper/extensions/iso_between.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/filter.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
-
-part 'filter.g.dart';
-part 'filter.freezed.dart';
-
-@Riverpod(dependencies: [])
-class FlightCrewRecordFilter extends _$FlightCrewRecordFilter {
-  @override
-  FlightCrewRecordFilterState build(
-    Staff staff,
-    FlightCrewRecordCategory category,
-  ) {
-    return FlightCrewRecordFilterState(staff: staff, category: category);
-  }
-
-  void search(String name) {
-    state = state.copyWith(search: name);
-  }
-
-  void apply(FlightCrewRecordFilterState newState) {
-    state = newState;
-  }
-}
-
-@freezed
-sealed class FlightCrewRecordFilterState with _$FlightCrewRecordFilterState {
-  FlightCrewRecordFilterState._();
-  factory FlightCrewRecordFilterState({
-    required final Staff staff,
-    required final FlightCrewRecordCategory category,
-    @Default("") String search,
-    @Default(false) bool? archived,
-    DateTimeRange? createdAt,
-    DateTimeRange? issuedAt,
-    DateTimeRange? expiredAt,
-  }) = _FlightCrewRecordFilterState;
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> result = {
-      "staffId": {"eq": staff.id},
-      "categoryId": {"eq": category.id},
-    };
-    search.isNotEmpty ? result["name"] = {"contains": search} : null;
-    archived != null ? result["archived"] = {"eq": archived} : null;
-    createdAt != null
-        ? result["createdAt"] = {"between": createdAt!.isoBetween}
-        : null;
-    issuedAt != null
-        ? result["issuedAt"] = {"between": issuedAt!.isoBetween}
-        : null;
-    expiredAt != null
-        ? result["expiredAt"] = {"between": expiredAt!.isoBetween}
-        : null;
-    return result;
-  }
-}
 
 class FlightCrewRecordFilterView extends ConsumerWidget {
   const FlightCrewRecordFilterView({

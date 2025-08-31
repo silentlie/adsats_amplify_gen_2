@@ -69,9 +69,10 @@ class NoticeForm extends _$NoticeForm {
   // change status trigger rebuild
   void switchStatus(NoticeStatus status) {
     state = state.copyWith(
-        notice: state.notice.copyWith(
-      status: status,
-    ));
+      notice: state.notice.copyWith(
+        status: status,
+      ),
+    );
   }
 
   void updateNotice({

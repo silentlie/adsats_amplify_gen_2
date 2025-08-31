@@ -17,6 +17,7 @@ mixin _$SortState<T> {
   bool get sortAscending;
   int get sortColumnIndex;
   Comparable? Function(T notice) get getField;
+  int Function(T a, T b, bool sortAscending)? get custom;
   int get rowsPerPage;
 
   /// Create a copy of SortState
@@ -38,17 +39,18 @@ mixin _$SortState<T> {
                 other.sortColumnIndex == sortColumnIndex) &&
             (identical(other.getField, getField) ||
                 other.getField == getField) &&
+            (identical(other.custom, custom) || other.custom == custom) &&
             (identical(other.rowsPerPage, rowsPerPage) ||
                 other.rowsPerPage == rowsPerPage));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, sortAscending, sortColumnIndex, getField, rowsPerPage);
+  int get hashCode => Object.hash(runtimeType, sortAscending, sortColumnIndex,
+      getField, custom, rowsPerPage);
 
   @override
   String toString() {
-    return 'SortState<$T>(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
+    return 'SortState<$T>(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, custom: $custom, rowsPerPage: $rowsPerPage)';
   }
 }
 
@@ -62,6 +64,7 @@ abstract mixin class $SortStateCopyWith<T, $Res> {
       {bool sortAscending,
       int sortColumnIndex,
       Comparable? Function(T notice) getField,
+      int Function(T a, T b, bool sortAscending)? custom,
       int rowsPerPage});
 }
 
@@ -80,6 +83,7 @@ class _$SortStateCopyWithImpl<T, $Res> implements $SortStateCopyWith<T, $Res> {
     Object? sortAscending = null,
     Object? sortColumnIndex = null,
     Object? getField = null,
+    Object? custom = freezed,
     Object? rowsPerPage = null,
   }) {
     return _then(_self.copyWith(
@@ -95,6 +99,10 @@ class _$SortStateCopyWithImpl<T, $Res> implements $SortStateCopyWith<T, $Res> {
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
               as Comparable? Function(T notice),
+      custom: freezed == custom
+          ? _self.custom
+          : custom // ignore: cast_nullable_to_non_nullable
+              as int Function(T a, T b, bool sortAscending)?,
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable
@@ -194,8 +202,12 @@ extension SortStatePatterns<T> on SortState<T> {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(bool sortAscending, int sortColumnIndex,
-            Comparable? Function(T notice) getField, int rowsPerPage)?
+    TResult Function(
+            bool sortAscending,
+            int sortColumnIndex,
+            Comparable? Function(T notice) getField,
+            int Function(T a, T b, bool sortAscending)? custom,
+            int rowsPerPage)?
         $default, {
     required TResult orElse(),
   }) {
@@ -203,7 +215,7 @@ extension SortStatePatterns<T> on SortState<T> {
     switch (_that) {
       case _SortState() when $default != null:
         return $default(_that.sortAscending, _that.sortColumnIndex,
-            _that.getField, _that.rowsPerPage);
+            _that.getField, _that.custom, _that.rowsPerPage);
       case _:
         return orElse();
     }
@@ -224,15 +236,19 @@ extension SortStatePatterns<T> on SortState<T> {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(bool sortAscending, int sortColumnIndex,
-            Comparable? Function(T notice) getField, int rowsPerPage)
+    TResult Function(
+            bool sortAscending,
+            int sortColumnIndex,
+            Comparable? Function(T notice) getField,
+            int Function(T a, T b, bool sortAscending)? custom,
+            int rowsPerPage)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _SortState():
         return $default(_that.sortAscending, _that.sortColumnIndex,
-            _that.getField, _that.rowsPerPage);
+            _that.getField, _that.custom, _that.rowsPerPage);
     }
   }
 
@@ -250,15 +266,19 @@ extension SortStatePatterns<T> on SortState<T> {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(bool sortAscending, int sortColumnIndex,
-            Comparable? Function(T notice) getField, int rowsPerPage)?
+    TResult? Function(
+            bool sortAscending,
+            int sortColumnIndex,
+            Comparable? Function(T notice) getField,
+            int Function(T a, T b, bool sortAscending)? custom,
+            int rowsPerPage)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _SortState() when $default != null:
         return $default(_that.sortAscending, _that.sortColumnIndex,
-            _that.getField, _that.rowsPerPage);
+            _that.getField, _that.custom, _that.rowsPerPage);
       case _:
         return null;
     }
@@ -268,10 +288,11 @@ extension SortStatePatterns<T> on SortState<T> {
 /// @nodoc
 
 class _SortState<T> implements SortState<T> {
-  _SortState(
+  const _SortState(
       {this.sortAscending = false,
       this.sortColumnIndex = 0,
       required this.getField,
+      this.custom = null,
       this.rowsPerPage = PaginatedDataTable.defaultRowsPerPage});
 
   @override
@@ -282,6 +303,9 @@ class _SortState<T> implements SortState<T> {
   final int sortColumnIndex;
   @override
   final Comparable? Function(T notice) getField;
+  @override
+  @JsonKey()
+  final int Function(T a, T b, bool sortAscending)? custom;
   @override
   @JsonKey()
   final int rowsPerPage;
@@ -305,17 +329,18 @@ class _SortState<T> implements SortState<T> {
                 other.sortColumnIndex == sortColumnIndex) &&
             (identical(other.getField, getField) ||
                 other.getField == getField) &&
+            (identical(other.custom, custom) || other.custom == custom) &&
             (identical(other.rowsPerPage, rowsPerPage) ||
                 other.rowsPerPage == rowsPerPage));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, sortAscending, sortColumnIndex, getField, rowsPerPage);
+  int get hashCode => Object.hash(runtimeType, sortAscending, sortColumnIndex,
+      getField, custom, rowsPerPage);
 
   @override
   String toString() {
-    return 'SortState<$T>(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, rowsPerPage: $rowsPerPage)';
+    return 'SortState<$T>(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, custom: $custom, rowsPerPage: $rowsPerPage)';
   }
 }
 
@@ -331,6 +356,7 @@ abstract mixin class _$SortStateCopyWith<T, $Res>
       {bool sortAscending,
       int sortColumnIndex,
       Comparable? Function(T notice) getField,
+      int Function(T a, T b, bool sortAscending)? custom,
       int rowsPerPage});
 }
 
@@ -350,6 +376,7 @@ class __$SortStateCopyWithImpl<T, $Res>
     Object? sortAscending = null,
     Object? sortColumnIndex = null,
     Object? getField = null,
+    Object? custom = freezed,
     Object? rowsPerPage = null,
   }) {
     return _then(_SortState<T>(
@@ -365,6 +392,10 @@ class __$SortStateCopyWithImpl<T, $Res>
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
               as Comparable? Function(T notice),
+      custom: freezed == custom
+          ? _self.custom
+          : custom // ignore: cast_nullable_to_non_nullable
+              as int Function(T a, T b, bool sortAscending)?,
       rowsPerPage: null == rowsPerPage
           ? _self.rowsPerPage
           : rowsPerPage // ignore: cast_nullable_to_non_nullable

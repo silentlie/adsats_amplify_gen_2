@@ -1,8 +1,7 @@
-import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/records.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/service.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
@@ -115,11 +114,12 @@ class EditFlightCrewRecordView extends ConsumerWidget with ConfirmDialogMixin {
             if (!result) {
               return;
             }
+            final service = ref.read(recordsServiceProvider);
             if (this.record.name != record.name) {
-              await renameFlightCrewRecord(this.record, record.name);
+              await service.rename(this.record, record);
             }
-            await update(record);
-            ref.invalidate(flightCrewRecordsRepoProvider);
+            await service.update(record);
+            ref.invalidate(recordsProvider);
             if (!context.mounted) return;
             if (context.canPop()) {
               context.pop();

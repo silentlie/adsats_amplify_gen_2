@@ -19,7 +19,7 @@ class SmsSentPage extends ConsumerWidget with CompareMixin {
     );
     final sortedAsync = dataAsync.whenData((list) {
       if (list.length < 2) return list;
-      return [...list]..sort(compareModels<Notice>(
+      return [...list]..sort(compare<Notice>(
           sortAscending: asc,
           getField: key,
         ));

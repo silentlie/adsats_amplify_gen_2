@@ -1,16 +1,17 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/file_compare_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/header.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/sort.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/records.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/widgets/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/widgets/header.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FlightCrewRecordsView extends ConsumerWidget {
+class FlightCrewRecordsView extends ConsumerWidget with CompareMixin{
   const FlightCrewRecordsView({
     super.key,
     required this.staff,
@@ -21,16 +22,15 @@ class FlightCrewRecordsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(flightCrewRecordFilterProvider(staff, category));
-    final dataAsync = ref.watch(flightCrewRecordsRepoProvider(filter));
-    final sortState = ref.watch(flightCrewRecordSortProvider);
+    final dataAsync = ref.watch(recordsProvider(staff, category));
+    final sortState = ref.watch(sortProvider<FlightCrewRecord>());
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
       child: AsyncValueWidget(
         value: dataAsync,
         data: (data) {
-          data.sort(compareFlightCrewRecord(
+          data.sort(compare<FlightCrewRecord>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
@@ -38,7 +38,7 @@ class FlightCrewRecordsView extends ConsumerWidget {
             sortedData: data,
             context: context,
           );
-          final sortNotifier = ref.read(flightCrewRecordSortProvider.notifier);
+          final sortNotifier = ref.read(sortProvider<FlightCrewRecord>().notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
@@ -50,6 +50,9 @@ class FlightCrewRecordsView extends ConsumerWidget {
                     sortAscending: ascending,
                     getField: (flightCrewRecord) {
                       return flightCrewRecord.name;
+                    },
+                    custom: (a, b, sortAscending) {
+                      return a.name.naturalCompareTo(b.name) * (sortAscending ? 1 : -1);
                     },
                   );
                 },
@@ -81,7 +84,7 @@ class FlightCrewRecordsView extends ConsumerWidget {
                 },
               ),
               DataColumn2(
-                label: "Expired at".centeredTextWidget(),
+                label: "Expire Date".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(

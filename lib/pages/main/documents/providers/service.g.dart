@@ -6,45 +6,48 @@ part of 'service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-@ProviderFor(noticeService)
-const noticeServiceProvider = NoticeServiceProvider._();
+@ProviderFor(documentsService)
+const documentsServiceProvider = DocumentsServiceProvider._();
 
-final class NoticeServiceProvider extends $FunctionalProvider<NoticeRepository,
-    NoticeRepository, NoticeRepository> with $Provider<NoticeRepository> {
-  const NoticeServiceProvider._()
+final class DocumentsServiceProvider extends $FunctionalProvider<
+    DocumentsRepository,
+    DocumentsRepository,
+    DocumentsRepository> with $Provider<DocumentsRepository> {
+  const DocumentsServiceProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
-          name: r'noticeServiceProvider',
+          name: r'documentsServiceProvider',
           isAutoDispose: false,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$noticeServiceHash();
+  String debugGetCreateSourceHash() => _$documentsServiceHash();
 
   @$internal
   @override
-  $ProviderElement<NoticeRepository> $createElement($ProviderPointer pointer) =>
+  $ProviderElement<DocumentsRepository> $createElement(
+          $ProviderPointer pointer) =>
       $ProviderElement(pointer);
 
   @override
-  NoticeRepository create(Ref ref) {
-    return noticeService(ref);
+  DocumentsRepository create(Ref ref) {
+    return documentsService(ref);
   }
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(NoticeRepository value) {
+  Override overrideWithValue(DocumentsRepository value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<NoticeRepository>(value),
+      providerOverride: $SyncValueProvider<DocumentsRepository>(value),
     );
   }
 }
 
-String _$noticeServiceHash() => r'f618c9fe1e0e9872379c5dd05348da9b3ca1ada1';
+String _$documentsServiceHash() => r'0eba49a3c7b6159ff9a1808500c91d3fb45b4739';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

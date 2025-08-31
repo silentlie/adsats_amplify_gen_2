@@ -10,14 +10,16 @@ import 'package:url_launcher/url_launcher.dart';
 
 class NoticeRepository {
   final AmplifyAppSyncAPI _db;
-  final AmplifyS3API _s3;
+  final AmplifyS3API _storage;
   final AmplifyEmailRepository _email;
 
   NoticeRepository({
     required AmplifyAppSyncAPI db,
-    required AmplifyS3API s3,
+    required AmplifyS3API storage,
     required AmplifyEmailRepository email,
-  }) : _email = email, _s3 = s3, _db = db;
+  })  : _email = email,
+        _storage = storage,
+        _db = db;
 
   // ---------- Public API ----------
 
@@ -135,7 +137,7 @@ class NoticeRepository {
   }
 
   Future<void> getFileURL(NoticeDocument doc, Notice notice) async {
-    final res = await _s3.getFileUrl(doc.s3Path(notice));
+    final res = await _storage.getFileUrl(doc.s3Path(notice));
     launchUrl(res.url);
   }
 
@@ -199,7 +201,7 @@ class NoticeRepository {
   }) async {
     for (final doc in (initial.documents ?? const <NoticeDocument>[])) {
       if (!keep.contains(doc)) {
-        await _s3.deleteFile(doc.s3Path(initial));
+        await _storage.deleteFile(doc.s3Path(initial));
         await _db.delete(doc);
       }
     }
@@ -216,7 +218,7 @@ class NoticeRepository {
       final doc = NoticeDocument(name: f.name, notices: notice);
       await _db.create(doc);
       uploads.add(
-        _s3.uploadFile(
+        _storage.uploadFile(
           file: f,
           s3Path: doc.s3Path(notice),
           onProgress: (p) => onProgress(f.name, p.fractionCompleted),

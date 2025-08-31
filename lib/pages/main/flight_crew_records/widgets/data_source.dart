@@ -1,8 +1,8 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/actions.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/edit_flight_crew_record_view.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/widgets/actions.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/widgets/record.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 

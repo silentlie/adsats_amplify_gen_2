@@ -1,10 +1,9 @@
-import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/providers/documents.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/providers/service.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
@@ -98,37 +97,6 @@ class EditDocumentView extends ConsumerWidget with ConfirmDialogMixin {
                   initialSelection: document.archived,
                   text: "Archived",
                 ),
-                // ConstrainedBox(
-                //   constraints: BoxConstraints(maxWidth: 666),
-                //   child: GlobalMultiSelect<Aircraft>(
-                //     text: "Add aircraft",
-                //     onConfirm: (selectedOptions) {
-                //       document.copyWith(
-                //           aircraft: selectedOptions.map(
-                //         (e) {
-                //           return AircraftDocument(
-                //             document: document,
-                //             aircraft: e,
-                //           );
-                //         },
-                //       ).toList());
-                //     },
-                //     items: user.aircraft?.map(
-                //           (e) {
-                //             return MultiSelectItem(
-                //               e.aircraft!,
-                //               e.aircraft!.name,
-                //             );
-                //           },
-                //         ).toList() ??
-                //         [],
-                //     initialValue: document.aircraft!.map(
-                //       (e) {
-                //         return e.aircraft!;
-                //       },
-                //     ).toList(),
-                //   ),
-                // ),
                 DatePickerWidget(
                   text: "Issue Date",
                   firstDate: DateTime.now().subtract(
@@ -191,11 +159,12 @@ class EditDocumentView extends ConsumerWidget with ConfirmDialogMixin {
                 if (!result) {
                   return;
                 }
+                final service = ref.read(documentsServiceProvider);
                 if (this.document.name != document.name) {
-                  await renameDocument(this.document, document.name);
+                  await service.rename(this.document, document);
                 }
-                await update(document);
-                ref.invalidate(documentsRepoProvider);
+                await service.update(document);
+                ref.invalidate(documentsProvider);
                 if (!context.mounted) return;
                 if (context.canPop()) {
                   context.pop();

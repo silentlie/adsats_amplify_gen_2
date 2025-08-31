@@ -3,9 +3,8 @@ import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/main/documents/s3.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/providers/documents.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/providers/service.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
@@ -18,8 +17,8 @@ import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class NewDocumentDialog extends ConsumerStatefulWidget {
-  const NewDocumentDialog({
+class NewDocumentView extends ConsumerStatefulWidget {
+  const NewDocumentView({
     super.key,
     this.subcategory,
   });
@@ -27,10 +26,10 @@ class NewDocumentDialog extends ConsumerStatefulWidget {
   final Subcategory? subcategory;
 
   @override
-  ConsumerState<NewDocumentDialog> createState() => _NewDocumentDialogState();
+  ConsumerState<NewDocumentView> createState() => _NewDocumentViewState();
 }
 
-class _NewDocumentDialogState extends ConsumerState<NewDocumentDialog>
+class _NewDocumentViewState extends ConsumerState<NewDocumentView>
     with ConfirmDialogMixin {
   bool _isLoading = false;
   final Map<String, double> _fileProgress = {};
@@ -245,8 +244,9 @@ class _NewDocumentDialogState extends ConsumerState<NewDocumentDialog>
                     }
                     // Show loading screen
                     _showLoading(true);
+                    final service = ref.read(documentsServiceProvider);
                     try {
-                      await uploadFiles(
+                      await service.uploadBatch(
                         files,
                         uploader,
                         subcategory!,
@@ -260,8 +260,7 @@ class _NewDocumentDialogState extends ConsumerState<NewDocumentDialog>
                           });
                         },
                       );
-                      ref.invalidate(documentsRepoProvider(
-                          ref.read(documentFilterProvider(subcategory!))));
+                      ref.invalidate(documentsProvider);
                       if (!context.mounted) return;
                       if (context.canPop()) {
                         context.pop();

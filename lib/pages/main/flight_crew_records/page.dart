@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/flight_crew_records_view.dart';
-import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/records.dart';
+import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/widgets/records.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -16,7 +16,7 @@ class FlightCrewRecordsPage extends ConsumerWidget {
         constraints: BoxConstraints(maxWidth: 1536),
         child: Card(
           child: AsyncValueWidget(
-            value: ref.watch(flightCrewRecordsMetaProvider),
+            value: ref.watch(recordMetaProvider),
             data: (value) {
               final (aircraft, roles) = value;
               return FlightCrewRecordsBody(aircraft: aircraft, roles: roles);
@@ -38,6 +38,7 @@ class FlightCrewRecordsBody extends HookConsumerWidget {
   final Iterable<Role> roles;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    // TODO: add settings remembering favorite tabs
     final aircraftTabCon = useTabController(initialLength: aircraft.length);
     final rolesTabCon = useTabController(initialLength: roles.length);
     return Column(
@@ -49,8 +50,30 @@ class FlightCrewRecordsBody extends HookConsumerWidget {
           tabs: aircraft
               .map(
                 (e) => Tab(
-                  text: e.name,
-                  icon: Icon(Icons.airplanemode_on_outlined),
+                  icon: Row(
+                    children: [
+                      Icon(Icons.airplanemode_on_outlined),
+                      IconButton(
+                        onPressed: () {
+                          // TODO: implement favorite toggle
+                        },
+                        icon: Icon(Icons.star_border),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Text(
+                        e.name,
+                      ),
+                      // IconButton(
+                      //   onPressed: () {
+                      //     // TODO: implement favorite toggle
+                      //   },
+                      //   icon: Icon(Icons.star_border),
+                      // ),
+                    ],
+                  ),
                 ),
               )
               .toList(),
@@ -69,8 +92,30 @@ class FlightCrewRecordsBody extends HookConsumerWidget {
                       tabs: roles
                           .map(
                             (e) => Tab(
-                              text: e.name,
-                              icon: Icon(Icons.groups_2_outlined),
+                              icon: Row(
+                                children: [
+                                  Icon(Icons.groups_2_outlined),
+                                  IconButton(
+                                    onPressed: () {
+                                      // TODO: implement favorite toggle
+                                    },
+                                    icon: Icon(Icons.star_border),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    e.name,
+                                  ),
+                                  // IconButton(
+                                  //   onPressed: () {
+                                  //     // TODO: implement favorite toggle
+                                  //   },
+                                  //   icon: Icon(Icons.star_border),
+                                  // ),
+                                ],
+                              ),
                             ),
                           )
                           .toList(),
@@ -111,7 +156,7 @@ class CrewsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AsyncValueWidget(
-      value: ref.watch(listJoinStaffProvider(aircraft, role)),
+      value: ref.watch(joinStaffProvider(aircraft, role)),
       data: (value) {
         return ListView(
           shrinkWrap: true,

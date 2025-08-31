@@ -11,3 +11,15 @@ extension NoticeDocumentPath on NoticeDocument {
     return 'noticeDocuments/${notice.id}/$id/$name';
   }
 }
+
+extension FlightCrewRecordPath on FlightCrewRecord {
+  String get s3Path {
+    return 'flightCrewRecords/${staff!.id}/$id/$name';
+  }
+}
+
+extension ReportDocumentPath on ReportDocument {
+  String s3Path(Report report) {
+    return 'reports/${report.id}/$id/$name';
+  }
+}
