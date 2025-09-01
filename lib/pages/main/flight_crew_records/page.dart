@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/records.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/widgets/records.dart';
@@ -163,7 +164,7 @@ class CrewsView extends ConsumerWidget {
           children: value.map(
             (e) {
               return ExpansionTile(
-                title: Text("${e.firstName} ${e.lastName}"),
+                title: Text(e.fullName),
                 leading: Icon(Icons.person_outline),
                 children: role.categories!.map(
                   (category) {

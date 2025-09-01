@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -44,7 +45,9 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
                     entries: value.map(
                       (e) {
                         return DropdownMenuEntry(
-                            value: e, label: "${e.firstName} ${e.lastName}");
+                          value: e,
+                          label: e.fullName,
+                        );
                       },
                     ).toList(),
                     enabled: isSafetyOfficer && isEditMode,

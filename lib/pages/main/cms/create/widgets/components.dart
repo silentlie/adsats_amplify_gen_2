@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
@@ -23,10 +24,9 @@ class DiscrepanciesWidget extends ConsumerWidget {
       (value) => value.details,
     ));
     bool isDiscrepanciesFound = ref.watch(
-      reportFormProvider.select((value) {
-        final isIncluded = value.details["is_discrepancies_found"] as bool?;
-        return isIncluded ?? false;
-      }),
+      reportFormProvider.select(
+        (value) => value.report.discrepanciesFound,
+      ),
     );
     return Column(
       children: [
@@ -36,9 +36,7 @@ class DiscrepanciesWidget extends ConsumerWidget {
             groupValue: isDiscrepanciesFound,
             onChanged: (value) {
               if (isEditMode) {
-                notifier.updateDetails(
-                  {'is_discrepancies_found': value},
-                );
+                notifier.updateReport(discrepanciesFound: value);
                 notifier.commit();
               }
             },
@@ -110,10 +108,9 @@ class ComplianceManagerSection extends ConsumerWidget {
       (value) => value.details,
     ));
     bool isDiscrepanciesFound = ref.watch(
-      reportFormProvider.select((value) {
-        final isIncluded = value.details["is_discrepancies_found"] as bool?;
-        return isIncluded ?? false;
-      }),
+      reportFormProvider.select(
+        (value) => value.report.discrepanciesFound,
+      ),
     );
     final isClosed = ref.watch(
       reportFormProvider.select(
@@ -161,13 +158,14 @@ class ComplianceManagerSection extends ConsumerWidget {
               ),
               Flexible(
                 child: AsyncValueWidget(
+                  // TODO: filter only compliance managers
                   value: ref.watch(listStaffProvider()),
                   data: (value) {
                     return GlobalDropdownMenu(
                       entries: value.map(
                         (e) {
                           return DropdownMenuEntry(
-                              value: e, label: "${e.firstName} ${e.lastName}");
+                              value: e, label: e.fullName);
                         },
                       ).toList(),
                       onSelected: (value) {

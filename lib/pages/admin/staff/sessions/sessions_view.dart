@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
@@ -114,7 +115,7 @@ class SessionsView extends ConsumerWidget with CompareMixin {
                 },
               ),
               leading: Text(
-                "${staff.firstName} ${staff.lastName}",
+                staff.fullName,
                 style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,

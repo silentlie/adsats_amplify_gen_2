@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
@@ -536,7 +537,7 @@ class SafetyOfficersSection extends ConsumerWidget {
                 entries: recipients.map(
                   (e) {
                     return DropdownMenuEntry(
-                        value: e, label: "${e.firstName} ${e.lastName}");
+                        value: e, label: e.fullName);
                   },
                 ).toList(),
                 onSelected: (value) {

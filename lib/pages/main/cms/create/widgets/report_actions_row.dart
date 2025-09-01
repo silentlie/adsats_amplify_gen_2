@@ -44,8 +44,7 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
             label: const Text('Cancel'),
             icon: Icon(Icons.cancel_outlined),
           ),
-          // if (notifier.isEditable()) readButton(ref),
-          if (notifier.isNew() && notifier.editPermit())
+          if (!notifier.isNew() && notifier.editPermit())
             ElevatedButton.icon(
               onPressed: () {
                 notifier.switchEditMode();

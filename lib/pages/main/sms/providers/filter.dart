@@ -10,11 +10,9 @@ class NoticeFilter extends _$NoticeFilter {
   @override
   NoticeFilterState build() {
     final user = ref.watch(userDetailsProvider.select(
-      (value) {
-        return value.value;
-      },
+      (value) => value.value!,
     ));
-    return NoticeFilterState(user: user!, archived: false);
+    return NoticeFilterState(user: user, archived: false);
   }
 
   void search(String name) {

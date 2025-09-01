@@ -23,6 +23,7 @@ import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 import 'package:collection/collection.dart';
 
+
 /** This is an auto generated class representing the Staff type in your schema. */
 class Staff extends amplify_core.Model {
   static const classType = const _StaffModelType();
@@ -47,764 +48,608 @@ class Staff extends amplify_core.Model {
 
   @override
   getInstanceType() => classType;
-
-  @Deprecated(
-      '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
+  
+  @Deprecated('[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
   String getId() => id;
-
+  
   StaffModelIdentifier get modelIdentifier {
-    return StaffModelIdentifier(id: id);
+      return StaffModelIdentifier(
+        id: id
+      );
   }
-
+  
   String get firstName {
     try {
       return _firstName!;
-    } catch (e) {
+    } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   String get lastName {
     try {
       return _lastName!;
-    } catch (e) {
+    } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   String get email {
     try {
       return _email!;
-    } catch (e) {
+    } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   bool get archived {
     try {
       return _archived!;
-    } catch (e) {
+    } catch(e) {
       throw amplify_core.AmplifyCodeGenModelException(
-          amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastExceptionMessage,
-          recoverySuggestion: amplify_core.AmplifyExceptionMessages
-              .codeGenRequiredFieldForceCastRecoverySuggestion,
-          underlyingException: e.toString());
+          amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion:
+            amplify_core.AmplifyExceptionMessages.codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString()
+          );
     }
   }
-
+  
   List<Document>? get documents {
     return _documents;
   }
-
+  
   List<Notice>? get notices {
     return _notices;
   }
-
+  
   List<NoticeStaff>? get notifications {
     return _notifications;
   }
-
+  
   List<AircraftStaff>? get aircraft {
     return _aircraft;
   }
-
+  
   List<RoleStaff>? get roles {
     return _roles;
   }
-
+  
   List<StaffSubcategory>? get subcategories {
     return _subcategories;
   }
-
+  
   List<FlightCrewRecord>? get flightCrewRecords {
     return _flightCrewRecords;
   }
-
+  
   List<Report>? get reports {
     return _reports;
   }
-
+  
   List<ReportStaff>? get reportNotifications {
     return _reportNotifications;
   }
-
+  
   List<Report>? get closedReport {
     return _closedReport;
   }
-
+  
   List<Session>? get sessions {
     return _sessions;
   }
-
+  
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
-
+  
   amplify_core.TemporalDateTime? get updatedAt {
     return _updatedAt;
   }
-
-  const Staff._internal(
-      {required this.id,
-      required firstName,
-      required lastName,
-      required email,
-      required archived,
-      documents,
-      notices,
-      notifications,
-      aircraft,
-      roles,
-      subcategories,
-      flightCrewRecords,
-      reports,
-      reportNotifications,
-      closedReport,
-      sessions,
-      createdAt,
-      updatedAt})
-      : _firstName = firstName,
-        _lastName = lastName,
-        _email = email,
-        _archived = archived,
-        _documents = documents,
-        _notices = notices,
-        _notifications = notifications,
-        _aircraft = aircraft,
-        _roles = roles,
-        _subcategories = subcategories,
-        _flightCrewRecords = flightCrewRecords,
-        _reports = reports,
-        _reportNotifications = reportNotifications,
-        _closedReport = closedReport,
-        _sessions = sessions,
-        _createdAt = createdAt,
-        _updatedAt = updatedAt;
-
-  factory Staff(
-      {String? id,
-      required String firstName,
-      required String lastName,
-      required String email,
-      required bool archived,
-      List<Document>? documents,
-      List<Notice>? notices,
-      List<NoticeStaff>? notifications,
-      List<AircraftStaff>? aircraft,
-      List<RoleStaff>? roles,
-      List<StaffSubcategory>? subcategories,
-      List<FlightCrewRecord>? flightCrewRecords,
-      List<Report>? reports,
-      List<ReportStaff>? reportNotifications,
-      List<Report>? closedReport,
-      List<Session>? sessions}) {
+  
+  const Staff._internal({required this.id, required firstName, required lastName, required email, required archived, documents, notices, notifications, aircraft, roles, subcategories, flightCrewRecords, reports, reportNotifications, closedReport, sessions, createdAt, updatedAt}): _firstName = firstName, _lastName = lastName, _email = email, _archived = archived, _documents = documents, _notices = notices, _notifications = notifications, _aircraft = aircraft, _roles = roles, _subcategories = subcategories, _flightCrewRecords = flightCrewRecords, _reports = reports, _reportNotifications = reportNotifications, _closedReport = closedReport, _sessions = sessions, _createdAt = createdAt, _updatedAt = updatedAt;
+  
+  factory Staff({String? id, required String firstName, required String lastName, required String email, required bool archived, List<Document>? documents, List<Notice>? notices, List<NoticeStaff>? notifications, List<AircraftStaff>? aircraft, List<RoleStaff>? roles, List<StaffSubcategory>? subcategories, List<FlightCrewRecord>? flightCrewRecords, List<Report>? reports, List<ReportStaff>? reportNotifications, List<Report>? closedReport, List<Session>? sessions}) {
     return Staff._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        archived: archived,
-        documents: documents != null
-            ? List<Document>.unmodifiable(documents)
-            : documents,
-        notices: notices != null ? List<Notice>.unmodifiable(notices) : notices,
-        notifications: notifications != null
-            ? List<NoticeStaff>.unmodifiable(notifications)
-            : notifications,
-        aircraft: aircraft != null
-            ? List<AircraftStaff>.unmodifiable(aircraft)
-            : aircraft,
-        roles: roles != null ? List<RoleStaff>.unmodifiable(roles) : roles,
-        subcategories: subcategories != null
-            ? List<StaffSubcategory>.unmodifiable(subcategories)
-            : subcategories,
-        flightCrewRecords: flightCrewRecords != null
-            ? List<FlightCrewRecord>.unmodifiable(flightCrewRecords)
-            : flightCrewRecords,
-        reports: reports != null ? List<Report>.unmodifiable(reports) : reports,
-        reportNotifications: reportNotifications != null
-            ? List<ReportStaff>.unmodifiable(reportNotifications)
-            : reportNotifications,
-        closedReport: closedReport != null
-            ? List<Report>.unmodifiable(closedReport)
-            : closedReport,
-        sessions:
-            sessions != null ? List<Session>.unmodifiable(sessions) : sessions);
+      id: id == null ? amplify_core.UUID.getUUID() : id,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      archived: archived,
+      documents: documents != null ? List<Document>.unmodifiable(documents) : documents,
+      notices: notices != null ? List<Notice>.unmodifiable(notices) : notices,
+      notifications: notifications != null ? List<NoticeStaff>.unmodifiable(notifications) : notifications,
+      aircraft: aircraft != null ? List<AircraftStaff>.unmodifiable(aircraft) : aircraft,
+      roles: roles != null ? List<RoleStaff>.unmodifiable(roles) : roles,
+      subcategories: subcategories != null ? List<StaffSubcategory>.unmodifiable(subcategories) : subcategories,
+      flightCrewRecords: flightCrewRecords != null ? List<FlightCrewRecord>.unmodifiable(flightCrewRecords) : flightCrewRecords,
+      reports: reports != null ? List<Report>.unmodifiable(reports) : reports,
+      reportNotifications: reportNotifications != null ? List<ReportStaff>.unmodifiable(reportNotifications) : reportNotifications,
+      closedReport: closedReport != null ? List<Report>.unmodifiable(closedReport) : closedReport,
+      sessions: sessions != null ? List<Session>.unmodifiable(sessions) : sessions);
   }
-
+  
   bool equals(Object other) {
     return this == other;
   }
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
     return other is Staff &&
-        id == other.id &&
-        _firstName == other._firstName &&
-        _lastName == other._lastName &&
-        _email == other._email &&
-        _archived == other._archived &&
-        DeepCollectionEquality().equals(_documents, other._documents) &&
-        DeepCollectionEquality().equals(_notices, other._notices) &&
-        DeepCollectionEquality().equals(_notifications, other._notifications) &&
-        DeepCollectionEquality().equals(_aircraft, other._aircraft) &&
-        DeepCollectionEquality().equals(_roles, other._roles) &&
-        DeepCollectionEquality().equals(_subcategories, other._subcategories) &&
-        DeepCollectionEquality()
-            .equals(_flightCrewRecords, other._flightCrewRecords) &&
-        DeepCollectionEquality().equals(_reports, other._reports) &&
-        DeepCollectionEquality()
-            .equals(_reportNotifications, other._reportNotifications) &&
-        DeepCollectionEquality().equals(_closedReport, other._closedReport) &&
-        DeepCollectionEquality().equals(_sessions, other._sessions);
+      id == other.id &&
+      _firstName == other._firstName &&
+      _lastName == other._lastName &&
+      _email == other._email &&
+      _archived == other._archived &&
+      DeepCollectionEquality().equals(_documents, other._documents) &&
+      DeepCollectionEquality().equals(_notices, other._notices) &&
+      DeepCollectionEquality().equals(_notifications, other._notifications) &&
+      DeepCollectionEquality().equals(_aircraft, other._aircraft) &&
+      DeepCollectionEquality().equals(_roles, other._roles) &&
+      DeepCollectionEquality().equals(_subcategories, other._subcategories) &&
+      DeepCollectionEquality().equals(_flightCrewRecords, other._flightCrewRecords) &&
+      DeepCollectionEquality().equals(_reports, other._reports) &&
+      DeepCollectionEquality().equals(_reportNotifications, other._reportNotifications) &&
+      DeepCollectionEquality().equals(_closedReport, other._closedReport) &&
+      DeepCollectionEquality().equals(_sessions, other._sessions);
   }
-
+  
   @override
   int get hashCode => toString().hashCode;
-
+  
   @override
   String toString() {
     var buffer = new StringBuffer();
-
+    
     buffer.write("Staff {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("firstName=" + "$_firstName" + ", ");
     buffer.write("lastName=" + "$_lastName" + ", ");
     buffer.write("email=" + "$_email" + ", ");
-    buffer.write("archived=" +
-        (_archived != null ? _archived.toString() : "null") +
-        ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
-        ", ");
-    buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+    buffer.write("archived=" + (_archived != null ? _archived.toString() : "null") + ", ");
+    buffer.write("createdAt=" + (_createdAt != null ? _createdAt.format() : "null") + ", ");
+    buffer.write("updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
     buffer.write("}");
-
+    
     return buffer.toString();
   }
-
-  Staff copyWith(
-      {String? firstName,
-      String? lastName,
-      String? email,
-      bool? archived,
-      List<Document>? documents,
-      List<Notice>? notices,
-      List<NoticeStaff>? notifications,
-      List<AircraftStaff>? aircraft,
-      List<RoleStaff>? roles,
-      List<StaffSubcategory>? subcategories,
-      List<FlightCrewRecord>? flightCrewRecords,
-      List<Report>? reports,
-      List<ReportStaff>? reportNotifications,
-      List<Report>? closedReport,
-      List<Session>? sessions}) {
+  
+  Staff copyWith({String? firstName, String? lastName, String? email, bool? archived, List<Document>? documents, List<Notice>? notices, List<NoticeStaff>? notifications, List<AircraftStaff>? aircraft, List<RoleStaff>? roles, List<StaffSubcategory>? subcategories, List<FlightCrewRecord>? flightCrewRecords, List<Report>? reports, List<ReportStaff>? reportNotifications, List<Report>? closedReport, List<Session>? sessions}) {
     return Staff._internal(
-        id: id,
-        firstName: firstName ?? this.firstName,
-        lastName: lastName ?? this.lastName,
-        email: email ?? this.email,
-        archived: archived ?? this.archived,
-        documents: documents ?? this.documents,
-        notices: notices ?? this.notices,
-        notifications: notifications ?? this.notifications,
-        aircraft: aircraft ?? this.aircraft,
-        roles: roles ?? this.roles,
-        subcategories: subcategories ?? this.subcategories,
-        flightCrewRecords: flightCrewRecords ?? this.flightCrewRecords,
-        reports: reports ?? this.reports,
-        reportNotifications: reportNotifications ?? this.reportNotifications,
-        closedReport: closedReport ?? this.closedReport,
-        sessions: sessions ?? this.sessions);
+      id: id,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      email: email ?? this.email,
+      archived: archived ?? this.archived,
+      documents: documents ?? this.documents,
+      notices: notices ?? this.notices,
+      notifications: notifications ?? this.notifications,
+      aircraft: aircraft ?? this.aircraft,
+      roles: roles ?? this.roles,
+      subcategories: subcategories ?? this.subcategories,
+      flightCrewRecords: flightCrewRecords ?? this.flightCrewRecords,
+      reports: reports ?? this.reports,
+      reportNotifications: reportNotifications ?? this.reportNotifications,
+      closedReport: closedReport ?? this.closedReport,
+      sessions: sessions ?? this.sessions);
   }
-
-  Staff copyWithModelFieldValues(
-      {ModelFieldValue<String>? firstName,
-      ModelFieldValue<String>? lastName,
-      ModelFieldValue<String>? email,
-      ModelFieldValue<bool>? archived,
-      ModelFieldValue<List<Document>?>? documents,
-      ModelFieldValue<List<Notice>?>? notices,
-      ModelFieldValue<List<NoticeStaff>?>? notifications,
-      ModelFieldValue<List<AircraftStaff>?>? aircraft,
-      ModelFieldValue<List<RoleStaff>?>? roles,
-      ModelFieldValue<List<StaffSubcategory>?>? subcategories,
-      ModelFieldValue<List<FlightCrewRecord>?>? flightCrewRecords,
-      ModelFieldValue<List<Report>?>? reports,
-      ModelFieldValue<List<ReportStaff>?>? reportNotifications,
-      ModelFieldValue<List<Report>?>? closedReport,
-      ModelFieldValue<List<Session>?>? sessions}) {
+  
+  Staff copyWithModelFieldValues({
+    ModelFieldValue<String>? firstName,
+    ModelFieldValue<String>? lastName,
+    ModelFieldValue<String>? email,
+    ModelFieldValue<bool>? archived,
+    ModelFieldValue<List<Document>?>? documents,
+    ModelFieldValue<List<Notice>?>? notices,
+    ModelFieldValue<List<NoticeStaff>?>? notifications,
+    ModelFieldValue<List<AircraftStaff>?>? aircraft,
+    ModelFieldValue<List<RoleStaff>?>? roles,
+    ModelFieldValue<List<StaffSubcategory>?>? subcategories,
+    ModelFieldValue<List<FlightCrewRecord>?>? flightCrewRecords,
+    ModelFieldValue<List<Report>?>? reports,
+    ModelFieldValue<List<ReportStaff>?>? reportNotifications,
+    ModelFieldValue<List<Report>?>? closedReport,
+    ModelFieldValue<List<Session>?>? sessions
+  }) {
     return Staff._internal(
-        id: id,
-        firstName: firstName == null ? this.firstName : firstName.value,
-        lastName: lastName == null ? this.lastName : lastName.value,
-        email: email == null ? this.email : email.value,
-        archived: archived == null ? this.archived : archived.value,
-        documents: documents == null ? this.documents : documents.value,
-        notices: notices == null ? this.notices : notices.value,
-        notifications:
-            notifications == null ? this.notifications : notifications.value,
-        aircraft: aircraft == null ? this.aircraft : aircraft.value,
-        roles: roles == null ? this.roles : roles.value,
-        subcategories:
-            subcategories == null ? this.subcategories : subcategories.value,
-        flightCrewRecords: flightCrewRecords == null
-            ? this.flightCrewRecords
-            : flightCrewRecords.value,
-        reports: reports == null ? this.reports : reports.value,
-        reportNotifications: reportNotifications == null
-            ? this.reportNotifications
-            : reportNotifications.value,
-        closedReport:
-            closedReport == null ? this.closedReport : closedReport.value,
-        sessions: sessions == null ? this.sessions : sessions.value);
+      id: id,
+      firstName: firstName == null ? this.firstName : firstName.value,
+      lastName: lastName == null ? this.lastName : lastName.value,
+      email: email == null ? this.email : email.value,
+      archived: archived == null ? this.archived : archived.value,
+      documents: documents == null ? this.documents : documents.value,
+      notices: notices == null ? this.notices : notices.value,
+      notifications: notifications == null ? this.notifications : notifications.value,
+      aircraft: aircraft == null ? this.aircraft : aircraft.value,
+      roles: roles == null ? this.roles : roles.value,
+      subcategories: subcategories == null ? this.subcategories : subcategories.value,
+      flightCrewRecords: flightCrewRecords == null ? this.flightCrewRecords : flightCrewRecords.value,
+      reports: reports == null ? this.reports : reports.value,
+      reportNotifications: reportNotifications == null ? this.reportNotifications : reportNotifications.value,
+      closedReport: closedReport == null ? this.closedReport : closedReport.value,
+      sessions: sessions == null ? this.sessions : sessions.value
+    );
   }
-
-  Staff.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _firstName = json['firstName'],
-        _lastName = json['lastName'],
-        _email = json['email'],
-        _archived = json['archived'],
-        _documents = json['documents'] is Map
-            ? (json['documents']['items'] is List
-                ? (json['documents']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) =>
-                        Document.fromJson(new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['documents'] is List
-                ? (json['documents'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => Document.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _notices = json['notices'] is Map
-            ? (json['notices']['items'] is List
-                ? (json['notices']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) =>
-                        Notice.fromJson(new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['notices'] is List
-                ? (json['notices'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => Notice.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _notifications = json['notifications'] is Map
-            ? (json['notifications']['items'] is List
-                ? (json['notifications']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) =>
-                        NoticeStaff.fromJson(new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['notifications'] is List
-                ? (json['notifications'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => NoticeStaff.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _aircraft = json['aircraft'] is Map
-            ? (json['aircraft']['items'] is List
-                ? (json['aircraft']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) => AircraftStaff.fromJson(
-                        new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['aircraft'] is List
-                ? (json['aircraft'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => AircraftStaff.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _roles = json['roles'] is Map
-            ? (json['roles']['items'] is List
-                ? (json['roles']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) =>
-                        RoleStaff.fromJson(new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['roles'] is List
-                ? (json['roles'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => RoleStaff.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _subcategories = json['subcategories'] is Map
-            ? (json['subcategories']['items'] is List
-                ? (json['subcategories']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) => StaffSubcategory.fromJson(
-                        new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['subcategories'] is List
-                ? (json['subcategories'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => StaffSubcategory.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _flightCrewRecords = json['flightCrewRecords'] is Map
-            ? (json['flightCrewRecords']['items'] is List
-                ? (json['flightCrewRecords']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) => FlightCrewRecord.fromJson(
-                        new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['flightCrewRecords'] is List
-                ? (json['flightCrewRecords'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => FlightCrewRecord.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _reports = json['reports'] is Map
-            ? (json['reports']['items'] is List
-                ? (json['reports']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) =>
-                        Report.fromJson(new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['reports'] is List
-                ? (json['reports'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => Report.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _reportNotifications = json['reportNotifications'] is Map
-            ? (json['reportNotifications']['items'] is List
-                ? (json['reportNotifications']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) =>
-                        ReportStaff.fromJson(new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['reportNotifications'] is List
-                ? (json['reportNotifications'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => ReportStaff.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _closedReport = json['closedReport'] is Map
-            ? (json['closedReport']['items'] is List
-                ? (json['closedReport']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) =>
-                        Report.fromJson(new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['closedReport'] is List
-                ? (json['closedReport'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => Report.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _sessions = json['sessions'] is Map
-            ? (json['sessions']['items'] is List
-                ? (json['sessions']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) =>
-                        Session.fromJson(new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['sessions'] is List
-                ? (json['sessions'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => Session.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
-        _createdAt = json['createdAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
-            : null,
-        _updatedAt = json['updatedAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['updatedAt'])
-            : null;
-
+  
+  Staff.fromJson(Map<String, dynamic> json)  
+    : id = json['id'],
+      _firstName = json['firstName'],
+      _lastName = json['lastName'],
+      _email = json['email'],
+      _archived = json['archived'],
+      _documents = json['documents']  is Map
+        ? (json['documents']['items'] is List
+          ? (json['documents']['items'] as List)
+              .where((e) => e != null)
+              .map((e) => Document.fromJson(new Map<String, dynamic>.from(e)))
+              .toList()
+          : null)
+        : (json['documents'] is List
+          ? (json['documents'] as List)
+              .where((e) => e?['serializedData'] != null)
+              .map((e) => Document.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .toList()
+          : null),
+      _notices = json['notices']  is Map
+        ? (json['notices']['items'] is List
+          ? (json['notices']['items'] as List)
+              .where((e) => e != null)
+              .map((e) => Notice.fromJson(new Map<String, dynamic>.from(e)))
+              .toList()
+          : null)
+        : (json['notices'] is List
+          ? (json['notices'] as List)
+              .where((e) => e?['serializedData'] != null)
+              .map((e) => Notice.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .toList()
+          : null),
+      _notifications = json['notifications']  is Map
+        ? (json['notifications']['items'] is List
+          ? (json['notifications']['items'] as List)
+              .where((e) => e != null)
+              .map((e) => NoticeStaff.fromJson(new Map<String, dynamic>.from(e)))
+              .toList()
+          : null)
+        : (json['notifications'] is List
+          ? (json['notifications'] as List)
+              .where((e) => e?['serializedData'] != null)
+              .map((e) => NoticeStaff.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .toList()
+          : null),
+      _aircraft = json['aircraft']  is Map
+        ? (json['aircraft']['items'] is List
+          ? (json['aircraft']['items'] as List)
+              .where((e) => e != null)
+              .map((e) => AircraftStaff.fromJson(new Map<String, dynamic>.from(e)))
+              .toList()
+          : null)
+        : (json['aircraft'] is List
+          ? (json['aircraft'] as List)
+              .where((e) => e?['serializedData'] != null)
+              .map((e) => AircraftStaff.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .toList()
+          : null),
+      _roles = json['roles']  is Map
+        ? (json['roles']['items'] is List
+          ? (json['roles']['items'] as List)
+              .where((e) => e != null)
+              .map((e) => RoleStaff.fromJson(new Map<String, dynamic>.from(e)))
+              .toList()
+          : null)
+        : (json['roles'] is List
+          ? (json['roles'] as List)
+              .where((e) => e?['serializedData'] != null)
+              .map((e) => RoleStaff.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .toList()
+          : null),
+      _subcategories = json['subcategories']  is Map
+        ? (json['subcategories']['items'] is List
+          ? (json['subcategories']['items'] as List)
+              .where((e) => e != null)
+              .map((e) => StaffSubcategory.fromJson(new Map<String, dynamic>.from(e)))
+              .toList()
+          : null)
+        : (json['subcategories'] is List
+          ? (json['subcategories'] as List)
+              .where((e) => e?['serializedData'] != null)
+              .map((e) => StaffSubcategory.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .toList()
+          : null),
+      _flightCrewRecords = json['flightCrewRecords']  is Map
+        ? (json['flightCrewRecords']['items'] is List
+          ? (json['flightCrewRecords']['items'] as List)
+              .where((e) => e != null)
+              .map((e) => FlightCrewRecord.fromJson(new Map<String, dynamic>.from(e)))
+              .toList()
+          : null)
+        : (json['flightCrewRecords'] is List
+          ? (json['flightCrewRecords'] as List)
+              .where((e) => e?['serializedData'] != null)
+              .map((e) => FlightCrewRecord.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .toList()
+          : null),
+      _reports = json['reports']  is Map
+        ? (json['reports']['items'] is List
+          ? (json['reports']['items'] as List)
+              .where((e) => e != null)
+              .map((e) => Report.fromJson(new Map<String, dynamic>.from(e)))
+              .toList()
+          : null)
+        : (json['reports'] is List
+          ? (json['reports'] as List)
+              .where((e) => e?['serializedData'] != null)
+              .map((e) => Report.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .toList()
+          : null),
+      _reportNotifications = json['reportNotifications']  is Map
+        ? (json['reportNotifications']['items'] is List
+          ? (json['reportNotifications']['items'] as List)
+              .where((e) => e != null)
+              .map((e) => ReportStaff.fromJson(new Map<String, dynamic>.from(e)))
+              .toList()
+          : null)
+        : (json['reportNotifications'] is List
+          ? (json['reportNotifications'] as List)
+              .where((e) => e?['serializedData'] != null)
+              .map((e) => ReportStaff.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .toList()
+          : null),
+      _closedReport = json['closedReport']  is Map
+        ? (json['closedReport']['items'] is List
+          ? (json['closedReport']['items'] as List)
+              .where((e) => e != null)
+              .map((e) => Report.fromJson(new Map<String, dynamic>.from(e)))
+              .toList()
+          : null)
+        : (json['closedReport'] is List
+          ? (json['closedReport'] as List)
+              .where((e) => e?['serializedData'] != null)
+              .map((e) => Report.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .toList()
+          : null),
+      _sessions = json['sessions']  is Map
+        ? (json['sessions']['items'] is List
+          ? (json['sessions']['items'] as List)
+              .where((e) => e != null)
+              .map((e) => Session.fromJson(new Map<String, dynamic>.from(e)))
+              .toList()
+          : null)
+        : (json['sessions'] is List
+          ? (json['sessions'] as List)
+              .where((e) => e?['serializedData'] != null)
+              .map((e) => Session.fromJson(new Map<String, dynamic>.from(e?['serializedData'])))
+              .toList()
+          : null),
+      _createdAt = json['createdAt'] != null ? amplify_core.TemporalDateTime.fromString(json['createdAt']) : null,
+      _updatedAt = json['updatedAt'] != null ? amplify_core.TemporalDateTime.fromString(json['updatedAt']) : null;
+  
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'firstName': _firstName,
-        'lastName': _lastName,
-        'email': _email,
-        'archived': _archived,
-        'documents': _documents?.map((Document? e) => e?.toJson()).toList(),
-        'notices': _notices?.map((Notice? e) => e?.toJson()).toList(),
-        'notifications':
-            _notifications?.map((NoticeStaff? e) => e?.toJson()).toList(),
-        'aircraft': _aircraft?.map((AircraftStaff? e) => e?.toJson()).toList(),
-        'roles': _roles?.map((RoleStaff? e) => e?.toJson()).toList(),
-        'subcategories':
-            _subcategories?.map((StaffSubcategory? e) => e?.toJson()).toList(),
-        'flightCrewRecords': _flightCrewRecords
-            ?.map((FlightCrewRecord? e) => e?.toJson())
-            .toList(),
-        'reports': _reports?.map((Report? e) => e?.toJson()).toList(),
-        'reportNotifications':
-            _reportNotifications?.map((ReportStaff? e) => e?.toJson()).toList(),
-        'closedReport': _closedReport?.map((Report? e) => e?.toJson()).toList(),
-        'sessions': _sessions?.map((Session? e) => e?.toJson()).toList(),
-        'createdAt': _createdAt?.format(),
-        'updatedAt': _updatedAt?.format()
-      };
-
+    'id': id, 'firstName': _firstName, 'lastName': _lastName, 'email': _email, 'archived': _archived, 'documents': _documents?.map((Document? e) => e?.toJson()).toList(), 'notices': _notices?.map((Notice? e) => e?.toJson()).toList(), 'notifications': _notifications?.map((NoticeStaff? e) => e?.toJson()).toList(), 'aircraft': _aircraft?.map((AircraftStaff? e) => e?.toJson()).toList(), 'roles': _roles?.map((RoleStaff? e) => e?.toJson()).toList(), 'subcategories': _subcategories?.map((StaffSubcategory? e) => e?.toJson()).toList(), 'flightCrewRecords': _flightCrewRecords?.map((FlightCrewRecord? e) => e?.toJson()).toList(), 'reports': _reports?.map((Report? e) => e?.toJson()).toList(), 'reportNotifications': _reportNotifications?.map((ReportStaff? e) => e?.toJson()).toList(), 'closedReport': _closedReport?.map((Report? e) => e?.toJson()).toList(), 'sessions': _sessions?.map((Session? e) => e?.toJson()).toList(), 'createdAt': _createdAt?.format(), 'updatedAt': _updatedAt?.format()
+  };
+  
   Map<String, Object?> toMap() => {
-        'id': id,
-        'firstName': _firstName,
-        'lastName': _lastName,
-        'email': _email,
-        'archived': _archived,
-        'documents': _documents,
-        'notices': _notices,
-        'notifications': _notifications,
-        'aircraft': _aircraft,
-        'roles': _roles,
-        'subcategories': _subcategories,
-        'flightCrewRecords': _flightCrewRecords,
-        'reports': _reports,
-        'reportNotifications': _reportNotifications,
-        'closedReport': _closedReport,
-        'sessions': _sessions,
-        'createdAt': _createdAt,
-        'updatedAt': _updatedAt
-      };
+    'id': id,
+    'firstName': _firstName,
+    'lastName': _lastName,
+    'email': _email,
+    'archived': _archived,
+    'documents': _documents,
+    'notices': _notices,
+    'notifications': _notifications,
+    'aircraft': _aircraft,
+    'roles': _roles,
+    'subcategories': _subcategories,
+    'flightCrewRecords': _flightCrewRecords,
+    'reports': _reports,
+    'reportNotifications': _reportNotifications,
+    'closedReport': _closedReport,
+    'sessions': _sessions,
+    'createdAt': _createdAt,
+    'updatedAt': _updatedAt
+  };
 
-  static final amplify_core.QueryModelIdentifier<StaffModelIdentifier>
-      MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<StaffModelIdentifier>();
+  static final amplify_core.QueryModelIdentifier<StaffModelIdentifier> MODEL_IDENTIFIER = amplify_core.QueryModelIdentifier<StaffModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
   static final FIRSTNAME = amplify_core.QueryField(fieldName: "firstName");
   static final LASTNAME = amplify_core.QueryField(fieldName: "lastName");
   static final EMAIL = amplify_core.QueryField(fieldName: "email");
   static final ARCHIVED = amplify_core.QueryField(fieldName: "archived");
   static final DOCUMENTS = amplify_core.QueryField(
-      fieldName: "documents",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Document'));
+    fieldName: "documents",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Document'));
   static final NOTICES = amplify_core.QueryField(
-      fieldName: "notices",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Notice'));
+    fieldName: "notices",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Notice'));
   static final NOTIFICATIONS = amplify_core.QueryField(
-      fieldName: "notifications",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'NoticeStaff'));
+    fieldName: "notifications",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'NoticeStaff'));
   static final AIRCRAFT = amplify_core.QueryField(
-      fieldName: "aircraft",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'AircraftStaff'));
+    fieldName: "aircraft",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'AircraftStaff'));
   static final ROLES = amplify_core.QueryField(
-      fieldName: "roles",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'RoleStaff'));
+    fieldName: "roles",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'RoleStaff'));
   static final SUBCATEGORIES = amplify_core.QueryField(
-      fieldName: "subcategories",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'StaffSubcategory'));
+    fieldName: "subcategories",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'StaffSubcategory'));
   static final FLIGHTCREWRECORDS = amplify_core.QueryField(
-      fieldName: "flightCrewRecords",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'FlightCrewRecord'));
+    fieldName: "flightCrewRecords",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'FlightCrewRecord'));
   static final REPORTS = amplify_core.QueryField(
-      fieldName: "reports",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Report'));
+    fieldName: "reports",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Report'));
   static final REPORTNOTIFICATIONS = amplify_core.QueryField(
-      fieldName: "reportNotifications",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'ReportStaff'));
+    fieldName: "reportNotifications",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'ReportStaff'));
   static final CLOSEDREPORT = amplify_core.QueryField(
-      fieldName: "closedReport",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Report'));
+    fieldName: "closedReport",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Report'));
   static final SESSIONS = amplify_core.QueryField(
-      fieldName: "sessions",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Session'));
-  static var schema = amplify_core.Model.defineSchema(
-      define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
+    fieldName: "sessions",
+    fieldType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.model, ofModelName: 'Session'));
+  static var schema = amplify_core.Model.defineSchema(define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Staff";
     modelSchemaDefinition.pluralName = "Staff";
-
+    
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
-          authStrategy: amplify_core.AuthStrategy.PRIVATE,
-          operations: const [
-            amplify_core.ModelOperation.CREATE,
-            amplify_core.ModelOperation.UPDATE,
-            amplify_core.ModelOperation.DELETE,
-            amplify_core.ModelOperation.READ
-          ])
+        authStrategy: amplify_core.AuthStrategy.PRIVATE,
+        operations: const [
+          amplify_core.ModelOperation.CREATE,
+          amplify_core.ModelOperation.UPDATE,
+          amplify_core.ModelOperation.DELETE,
+          amplify_core.ModelOperation.READ
+        ])
     ];
-
+    
     modelSchemaDefinition.indexes = [
       amplify_core.ModelIndex(fields: const ["id"], name: null)
     ];
-
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
-
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Staff.FIRSTNAME,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
-
+      key: Staff.FIRSTNAME,
+      isRequired: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Staff.LASTNAME,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
-
+      key: Staff.LASTNAME,
+      isRequired: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Staff.EMAIL,
-        isRequired: true,
-        ofType: amplify_core.ModelFieldType(
-            amplify_core.ModelFieldTypeEnum.string)));
-
+      key: Staff.EMAIL,
+      isRequired: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.string)
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: Staff.ARCHIVED,
-        isRequired: true,
-        ofType:
-            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)));
-
+      key: Staff.ARCHIVED,
+      isRequired: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Staff.DOCUMENTS,
-        isRequired: false,
-        ofModelName: 'Document',
-        associatedKey: Document.STAFF));
-
+      key: Staff.DOCUMENTS,
+      isRequired: false,
+      ofModelName: 'Document',
+      associatedKey: Document.STAFF
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Staff.NOTICES,
-        isRequired: false,
-        ofModelName: 'Notice',
-        associatedKey: Notice.AUTHOR));
-
+      key: Staff.NOTICES,
+      isRequired: false,
+      ofModelName: 'Notice',
+      associatedKey: Notice.AUTHOR
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Staff.NOTIFICATIONS,
-        isRequired: false,
-        ofModelName: 'NoticeStaff',
-        associatedKey: NoticeStaff.STAFF));
-
+      key: Staff.NOTIFICATIONS,
+      isRequired: false,
+      ofModelName: 'NoticeStaff',
+      associatedKey: NoticeStaff.STAFF
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Staff.AIRCRAFT,
-        isRequired: false,
-        ofModelName: 'AircraftStaff',
-        associatedKey: AircraftStaff.STAFF));
-
+      key: Staff.AIRCRAFT,
+      isRequired: false,
+      ofModelName: 'AircraftStaff',
+      associatedKey: AircraftStaff.STAFF
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Staff.ROLES,
-        isRequired: false,
-        ofModelName: 'RoleStaff',
-        associatedKey: RoleStaff.STAFF));
-
+      key: Staff.ROLES,
+      isRequired: false,
+      ofModelName: 'RoleStaff',
+      associatedKey: RoleStaff.STAFF
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Staff.SUBCATEGORIES,
-        isRequired: false,
-        ofModelName: 'StaffSubcategory',
-        associatedKey: StaffSubcategory.STAFF));
-
+      key: Staff.SUBCATEGORIES,
+      isRequired: false,
+      ofModelName: 'StaffSubcategory',
+      associatedKey: StaffSubcategory.STAFF
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Staff.FLIGHTCREWRECORDS,
-        isRequired: false,
-        ofModelName: 'FlightCrewRecord',
-        associatedKey: FlightCrewRecord.STAFF));
-
+      key: Staff.FLIGHTCREWRECORDS,
+      isRequired: false,
+      ofModelName: 'FlightCrewRecord',
+      associatedKey: FlightCrewRecord.STAFF
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Staff.REPORTS,
-        isRequired: false,
-        ofModelName: 'Report',
-        associatedKey: Report.AUDITOR));
-
+      key: Staff.REPORTS,
+      isRequired: false,
+      ofModelName: 'Report',
+      associatedKey: Report.AUDITOR
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Staff.REPORTNOTIFICATIONS,
-        isRequired: false,
-        ofModelName: 'ReportStaff',
-        associatedKey: ReportStaff.STAFF));
-
+      key: Staff.REPORTNOTIFICATIONS,
+      isRequired: false,
+      ofModelName: 'ReportStaff',
+      associatedKey: ReportStaff.STAFF
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Staff.CLOSEDREPORT,
-        isRequired: false,
-        ofModelName: 'Report',
-        associatedKey: Report.CLOSER));
-
+      key: Staff.CLOSEDREPORT,
+      isRequired: false,
+      ofModelName: 'Report',
+      associatedKey: Report.CLOSER
+    ));
+    
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Staff.SESSIONS,
-        isRequired: false,
-        ofModelName: 'Session',
-        associatedKey: Session.STAFF));
-
-    modelSchemaDefinition.addField(
-        amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'createdAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
-
-    modelSchemaDefinition.addField(
-        amplify_core.ModelFieldDefinition.nonQueryField(
-            fieldName: 'updatedAt',
-            isRequired: false,
-            isReadOnly: true,
-            ofType: amplify_core.ModelFieldType(
-                amplify_core.ModelFieldTypeEnum.dateTime)));
+      key: Staff.SESSIONS,
+      isRequired: false,
+      ofModelName: 'Session',
+      associatedKey: Session.STAFF
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
+      fieldName: 'createdAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
+    ));
+    
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.nonQueryField(
+      fieldName: 'updatedAt',
+      isRequired: false,
+      isReadOnly: true,
+      ofType: amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.dateTime)
+    ));
   });
 }
 
 class _StaffModelType extends amplify_core.ModelType<Staff> {
   const _StaffModelType();
-
+  
   @override
   Staff fromJson(Map<String, dynamic> jsonData) {
     return Staff.fromJson(jsonData);
   }
-
+  
   @override
   String modelName() {
     return 'Staff';
@@ -819,32 +664,37 @@ class StaffModelIdentifier implements amplify_core.ModelIdentifier<Staff> {
   final String id;
 
   /** Create an instance of StaffModelIdentifier using [id] the primary key. */
-  const StaffModelIdentifier({required this.id});
-
+  const StaffModelIdentifier({
+    required this.id});
+  
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
-
+  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{
+    'id': id
+  });
+  
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
-      .entries
-      .map((entry) => (<String, dynamic>{entry.key: entry.value}))
-      .toList();
-
+    .entries
+    .map((entry) => (<String, dynamic>{ entry.key: entry.value }))
+    .toList();
+  
   @override
   String serializeAsString() => serializeAsMap().values.join('#');
-
+  
   @override
   String toString() => 'StaffModelIdentifier(id: $id)';
-
+  
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) {
       return true;
     }
-
-    return other is StaffModelIdentifier && id == other.id;
+    
+    return other is StaffModelIdentifier &&
+      id == other.id;
   }
-
+  
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode =>
+    id.hashCode;
 }

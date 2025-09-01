@@ -56,6 +56,7 @@ query ListReports(\$filter: ModelReportFilterInput) {
       subject
       status
       archived
+      discrepanciesFound
       reportedAt
       details
       createdAt
@@ -105,6 +106,7 @@ query GetReportDetails(\$id: ID!) {
     subject
     status
     archived
+    discrepanciesFound
     reportedAt
     details
     createdAt

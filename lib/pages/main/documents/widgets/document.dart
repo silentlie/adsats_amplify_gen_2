@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
@@ -57,7 +58,7 @@ class EditDocumentView extends ConsumerWidget with ConfirmDialogMixin {
                         (e) {
                           return DropdownMenuEntry(
                             value: e,
-                            label: "${e.firstName} ${e.lastName}",
+                            label: e.fullName,
                           );
                         },
                       ).toList(),

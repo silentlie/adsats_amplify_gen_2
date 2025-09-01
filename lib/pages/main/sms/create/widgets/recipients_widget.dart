@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -87,7 +88,7 @@ class NoticeRecipientsWidget extends ConsumerWidget {
                   toCard: (value) {
                     return CheckListCard(
                       value: value,
-                      title: Text("${value.firstName} ${value.lastName}"),
+                      title: Text(value.fullName),
                     );
                   },
                   onSaved: (newValue) {
@@ -129,7 +130,7 @@ class NoticeRecipientsWidget extends ConsumerWidget {
                   ...state.recipients.map((e) => Padding(
                         padding: const EdgeInsets.all(8.0),
                         child:
-                            Chip(label: Text("${e.firstName} ${e.lastName}")),
+                            Chip(label: Text(e.fullName)),
                       )),
                   if (state.recipients.isEmpty) Text("Nil"),
                 ],

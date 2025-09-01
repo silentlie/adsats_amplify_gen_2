@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -46,7 +47,7 @@ class StaffView extends ConsumerWidget with ConfirmDialogMixin {
     return AlertDialog.adaptive(
       title: Text(
         isEditing
-            ? 'Editing ${staff.firstName} ${staff.lastName}'
+            ? 'Editing ${staff.fullName}'
             : 'Add an staff',
       ),
       content: SingleChildScrollView(

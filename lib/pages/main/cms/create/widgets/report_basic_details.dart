@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -20,6 +21,9 @@ class ReportBasicDetails extends ConsumerWidget {
     final isEditMode = ref.watch(reportFormProvider.select(
       (value) => value.editMode,
     ));
+    final status = ref.watch(reportFormProvider.select(
+      (value) => value.report.status,
+    ));
     return Column(
       children: [
         const Divider(),
@@ -38,10 +42,7 @@ class ReportBasicDetails extends ConsumerWidget {
                 value: ref.watch(listStaffProvider()),
                 data: (value) {
                   final initialSelection = notifier.isNew()
-                      ? value.firstWhere(
-                          (e) =>
-                              e.id == ref.watch(userDetailsProvider).value!.id,
-                        )
+                      ? value.firstWhere((e) => e.id == report.auditor?.id)
                       : report.auditor!;
                   notifier.updateReport(
                     auditor: initialSelection,
@@ -49,8 +50,7 @@ class ReportBasicDetails extends ConsumerWidget {
                   return GlobalDropdownMenu<Staff>(
                     entries: value.map(
                       (e) {
-                        return DropdownMenuEntry(
-                            value: e, label: "${e.firstName} ${e.lastName}");
+                        return DropdownMenuEntry(value: e, label: e.fullName);
                       },
                     ).toList(),
                     enabled: isComplianceManager && isEditMode,
@@ -104,9 +104,7 @@ class ReportBasicDetails extends ConsumerWidget {
                       )
                       .map((e) => DropdownMenuEntry(value: e, label: e.name))
                       .toList(),
-                  initialSelection: ref.watch(reportFormProvider.select(
-                    (value) => value.report.status,
-                  )),
+                  initialSelection: status,
                   enabled: isEditMode,
                   onSelected: (value) {
                     notifier.switchStatus(value!);

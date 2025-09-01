@@ -37,6 +37,7 @@ class ExternalAuditReportPage extends ConsumerWidget {
                   type: ReportType.External_audit_report,
                   documents: [],
                   auditor: userDetails,
+                  discrepanciesFound: false,
                 ),
             report != null,
           );

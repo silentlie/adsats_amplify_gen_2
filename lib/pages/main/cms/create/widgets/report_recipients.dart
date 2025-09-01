@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,7 +22,10 @@ class ReportRecipients extends ConsumerWidget {
           Text("Recipients:"),
           ...state.recipients.map((e) => Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Chip(label: Text("${e.firstName} ${e.lastName}")),
+                child: Chip(
+                  label: Text(e.fullName),
+                  color: WidgetStateProperty.all(Colors.green),
+                ),
               )),
           if (state.recipients.isEmpty) Text("Nil"),
         ],

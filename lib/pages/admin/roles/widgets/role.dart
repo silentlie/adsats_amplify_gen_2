@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -76,7 +77,7 @@ class RoleView extends ConsumerWidget with ConfirmDialogMixin {
                   toCard: (value) {
                     return CheckListCard(
                       value: value,
-                      title: Text("${value.firstName} ${value.lastName}"),
+                      title: Text(value.fullName),
                     );
                   },
                   onChange: (newValue) {

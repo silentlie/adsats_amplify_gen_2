@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ List<ListTile> buildNotifications(BuildContext context, WidgetRef ref) {
             children: <TextSpan>[
               TextSpan(
                 text:
-                    "${e.notice?.author?.firstName} ${e.notice?.author?.lastName}",
+                    e.notice?.author?.fullName,
                 style: const TextStyle(fontWeight: FontWeight.normal),
               ),
             ],

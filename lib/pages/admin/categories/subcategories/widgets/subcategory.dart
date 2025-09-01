@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -117,7 +118,7 @@ class SubcategoryView extends ConsumerWidget with ConfirmDialogMixin {
                             return CheckListCard(
                               value: value,
                               title:
-                                  Text("${value.firstName} ${value.lastName}"),
+                                  Text(value.fullName),
                             );
                           },
                           onChange: (options) {
@@ -172,8 +173,7 @@ class SubcategoryView extends ConsumerWidget with ConfirmDialogMixin {
                                 ).toList();
                               },
                               initialSelection: ss.accessLevel,
-                              text:
-                                  "${ss.staff!.firstName} ${ss.staff!.lastName}",
+                              text: ss.staff!.fullName,
                             );
                           },
                         )

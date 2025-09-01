@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/models/FlightCrewRecordCategory.dart';
 import 'package:adsats_amplify_gen_2/models/Staff.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/filter.dart';
@@ -29,7 +30,7 @@ class FlightCrewRecordsHeader extends ConsumerWidget {
     final currentPath = GoRouter.of(context).state.uri.path;
     final isProfileRoute = currentPath == ProfileRoute().location;
     final text = Text(
-      '${staff.firstName} ${staff.lastName}\'s ${category.name}',
+      '${staff.fullName}\'s ${category.name}',
       style: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,

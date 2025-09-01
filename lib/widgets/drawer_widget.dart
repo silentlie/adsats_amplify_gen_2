@@ -1,5 +1,6 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/iterable_join_string_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
@@ -113,7 +114,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
             const SizedBox(height: 10),
             Center(
               child: Text(
-                "${user.firstName} ${user.lastName}",
+                user.fullName,
                 style: const TextStyle(
                   fontSize: 16,
                 ),

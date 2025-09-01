@@ -23,7 +23,7 @@ Future<List<Report>> reports(Ref ref, InboxOrSent type) async {
           .toList();
       break;
     case InboxOrSent.sent:
-      filterJson['staffId'] = {'eq': filter.user.id};
+      filterJson['auditorId'] = {'eq': filter.user.id};
       break;
   }
   final reports = await service.list(variables: {"filter": filterJson});

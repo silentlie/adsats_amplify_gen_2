@@ -30,14 +30,16 @@ class InternalAuditReportPage extends ConsumerWidget {
             return ReportForm.withReport(
               report ??
                   Report(
-                      subject: "",
-                      archived: false,
-                      details: "{}",
-                      recipients: [],
-                      status: ReportStatus.Open,
-                      type: ReportType.Internal_audit_report,
-                      documents: [],
-                      auditor: userDetails),
+                    subject: "",
+                    archived: false,
+                    details: "{}",
+                    recipients: [],
+                    status: ReportStatus.Open,
+                    type: ReportType.Internal_audit_report,
+                    documents: [],
+                    auditor: userDetails,
+                    discrepanciesFound: false,
+                  ),
               report != null,
             );
           },
@@ -54,6 +56,12 @@ class InternalAuditReportForm extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final report = ref.watch(
+      reportFormProvider.select(
+        (value) => value.report,
+      ),
+    );
+    print(report);
     return Form(
       key: GlobalKey<FormState>(),
       child: Column(
