@@ -24,6 +24,7 @@ Future<String> userId(Ref ref) async {
   );
 }
 
+// TODO verify all listeners that only listen to value
 @Riverpod(dependencies: [userId])
 Future<Staff> userDetails(Ref ref) async {
   final id = await ref.watch(userIdProvider.future);

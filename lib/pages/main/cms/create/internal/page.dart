@@ -21,12 +21,16 @@ class InternalAuditReportPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final userDetails = ref.watch(userDetailsProvider.select(
-      (value) => value.value!,
+      (value) {
+        print(value.value);
+        return value.value!;
+      },
     ));
     return ProviderScope(
       overrides: [
         reportFormProvider.overrideWith(
           () {
+            print(report);
             return ReportForm.withReport(
               report ??
                   Report(
@@ -78,7 +82,7 @@ class InternalAuditReportForm extends ConsumerWidget {
           ),
           ReportBasicDetails(),
           const Divider(),
-          InternalAuditReportForm(),
+          InternalAuditReportBody(),
           const Divider(),
           ReportRecipients(),
           const Divider(),

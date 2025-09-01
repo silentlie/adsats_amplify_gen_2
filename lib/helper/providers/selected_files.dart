@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'selected_files.g.dart';
 
-@Riverpod()
+@Riverpod(dependencies: [])
 class SelectedFiles extends _$SelectedFiles {
   @override
   List<PlatformFile> build() {

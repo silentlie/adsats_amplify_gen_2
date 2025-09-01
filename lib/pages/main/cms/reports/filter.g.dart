@@ -45,7 +45,7 @@ final class ReportFilterProvider
   }
 }
 
-String _$reportFilterHash() => r'cdd9039f932631e987dc1ab045249d0c0d0914cd';
+String _$reportFilterHash() => r'7ccb1d1b5198a0f69e655b1faddd3e9217e81a3c';
 
 abstract class _$ReportFilter extends $Notifier<ReportFilterState> {
   ReportFilterState build();
