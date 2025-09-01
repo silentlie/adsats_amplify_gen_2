@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -31,13 +31,14 @@ class SessionManager extends _$SessionManager {
       _currentSession = Session(
         staff: user,
       );
+      final db = ref.read(databaseAPIProvider);
       // Save initial session
-      await create(_currentSession!);
+      await db.create(_currentSession!);
       // Start periodic updates
       _heartbeatTimer =
           Timer.periodic(const Duration(minutes: 1), (timer) async {
         if (_currentSession != null) {
-          await update(_currentSession!);
+          await db.update(_currentSession!);
         }
       });
     } catch (e) {

@@ -1,0 +1,1 @@
+enum InboxOrSent { inbox, sent }

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'state.dart';
+part of 'form.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,57 +13,63 @@ part of 'state.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$ReportState {
-  GlobalKey<FormState> get formKey;
-  set formKey(GlobalKey<FormState> value);
+mixin _$ReportFormState {
   Report get report;
-  set report(Report value);
   bool get editMode;
-  set editMode(bool value);
 
-  /// Create a copy of ReportState
+  /// Create a copy of ReportFormState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $ReportStateCopyWith<ReportState> get copyWith =>
-      _$ReportStateCopyWithImpl<ReportState>(this as ReportState, _$identity);
+  $ReportFormStateCopyWith<ReportFormState> get copyWith =>
+      _$ReportFormStateCopyWithImpl<ReportFormState>(
+          this as ReportFormState, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is ReportFormState &&
+            (identical(other.report, report) || other.report == report) &&
+            (identical(other.editMode, editMode) ||
+                other.editMode == editMode));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, report, editMode);
 
   @override
   String toString() {
-    return 'ReportState(formKey: $formKey, report: $report, editMode: $editMode)';
+    return 'ReportFormState(report: $report, editMode: $editMode)';
   }
 }
 
 /// @nodoc
-abstract mixin class $ReportStateCopyWith<$Res> {
-  factory $ReportStateCopyWith(
-          ReportState value, $Res Function(ReportState) _then) =
-      _$ReportStateCopyWithImpl;
+abstract mixin class $ReportFormStateCopyWith<$Res> {
+  factory $ReportFormStateCopyWith(
+          ReportFormState value, $Res Function(ReportFormState) _then) =
+      _$ReportFormStateCopyWithImpl;
   @useResult
-  $Res call({GlobalKey<FormState> formKey, Report report, bool editMode});
+  $Res call({Report report, bool editMode});
 }
 
 /// @nodoc
-class _$ReportStateCopyWithImpl<$Res> implements $ReportStateCopyWith<$Res> {
-  _$ReportStateCopyWithImpl(this._self, this._then);
+class _$ReportFormStateCopyWithImpl<$Res>
+    implements $ReportFormStateCopyWith<$Res> {
+  _$ReportFormStateCopyWithImpl(this._self, this._then);
 
-  final ReportState _self;
-  final $Res Function(ReportState) _then;
+  final ReportFormState _self;
+  final $Res Function(ReportFormState) _then;
 
-  /// Create a copy of ReportState
+  /// Create a copy of ReportFormState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? formKey = null,
     Object? report = null,
     Object? editMode = null,
   }) {
     return _then(_self.copyWith(
-      formKey: null == formKey
-          ? _self.formKey
-          : formKey // ignore: cast_nullable_to_non_nullable
-              as GlobalKey<FormState>,
       report: null == report
           ? _self.report
           : report // ignore: cast_nullable_to_non_nullable
@@ -76,8 +82,8 @@ class _$ReportStateCopyWithImpl<$Res> implements $ReportStateCopyWith<$Res> {
   }
 }
 
-/// Adds pattern-matching-related methods to [ReportState].
-extension ReportStatePatterns on ReportState {
+/// Adds pattern-matching-related methods to [ReportFormState].
+extension ReportFormStatePatterns on ReportFormState {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -92,12 +98,12 @@ extension ReportStatePatterns on ReportState {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(_ReportState value)? $default, {
+    TResult Function(_ReportFormState value)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _ReportState() when $default != null:
+      case _ReportFormState() when $default != null:
         return $default(_that);
       case _:
         return orElse();
@@ -119,11 +125,11 @@ extension ReportStatePatterns on ReportState {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(_ReportState value) $default,
+    TResult Function(_ReportFormState value) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _ReportState():
+      case _ReportFormState():
         return $default(_that);
     }
   }
@@ -142,11 +148,11 @@ extension ReportStatePatterns on ReportState {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_ReportState value)? $default,
+    TResult? Function(_ReportFormState value)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _ReportState() when $default != null:
+      case _ReportFormState() when $default != null:
         return $default(_that);
       case _:
         return null;
@@ -167,15 +173,13 @@ extension ReportStatePatterns on ReportState {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(
-            GlobalKey<FormState> formKey, Report report, bool editMode)?
-        $default, {
+    TResult Function(Report report, bool editMode)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _ReportState() when $default != null:
-        return $default(_that.formKey, _that.report, _that.editMode);
+      case _ReportFormState() when $default != null:
+        return $default(_that.report, _that.editMode);
       case _:
         return orElse();
     }
@@ -196,13 +200,12 @@ extension ReportStatePatterns on ReportState {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(GlobalKey<FormState> formKey, Report report, bool editMode)
-        $default,
+    TResult Function(Report report, bool editMode) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _ReportState():
-        return $default(_that.formKey, _that.report, _that.editMode);
+      case _ReportFormState():
+        return $default(_that.report, _that.editMode);
     }
   }
 
@@ -220,14 +223,12 @@ extension ReportStatePatterns on ReportState {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(
-            GlobalKey<FormState> formKey, Report report, bool editMode)?
-        $default,
+    TResult? Function(Report report, bool editMode)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _ReportState() when $default != null:
-        return $default(_that.formKey, _that.report, _that.editMode);
+      case _ReportFormState() when $default != null:
+        return $default(_that.report, _that.editMode);
       case _:
         return null;
     }
@@ -236,65 +237,70 @@ extension ReportStatePatterns on ReportState {
 
 /// @nodoc
 
-class _ReportState extends ReportState {
-  _ReportState(
-      {required this.formKey, required this.report, this.editMode = true})
+class _ReportFormState extends ReportFormState {
+  const _ReportFormState({required this.report, required this.editMode})
       : super._();
 
   @override
-  GlobalKey<FormState> formKey;
+  final Report report;
   @override
-  Report report;
-  @override
-  @JsonKey()
-  bool editMode;
+  final bool editMode;
 
-  /// Create a copy of ReportState
+  /// Create a copy of ReportFormState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$ReportStateCopyWith<_ReportState> get copyWith =>
-      __$ReportStateCopyWithImpl<_ReportState>(this, _$identity);
+  _$ReportFormStateCopyWith<_ReportFormState> get copyWith =>
+      __$ReportFormStateCopyWithImpl<_ReportFormState>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _ReportFormState &&
+            (identical(other.report, report) || other.report == report) &&
+            (identical(other.editMode, editMode) ||
+                other.editMode == editMode));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, report, editMode);
 
   @override
   String toString() {
-    return 'ReportState(formKey: $formKey, report: $report, editMode: $editMode)';
+    return 'ReportFormState(report: $report, editMode: $editMode)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$ReportStateCopyWith<$Res>
-    implements $ReportStateCopyWith<$Res> {
-  factory _$ReportStateCopyWith(
-          _ReportState value, $Res Function(_ReportState) _then) =
-      __$ReportStateCopyWithImpl;
+abstract mixin class _$ReportFormStateCopyWith<$Res>
+    implements $ReportFormStateCopyWith<$Res> {
+  factory _$ReportFormStateCopyWith(
+          _ReportFormState value, $Res Function(_ReportFormState) _then) =
+      __$ReportFormStateCopyWithImpl;
   @override
   @useResult
-  $Res call({GlobalKey<FormState> formKey, Report report, bool editMode});
+  $Res call({Report report, bool editMode});
 }
 
 /// @nodoc
-class __$ReportStateCopyWithImpl<$Res> implements _$ReportStateCopyWith<$Res> {
-  __$ReportStateCopyWithImpl(this._self, this._then);
+class __$ReportFormStateCopyWithImpl<$Res>
+    implements _$ReportFormStateCopyWith<$Res> {
+  __$ReportFormStateCopyWithImpl(this._self, this._then);
 
-  final _ReportState _self;
-  final $Res Function(_ReportState) _then;
+  final _ReportFormState _self;
+  final $Res Function(_ReportFormState) _then;
 
-  /// Create a copy of ReportState
+  /// Create a copy of ReportFormState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? formKey = null,
     Object? report = null,
     Object? editMode = null,
   }) {
-    return _then(_ReportState(
-      formKey: null == formKey
-          ? _self.formKey
-          : formKey // ignore: cast_nullable_to_non_nullable
-              as GlobalKey<FormState>,
+    return _then(_ReportFormState(
       report: null == report
           ? _self.report
           : report // ignore: cast_nullable_to_non_nullable

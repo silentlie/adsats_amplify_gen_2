@@ -5,6 +5,7 @@ import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/email_content_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/s3_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -31,7 +32,7 @@ class NoticeRepository {
     return Notice.fromJson(res["getNotice"]);
   }
 
-  Future<List<String>> listNoticeIdsForInbox(String staffId) async {
+  Future<List<String>> listIdsForInbox(String staffId) async {
     final ids = await _db.listAll(
       modelType: NoticeStaff.classType,
       where: NoticeStaff.STAFF.eq(staffId),
@@ -39,42 +40,54 @@ class NoticeRepository {
     return ids.map((e) => e.notice!.id).toList();
   }
 
-  Future<List<Notice>> getNotices(Map<String, dynamic> variables) async {
+  Future<List<Notice>> list({
+    required Map<String, dynamic> variables,
+    void Function(void Function())? bindCancel,
+  }) async {
     final res = await _db.query(
       document: listNoticesGraphQL,
       variables: variables,
+      bindCancel: bindCancel,
     );
     return (res["listNotices"]["items"] as List)
         .map((e) => Notice.fromJson(e))
         .toList();
   }
 
-  Future<Notice> deleteNotice(Notice notice) async {
+  Future<Notice> archive(Notice notice) async {
+    return _db.update(notice.copyWith(archived: !notice.archived));
+  }
+
+  Future<NoticeStaff> read(NoticeStaff noticeStaff) async {
+    return _db.update(noticeStaff.copyWith(readAt: TemporalDateTime.now()));
+  }
+
+  Future<Notice> delete(Notice notice) async {
     // Load latest relations before deleting
     final res = await _db.query(
       document: getNoticeDetailsGraphQL,
       variables: {"id": notice.id},
     );
-    final current = Notice.fromJson(res["getNotice"]);
+    notice = Notice.fromJson(res["getNotice"]);
 
     final futures = <Future>[];
     // Delete join rows
-    futures.addAll((current.recipients ?? const <NoticeStaff>[])
+    futures.addAll((notice.recipients ?? const <NoticeStaff>[])
         .map((ns) => _db.delete(ns)));
-    futures.addAll((current.aircraft ?? const <AircraftNotice>[])
+    futures.addAll((notice.aircraft ?? const <AircraftNotice>[])
         .map((an) => _db.delete(an)));
 
     // Delete documents (storage first, then DB)
     futures.add(_removeDocuments(
-      initial: current,
+      initial: notice,
       keep: const [],
     ));
 
     // Delete the notice itself
-    futures.add(_db.delete(current));
+    futures.add(_db.delete(notice));
 
     await Future.wait(futures);
-    return current;
+    return notice;
   }
 
   Future<void> saveAndOptionallySend({
@@ -83,7 +96,7 @@ class NoticeRepository {
     required List<Aircraft> aircraft,
     required List<Role> roles,
     required List<Staff> manualRecipients,
-    required List<PlatformFile> selectedFiles,
+    required List<PlatformFile> newDocuments,
     required List<NoticeDocument> keepDocuments,
     required bool send,
     required void Function(String name, double p) onProgress,
@@ -93,7 +106,7 @@ class NoticeRepository {
         initial == null ? await _db.create(draft) : await _db.update(draft);
 
     // 2) Aircraft links
-    await _upsertAircraftLinks(
+    await _upsertAircraftNotices(
         notice: saved, initial: initial, newAircraft: aircraft);
 
     // 3) Remove deleted docs (storage first, then DB)
@@ -106,7 +119,7 @@ class NoticeRepository {
 
     // 4) Upload new files (+ create NoticeDocument records)
     await _uploadDocuments(
-      files: selectedFiles,
+      files: newDocuments,
       notice: saved,
       onProgress: onProgress,
       createDoc: (doc) => _db.create(doc),
@@ -120,7 +133,7 @@ class NoticeRepository {
     );
 
     if (recipients.isNotEmpty) {
-      await _syncRecipients(
+      await _upsertRecipients(
         notice: saved,
         initial: initial,
         newRecipients: recipients,
@@ -143,7 +156,7 @@ class NoticeRepository {
 
   // ---------- Private helpers ----------
 
-  Future<void> _syncRecipients({
+  Future<void> _upsertRecipients({
     required Notice notice,
     required Notice? initial,
     required Iterable<Staff> newRecipients,
@@ -167,7 +180,7 @@ class NoticeRepository {
     await Future.wait(ops);
   }
 
-  Future<void> _upsertAircraftLinks({
+  Future<void> _upsertAircraftNotices({
     required Notice notice,
     required Notice? initial,
     required List<Aircraft> newAircraft,

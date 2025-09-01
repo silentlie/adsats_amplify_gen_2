@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/pages/main/cms/create/state.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,13 +7,13 @@ class ReportRecipients extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final editMode = ref.watch(reportNotifierProvider.select(
+    final editMode = ref.watch(reportFormProvider.select(
       (value) => value.editMode,
     ));
     if (editMode) {
       return Text("This report will be sent to Compliance Managers");
     }
-    final state = ref.read(reportNotifierProvider);
+    final state = ref.read(reportFormProvider);
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(

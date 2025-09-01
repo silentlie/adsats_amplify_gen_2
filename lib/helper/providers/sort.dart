@@ -53,13 +53,11 @@ class Sort<T> extends _$Sort<T> {
     required Comparable? Function(T item) getField,
     int Function(T a, T b, bool sortAscending)? custom,
   }) {
-    // TODO: need to confirm if custom actual reset
     state = state.copyWith(
       sortColumnIndex: columnIndex,
       sortAscending: sortAscending,
       getField: getField,
       custom: custom,
     );
-    print(state);
   }
 }

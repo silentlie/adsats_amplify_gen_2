@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/create/external/page.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/create/internal/page.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/report/repo.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/providers/report.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,7 +24,7 @@ class ViewReportPage extends ConsumerWidget {
             children: [
               SingleChildScrollView(
                 child: AsyncValueWidget(
-                  value: ref.watch(reportRepoProvider(id)),
+                  value: ref.watch(reportProvider(id)),
                   data: (value) {
                     return switch (value.type) {
                       ReportType.Internal_audit_report =>

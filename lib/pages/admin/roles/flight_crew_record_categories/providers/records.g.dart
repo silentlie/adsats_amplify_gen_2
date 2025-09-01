@@ -63,7 +63,7 @@ final class FlightCrewRecordCategoriesProvider
 }
 
 String _$flightCrewRecordCategoriesHash() =>
-    r'b82f0bdc661dc02d55f0b061fe53db8d0626ee0d';
+    r'9061b85b4208f718ebb6070849437e00861995f7';
 
 final class FlightCrewRecordCategoriesFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Role>, String> {

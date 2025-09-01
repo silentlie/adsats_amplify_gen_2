@@ -1,33 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'repo.dart';
+part of 'report.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-@ProviderFor(reportRepo)
-const reportRepoProvider = ReportRepoFamily._();
+@ProviderFor(report)
+const reportProvider = ReportFamily._();
 
-final class ReportRepoProvider
+final class ReportProvider
     extends $FunctionalProvider<AsyncValue<Report>, Report, FutureOr<Report>>
     with $FutureModifier<Report>, $FutureProvider<Report> {
-  const ReportRepoProvider._(
-      {required ReportRepoFamily super.from, required String super.argument})
+  const ReportProvider._(
+      {required ReportFamily super.from, required String super.argument})
       : super(
           retry: null,
-          name: r'reportRepoProvider',
+          name: r'reportProvider',
           isAutoDispose: true,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$reportRepoHash();
+  String debugGetCreateSourceHash() => _$reportHash();
 
   @override
   String toString() {
-    return r'reportRepoProvider'
+    return r'reportProvider'
         ''
         '($argument)';
   }
@@ -40,7 +40,7 @@ final class ReportRepoProvider
   @override
   FutureOr<Report> create(Ref ref) {
     final argument = this.argument as String;
-    return reportRepo(
+    return report(
       ref,
       argument,
     );
@@ -48,7 +48,7 @@ final class ReportRepoProvider
 
   @override
   bool operator ==(Object other) {
-    return other is ReportRepoProvider && other.argument == argument;
+    return other is ReportProvider && other.argument == argument;
   }
 
   @override
@@ -57,26 +57,26 @@ final class ReportRepoProvider
   }
 }
 
-String _$reportRepoHash() => r'1f1004260ca717afe7a62c047c6b8a7367b624e6';
+String _$reportHash() => r'717f74015ee7d9018a6e0e5afb10931e16830691';
 
-final class ReportRepoFamily extends $Family
+final class ReportFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Report>, String> {
-  const ReportRepoFamily._()
+  const ReportFamily._()
       : super(
           retry: null,
-          name: r'reportRepoProvider',
+          name: r'reportProvider',
           dependencies: null,
           $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 
-  ReportRepoProvider call(
+  ReportProvider call(
     String id,
   ) =>
-      ReportRepoProvider._(argument: id, from: this);
+      ReportProvider._(argument: id, from: this);
 
   @override
-  String toString() => r'reportRepoProvider';
+  String toString() => r'reportProvider';
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/enum/inbox_or_sent.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';

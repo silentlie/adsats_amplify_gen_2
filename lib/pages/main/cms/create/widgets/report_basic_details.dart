@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/create/state.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
@@ -14,10 +14,10 @@ class ReportBasicDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final report = ref.read(reportNotifierProvider).report;
+    final report = ref.read(reportFormProvider).report;
     final isComplianceManager = ref.watch(isComplianceManagerProvider);
-    final notifier = ref.read(reportNotifierProvider.notifier);
-    final isEditMode = ref.watch(reportNotifierProvider.select(
+    final notifier = ref.read(reportFormProvider.notifier);
+    final isEditMode = ref.watch(reportFormProvider.select(
       (value) => value.editMode,
     ));
     return Column(
@@ -37,7 +37,7 @@ class ReportBasicDetails extends ConsumerWidget {
               child: AsyncValueWidget(
                 value: ref.watch(listStaffProvider()),
                 data: (value) {
-                  final initialSelection = !notifier.isEditable()
+                  final initialSelection = notifier.isNew()
                       ? value.firstWhere(
                           (e) =>
                               e.id == ref.watch(userDetailsProvider).value!.id,
@@ -68,7 +68,7 @@ class ReportBasicDetails extends ConsumerWidget {
         DatePickerWidget(
           text: "Report Date",
           onSelected: (value) {
-            notifier.updateReport(reportedAt: value);
+            notifier.updateReport(reportDate: value);
           },
           enabled: isEditMode,
           initialValue: report.reportedAt,
@@ -104,12 +104,12 @@ class ReportBasicDetails extends ConsumerWidget {
                       )
                       .map((e) => DropdownMenuEntry(value: e, label: e.name))
                       .toList(),
-                  initialSelection: ref.watch(reportNotifierProvider.select(
+                  initialSelection: ref.watch(reportFormProvider.select(
                     (value) => value.report.status,
                   )),
                   enabled: isEditMode,
                   onSelected: (value) {
-                    notifier.updateStatus(value!);
+                    notifier.switchStatus(value!);
                   },
                   hintText: "Status of this notice",
                   menuHeight: 200,

@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/create/s3.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/create/state.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/providers/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -12,12 +12,12 @@ class ReportDocuments extends ConsumerWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final newFiles = ref.watch(selectedFilesProvider);
     final uploadedFiles = ref.watch(
-      reportNotifierProvider.select(
+      reportFormProvider.select(
         (value) => value.report.documents ?? [],
       ),
     );
-    final notifier = ref.read(reportNotifierProvider.notifier);
-    final isEditMode = ref.watch(reportNotifierProvider.select(
+    final notifier = ref.read(reportFormProvider.notifier);
+    final isEditMode = ref.watch(reportFormProvider.select(
       (value) => value.editMode,
     ));
     final children = <Widget>[
@@ -29,17 +29,17 @@ class ReportDocuments extends ConsumerWidget {
             padding: const EdgeInsets.all(2.0),
             child: GestureDetector(
               onTap: () {
-                getReportDocumentFileUrl(
+                final service = ref.read(reportServiceProvider);
+                service.getFileURL(
                   document,
-                  ref.read(reportNotifierProvider).report,
+                  ref.read(reportFormProvider).report,
                 );
               },
               child: Chip(
                 label: Text(document.name),
                 color: WidgetStatePropertyAll(colorScheme.onPrimary),
-                onDeleted: isEditMode
-                    ? () => notifier.removeReportDocument(document)
-                    : null,
+                onDeleted:
+                    isEditMode ? () => notifier.removeDocument(document) : null,
               ),
             ),
           );

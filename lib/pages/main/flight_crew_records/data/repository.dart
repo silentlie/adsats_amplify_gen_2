@@ -65,7 +65,6 @@ class FlightCrewRecordsRepository {
       },
       bindCancel: bindCancel,
     );
-    print(result);
     return (result["getRole"]["staff"]["items"] as List)
         .map((e) => Staff.fromJson(e["staff"]))
         .where((element) => element.aircraft!.isNotEmpty);

@@ -1,4 +1,3 @@
-import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/Notice.dart';
@@ -17,7 +16,7 @@ class NoticeActions extends ConsumerWidget with ConfirmDialogMixin {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = MenuController();
     final isSafetyOfficer = ref.watch(isSafetyOfficerProvider);
-    final repository = ref.read(noticeServiceProvider);
+    final service = ref.read(noticeServiceProvider);
     return MenuAnchor(
       controller: controller,
       alignmentOffset: Offset(50, -40),
@@ -40,7 +39,7 @@ class NoticeActions extends ConsumerWidget with ConfirmDialogMixin {
                 ),
               );
               if (result) {
-                await update(notice.copyWith(archived: !notice.archived));
+                await service.archive(notice);
                 ref.invalidate(noticesProvider);
                 controller.close();
               }
@@ -63,7 +62,7 @@ class NoticeActions extends ConsumerWidget with ConfirmDialogMixin {
                 content: Text("Do you want to delete this notice?"),
               );
               if (result) {
-                await repository.deleteNotice(notice);
+                await service.delete(notice);
                 ref.invalidate(noticesProvider);
                 controller.close();
               }

@@ -1,71 +1,71 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'notice_form.dart';
+part of 'form.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-@ProviderFor(NoticeForm)
-const noticeFormProvider = NoticeFormProvider._();
+@ProviderFor(ReportForm)
+const reportFormProvider = ReportFormProvider._();
 
-final class NoticeFormProvider
-    extends $NotifierProvider<NoticeForm, NoticeFormState> {
-  const NoticeFormProvider._()
+final class ReportFormProvider
+    extends $NotifierProvider<ReportForm, ReportFormState> {
+  const ReportFormProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
-          name: r'noticeFormProvider',
+          name: r'reportFormProvider',
           isAutoDispose: true,
           dependencies: const <ProviderOrFamily>[
             selectedFilesProvider,
-            isSafetyOfficerProvider,
+            isComplianceManagerProvider,
             userDetailsProvider
           ],
           $allTransitiveDependencies: const <ProviderOrFamily>{
-            NoticeFormProvider.$allTransitiveDependencies0,
-            NoticeFormProvider.$allTransitiveDependencies1,
-            NoticeFormProvider.$allTransitiveDependencies2,
-            NoticeFormProvider.$allTransitiveDependencies3,
+            ReportFormProvider.$allTransitiveDependencies0,
+            ReportFormProvider.$allTransitiveDependencies1,
+            ReportFormProvider.$allTransitiveDependencies2,
+            ReportFormProvider.$allTransitiveDependencies3,
           },
         );
 
   static const $allTransitiveDependencies0 = selectedFilesProvider;
-  static const $allTransitiveDependencies1 = isSafetyOfficerProvider;
+  static const $allTransitiveDependencies1 = isComplianceManagerProvider;
   static const $allTransitiveDependencies2 =
-      IsSafetyOfficerProvider.$allTransitiveDependencies0;
+      IsComplianceManagerProvider.$allTransitiveDependencies0;
   static const $allTransitiveDependencies3 =
-      IsSafetyOfficerProvider.$allTransitiveDependencies1;
+      IsComplianceManagerProvider.$allTransitiveDependencies1;
 
   @override
-  String debugGetCreateSourceHash() => _$noticeFormHash();
+  String debugGetCreateSourceHash() => _$reportFormHash();
 
   @$internal
   @override
-  NoticeForm create() => NoticeForm();
+  ReportForm create() => ReportForm();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(NoticeFormState value) {
+  Override overrideWithValue(ReportFormState value) {
     return $ProviderOverride(
       origin: this,
-      providerOverride: $SyncValueProvider<NoticeFormState>(value),
+      providerOverride: $SyncValueProvider<ReportFormState>(value),
     );
   }
 }
 
-String _$noticeFormHash() => r'5c486f567efacec327bd60bbf333bd05a61d9d50';
+String _$reportFormHash() => r'a9f3becfad95930da9f5a67896d8e39ef7acc2bf';
 
-abstract class _$NoticeForm extends $Notifier<NoticeFormState> {
-  NoticeFormState build();
+abstract class _$ReportForm extends $Notifier<ReportFormState> {
+  ReportFormState build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<NoticeFormState, NoticeFormState>;
+    final ref = this.ref as $Ref<ReportFormState, ReportFormState>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<NoticeFormState, NoticeFormState>,
-        NoticeFormState,
+        AnyNotifier<ReportFormState, ReportFormState>,
+        ReportFormState,
         Object?,
         Object?>;
     element.handleValue(ref, created);

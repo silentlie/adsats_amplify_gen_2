@@ -45,7 +45,6 @@ class RolesRepository {
   }
 
   Future<Role> delete(Role role) async {
-    //TODO fetch before delete
     final List<Future> futures = [];
     role.staff?.forEach(
       (roleStaff) => futures.add(_db.delete(roleStaff)),

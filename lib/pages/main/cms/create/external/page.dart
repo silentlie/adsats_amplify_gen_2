@@ -1,17 +1,17 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/create/components.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/create/documents.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/create/report_actions_row.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/create/report_basic_details.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/create/report_recipients.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/create/state.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/create/widgets/components.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/create/widgets/documents.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/create/widgets/report_actions_row.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/create/widgets/report_basic_details.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/create/widgets/report_recipients.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ExternalAuditReportPage extends StatelessWidget {
+class ExternalAuditReportPage extends ConsumerWidget {
   const ExternalAuditReportPage({
     super.key,
     this.report,
@@ -19,57 +19,64 @@ class ExternalAuditReportPage extends StatelessWidget {
   final Report? report;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userDetails = ref.watch(userDetailsProvider.select(
+      (value) => value.value!,
+    ));
     return ProviderScope(
-      overrides: [reportNotifierProvider, selectedFilesProvider],
-      child: Consumer(
-        builder: (context, ref, child) {
-          final notifier = ref.read(reportNotifierProvider.notifier);
-          notifier.setReport(
+      overrides: [
+        reportFormProvider.overrideWith(() {
+          return ReportForm.withReport(
             report ??
                 Report(
-                    subject: "",
-                    archived: false,
-                    details: "{}",
-                    recipients: [],
-                    status: ReportStatus.Open,
-                    type: ReportType.External_audit_report,
-                    documents: []),
+                  subject: "",
+                  archived: false,
+                  details: "{}",
+                  recipients: [],
+                  status: ReportStatus.Open,
+                  type: ReportType.External_audit_report,
+                  documents: [],
+                  auditor: userDetails,
+                ),
             report != null,
           );
-          return Form(
-            key: ref.watch(
-              reportNotifierProvider.select(
-                (value) {
-                  return value.formKey;
-                },
+        }),
+        selectedFilesProvider,
+      ],
+      child: ExternalAuditReportForm(),
+    );
+  }
+}
+
+class ExternalAuditReportForm extends ConsumerWidget {
+  const ExternalAuditReportForm({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Form(
+      key: GlobalKey<FormState>(),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            child: const Text(
+              'External Audit Report',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
             ),
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  child: const Text(
-                    'External Audit Report',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-                ReportBasicDetails(),
-                const Divider(),
-                ExternalAuditReportBody(),
-                const Divider(),
-                ReportRecipients(),
-                const Divider(),
-                ReportDocuments(),
-                const Divider(),
-                ReportActionsRow(),
-              ],
-            ),
-          );
-        },
+          ),
+          ReportBasicDetails(),
+          const Divider(),
+          ExternalAuditReportBody(),
+          const Divider(),
+          ReportRecipients(),
+          const Divider(),
+          ReportDocuments(),
+          const Divider(),
+          ReportActionsRow(),
+        ],
       ),
     );
   }
@@ -80,12 +87,12 @@ class ExternalAuditReportBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final details = ref.read(reportNotifierProvider.select(
+    final details = ref.read(reportFormProvider.select(
       (value) => value.details,
     ));
-    final notifier = ref.read(reportNotifierProvider.notifier);
+    final notifier = ref.read(reportFormProvider.notifier);
     final isEditMode = ref.watch(
-      reportNotifierProvider.select(
+      reportFormProvider.select(
         (value) => value.editMode,
       ),
     );

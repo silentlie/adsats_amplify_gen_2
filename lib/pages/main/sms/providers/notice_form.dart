@@ -79,9 +79,8 @@ class NoticeForm extends _$NoticeForm {
     String? subject,
     Staff? author,
     bool? archived,
-    NoticeStatus? status,
-    TemporalDateTime? noticedAt,
-    TemporalDateTime? deadlineAt,
+    TemporalDateTime? noticedDate,
+    TemporalDateTime? deadlineDate,
     List<Aircraft>? aircraft,
     List<Role>? roles,
     List<Staff>? recipients,
@@ -99,9 +98,8 @@ class NoticeForm extends _$NoticeForm {
       subject: subject,
       author: author,
       archived: archived,
-      status: status,
-      noticedAt: noticedAt,
-      deadlineAt: deadlineAt,
+      noticedAt: noticedDate,
+      deadlineAt: deadlineDate,
     );
   }
 
@@ -138,7 +136,7 @@ class NoticeForm extends _$NoticeForm {
       aircraft: _aircraft,
       roles: _roles,
       manualRecipients: _recipients,
-      selectedFiles: ref.read(selectedFilesProvider),
+      newDocuments: ref.read(selectedFilesProvider),
       keepDocuments: _documents,
       send: send,
       onProgress: onProgressUpdate,

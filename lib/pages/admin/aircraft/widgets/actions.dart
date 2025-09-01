@@ -1,4 +1,3 @@
-import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/providers/aircraft.dart';
@@ -41,7 +40,8 @@ class AircraftActions extends ConsumerWidget with ConfirmDialogMixin {
               ),
             );
             if (result) {
-              await update(aircraft.copyWith(archived: !aircraft.archived));
+              final service = ref.read(aircraftServiceProvider);
+              await service.archive(aircraft);
               ref.invalidate(aircraftProvider);
               controller.close();
             }

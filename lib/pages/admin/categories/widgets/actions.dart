@@ -1,4 +1,3 @@
-import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/providers/categories.dart';
@@ -41,7 +40,8 @@ class CategoryActions extends ConsumerWidget with ConfirmDialogMixin {
               ),
             );
             if (result) {
-              await update(category.copyWith(archived: !category.archived));
+              final service = ref.read(categoriesServiceProvider);
+              await service.archive(category);
               ref.invalidate(categoriesProvider);
               controller.close();
             }

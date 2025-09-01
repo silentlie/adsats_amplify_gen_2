@@ -1,9 +1,8 @@
-import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/reports/api.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/reports/invalidate.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/providers/reports.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/providers/service.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +19,7 @@ class ReportActions extends ConsumerWidget with ConfirmDialogMixin {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = MenuController();
     final isComplianceManager = ref.watch(isComplianceManagerProvider);
+    final service = ref.read(reportServiceProvider);
     return MenuAnchor(
       controller: controller,
       alignmentOffset: Offset(50, -40),
@@ -42,8 +42,8 @@ class ReportActions extends ConsumerWidget with ConfirmDialogMixin {
                 ),
               );
               if (result) {
-                await update(report.copyWith(archived: !report.archived));
-                invalidateViewCms(ref);
+                await service.archive(report);
+                ref.invalidate(reportsProvider);
                 controller.close();
               }
             },
@@ -65,8 +65,8 @@ class ReportActions extends ConsumerWidget with ConfirmDialogMixin {
                 content: Text("Do you want to delete this notice?"),
               );
               if (result) {
-                await deleteReport(report);
-                invalidateViewCms(ref);
+                await service.delete(report);
+                ref.invalidate(reportsProvider);
                 controller.close();
               }
             },

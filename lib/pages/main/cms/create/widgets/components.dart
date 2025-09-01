@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/create/state.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
@@ -13,17 +13,17 @@ class DiscrepanciesWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(reportNotifierProvider.notifier);
+    final notifier = ref.read(reportFormProvider.notifier);
     final isEditMode = ref.watch(
-      reportNotifierProvider.select(
+      reportFormProvider.select(
         (value) => value.editMode,
       ),
     );
-    final details = ref.read(reportNotifierProvider.select(
+    final details = ref.read(reportFormProvider.select(
       (value) => value.details,
     ));
     bool isDiscrepanciesFound = ref.watch(
-      reportNotifierProvider.select((value) {
+      reportFormProvider.select((value) {
         final isIncluded = value.details["is_discrepancies_found"] as bool?;
         return isIncluded ?? false;
       }),
@@ -36,8 +36,10 @@ class DiscrepanciesWidget extends ConsumerWidget {
             groupValue: isDiscrepanciesFound,
             onChanged: (value) {
               if (isEditMode) {
-                notifier.updateDetailsTriggerWatch(
-                    {'is_discrepancies_found': value});
+                notifier.updateDetails(
+                  {'is_discrepancies_found': value},
+                );
+                notifier.commit();
               }
             },
             child: Row(
@@ -97,24 +99,24 @@ class ComplianceManagerSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final report = ref.read(reportNotifierProvider).report;
-    final notifier = ref.read(reportNotifierProvider.notifier);
+    final report = ref.read(reportFormProvider).report;
+    final notifier = ref.read(reportFormProvider.notifier);
     final isEditMode = ref.watch(
-      reportNotifierProvider.select(
+      reportFormProvider.select(
         (value) => value.editMode,
       ),
     );
-    final details = ref.read(reportNotifierProvider.select(
+    final details = ref.read(reportFormProvider.select(
       (value) => value.details,
     ));
     bool isDiscrepanciesFound = ref.watch(
-      reportNotifierProvider.select((value) {
+      reportFormProvider.select((value) {
         final isIncluded = value.details["is_discrepancies_found"] as bool?;
         return isIncluded ?? false;
       }),
     );
     final isClosed = ref.watch(
-      reportNotifierProvider.select(
+      reportFormProvider.select(
         (value) => value.report.status == ReportStatus.Closed,
       ),
     );
@@ -151,7 +153,7 @@ class ComplianceManagerSection extends ConsumerWidget {
                     const Duration(days: 365 * 10),
                   ),
                   onSelected: (value) {
-                    notifier.updateReport(closeAt: value);
+                    notifier.updateReport(closeDate: value);
                   },
                   enabled: isEditMode,
                   initialValue: report.closeAt,

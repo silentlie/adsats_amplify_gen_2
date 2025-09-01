@@ -1,13 +1,12 @@
-import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/read_check.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/providers/service.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -179,11 +178,11 @@ class ActionsRowWidget extends ConsumerWidget with ConfirmDialogMixin {
             onPressed: () async {
               await Future.wait(value.map(
                 (e) {
-                  return update(e.copyWith(readAt: TemporalDateTime.now()));
+                  final service = ref.read(noticeServiceProvider);
+                  return service.read(e);
                 },
               ));
               ref.invalidate(readCheckProvider);
-              ref.invalidate(userDetailsProvider);
               if (!context.mounted) return;
               if (context.canPop()) {
                 context.pop();

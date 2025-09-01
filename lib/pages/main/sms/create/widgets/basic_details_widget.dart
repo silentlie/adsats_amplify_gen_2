@@ -65,7 +65,7 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
               child: DatePickerWidget(
                 text: "Notice Date",
                 onSelected: (value) {
-                  notifier.updateNotice(noticedAt: value);
+                  notifier.updateNotice(noticedDate: value);
                 },
                 enabled: isEditMode,
                 initialValue: notice.noticedAt,
@@ -79,7 +79,7 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
               child: DatePickerWidget(
                 text: "Deadline Date",
                 onSelected: (value) {
-                  notifier.updateNotice(deadlineAt: value);
+                  notifier.updateNotice(deadlineDate: value);
                 },
                 enabled: isEditMode,
                 initialValue: notice.deadlineAt,

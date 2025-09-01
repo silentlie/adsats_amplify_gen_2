@@ -1,5 +1,5 @@
+import 'package:adsats_amplify_gen_2/pages/main/cms/providers/reports.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/reports/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/reports/invalidate.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class ReportHeader extends ConsumerWidget {
           children: [
             IconButton(
               onPressed: () {
-                invalidateViewCms(ref);
+                ref.invalidate(reportsProvider);
               },
               icon: const Icon(Icons.refresh),
             ),

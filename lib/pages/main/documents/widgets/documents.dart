@@ -79,7 +79,7 @@ class DocumentsView extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (document) {
-                      return document.issuedAt!;
+                      return document.issuedAt;
                     },
                   );
                 },
@@ -92,7 +92,7 @@ class DocumentsView extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (document) {
-                      return document.updatedAt!;
+                      return document.updatedAt;
                     },
                   );
                 },
@@ -105,7 +105,7 @@ class DocumentsView extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (document) {
-                      return document.createdAt!;
+                      return document.createdAt;
                     },
                   );
                 },

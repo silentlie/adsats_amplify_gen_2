@@ -35,10 +35,15 @@ class CategoriesRepository {
     return _db.update(category);
   }
 
+  Future<Category> archive(Category category) async {
+    return _db.update(category.copyWith(archived: !category.archived));
+  }
+
   Future<Category> delete(Category category) async {
     final List<Future> futures = [];
     category.subcategories?.forEach(
-      (subcategory) => futures.add(_subcategoriesRepository.delete(subcategory)),
+      (subcategory) =>
+          futures.add(_subcategoriesRepository.delete(subcategory)),
     );
     futures.add(_db.delete(category));
     await Future.wait(futures);

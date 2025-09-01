@@ -37,7 +37,7 @@ final class SessionManagerProvider
   SessionManager create() => SessionManager();
 }
 
-String _$sessionManagerHash() => r'9e2b93672362e3fc66d6f41b3962a3cc074867ef';
+String _$sessionManagerHash() => r'486c046f07a516c397db7f13ef7c3347308ce1e3';
 
 abstract class _$SessionManager extends $AsyncNotifier<void> {
   FutureOr<void> build();

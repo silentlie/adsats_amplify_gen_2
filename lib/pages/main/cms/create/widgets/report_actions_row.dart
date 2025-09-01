@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
-import 'package:adsats_amplify_gen_2/pages/main/cms/create/state.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +13,13 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isEditMode = ref.watch(reportNotifierProvider.select(
+    final isEditMode = ref.watch(reportFormProvider.select(
       (value) => value.editMode,
     ));
-    final isDraft = ref.watch(reportNotifierProvider.select(
+    final isDraft = ref.watch(reportFormProvider.select(
       (value) => value.isDraft,
     ));
-    final notifier = ref.read(reportNotifierProvider.notifier);
+    final notifier = ref.read(reportFormProvider.notifier);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -45,7 +45,7 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
             icon: Icon(Icons.cancel_outlined),
           ),
           // if (notifier.isEditable()) readButton(ref),
-          if (notifier.isEditable() && notifier.editPermit())
+          if (notifier.isNew() && notifier.editPermit())
             ElevatedButton.icon(
               onPressed: () {
                 notifier.switchEditMode();
@@ -87,7 +87,12 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
                   content: Text("Do you want to save?"),
                 );
                 if (result) {
-                  await notifier.submit(false);
+                  await notifier.submit(
+                    false,
+                    (fileName, progress) {
+                      // TODO update upload status
+                    },
+                  );
                   if (!context.mounted) return;
                   if (context.canPop()) {
                     context.pop();
@@ -113,14 +118,21 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
           if (isEditMode && !isDraft)
             ElevatedButton.icon(
               onPressed: () async {
-                if (!notifier.validate()) return;
+                final formState = Form.maybeOf(context);
+                if (formState == null) return;
+                if (!formState.validate()) return;
                 final result = await showConfirmDialog(
                   context: context,
                   title: Text("Are you sure?"),
                   content: Text("Do you want to submit and send?"),
                 );
                 if (result) {
-                  await notifier.submit(true);
+                  await notifier.submit(
+                    true,
+                    (fileName, progress) {
+                      // TODO update upload status
+                    },
+                  );
                   if (!context.mounted) return;
                   if (context.canPop()) {
                     context.pop();
@@ -147,32 +159,4 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
       ),
     );
   }
-
-  // Widget readButton(WidgetRef ref) {
-  //   return AsyncValueWidget(
-  //     value: ref.watch(readCheckProvider),
-  //     data: (value) {
-  //       if (value.isEmpty) {
-  //         return ElevatedButton.icon(
-  //           onPressed: () {},
-  //           label: const Text('You\'ve read this notice'),
-  //           icon: Icon(Icons.mark_email_read_outlined),
-  //         );
-  //       } else {
-  //         return ElevatedButton.icon(
-  //           onPressed: () async {
-  //             await Future.wait(value.map(
-  //               (e) {
-  //                 return update(e.copyWith(readAt: TemporalDateTime.now()));
-  //               },
-  //             ));
-  //             ref.invalidate(readCheckProvider);
-  //           },
-  //           label: const Text('Mark as read'),
-  //           icon: Icon(Icons.mark_email_unread_outlined),
-  //         );
-  //       }
-  //     },
-  //   );
-  // }
 }
