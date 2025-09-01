@@ -182,8 +182,8 @@ query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFil
   }
 }
 ''';
-const listFlightCrewRecordsCategoriesGraphQL = '''
-query ListFlightCrewRecordsCategories(\$filter: ModelFlightCrewRecordCategoryFilterInput, \$id: ID!) {
+const listFlightCrewRecordCategoriesGraphQL = '''
+query ListFlightCrewRecordCategories(\$filter: ModelFlightCrewRecordCategoryFilterInput, \$id: ID!) {
   getRole(id: \$id) {
     id
     name
@@ -678,6 +678,11 @@ query GetStaffDetails(\$id: ID!) {
       }
     }
     reportNotifications {
+      items {
+        id
+      }
+    }
+    sessions {
       items {
         id
       }

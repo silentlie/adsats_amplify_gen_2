@@ -1,29 +1,29 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/header.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/sort.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/aircraft/providers/aircraft.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/aircraft/widgets/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/aircraft/widgets/header.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AircraftPage extends ConsumerWidget {
+class AircraftPage extends ConsumerWidget with CompareMixin {
   const AircraftPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(adminFilterProvider);
-    final dataAsync = ref.watch(aircraftRepoProvider(filter));
-    final sortState = ref.watch(aircraftSortProvider);
+    final dataAsync = ref.watch(aircraftProvider);
+    final sortState = ref.watch(sortProvider<Aircraft>());
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
       child: AsyncValueWidget(
         value: dataAsync,
         data: (data) {
-          data.sort(compareAircraft(
+          data.sort(compare<Aircraft>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
@@ -31,7 +31,7 @@ class AircraftPage extends ConsumerWidget {
             sortedData: data,
             context: context,
           );
-          final sortNotifier = ref.read(aircraftSortProvider.notifier);
+          final sortNotifier = ref.read(sortProvider<Aircraft>().notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(

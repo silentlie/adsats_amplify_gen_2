@@ -28,7 +28,6 @@ class CreateNoticeShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(navigationShell.currentIndex);
     return Column(
       children: [
         NavigationBar(

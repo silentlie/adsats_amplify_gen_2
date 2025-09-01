@@ -1,9 +1,10 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/header.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/sort.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/providers/categories.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/widgets/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/widgets/header.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
@@ -11,21 +12,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 export 'subcategories/page.dart';
 
-class CategoriesPage extends ConsumerWidget {
+class CategoriesPage extends ConsumerWidget with CompareMixin {
   const CategoriesPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(adminFilterProvider);
-    final dataAsync = ref.watch(categoriesRepoProvider(filter));
-    final sortState = ref.watch(categorySortProvider);
+    final dataAsync = ref.watch(categoriesProvider);
+    final sortState = ref.watch(sortProvider<Category>());
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
       child: AsyncValueWidget(
         value: dataAsync,
         data: (data) {
-          data.sort(compareCategory(
+          data.sort(compare<Category>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
@@ -33,7 +33,7 @@ class CategoriesPage extends ConsumerWidget {
             sortedData: data,
             context: context,
           );
-          final sortNotifier = ref.read(categorySortProvider.notifier);
+          final sortNotifier = ref.read(sortProvider<Category>().notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(

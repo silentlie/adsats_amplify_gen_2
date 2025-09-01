@@ -11,7 +11,7 @@ import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FlightCrewRecordsView extends ConsumerWidget with CompareMixin{
+class FlightCrewRecordsView extends ConsumerWidget with CompareMixin {
   const FlightCrewRecordsView({
     super.key,
     required this.staff,
@@ -38,7 +38,8 @@ class FlightCrewRecordsView extends ConsumerWidget with CompareMixin{
             sortedData: data,
             context: context,
           );
-          final sortNotifier = ref.read(sortProvider<FlightCrewRecord>().notifier);
+          final sortNotifier =
+              ref.read(sortProvider<FlightCrewRecord>().notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
@@ -52,7 +53,8 @@ class FlightCrewRecordsView extends ConsumerWidget with CompareMixin{
                       return flightCrewRecord.name;
                     },
                     custom: (a, b, sortAscending) {
-                      return a.name.naturalCompareTo(b.name) * (sortAscending ? 1 : -1);
+                      return a.name.naturalCompareTo(b.name) *
+                          (sortAscending ? 1 : -1);
                     },
                   );
                 },

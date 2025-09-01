@@ -52,7 +52,8 @@ class DocumentsView extends ConsumerWidget with CompareMixin {
                       return document.name;
                     },
                     custom: (a, b, sortAscending) {
-                      return a.name.naturalCompareTo(b.name) * (sortAscending ? 1 : -1);
+                      return a.name.naturalCompareTo(b.name) *
+                          (sortAscending ? 1 : -1);
                     },
                   );
                 },

@@ -13,27 +13,27 @@ part of 'filter.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$FlightCrewRecordsCategoryFilterState {
+mixin _$FlightCrewRecordCategoriesFilterState {
   String get search;
   bool? get archived;
   DateTimeRange? get createdAt;
   String get roleId;
 
-  /// Create a copy of FlightCrewRecordsCategoryFilterState
+  /// Create a copy of FlightCrewRecordCategoriesFilterState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $FlightCrewRecordsCategoryFilterStateCopyWith<
-          FlightCrewRecordsCategoryFilterState>
-      get copyWith => _$FlightCrewRecordsCategoryFilterStateCopyWithImpl<
-              FlightCrewRecordsCategoryFilterState>(
-          this as FlightCrewRecordsCategoryFilterState, _$identity);
+  $FlightCrewRecordCategoriesFilterStateCopyWith<
+          FlightCrewRecordCategoriesFilterState>
+      get copyWith => _$FlightCrewRecordCategoriesFilterStateCopyWithImpl<
+              FlightCrewRecordCategoriesFilterState>(
+          this as FlightCrewRecordCategoriesFilterState, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is FlightCrewRecordsCategoryFilterState &&
+            other is FlightCrewRecordCategoriesFilterState &&
             (identical(other.search, search) || other.search == search) &&
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
@@ -48,30 +48,30 @@ mixin _$FlightCrewRecordsCategoryFilterState {
 
   @override
   String toString() {
-    return 'FlightCrewRecordsCategoryFilterState(search: $search, archived: $archived, createdAt: $createdAt, roleId: $roleId)';
+    return 'FlightCrewRecordCategoriesFilterState(search: $search, archived: $archived, createdAt: $createdAt, roleId: $roleId)';
   }
 }
 
 /// @nodoc
-abstract mixin class $FlightCrewRecordsCategoryFilterStateCopyWith<$Res> {
-  factory $FlightCrewRecordsCategoryFilterStateCopyWith(
-          FlightCrewRecordsCategoryFilterState value,
-          $Res Function(FlightCrewRecordsCategoryFilterState) _then) =
-      _$FlightCrewRecordsCategoryFilterStateCopyWithImpl;
+abstract mixin class $FlightCrewRecordCategoriesFilterStateCopyWith<$Res> {
+  factory $FlightCrewRecordCategoriesFilterStateCopyWith(
+          FlightCrewRecordCategoriesFilterState value,
+          $Res Function(FlightCrewRecordCategoriesFilterState) _then) =
+      _$FlightCrewRecordCategoriesFilterStateCopyWithImpl;
   @useResult
   $Res call(
       {String search, bool? archived, DateTimeRange? createdAt, String roleId});
 }
 
 /// @nodoc
-class _$FlightCrewRecordsCategoryFilterStateCopyWithImpl<$Res>
-    implements $FlightCrewRecordsCategoryFilterStateCopyWith<$Res> {
-  _$FlightCrewRecordsCategoryFilterStateCopyWithImpl(this._self, this._then);
+class _$FlightCrewRecordCategoriesFilterStateCopyWithImpl<$Res>
+    implements $FlightCrewRecordCategoriesFilterStateCopyWith<$Res> {
+  _$FlightCrewRecordCategoriesFilterStateCopyWithImpl(this._self, this._then);
 
-  final FlightCrewRecordsCategoryFilterState _self;
-  final $Res Function(FlightCrewRecordsCategoryFilterState) _then;
+  final FlightCrewRecordCategoriesFilterState _self;
+  final $Res Function(FlightCrewRecordCategoriesFilterState) _then;
 
-  /// Create a copy of FlightCrewRecordsCategoryFilterState
+  /// Create a copy of FlightCrewRecordCategoriesFilterState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -102,9 +102,9 @@ class _$FlightCrewRecordsCategoryFilterStateCopyWithImpl<$Res>
   }
 }
 
-/// Adds pattern-matching-related methods to [FlightCrewRecordsCategoryFilterState].
-extension FlightCrewRecordsCategoryFilterStatePatterns
-    on FlightCrewRecordsCategoryFilterState {
+/// Adds pattern-matching-related methods to [FlightCrewRecordCategoriesFilterState].
+extension FlightCrewRecordCategoriesFilterStatePatterns
+    on FlightCrewRecordCategoriesFilterState {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -119,12 +119,12 @@ extension FlightCrewRecordsCategoryFilterStatePatterns
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(_FlightCrewRecordsCategoryFilterState value)? $default, {
+    TResult Function(_FlightCrewRecordCategoriesFilterState value)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _FlightCrewRecordsCategoryFilterState() when $default != null:
+      case _FlightCrewRecordCategoriesFilterState() when $default != null:
         return $default(_that);
       case _:
         return orElse();
@@ -146,11 +146,11 @@ extension FlightCrewRecordsCategoryFilterStatePatterns
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(_FlightCrewRecordsCategoryFilterState value) $default,
+    TResult Function(_FlightCrewRecordCategoriesFilterState value) $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _FlightCrewRecordsCategoryFilterState():
+      case _FlightCrewRecordCategoriesFilterState():
         return $default(_that);
     }
   }
@@ -169,11 +169,11 @@ extension FlightCrewRecordsCategoryFilterStatePatterns
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_FlightCrewRecordsCategoryFilterState value)? $default,
+    TResult? Function(_FlightCrewRecordCategoriesFilterState value)? $default,
   ) {
     final _that = this;
     switch (_that) {
-      case _FlightCrewRecordsCategoryFilterState() when $default != null:
+      case _FlightCrewRecordCategoriesFilterState() when $default != null:
         return $default(_that);
       case _:
         return null;
@@ -201,7 +201,7 @@ extension FlightCrewRecordsCategoryFilterStatePatterns
   }) {
     final _that = this;
     switch (_that) {
-      case _FlightCrewRecordsCategoryFilterState() when $default != null:
+      case _FlightCrewRecordCategoriesFilterState() when $default != null:
         return $default(
             _that.search, _that.archived, _that.createdAt, _that.roleId);
       case _:
@@ -230,7 +230,7 @@ extension FlightCrewRecordsCategoryFilterStatePatterns
   ) {
     final _that = this;
     switch (_that) {
-      case _FlightCrewRecordsCategoryFilterState():
+      case _FlightCrewRecordCategoriesFilterState():
         return $default(
             _that.search, _that.archived, _that.createdAt, _that.roleId);
     }
@@ -256,7 +256,7 @@ extension FlightCrewRecordsCategoryFilterStatePatterns
   ) {
     final _that = this;
     switch (_that) {
-      case _FlightCrewRecordsCategoryFilterState() when $default != null:
+      case _FlightCrewRecordCategoriesFilterState() when $default != null:
         return $default(
             _that.search, _that.archived, _that.createdAt, _that.roleId);
       case _:
@@ -267,9 +267,9 @@ extension FlightCrewRecordsCategoryFilterStatePatterns
 
 /// @nodoc
 
-class _FlightCrewRecordsCategoryFilterState
-    extends FlightCrewRecordsCategoryFilterState {
-  _FlightCrewRecordsCategoryFilterState(
+class _FlightCrewRecordCategoriesFilterState
+    extends FlightCrewRecordCategoriesFilterState {
+  _FlightCrewRecordCategoriesFilterState(
       {this.search = "",
       this.archived = false,
       this.createdAt,
@@ -287,21 +287,21 @@ class _FlightCrewRecordsCategoryFilterState
   @override
   final String roleId;
 
-  /// Create a copy of FlightCrewRecordsCategoryFilterState
+  /// Create a copy of FlightCrewRecordCategoriesFilterState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$FlightCrewRecordsCategoryFilterStateCopyWith<
-          _FlightCrewRecordsCategoryFilterState>
-      get copyWith => __$FlightCrewRecordsCategoryFilterStateCopyWithImpl<
-          _FlightCrewRecordsCategoryFilterState>(this, _$identity);
+  _$FlightCrewRecordCategoriesFilterStateCopyWith<
+          _FlightCrewRecordCategoriesFilterState>
+      get copyWith => __$FlightCrewRecordCategoriesFilterStateCopyWithImpl<
+          _FlightCrewRecordCategoriesFilterState>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _FlightCrewRecordsCategoryFilterState &&
+            other is _FlightCrewRecordCategoriesFilterState &&
             (identical(other.search, search) || other.search == search) &&
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
@@ -316,17 +316,17 @@ class _FlightCrewRecordsCategoryFilterState
 
   @override
   String toString() {
-    return 'FlightCrewRecordsCategoryFilterState(search: $search, archived: $archived, createdAt: $createdAt, roleId: $roleId)';
+    return 'FlightCrewRecordCategoriesFilterState(search: $search, archived: $archived, createdAt: $createdAt, roleId: $roleId)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$FlightCrewRecordsCategoryFilterStateCopyWith<$Res>
-    implements $FlightCrewRecordsCategoryFilterStateCopyWith<$Res> {
-  factory _$FlightCrewRecordsCategoryFilterStateCopyWith(
-          _FlightCrewRecordsCategoryFilterState value,
-          $Res Function(_FlightCrewRecordsCategoryFilterState) _then) =
-      __$FlightCrewRecordsCategoryFilterStateCopyWithImpl;
+abstract mixin class _$FlightCrewRecordCategoriesFilterStateCopyWith<$Res>
+    implements $FlightCrewRecordCategoriesFilterStateCopyWith<$Res> {
+  factory _$FlightCrewRecordCategoriesFilterStateCopyWith(
+          _FlightCrewRecordCategoriesFilterState value,
+          $Res Function(_FlightCrewRecordCategoriesFilterState) _then) =
+      __$FlightCrewRecordCategoriesFilterStateCopyWithImpl;
   @override
   @useResult
   $Res call(
@@ -334,14 +334,14 @@ abstract mixin class _$FlightCrewRecordsCategoryFilterStateCopyWith<$Res>
 }
 
 /// @nodoc
-class __$FlightCrewRecordsCategoryFilterStateCopyWithImpl<$Res>
-    implements _$FlightCrewRecordsCategoryFilterStateCopyWith<$Res> {
-  __$FlightCrewRecordsCategoryFilterStateCopyWithImpl(this._self, this._then);
+class __$FlightCrewRecordCategoriesFilterStateCopyWithImpl<$Res>
+    implements _$FlightCrewRecordCategoriesFilterStateCopyWith<$Res> {
+  __$FlightCrewRecordCategoriesFilterStateCopyWithImpl(this._self, this._then);
 
-  final _FlightCrewRecordsCategoryFilterState _self;
-  final $Res Function(_FlightCrewRecordsCategoryFilterState) _then;
+  final _FlightCrewRecordCategoriesFilterState _self;
+  final $Res Function(_FlightCrewRecordCategoriesFilterState) _then;
 
-  /// Create a copy of FlightCrewRecordsCategoryFilterState
+  /// Create a copy of FlightCrewRecordCategoriesFilterState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -351,7 +351,7 @@ class __$FlightCrewRecordsCategoryFilterStateCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? roleId = null,
   }) {
-    return _then(_FlightCrewRecordsCategoryFilterState(
+    return _then(_FlightCrewRecordCategoriesFilterState(
       search: null == search
           ? _self.search
           : search // ignore: cast_nullable_to_non_nullable

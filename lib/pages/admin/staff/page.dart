@@ -1,29 +1,29 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/staff/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/staff/header.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/staff/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/staff/sort.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/providers/staff.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/widgets/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/widgets/header.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class StaffPage extends ConsumerWidget {
+class StaffPage extends ConsumerWidget with CompareMixin {
   const StaffPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(adminFilterProvider);
-    final dataAsync = ref.watch(staffRepoProvider(filter));
-    final sortState = ref.watch(staffSortProvider);
+    final dataAsync = ref.watch(staffProvider);
+    final sortState = ref.watch(sortProvider<Staff>());
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
       child: AsyncValueWidget(
         value: dataAsync,
         data: (data) {
-          data.sort(compareStaff(
+          data.sort(compare<Staff>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
@@ -31,7 +31,7 @@ class StaffPage extends ConsumerWidget {
             sortedData: data,
             context: context,
           );
-          final sortNotifier = ref.read(staffSortProvider.notifier);
+          final sortNotifier = ref.read(sortProvider<Staff>().notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(

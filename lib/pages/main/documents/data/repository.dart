@@ -27,12 +27,12 @@ class DocumentsRepository {
     void Function(void Function())? bindCancel,
   }) async {
     // Fetch documents from the database
-    final jsonMap = await _db.query(
+    final res = await _db.query(
       document: listDocumentsGraphQL,
       variables: variables,
       bindCancel: bindCancel,
     );
-    return (jsonMap["listDocuments"]["items"] as List).map(
+    return (res["listDocuments"]["items"] as List).map(
       (document) {
         return Document.fromJson(document);
       },

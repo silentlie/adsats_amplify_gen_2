@@ -1,34 +1,36 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
-import 'package:adsats_amplify_gen_2/pages/main/kpi/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/main/kpi/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/main/kpi/header.dart';
-import 'package:adsats_amplify_gen_2/pages/main/kpi/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/main/kpi/sort.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
+import 'package:adsats_amplify_gen_2/pages/main/kpi/models/staff_kpi.dart';
+import 'package:adsats_amplify_gen_2/pages/main/kpi/widgets/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/main/kpi/providers/filter.dart';
+import 'package:adsats_amplify_gen_2/pages/main/kpi/widgets/header.dart';
+import 'package:adsats_amplify_gen_2/pages/main/kpi/providers/repo.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class KPIPage extends ConsumerWidget {
+class KPIPage extends ConsumerWidget with CompareMixin {
   const KPIPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final filter = ref.watch(staffKPIFilterProvider);
     final dataAsync = ref.watch(staffKPIRepoProvider(filter));
-    final sortState = ref.watch(staffKPISortProvider);
+    final sortState = ref.watch(sortProvider<StaffKPI>());
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return AsyncValueWidget(
       value: dataAsync,
       data: (data) {
-        data.sort(compareStaffKPI(
+        data.sort(compare<StaffKPI>(
           sortAscending: sortState.sortAscending,
           getField: sortState.getField,
         ));
         final dataSource = KPIDataSource(
           sortedData: data,
         );
-        final sortNotifier = ref.read(staffKPISortProvider.notifier);
+        final sortNotifier = ref.read(sortProvider<StaffKPI>().notifier);
         return Container(
           constraints: const BoxConstraints(maxWidth: 1536.0),
           child: PaginatedDataTable2(

@@ -1,33 +1,32 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/header.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/sort.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/providers/records.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/widgets/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/widgets/header.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FlightCrewRecordsCategoriesPage extends ConsumerWidget {
+class FlightCrewRecordsCategoriesPage extends ConsumerWidget with CompareMixin {
   const FlightCrewRecordsCategoriesPage({super.key, required this.roleId});
 
   final String roleId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(flightCrewRecordsCategoryFilterProvider(roleId));
-    final dataAsync =
-        ref.watch(flightCrewRecordsCategoriesRepoProvider(filter));
-    final sortState = ref.watch(flightCrewRecordsCategorySortProvider);
+    final dataAsync = ref.watch(flightCrewRecordCategoriesProvider(roleId));
+    final sortState = ref.watch(sortProvider<FlightCrewRecordCategory>());
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
-      child: AsyncValueWidget(
+      child: AsyncValueWidget<Role>(
         value: dataAsync,
         data: (value) {
           final data = value.categories!;
-          data.sort(compareFlightCrewRecordsCategory(
+          data.sort(compare<FlightCrewRecordCategory>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
@@ -36,7 +35,7 @@ class FlightCrewRecordsCategoriesPage extends ConsumerWidget {
             context: context,
           );
           final sortNotifier =
-              ref.read(flightCrewRecordsCategorySortProvider.notifier);
+              ref.read(sortProvider<FlightCrewRecordCategory>().notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(

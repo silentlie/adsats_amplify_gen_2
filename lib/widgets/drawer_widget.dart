@@ -96,9 +96,7 @@ class DrawerHeaderWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(
-      userDetailsProvider
-    );
+    final user = ref.watch(userDetailsProvider);
     Widget? avatar;
     avatar = const DefaultLogoWidget();
     return AsyncValueWidget<Staff>(

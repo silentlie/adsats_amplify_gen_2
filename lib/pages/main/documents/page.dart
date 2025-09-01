@@ -48,7 +48,10 @@ class DocumentsPage extends ConsumerWidget {
   }
 
   List<Widget> buildCategories(
-      Staff user, WidgetRef ref, BuildContext context,) {
+    Staff user,
+    WidgetRef ref,
+    BuildContext context,
+  ) {
     final subcategories = user.subcategories?.map(
           (e) => e.subcategory!,
         ) ??

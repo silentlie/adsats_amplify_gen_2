@@ -1,8 +1,9 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/sort.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
@@ -10,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class SessionsView extends ConsumerWidget {
+class SessionsView extends ConsumerWidget with CompareMixin {
   const SessionsView({
     super.key,
     required this.staff,
@@ -21,14 +22,14 @@ class SessionsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dataAsync = ref.watch(sessionsRepoProvider(staff));
-    final sortState = ref.watch(sessionSortProvider);
+    final sortState = ref.watch(sortProvider<Session>());
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
       child: AsyncValueWidget(
         value: dataAsync,
         data: (data) {
-          data.sort(compareSession(
+          data.sort(compare<Session>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
@@ -36,7 +37,7 @@ class SessionsView extends ConsumerWidget {
             sortedData: data,
             context: context,
           );
-          final sortNotifier = ref.read(sessionSortProvider.notifier);
+          final sortNotifier = ref.read(sortProvider<Session>().notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(

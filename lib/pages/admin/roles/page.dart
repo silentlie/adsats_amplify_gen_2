@@ -1,9 +1,10 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/roles/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/roles/header.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/roles/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/roles/sort.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/providers/roles.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/widgets/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/widgets/header.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
@@ -11,21 +12,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 export 'flight_crew_record_categories/page.dart';
 
-class RolesPage extends ConsumerWidget {
+class RolesPage extends ConsumerWidget with CompareMixin {
   const RolesPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(adminFilterProvider);
-    final dataAsync = ref.watch(rolesRepoProvider(filter));
-    final sortState = ref.watch(roleSortProvider);
+    final dataAsync = ref.watch(rolesProvider);
+    final sortState = ref.watch(sortProvider<Role>());
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
       child: AsyncValueWidget(
         value: dataAsync,
         data: (data) {
-          data.sort(compareRole(
+          data.sort(compare<Role>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
@@ -33,7 +33,7 @@ class RolesPage extends ConsumerWidget {
             sortedData: data,
             context: context,
           );
-          final sortNotifier = ref.read(roleSortProvider.notifier);
+          final sortNotifier = ref.read(sortProvider<Role>().notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(

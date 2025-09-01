@@ -1,9 +1,9 @@
-import 'package:adsats_amplify_gen_2/pages/admin/aircraft/aircraft_view.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/category_view.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/subcategory_view.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/crew_document_category_view.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/roles/role_view.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/staff/staff_view.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/aircraft/widgets/aircraft.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/widgets/category_view.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/widgets/subcategory.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/widgets/crew_document_category_view.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/roles/widgets/role.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/staff/widgets/staff.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
 import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';

@@ -6,49 +6,50 @@ part of 'filter.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-@ProviderFor(FlightCrewRecordsCategoryFilter)
-const flightCrewRecordsCategoryFilterProvider =
-    FlightCrewRecordsCategoryFilterFamily._();
+@ProviderFor(FlightCrewRecordCategoriesFilter)
+const flightCrewRecordCategoriesFilterProvider =
+    FlightCrewRecordCategoriesFilterFamily._();
 
-final class FlightCrewRecordsCategoryFilterProvider extends $NotifierProvider<
-    FlightCrewRecordsCategoryFilter, FlightCrewRecordsCategoryFilterState> {
-  const FlightCrewRecordsCategoryFilterProvider._(
-      {required FlightCrewRecordsCategoryFilterFamily super.from,
+final class FlightCrewRecordCategoriesFilterProvider extends $NotifierProvider<
+    FlightCrewRecordCategoriesFilter, FlightCrewRecordCategoriesFilterState> {
+  const FlightCrewRecordCategoriesFilterProvider._(
+      {required FlightCrewRecordCategoriesFilterFamily super.from,
       required String super.argument})
       : super(
           retry: null,
-          name: r'flightCrewRecordsCategoryFilterProvider',
+          name: r'flightCrewRecordCategoriesFilterProvider',
           isAutoDispose: true,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$flightCrewRecordsCategoryFilterHash();
+  String debugGetCreateSourceHash() => _$flightCrewRecordCategoriesFilterHash();
 
   @override
   String toString() {
-    return r'flightCrewRecordsCategoryFilterProvider'
+    return r'flightCrewRecordCategoriesFilterProvider'
         ''
         '($argument)';
   }
 
   @$internal
   @override
-  FlightCrewRecordsCategoryFilter create() => FlightCrewRecordsCategoryFilter();
+  FlightCrewRecordCategoriesFilter create() =>
+      FlightCrewRecordCategoriesFilter();
 
   /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(FlightCrewRecordsCategoryFilterState value) {
+  Override overrideWithValue(FlightCrewRecordCategoriesFilterState value) {
     return $ProviderOverride(
       origin: this,
       providerOverride:
-          $SyncValueProvider<FlightCrewRecordsCategoryFilterState>(value),
+          $SyncValueProvider<FlightCrewRecordCategoriesFilterState>(value),
     );
   }
 
   @override
   bool operator ==(Object other) {
-    return other is FlightCrewRecordsCategoryFilterProvider &&
+    return other is FlightCrewRecordCategoriesFilterProvider &&
         other.argument == argument;
   }
 
@@ -58,41 +59,41 @@ final class FlightCrewRecordsCategoryFilterProvider extends $NotifierProvider<
   }
 }
 
-String _$flightCrewRecordsCategoryFilterHash() =>
-    r'daff433fbb8dd85e89dac9d9d441fde5996e3f6a';
+String _$flightCrewRecordCategoriesFilterHash() =>
+    r'fa4b7a8fdf9298de79393989049b640ba1f92140';
 
-final class FlightCrewRecordsCategoryFilterFamily extends $Family
+final class FlightCrewRecordCategoriesFilterFamily extends $Family
     with
         $ClassFamilyOverride<
-            FlightCrewRecordsCategoryFilter,
-            FlightCrewRecordsCategoryFilterState,
-            FlightCrewRecordsCategoryFilterState,
-            FlightCrewRecordsCategoryFilterState,
+            FlightCrewRecordCategoriesFilter,
+            FlightCrewRecordCategoriesFilterState,
+            FlightCrewRecordCategoriesFilterState,
+            FlightCrewRecordCategoriesFilterState,
             String> {
-  const FlightCrewRecordsCategoryFilterFamily._()
+  const FlightCrewRecordCategoriesFilterFamily._()
       : super(
           retry: null,
-          name: r'flightCrewRecordsCategoryFilterProvider',
+          name: r'flightCrewRecordCategoriesFilterProvider',
           dependencies: const <ProviderOrFamily>[],
           $allTransitiveDependencies: const <ProviderOrFamily>[],
           isAutoDispose: true,
         );
 
-  FlightCrewRecordsCategoryFilterProvider call(
+  FlightCrewRecordCategoriesFilterProvider call(
     String roleId,
   ) =>
-      FlightCrewRecordsCategoryFilterProvider._(argument: roleId, from: this);
+      FlightCrewRecordCategoriesFilterProvider._(argument: roleId, from: this);
 
   @override
-  String toString() => r'flightCrewRecordsCategoryFilterProvider';
+  String toString() => r'flightCrewRecordCategoriesFilterProvider';
 }
 
-abstract class _$FlightCrewRecordsCategoryFilter
-    extends $Notifier<FlightCrewRecordsCategoryFilterState> {
+abstract class _$FlightCrewRecordCategoriesFilter
+    extends $Notifier<FlightCrewRecordCategoriesFilterState> {
   late final _$args = ref.$arg as String;
   String get roleId => _$args;
 
-  FlightCrewRecordsCategoryFilterState build(
+  FlightCrewRecordCategoriesFilterState build(
     String roleId,
   );
   @$mustCallSuper
@@ -101,12 +102,12 @@ abstract class _$FlightCrewRecordsCategoryFilter
     final created = build(
       _$args,
     );
-    final ref = this.ref as $Ref<FlightCrewRecordsCategoryFilterState,
-        FlightCrewRecordsCategoryFilterState>;
+    final ref = this.ref as $Ref<FlightCrewRecordCategoriesFilterState,
+        FlightCrewRecordCategoriesFilterState>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<FlightCrewRecordsCategoryFilterState,
-            FlightCrewRecordsCategoryFilterState>,
-        FlightCrewRecordsCategoryFilterState,
+        AnyNotifier<FlightCrewRecordCategoriesFilterState,
+            FlightCrewRecordCategoriesFilterState>,
+        FlightCrewRecordCategoriesFilterState,
         Object?,
         Object?>;
     element.handleValue(ref, created);

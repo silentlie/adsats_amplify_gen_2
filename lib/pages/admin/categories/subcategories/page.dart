@@ -1,24 +1,24 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/data_source.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/filter.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/header.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/repo.dart';
-import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/sort.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/providers/subcategories.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/widgets/data_source.dart';
+import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/widgets/header.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SubcategoriesPage extends ConsumerWidget {
+class SubcategoriesPage extends ConsumerWidget with CompareMixin {
   const SubcategoriesPage({super.key, required this.categoryId});
 
   final String categoryId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final filter = ref.watch(subcategoryFilterProvider(categoryId));
-    final dataAsync = ref.watch(subcategoriesRepoProvider(filter));
-    final sortState = ref.watch(subcategorySortProvider);
+    final dataAsync = ref.watch(subcategoriesProvider(categoryId));
+    final sortState = ref.watch(sortProvider<Subcategory>());
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),
@@ -26,7 +26,7 @@ class SubcategoriesPage extends ConsumerWidget {
         value: dataAsync,
         data: (value) {
           final data = value.subcategories!;
-          data.sort(compareSubcategory(
+          data.sort(compare<Subcategory>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
           ));
@@ -34,7 +34,7 @@ class SubcategoriesPage extends ConsumerWidget {
             sortedData: data,
             context: context,
           );
-          final sortNotifier = ref.read(subcategorySortProvider.notifier);
+          final sortNotifier = ref.read(sortProvider<Subcategory>().notifier);
           return PaginatedDataTable2(
             columns: <DataColumn2>[
               DataColumn2(
