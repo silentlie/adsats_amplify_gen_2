@@ -5,7 +5,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'records.g.dart';
 
-// TODO: change to class to enable cancellation
 @Riverpod(dependencies: [FlightCrewRecordFilter])
 Future<List<FlightCrewRecord>> records(
   Ref ref,

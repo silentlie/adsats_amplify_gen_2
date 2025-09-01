@@ -41,7 +41,18 @@ class CreateReportShell extends StatelessWidget {
           onDestinationSelected: onDestinationSelected,
           selectedIndex: navigationShell.currentIndex,
         ),
-        Expanded(child: navigationShell),
+        Expanded(
+          child: Center(
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 1536.0),
+              child: Card(
+                child: SingleChildScrollView(
+                  child: navigationShell,
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }
