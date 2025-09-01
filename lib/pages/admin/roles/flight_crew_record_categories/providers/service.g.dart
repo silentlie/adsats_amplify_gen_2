@@ -22,7 +22,7 @@ final class FlightCrewRecordCategoriesServiceProvider
           argument: null,
           retry: null,
           name: r'flightCrewRecordCategoriesServiceProvider',
-          isAutoDispose: true,
+          isAutoDispose: false,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
@@ -53,7 +53,7 @@ final class FlightCrewRecordCategoriesServiceProvider
 }
 
 String _$flightCrewRecordCategoriesServiceHash() =>
-    r'82e3d3306db8f31134c5638d93520051f97ece84';
+    r'bcfd11c4b1eb4b55c0ee4a28f74cf29d9fc6405c';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

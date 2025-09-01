@@ -57,7 +57,7 @@ final class NoticeProvider
   }
 }
 
-String _$noticeHash() => r'd9c7fa850aa312869e9d2abf75d6e5444c722578';
+String _$noticeHash() => r'98ba16a95a7084bbcab57ca0c87c1bc24d9c4a0b';
 
 final class NoticeFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Notice>, String> {

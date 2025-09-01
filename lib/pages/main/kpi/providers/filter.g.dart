@@ -18,8 +18,8 @@ final class StaffKPIFilterProvider
           retry: null,
           name: r'staffKPIFilterProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
   @override
@@ -38,7 +38,7 @@ final class StaffKPIFilterProvider
   }
 }
 
-String _$staffKPIFilterHash() => r'63b5c8c009dc8bdba1529a2aa926a53b4e676eff';
+String _$staffKPIFilterHash() => r'8823d6557f30281e174a93a1729b8319cd5bc4c3';
 
 abstract class _$StaffKPIFilter extends $Notifier<StaffKPIFilterState> {
   StaffKPIFilterState build();

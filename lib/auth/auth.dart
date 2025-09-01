@@ -10,7 +10,7 @@ import '../models/ModelProvider.dart';
 
 part 'auth.g.dart';
 
-@Riverpod(dependencies: [])
+@Riverpod()
 Future<String> userId(Ref ref) async {
   return await Amplify.Auth.getPlugin(
     AmplifyAuthCognito.pluginKey,

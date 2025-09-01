@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'settings.g.dart';
 part 'settings.freezed.dart';
 
-@Riverpod(dependencies: [], keepAlive: true)
+@Riverpod(keepAlive: true)
 class SettingsNotifier extends _$SettingsNotifier {
   @override
   Settings build() {

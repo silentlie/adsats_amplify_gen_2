@@ -19,8 +19,8 @@ final class UserIdProvider
           retry: null,
           name: r'userIdProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
   @override
@@ -37,7 +37,7 @@ final class UserIdProvider
   }
 }
 
-String _$userIdHash() => r'2b1762f5114422db6a7aaca8a84656d84c75397a';
+String _$userIdHash() => r'f7fb8e5548393f5e80b768e4bfd71dc7eb36b93f';
 
 @ProviderFor(userDetails)
 const userDetailsProvider = UserDetailsProvider._();
@@ -168,7 +168,7 @@ final class IsSafetyOfficerProvider
   }
 }
 
-String _$isSafetyOfficerHash() => r'c0b54f11ad87adabf41d83a4d56ecd2ca7d48fc4';
+String _$isSafetyOfficerHash() => r'4d530b75d10275baf3a52c65fe09f5fe7fd4cf52';
 
 @ProviderFor(isComplianceManager)
 const isComplianceManagerProvider = IsComplianceManagerProvider._();
@@ -216,7 +216,7 @@ final class IsComplianceManagerProvider
 }
 
 String _$isComplianceManagerHash() =>
-    r'844e6715a4ef2ae2900a84f7527f3bb5bfd2a566';
+    r'caf217ead21f19fbe2eefc4d58912b0d50509511';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

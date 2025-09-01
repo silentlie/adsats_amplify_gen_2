@@ -19,6 +19,7 @@ class RolesPage extends ConsumerWidget with CompareMixin {
   Widget build(BuildContext context, WidgetRef ref) {
     final dataAsync = ref.watch(rolesProvider);
     final sortState = ref.watch(sortProvider<Role>());
+    print(sortState.sortColumnIndex);
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1536.0),

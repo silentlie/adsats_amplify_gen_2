@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'filter.g.dart';
 
-@Riverpod(dependencies: [])
+@Riverpod()
 class FlightCrewRecordFilter extends _$FlightCrewRecordFilter {
   @override
   FlightCrewRecordFilterState build(

@@ -23,6 +23,9 @@ final class FlightCrewRecordCategoriesProvider
           $allTransitiveDependencies: null,
         );
 
+  static const $allTransitiveDependencies0 =
+      flightCrewRecordCategoriesFilterProvider;
+
   @override
   String debugGetCreateSourceHash() => _$flightCrewRecordCategoriesHash();
 
@@ -60,7 +63,7 @@ final class FlightCrewRecordCategoriesProvider
 }
 
 String _$flightCrewRecordCategoriesHash() =>
-    r'1d8ea1eb6829332956dcd5dbeeebf5311d39ba27';
+    r'b82f0bdc661dc02d55f0b061fe53db8d0626ee0d';
 
 final class FlightCrewRecordCategoriesFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Role>, String> {
@@ -68,8 +71,12 @@ final class FlightCrewRecordCategoriesFamily extends $Family
       : super(
           retry: null,
           name: r'flightCrewRecordCategoriesProvider',
-          dependencies: null,
-          $allTransitiveDependencies: null,
+          dependencies: const <ProviderOrFamily>[
+            flightCrewRecordCategoriesFilterProvider
+          ],
+          $allTransitiveDependencies: const <ProviderOrFamily>[
+            FlightCrewRecordCategoriesProvider.$allTransitiveDependencies0,
+          ],
           isAutoDispose: true,
         );
 

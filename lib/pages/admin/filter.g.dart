@@ -18,8 +18,8 @@ final class AdminFilterProvider
           retry: null,
           name: r'adminFilterProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
   @override
@@ -38,7 +38,7 @@ final class AdminFilterProvider
   }
 }
 
-String _$adminFilterHash() => r'30619346f8e65330844ff78bbf314042e6281cc0';
+String _$adminFilterHash() => r'9c19f325f4fabd0463fe48c9ac30c1e759bfa471';
 
 abstract class _$AdminFilter extends $Notifier<AdminFilterState> {
   AdminFilterState build();

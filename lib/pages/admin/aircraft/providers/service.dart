@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'service.g.dart';
 
-@Riverpod(dependencies: [], keepAlive: true)
+@Riverpod(keepAlive: true)
 AircraftRepository aircraftService(
   Ref ref,
 ) {

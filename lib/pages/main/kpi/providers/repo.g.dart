@@ -59,7 +59,7 @@ final class StaffKPIRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$staffKPIRepoHash() => r'531e77e01511c2644c0e1cadc208188828246f0a';
+String _$staffKPIRepoHash() => r'54882e35c7a14d1a26785aa406b15025988f288b';
 
 final class StaffKPIRepoFamily extends $Family
     with
@@ -69,8 +69,8 @@ final class StaffKPIRepoFamily extends $Family
       : super(
           retry: null,
           name: r'staffKPIRepoProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 

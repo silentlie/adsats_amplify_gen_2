@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'service.g.dart';
 
-@Riverpod(dependencies: [], keepAlive: true)
+@Riverpod(keepAlive: true)
 StaffRepository staffService(Ref ref) {
   return StaffRepository(
     db: ref.read(databaseAPIProvider),

@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -10,7 +11,7 @@ sealed class StaffKPI with _$StaffKPI {
     required final Staff staff,
   }) = _StaffKPI;
 
-  String get name => "${staff.firstName} ${staff.lastName}";
+  String get name => staff.fullName;
   bool get archived => staff.archived;
   int get noticeToCrews => staff.notices!.where(
         (element) {

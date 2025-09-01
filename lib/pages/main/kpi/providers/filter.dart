@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'filter.g.dart';
 
-@Riverpod(dependencies: [])
+@Riverpod()
 class StaffKPIFilter extends _$StaffKPIFilter {
   @override
   StaffKPIFilterState build() {

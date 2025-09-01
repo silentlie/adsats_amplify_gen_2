@@ -55,7 +55,7 @@ final class SubcategoryFilterProvider
   }
 }
 
-String _$subcategoryFilterHash() => r'e9116be248e7405ffa2946dca4c7cfa236ffb0de';
+String _$subcategoryFilterHash() => r'80821d90c94eaa3227b51404a3a0933094035273';
 
 final class SubcategoryFilterFamily extends $Family
     with
@@ -65,8 +65,8 @@ final class SubcategoryFilterFamily extends $Family
       : super(
           retry: null,
           name: r'subcategoryFilterProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 

@@ -8,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'repo.g.dart';
 
-@Riverpod(dependencies: [])
+@Riverpod()
 FutureOr<List<Report>> reportsSentRepo(
   Ref ref,
   ReportFilterState filter,

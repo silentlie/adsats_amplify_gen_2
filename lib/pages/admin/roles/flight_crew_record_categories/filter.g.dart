@@ -60,7 +60,7 @@ final class FlightCrewRecordCategoriesFilterProvider extends $NotifierProvider<
 }
 
 String _$flightCrewRecordCategoriesFilterHash() =>
-    r'fa4b7a8fdf9298de79393989049b640ba1f92140';
+    r'4fa054735c5217f7e77c1127aa76092385d0f88a';
 
 final class FlightCrewRecordCategoriesFilterFamily extends $Family
     with
@@ -74,8 +74,8 @@ final class FlightCrewRecordCategoriesFilterFamily extends $Family
       : super(
           retry: null,
           name: r'flightCrewRecordCategoriesFilterProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 

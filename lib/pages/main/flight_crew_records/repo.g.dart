@@ -64,7 +64,7 @@ final class FlightCrewRecordsRepoProvider extends $FunctionalProvider<
 }
 
 String _$flightCrewRecordsRepoHash() =>
-    r'457fd3b6c5950d72325aa20d5922cc9f1cf486af';
+    r'b0ada21dfbeef8aa9d757230906fe8500e6e5acf';
 
 final class FlightCrewRecordsRepoFamily extends $Family
     with
@@ -74,8 +74,8 @@ final class FlightCrewRecordsRepoFamily extends $Family
       : super(
           retry: null,
           name: r'flightCrewRecordsRepoProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 

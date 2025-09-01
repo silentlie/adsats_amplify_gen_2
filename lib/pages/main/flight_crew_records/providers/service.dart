@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'service.g.dart';
 
-@Riverpod(dependencies: [], keepAlive: true)
+@Riverpod(keepAlive: true)
 FlightCrewRecordsRepository recordsService(Ref ref) {
   return FlightCrewRecordsRepository(
     db: ref.read(databaseAPIProvider),

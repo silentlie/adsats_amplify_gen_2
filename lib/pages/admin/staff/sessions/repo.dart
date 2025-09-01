@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'repo.g.dart';
 
-@Riverpod(dependencies: [])
+@Riverpod()
 FutureOr<List<Session>> sessionsRepo(
   Ref ref,
   Staff staff,

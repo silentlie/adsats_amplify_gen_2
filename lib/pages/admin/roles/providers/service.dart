@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'service.g.dart';
 
-@Riverpod(dependencies: [], keepAlive: true)
+@Riverpod(keepAlive: true)
 RolesRepository rolesService(Ref ref) {
   return RolesRepository(
     db: ref.read(databaseAPIProvider),

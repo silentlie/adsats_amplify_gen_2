@@ -59,7 +59,7 @@ final class ReportsSentRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$reportsSentRepoHash() => r'cc60c826346791a7d79b7406f24e3cecfea40203';
+String _$reportsSentRepoHash() => r'6c26b662d365faf6bfec652dc72034c6b073cf4d';
 
 final class ReportsSentRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Report>>, ReportFilterState> {
@@ -67,8 +67,8 @@ final class ReportsSentRepoFamily extends $Family
       : super(
           retry: null,
           name: r'reportsSentRepoProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 

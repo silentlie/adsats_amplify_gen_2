@@ -55,7 +55,7 @@ final class DocumentFilterProvider
   }
 }
 
-String _$documentFilterHash() => r'95fa40d7f0b9a0080422219bfbb592770cb33991';
+String _$documentFilterHash() => r'5b445578467b69c5a31f9f66d1769d6f044b456a';
 
 final class DocumentFilterFamily extends $Family
     with
@@ -65,8 +65,8 @@ final class DocumentFilterFamily extends $Family
       : super(
           retry: null,
           name: r'documentFilterProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 

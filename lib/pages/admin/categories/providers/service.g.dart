@@ -20,8 +20,8 @@ final class CategoriesServiceProvider extends $FunctionalProvider<
           retry: null,
           name: r'categoriesServiceProvider',
           isAutoDispose: false,
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
   @override
@@ -47,7 +47,7 @@ final class CategoriesServiceProvider extends $FunctionalProvider<
   }
 }
 
-String _$categoriesServiceHash() => r'7d3b71e8670e003cc991760a6cf8533c274b6888';
+String _$categoriesServiceHash() => r'f4115ff3f4897654de8804b73d813150a08099ca';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

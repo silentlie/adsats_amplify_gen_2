@@ -15,6 +15,6 @@ Future<Role> flightCrewRecordCategories(
       .read(flightCrewRecordCategoriesServiceProvider)
       .list(variables: {
     "filter": filter,
-    "roleId": filter.roleId,
+    "id": filter.roleId,
   });
 }

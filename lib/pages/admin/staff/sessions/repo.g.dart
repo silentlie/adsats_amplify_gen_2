@@ -58,7 +58,7 @@ final class SessionsRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$sessionsRepoHash() => r'c1b173a68386d1da70b5147eba6336774e750b0a';
+String _$sessionsRepoHash() => r'4d0a5a55d84ee55eba7a2976ab320809893270d7';
 
 final class SessionsRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Session>>, Staff> {
@@ -66,8 +66,8 @@ final class SessionsRepoFamily extends $Family
       : super(
           retry: null,
           name: r'sessionsRepoProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 

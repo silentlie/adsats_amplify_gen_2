@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'email_service.g.dart';
 
-@Riverpod(dependencies: [], keepAlive: true)
+@Riverpod(keepAlive: true)
 AmplifyEmailRepository emailService(Ref ref) {
   return AmplifyEmailRepository(ref.read(databaseAPIProvider));
 }

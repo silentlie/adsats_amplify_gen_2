@@ -31,6 +31,8 @@ final class RecordsProvider extends $FunctionalProvider<
           $allTransitiveDependencies: null,
         );
 
+  static const $allTransitiveDependencies0 = flightCrewRecordFilterProvider;
+
   @override
   String debugGetCreateSourceHash() => _$recordsHash();
 
@@ -71,7 +73,7 @@ final class RecordsProvider extends $FunctionalProvider<
   }
 }
 
-String _$recordsHash() => r'780befb3a6eb36deb1f68a8eacc32f48ccf34f49';
+String _$recordsHash() => r'fb9c9ecaeaf2d33f22b921c0c606b0d568e6c6d8';
 
 final class RecordsFamily extends $Family
     with
@@ -85,8 +87,12 @@ final class RecordsFamily extends $Family
       : super(
           retry: null,
           name: r'recordsProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: const <ProviderOrFamily>[
+            flightCrewRecordFilterProvider
+          ],
+          $allTransitiveDependencies: const <ProviderOrFamily>[
+            RecordsProvider.$allTransitiveDependencies0,
+          ],
           isAutoDispose: true,
         );
 
@@ -120,8 +126,8 @@ final class RecordMetaProvider extends $FunctionalProvider<
           retry: null,
           name: r'recordMetaProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
   @override
@@ -139,7 +145,7 @@ final class RecordMetaProvider extends $FunctionalProvider<
   }
 }
 
-String _$recordMetaHash() => r'27b765291103808b69846eaee84c574e9a5ead80';
+String _$recordMetaHash() => r'9eef6d0cb3dc2cc52d02270f18ffe1da7760333f';
 
 @ProviderFor(joinStaff)
 const joinStaffProvider = JoinStaffFamily._();
@@ -202,7 +208,7 @@ final class JoinStaffProvider extends $FunctionalProvider<
   }
 }
 
-String _$joinStaffHash() => r'72ab969f4a3145d2cfb6035dbd50c2ddef7ed6e1';
+String _$joinStaffHash() => r'3e3a9dd119fae4ebb94f84d5015c5e6beb9839d7';
 
 final class JoinStaffFamily extends $Family
     with
@@ -216,8 +222,8 @@ final class JoinStaffFamily extends $Family
       : super(
           retry: null,
           name: r'joinStaffProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 

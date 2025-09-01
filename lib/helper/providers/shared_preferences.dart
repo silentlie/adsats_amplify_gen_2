@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part 'shared_preferences.g.dart';
 
-@Riverpod(dependencies: [], keepAlive: true)
+@Riverpod(keepAlive: true)
 class SharedPreferences extends _$SharedPreferences {
   @override
   Future<SharedPreferencesWithCache> build() async {

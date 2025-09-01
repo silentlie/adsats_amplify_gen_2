@@ -20,8 +20,8 @@ final class SubcategoriesServiceProvider extends $FunctionalProvider<
           retry: null,
           name: r'subcategoriesServiceProvider',
           isAutoDispose: false,
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
   @override
@@ -48,7 +48,7 @@ final class SubcategoriesServiceProvider extends $FunctionalProvider<
 }
 
 String _$subcategoriesServiceHash() =>
-    r'7901c0da0113e31b39b1b2a0619bf41073025b41';
+    r'cec646929b981d6635f34850168dde3e9f0b3aaf';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

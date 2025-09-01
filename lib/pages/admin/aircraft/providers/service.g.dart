@@ -20,8 +20,8 @@ final class AircraftServiceProvider extends $FunctionalProvider<
           retry: null,
           name: r'aircraftServiceProvider',
           isAutoDispose: false,
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
   @override
@@ -47,7 +47,7 @@ final class AircraftServiceProvider extends $FunctionalProvider<
   }
 }
 
-String _$aircraftServiceHash() => r'b7490dabcb30529357e816c6c85c5504d9cd1a2b';
+String _$aircraftServiceHash() => r'97dbfebd24aef9a37f3894f2be71fa8839378a8f';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
