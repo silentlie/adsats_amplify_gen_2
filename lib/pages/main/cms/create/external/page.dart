@@ -49,11 +49,11 @@ class ExternalAuditReportPage extends ConsumerWidget {
   }
 }
 
-class ExternalAuditReportForm extends ConsumerWidget {
+class ExternalAuditReportForm extends StatelessWidget {
   const ExternalAuditReportForm({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Form(
       key: GlobalKey<FormState>(),
       child: Column(

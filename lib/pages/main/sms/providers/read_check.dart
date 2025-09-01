@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -15,10 +16,13 @@ FutureOr<List<NoticeStaff>> readCheck(Ref ref) async {
       (value) => value.notice,
     ),
   );
-  return await ref.watch(listNoticeStaffProvider(
-    NoticeStaff.READAT
+  final db = ref.read(databaseAPIProvider);
+  return await db.listAll(
+    modelType: NoticeStaff.classType,
+    where: NoticeStaff.READAT
         .eq(null)
         .and(NoticeStaff.STAFF.eq(userId))
         .and(NoticeStaff.NOTICE.eq(notice.id)),
-  ).future);
+    
+  );
 }

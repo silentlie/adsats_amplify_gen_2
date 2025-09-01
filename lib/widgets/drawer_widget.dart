@@ -1,9 +1,7 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/iterable_join_string_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
-import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
-import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
@@ -97,60 +95,55 @@ class DrawerHeaderWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userDetailsProvider);
+    final user = ref.watch(userDetailsProvider.select((value) => value.value!));
     Widget? avatar;
     avatar = const DefaultLogoWidget();
-    return AsyncValueWidget<Staff>(
-      value: user,
-      data: (user) {
-        return Column(
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: avatar,
-              ),
+    return Column(
+      children: [
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: avatar,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Center(
+          child: Text(
+            user.fullName,
+            style: const TextStyle(
+              fontSize: 16,
             ),
-            const SizedBox(height: 10),
-            Center(
-              child: Text(
-                user.fullName,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.center,
-              ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Center(
+          child: Text(
+            user.email,
+            style: const TextStyle(
+              fontSize: 16,
             ),
-            Center(
-              child: Text(
-                user.email,
-                style: const TextStyle(
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Center(
-              child: Text(
-                'Roles: ${(user.roles ?? []).joinRoleNames()}',
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Center(
-              child: Text(
-                'Aircraft: ${(user.aircraft ?? []).joinAircraftNames()}',
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Center(
-              child: Text(
-                'Subcategories: ${(user.subcategories ?? []).joinSubcategoryNames()}',
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ],
-        );
-      },
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Center(
+          child: Text(
+            'Roles: ${(user.roles ?? []).joinRoleNames()}',
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Center(
+          child: Text(
+            'Aircraft: ${(user.aircraft ?? []).joinAircraftNames()}',
+            textAlign: TextAlign.center,
+          ),
+        ),
+        Center(
+          child: Text(
+            'Subcategories: ${(user.subcategories ?? []).joinSubcategoryNames()}',
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
     );
   }
 }

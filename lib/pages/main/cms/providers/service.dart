@@ -9,8 +9,8 @@ part 'service.g.dart';
 @Riverpod(keepAlive: true)
 ReportRepository reportService(Ref ref) {
   return ReportRepository(
-    db: ref.watch(databaseAPIProvider),
-    storage: ref.watch(storageAPIProvider),
-    email: ref.watch(emailServiceProvider),
+    db: ref.read(databaseAPIProvider),
+    storage: ref.read(storageAPIProvider),
+    email: ref.read(emailServiceProvider),
   );
 }

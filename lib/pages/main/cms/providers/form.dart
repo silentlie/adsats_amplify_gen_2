@@ -6,6 +6,7 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/models/form.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/providers/service.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'form.g.dart';
@@ -52,7 +53,10 @@ class ReportForm extends _$ReportForm {
   // check if user is compliance manager or author of the report
   bool editPermit() {
     return ref.watch(isComplianceManagerProvider) ||
-        ref.watch(userDetailsProvider).value?.id == _draftReport.auditor?.id;
+        ref.watch(userDetailsProvider.select(
+              (value) => value.value?.id,
+            )) ==
+            _draftReport.auditor?.id;
   }
 
   void switchEditMode() {

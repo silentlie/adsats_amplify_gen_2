@@ -164,8 +164,7 @@ class ComplianceManagerSection extends ConsumerWidget {
                     return GlobalDropdownMenu(
                       entries: value.map(
                         (e) {
-                          return DropdownMenuEntry(
-                              value: e, label: e.fullName);
+                          return DropdownMenuEntry(value: e, label: e.fullName);
                         },
                       ).toList(),
                       onSelected: (value) {

@@ -15,7 +15,9 @@ part 'filter.freezed.dart';
 class ReportFilter extends _$ReportFilter {
   @override
   ReportFilterState build() {
-    final user = ref.watch(userDetailsProvider.select((value) => value.value!,));
+    final user = ref.watch(userDetailsProvider.select(
+      (value) => value.value!,
+    ));
     return ReportFilterState(user: user, archived: false);
   }
 

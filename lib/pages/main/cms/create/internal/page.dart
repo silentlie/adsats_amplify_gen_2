@@ -22,7 +22,6 @@ class InternalAuditReportPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userDetails = ref.watch(userDetailsProvider.select(
       (value) {
-        print(value.value);
         return value.value!;
       },
     ));
@@ -30,7 +29,6 @@ class InternalAuditReportPage extends ConsumerWidget {
       overrides: [
         reportFormProvider.overrideWith(
           () {
-            print(report);
             return ReportForm.withReport(
               report ??
                   Report(
@@ -55,17 +53,11 @@ class InternalAuditReportPage extends ConsumerWidget {
   }
 }
 
-class InternalAuditReportForm extends ConsumerWidget {
+class InternalAuditReportForm extends StatelessWidget {
   const InternalAuditReportForm({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final report = ref.watch(
-      reportFormProvider.select(
-        (value) => value.report,
-      ),
-    );
-    print(report);
+  Widget build(BuildContext context) {
     return Form(
       key: GlobalKey<FormState>(),
       child: Column(

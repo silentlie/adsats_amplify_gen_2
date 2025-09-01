@@ -8,7 +8,7 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ReportRepository {
+final class ReportRepository {
   final AmplifyAppSyncAPI _db;
   final AmplifyS3API _storage;
   final AmplifyEmailRepository _email;

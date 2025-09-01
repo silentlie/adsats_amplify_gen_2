@@ -36,7 +36,7 @@ class ProfileDocumentsView extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(userDetailsProvider).value!;
+    final user = ref.watch(userDetailsProvider.select((value) => value.value!));
     final tabCon = useTabController(initialLength: roles.length);
     return Column(
       children: [

@@ -3,7 +3,6 @@ import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
 import 'package:adsats_amplify_gen_2/router/dialog_page.dart';
 import 'package:adsats_amplify_gen_2/router/route_info.dart';
 import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
-import 'package:adsats_amplify_gen_2/widgets/loading_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -63,23 +62,10 @@ class RootShellRouteData extends ShellRouteData {
   ) {
     return Consumer(
       builder: (context, ref, child) {
-        return ref.watch(userDetailsProvider).when(
-              data: (data) {
-                return RootShell(child: navigator);
-              },
-              error: (error, stackTrace) {
-                final titleLarge = Theme.of(context).textTheme.titleLarge;
-                return Center(
-                  child: Text(
-                    error.toString(),
-                    style: titleLarge?.copyWith(color: Colors.red),
-                  ),
-                );
-              },
-              loading: () => LoadingView(),
-              skipLoadingOnRefresh: true,
-              skipLoadingOnReload: true,
-            );
+        ref.watch(userDetailsProvider.select(
+          (value) => value.value,
+        ));
+        return RootShell(child: navigator);
       },
     );
   }

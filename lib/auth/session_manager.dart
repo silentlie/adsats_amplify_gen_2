@@ -27,7 +27,7 @@ class SessionManager extends _$SessionManager {
       // Get current user UUID
       final user = await ref.read(userDetailsProvider.future);
       // Create new session
-      // todo Fetch old session in past five minutes instead create
+      // TODO: Fetch old session in past five minutes instead create
       _currentSession = Session(
         staff: user,
       );

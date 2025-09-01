@@ -7,6 +7,7 @@ import 'package:adsats_amplify_gen_2/pages/main/sms/models/notice_form.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notices.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/service.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notice_form.g.dart';
@@ -58,7 +59,7 @@ class NoticeForm extends _$NoticeForm {
   // check if user is safety officer or author of the notice
   bool editPermit() {
     return ref.watch(isSafetyOfficerProvider) ||
-        state.notice.author?.id == ref.watch(userDetailsProvider).value?.id;
+        state.notice.author?.id == ref.watch(userDetailsProvider.select((value) => value.value?.id,));
   }
 
   // switch edit mode trigger rebuild
