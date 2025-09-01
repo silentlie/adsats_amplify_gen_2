@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'sort.g.dart';
 
-@Riverpod()
+@Riverpod(dependencies: [])
 class Sort<T> extends _$Sort<T> {
   @override
   SortState<T> build() {

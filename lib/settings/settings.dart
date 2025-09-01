@@ -6,11 +6,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'settings.g.dart';
 part 'settings.freezed.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod(dependencies: [], keepAlive: true)
 class SettingsNotifier extends _$SettingsNotifier {
   @override
   Settings build() {
-    final sfAsync = ref.watch(sharedPreferencesProvider);
+    final sfAsync = ref.read(sharedPreferencesProvider);
     return sfAsync.when<Settings>(
       data: (sf) {
         final themeModeStr = sf.getString('themeMode');

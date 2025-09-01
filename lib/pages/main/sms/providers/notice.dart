@@ -4,8 +4,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notice.g.dart';
 
-@Riverpod()
-FutureOr<Notice> notice(Ref ref, String id) async {
+@Riverpod(dependencies: [])
+Future<Notice> notice(Ref ref, String id) async {
   final service = ref.read(noticeServiceProvider);
-  return service.getById(id);
+  return await service.getById(id);
 }

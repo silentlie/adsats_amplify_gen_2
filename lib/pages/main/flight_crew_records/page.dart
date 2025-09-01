@@ -155,6 +155,8 @@ class CrewsView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print(aircraft);
+    print(role);
     return AsyncValueWidget(
       value: ref.watch(joinStaffProvider(aircraft, role)),
       data: (value) {

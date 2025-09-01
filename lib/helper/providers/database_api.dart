@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'database_api.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod(dependencies: [], keepAlive: true)
 AmplifyAppSyncAPI databaseAPI(Ref ref) {
   return AmplifyAppSyncAPI();
 }

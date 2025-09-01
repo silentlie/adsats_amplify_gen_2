@@ -80,7 +80,7 @@ bool isSafetyOfficer(Ref ref) {
             return user.value?.roles?.any(
               (role) {
                 final roleName = role.role?.name;
-                return roleName == "Safety Officer" || roleName == "Admin";
+                return roleName == "Safety Officer";
               },
             );
           },
@@ -97,7 +97,7 @@ bool isComplianceManager(Ref ref) {
             return user.value?.roles?.any(
               (role) {
                 final roleName = role.role?.name;
-                return roleName == "Compliance Manager" || roleName == "Admin";
+                return roleName == "Compliance Manager";
               },
             );
           },

@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'service.g.dart';
 
-@Riverpod(keepAlive: true)
+@Riverpod(dependencies: [], keepAlive: true)
 NoticeRepository noticeService(Ref ref) {
   return NoticeRepository(
     db: ref.read(databaseAPIProvider),

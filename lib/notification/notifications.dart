@@ -17,6 +17,7 @@ List<NoticeStaff> notifications(Ref ref) {
   ));
 }
 
+// todo mixin
 List<ListTile> buildNotifications(BuildContext context, WidgetRef ref) {
   IconData getIcon(String? type) {
     switch (type) {

@@ -9,6 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'repo.g.dart';
 
+// TODO to delete
 @Riverpod(dependencies: [])
 FutureOr<List<FlightCrewRecord>> flightCrewRecordsRepo(
   Ref ref,
