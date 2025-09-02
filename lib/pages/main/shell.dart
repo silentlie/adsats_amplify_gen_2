@@ -51,7 +51,7 @@ class MainShell extends ConsumerWidget {
     final isLandscape = orientation == Orientation.landscape;
     if (!isLandscape) return navigationShell;
     final isExtended = ref.watch(settingsNotifierProvider.select(
-      (value) => value.isNavigationRailExtended,
+      (value) => value.value?.isNavigationRailExtended ?? false,
     ));
     return Row(
       children: [
@@ -60,7 +60,7 @@ class MainShell extends ConsumerWidget {
             onPressed: () {
               ref
                   .read(settingsNotifierProvider.notifier)
-                  .changeNavigationRailExtended();
+                  .toggleNavigationRailExtended();
             },
             label: isExtended ? Text("Collapse") : Icon(Icons.chevron_right),
             icon: isExtended ? Icon(Icons.chevron_left) : null,

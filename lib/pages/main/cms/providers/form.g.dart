@@ -54,7 +54,7 @@ final class ReportFormProvider
   }
 }
 
-String _$reportFormHash() => r'2eca6ab10e67a0714cc8c31895f0b3da08f61e1b';
+String _$reportFormHash() => r'52f141cf00a8c60a780d412b8d04d282bc52232b';
 
 abstract class _$ReportForm extends $Notifier<ReportFormState> {
   ReportFormState build();

@@ -30,7 +30,7 @@ final class SharedPreferencesProvider extends $AsyncNotifierProvider<
   SharedPreferences create() => SharedPreferences();
 }
 
-String _$sharedPreferencesHash() => r'36a01ed2e44bb8541c03a283ee875300e9ae0c8f';
+String _$sharedPreferencesHash() => r'3f4dffcf7c5c158ced40ff703e33ad69429a42ad';
 
 abstract class _$SharedPreferences
     extends $AsyncNotifier<SharedPreferencesWithCache> {

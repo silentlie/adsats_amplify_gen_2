@@ -10,7 +10,7 @@ part of 'settings.dart';
 const settingsNotifierProvider = SettingsNotifierProvider._();
 
 final class SettingsNotifierProvider
-    extends $NotifierProvider<SettingsNotifier, Settings> {
+    extends $AsyncNotifierProvider<SettingsNotifier, Settings> {
   const SettingsNotifierProvider._()
       : super(
           from: null,
@@ -28,27 +28,22 @@ final class SettingsNotifierProvider
   @$internal
   @override
   SettingsNotifier create() => SettingsNotifier();
-
-  /// {@macro riverpod.override_with_value}
-  Override overrideWithValue(Settings value) {
-    return $ProviderOverride(
-      origin: this,
-      providerOverride: $SyncValueProvider<Settings>(value),
-    );
-  }
 }
 
-String _$settingsNotifierHash() => r'dd220b8a72109ecbf55d83a0775eb24489103578';
+String _$settingsNotifierHash() => r'67fa1cb718b8ddb72bab0de7e63cde982a376557';
 
-abstract class _$SettingsNotifier extends $Notifier<Settings> {
-  Settings build();
+abstract class _$SettingsNotifier extends $AsyncNotifier<Settings> {
+  FutureOr<Settings> build();
   @$mustCallSuper
   @override
   void runBuild() {
     final created = build();
-    final ref = this.ref as $Ref<Settings, Settings>;
+    final ref = this.ref as $Ref<AsyncValue<Settings>, Settings>;
     final element = ref.element as $ClassProviderElement<
-        AnyNotifier<Settings, Settings>, Settings, Object?, Object?>;
+        AnyNotifier<AsyncValue<Settings>, Settings>,
+        AsyncValue<Settings>,
+        Object?,
+        Object?>;
     element.handleValue(ref, created);
   }
 }

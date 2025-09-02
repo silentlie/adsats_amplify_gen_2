@@ -8,7 +8,7 @@ class ThemeToggleButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(
-      settingsNotifierProvider.select((settings) => settings.themeMode),
+      settingsNotifierProvider.select((settings) => settings.value?.themeMode ?? ThemeMode.system),
     );
     return IconButton(
       onPressed: () {

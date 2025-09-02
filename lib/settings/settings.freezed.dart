@@ -16,6 +16,7 @@ T _$identity<T>(T value) => value;
 mixin _$Settings {
   ThemeMode get themeMode;
   bool get isNavigationRailExtended;
+  Map<String, List<String>> get flightCrewRecordFavourites;
 
   /// Create a copy of Settings
   /// with the given fields replaced by the non-null parameter values.
@@ -33,16 +34,21 @@ mixin _$Settings {
                 other.themeMode == themeMode) &&
             (identical(
                     other.isNavigationRailExtended, isNavigationRailExtended) ||
-                other.isNavigationRailExtended == isNavigationRailExtended));
+                other.isNavigationRailExtended == isNavigationRailExtended) &&
+            const DeepCollectionEquality().equals(
+                other.flightCrewRecordFavourites, flightCrewRecordFavourites));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, themeMode, isNavigationRailExtended);
+  int get hashCode => Object.hash(
+      runtimeType,
+      themeMode,
+      isNavigationRailExtended,
+      const DeepCollectionEquality().hash(flightCrewRecordFavourites));
 
   @override
   String toString() {
-    return 'Settings(themeMode: $themeMode, isNavigationRailExtended: $isNavigationRailExtended)';
+    return 'Settings(themeMode: $themeMode, isNavigationRailExtended: $isNavigationRailExtended, flightCrewRecordFavourites: $flightCrewRecordFavourites)';
   }
 }
 
@@ -51,7 +57,10 @@ abstract mixin class $SettingsCopyWith<$Res> {
   factory $SettingsCopyWith(Settings value, $Res Function(Settings) _then) =
       _$SettingsCopyWithImpl;
   @useResult
-  $Res call({ThemeMode themeMode, bool isNavigationRailExtended});
+  $Res call(
+      {ThemeMode themeMode,
+      bool isNavigationRailExtended,
+      Map<String, List<String>> flightCrewRecordFavourites});
 }
 
 /// @nodoc
@@ -68,6 +77,7 @@ class _$SettingsCopyWithImpl<$Res> implements $SettingsCopyWith<$Res> {
   $Res call({
     Object? themeMode = null,
     Object? isNavigationRailExtended = null,
+    Object? flightCrewRecordFavourites = null,
   }) {
     return _then(_self.copyWith(
       themeMode: null == themeMode
@@ -78,6 +88,10 @@ class _$SettingsCopyWithImpl<$Res> implements $SettingsCopyWith<$Res> {
           ? _self.isNavigationRailExtended
           : isNavigationRailExtended // ignore: cast_nullable_to_non_nullable
               as bool,
+      flightCrewRecordFavourites: null == flightCrewRecordFavourites
+          ? _self.flightCrewRecordFavourites
+          : flightCrewRecordFavourites // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<String>>,
     ));
   }
 }
@@ -173,14 +187,16 @@ extension SettingsPatterns on Settings {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(ThemeMode themeMode, bool isNavigationRailExtended)?
+    TResult Function(ThemeMode themeMode, bool isNavigationRailExtended,
+            Map<String, List<String>> flightCrewRecordFavourites)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _Settings() when $default != null:
-        return $default(_that.themeMode, _that.isNavigationRailExtended);
+        return $default(_that.themeMode, _that.isNavigationRailExtended,
+            _that.flightCrewRecordFavourites);
       case _:
         return orElse();
     }
@@ -201,13 +217,15 @@ extension SettingsPatterns on Settings {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(ThemeMode themeMode, bool isNavigationRailExtended)
+    TResult Function(ThemeMode themeMode, bool isNavigationRailExtended,
+            Map<String, List<String>> flightCrewRecordFavourites)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _Settings():
-        return $default(_that.themeMode, _that.isNavigationRailExtended);
+        return $default(_that.themeMode, _that.isNavigationRailExtended,
+            _that.flightCrewRecordFavourites);
     }
   }
 
@@ -225,13 +243,15 @@ extension SettingsPatterns on Settings {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(ThemeMode themeMode, bool isNavigationRailExtended)?
+    TResult? Function(ThemeMode themeMode, bool isNavigationRailExtended,
+            Map<String, List<String>> flightCrewRecordFavourites)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _Settings() when $default != null:
-        return $default(_that.themeMode, _that.isNavigationRailExtended);
+        return $default(_that.themeMode, _that.isNavigationRailExtended,
+            _that.flightCrewRecordFavourites);
       case _:
         return null;
     }
@@ -242,8 +262,11 @@ extension SettingsPatterns on Settings {
 
 class _Settings extends Settings {
   _Settings(
-      {this.themeMode = ThemeMode.system, this.isNavigationRailExtended = true})
-      : super._();
+      {this.themeMode = ThemeMode.system,
+      this.isNavigationRailExtended = true,
+      final Map<String, List<String>> flightCrewRecordFavourites = const {}})
+      : _flightCrewRecordFavourites = flightCrewRecordFavourites,
+        super._();
 
   @override
   @JsonKey()
@@ -251,6 +274,15 @@ class _Settings extends Settings {
   @override
   @JsonKey()
   final bool isNavigationRailExtended;
+  final Map<String, List<String>> _flightCrewRecordFavourites;
+  @override
+  @JsonKey()
+  Map<String, List<String>> get flightCrewRecordFavourites {
+    if (_flightCrewRecordFavourites is EqualUnmodifiableMapView)
+      return _flightCrewRecordFavourites;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_flightCrewRecordFavourites);
+  }
 
   /// Create a copy of Settings
   /// with the given fields replaced by the non-null parameter values.
@@ -269,16 +301,22 @@ class _Settings extends Settings {
                 other.themeMode == themeMode) &&
             (identical(
                     other.isNavigationRailExtended, isNavigationRailExtended) ||
-                other.isNavigationRailExtended == isNavigationRailExtended));
+                other.isNavigationRailExtended == isNavigationRailExtended) &&
+            const DeepCollectionEquality().equals(
+                other._flightCrewRecordFavourites,
+                _flightCrewRecordFavourites));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, themeMode, isNavigationRailExtended);
+  int get hashCode => Object.hash(
+      runtimeType,
+      themeMode,
+      isNavigationRailExtended,
+      const DeepCollectionEquality().hash(_flightCrewRecordFavourites));
 
   @override
   String toString() {
-    return 'Settings(themeMode: $themeMode, isNavigationRailExtended: $isNavigationRailExtended)';
+    return 'Settings(themeMode: $themeMode, isNavigationRailExtended: $isNavigationRailExtended, flightCrewRecordFavourites: $flightCrewRecordFavourites)';
   }
 }
 
@@ -289,7 +327,10 @@ abstract mixin class _$SettingsCopyWith<$Res>
       __$SettingsCopyWithImpl;
   @override
   @useResult
-  $Res call({ThemeMode themeMode, bool isNavigationRailExtended});
+  $Res call(
+      {ThemeMode themeMode,
+      bool isNavigationRailExtended,
+      Map<String, List<String>> flightCrewRecordFavourites});
 }
 
 /// @nodoc
@@ -306,6 +347,7 @@ class __$SettingsCopyWithImpl<$Res> implements _$SettingsCopyWith<$Res> {
   $Res call({
     Object? themeMode = null,
     Object? isNavigationRailExtended = null,
+    Object? flightCrewRecordFavourites = null,
   }) {
     return _then(_Settings(
       themeMode: null == themeMode
@@ -316,6 +358,10 @@ class __$SettingsCopyWithImpl<$Res> implements _$SettingsCopyWith<$Res> {
           ? _self.isNavigationRailExtended
           : isNavigationRailExtended // ignore: cast_nullable_to_non_nullable
               as bool,
+      flightCrewRecordFavourites: null == flightCrewRecordFavourites
+          ? _self._flightCrewRecordFavourites
+          : flightCrewRecordFavourites // ignore: cast_nullable_to_non_nullable
+              as Map<String, List<String>>,
     ));
   }
 }

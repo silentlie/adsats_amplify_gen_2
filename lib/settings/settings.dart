@@ -9,46 +9,59 @@ part 'settings.freezed.dart';
 @Riverpod(keepAlive: true)
 class SettingsNotifier extends _$SettingsNotifier {
   @override
-  Settings build() {
-    final sfAsync = ref.read(sharedPreferencesProvider);
-    return sfAsync.when<Settings>(
-      data: (sf) {
-        final themeModeStr = sf.getString('themeMode');
-        final themeMode = switch (themeModeStr) {
-          'light' => ThemeMode.light,
-          'dark' => ThemeMode.dark,
-          'system' => ThemeMode.system,
-          _ => ThemeMode.system,
-        };
-        final isExtended = sf.getBool('isNavigationRailExtended') ?? false;
-        return Settings(
-          themeMode: themeMode,
-          isNavigationRailExtended: isExtended,
-        );
-      },
-      error: (error, stackTrace) {
-        throw error;
-      },
-      loading: () => Settings(),
+  Future<Settings> build() async {
+    await ref.watch(sharedPreferencesProvider.future);
+    final prefs = ref.read(sharedPreferencesProvider.notifier);
+
+    final themeModeStr = await prefs.getString('themeMode');
+    final themeMode = switch (themeModeStr) {
+      'light' => ThemeMode.light,
+      'dark' => ThemeMode.dark,
+      'system' => ThemeMode.system,
+      _ => ThemeMode.system,
+    };
+
+    final isExtended = await prefs.getBool('isNavigationRailExtended') ?? false;
+
+    final flightCrewRecordFavourites =
+        await prefs.getStringListMap('flightCrewRecordFavourites');
+
+    return Settings(
+      themeMode: themeMode,
+      isNavigationRailExtended: isExtended,
+      flightCrewRecordFavourites: flightCrewRecordFavourites,
     );
   }
 
-  void updateThemeMode(ThemeMode newThemeMode) {
-    if (state.themeMode == newThemeMode) return;
-    state = state.copyWith(themeMode: newThemeMode);
-    final sfProvider = ref.read(sharedPreferencesProvider.notifier);
-    sfProvider.saveData('themeMode', state.themeMode.name);
+  Future<Settings> _read() async => state.value ?? await future;
+
+  Future<void> updateThemeMode(ThemeMode newMode) async {
+    final curr = await _read();
+    if (curr.themeMode == newMode) return;
+    state = AsyncData(curr.copyWith(themeMode: newMode));
+    final prefs = ref.read(sharedPreferencesProvider.notifier);
+    await prefs.saveData('themeMode', newMode.name);
   }
 
-  void changeNavigationRailExtended() {
-    state = state.copyWith(
-      isNavigationRailExtended: !state.isNavigationRailExtended,
+  Future<void> toggleNavigationRailExtended() async {
+    final curr = await _read();
+    state = AsyncData(
+      curr.copyWith(isNavigationRailExtended: !curr.isNavigationRailExtended),
     );
-    final sfProvider = ref.read(sharedPreferencesProvider.notifier);
-    sfProvider.saveData(
+    final prefs = ref.read(sharedPreferencesProvider.notifier);
+    await prefs.saveData(
       'isNavigationRailExtended',
-      state.isNavigationRailExtended,
+      !curr.isNavigationRailExtended,
     );
+  }
+
+  Future<void> setFlightCrewRecordFavourites(
+    Map<String, List<String>> value,
+  ) async {
+    final curr = await _read();
+    state = AsyncData(curr.copyWith(flightCrewRecordFavourites: value));
+    final prefs = ref.read(sharedPreferencesProvider.notifier);
+    await prefs.saveData('flightCrewRecordFavourites', value);
   }
 }
 
@@ -58,5 +71,6 @@ sealed class Settings with _$Settings {
   factory Settings({
     @Default(ThemeMode.system) ThemeMode themeMode,
     @Default(true) bool isNavigationRailExtended,
+    @Default({}) Map<String, List<String>> flightCrewRecordFavourites,
   }) = _Settings;
 }

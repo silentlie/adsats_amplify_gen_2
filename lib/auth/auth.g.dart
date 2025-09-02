@@ -74,7 +74,7 @@ final class UserDetailsProvider
   }
 }
 
-String _$userDetailsHash() => r'6169a56306146aa9bedcc699f4f812453c92050d';
+String _$userDetailsHash() => r'892107c5553b2553d6a6f1ebfafaab58adda385c';
 
 @ProviderFor(isAdmin)
 const isAdminProvider = IsAdminProvider._();
