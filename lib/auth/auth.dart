@@ -1,6 +1,5 @@
-import 'dart:convert';
-
 import 'package:adsats_amplify_gen_2/API/queries.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,32 +27,18 @@ Future<String> userId(Ref ref) async {
 @Riverpod(dependencies: [userId])
 Future<Staff> userDetails(Ref ref) async {
   final id = await ref.watch(userIdProvider.future);
-  return await Amplify.API
-      .query(
-        request: GraphQLRequest(
-          document: getStaffGraphQL,
-          variables: {
-            "id": id,
-          },
-        ),
-      )
-      .response
-      .then(
-    (response) {
-      if (response.errors.isNotEmpty) {
-        throw response.errors.first;
-      }
-      Map<String, dynamic> jsonMap = json.decode(response.data);
-      var user = Staff.fromJson(jsonMap['getStaff']);
-      // Validate accessible subcategories
-      return user.copyWith(
-        subcategories: user.subcategories?.where(
-          (element) {
-            return element.accessLevel == 1 || element.accessLevel == 2;
-          },
-        ).toList(),
-      );
-    },
+  final db = ref.read(databaseAPIProvider);
+  final res = await db.query(
+    document: getStaffGraphQL,
+    variables: {"id": id},
+  );
+  final user = Staff.fromJson(res['getStaff']);
+  return user.copyWith(
+    subcategories: user.subcategories?.where(
+      (element) {
+        return element.accessLevel == 1 || element.accessLevel == 2;
+      },
+    ).toList(),
   );
 }
 

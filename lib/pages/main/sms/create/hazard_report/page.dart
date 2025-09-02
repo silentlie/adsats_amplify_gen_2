@@ -9,9 +9,11 @@ import 'package:adsats_amplify_gen_2/pages/main/sms/create/widgets/recipients_wi
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class HazardReportPage extends ConsumerWidget {
+class HazardReportPage extends HookConsumerWidget {
   const HazardReportPage({
     super.key,
     this.notice,
@@ -20,30 +22,36 @@ class HazardReportPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userDetails = ref.read(userDetailsProvider.select(
-      (value) => value.value!,
+    final userDetails = ref.watch(userDetailsProvider.select(
+      (value) => value.value,
     ));
-    return ProviderScope(
-      overrides: [
-        noticeFormProvider.overrideWith(
-          () => NoticeForm.withNotice(
-            notice ??
-                Notice(
-                  subject: "",
-                  archived: false,
-                  details: "{}",
-                  author: userDetails,
-                  type: NoticeType.Hazard_report,
-                  status: NoticeStatus.Open,
-                  aircraft: [],
-                  documents: [],
-                  recipients: [],
-                ),
-            notice == null,
-          ),
-        ),
+    if (userDetails == null) {
+      // Show loading or empty state until userDetails is available
+      return const Center(child: CircularProgressIndicator());
+    }
+    final overrides = useMemoized(() {
+      final initial = notice ??
+          Notice(
+            subject: "",
+            archived: false,
+            details: "{}",
+            author: userDetails,
+            type: NoticeType.Hazard_report,
+            status: NoticeStatus.Open,
+            aircraft: const [],
+            documents: const [],
+            recipients: const [],
+          );
+      final form = NoticeForm.withNotice(initial, notice == null);
+      final noticeFormOverride = noticeFormProvider.overrideWith(() => form);
+
+      return <Override>[
+        noticeFormOverride,
         selectedFilesProvider,
-      ],
+      ];
+    }, [userDetails, notice]);
+    return ProviderScope(
+      overrides: overrides,
       // Ensure new ref have access to the override state
       child: const HazardReportForm(),
     );

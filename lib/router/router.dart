@@ -20,7 +20,7 @@ class Router extends _$Router {
       routes: $appRoutes,
       debugLogDiagnostics: true,
       redirect: (context, state) {
-        ref.refresh(userIdProvider.future).ignore();
+        ref.invalidate(userIdProvider);
         return null;
       },
       errorBuilder: (BuildContext context, GoRouterState state) {

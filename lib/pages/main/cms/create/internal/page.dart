@@ -9,9 +9,12 @@ import 'package:adsats_amplify_gen_2/pages/main/cms/create/widgets/report_recipi
 import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-class InternalAuditReportPage extends ConsumerWidget {
+
+class InternalAuditReportPage extends HookConsumerWidget {
   const InternalAuditReportPage({
     super.key,
     this.report,
@@ -22,32 +25,31 @@ class InternalAuditReportPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final userDetails = ref.watch(userDetailsProvider.select(
       (value) {
-        return value.value!;
+        return value.value;
       },
     ));
-    return ProviderScope(
-      overrides: [
-        reportFormProvider.overrideWith(
-          () {
-            return ReportForm.withReport(
-              report ??
-                  Report(
-                    subject: "",
-                    archived: false,
-                    details: "{}",
-                    recipients: [],
-                    status: ReportStatus.Open,
-                    type: ReportType.Internal_audit_report,
-                    documents: [],
-                    auditor: userDetails,
-                    discrepanciesFound: false,
-                  ),
-              report != null,
-            );
-          },
-        ),
+    final overrides = useMemoized(() {
+      final initial = report ??
+          Report(
+            subject: "",
+            archived: false,
+            details: "{}",
+            recipients: [],
+            status: ReportStatus.Open,
+            type: ReportType.Internal_audit_report,
+            documents: [],
+            auditor: userDetails,
+            discrepanciesFound: false,
+          );
+      final form = ReportForm.withReport(initial, report != null);
+      final override = reportFormProvider.overrideWith(() => form);
+      return <Override>[
+        override,
         selectedFilesProvider,
-      ],
+      ];
+    }, [userDetails, report]);
+    return ProviderScope(
+      overrides: overrides,
       child: const InternalAuditReportForm(),
     );
   }
