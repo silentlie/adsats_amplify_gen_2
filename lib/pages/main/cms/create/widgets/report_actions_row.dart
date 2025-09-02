@@ -79,7 +79,9 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
           if (isEditMode)
             ElevatedButton.icon(
               onPressed: () async {
-                // if (!notifier.validate()) return;
+                final formState = Form.maybeOf(context);
+                if (formState == null) return;
+                formState.save();
                 final result = await showConfirmDialog(
                   context: context,
                   title: Text("Are you sure?"),
@@ -92,6 +94,7 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
                       // TODO update upload status
                     },
                   );
+                  
                   if (!context.mounted) return;
                   if (context.canPop()) {
                     context.pop();
@@ -119,6 +122,7 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
               onPressed: () async {
                 final formState = Form.maybeOf(context);
                 if (formState == null) return;
+                formState.save();
                 if (!formState.validate()) return;
                 final result = await showConfirmDialog(
                   context: context,

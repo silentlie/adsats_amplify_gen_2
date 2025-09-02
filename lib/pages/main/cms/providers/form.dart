@@ -4,6 +4,7 @@ import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/models/form.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/providers/reports.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/providers/service.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -64,11 +65,10 @@ class ReportForm extends _$ReportForm {
   }
 
   void switchStatus(ReportStatus status) {
-    state = state.copyWith(
-      report: state.report.copyWith(
-        status: status,
-      ),
+    _draftReport = _draftReport.copyWith(
+      status: status,
     );
+    commit();
   }
 
   void updateReport({
@@ -116,12 +116,13 @@ class ReportForm extends _$ReportForm {
     commit();
     final service = ref.read(reportServiceProvider);
     await service.saveAndOptionallySend(
-      report: _draftReport,
+      report: state.report,
       initial: _initialReport,
       newDocuments: ref.read(selectedFilesProvider),
       keepDocuments: _documents,
       send: send,
       onProgress: onProgressUpdate,
     );
+    ref.invalidate(reportsProvider);
   }
 }

@@ -26,6 +26,14 @@ class ReportHeader extends ConsumerWidget {
         reverse: true,
         child: Row(
           children: [
+            Tooltip(
+              message: 'Status colors:\n'
+                  '🟡 Pending\n'
+                  '🟢 Closed\n'
+                  '🟩 Closed (Discrepancies)\n'
+                  '🔴 Open',
+              child: Icon(Icons.info_outline),
+            ),
             IconButton(
               onPressed: () {
                 ref.invalidate(reportsProvider);

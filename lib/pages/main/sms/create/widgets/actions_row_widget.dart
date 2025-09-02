@@ -97,13 +97,14 @@ class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
                 ElevatedButton.icon(
                   onPressed: () async {
                     final formState = Form.maybeOf(context);
+                    if (formState == null) return;
+                    formState.save();
                     final result = await showConfirmDialog(
                       context: context,
                       title: Text("Are you sure?"),
                       content: Text("Do you want to save?"),
                     );
                     if (result) {
-                      formState?.save();
                       await notifier.submit(false, (fileName, progress) {
                         // TODO: update file upload progress
                       });
@@ -133,14 +134,15 @@ class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
                 ElevatedButton.icon(
                   onPressed: () async {
                     final formState = Form.maybeOf(context);
-                    if (!(formState?.validate() ?? false)) return;
+                    if (formState == null) return;
+                    formState.save();
+                    if (!(formState.validate())) return;
                     final result = await showConfirmDialog(
                       context: context,
                       title: Text("Are you sure?"),
                       content: Text("Do you want to submit and send?"),
                     );
                     if (result) {
-                      formState?.save();
                       await notifier.submit(true, (fileName, progress) {
                         // TODO: update file upload progress
                       });

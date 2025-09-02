@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
@@ -49,15 +47,12 @@ class ReportDataSource extends DataTableSource {
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
                 borderRadius: BorderRadius.circular(20),
-                // maybe make it follow color scheme
                 color: switch (report.status) {
                   ReportStatus.Pending => Colors.amber,
-                  ReportStatus.Closed
-                      when jsonDecode(
-                              report.details)["is_discrepancies_found"] ==
-                          true =>
+                  ReportStatus.Closed when report.discrepanciesFound =>
                     Colors.lime,
                   ReportStatus.Closed => Colors.green,
+                  ReportStatus.Open => Colors.red,
                   _ => null,
                 },
               ),
