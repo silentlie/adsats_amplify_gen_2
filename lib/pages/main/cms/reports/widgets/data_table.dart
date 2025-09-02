@@ -46,7 +46,7 @@ class ReportDataTable extends ConsumerWidget with CompareMixin {
                 columnIndex: columnIndex,
                 sortAscending: ascending,
                 getField: (report) {
-                  return report.type?.name ?? "";
+                  return report.type?.name;
                 },
               );
             },
@@ -59,7 +59,18 @@ class ReportDataTable extends ConsumerWidget with CompareMixin {
                 columnIndex: columnIndex,
                 sortAscending: ascending,
                 getField: (report) {
-                  return report.status?.name ?? "";
+                  return report.status?.name;
+                },
+                custom: (a, b, sortAscending) {
+                  if (a.discrepanciesFound == true &&
+                      b.discrepanciesFound == false) {
+                    return sortAscending ? -1 : 1;
+                  } else if (a.discrepanciesFound == false &&
+                      b.discrepanciesFound == true) {
+                    return sortAscending ? 1 : -1;
+                  }
+                  return a.status!.name.compareTo(b.status!.name) *
+                      (sortAscending ? 1 : -1);
                 },
               );
             },
