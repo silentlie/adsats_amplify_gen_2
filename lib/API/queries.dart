@@ -378,6 +378,7 @@ query GetNoticeDetails(\$id: ID!) {
           email
           archived
         }
+        readAt
       }
     }
   }

@@ -24,7 +24,6 @@ class ReportRecipients extends ConsumerWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Chip(
                   label: Text(e.fullName),
-                  color: WidgetStateProperty.all(Colors.green),
                 ),
               )),
           if (state.recipients.isEmpty) Text("Nil"),

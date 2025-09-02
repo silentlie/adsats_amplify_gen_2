@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/fav_sort.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
@@ -6,10 +7,11 @@ import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class NoticeRecipientsWidget extends ConsumerWidget {
+class NoticeRecipientsWidget extends HookConsumerWidget {
   const NoticeRecipientsWidget({super.key});
 
   @override
@@ -22,33 +24,118 @@ class NoticeRecipientsWidget extends ConsumerWidget {
     final editMode = ref.watch(noticeFormProvider.select(
       (value) => value.editMode,
     ));
+    if (!editMode) {
+      final aircraftScroll = useScrollController();
+      final recipientsScroll = useScrollController();
+      return Row(
+        children: [
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade800),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Scrollbar(
+                thumbVisibility: true,
+                trackVisibility: true,
+                interactive: true,
+                controller: aircraftScroll,
+                child: SingleChildScrollView(
+                  controller: aircraftScroll,
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0).copyWith(bottom: 16.0),
+                    child: Row(
+                      children: [
+                        Text("Aircraft:"),
+                        ...state.aircraft.map(
+                          (e) => Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Chip(label: Text(e.name)),
+                          ),
+                        ),
+                        if (state.aircraft.isEmpty) Text("Nil"),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey.shade800),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Scrollbar(
+                thumbVisibility: true,
+                trackVisibility: true,
+                interactive: true,
+                controller: recipientsScroll,
+                child: SingleChildScrollView(
+                  controller: recipientsScroll,
+                  scrollDirection: Axis.horizontal,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0).copyWith(bottom: 16.0),
+                    child: Row(
+                      children: [
+                        Text("Recipients:"),
+                        ...state.recipients
+                            .sortedByFav(
+                              isFav: (e) => e.readAt == null,
+                              getField: (e) => e.staff!.fullName,
+                            )
+                            .map((e) => Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Chip(
+                                    label: Text(e.staff!.fullName),
+                                    color: WidgetStateProperty.all(
+                                      e.readAt != null
+                                          ? Colors.green
+                                          : Colors.red,
+                                    ),
+                                  ),
+                                ),),
+                        if (state.recipients.isEmpty) Text("Nil"),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+    }
     final isSafetyOfficer = ref.watch(isSafetyOfficerProvider);
     return Row(
       children: [
-        if (editMode)
-          Expanded(
-            child: AsyncValueWidget(
-              // TODO: FutureWidget
-              value: ref.watch(listAircraftProvider()),
-              data: (value) {
-                return MultiSelectFormField<Aircraft>(
-                  title: "Aircraft",
-                  items: value,
-                  toCard: (value) {
-                    return CheckListCard(
-                      value: value,
-                      title: Text(value.name),
-                    );
-                  },
-                  onSaved: (newValue) {
-                    notifier.updateNotice(aircraft: newValue);
-                  },
-                  initialValue: state.aircraft,
-                );
-              },
-            ),
+        Expanded(
+          child: AsyncValueWidget(
+            // TODO: FutureWidget
+            value: ref.watch(listAircraftProvider()),
+            data: (value) {
+              return MultiSelectFormField<Aircraft>(
+                title: "Aircraft",
+                items: value,
+                toCard: (value) {
+                  return CheckListCard(
+                    value: value,
+                    title: Text(value.name),
+                  );
+                },
+                onSaved: (newValue) {
+                  notifier.updateNotice(aircraft: newValue);
+                },
+                initialValue: state.aircraft,
+              );
+            },
           ),
-        if (editMode && !isDraft)
+        ),
+        if (!isDraft)
           Expanded(
             child: AsyncValueWidget(
               // TODO: FutureWidget
@@ -79,7 +166,7 @@ class NoticeRecipientsWidget extends ConsumerWidget {
               },
             ),
           ),
-        if (editMode && !isDraft && isSafetyOfficer)
+        if (!isDraft && isSafetyOfficer)
           Expanded(
             child: AsyncValueWidget(
               // TODO: FutureWidget
@@ -97,47 +184,9 @@ class NoticeRecipientsWidget extends ConsumerWidget {
                   onSaved: (newValue) {
                     notifier.updateNotice(recipients: newValue);
                   },
-                  initialValue: state.recipients,
+                  initialValue: state.recipients.map((e) => e.staff!).toList(),
                 );
               },
-            ),
-          ),
-        if (!editMode)
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Text("Aircraft:"),
-                    ...state.aircraft.map(
-                      (e) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Chip(label: Text(e.name)),
-                      ),
-                    ),
-                    if (state.aircraft.isEmpty) Text("Nil"),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        if (!editMode)
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  Text("Recipients:"),
-                  ...state.recipients.map((e) => Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child:
-                            Chip(label: Text(e.fullName)),
-                      )),
-                  if (state.recipients.isEmpty) Text("Nil"),
-                ],
-              ),
             ),
           ),
       ],

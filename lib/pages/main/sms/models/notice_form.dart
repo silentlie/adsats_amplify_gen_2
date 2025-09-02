@@ -23,9 +23,8 @@ sealed class NoticeFormState with _$NoticeFormState {
       .map((e) => e.aircraft!)
       .toList(growable: false);
 
-  List<Staff> get recipients => (notice.recipients ?? const [])
-      .map((e) => e.staff!)
-      .toList(growable: false);
+  List<NoticeStaff> get recipients =>
+      (notice.recipients ?? const []).toList(growable: false);
 
   bool get isDraft =>
       (notice.status ?? NoticeStatus.Open) == NoticeStatus.Draft;

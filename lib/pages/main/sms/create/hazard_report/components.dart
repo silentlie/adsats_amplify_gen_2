@@ -537,7 +537,7 @@ class SafetyOfficersSection extends ConsumerWidget {
                 entries: recipients.map(
                   (e) {
                     return DropdownMenuEntry(
-                        value: e, label: e.fullName);
+                        value: e, label: e.staff!.fullName);
                   },
                 ).toList(),
                 onSelected: (value) {

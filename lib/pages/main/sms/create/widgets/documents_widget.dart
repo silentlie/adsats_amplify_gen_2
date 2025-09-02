@@ -2,9 +2,10 @@ import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class NoticeDocumentsWidget extends ConsumerWidget {
+class NoticeDocumentsWidget extends HookConsumerWidget {
   const NoticeDocumentsWidget({super.key});
 
   @override
@@ -60,11 +61,18 @@ class NoticeDocumentsWidget extends ConsumerWidget {
         },
       )
     ];
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: children,
+    final scrollController = useScrollController();
+    return Scrollbar(
+      thumbVisibility: true,
+      trackVisibility: true,
+      controller: scrollController,
+      child: SingleChildScrollView(
+        controller: scrollController,
+        scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: children,
+        ),
       ),
     );
   }

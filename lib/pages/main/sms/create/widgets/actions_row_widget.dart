@@ -9,10 +9,11 @@ import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class ActionsRowWidget extends ConsumerWidget with ConfirmDialogMixin {
+class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
   const ActionsRowWidget({super.key});
 
   @override
@@ -27,138 +28,147 @@ class ActionsRowWidget extends ConsumerWidget with ConfirmDialogMixin {
     final notifier = ref.read(noticeFormProvider.notifier);
     final isSafetyOfficer = ref.watch(isSafetyOfficerProvider);
     final type =
-        ref.read(noticeFormProvider.select((value) => value.notice.type!));
+        ref.read(noticeFormProvider.select((value) => value.notice.type!),);
+    final scrollController = useScrollController();
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Row(
-        spacing: 8,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          ElevatedButton.icon(
-            onPressed: () async {
-              final result = await showConfirmDialog(
-                context: context,
-                title: Text("Are you sure?"),
-                content: Text("Do you want to cancel?"),
-              );
-              if (result && context.mounted) {
-                if (context.canPop()) {
-                  context.pop();
-                } else {
-                  SmsSentRoute().go(context);
-                }
-              }
-            },
-            label: const Text('Cancel'),
-            icon: Icon(Icons.cancel_outlined),
+      child: Scrollbar(
+        thumbVisibility: true,
+        trackVisibility: true,
+        controller: scrollController,
+        child: SingleChildScrollView(
+          controller: scrollController,
+          child: Row(
+            spacing: 8,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ElevatedButton.icon(
+                onPressed: () async {
+                  final result = await showConfirmDialog(
+                    context: context,
+                    title: Text("Are you sure?"),
+                    content: Text("Do you want to cancel?"),
+                  );
+                  if (result && context.mounted) {
+                    if (context.canPop()) {
+                      context.pop();
+                    } else {
+                      SmsSentRoute().go(context);
+                    }
+                  }
+                },
+                label: const Text('Cancel'),
+                icon: Icon(Icons.cancel_outlined),
+              ),
+              if (!notifier.isNew()) readButton(ref, context),
+              if (!notifier.isNew() && notifier.editPermit())
+                ElevatedButton.icon(
+                  onPressed: () {
+                    notifier.switchEditMode();
+                  },
+                  label: Text(
+                    isEditMode ? 'View Mode' : 'Edit Mode',
+                  ),
+                  icon: Icon(
+                    isEditMode
+                        ? Icons.remove_red_eye_outlined
+                        : Icons.edit_outlined,
+                  ),
+                ),
+              if (isEditMode)
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    FilePickerResult? filePickerResult =
+                        await FilePicker.platform.pickFiles(
+                      allowMultiple: true,
+                      type: FileType.any,
+                      withData: false,
+                      // Ensure to get file stream for better performance
+                      withReadStream: true,
+                    );
+                    ref
+                        .read(selectedFilesProvider.notifier)
+                        .addFiles(filePickerResult?.files ?? []);
+                  },
+                  label: const Text("Attachments Documents"),
+                  icon: Icon(Icons.description_outlined),
+                ),
+              if (isEditMode)
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    final formState = Form.maybeOf(context);
+                    final result = await showConfirmDialog(
+                      context: context,
+                      title: Text("Are you sure?"),
+                      content: Text("Do you want to save?"),
+                    );
+                    if (result) {
+                      formState?.save();
+                      await notifier.submit(false, (fileName, progress) {
+                        // TODO: update file upload progress
+                      });
+                      if (!context.mounted) return;
+                      if (context.canPop()) {
+                        context.pop();
+                      } else {
+                        SmsSentRoute().go(context);
+                      }
+                    }
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all<Color>(
+                      colorScheme.secondary,
+                    ),
+                  ),
+                  label: Text(
+                    "Save",
+                    style: TextStyle(color: colorScheme.onSecondary),
+                  ),
+                  icon: Icon(
+                    Icons.mail,
+                    color: colorScheme.onSecondary,
+                  ),
+                ),
+              if (isEditMode && !isDraft)
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    final formState = Form.maybeOf(context);
+                    if (!(formState?.validate() ?? false)) return;
+                    final result = await showConfirmDialog(
+                      context: context,
+                      title: Text("Are you sure?"),
+                      content: Text("Do you want to submit and send?"),
+                    );
+                    if (result) {
+                      formState?.save();
+                      await notifier.submit(true, (fileName, progress) {
+                        // TODO: update file upload progress
+                      });
+                      if (!context.mounted) return;
+                      if (context.canPop()) {
+                        context.pop();
+                      } else {
+                        SmsInboxRoute().go(context);
+                      }
+                    }
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all<Color>(
+                      colorScheme.secondary,
+                    ),
+                  ),
+                  label: Text(
+                    "Send ${type.label} to ${isSafetyOfficer ? "crew" : "safety officers"}",
+                    style: TextStyle(color: colorScheme.onSecondary),
+                  ),
+                  icon: Icon(
+                    Icons.mail,
+                    color: colorScheme.onSecondary,
+                  ),
+                )
+            ],
           ),
-          if (!notifier.isNew()) readButton(ref, context),
-          if (!notifier.isNew() && notifier.editPermit())
-            ElevatedButton.icon(
-              onPressed: () {
-                notifier.switchEditMode();
-              },
-              label: Text(
-                isEditMode ? 'View Mode' : 'Edit Mode',
-              ),
-              icon: Icon(
-                isEditMode
-                    ? Icons.remove_red_eye_outlined
-                    : Icons.edit_outlined,
-              ),
-            ),
-          if (isEditMode)
-            ElevatedButton.icon(
-              onPressed: () async {
-                FilePickerResult? filePickerResult =
-                    await FilePicker.platform.pickFiles(
-                  allowMultiple: true,
-                  type: FileType.any,
-                  withData: false,
-                  // Ensure to get file stream for better performance
-                  withReadStream: true,
-                );
-                ref
-                    .read(selectedFilesProvider.notifier)
-                    .addFiles(filePickerResult?.files ?? []);
-              },
-              label: const Text("Attachments Documents"),
-              icon: Icon(Icons.description_outlined),
-            ),
-          if (isEditMode)
-            ElevatedButton.icon(
-              onPressed: () async {
-                final formState = Form.maybeOf(context);
-                final result = await showConfirmDialog(
-                  context: context,
-                  title: Text("Are you sure?"),
-                  content: Text("Do you want to save?"),
-                );
-                if (result) {
-                  formState?.save();
-                  await notifier.submit(false, (fileName, progress) {
-                    // TODO: update file upload progress
-                  });
-                  if (!context.mounted) return;
-                  if (context.canPop()) {
-                    context.pop();
-                  } else {
-                    SmsSentRoute().go(context);
-                  }
-                }
-              },
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all<Color>(
-                  colorScheme.secondary,
-                ),
-              ),
-              label: Text(
-                "Save",
-                style: TextStyle(color: colorScheme.onSecondary),
-              ),
-              icon: Icon(
-                Icons.mail,
-                color: colorScheme.onSecondary,
-              ),
-            ),
-          if (isEditMode && !isDraft)
-            ElevatedButton.icon(
-              onPressed: () async {
-                final formState = Form.maybeOf(context);
-                if (!(formState?.validate() ?? false)) return;
-                final result = await showConfirmDialog(
-                  context: context,
-                  title: Text("Are you sure?"),
-                  content: Text("Do you want to submit and send?"),
-                );
-                if (result) {
-                  formState?.save();
-                  await notifier.submit(true, (fileName, progress) {
-                    // TODO: update file upload progress
-                  });
-                  if (!context.mounted) return;
-                  if (context.canPop()) {
-                    context.pop();
-                  } else {
-                    SmsInboxRoute().go(context);
-                  }
-                }
-              },
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all<Color>(
-                  colorScheme.secondary,
-                ),
-              ),
-              label: Text(
-                "Send ${type.label} to ${isSafetyOfficer ? "crew" : "safety officers"}",
-                style: TextStyle(color: colorScheme.onSecondary),
-              ),
-              icon: Icon(
-                Icons.mail,
-                color: colorScheme.onSecondary,
-              ),
-            )
-        ],
+        ),
       ),
     );
   }

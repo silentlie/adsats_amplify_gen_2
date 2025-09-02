@@ -1,5 +1,6 @@
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 
 class MultiSelectFormField<T extends Model> extends FormField<List<T>> {
@@ -32,7 +33,7 @@ class MultiSelectFormField<T extends Model> extends FormField<List<T>> {
         );
 }
 
-class _MultiSelectFormFieldContent<T extends Model> extends StatelessWidget {
+class _MultiSelectFormFieldContent<T extends Model> extends HookWidget {
   final FormFieldState<List<T>> state;
   final String? title;
   final List<T> items;
@@ -126,29 +127,41 @@ class _MultiSelectFormFieldContent<T extends Model> extends StatelessWidget {
 
   Widget _buildSelectedChips(ThemeData theme) {
     if (state.value?.isEmpty ?? true) return const SizedBox.shrink();
-
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Wrap(
-        spacing: 4.0,
-        children: state.value!.map((item) {
-          final onDeleted = enabled
-              ? () {
-                  _updateSelection((state.value ?? [])..remove(item));
-                }
-              : null;
-          return Chip(
-            label: toCard(item).title!,
-            backgroundColor: theme.chipTheme.backgroundColor,
-            labelStyle: theme.chipTheme.labelStyle,
-            deleteIcon: Icon(
-              Icons.cancel,
-              size: 18,
-              color: theme.chipTheme.deleteIconColor,
-            ),
-            onDeleted: onDeleted,
-          );
-        }).toList(),
+    final scrollController = useScrollController();
+    return Scrollbar(
+      controller: scrollController,
+      thumbVisibility: true,
+      trackVisibility: true,
+      interactive: true,
+      child: SingleChildScrollView(
+        controller: scrollController,
+        scrollDirection: Axis.horizontal,
+        child: Container(
+          padding: const EdgeInsets.only(bottom: 16.0),
+          child: Row(
+            spacing: 4.0,
+            children: state.value!.map((item) {
+              final onDeleted = enabled
+                  ? () {
+                      final newList = List<T>.from(state.value ?? []);
+                      newList.remove(item);
+                      _updateSelection(newList);
+                    }
+                  : null;
+              return Chip(
+                label: toCard(item).title ?? Text(""),
+                backgroundColor: theme.chipTheme.backgroundColor,
+                labelStyle: theme.chipTheme.labelStyle,
+                deleteIcon: Icon(
+                  Icons.cancel,
+                  size: 18,
+                  color: theme.chipTheme.deleteIconColor,
+                ),
+                onDeleted: onDeleted,
+              );
+            }).toList(),
+          ),
+        ),
       ),
     );
   }
