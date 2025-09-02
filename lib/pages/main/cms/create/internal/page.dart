@@ -41,7 +41,7 @@ class InternalAuditReportPage extends HookConsumerWidget {
             auditor: userDetails,
             discrepanciesFound: false,
           );
-      final form = ReportForm.withReport(initial, report != null);
+      final form = ReportForm.withReport(initial, report == null);
       final override = reportFormProvider.overrideWith(() => form);
       return <Override>[
         override,
