@@ -27,7 +27,6 @@ class SafetyNoticePage extends HookConsumerWidget {
       },
     ));
     if (userDetails == null) {
-      // Show loading or empty state until userDetails is available
       return const Center(child: CircularProgressIndicator());
     }
     final overrides = useMemoized(() {

@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/enum/inbox_or_sent.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/compare_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
@@ -14,6 +15,14 @@ class SmsSentPage extends ConsumerWidget with CompareMixin {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final userDetails = ref.watch(userDetailsProvider.select(
+      (value) {
+        return value.value;
+      },
+    ));
+    if (userDetails == null) {
+      return const Center(child: CircularProgressIndicator());
+    }
     final dataAsync = ref.watch(noticesProvider(InboxOrSent.sent));
     final (asc, key) = ref.watch(
       sortProvider<Notice>().select((s) => (s.sortAscending, s.getField)),
