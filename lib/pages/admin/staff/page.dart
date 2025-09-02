@@ -120,7 +120,7 @@ class StaffPage extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (staff) {
-                      return staff.createdAt!;
+                      return staff.createdAt;
                     },
                   );
                 },

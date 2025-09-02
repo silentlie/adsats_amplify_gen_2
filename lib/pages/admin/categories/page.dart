@@ -57,7 +57,7 @@ class CategoriesPage extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (category) {
-                      return category.description ?? "";
+                      return category.description;
                     },
                   );
                 },
@@ -83,7 +83,7 @@ class CategoriesPage extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (category) {
-                      return category.createdAt!;
+                      return category.createdAt;
                     },
                   );
                 },

@@ -55,7 +55,7 @@ class AircraftPage extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (aircraft) {
-                      return aircraft.description ?? "";
+                      return aircraft.description;
                     },
                   );
                 },
@@ -81,7 +81,7 @@ class AircraftPage extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (aircraft) {
-                      return aircraft.createdAt!;
+                      return aircraft.createdAt;
                     },
                   );
                 },

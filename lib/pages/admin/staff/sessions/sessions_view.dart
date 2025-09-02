@@ -49,7 +49,7 @@ class SessionsView extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (session) {
-                      return session.createdAt!;
+                      return session.createdAt;
                     },
                   );
                 },
@@ -77,7 +77,7 @@ class SessionsView extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (session) {
-                      return session.updatedAt!;
+                      return session.updatedAt;
                     },
                   );
                 },

@@ -80,7 +80,7 @@ class FlightCrewRecordsView extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (flightCrewRecord) {
-                      return flightCrewRecord.issuedAt!;
+                      return flightCrewRecord.issuedAt;
                     },
                   );
                 },
@@ -93,7 +93,7 @@ class FlightCrewRecordsView extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (flightCrewRecord) {
-                      return flightCrewRecord.expiredAt!;
+                      return flightCrewRecord.expiredAt;
                     },
                   );
                 },
@@ -106,7 +106,7 @@ class FlightCrewRecordsView extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (flightCrewRecord) {
-                      return flightCrewRecord.createdAt!;
+                      return flightCrewRecord.createdAt;
                     },
                   );
                 },

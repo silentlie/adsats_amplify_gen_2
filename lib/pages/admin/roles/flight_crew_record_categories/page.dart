@@ -59,7 +59,7 @@ class FlightCrewRecordsCategoriesPage extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (flightCrewRecordCategory) {
-                      return flightCrewRecordCategory.description ?? "";
+                      return flightCrewRecordCategory.description;
                     },
                   );
                 },
@@ -85,7 +85,7 @@ class FlightCrewRecordsCategoriesPage extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (flightCrewRecordCategory) {
-                      return flightCrewRecordCategory.createdAt!;
+                      return flightCrewRecordCategory.createdAt;
                     },
                   );
                 },

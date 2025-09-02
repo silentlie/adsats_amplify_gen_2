@@ -96,7 +96,7 @@ class ReportDataTable extends ConsumerWidget with CompareMixin {
                 columnIndex: columnIndex,
                 sortAscending: ascending,
                 getField: (report) {
-                  return report.reportedAt ?? report.createdAt!;
+                  return report.reportedAt;
                 },
               );
             },

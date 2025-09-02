@@ -57,7 +57,7 @@ class RolesPage extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (role) {
-                      return role.description ?? "";
+                      return role.description;
                     },
                   );
                 },
@@ -83,7 +83,7 @@ class RolesPage extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (role) {
-                      return role.createdAt!;
+                      return role.createdAt;
                     },
                   );
                 },

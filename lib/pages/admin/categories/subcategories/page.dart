@@ -58,7 +58,7 @@ class SubcategoriesPage extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (subcategory) {
-                      return subcategory.description ?? "";
+                      return subcategory.description;
                     },
                   );
                 },
@@ -84,7 +84,7 @@ class SubcategoriesPage extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (subcategory) {
-                      return subcategory.createdAt!;
+                      return subcategory.createdAt;
                     },
                   );
                 },
