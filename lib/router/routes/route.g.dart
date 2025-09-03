@@ -184,15 +184,6 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
             StatefulShellBranchData.$branch(
               routes: [
                 GoRouteData.$route(
-                  path: '/profile',
-                  name: 'Profile',
-                  factory: _$ProfileRoute._fromState,
-                ),
-              ],
-            ),
-            StatefulShellBranchData.$branch(
-              routes: [
-                GoRouteData.$route(
                   path: '/help',
                   name: 'Help',
                   factory: _$HelpRoute._fromState,
@@ -260,6 +251,38 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                       factory: _$SubcategoriesRoute._fromState,
                     ),
                   ],
+                ),
+              ],
+            ),
+          ],
+        ),
+        StatefulShellRouteData.$route(
+          factory: $ProfileShellRouteDataExtension._fromState,
+          branches: [
+            StatefulShellBranchData.$branch(
+              routes: [
+                GoRouteData.$route(
+                  path: '/profile',
+                  name: 'Profile',
+                  factory: _$ProfileRoute._fromState,
+                ),
+              ],
+            ),
+            StatefulShellBranchData.$branch(
+              routes: [
+                GoRouteData.$route(
+                  path: '/profile/records',
+                  name: 'Profile Records',
+                  factory: _$ProfileRecordsRoute._fromState,
+                ),
+              ],
+            ),
+            StatefulShellBranchData.$branch(
+              routes: [
+                GoRouteData.$route(
+                  path: '/profile/change-password',
+                  name: 'Change Password',
+                  factory: _$ChangePasswordRoute._fromState,
                 ),
               ],
             ),
@@ -665,28 +688,6 @@ mixin _$FlightCrewRecordsRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$ProfileRoute on GoRouteData {
-  static ProfileRoute _fromState(GoRouterState state) => const ProfileRoute();
-
-  @override
-  String get location => GoRouteData.$location(
-        '/profile',
-      );
-
-  @override
-  void go(BuildContext context) => context.go(location);
-
-  @override
-  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
-
-  @override
-  void pushReplacement(BuildContext context) =>
-      context.pushReplacement(location);
-
-  @override
-  void replace(BuildContext context) => context.replace(location);
-}
-
 mixin _$HelpRoute on GoRouteData {
   static HelpRoute _fromState(GoRouterState state) => const HelpRoute();
 
@@ -864,6 +865,79 @@ mixin _$SubcategoriesRoute on GoRouteData {
   @override
   String get location => GoRouteData.$location(
         '/admin/categories/${Uri.encodeComponent(_self.categoryId)}',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ProfileShellRouteDataExtension on ProfileShellRouteData {
+  static ProfileShellRouteData _fromState(GoRouterState state) =>
+      const ProfileShellRouteData();
+}
+
+mixin _$ProfileRoute on GoRouteData {
+  static ProfileRoute _fromState(GoRouterState state) => const ProfileRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/profile',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin _$ProfileRecordsRoute on GoRouteData {
+  static ProfileRecordsRoute _fromState(GoRouterState state) =>
+      const ProfileRecordsRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/profile/records',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin _$ChangePasswordRoute on GoRouteData {
+  static ChangePasswordRoute _fromState(GoRouterState state) =>
+      const ChangePasswordRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/profile/change-password',
       );
 
   @override

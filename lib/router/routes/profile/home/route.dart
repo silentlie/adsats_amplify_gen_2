@@ -1,8 +1,8 @@
 part of '../../route.dart';
 
-class ProfileShellBranchData extends StatefulShellBranchData {
-  const ProfileShellBranchData();
-  static const branch = TypedStatefulShellBranch<ProfileShellBranchData>(
+class ProfileBranchData extends StatefulShellBranchData {
+  const ProfileBranchData();
+  static const branch = TypedStatefulShellBranch<ProfileBranchData>(
     routes: <TypedRoute<RouteData>>[
       ProfileRoute.route,
     ],
@@ -26,6 +26,6 @@ class ProfileRoute extends RouteInfo with _$ProfileRoute {
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return MaterialPage(child: ProfilePage());
+    return MaterialPage(child: ProfileHomePage());
   }
 }

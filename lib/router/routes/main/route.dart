@@ -9,7 +9,6 @@ class MainShellRouteData extends StatefulShellRouteData {
       SMSShellBranchData.branch,
       CmsShellBranchData.branch,
       FlightCrewRecordsShellBranchData.branch,
-      ProfileShellBranchData.branch,
       HelpShellBranchData.branch,
       KPIShellBranchData.branch,
     ],

@@ -9,6 +9,10 @@ import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'route.g.dart';
+part 'profile/route.dart';
+part 'profile/home/route.dart';
+part 'profile/change_password/route.dart';
+part 'profile/records/route.dart';
 part 'admin/route.dart';
 part 'admin/staff/route.dart';
 part 'admin/aircraft/route.dart';
@@ -18,7 +22,6 @@ part 'admin/categories/route.dart';
 part 'admin/categories/subcategories/route.dart';
 part 'main/route.dart';
 part 'main/home/route.dart';
-part 'main/profile/route.dart';
 part 'main/documents/route.dart';
 part 'main/flight_crew_records/route.dart';
 part 'main/help/route.dart';
@@ -48,6 +51,7 @@ final rootShellNavigatorKey = GlobalKey<NavigatorState>();
 @TypedShellRoute<RootShellRouteData>(routes: <TypedRoute<RouteData>>[
   MainShellRouteData.route,
   AdminShellRouteData.route,
+  ProfileShellRouteData.route,
 ])
 class RootShellRouteData extends ShellRouteData {
   const RootShellRouteData();
