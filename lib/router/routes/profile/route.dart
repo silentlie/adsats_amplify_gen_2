@@ -5,8 +5,8 @@ class ProfileShellRouteData extends StatefulShellRouteData {
   static const route = TypedStatefulShellRoute<ProfileShellRouteData>(
     branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
       ProfileBranchData.branch,
-      ProfileRecordsBranchData.branch,
       ChangePasswordBranchData.branch,
+      ProfileRecordsBranchData.branch,
     ],
   );
 

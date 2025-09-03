@@ -271,18 +271,18 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
             StatefulShellBranchData.$branch(
               routes: [
                 GoRouteData.$route(
-                  path: '/profile/records',
-                  name: 'Profile Records',
-                  factory: _$ProfileRecordsRoute._fromState,
+                  path: '/profile/change-password',
+                  name: 'Change Password',
+                  factory: _$ChangePasswordRoute._fromState,
                 ),
               ],
             ),
             StatefulShellBranchData.$branch(
               routes: [
                 GoRouteData.$route(
-                  path: '/profile/change-password',
-                  name: 'Change Password',
-                  factory: _$ChangePasswordRoute._fromState,
+                  path: '/profile/records',
+                  name: 'Profile Records',
+                  factory: _$ProfileRecordsRoute._fromState,
                 ),
               ],
             ),
@@ -908,13 +908,13 @@ mixin _$ProfileRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$ProfileRecordsRoute on GoRouteData {
-  static ProfileRecordsRoute _fromState(GoRouterState state) =>
-      const ProfileRecordsRoute();
+mixin _$ChangePasswordRoute on GoRouteData {
+  static ChangePasswordRoute _fromState(GoRouterState state) =>
+      const ChangePasswordRoute();
 
   @override
   String get location => GoRouteData.$location(
-        '/profile/records',
+        '/profile/change-password',
       );
 
   @override
@@ -931,13 +931,13 @@ mixin _$ProfileRecordsRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$ChangePasswordRoute on GoRouteData {
-  static ChangePasswordRoute _fromState(GoRouterState state) =>
-      const ChangePasswordRoute();
+mixin _$ProfileRecordsRoute on GoRouteData {
+  static ProfileRecordsRoute _fromState(GoRouterState state) =>
+      const ProfileRecordsRoute();
 
   @override
   String get location => GoRouteData.$location(
-        '/profile/change-password',
+        '/profile/records',
       );
 
   @override

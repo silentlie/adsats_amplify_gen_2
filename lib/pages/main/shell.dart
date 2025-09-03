@@ -8,7 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 export 'home/page.dart';
-export 'profile/page.dart';
 export 'documents/page.dart';
 export 'flight_crew_records/page.dart';
 export 'help/page.dart';
@@ -30,12 +29,12 @@ class MainShell extends ConsumerWidget {
     );
   }
 
-  int? validIndex() {
+  int validIndex() {
     if (0 <= navigationShell.currentIndex &&
         navigationShell.currentIndex < routes.length) {
       return navigationShell.currentIndex;
     }
-    return null;
+    return 0;
   }
 
   final List<RouteInfoBase> routes = const [
@@ -108,7 +107,7 @@ class MainShell extends ConsumerWidget {
           },
         ).toList(),
         onDestinationSelected: onDestinationSelected,
-        selectedIndex: validIndex() ?? 0,
+        selectedIndex: validIndex(),
       ),
     );
   }
