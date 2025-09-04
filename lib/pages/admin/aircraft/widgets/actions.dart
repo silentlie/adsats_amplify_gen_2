@@ -36,7 +36,7 @@ class AircraftActions extends ConsumerWidget with ConfirmDialogMixin {
               context: context,
               title: Text("Are you sure?"),
               content: Text(
-                "Do you want to ${aircraft.archived ? "unarchive" : "archive"} this aircraft?",
+                "Do you want to ${aircraft.archived ? "unarchive" : "archive"} this aircraft ${aircraft.name}?",
               ),
             );
             if (result) {
@@ -60,7 +60,7 @@ class AircraftActions extends ConsumerWidget with ConfirmDialogMixin {
             final result = await showConfirmDialog(
               context: context,
               title: Text("Are you sure?"),
-              content: Text("Do you want to delete this aircraft?"),
+              content: Text("Do you want to delete this aircraft ${aircraft.name}?"),
             );
             if (result) {
               final service = ref.read(aircraftServiceProvider);

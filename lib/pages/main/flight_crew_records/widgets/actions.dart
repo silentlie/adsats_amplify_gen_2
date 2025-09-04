@@ -53,7 +53,7 @@ class FlightCrewRecordActions extends ConsumerWidget with ConfirmDialogMixin {
                 context: context,
                 title: Text("Are you sure?"),
                 content: Text(
-                  "Do you want to ${flightCrewRecord.archived ? "unarchive" : "archive"} this Flight Crew Record?",
+                  "Do you want to ${flightCrewRecord.archived ? "unarchive" : "archive"} this Flight Crew Record?\n${flightCrewRecord.name}",
                 ),
               );
               if (result) {
@@ -79,7 +79,7 @@ class FlightCrewRecordActions extends ConsumerWidget with ConfirmDialogMixin {
                 context: context,
                 title: Text("Are you sure?"),
                 content: Text(
-                    "Do you want to delete this Flight Crew Record?\nIt also deletes its documents"),
+                    "Do you want to delete this Flight Crew Record?\n${flightCrewRecord.name}"),
               );
               if (result) {
                 await service.delete(flightCrewRecord);

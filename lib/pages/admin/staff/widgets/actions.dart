@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/providers/service.dart';
@@ -53,7 +54,7 @@ class StaffActions extends ConsumerWidget with ConfirmDialogMixin {
               context: context,
               title: Text("Are you sure?"),
               content: Text(
-                "Do you want to ${staff.archived ? "unarchive" : "archive"} this staff?",
+                "Do you want to ${staff.archived ? "unarchive" : "archive"} this staff ${staff.fullName}?",
               ),
             );
             if (result) {
@@ -73,7 +74,7 @@ class StaffActions extends ConsumerWidget with ConfirmDialogMixin {
             final result = await showConfirmDialog(
               context: context,
               title: Text("Are you sure?"),
-              content: Text("Do you want to delete this staff?"),
+              content: Text("Do you want to delete this staff ${staff.fullName}?"),
             );
             if (result) {
               await service.delete(staff);

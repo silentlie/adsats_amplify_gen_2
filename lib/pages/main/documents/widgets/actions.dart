@@ -50,7 +50,7 @@ class DocumentActions extends ConsumerWidget with ConfirmDialogMixin {
                 context: context,
                 title: Text("Are you sure?"),
                 content: Text(
-                  "Do you want to ${document.archived ? "unarchive" : "archive"} this document?",
+                  "Do you want to ${document.archived ? "unarchive" : "archive"} this document?\n${document.name}",
                 ),
               );
               if (result) {
@@ -74,7 +74,7 @@ class DocumentActions extends ConsumerWidget with ConfirmDialogMixin {
               final result = await showConfirmDialog(
                 context: context,
                 title: Text("Are you sure?"),
-                content: Text("Do you want to delete this document?"),
+                content: Text("Do you want to delete this document?\n${document.name}"),
               );
               if (result) {
                 await service.delete(document);

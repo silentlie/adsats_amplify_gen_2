@@ -36,7 +36,7 @@ class CategoryActions extends ConsumerWidget with ConfirmDialogMixin {
               context: context,
               title: Text("Are you sure?"),
               content: Text(
-                "Do you want to ${category.archived ? "unarchive" : "archive"} this category?",
+                "Do you want to ${category.archived ? "unarchive" : "archive"} this category ${category.name}?",
               ),
             );
             if (result) {
@@ -61,7 +61,7 @@ class CategoryActions extends ConsumerWidget with ConfirmDialogMixin {
               context: context,
               title: Text("Are you sure?"),
               content: Text(
-                  "Do you want to delete this category?\nIt also deletes its subcategories and documents"),
+                  "Do you want to delete this category ${category.name}?\nIt also deletes its subcategories and documents"),
             );
             if (result) {
               final service = ref.read(categoriesServiceProvider);

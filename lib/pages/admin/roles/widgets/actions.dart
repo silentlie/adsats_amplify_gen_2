@@ -36,7 +36,7 @@ class RoleActions extends ConsumerWidget with ConfirmDialogMixin {
             final result = await showConfirmDialog(
               context: context,
               title: Text("Are you sure?"),
-              content: Text("Do you want to delete this role?"),
+              content: Text("Do you want to ${role.archived ? "unarchive" : "archive"} this role ${role.name}?"),
             );
             if (result) {
               await service.archive(role);

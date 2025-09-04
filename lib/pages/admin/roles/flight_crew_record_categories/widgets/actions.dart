@@ -39,7 +39,7 @@ class FlightCrewRecordsCategoryActions extends ConsumerWidget
               context: context,
               title: Text("Are you sure?"),
               content: Text(
-                "Do you want to ${category.archived ? "unarchive" : "archive"} this category?",
+                "Do you want to ${category.archived ? "unarchive" : "archive"} this category ${category.name}?",
               ),
             );
             if (!result) return;
@@ -62,7 +62,7 @@ class FlightCrewRecordsCategoryActions extends ConsumerWidget
               context: context,
               title: Text("Are you sure?"),
               content: Text(
-                "Do you want to delete this category?\nIt also deletes any Flight Crew Records under this Category",
+                "Do you want to delete this category ${category.name}?\nIt also deletes any Flight Crew Records under this Category",
               ),
             );
             if (!result) return;

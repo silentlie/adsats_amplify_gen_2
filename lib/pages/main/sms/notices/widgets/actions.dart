@@ -35,7 +35,7 @@ class NoticeActions extends ConsumerWidget with ConfirmDialogMixin {
                 context: context,
                 title: Text("Are you sure?"),
                 content: Text(
-                  "Do you want to ${notice.archived ? "unarchive" : "archive"} this notice?",
+                  "Do you want to ${notice.archived ? "unarchive" : "archive"} this notice?\n${notice.subject}",
                 ),
               );
               if (result) {
@@ -59,7 +59,7 @@ class NoticeActions extends ConsumerWidget with ConfirmDialogMixin {
               final result = await showConfirmDialog(
                 context: context,
                 title: Text("Are you sure?"),
-                content: Text("Do you want to delete this notice?"),
+                content: Text("Do you want to delete this notice?\n${notice.subject}"),
               );
               if (result) {
                 await service.delete(notice);
