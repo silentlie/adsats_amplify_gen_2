@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
 
-import 'amplify_outputs.dart';
+import 'amplify_outputs.prod.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 
 Future<void> main() async {

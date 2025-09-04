@@ -36,6 +36,7 @@ dependencies:
   riverpod: ^3.0.0-dev.17
   hooks_riverpod: ^3.0.0-dev.17
   flutter_multi_select_items: ^0.4.3
+  cupertino_icons: ^1.0.8
 
 
 dev_dependencies:
