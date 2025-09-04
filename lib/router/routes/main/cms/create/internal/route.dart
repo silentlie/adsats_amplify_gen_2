@@ -1,4 +1,7 @@
-part of '../../../../route.dart';
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class InternalAuditReportShellBranchData extends StatefulShellBranchData {
   const InternalAuditReportShellBranchData();
@@ -11,7 +14,7 @@ class InternalAuditReportShellBranchData extends StatefulShellBranchData {
 }
 
 class InternalAuditReportRoute extends RouteInfo
-    with _$InternalAuditReportRoute {
+    with $InternalAuditReportRoute {
   const InternalAuditReportRoute();
   static const route = TypedGoRoute<InternalAuditReportRoute>(
     path: 'internal-audit-report',

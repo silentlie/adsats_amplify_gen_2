@@ -1,4 +1,11 @@
-part of '../../../route.dart';
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+export 'hazard_report/route.dart';
+export 'notice_to_crew/route.dart';
+export 'safety_notice/route.dart';
 
 class CreateNoticeShellRouteData extends StatefulShellRouteInfo {
   const CreateNoticeShellRouteData();

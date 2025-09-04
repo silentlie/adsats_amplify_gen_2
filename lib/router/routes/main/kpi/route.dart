@@ -1,4 +1,9 @@
-part of '../../route.dart';
+import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class KPIShellBranchData extends StatefulShellBranchData {
   const KPIShellBranchData();
@@ -9,7 +14,7 @@ class KPIShellBranchData extends StatefulShellBranchData {
   );
 }
 
-class KPIRoute extends RouteInfo with _$KPIRoute {
+class KPIRoute extends RouteInfo with $KPIRoute {
   const KPIRoute();
 
   static const route = TypedGoRoute<KPIRoute>(
@@ -30,7 +35,7 @@ class KPIRoute extends RouteInfo with _$KPIRoute {
   }
 
   @override
-  FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
+  Future<String?> redirect(BuildContext context, GoRouterState state) async {
     final ref = ProviderScope.containerOf(context);
     final isAdmin = ref.read(isAdminProvider);
     if (isAdmin) return null;

@@ -1,4 +1,8 @@
-part of '../../route.dart';
+
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ChangePasswordBranchData extends StatefulShellBranchData {
   const ChangePasswordBranchData();
@@ -9,7 +13,7 @@ class ChangePasswordBranchData extends StatefulShellBranchData {
   );
 }
 
-class ChangePasswordRoute extends RouteInfo with _$ChangePasswordRoute {
+class ChangePasswordRoute extends RouteInfo with $ChangePasswordRoute {
   const ChangePasswordRoute();
 
   static const route = TypedGoRoute<ChangePasswordRoute>(

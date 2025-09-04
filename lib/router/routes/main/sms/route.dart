@@ -1,4 +1,11 @@
-part of '../../route.dart';
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+export 'create/route.dart';
+export 'notice/route.dart';
+export 'notices/route.dart';
 
 class SMSShellBranchData extends StatefulShellBranchData {
   static String $initialLocation = SmsInboxRoute().location;
@@ -10,7 +17,7 @@ class SMSShellBranchData extends StatefulShellBranchData {
   );
 }
 
-class SMSRoute extends RouteInfo with _$SMSRoute {
+class SMSRoute extends RouteInfo with $SMSRoute {
   const SMSRoute();
 
   static const route = TypedGoRoute<SMSRoute>(

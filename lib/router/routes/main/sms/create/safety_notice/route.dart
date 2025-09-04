@@ -1,4 +1,7 @@
-part of '../../../../route.dart';
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SafetyNoticeShellBranchData extends StatefulShellBranchData {
   const SafetyNoticeShellBranchData();
@@ -9,7 +12,7 @@ class SafetyNoticeShellBranchData extends StatefulShellBranchData {
   );
 }
 
-class SafetyNoticeRoute extends RouteInfo with _$SafetyNoticeRoute {
+class SafetyNoticeRoute extends RouteInfo with $SafetyNoticeRoute {
   const SafetyNoticeRoute();
   static const route = TypedGoRoute<SafetyNoticeRoute>(
     path: 'safety-notice',

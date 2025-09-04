@@ -1,4 +1,7 @@
-part of '../route.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ErrorRoute extends GoRouteData {
   ErrorRoute({required this.error});

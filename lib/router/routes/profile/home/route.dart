@@ -1,4 +1,8 @@
-part of '../../route.dart';
+
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileBranchData extends StatefulShellBranchData {
   const ProfileBranchData();
@@ -9,7 +13,7 @@ class ProfileBranchData extends StatefulShellBranchData {
   );
 }
 
-class ProfileRoute extends RouteInfo with _$ProfileRoute {
+class ProfileRoute extends RouteInfo with $ProfileRoute {
   const ProfileRoute();
 
   static const route = TypedGoRoute<ProfileRoute>(

@@ -1,4 +1,9 @@
-part of '../../route.dart';
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+export 'subcategories/route.dart';
 
 class CategoriesShellBranchData extends StatefulShellBranchData {
   const CategoriesShellBranchData();
@@ -9,7 +14,7 @@ class CategoriesShellBranchData extends StatefulShellBranchData {
   );
 }
 
-class CategoriesRoute extends RouteInfo with _$CategoriesRoute {
+class CategoriesRoute extends RouteInfo with $CategoriesRoute {
   const CategoriesRoute();
 
   static const route = TypedGoRoute<CategoriesRoute>(

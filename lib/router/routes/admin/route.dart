@@ -1,4 +1,14 @@
-part of '../route.dart';
+import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+export 'aircraft/route.dart';
+export 'categories/route.dart';
+export 'roles/route.dart';
+export 'staff/route.dart';
 
 class AdminShellRouteData extends StatefulShellRouteInfo {
   const AdminShellRouteData();
@@ -31,7 +41,7 @@ class AdminShellRouteData extends StatefulShellRouteInfo {
   }
 
   @override
-  FutureOr<String?> redirect(BuildContext context, GoRouterState state) async {
+  Future<String?> redirect(BuildContext context, GoRouterState state) async {
     final ref = ProviderScope.containerOf(context);
     final isAdmin = ref.read(isAdminProvider);
     if (isAdmin) return null;

@@ -1,4 +1,7 @@
-part of '../../route.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeShellBranchData extends StatefulShellBranchData {
   static const branch = TypedStatefulShellBranch<HomeShellBranchData>(
@@ -9,7 +12,7 @@ class HomeShellBranchData extends StatefulShellBranchData {
   const HomeShellBranchData();
 }
 
-class HomeRoute extends RouteInfo with _$HomeRoute {
+class HomeRoute extends RouteInfo with $HomeRoute {
   const HomeRoute();
 
   static const route = TypedGoRoute<HomeRoute>(

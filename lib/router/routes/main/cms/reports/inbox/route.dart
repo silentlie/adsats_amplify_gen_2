@@ -1,4 +1,7 @@
-part of '../../../../route.dart';
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CmsInboxShellBranchData extends StatefulShellBranchData {
   const CmsInboxShellBranchData();
@@ -9,7 +12,7 @@ class CmsInboxShellBranchData extends StatefulShellBranchData {
   );
 }
 
-class CmsInboxRoute extends RouteInfo with _$CmsInboxRoute {
+class CmsInboxRoute extends RouteInfo with $CmsInboxRoute {
   const CmsInboxRoute();
 
   static const route = TypedGoRoute<CmsInboxRoute>(

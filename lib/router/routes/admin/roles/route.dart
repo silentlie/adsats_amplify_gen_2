@@ -1,4 +1,9 @@
-part of '../../route.dart';
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+export 'flight_crew_record_categories/route.dart';
 
 class RolesShellBranchData extends StatefulShellBranchData {
   const RolesShellBranchData();
@@ -9,7 +14,7 @@ class RolesShellBranchData extends StatefulShellBranchData {
   );
 }
 
-class RolesRoute extends RouteInfo with _$RolesRoute {
+class RolesRoute extends RouteInfo with $RolesRoute {
   const RolesRoute();
 
   static const route = TypedGoRoute<RolesRoute>(

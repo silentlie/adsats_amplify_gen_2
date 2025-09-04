@@ -1,4 +1,7 @@
-part of '../../../../route.dart';
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class NoticeToCrewShellBranchData extends StatefulShellBranchData {
   const NoticeToCrewShellBranchData();
@@ -9,7 +12,7 @@ class NoticeToCrewShellBranchData extends StatefulShellBranchData {
   );
 }
 
-class NoticeToCrewRoute extends RouteInfo with _$NoticeToCrewRoute {
+class NoticeToCrewRoute extends RouteInfo with $NoticeToCrewRoute {
   const NoticeToCrewRoute();
   static const route = TypedGoRoute<NoticeToCrewRoute>(
     path: 'notice-to-crew',

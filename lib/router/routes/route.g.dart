@@ -22,7 +22,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/',
                   name: 'Home',
-                  factory: _$HomeRoute._fromState,
+                  factory: $HomeRoute._fromState,
                 ),
               ],
             ),
@@ -31,7 +31,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/documents',
                   name: 'Documents',
-                  factory: _$DocumentsRoute._fromState,
+                  factory: $DocumentsRoute._fromState,
                 ),
               ],
             ),
@@ -41,7 +41,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/sms',
                   name: 'SMS',
-                  factory: _$SMSRoute._fromState,
+                  factory: $SMSRoute._fromState,
                   routes: [
                     StatefulShellRouteData.$route(
                       factory: $SmsShellRouteDataExtension._fromState,
@@ -51,7 +51,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'inbox',
                               name: 'SMS Inbox',
-                              factory: _$SmsInboxRoute._fromState,
+                              factory: $SmsInboxRoute._fromState,
                             ),
                           ],
                         ),
@@ -60,7 +60,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'sent',
                               name: 'SMS Sent',
-                              factory: _$SmsSentRoute._fromState,
+                              factory: $SmsSentRoute._fromState,
                             ),
                           ],
                         ),
@@ -74,7 +74,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'safety-notice',
                               name: 'Safety Notice',
-                              factory: _$SafetyNoticeRoute._fromState,
+                              factory: $SafetyNoticeRoute._fromState,
                             ),
                           ],
                         ),
@@ -83,7 +83,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'hazard-report',
                               name: 'Hazard Report',
-                              factory: _$HazardReportRoute._fromState,
+                              factory: $HazardReportRoute._fromState,
                             ),
                           ],
                         ),
@@ -92,7 +92,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'notice-to-crew',
                               name: 'Notice To Crew',
-                              factory: _$NoticeToCrewRoute._fromState,
+                              factory: $NoticeToCrewRoute._fromState,
                             ),
                           ],
                         ),
@@ -102,7 +102,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                       path: ':id',
                       name: 'View Notice',
                       parentNavigatorKey: ViewNoticeRoute.$parentNavigatorKey,
-                      factory: _$ViewNoticeRoute._fromState,
+                      factory: $ViewNoticeRoute._fromState,
                     ),
                   ],
                 ),
@@ -114,7 +114,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/cms',
                   name: 'CMS',
-                  factory: _$CmsRoute._fromState,
+                  factory: $CmsRoute._fromState,
                   routes: [
                     StatefulShellRouteData.$route(
                       factory: $CmsShellRouteDataExtension._fromState,
@@ -124,7 +124,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'inbox',
                               name: 'CMS Inbox',
-                              factory: _$CmsInboxRoute._fromState,
+                              factory: $CmsInboxRoute._fromState,
                             ),
                           ],
                         ),
@@ -133,7 +133,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'sent',
                               name: 'CMS Sent',
-                              factory: _$CmsSentRoute._fromState,
+                              factory: $CmsSentRoute._fromState,
                             ),
                           ],
                         ),
@@ -147,7 +147,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'internal-audit-report',
                               name: 'Internal Audit Report',
-                              factory: _$InternalAuditReportRoute._fromState,
+                              factory: $InternalAuditReportRoute._fromState,
                             ),
                           ],
                         ),
@@ -156,7 +156,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'external-audit-report',
                               name: 'External Audit Report',
-                              factory: _$ExternalAuditReportRoute._fromState,
+                              factory: $ExternalAuditReportRoute._fromState,
                             ),
                           ],
                         ),
@@ -166,7 +166,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                       path: ':id',
                       name: 'View Report',
                       parentNavigatorKey: ViewReportRoute.$parentNavigatorKey,
-                      factory: _$ViewReportRoute._fromState,
+                      factory: $ViewReportRoute._fromState,
                     ),
                   ],
                 ),
@@ -177,7 +177,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/flight-crew-records',
                   name: 'Flight Crew Records',
-                  factory: _$FlightCrewRecordsRoute._fromState,
+                  factory: $FlightCrewRecordsRoute._fromState,
                 ),
               ],
             ),
@@ -186,7 +186,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/help',
                   name: 'Help',
-                  factory: _$HelpRoute._fromState,
+                  factory: $HelpRoute._fromState,
                 ),
               ],
             ),
@@ -195,7 +195,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/kpi',
                   name: 'K.P.I',
-                  factory: _$KPIRoute._fromState,
+                  factory: $KPIRoute._fromState,
                 ),
               ],
             ),
@@ -209,7 +209,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/admin/aircraft',
                   name: 'Aircraft',
-                  factory: _$AircraftRoute._fromState,
+                  factory: $AircraftRoute._fromState,
                 ),
               ],
             ),
@@ -218,12 +218,12 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/admin/roles',
                   name: 'Roles',
-                  factory: _$RolesRoute._fromState,
+                  factory: $RolesRoute._fromState,
                   routes: [
                     GoRouteData.$route(
                       path: ':roleId',
                       name: 'Flight Crew Records Categories',
-                      factory: _$FlightCrewRecordsCategoriesRoute._fromState,
+                      factory: $FlightCrewRecordsCategoriesRoute._fromState,
                     ),
                   ],
                 ),
@@ -234,7 +234,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/admin/staff',
                   name: 'Staff',
-                  factory: _$StaffRoute._fromState,
+                  factory: $StaffRoute._fromState,
                 ),
               ],
             ),
@@ -243,12 +243,12 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/admin/categories',
                   name: 'Categories',
-                  factory: _$CategoriesRoute._fromState,
+                  factory: $CategoriesRoute._fromState,
                   routes: [
                     GoRouteData.$route(
                       path: ':categoryId',
                       name: 'Subcategories',
-                      factory: _$SubcategoriesRoute._fromState,
+                      factory: $SubcategoriesRoute._fromState,
                     ),
                   ],
                 ),
@@ -264,7 +264,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/profile',
                   name: 'Profile',
-                  factory: _$ProfileRoute._fromState,
+                  factory: $ProfileRoute._fromState,
                 ),
               ],
             ),
@@ -273,7 +273,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/profile/change-password',
                   name: 'Change Password',
-                  factory: _$ChangePasswordRoute._fromState,
+                  factory: $ChangePasswordRoute._fromState,
                 ),
               ],
             ),
@@ -282,7 +282,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/profile/records',
                   name: 'Profile Records',
-                  factory: _$ProfileRecordsRoute._fromState,
+                  factory: $ProfileRecordsRoute._fromState,
                 ),
               ],
             ),
@@ -301,7 +301,7 @@ extension $MainShellRouteDataExtension on MainShellRouteData {
       const MainShellRouteData();
 }
 
-mixin _$HomeRoute on GoRouteData {
+mixin $HomeRoute on GoRouteData {
   static HomeRoute _fromState(GoRouterState state) => const HomeRoute();
 
   @override
@@ -323,7 +323,7 @@ mixin _$HomeRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$DocumentsRoute on GoRouteData {
+mixin $DocumentsRoute on GoRouteData {
   static DocumentsRoute _fromState(GoRouterState state) =>
       const DocumentsRoute();
 
@@ -346,7 +346,7 @@ mixin _$DocumentsRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$SMSRoute on GoRouteData {
+mixin $SMSRoute on GoRouteData {
   static SMSRoute _fromState(GoRouterState state) => const SMSRoute();
 
   @override
@@ -373,7 +373,7 @@ extension $SmsShellRouteDataExtension on SmsShellRouteData {
       const SmsShellRouteData();
 }
 
-mixin _$SmsInboxRoute on GoRouteData {
+mixin $SmsInboxRoute on GoRouteData {
   static SmsInboxRoute _fromState(GoRouterState state) => const SmsInboxRoute();
 
   @override
@@ -395,7 +395,7 @@ mixin _$SmsInboxRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$SmsSentRoute on GoRouteData {
+mixin $SmsSentRoute on GoRouteData {
   static SmsSentRoute _fromState(GoRouterState state) => const SmsSentRoute();
 
   @override
@@ -422,7 +422,7 @@ extension $CreateNoticeShellRouteDataExtension on CreateNoticeShellRouteData {
       const CreateNoticeShellRouteData();
 }
 
-mixin _$SafetyNoticeRoute on GoRouteData {
+mixin $SafetyNoticeRoute on GoRouteData {
   static SafetyNoticeRoute _fromState(GoRouterState state) =>
       const SafetyNoticeRoute();
 
@@ -445,7 +445,7 @@ mixin _$SafetyNoticeRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$HazardReportRoute on GoRouteData {
+mixin $HazardReportRoute on GoRouteData {
   static HazardReportRoute _fromState(GoRouterState state) =>
       const HazardReportRoute();
 
@@ -468,7 +468,7 @@ mixin _$HazardReportRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$NoticeToCrewRoute on GoRouteData {
+mixin $NoticeToCrewRoute on GoRouteData {
   static NoticeToCrewRoute _fromState(GoRouterState state) =>
       const NoticeToCrewRoute();
 
@@ -491,7 +491,7 @@ mixin _$NoticeToCrewRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$ViewNoticeRoute on GoRouteData {
+mixin $ViewNoticeRoute on GoRouteData {
   static ViewNoticeRoute _fromState(GoRouterState state) => ViewNoticeRoute(
         id: state.pathParameters['id']!,
       );
@@ -517,7 +517,7 @@ mixin _$ViewNoticeRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$CmsRoute on GoRouteData {
+mixin $CmsRoute on GoRouteData {
   static CmsRoute _fromState(GoRouterState state) => const CmsRoute();
 
   @override
@@ -544,7 +544,7 @@ extension $CmsShellRouteDataExtension on CmsShellRouteData {
       const CmsShellRouteData();
 }
 
-mixin _$CmsInboxRoute on GoRouteData {
+mixin $CmsInboxRoute on GoRouteData {
   static CmsInboxRoute _fromState(GoRouterState state) => const CmsInboxRoute();
 
   @override
@@ -566,7 +566,7 @@ mixin _$CmsInboxRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$CmsSentRoute on GoRouteData {
+mixin $CmsSentRoute on GoRouteData {
   static CmsSentRoute _fromState(GoRouterState state) => const CmsSentRoute();
 
   @override
@@ -593,7 +593,7 @@ extension $CreateReportShellRouteDataExtension on CreateReportShellRouteData {
       const CreateReportShellRouteData();
 }
 
-mixin _$InternalAuditReportRoute on GoRouteData {
+mixin $InternalAuditReportRoute on GoRouteData {
   static InternalAuditReportRoute _fromState(GoRouterState state) =>
       const InternalAuditReportRoute();
 
@@ -616,7 +616,7 @@ mixin _$InternalAuditReportRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$ExternalAuditReportRoute on GoRouteData {
+mixin $ExternalAuditReportRoute on GoRouteData {
   static ExternalAuditReportRoute _fromState(GoRouterState state) =>
       const ExternalAuditReportRoute();
 
@@ -639,7 +639,7 @@ mixin _$ExternalAuditReportRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$ViewReportRoute on GoRouteData {
+mixin $ViewReportRoute on GoRouteData {
   static ViewReportRoute _fromState(GoRouterState state) => ViewReportRoute(
         id: state.pathParameters['id']!,
       );
@@ -665,7 +665,7 @@ mixin _$ViewReportRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$FlightCrewRecordsRoute on GoRouteData {
+mixin $FlightCrewRecordsRoute on GoRouteData {
   static FlightCrewRecordsRoute _fromState(GoRouterState state) =>
       const FlightCrewRecordsRoute();
 
@@ -688,7 +688,7 @@ mixin _$FlightCrewRecordsRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$HelpRoute on GoRouteData {
+mixin $HelpRoute on GoRouteData {
   static HelpRoute _fromState(GoRouterState state) => const HelpRoute();
 
   @override
@@ -710,7 +710,7 @@ mixin _$HelpRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$KPIRoute on GoRouteData {
+mixin $KPIRoute on GoRouteData {
   static KPIRoute _fromState(GoRouterState state) => const KPIRoute();
 
   @override
@@ -737,7 +737,7 @@ extension $AdminShellRouteDataExtension on AdminShellRouteData {
       const AdminShellRouteData();
 }
 
-mixin _$AircraftRoute on GoRouteData {
+mixin $AircraftRoute on GoRouteData {
   static AircraftRoute _fromState(GoRouterState state) => const AircraftRoute();
 
   @override
@@ -759,7 +759,7 @@ mixin _$AircraftRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$RolesRoute on GoRouteData {
+mixin $RolesRoute on GoRouteData {
   static RolesRoute _fromState(GoRouterState state) => const RolesRoute();
 
   @override
@@ -781,7 +781,7 @@ mixin _$RolesRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$FlightCrewRecordsCategoriesRoute on GoRouteData {
+mixin $FlightCrewRecordsCategoriesRoute on GoRouteData {
   static FlightCrewRecordsCategoriesRoute _fromState(GoRouterState state) =>
       FlightCrewRecordsCategoriesRoute(
         roleId: state.pathParameters['roleId']!,
@@ -809,7 +809,7 @@ mixin _$FlightCrewRecordsCategoriesRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$StaffRoute on GoRouteData {
+mixin $StaffRoute on GoRouteData {
   static StaffRoute _fromState(GoRouterState state) => const StaffRoute();
 
   @override
@@ -831,7 +831,7 @@ mixin _$StaffRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$CategoriesRoute on GoRouteData {
+mixin $CategoriesRoute on GoRouteData {
   static CategoriesRoute _fromState(GoRouterState state) =>
       const CategoriesRoute();
 
@@ -854,7 +854,7 @@ mixin _$CategoriesRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$SubcategoriesRoute on GoRouteData {
+mixin $SubcategoriesRoute on GoRouteData {
   static SubcategoriesRoute _fromState(GoRouterState state) =>
       SubcategoriesRoute(
         categoryId: state.pathParameters['categoryId']!,
@@ -886,7 +886,7 @@ extension $ProfileShellRouteDataExtension on ProfileShellRouteData {
       const ProfileShellRouteData();
 }
 
-mixin _$ProfileRoute on GoRouteData {
+mixin $ProfileRoute on GoRouteData {
   static ProfileRoute _fromState(GoRouterState state) => const ProfileRoute();
 
   @override
@@ -908,7 +908,7 @@ mixin _$ProfileRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$ChangePasswordRoute on GoRouteData {
+mixin $ChangePasswordRoute on GoRouteData {
   static ChangePasswordRoute _fromState(GoRouterState state) =>
       const ChangePasswordRoute();
 
@@ -931,7 +931,7 @@ mixin _$ChangePasswordRoute on GoRouteData {
   void replace(BuildContext context) => context.replace(location);
 }
 
-mixin _$ProfileRecordsRoute on GoRouteData {
+mixin $ProfileRecordsRoute on GoRouteData {
   static ProfileRecordsRoute _fromState(GoRouterState state) =>
       const ProfileRecordsRoute();
 

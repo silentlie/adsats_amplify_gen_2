@@ -1,4 +1,7 @@
-part of '../../route.dart';
+import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
+import 'package:adsats_amplify_gen_2/router/router.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AircraftShellBranchData extends StatefulShellBranchData {
   const AircraftShellBranchData();
@@ -9,7 +12,7 @@ class AircraftShellBranchData extends StatefulShellBranchData {
   );
 }
 
-class AircraftRoute extends RouteInfo with _$AircraftRoute {
+class AircraftRoute extends RouteInfo with $AircraftRoute {
   const AircraftRoute();
 
   static const route = TypedGoRoute<AircraftRoute>(
