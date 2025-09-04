@@ -33,6 +33,7 @@ class DocumentsView extends ConsumerWidget with CompareMixin {
           data.sort(compare<Document>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
+            custom: sortState.custom,
           ));
           final dataSource = DocumentsDataSource(
             sortedData: data,

@@ -26,6 +26,7 @@ class KPIPage extends ConsumerWidget with CompareMixin {
         data.sort(compare<StaffKPI>(
           sortAscending: sortState.sortAscending,
           getField: sortState.getField,
+          custom: sortState.custom,
         ));
         final dataSource = KPIDataSource(
           sortedData: data,

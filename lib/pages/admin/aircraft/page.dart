@@ -26,6 +26,7 @@ class AircraftPage extends ConsumerWidget with CompareMixin {
           data.sort(compare<Aircraft>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
+            custom: sortState.custom,
           ));
           final dataSource = AircraftDataSource(
             sortedData: data,

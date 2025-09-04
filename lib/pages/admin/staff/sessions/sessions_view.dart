@@ -33,6 +33,7 @@ class SessionsView extends ConsumerWidget with CompareMixin {
           data.sort(compare<Session>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
+            custom: sortState.custom,
           ));
           final dataSource = SessionDataSource(
             sortedData: data,

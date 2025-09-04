@@ -28,6 +28,7 @@ class CategoriesPage extends ConsumerWidget with CompareMixin {
           data.sort(compare<Category>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
+            custom: sortState.custom,
           ));
           final dataSource = CategoryDataSource(
             sortedData: data,

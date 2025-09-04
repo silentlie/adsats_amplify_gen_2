@@ -26,6 +26,7 @@ class StaffPage extends ConsumerWidget with CompareMixin {
           data.sort(compare<Staff>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
+            custom: sortState.custom,
           ));
           final dataSource = StaffDataSource(
             sortedData: data,

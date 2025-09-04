@@ -29,6 +29,7 @@ class FlightCrewRecordsCategoriesPage extends ConsumerWidget with CompareMixin {
           data.sort(compare<FlightCrewRecordCategory>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
+            custom: sortState.custom,
           ));
           final dataSource = FlightCrewRecordsCategoryDataSource(
             sortedData: data,

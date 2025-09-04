@@ -28,6 +28,7 @@ class RolesPage extends ConsumerWidget with CompareMixin {
           data.sort(compare<Role>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
+            custom: sortState.custom,
           ));
           final dataSource = RoleDataSource(
             sortedData: data,

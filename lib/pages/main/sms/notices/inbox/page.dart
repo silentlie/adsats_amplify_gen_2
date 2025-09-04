@@ -22,14 +22,15 @@ class SmsInboxPage extends ConsumerWidget with CompareMixin {
       return const Center(child: CircularProgressIndicator());
     }
     final dataAsync = ref.watch(noticesProvider(InboxOrSent.inbox));
-    final (asc, key) = ref.watch(
-      sortProvider<Notice>().select((s) => (s.sortAscending, s.getField)),
+    final (asc, key, custom) = ref.watch(
+      sortProvider<Notice>().select((s) => (s.sortAscending, s.getField, s.custom)),
     );
     final sortedAsync = dataAsync.whenData((list) {
       if (list.length < 2) return list;
       return [...list]..sort(compare<Notice>(
           sortAscending: asc,
           getField: key,
+          custom: custom,
         ));
     });
     return AsyncValueWidget(

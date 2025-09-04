@@ -29,6 +29,7 @@ class SubcategoriesPage extends ConsumerWidget with CompareMixin {
           data.sort(compare<Subcategory>(
             sortAscending: sortState.sortAscending,
             getField: sortState.getField,
+            custom: sortState.custom,
           ));
           final dataSource = SubcategoryDataSource(
             sortedData: data,
