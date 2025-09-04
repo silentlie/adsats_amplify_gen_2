@@ -12,7 +12,7 @@ export const storage = defineStorage({
     "noticeDocuments/*": [
       allow.authenticated.to(["read", "write", "delete"]),
     ],
-    "delete": [
+    "delete/*": [
       allow.authenticated.to(["write"]),
     ]
   }),
