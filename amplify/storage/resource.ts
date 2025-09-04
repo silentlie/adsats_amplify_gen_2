@@ -12,5 +12,8 @@ export const storage = defineStorage({
     "noticeDocuments/*": [
       allow.authenticated.to(["read", "write", "delete"]),
     ],
+    "delete": [
+      allow.authenticated.to(["write"]),
+    ]
   }),
 });
