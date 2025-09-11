@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -30,27 +31,32 @@ class SessionManager extends _$SessionManager {
     _starting = true;
     try {
       final user = await ref.read(userDetailsProvider.future);
-      _currentSession = Session(staff: user);
       final db = ref.read(databaseAPIProvider);
-      final sessions = await db.listAll<Session>(
-        where: Session.STAFF.eq(user.id),
-        modelType: Session.classType,
-        limit: 1,
-      );
+      final cutoffIso = DateTime.now().toUtc().subtract(idleTimeout).toIso8601String();
+      final sessions = await db.query(
+        document: listSessionsGraphQL,
+        variables: {
+          'filter': {
+            'staffId': {'eq': user.id},
+            'updatedAt': {
+              'ge': cutoffIso,
+            }
+          },
+          'limit': 1,
+        },
+      ).then((res) {
+        return (res['listSessions']['items'] as List)
+            .map((e) => Session.fromJson(e))
+            .toList();
+      });
       final lastSession = sessions.firstOrNull;
-      final lastUpdated = lastSession?.updatedAt?.getDateTimeInUtc();
-      if (lastUpdated == null ||
-          DateTime.now().toUtc().difference(lastUpdated) > idleTimeout) {
+      if (lastSession == null) {
         _currentSession = Session(staff: user);
         await db.create(_currentSession!);
       } else {
         _currentSession = lastSession;
-        // maybe just update instead of create
         await db.update(_currentSession!);
       }
-      await db.create(_currentSession!);
-      // guard if getting current session take too long
-      await db.update(_currentSession!);
       _heartbeatTimer = Timer.periodic(
         heartbeatInterval,
         (timer) async {

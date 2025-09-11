@@ -1,3 +1,18 @@
+const listSessionsGraphQL = '''
+query ListSessions(\$filter: ModelSessionFilterInput, \$limit: Int = 1) {
+  listSessions(filter: \$filter, limit: \$limit) {
+    items {
+      staff {
+        id
+      }
+      createdAt
+      id
+      staffId
+      updatedAt
+    }
+  }
+}
+''';
 const listStaffKPIGraphQL = '''
 query listStaffKPI(
   \$staffFilter: ModelStaffFilterInput,
