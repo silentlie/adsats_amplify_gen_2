@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
@@ -23,6 +24,16 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
     ));
     return Column(
       children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          child: Text(
+            notice.type!.label,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+        ),
         const Divider(),
         Row(
           children: [

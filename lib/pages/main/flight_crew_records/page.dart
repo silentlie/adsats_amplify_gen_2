@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/fav_sort.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -33,12 +34,13 @@ class FlightCrewRecordsPage extends ConsumerWidget {
 }
 
 class FlightCrewRecordsBody extends HookConsumerWidget {
-  const FlightCrewRecordsBody({
+  FlightCrewRecordsBody({
     super.key,
     required this.aircraft,
-    required this.roles,
-  });
+    required Iterable<Role> roles,
+  }) : roles = roles.where((r) => !blocked.contains(r.name));
 
+  static const blocked = [admin, safetyOfficer, complianceManager];
   final Iterable<Aircraft> aircraft;
   final Iterable<Role> roles;
 
@@ -171,6 +173,7 @@ class _RolesPane extends HookWidget {
       () => allRoles.sortedByFav(
         isFav: (r) => rolesFav.contains(r.name),
         getField: (r) => r.name,
+        ascending: false,
       ),
       [allRoles, rolesFav],
     );

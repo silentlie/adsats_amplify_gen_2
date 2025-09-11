@@ -46,9 +46,7 @@ class StaffView extends ConsumerWidget with ConfirmDialogMixin {
     };
     return AlertDialog.adaptive(
       title: Text(
-        isEditing
-            ? 'Editing ${staff.fullName}'
-            : 'Add an staff',
+        isEditing ? 'Editing ${staff.fullName}' : 'Add an staff',
       ),
       content: SingleChildScrollView(
         child: Column(
@@ -100,7 +98,7 @@ class StaffView extends ConsumerWidget with ConfirmDialogMixin {
             ),
             GlobalDropdownMenu<bool>(
               entries: const [
-                DropdownMenuEntry(value: true, label: "No"),
+                DropdownMenuEntry(value: false, label: "No"),
                 DropdownMenuEntry(value: true, label: "Yes"),
               ],
               onSelected: (value) {

@@ -64,12 +64,14 @@ final class ReportRepository {
     );
     report = Report.fromJson(res["getReport"]);
     final futures = <Future>[];
-    futures.addAll(
-        (report.recipients ?? const <ReportStaff>[]).map((r) => _db.delete(r)));
+    futures.addAll((report.recipients ?? const <ReportStaff>[]).map((r) {
+      return _db.delete(r);
+    }));
     futures.add(_removeDocuments(
       initial: report,
       keep: const <ReportDocument>[],
     ));
+    futures.add(_db.delete(report));
     await Future.wait(futures);
     return report;
   }

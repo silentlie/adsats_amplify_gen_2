@@ -34,7 +34,7 @@ class NoticeToCrewPage extends HookConsumerWidget {
             archived: false,
             details: "{}",
             author: userDetails,
-            type: NoticeType.Hazard_report,
+            type: NoticeType.Notice_to_Crew,
             status: NoticeStatus.Open,
             aircraft: const [],
             documents: const [],
@@ -66,16 +66,6 @@ class NoticeToCrewForm extends ConsumerWidget {
       key: GlobalKey<FormState>(),
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: const Text(
-              'Notice to Crew',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-          ),
           NoticeBasicDetailsWidget(),
           const Divider(),
           NoticeToCrewBody(),

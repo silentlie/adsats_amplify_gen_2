@@ -69,16 +69,6 @@ class SafetyNoticeForm extends ConsumerWidget {
       key: GlobalKey<FormState>(),
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: const Text(
-              'Safety Notice',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-          ),
           NoticeBasicDetailsWidget(),
           const Divider(),
           SafetyNoticeBody(),

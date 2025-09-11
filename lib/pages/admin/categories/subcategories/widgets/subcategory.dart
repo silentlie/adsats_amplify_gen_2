@@ -95,7 +95,7 @@ class SubcategoryView extends ConsumerWidget with ConfirmDialogMixin {
             ),
             GlobalDropdownMenu(
               entries: const [
-                DropdownMenuEntry(value: true, label: "No"),
+                DropdownMenuEntry(value: false, label: "No"),
                 DropdownMenuEntry(value: true, label: "Yes"),
               ],
               onSelected: (value) {
@@ -117,8 +117,7 @@ class SubcategoryView extends ConsumerWidget with ConfirmDialogMixin {
                           toCard: (value) {
                             return CheckListCard(
                               value: value,
-                              title:
-                                  Text(value.fullName),
+                              title: Text(value.fullName),
                             );
                           },
                           onChange: (options) {

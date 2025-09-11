@@ -42,7 +42,7 @@ extension EmailContentExtension on Notice {
 
   <p>Please review the notice by clicking the link below:</p>
 
-  <a href="$link" target="_blank" class="action-link">View Notice</a>
+  <a href="$link" target="_blank" class="action-link">Log onto ADSATS here to view notice</a>
 
   <p>If the above link doesn't work, copy and paste this URL into your browser:</p>
   <p>$link</p>
@@ -102,7 +102,7 @@ extension ReportEmailX on Report {
 
   <p>Please review the report by clicking the link below:</p>
 
-  <a href="$link" class="action-link">View Report</a>
+  <a href="$link" class="action-link">Log onto ADSATS here to view report</a>
 
   <p>If the above link doesn't work, copy and paste this URL into your browser:</p>
   <p>$link</p>

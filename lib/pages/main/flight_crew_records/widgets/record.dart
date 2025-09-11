@@ -42,7 +42,7 @@ class EditFlightCrewRecordView extends ConsumerWidget with ConfirmDialogMixin {
             ),
             GlobalDropdownMenu(
               entries: const [
-                DropdownMenuEntry(value: true, label: "No"),
+                DropdownMenuEntry(value: false, label: "No"),
                 DropdownMenuEntry(value: true, label: "Yes"),
                 DropdownMenuEntry(value: null, label: "All"),
               ],

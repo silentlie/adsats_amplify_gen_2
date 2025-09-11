@@ -46,11 +46,13 @@ class ReportDataSource extends DataTableSource {
               height: 20,
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: report.discrepanciesFound
+                    ? BorderRadius.circular(2)
+                    : BorderRadius.circular(20),
                 color: switch (report.status) {
                   ReportStatus.Pending => Colors.amber,
                   ReportStatus.Closed when report.discrepanciesFound =>
-                    Colors.lime,
+                    Colors.purple,
                   ReportStatus.Closed => Colors.green,
                   ReportStatus.Open => Colors.red,
                   _ => null,

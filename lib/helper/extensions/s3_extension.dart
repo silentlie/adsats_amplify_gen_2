@@ -2,7 +2,7 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 
 extension DocumentPath on Document {
   String get s3Path {
-    return 'notices/$id/$name';
+    return 'documents/$id/$name';
   }
 }
 
@@ -20,6 +20,6 @@ extension FlightCrewRecordPath on FlightCrewRecord {
 
 extension ReportDocumentPath on ReportDocument {
   String s3Path(Report report) {
-    return 'reports/${report.id}/$id/$name';
+    return 'reportDocuments/${report.id}/$id/$name';
   }
 }

@@ -87,7 +87,7 @@ class FlightCrewRecordsView extends ConsumerWidget with CompareMixin {
                 },
               ),
               DataColumn2(
-                label: "Expire Date".centeredTextWidget(),
+                label: "Expiry Date".centeredTextWidget(),
                 size: ColumnSize.L,
                 onSort: (columnIndex, ascending) {
                   sortNotifier.apply(

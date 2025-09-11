@@ -9,6 +9,10 @@ import '../models/ModelProvider.dart';
 
 part 'auth.g.dart';
 
+const admin = "Admin";
+const safetyOfficer = "Safety Officer";
+const complianceManager = "Compliance Manager";
+
 @Riverpod()
 Future<String> userId(Ref ref) async {
   return await Amplify.Auth.getPlugin(
@@ -49,7 +53,7 @@ bool isAdmin(Ref ref) {
           (user) {
             return user.value?.roles?.any(
               (role) {
-                return role.role?.name == "Admin";
+                return role.role?.name == admin;
               },
             );
           },
@@ -66,7 +70,7 @@ bool isSafetyOfficer(Ref ref) {
             return user.value?.roles?.any(
               (role) {
                 final roleName = role.role?.name;
-                return roleName == "Safety Officer";
+                return roleName == safetyOfficer;
               },
             );
           },
@@ -83,7 +87,7 @@ bool isComplianceManager(Ref ref) {
             return user.value?.roles?.any(
               (role) {
                 final roleName = role.role?.name;
-                return roleName == "Compliance Manager";
+                return roleName == complianceManager;
               },
             );
           },

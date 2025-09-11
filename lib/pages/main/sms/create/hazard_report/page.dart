@@ -66,16 +66,6 @@ class HazardReportForm extends ConsumerWidget {
       key: GlobalKey<FormState>(),
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            child: const Text(
-              'Hazard Report',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
-            ),
-          ),
           NoticeBasicDetailsWidget(),
           const Divider(),
           HazardReportBody(),

@@ -66,7 +66,7 @@ class FlightCrewRecordCategoriesFilterView extends ConsumerWidget {
         children: [
           GlobalDropdownMenu(
             entries: const [
-              DropdownMenuEntry(value: true, label: "No"),
+              DropdownMenuEntry(value: false, label: "No"),
               DropdownMenuEntry(value: true, label: "Yes"),
               DropdownMenuEntry(value: null, label: "All"),
             ],

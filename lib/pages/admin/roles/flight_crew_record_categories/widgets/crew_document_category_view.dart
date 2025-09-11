@@ -89,7 +89,7 @@ class FlightCrewRecordsCategoryView extends ConsumerWidget
             ),
             GlobalDropdownMenu(
               entries: const [
-                DropdownMenuEntry(value: true, label: "No"),
+                DropdownMenuEntry(value: false, label: "No"),
                 DropdownMenuEntry(value: true, label: "Yes"),
               ],
               onSelected: (value) {

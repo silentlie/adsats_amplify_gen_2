@@ -27,11 +27,67 @@ class ReportHeader extends ConsumerWidget {
         child: Row(
           children: [
             Tooltip(
-              message: 'Status colors:\n'
-                  '🟡 Pending\n'
-                  '🟢 Closed\n'
-                  '🟩 Closed (Discrepancies)\n'
-                  '🔴 Open',
+              richMessage: WidgetSpan(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Status colors:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 4),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.circle, color: Colors.red, size: 14),
+                        SizedBox(width: 6),
+                        Text('Open report'),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.square, color: Colors.red, size: 14),
+                        SizedBox(width: 6),
+                        Text('Open report with discrepancies found'),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.circle, color: Colors.amber, size: 14),
+                        SizedBox(width: 6),
+                        Text('Pending report'),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.square, color: Colors.amber, size: 14),
+                        SizedBox(width: 6),
+                        Text('Pending report with discrepancies found'),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.circle, color: Colors.green, size: 14),
+                        SizedBox(width: 6),
+                        Text('Closed report'),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.square, color: Colors.purple, size: 14),
+                        SizedBox(width: 6),
+                        Text('Closed report with discrepancies found'),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
               child: Icon(Icons.info_outline),
             ),
             IconButton(

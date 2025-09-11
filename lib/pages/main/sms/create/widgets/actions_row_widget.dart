@@ -160,7 +160,7 @@ class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
                     ),
                   ),
                   label: Text(
-                    "Send ${type.label} to ${isSafetyOfficer ? "crew" : "safety officers"}",
+                    "Send ${type.label} to ${isSafetyOfficer ? "crew" : "safety officer(s)"}",
                     style: TextStyle(color: colorScheme.onSecondary),
                   ),
                   icon: Icon(
