@@ -26,14 +26,14 @@ class HelpPage extends StatelessWidget {
               child: RichText(
                 text: TextSpan(
                   text:
-                      'For any assistance, please contact our IT helpdesk.\n\n',
+                      'For any assistance, please contact your ADSATS Administrator or\n\n',
                   style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                   children: [
                     const TextSpan(
-                      text: 'Please email to ',
+                      text: 'Email to ',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
