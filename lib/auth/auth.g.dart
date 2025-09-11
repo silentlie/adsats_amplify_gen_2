@@ -121,7 +121,7 @@ final class IsAdminProvider extends $FunctionalProvider<bool, bool, bool>
   }
 }
 
-String _$isAdminHash() => r'583d0661f1e286971d06d62b0b7bac36ee595497';
+String _$isAdminHash() => r'8e9a54d279ee4bfced5e6dadf7f1763a0cdee342';
 
 @ProviderFor(isSafetyOfficer)
 const isSafetyOfficerProvider = IsSafetyOfficerProvider._();
@@ -168,7 +168,7 @@ final class IsSafetyOfficerProvider
   }
 }
 
-String _$isSafetyOfficerHash() => r'4d530b75d10275baf3a52c65fe09f5fe7fd4cf52';
+String _$isSafetyOfficerHash() => r'2761fdea39d720021b89079144c46ee7a17cf163';
 
 @ProviderFor(isComplianceManager)
 const isComplianceManagerProvider = IsComplianceManagerProvider._();
@@ -216,7 +216,7 @@ final class IsComplianceManagerProvider
 }
 
 String _$isComplianceManagerHash() =>
-    r'caf217ead21f19fbe2eefc4d58912b0d50509511';
+    r'19213fa50b5dd94cd5ad9b86f00118ac6524cd73';
 
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

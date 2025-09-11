@@ -1,8 +1,12 @@
+import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/filter.dart';
+import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
+import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class NoticesFilterView extends ConsumerWidget {
@@ -69,6 +73,26 @@ class NoticesFilterView extends ConsumerWidget {
             },
             initialSelection: filter.archived,
             text: "Archived",
+          ),
+          AsyncValueWidget(
+            // TODO: FutureWidget
+            value: ref.watch(listAircraftProvider()),
+            data: (value) {
+              return MultiSelectFormField<Aircraft>(
+                title: "Aircraft",
+                items: value,
+                toCard: (value) {
+                  return CheckListCard(
+                    value: value,
+                    title: Text(value.name),
+                  );
+                },
+                onChange: (options) {
+                  filter = filter.copyWith(aircraft: options);
+                },
+                initialValue: filter.aircraft,
+              );
+            },
           ),
           Container(
             padding: const EdgeInsets.all(8),

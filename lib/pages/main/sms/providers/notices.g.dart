@@ -64,7 +64,7 @@ final class NoticesProvider extends $FunctionalProvider<
   }
 }
 
-String _$noticesHash() => r'd827f542d581ce01951259bb76cbad9369122a95';
+String _$noticesHash() => r'b14b8dc85d1282b042f8b7aebada66d468004926';
 
 final class NoticesFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Notice>>, InboxOrSent> {

@@ -9,46 +9,84 @@ part 'session_manager.g.dart';
 
 @Riverpod(dependencies: [userDetails])
 class SessionManager extends _$SessionManager {
+  static const heartbeatInterval = Duration(minutes: 1);
+  static const idleTimeout = Duration(minutes: 15);
   Timer? _heartbeatTimer;
+  Timer? _idleTimer;
   Session? _currentSession;
 
+  bool _starting = false;
   @override
   FutureOr<void> build() async {
-    // Clean up when the provider is disposed
     ref.onDispose(() {
       _stopHeartbeat();
     });
-    // Start the heartbeat session
-    await _startHeartbeat();
   }
 
+  bool get isActive => _currentSession != null && _heartbeatTimer != null;
+
   Future<void> _startHeartbeat() async {
+    if (_starting || isActive) return;
+    _starting = true;
     try {
-      // Get current user UUID
       final user = await ref.read(userDetailsProvider.future);
-      // Create new session
-      // TODO: Fetch old session in past five minutes instead create
-      _currentSession = Session(
-        staff: user,
-      );
+      _currentSession = Session(staff: user);
       final db = ref.read(databaseAPIProvider);
-      // Save initial session
+      final sessions = await db.listAll<Session>(
+        where: Session.STAFF.eq(user.id),
+        modelType: Session.classType,
+        limit: 1,
+      );
+      final lastSession = sessions.firstOrNull;
+      final lastUpdated = lastSession?.updatedAt?.getDateTimeInUtc();
+      if (lastUpdated == null ||
+          DateTime.now().toUtc().difference(lastUpdated) > idleTimeout) {
+        _currentSession = Session(staff: user);
+        await db.create(_currentSession!);
+      } else {
+        _currentSession = lastSession;
+        // maybe just update instead of create
+        await db.update(_currentSession!);
+      }
       await db.create(_currentSession!);
-      // Start periodic updates
-      _heartbeatTimer =
-          Timer.periodic(const Duration(minutes: 1), (timer) async {
-        if (_currentSession != null) {
-          await db.update(_currentSession!);
-        }
-      });
+      // guard if getting current session take too long
+      await db.update(_currentSession!);
+      _heartbeatTimer = Timer.periodic(
+        heartbeatInterval,
+        (timer) async {
+          if (_currentSession != null) {
+            await db.update(_currentSession!);
+          }
+        },
+      );
+
+      _resetIdleTimer();
     } catch (e) {
       _stopHeartbeat();
+    } finally {
+      _starting = false;
     }
+  }
+
+  void markUserActive() {
+    if (!isActive) {
+      _startHeartbeat().catchError((_) => _stopHeartbeat());
+    }
+    _resetIdleTimer();
+  }
+
+  void _resetIdleTimer() {
+    _idleTimer?.cancel();
+    _idleTimer = Timer(idleTimeout, () {
+      _stopHeartbeat();
+    });
   }
 
   void _stopHeartbeat() {
     _heartbeatTimer?.cancel();
+    _idleTimer?.cancel();
     _heartbeatTimer = null;
+    _idleTimer = null;
     _currentSession = null;
   }
 }

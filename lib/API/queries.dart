@@ -298,7 +298,7 @@ query ListFlightCrewRecordsMeta {
 }
 ''';
 const listNoticesGraphQL = '''
-query ListNotices(\$filter: ModelNoticeFilterInput) {
+query ListNotices(\$filter: ModelNoticeFilterInput, \$aircraftFilter: ModelAircraftNoticeFilterInput) {
   listNotices(filter: \$filter, limit: 10000) {
     items {
       id
@@ -318,7 +318,7 @@ query ListNotices(\$filter: ModelNoticeFilterInput) {
         email
         archived
       }
-      aircraft {
+      aircraft(filter: \$aircraftFilter) {
         items {
           id
           aircraft {

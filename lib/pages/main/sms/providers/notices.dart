@@ -9,6 +9,7 @@ part 'notices.g.dart';
 @Riverpod(dependencies: [NoticeFilter])
 Future<List<Notice>> notices(Ref ref, InboxOrSent type) async {
   final filter = ref.watch(noticeFilterProvider);
+  print(filter);
   final filterJson = filter.toJson();
   final service = ref.read(noticeServiceProvider);
   switch (type) {
@@ -25,6 +26,20 @@ Future<List<Notice>> notices(Ref ref, InboxOrSent type) async {
       filterJson['staffId'] = {'eq': filter.user.id};
       break;
   }
-  final notices = await service.list(variables: {"filter": filterJson});
-  return notices;
+  final variables = {
+    "filter": filterJson,
+  };
+
+  final notices = await service.list(variables: variables);
+  if (filter.aircraft.isEmpty) return notices;
+  final ids = {for (final a in filter.aircraft) a.id};
+  return notices
+    ..retainWhere((notice) {
+      for (final a in notice.aircraft!) {
+        if (ids.contains(a.aircraft!.id)) {
+          return true;
+        }
+      }
+      return false;
+    });
 }

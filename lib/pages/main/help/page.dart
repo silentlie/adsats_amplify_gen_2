@@ -23,24 +23,37 @@ class HelpPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: RichText(
-                text: TextSpan(
-                  text:
-                      'For any assistance, please contact your ADSATS Administrator or\n\n',
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'For any assistance,',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
-                  children: [
-                    const TextSpan(
-                      text: 'Email to ',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                  const SizedBox(height: 16),
+                  Text(
+                    'Please contact your ADSATS Administrator or,',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Email to ',
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
-                    ),
-                    WidgetSpan(
-                      child: GestureDetector(
+                      GestureDetector(
                         onTap: () async {
                           final Uri emailUri = Uri(
                             scheme: 'mailto',
@@ -53,17 +66,18 @@ class HelpPage extends StatelessWidget {
                         },
                         child: Text(
                           'admin@adsats.com',
-                          style: const TextStyle(
-                            color: Colors.blue,
-                            decoration: TextDecoration.underline,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: Colors.blue,
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],

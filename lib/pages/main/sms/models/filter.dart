@@ -8,14 +8,16 @@ part 'filter.freezed.dart';
 @freezed
 sealed class NoticeFilterState with _$NoticeFilterState {
   NoticeFilterState._();
-  factory NoticeFilterState(
-      {required Staff user,
-      @Default("") String search,
-      NoticeType? type,
-      NoticeStatus? status,
-      bool? archived,
-      DateTimeRange? noticedAt,
-      DateTimeRange? deadlineAt}) = _NoticeFilterState;
+  factory NoticeFilterState({
+    required Staff user,
+    @Default("") String search,
+    NoticeType? type,
+    NoticeStatus? status,
+    bool? archived,
+    DateTimeRange? noticedAt,
+    DateTimeRange? deadlineAt,
+    @Default([]) List<Aircraft> aircraft,
+  }) = _NoticeFilterState;
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> result = {};

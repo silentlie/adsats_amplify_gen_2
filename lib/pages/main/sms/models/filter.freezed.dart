@@ -21,6 +21,7 @@ mixin _$NoticeFilterState {
   bool? get archived;
   DateTimeRange? get noticedAt;
   DateTimeRange? get deadlineAt;
+  List<Aircraft> get aircraft;
 
   /// Create a copy of NoticeFilterState
   /// with the given fields replaced by the non-null parameter values.
@@ -44,16 +45,25 @@ mixin _$NoticeFilterState {
             (identical(other.noticedAt, noticedAt) ||
                 other.noticedAt == noticedAt) &&
             (identical(other.deadlineAt, deadlineAt) ||
-                other.deadlineAt == deadlineAt));
+                other.deadlineAt == deadlineAt) &&
+            const DeepCollectionEquality().equals(other.aircraft, aircraft));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, user, search, type, status, archived, noticedAt, deadlineAt);
+      runtimeType,
+      user,
+      search,
+      type,
+      status,
+      archived,
+      noticedAt,
+      deadlineAt,
+      const DeepCollectionEquality().hash(aircraft));
 
   @override
   String toString() {
-    return 'NoticeFilterState(user: $user, search: $search, type: $type, status: $status, archived: $archived, noticedAt: $noticedAt, deadlineAt: $deadlineAt)';
+    return 'NoticeFilterState(user: $user, search: $search, type: $type, status: $status, archived: $archived, noticedAt: $noticedAt, deadlineAt: $deadlineAt, aircraft: $aircraft)';
   }
 }
 
@@ -70,7 +80,8 @@ abstract mixin class $NoticeFilterStateCopyWith<$Res> {
       NoticeStatus? status,
       bool? archived,
       DateTimeRange? noticedAt,
-      DateTimeRange? deadlineAt});
+      DateTimeRange? deadlineAt,
+      List<Aircraft> aircraft});
 }
 
 /// @nodoc
@@ -93,6 +104,7 @@ class _$NoticeFilterStateCopyWithImpl<$Res>
     Object? archived = freezed,
     Object? noticedAt = freezed,
     Object? deadlineAt = freezed,
+    Object? aircraft = null,
   }) {
     return _then(_self.copyWith(
       user: null == user
@@ -123,6 +135,10 @@ class _$NoticeFilterStateCopyWithImpl<$Res>
           ? _self.deadlineAt
           : deadlineAt // ignore: cast_nullable_to_non_nullable
               as DateTimeRange?,
+      aircraft: null == aircraft
+          ? _self.aircraft
+          : aircraft // ignore: cast_nullable_to_non_nullable
+              as List<Aircraft>,
     ));
   }
 }
@@ -225,7 +241,8 @@ extension NoticeFilterStatePatterns on NoticeFilterState {
             NoticeStatus? status,
             bool? archived,
             DateTimeRange? noticedAt,
-            DateTimeRange? deadlineAt)?
+            DateTimeRange? deadlineAt,
+            List<Aircraft> aircraft)?
         $default, {
     required TResult orElse(),
   }) {
@@ -233,7 +250,7 @@ extension NoticeFilterStatePatterns on NoticeFilterState {
     switch (_that) {
       case _NoticeFilterState() when $default != null:
         return $default(_that.user, _that.search, _that.type, _that.status,
-            _that.archived, _that.noticedAt, _that.deadlineAt);
+            _that.archived, _that.noticedAt, _that.deadlineAt, _that.aircraft);
       case _:
         return orElse();
     }
@@ -261,14 +278,15 @@ extension NoticeFilterStatePatterns on NoticeFilterState {
             NoticeStatus? status,
             bool? archived,
             DateTimeRange? noticedAt,
-            DateTimeRange? deadlineAt)
+            DateTimeRange? deadlineAt,
+            List<Aircraft> aircraft)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _NoticeFilterState():
         return $default(_that.user, _that.search, _that.type, _that.status,
-            _that.archived, _that.noticedAt, _that.deadlineAt);
+            _that.archived, _that.noticedAt, _that.deadlineAt, _that.aircraft);
     }
   }
 
@@ -293,14 +311,15 @@ extension NoticeFilterStatePatterns on NoticeFilterState {
             NoticeStatus? status,
             bool? archived,
             DateTimeRange? noticedAt,
-            DateTimeRange? deadlineAt)?
+            DateTimeRange? deadlineAt,
+            List<Aircraft> aircraft)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _NoticeFilterState() when $default != null:
         return $default(_that.user, _that.search, _that.type, _that.status,
-            _that.archived, _that.noticedAt, _that.deadlineAt);
+            _that.archived, _that.noticedAt, _that.deadlineAt, _that.aircraft);
       case _:
         return null;
     }
@@ -317,8 +336,10 @@ class _NoticeFilterState extends NoticeFilterState {
       this.status,
       this.archived,
       this.noticedAt,
-      this.deadlineAt})
-      : super._();
+      this.deadlineAt,
+      final List<Aircraft> aircraft = const []})
+      : _aircraft = aircraft,
+        super._();
 
   @override
   final Staff user;
@@ -335,6 +356,14 @@ class _NoticeFilterState extends NoticeFilterState {
   final DateTimeRange? noticedAt;
   @override
   final DateTimeRange? deadlineAt;
+  final List<Aircraft> _aircraft;
+  @override
+  @JsonKey()
+  List<Aircraft> get aircraft {
+    if (_aircraft is EqualUnmodifiableListView) return _aircraft;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_aircraft);
+  }
 
   /// Create a copy of NoticeFilterState
   /// with the given fields replaced by the non-null parameter values.
@@ -358,16 +387,25 @@ class _NoticeFilterState extends NoticeFilterState {
             (identical(other.noticedAt, noticedAt) ||
                 other.noticedAt == noticedAt) &&
             (identical(other.deadlineAt, deadlineAt) ||
-                other.deadlineAt == deadlineAt));
+                other.deadlineAt == deadlineAt) &&
+            const DeepCollectionEquality().equals(other._aircraft, _aircraft));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, user, search, type, status, archived, noticedAt, deadlineAt);
+      runtimeType,
+      user,
+      search,
+      type,
+      status,
+      archived,
+      noticedAt,
+      deadlineAt,
+      const DeepCollectionEquality().hash(_aircraft));
 
   @override
   String toString() {
-    return 'NoticeFilterState(user: $user, search: $search, type: $type, status: $status, archived: $archived, noticedAt: $noticedAt, deadlineAt: $deadlineAt)';
+    return 'NoticeFilterState(user: $user, search: $search, type: $type, status: $status, archived: $archived, noticedAt: $noticedAt, deadlineAt: $deadlineAt, aircraft: $aircraft)';
   }
 }
 
@@ -386,7 +424,8 @@ abstract mixin class _$NoticeFilterStateCopyWith<$Res>
       NoticeStatus? status,
       bool? archived,
       DateTimeRange? noticedAt,
-      DateTimeRange? deadlineAt});
+      DateTimeRange? deadlineAt,
+      List<Aircraft> aircraft});
 }
 
 /// @nodoc
@@ -409,6 +448,7 @@ class __$NoticeFilterStateCopyWithImpl<$Res>
     Object? archived = freezed,
     Object? noticedAt = freezed,
     Object? deadlineAt = freezed,
+    Object? aircraft = null,
   }) {
     return _then(_NoticeFilterState(
       user: null == user
@@ -439,6 +479,10 @@ class __$NoticeFilterStateCopyWithImpl<$Res>
           ? _self.deadlineAt
           : deadlineAt // ignore: cast_nullable_to_non_nullable
               as DateTimeRange?,
+      aircraft: null == aircraft
+          ? _self._aircraft
+          : aircraft // ignore: cast_nullable_to_non_nullable
+              as List<Aircraft>,
     ));
   }
 }
