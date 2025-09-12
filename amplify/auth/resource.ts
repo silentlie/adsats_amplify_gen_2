@@ -24,12 +24,6 @@ export const auth = defineAuth({
       },
     },
   },
-  userAttributes: {
-    fullname: {
-      mutable: true,
-      required: true,
-    },
-  },
   access: (allow) => [
     allow.resource(createUser).to(["createUser"]),
     allow.resource(deleteUser).to(["deleteUser"]),
