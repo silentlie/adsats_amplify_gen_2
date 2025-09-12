@@ -18,6 +18,12 @@ export const handler: Handler = async (event) => {
     // MessageAction: "RESEND",
     TemporaryPassword: temporaryPassword,
     ForceAliasCreation: false,
+    UserAttributes: [
+      {
+        Name: "name",
+        Value: email,
+      },
+    ],
   };
   const command = new AdminCreateUserCommand(input);
   const response = await client.send(command);
