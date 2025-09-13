@@ -33,9 +33,7 @@ class StaffRepository {
       tempPassword: "LM00r3??",
     );
     Map<String, dynamic> userData = user["User"];
-    print(userData);
     String id = userData["Username"];
-    print(id);
     staff = Staff(
       id: id,
       firstName: staff.firstName,
