@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:adsats_amplify_gen_2/API/amplify_appsync_api.dart';
 import 'package:adsats_amplify_gen_2/API/mutations.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
@@ -30,7 +32,10 @@ class StaffRepository {
       email: staff.email,
       tempPassword: "LM00r3??",
     );
-    String id = user["User"]["Username"];
+    Map<String, dynamic> userData = user["User"];
+    print(userData);
+    String id = userData["Username"];
+    print(id);
     staff = Staff(
       id: id,
       firstName: staff.firstName,
@@ -161,6 +166,7 @@ class StaffRepository {
       },
     );
     staff = Staff.fromJson(res['getStaff']);
+    await disableUser(staff);
     final futures = <Future>[];
     staff.aircraft?.forEach(
       (aircraftStaff) => futures.add(_db.delete(aircraftStaff)),
@@ -180,6 +186,8 @@ class StaffRepository {
     staff.sessions?.forEach(
       (session) => futures.add(_db.delete(session)),
     );
+    futures.add(deleteUser(staff));
+    await Future.wait(futures);
     return await _db.delete(staff);
   }
 
@@ -195,27 +203,27 @@ class StaffRepository {
         "email": email,
         "temporaryPassword": tempPassword,
       },
-    );
+    ).then((value) => jsonDecode(value["createUser"]));
   }
 
   Future<Map<String, dynamic>> enableUser(Staff staff) async {
     return await _db.mutate(
       document: enableUserAdmin,
       variables: {'id': staff.id},
-    );
+    ).then((value) => jsonDecode(value["enableUser"]));
   }
 
   Future<Map<String, dynamic>> disableUser(Staff staff) async {
     return await _db.mutate(
       document: disableUserAdmin,
       variables: {'id': staff.id},
-    );
+    ).then((value) => jsonDecode(value["disableUser"]));
   }
 
   Future<Map<String, dynamic>> deleteUser(Staff staff) async {
     return await _db.mutate(
       document: deleteUserAdmin,
       variables: {'id': staff.id},
-    );
+    ).then((value) => jsonDecode(value["deleteUser"]));
   }
 }
