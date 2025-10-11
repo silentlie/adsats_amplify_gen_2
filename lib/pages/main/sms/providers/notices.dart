@@ -9,7 +9,6 @@ part 'notices.g.dart';
 @Riverpod(dependencies: [NoticeFilter])
 Future<List<Notice>> notices(Ref ref, InboxOrSent type) async {
   final filter = ref.watch(noticeFilterProvider);
-  print(filter);
   final filterJson = filter.toJson();
   final service = ref.read(noticeServiceProvider);
   switch (type) {
