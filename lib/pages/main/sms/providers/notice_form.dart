@@ -12,7 +12,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notice_form.g.dart';
 
-@Riverpod(dependencies: [SelectedFiles, isSafetyOfficer, userDetails])
+@Riverpod(
+    dependencies: [SelectedFiles, isSafetyOfficer, userDetails, noticeService])
 class NoticeForm extends _$NoticeForm {
   NoticeForm();
   factory NoticeForm.withNotice(Notice notice, bool isNew) {
@@ -59,7 +60,10 @@ class NoticeForm extends _$NoticeForm {
   // check if user is safety officer or author of the notice
   bool editPermit() {
     return ref.watch(isSafetyOfficerProvider) ||
-        state.notice.author?.id == ref.watch(userDetailsProvider.select((value) => value.value?.id,));
+        state.notice.author?.id ==
+            ref.watch(userDetailsProvider.select(
+              (value) => value.value?.id,
+            ));
   }
 
   // switch edit mode trigger rebuild

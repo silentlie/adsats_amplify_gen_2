@@ -28,7 +28,7 @@ Future<String> userId(Ref ref) async {
 }
 
 // TODO verify all listeners that only listen to value
-@Riverpod(dependencies: [userId])
+@riverpod
 Future<Staff> userDetails(Ref ref) async {
   final id = await ref.watch(userIdProvider.future);
   final db = ref.read(databaseAPIProvider);
@@ -46,7 +46,7 @@ Future<Staff> userDetails(Ref ref) async {
   );
 }
 
-@Riverpod(dependencies: [userDetails])
+@riverpod
 bool isAdmin(Ref ref) {
   return ref.watch(
         userDetailsProvider.select(
@@ -62,7 +62,7 @@ bool isAdmin(Ref ref) {
       false;
 }
 
-@Riverpod(dependencies: [userDetails])
+@riverpod
 bool isSafetyOfficer(Ref ref) {
   return ref.watch(
         userDetailsProvider.select(
@@ -79,7 +79,7 @@ bool isSafetyOfficer(Ref ref) {
       false;
 }
 
-@Riverpod(dependencies: [userDetails])
+@riverpod
 bool isComplianceManager(Ref ref) {
   return ref.watch(
         userDetailsProvider.select(

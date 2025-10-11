@@ -10,7 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([NoticeForm, listAircraft, listRoles, listStaff])
 class NoticeRecipientsWidget extends HookConsumerWidget {
   const NoticeRecipientsWidget({super.key});
 
@@ -88,17 +90,19 @@ class NoticeRecipientsWidget extends HookConsumerWidget {
                               isFav: (e) => e.readAt == null,
                               getField: (e) => e.staff!.fullName,
                             )
-                            .map((e) => Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Chip(
-                                    label: Text(e.staff!.fullName),
-                                    color: WidgetStateProperty.all(
-                                      e.readAt != null
-                                          ? Colors.green
-                                          : Colors.red,
-                                    ),
+                            .map(
+                              (e) => Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Chip(
+                                  label: Text(e.staff!.fullName),
+                                  color: WidgetStateProperty.all(
+                                    e.readAt != null
+                                        ? Colors.green
+                                        : Colors.red,
                                   ),
-                                ),),
+                                ),
+                              ),
+                            ),
                         if (state.recipients.isEmpty) Text("Nil"),
                       ],
                     ),

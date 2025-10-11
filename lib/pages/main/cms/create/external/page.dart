@@ -12,7 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([SelectedFiles])
 class ExternalAuditReportPage extends HookConsumerWidget {
   const ExternalAuditReportPage({
     super.key,
@@ -89,6 +91,7 @@ class ExternalAuditReportForm extends StatelessWidget {
   }
 }
 
+@Dependencies([ReportForm])
 class ExternalAuditReportBody extends ConsumerWidget {
   const ExternalAuditReportBody({super.key});
 

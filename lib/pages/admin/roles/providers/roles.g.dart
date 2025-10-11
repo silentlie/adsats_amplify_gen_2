@@ -6,6 +6,9 @@ part of 'roles.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(roles)
 const rolesProvider = RolesProvider._();
 
@@ -19,13 +22,9 @@ final class RolesProvider extends $FunctionalProvider<AsyncValue<List<Role>>,
           retry: null,
           name: r'rolesProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[adminFilterProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            RolesProvider.$allTransitiveDependencies0,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = adminFilterProvider;
 
   @override
   String debugGetCreateSourceHash() => _$rolesHash();
@@ -41,7 +40,4 @@ final class RolesProvider extends $FunctionalProvider<AsyncValue<List<Role>>,
   }
 }
 
-String _$rolesHash() => r'b0887ddd9ae9efd4b46b2712806c70d6accaaf63';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+String _$rolesHash() => r'59484e4a46605485319a30d18bbc527690183a42';

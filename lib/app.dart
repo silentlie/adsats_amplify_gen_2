@@ -12,7 +12,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(settingsNotifierProvider.select(
+    final themeMode = ref.watch(settingsProvider.select(
       (settings) => settings.value?.themeMode ?? ThemeMode.system,
     ));
     return Authenticator(

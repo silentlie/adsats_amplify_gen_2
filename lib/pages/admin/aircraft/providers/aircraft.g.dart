@@ -6,6 +6,9 @@ part of 'aircraft.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(aircraft)
 const aircraftProvider = AircraftProvider._();
 
@@ -19,13 +22,9 @@ final class AircraftProvider extends $FunctionalProvider<
           retry: null,
           name: r'aircraftProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[adminFilterProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            AircraftProvider.$allTransitiveDependencies0,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = adminFilterProvider;
 
   @override
   String debugGetCreateSourceHash() => _$aircraftHash();
@@ -42,7 +41,4 @@ final class AircraftProvider extends $FunctionalProvider<
   }
 }
 
-String _$aircraftHash() => r'5ce6d1458e4cb1dd239f82b69e88eb867a73ede0';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+String _$aircraftHash() => r'05cf4ccf69cf1f6a10adee85f80e6735033145e2';

@@ -1,5 +1,4 @@
 import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
@@ -8,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'read_check.g.dart';
 
-@Riverpod(dependencies: [userId, NoticeForm, listNoticeStaff])
+@Riverpod(dependencies: [NoticeForm])
 FutureOr<List<NoticeStaff>> readCheck(Ref ref) async {
   final userId = ref.watch(userIdProvider).value!;
   final notice = ref.watch(
@@ -23,6 +22,5 @@ FutureOr<List<NoticeStaff>> readCheck(Ref ref) async {
         .eq(null)
         .and(NoticeStaff.STAFF.eq(userId))
         .and(NoticeStaff.NOTICE.eq(notice.id)),
-    
   );
 }

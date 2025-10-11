@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'records.g.dart';
 
-@Riverpod(dependencies: [FlightCrewRecordFilter])
+@riverpod
 Future<List<FlightCrewRecord>> records(
   Ref ref,
   Staff staff,

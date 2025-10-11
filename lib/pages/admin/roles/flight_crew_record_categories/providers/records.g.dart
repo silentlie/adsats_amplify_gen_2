@@ -6,6 +6,9 @@ part of 'records.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(flightCrewRecordCategories)
 const flightCrewRecordCategoriesProvider = FlightCrewRecordCategoriesFamily._();
 
@@ -22,9 +25,6 @@ final class FlightCrewRecordCategoriesProvider
           dependencies: null,
           $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 =
-      flightCrewRecordCategoriesFilterProvider;
 
   @override
   String debugGetCreateSourceHash() => _$flightCrewRecordCategoriesHash();
@@ -63,7 +63,7 @@ final class FlightCrewRecordCategoriesProvider
 }
 
 String _$flightCrewRecordCategoriesHash() =>
-    r'9061b85b4208f718ebb6070849437e00861995f7';
+    r'77273cbf65b674caacf037896e22786374cb2554';
 
 final class FlightCrewRecordCategoriesFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Role>, String> {
@@ -71,12 +71,8 @@ final class FlightCrewRecordCategoriesFamily extends $Family
       : super(
           retry: null,
           name: r'flightCrewRecordCategoriesProvider',
-          dependencies: const <ProviderOrFamily>[
-            flightCrewRecordCategoriesFilterProvider
-          ],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            FlightCrewRecordCategoriesProvider.$allTransitiveDependencies0,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 
@@ -88,5 +84,3 @@ final class FlightCrewRecordCategoriesFamily extends $Family
   @override
   String toString() => r'flightCrewRecordCategoriesProvider';
 }
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

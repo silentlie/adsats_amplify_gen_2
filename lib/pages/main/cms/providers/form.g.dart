@@ -6,6 +6,9 @@ part of 'form.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(ReportForm)
 const reportFormProvider = ReportFormProvider._();
 
@@ -21,7 +24,8 @@ final class ReportFormProvider
           dependencies: const <ProviderOrFamily>[
             selectedFilesProvider,
             isComplianceManagerProvider,
-            userDetailsProvider
+            userDetailsProvider,
+            reportServiceProvider
           ],
           $allTransitiveDependencies: const <ProviderOrFamily>{
             ReportFormProvider.$allTransitiveDependencies0,
@@ -33,10 +37,8 @@ final class ReportFormProvider
 
   static const $allTransitiveDependencies0 = selectedFilesProvider;
   static const $allTransitiveDependencies1 = isComplianceManagerProvider;
-  static const $allTransitiveDependencies2 =
-      IsComplianceManagerProvider.$allTransitiveDependencies0;
-  static const $allTransitiveDependencies3 =
-      IsComplianceManagerProvider.$allTransitiveDependencies1;
+  static const $allTransitiveDependencies2 = userDetailsProvider;
+  static const $allTransitiveDependencies3 = reportServiceProvider;
 
   @override
   String debugGetCreateSourceHash() => _$reportFormHash();
@@ -54,7 +56,7 @@ final class ReportFormProvider
   }
 }
 
-String _$reportFormHash() => r'770955e6ce573a2a26ed7bb8375a014a4522933a';
+String _$reportFormHash() => r'c5ab5b22fae2b3e7e0194327c27555bade568f6f';
 
 abstract class _$ReportForm extends $Notifier<ReportFormState> {
   ReportFormState build();
@@ -71,6 +73,3 @@ abstract class _$ReportForm extends $Notifier<ReportFormState> {
     element.handleValue(ref, created);
   }
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

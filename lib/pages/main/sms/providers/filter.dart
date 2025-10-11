@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'filter.g.dart';
 
-@Riverpod(dependencies: [userDetails])
+@riverpod
 class NoticeFilter extends _$NoticeFilter {
   @override
   NoticeFilterState build() {

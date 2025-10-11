@@ -12,7 +12,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'form.g.dart';
 
-@Riverpod(dependencies: [SelectedFiles, isComplianceManager, userDetails])
+@Riverpod(dependencies: [
+  SelectedFiles,
+  isComplianceManager,
+  userDetails,
+  reportService
+])
 class ReportForm extends _$ReportForm {
   ReportForm();
   factory ReportForm.withReport(Report report, bool isNew) {

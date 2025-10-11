@@ -6,6 +6,9 @@ part of 'query_providers.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(listStaff)
 const listStaffProvider = ListStaffFamily._();
 
@@ -14,7 +17,7 @@ final class ListStaffProvider extends $FunctionalProvider<
     with $FutureModifier<List<Staff>>, $FutureProvider<List<Staff>> {
   const ListStaffProvider._(
       {required ListStaffFamily super.from,
-      required QueryPredicate? super.argument})
+      required QueryPredicate<Model>? super.argument})
       : super(
           retry: null,
           name: r'listStaffProvider',
@@ -41,7 +44,7 @@ final class ListStaffProvider extends $FunctionalProvider<
 
   @override
   FutureOr<List<Staff>> create(Ref ref) {
-    final argument = this.argument as QueryPredicate?;
+    final argument = this.argument as QueryPredicate<Model>?;
     return listStaff(
       ref,
       argument,
@@ -62,7 +65,9 @@ final class ListStaffProvider extends $FunctionalProvider<
 String _$listStaffHash() => r'6269ce3e05ac16293962bdc8302f8d5f2e8f6a9a';
 
 final class ListStaffFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<List<Staff>>, QueryPredicate?> {
+    with
+        $FunctionalFamilyOverride<FutureOr<List<Staff>>,
+            QueryPredicate<Model>?> {
   const ListStaffFamily._()
       : super(
           retry: null,
@@ -73,7 +78,7 @@ final class ListStaffFamily extends $Family
         );
 
   ListStaffProvider call([
-    QueryPredicate? where,
+    QueryPredicate<Model>? where,
   ]) =>
       ListStaffProvider._(argument: where, from: this);
 
@@ -89,7 +94,7 @@ final class ListAircraftProvider extends $FunctionalProvider<
     with $FutureModifier<List<Aircraft>>, $FutureProvider<List<Aircraft>> {
   const ListAircraftProvider._(
       {required ListAircraftFamily super.from,
-      required QueryPredicate? super.argument})
+      required QueryPredicate<Model>? super.argument})
       : super(
           retry: null,
           name: r'listAircraftProvider',
@@ -116,7 +121,7 @@ final class ListAircraftProvider extends $FunctionalProvider<
 
   @override
   FutureOr<List<Aircraft>> create(Ref ref) {
-    final argument = this.argument as QueryPredicate?;
+    final argument = this.argument as QueryPredicate<Model>?;
     return listAircraft(
       ref,
       argument,
@@ -137,7 +142,9 @@ final class ListAircraftProvider extends $FunctionalProvider<
 String _$listAircraftHash() => r'e9e2a962b7c0b316834b5cb3c0e9b5e45cb56e7e';
 
 final class ListAircraftFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<List<Aircraft>>, QueryPredicate?> {
+    with
+        $FunctionalFamilyOverride<FutureOr<List<Aircraft>>,
+            QueryPredicate<Model>?> {
   const ListAircraftFamily._()
       : super(
           retry: null,
@@ -148,7 +155,7 @@ final class ListAircraftFamily extends $Family
         );
 
   ListAircraftProvider call([
-    QueryPredicate? where,
+    QueryPredicate<Model>? where,
   ]) =>
       ListAircraftProvider._(argument: where, from: this);
 
@@ -164,7 +171,7 @@ final class ListRolesProvider extends $FunctionalProvider<
     with $FutureModifier<List<Role>>, $FutureProvider<List<Role>> {
   const ListRolesProvider._(
       {required ListRolesFamily super.from,
-      required QueryPredicate? super.argument})
+      required QueryPredicate<Model>? super.argument})
       : super(
           retry: null,
           name: r'listRolesProvider',
@@ -190,7 +197,7 @@ final class ListRolesProvider extends $FunctionalProvider<
 
   @override
   FutureOr<List<Role>> create(Ref ref) {
-    final argument = this.argument as QueryPredicate?;
+    final argument = this.argument as QueryPredicate<Model>?;
     return listRoles(
       ref,
       argument,
@@ -211,7 +218,9 @@ final class ListRolesProvider extends $FunctionalProvider<
 String _$listRolesHash() => r'61544f5ded5fbb6d8e0affac00c36b5909b969ac';
 
 final class ListRolesFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<List<Role>>, QueryPredicate?> {
+    with
+        $FunctionalFamilyOverride<FutureOr<List<Role>>,
+            QueryPredicate<Model>?> {
   const ListRolesFamily._()
       : super(
           retry: null,
@@ -222,7 +231,7 @@ final class ListRolesFamily extends $Family
         );
 
   ListRolesProvider call([
-    QueryPredicate? where,
+    QueryPredicate<Model>? where,
   ]) =>
       ListRolesProvider._(argument: where, from: this);
 
@@ -238,7 +247,7 @@ final class ListCategoriesProvider extends $FunctionalProvider<
     with $FutureModifier<List<Category>>, $FutureProvider<List<Category>> {
   const ListCategoriesProvider._(
       {required ListCategoriesFamily super.from,
-      required QueryPredicate? super.argument})
+      required QueryPredicate<Model>? super.argument})
       : super(
           retry: null,
           name: r'listCategoriesProvider',
@@ -265,7 +274,7 @@ final class ListCategoriesProvider extends $FunctionalProvider<
 
   @override
   FutureOr<List<Category>> create(Ref ref) {
-    final argument = this.argument as QueryPredicate?;
+    final argument = this.argument as QueryPredicate<Model>?;
     return listCategories(
       ref,
       argument,
@@ -286,7 +295,9 @@ final class ListCategoriesProvider extends $FunctionalProvider<
 String _$listCategoriesHash() => r'862168f45f6078ab26c10df0e495f3dc7c9a278a';
 
 final class ListCategoriesFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<List<Category>>, QueryPredicate?> {
+    with
+        $FunctionalFamilyOverride<FutureOr<List<Category>>,
+            QueryPredicate<Model>?> {
   const ListCategoriesFamily._()
       : super(
           retry: null,
@@ -297,7 +308,7 @@ final class ListCategoriesFamily extends $Family
         );
 
   ListCategoriesProvider call([
-    QueryPredicate? where,
+    QueryPredicate<Model>? where,
   ]) =>
       ListCategoriesProvider._(argument: where, from: this);
 
@@ -317,7 +328,7 @@ final class ListSubcategoriesProvider extends $FunctionalProvider<
         $FutureProvider<List<Subcategory>> {
   const ListSubcategoriesProvider._(
       {required ListSubcategoriesFamily super.from,
-      required QueryPredicate? super.argument})
+      required QueryPredicate<Model>? super.argument})
       : super(
           retry: null,
           name: r'listSubcategoriesProvider',
@@ -344,7 +355,7 @@ final class ListSubcategoriesProvider extends $FunctionalProvider<
 
   @override
   FutureOr<List<Subcategory>> create(Ref ref) {
-    final argument = this.argument as QueryPredicate?;
+    final argument = this.argument as QueryPredicate<Model>?;
     return listSubcategories(
       ref,
       argument,
@@ -367,7 +378,7 @@ String _$listSubcategoriesHash() => r'47c1dcfeb0e4f0836010d5bacf2b9164c46d324b';
 final class ListSubcategoriesFamily extends $Family
     with
         $FunctionalFamilyOverride<FutureOr<List<Subcategory>>,
-            QueryPredicate?> {
+            QueryPredicate<Model>?> {
   const ListSubcategoriesFamily._()
       : super(
           retry: null,
@@ -378,7 +389,7 @@ final class ListSubcategoriesFamily extends $Family
         );
 
   ListSubcategoriesProvider call([
-    QueryPredicate? where,
+    QueryPredicate<Model>? where,
   ]) =>
       ListSubcategoriesProvider._(argument: where, from: this);
 
@@ -398,7 +409,7 @@ final class ListNoticeStaffProvider extends $FunctionalProvider<
         $FutureProvider<List<NoticeStaff>> {
   const ListNoticeStaffProvider._(
       {required ListNoticeStaffFamily super.from,
-      required QueryPredicate? super.argument})
+      required QueryPredicate<Model>? super.argument})
       : super(
           retry: null,
           name: r'listNoticeStaffProvider',
@@ -425,7 +436,7 @@ final class ListNoticeStaffProvider extends $FunctionalProvider<
 
   @override
   FutureOr<List<NoticeStaff>> create(Ref ref) {
-    final argument = this.argument as QueryPredicate?;
+    final argument = this.argument as QueryPredicate<Model>?;
     return listNoticeStaff(
       ref,
       argument,
@@ -448,7 +459,7 @@ String _$listNoticeStaffHash() => r'a02e5240c4f7bac5e556248d137a3be5e5747877';
 final class ListNoticeStaffFamily extends $Family
     with
         $FunctionalFamilyOverride<FutureOr<List<NoticeStaff>>,
-            QueryPredicate?> {
+            QueryPredicate<Model>?> {
   const ListNoticeStaffFamily._()
       : super(
           retry: null,
@@ -459,12 +470,10 @@ final class ListNoticeStaffFamily extends $Family
         );
 
   ListNoticeStaffProvider call([
-    QueryPredicate? where,
+    QueryPredicate<Model>? where,
   ]) =>
       ListNoticeStaffProvider._(argument: where, from: this);
 
   @override
   String toString() => r'listNoticeStaffProvider';
 }
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

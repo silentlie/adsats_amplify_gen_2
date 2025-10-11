@@ -12,7 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([NoticeForm, SelectedFiles, readCheck])
 class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
   const ActionsRowWidget({super.key});
 
@@ -27,8 +29,9 @@ class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
     ));
     final notifier = ref.read(noticeFormProvider.notifier);
     final isSafetyOfficer = ref.watch(isSafetyOfficerProvider);
-    final type =
-        ref.read(noticeFormProvider.select((value) => value.notice.type!),);
+    final type = ref.read(
+      noticeFormProvider.select((value) => value.notice.type!),
+    );
     final scrollController = useScrollController();
     return Padding(
       padding: const EdgeInsets.all(8.0),

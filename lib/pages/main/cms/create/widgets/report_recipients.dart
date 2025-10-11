@@ -2,7 +2,9 @@ import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart
 import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([ReportForm])
 class ReportRecipients extends ConsumerWidget {
   const ReportRecipients({super.key});
 

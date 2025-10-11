@@ -6,6 +6,9 @@ part of 'auth.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(userId)
 const userIdProvider = UserIdProvider._();
 
@@ -52,13 +55,9 @@ final class UserDetailsProvider
           retry: null,
           name: r'userDetailsProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[userIdProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            UserDetailsProvider.$allTransitiveDependencies0,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = userIdProvider;
 
   @override
   String debugGetCreateSourceHash() => _$userDetailsHash();
@@ -74,7 +73,7 @@ final class UserDetailsProvider
   }
 }
 
-String _$userDetailsHash() => r'892107c5553b2553d6a6f1ebfafaab58adda385c';
+String _$userDetailsHash() => r'7ca7ed495d3886a33e9b5d4ea8951b1577732e71';
 
 @ProviderFor(isAdmin)
 const isAdminProvider = IsAdminProvider._();
@@ -88,16 +87,9 @@ final class IsAdminProvider extends $FunctionalProvider<bool, bool, bool>
           retry: null,
           name: r'isAdminProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[userDetailsProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            IsAdminProvider.$allTransitiveDependencies0,
-            IsAdminProvider.$allTransitiveDependencies1,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = userDetailsProvider;
-  static const $allTransitiveDependencies1 =
-      UserDetailsProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$isAdminHash();
@@ -121,7 +113,7 @@ final class IsAdminProvider extends $FunctionalProvider<bool, bool, bool>
   }
 }
 
-String _$isAdminHash() => r'8e9a54d279ee4bfced5e6dadf7f1763a0cdee342';
+String _$isAdminHash() => r'9d62708d04eeb867cead8bcf38595b96d003829e';
 
 @ProviderFor(isSafetyOfficer)
 const isSafetyOfficerProvider = IsSafetyOfficerProvider._();
@@ -135,16 +127,9 @@ final class IsSafetyOfficerProvider
           retry: null,
           name: r'isSafetyOfficerProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[userDetailsProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            IsSafetyOfficerProvider.$allTransitiveDependencies0,
-            IsSafetyOfficerProvider.$allTransitiveDependencies1,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = userDetailsProvider;
-  static const $allTransitiveDependencies1 =
-      UserDetailsProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$isSafetyOfficerHash();
@@ -168,7 +153,7 @@ final class IsSafetyOfficerProvider
   }
 }
 
-String _$isSafetyOfficerHash() => r'2761fdea39d720021b89079144c46ee7a17cf163';
+String _$isSafetyOfficerHash() => r'74863d8356890c93f76c1abd45e4f80ae01eb534';
 
 @ProviderFor(isComplianceManager)
 const isComplianceManagerProvider = IsComplianceManagerProvider._();
@@ -182,16 +167,9 @@ final class IsComplianceManagerProvider
           retry: null,
           name: r'isComplianceManagerProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[userDetailsProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            IsComplianceManagerProvider.$allTransitiveDependencies0,
-            IsComplianceManagerProvider.$allTransitiveDependencies1,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = userDetailsProvider;
-  static const $allTransitiveDependencies1 =
-      UserDetailsProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$isComplianceManagerHash();
@@ -216,7 +194,4 @@ final class IsComplianceManagerProvider
 }
 
 String _$isComplianceManagerHash() =>
-    r'19213fa50b5dd94cd5ad9b86f00118ac6524cd73';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+    r'b0a2468897f5eb767237eaefa6ecd9e454769040';

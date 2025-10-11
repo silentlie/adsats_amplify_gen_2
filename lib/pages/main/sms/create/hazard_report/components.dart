@@ -7,7 +7,9 @@ import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([NoticeForm])
 class MitigateCommentWidget extends ConsumerWidget {
   const MitigateCommentWidget({super.key});
 
@@ -68,6 +70,7 @@ class MitigateCommentWidget extends ConsumerWidget {
   }
 }
 
+@Dependencies([NoticeForm])
 class RiskWidget extends ConsumerWidget {
   const RiskWidget({super.key});
 
@@ -362,6 +365,7 @@ class RiskWidget extends ConsumerWidget {
   }
 }
 
+@Dependencies([NoticeForm])
 class SafetyOfficersSection extends ConsumerWidget {
   const SafetyOfficersSection({super.key});
 

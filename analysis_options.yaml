@@ -3,6 +3,6 @@ analyzer:
   plugins:
     - custom_lint
 
-custom_lint:
-  rules:
-    - provider_dependencies: false
+# custom_lint:
+#   rules:
+#     - riverpod_provider_dependencies: false

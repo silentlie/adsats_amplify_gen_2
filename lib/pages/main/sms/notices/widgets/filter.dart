@@ -8,7 +8,9 @@ import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([listAircraft])
 class NoticesFilterView extends ConsumerWidget {
   const NoticesFilterView({super.key});
 

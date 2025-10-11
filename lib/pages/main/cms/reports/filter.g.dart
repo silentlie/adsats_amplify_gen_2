@@ -6,6 +6,9 @@ part of 'filter.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(ReportFilter)
 const reportFilterProvider = ReportFilterProvider._();
 
@@ -18,16 +21,9 @@ final class ReportFilterProvider
           retry: null,
           name: r'reportFilterProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[userDetailsProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            ReportFilterProvider.$allTransitiveDependencies0,
-            ReportFilterProvider.$allTransitiveDependencies1,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = userDetailsProvider;
-  static const $allTransitiveDependencies1 =
-      UserDetailsProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$reportFilterHash();
@@ -45,7 +41,7 @@ final class ReportFilterProvider
   }
 }
 
-String _$reportFilterHash() => r'7ccb1d1b5198a0f69e655b1faddd3e9217e81a3c';
+String _$reportFilterHash() => r'1788ba07d8f4ac494e359afd1f82e88912451fc5';
 
 abstract class _$ReportFilter extends $Notifier<ReportFilterState> {
   ReportFilterState build();
@@ -62,6 +58,3 @@ abstract class _$ReportFilter extends $Notifier<ReportFilterState> {
     element.handleValue(ref, created);
   }
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

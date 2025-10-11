@@ -6,6 +6,9 @@ part of 'reports.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(reports)
 const reportsProvider = ReportsFamily._();
 
@@ -21,12 +24,6 @@ final class ReportsProvider extends $FunctionalProvider<
           dependencies: null,
           $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = reportFilterProvider;
-  static const $allTransitiveDependencies1 =
-      ReportFilterProvider.$allTransitiveDependencies0;
-  static const $allTransitiveDependencies2 =
-      ReportFilterProvider.$allTransitiveDependencies1;
 
   @override
   String debugGetCreateSourceHash() => _$reportsHash();
@@ -64,7 +61,7 @@ final class ReportsProvider extends $FunctionalProvider<
   }
 }
 
-String _$reportsHash() => r'788463f3db59052e68f4312f2ce8c9ad192d06d4';
+String _$reportsHash() => r'7c8424734495868a1e42ebc5cb4e55930af9eb66';
 
 final class ReportsFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Report>>, InboxOrSent> {
@@ -72,12 +69,8 @@ final class ReportsFamily extends $Family
       : super(
           retry: null,
           name: r'reportsProvider',
-          dependencies: const <ProviderOrFamily>[reportFilterProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            ReportsProvider.$allTransitiveDependencies0,
-            ReportsProvider.$allTransitiveDependencies1,
-            ReportsProvider.$allTransitiveDependencies2,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 
@@ -89,5 +82,3 @@ final class ReportsFamily extends $Family
   @override
   String toString() => r'reportsProvider';
 }
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

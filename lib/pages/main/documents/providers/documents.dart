@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'documents.g.dart';
 
-@Riverpod(dependencies: [DocumentFilter])
+@riverpod
 Future<List<Document>> documents(Ref ref, Subcategory subcategory) async {
   final filter = ref.watch(documentFilterProvider(subcategory));
   final service = ref.read(documentsServiceProvider);

@@ -6,6 +6,9 @@ part of 'repo.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(profileRepo)
 const profileRepoProvider = ProfileRepoProvider._();
 
@@ -19,13 +22,9 @@ final class ProfileRepoProvider extends $FunctionalProvider<
           retry: null,
           name: r'profileRepoProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[userIdProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            ProfileRepoProvider.$allTransitiveDependencies0,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = userIdProvider;
 
   @override
   String debugGetCreateSourceHash() => _$profileRepoHash();
@@ -42,7 +41,4 @@ final class ProfileRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$profileRepoHash() => r'26d01984f7f49bd6056ded8b0a270a026c704fd5';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+String _$profileRepoHash() => r'c452a859fad0b4a7c42995e6e9eaf042f2b063c5';

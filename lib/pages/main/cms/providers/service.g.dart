@@ -6,6 +6,9 @@ part of 'service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(reportService)
 const reportServiceProvider = ReportServiceProvider._();
 
@@ -45,6 +48,3 @@ final class ReportServiceProvider extends $FunctionalProvider<ReportRepository,
 }
 
 String _$reportServiceHash() => r'564dc272a0f6844687e1c5dbc6a27c4725659e07';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

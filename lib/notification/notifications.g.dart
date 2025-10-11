@@ -6,6 +6,9 @@ part of 'notifications.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(notifications)
 const notificationsProvider = NotificationsProvider._();
 
@@ -18,16 +21,9 @@ final class NotificationsProvider extends $FunctionalProvider<List<NoticeStaff>,
           retry: null,
           name: r'notificationsProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[userDetailsProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            NotificationsProvider.$allTransitiveDependencies0,
-            NotificationsProvider.$allTransitiveDependencies1,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = userDetailsProvider;
-  static const $allTransitiveDependencies1 =
-      UserDetailsProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$notificationsHash();
@@ -52,7 +48,4 @@ final class NotificationsProvider extends $FunctionalProvider<List<NoticeStaff>,
   }
 }
 
-String _$notificationsHash() => r'643b7b3472e5fcfb5a67b5e57158ac4f539c002d';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+String _$notificationsHash() => r'f0c2b3d6790e0f976d682a87372b6ab19d1c3f67';

@@ -6,6 +6,9 @@ part of 'records.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(records)
 const recordsProvider = RecordsFamily._();
 
@@ -30,8 +33,6 @@ final class RecordsProvider extends $FunctionalProvider<
           dependencies: null,
           $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = flightCrewRecordFilterProvider;
 
   @override
   String debugGetCreateSourceHash() => _$recordsHash();
@@ -73,7 +74,7 @@ final class RecordsProvider extends $FunctionalProvider<
   }
 }
 
-String _$recordsHash() => r'fb9c9ecaeaf2d33f22b921c0c606b0d568e6c6d8';
+String _$recordsHash() => r'7c1a9f935ddcc7e55075f0a5497652c9536f9bc7';
 
 final class RecordsFamily extends $Family
     with
@@ -87,12 +88,8 @@ final class RecordsFamily extends $Family
       : super(
           retry: null,
           name: r'recordsProvider',
-          dependencies: const <ProviderOrFamily>[
-            flightCrewRecordFilterProvider
-          ],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            RecordsProvider.$allTransitiveDependencies0,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 
@@ -113,12 +110,31 @@ final class RecordsFamily extends $Family
 const recordMetaProvider = RecordMetaProvider._();
 
 final class RecordMetaProvider extends $FunctionalProvider<
-        AsyncValue<(Iterable<Aircraft>, Iterable<Role>)>,
-        (Iterable<Aircraft>, Iterable<Role>),
-        FutureOr<(Iterable<Aircraft>, Iterable<Role>)>>
+        AsyncValue<
+            (
+              Iterable<Aircraft>,
+              Iterable<Role>,
+            )>,
+        (
+          Iterable<Aircraft>,
+          Iterable<Role>,
+        ),
+        FutureOr<
+            (
+              Iterable<Aircraft>,
+              Iterable<Role>,
+            )>>
     with
-        $FutureModifier<(Iterable<Aircraft>, Iterable<Role>)>,
-        $FutureProvider<(Iterable<Aircraft>, Iterable<Role>)> {
+        $FutureModifier<
+            (
+              Iterable<Aircraft>,
+              Iterable<Role>,
+            )>,
+        $FutureProvider<
+            (
+              Iterable<Aircraft>,
+              Iterable<Role>,
+            )> {
   const RecordMetaProvider._()
       : super(
           from: null,
@@ -135,12 +151,20 @@ final class RecordMetaProvider extends $FunctionalProvider<
 
   @$internal
   @override
-  $FutureProviderElement<(Iterable<Aircraft>, Iterable<Role>)> $createElement(
+  $FutureProviderElement<
+      (
+        Iterable<Aircraft>,
+        Iterable<Role>,
+      )> $createElement(
           $ProviderPointer pointer) =>
       $FutureProviderElement(pointer);
 
   @override
-  FutureOr<(Iterable<Aircraft>, Iterable<Role>)> create(Ref ref) {
+  FutureOr<
+      (
+        Iterable<Aircraft>,
+        Iterable<Role>,
+      )> create(Ref ref) {
     return recordMeta(ref);
   }
 }
@@ -239,5 +263,3 @@ final class JoinStaffFamily extends $Family
   @override
   String toString() => r'joinStaffProvider';
 }
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

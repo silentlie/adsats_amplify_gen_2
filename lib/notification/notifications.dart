@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notifications.g.dart';
 
-@Riverpod(dependencies: [userDetails])
+@riverpod
 List<NoticeStaff> notifications(Ref ref) {
   // warning: list return a new instance which will cause rebuild even everything is the same
   return ref.watch(userDetailsProvider.select(

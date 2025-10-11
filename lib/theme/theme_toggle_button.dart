@@ -8,7 +8,8 @@ class ThemeToggleButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(
-      settingsNotifierProvider.select((settings) => settings.value?.themeMode ?? ThemeMode.system),
+      settingsProvider
+          .select((settings) => settings.value?.themeMode ?? ThemeMode.system),
     );
     return IconButton(
       onPressed: () {
@@ -17,9 +18,7 @@ class ThemeToggleButton extends ConsumerWidget {
           ThemeMode.system => ThemeMode.dark,
           ThemeMode.dark => ThemeMode.light,
         };
-        ref
-            .read(settingsNotifierProvider.notifier)
-            .updateThemeMode(newThemeMode);
+        ref.read(settingsProvider.notifier).updateThemeMode(newThemeMode);
       },
       icon: Icon(switch (themeMode) {
         ThemeMode.light => Icons.light_mode_outlined,

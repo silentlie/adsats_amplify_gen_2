@@ -47,11 +47,11 @@ class FlightCrewRecordsBody extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final favourites = ref.watch(
-      settingsNotifierProvider.select(
+      settingsProvider.select(
         (v) => v.value?.flightCrewRecordFavourites ?? <String, List<String>>{},
       ),
     );
-    final notifier = ref.read(settingsNotifierProvider.notifier);
+    final notifier = ref.read(settingsProvider.notifier);
 
     // Sort aircraft once per build based on current favourites
     final sortedAircraft = useMemoized(

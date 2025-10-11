@@ -6,6 +6,9 @@ part of 'service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(flightCrewRecordCategoriesService)
 const flightCrewRecordCategoriesServiceProvider =
     FlightCrewRecordCategoriesServiceProvider._();
@@ -54,6 +57,3 @@ final class FlightCrewRecordCategoriesServiceProvider
 
 String _$flightCrewRecordCategoriesServiceHash() =>
     r'bcfd11c4b1eb4b55c0ee4a28f74cf29d9fc6405c';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

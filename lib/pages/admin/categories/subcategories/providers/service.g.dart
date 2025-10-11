@@ -6,6 +6,9 @@ part of 'service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(subcategoriesService)
 const subcategoriesServiceProvider = SubcategoriesServiceProvider._();
 
@@ -49,6 +52,3 @@ final class SubcategoriesServiceProvider extends $FunctionalProvider<
 
 String _$subcategoriesServiceHash() =>
     r'cec646929b981d6635f34850168dde3e9f0b3aaf';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

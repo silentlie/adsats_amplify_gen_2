@@ -1,10 +1,13 @@
+import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/providers/aircraft.dart';
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/widgets/aircraft.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([listStaff])
 class AircraftHeader extends ConsumerWidget {
   const AircraftHeader({super.key});
 

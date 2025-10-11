@@ -6,6 +6,9 @@ part of 'staff.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(staff)
 const staffProvider = StaffProvider._();
 
@@ -19,13 +22,9 @@ final class StaffProvider extends $FunctionalProvider<AsyncValue<List<Staff>>,
           retry: null,
           name: r'staffProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[adminFilterProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            StaffProvider.$allTransitiveDependencies0,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = adminFilterProvider;
 
   @override
   String debugGetCreateSourceHash() => _$staffHash();
@@ -42,7 +41,4 @@ final class StaffProvider extends $FunctionalProvider<AsyncValue<List<Staff>>,
   }
 }
 
-String _$staffHash() => r'a03cd2e5567658e124ba9c0fb8202009092ffff0';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+String _$staffHash() => r'189e463b3f7e5c498f3a49221f367b598a50567a';

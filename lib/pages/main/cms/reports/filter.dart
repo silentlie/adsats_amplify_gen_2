@@ -11,7 +11,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'filter.g.dart';
 part 'filter.freezed.dart';
 
-@Riverpod(dependencies: [userDetails])
+@riverpod
 class ReportFilter extends _$ReportFilter {
   @override
   ReportFilterState build() {

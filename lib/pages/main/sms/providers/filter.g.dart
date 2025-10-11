@@ -6,6 +6,9 @@ part of 'filter.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(NoticeFilter)
 const noticeFilterProvider = NoticeFilterProvider._();
 
@@ -18,16 +21,9 @@ final class NoticeFilterProvider
           retry: null,
           name: r'noticeFilterProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[userDetailsProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            NoticeFilterProvider.$allTransitiveDependencies0,
-            NoticeFilterProvider.$allTransitiveDependencies1,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = userDetailsProvider;
-  static const $allTransitiveDependencies1 =
-      UserDetailsProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$noticeFilterHash();
@@ -45,7 +41,7 @@ final class NoticeFilterProvider
   }
 }
 
-String _$noticeFilterHash() => r'9b84ce46ce40ff5f6eda426cd416b03937aa9a63';
+String _$noticeFilterHash() => r'79d0b1199c29fa189890a49a2a4f265fdb5876e0';
 
 abstract class _$NoticeFilter extends $Notifier<NoticeFilterState> {
   NoticeFilterState build();
@@ -62,6 +58,3 @@ abstract class _$NoticeFilter extends $Notifier<NoticeFilterState> {
     element.handleValue(ref, created);
   }
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

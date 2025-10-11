@@ -1,6 +1,7 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/Document.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/providers/documents.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/providers/service.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/document.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,7 @@ class DocumentActions extends ConsumerWidget with ConfirmDialogMixin {
               );
               if (result) {
                 await service.archive(document);
-                ref.invalidate(documentsServiceProvider);
+                ref.invalidate(documentsProvider);
                 controller.close();
               }
             },
@@ -74,12 +75,13 @@ class DocumentActions extends ConsumerWidget with ConfirmDialogMixin {
               final result = await showConfirmDialog(
                 context: context,
                 title: Text("Are you sure?"),
-                content: Text("Do you want to delete this document?\n${document.name}"),
+                content: Text(
+                    "Do you want to delete this document?\n${document.name}"),
               );
               if (result) {
                 await service.delete(document);
                 controller.close();
-                ref.invalidate(documentsServiceProvider);
+                ref.invalidate(documentsProvider);
               }
             },
             icon: const Icon(Icons.delete_outline),

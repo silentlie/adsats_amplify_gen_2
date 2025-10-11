@@ -6,8 +6,11 @@ part of 'settings.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(SettingsNotifier)
-const settingsNotifierProvider = SettingsNotifierProvider._();
+const settingsProvider = SettingsNotifierProvider._();
 
 final class SettingsNotifierProvider
     extends $AsyncNotifierProvider<SettingsNotifier, Settings> {
@@ -16,7 +19,7 @@ final class SettingsNotifierProvider
           from: null,
           argument: null,
           retry: null,
-          name: r'settingsNotifierProvider',
+          name: r'settingsProvider',
           isAutoDispose: false,
           dependencies: null,
           $allTransitiveDependencies: null,
@@ -47,6 +50,3 @@ abstract class _$SettingsNotifier extends $AsyncNotifier<Settings> {
     element.handleValue(ref, created);
   }
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

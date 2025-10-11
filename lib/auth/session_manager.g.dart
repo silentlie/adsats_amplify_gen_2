@@ -6,6 +6,9 @@ part of 'session_manager.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(SessionManager)
 const sessionManagerProvider = SessionManagerProvider._();
 
@@ -18,16 +21,9 @@ final class SessionManagerProvider
           retry: null,
           name: r'sessionManagerProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[userDetailsProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            SessionManagerProvider.$allTransitiveDependencies0,
-            SessionManagerProvider.$allTransitiveDependencies1,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = userDetailsProvider;
-  static const $allTransitiveDependencies1 =
-      UserDetailsProvider.$allTransitiveDependencies0;
 
   @override
   String debugGetCreateSourceHash() => _$sessionManagerHash();
@@ -37,7 +33,7 @@ final class SessionManagerProvider
   SessionManager create() => SessionManager();
 }
 
-String _$sessionManagerHash() => r'486c046f07a516c397db7f13ef7c3347308ce1e3';
+String _$sessionManagerHash() => r'00fd5d33573c42bc7f3b2b41e15d1612216bbfd9';
 
 abstract class _$SessionManager extends $AsyncNotifier<void> {
   FutureOr<void> build();
@@ -54,6 +50,3 @@ abstract class _$SessionManager extends $AsyncNotifier<void> {
     element.handleValue(ref, null);
   }
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

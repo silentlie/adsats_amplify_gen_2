@@ -40,7 +40,7 @@ class ProfileShell extends ConsumerWidget {
     final orientation = MediaQuery.orientationOf(context);
     final isLandscape = orientation == Orientation.landscape;
     if (!isLandscape) return navigationShell;
-    final isExtended = ref.watch(settingsNotifierProvider.select(
+    final isExtended = ref.watch(settingsProvider.select(
       (value) => value.value?.isNavigationRailExtended ?? false,
     ));
     return Row(
@@ -49,7 +49,7 @@ class ProfileShell extends ConsumerWidget {
           leading: TextButton.icon(
             onPressed: () {
               ref
-                  .read(settingsNotifierProvider.notifier)
+                  .read(settingsProvider.notifier)
                   .toggleNavigationRailExtended();
             },
             label: isExtended ? Text("Collapse") : Icon(Icons.chevron_right),

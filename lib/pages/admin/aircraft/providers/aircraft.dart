@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'aircraft.g.dart';
 
-@Riverpod(dependencies: [AdminFilter])
+@riverpod
 Future<List<Aircraft>> aircraft(Ref ref) async {
   final service = ref.read(aircraftServiceProvider);
   final filter = ref.watch(adminFilterProvider);

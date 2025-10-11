@@ -9,7 +9,9 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([SelectedFiles])
 class NewFlightCrewRecord extends ConsumerStatefulWidget {
   const NewFlightCrewRecord({
     super.key,

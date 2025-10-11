@@ -6,6 +6,9 @@ part of 'documents.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(documents)
 const documentsProvider = DocumentsFamily._();
 
@@ -22,8 +25,6 @@ final class DocumentsProvider extends $FunctionalProvider<
           dependencies: null,
           $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = documentFilterProvider;
 
   @override
   String debugGetCreateSourceHash() => _$documentsHash();
@@ -61,7 +62,7 @@ final class DocumentsProvider extends $FunctionalProvider<
   }
 }
 
-String _$documentsHash() => r'e1729b112f6d1a16d25df50eb1ab7b985d5f0ef5';
+String _$documentsHash() => r'b53379f21cf2f5c61925dfbf302db60c49e8e47a';
 
 final class DocumentsFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Document>>, Subcategory> {
@@ -69,10 +70,8 @@ final class DocumentsFamily extends $Family
       : super(
           retry: null,
           name: r'documentsProvider',
-          dependencies: const <ProviderOrFamily>[documentFilterProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            DocumentsProvider.$allTransitiveDependencies0,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 
@@ -84,5 +83,3 @@ final class DocumentsFamily extends $Family
   @override
   String toString() => r'documentsProvider';
 }
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

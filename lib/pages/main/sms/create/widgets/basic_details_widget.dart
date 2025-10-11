@@ -10,7 +10,9 @@ import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([NoticeForm, listStaff])
 class NoticeBasicDetailsWidget extends ConsumerWidget {
   const NoticeBasicDetailsWidget({super.key});
 

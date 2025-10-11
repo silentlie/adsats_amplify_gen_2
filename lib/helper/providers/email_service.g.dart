@@ -6,6 +6,9 @@ part of 'email_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(emailService)
 const emailServiceProvider = EmailServiceProvider._();
 
@@ -48,6 +51,3 @@ final class EmailServiceProvider extends $FunctionalProvider<
 }
 
 String _$emailServiceHash() => r'ce6981e4f8ecd22afeb24b151463f9ebef16e1b0';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

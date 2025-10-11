@@ -6,6 +6,9 @@ part of 'subcategories.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(subcategories)
 const subcategoriesProvider = SubcategoriesFamily._();
 
@@ -21,8 +24,6 @@ final class SubcategoriesProvider extends $FunctionalProvider<
           dependencies: null,
           $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = subcategoryFilterProvider;
 
   @override
   String debugGetCreateSourceHash() => _$subcategoriesHash();
@@ -59,7 +60,7 @@ final class SubcategoriesProvider extends $FunctionalProvider<
   }
 }
 
-String _$subcategoriesHash() => r'68db8dd15d4d8ccdf50f82cb51f0248409bb3627';
+String _$subcategoriesHash() => r'00b098398364f2606d0db16ae9fd9fb3d4044563';
 
 final class SubcategoriesFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Category>, String> {
@@ -67,10 +68,8 @@ final class SubcategoriesFamily extends $Family
       : super(
           retry: null,
           name: r'subcategoriesProvider',
-          dependencies: const <ProviderOrFamily>[subcategoryFilterProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            SubcategoriesProvider.$allTransitiveDependencies0,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 
@@ -82,5 +81,3 @@ final class SubcategoriesFamily extends $Family
   @override
   String toString() => r'subcategoriesProvider';
 }
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

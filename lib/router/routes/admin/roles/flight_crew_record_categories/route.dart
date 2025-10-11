@@ -1,8 +1,11 @@
+import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([listRoles])
 class FlightCrewRecordsCategoriesRoute extends RouteInfo
     with $FlightCrewRecordsCategoriesRoute {
   const FlightCrewRecordsCategoriesRoute({required this.roleId});

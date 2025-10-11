@@ -6,6 +6,9 @@ part of 'notice_form.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(NoticeForm)
 const noticeFormProvider = NoticeFormProvider._();
 
@@ -21,7 +24,8 @@ final class NoticeFormProvider
           dependencies: const <ProviderOrFamily>[
             selectedFilesProvider,
             isSafetyOfficerProvider,
-            userDetailsProvider
+            userDetailsProvider,
+            noticeServiceProvider
           ],
           $allTransitiveDependencies: const <ProviderOrFamily>{
             NoticeFormProvider.$allTransitiveDependencies0,
@@ -33,10 +37,8 @@ final class NoticeFormProvider
 
   static const $allTransitiveDependencies0 = selectedFilesProvider;
   static const $allTransitiveDependencies1 = isSafetyOfficerProvider;
-  static const $allTransitiveDependencies2 =
-      IsSafetyOfficerProvider.$allTransitiveDependencies0;
-  static const $allTransitiveDependencies3 =
-      IsSafetyOfficerProvider.$allTransitiveDependencies1;
+  static const $allTransitiveDependencies2 = userDetailsProvider;
+  static const $allTransitiveDependencies3 = noticeServiceProvider;
 
   @override
   String debugGetCreateSourceHash() => _$noticeFormHash();
@@ -54,7 +56,7 @@ final class NoticeFormProvider
   }
 }
 
-String _$noticeFormHash() => r'0679bf9f7b3a925d28c06cc2963a41ed9f5c22db';
+String _$noticeFormHash() => r'f0b16bf1cbd7ec22a050feb0d8245a515560957c';
 
 abstract class _$NoticeForm extends $Notifier<NoticeFormState> {
   NoticeFormState build();
@@ -71,6 +73,3 @@ abstract class _$NoticeForm extends $Notifier<NoticeFormState> {
     element.handleValue(ref, created);
   }
 }
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

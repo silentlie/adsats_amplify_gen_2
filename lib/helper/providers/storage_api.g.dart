@@ -6,6 +6,9 @@ part of 'storage_api.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(storageAPI)
 const storageAPIProvider = StorageAPIProvider._();
 
@@ -46,6 +49,3 @@ final class StorageAPIProvider
 }
 
 String _$storageAPIHash() => r'0477693af5a315ebfe1dd49fa731c91f860f32f9';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

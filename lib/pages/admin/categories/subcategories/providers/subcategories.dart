@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'subcategories.g.dart';
 
-@Riverpod(dependencies: [SubcategoryFilter])
+@riverpod
 Future<Category> subcategories(Ref ref, String categoryId) async {
   final filter = ref.watch(subcategoryFilterProvider(categoryId));
   final service = ref.read(subcategoriesServiceProvider);

@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notices.g.dart';
 
-@Riverpod(dependencies: [NoticeFilter])
+@riverpod
 Future<List<Notice>> notices(Ref ref, InboxOrSent type) async {
   final filter = ref.watch(noticeFilterProvider);
   final filterJson = filter.toJson();

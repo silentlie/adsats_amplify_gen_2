@@ -6,6 +6,9 @@ part of 'service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(rolesService)
 const rolesServiceProvider = RolesServiceProvider._();
 
@@ -45,6 +48,3 @@ final class RolesServiceProvider extends $FunctionalProvider<RolesRepository,
 }
 
 String _$rolesServiceHash() => r'a7c45ea3b5eeb95542c71c1c753fb20234f60613';
-
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

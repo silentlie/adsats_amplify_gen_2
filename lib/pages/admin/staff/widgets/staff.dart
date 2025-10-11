@@ -12,7 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([listAircraft, listRoles, listSubcategories])
 class StaffView extends ConsumerWidget with ConfirmDialogMixin {
   const StaffView({super.key, this.staff});
 

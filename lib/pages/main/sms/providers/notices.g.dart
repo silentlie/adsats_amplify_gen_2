@@ -6,6 +6,9 @@ part of 'notices.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
 @ProviderFor(notices)
 const noticesProvider = NoticesFamily._();
 
@@ -21,12 +24,6 @@ final class NoticesProvider extends $FunctionalProvider<
           dependencies: null,
           $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = noticeFilterProvider;
-  static const $allTransitiveDependencies1 =
-      NoticeFilterProvider.$allTransitiveDependencies0;
-  static const $allTransitiveDependencies2 =
-      NoticeFilterProvider.$allTransitiveDependencies1;
 
   @override
   String debugGetCreateSourceHash() => _$noticesHash();
@@ -64,7 +61,7 @@ final class NoticesProvider extends $FunctionalProvider<
   }
 }
 
-String _$noticesHash() => r'b14b8dc85d1282b042f8b7aebada66d468004926';
+String _$noticesHash() => r'9a393942e328be297efc0410e6a3bb624be0a5f1';
 
 final class NoticesFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Notice>>, InboxOrSent> {
@@ -72,12 +69,8 @@ final class NoticesFamily extends $Family
       : super(
           retry: null,
           name: r'noticesProvider',
-          dependencies: const <ProviderOrFamily>[noticeFilterProvider],
-          $allTransitiveDependencies: const <ProviderOrFamily>[
-            NoticesProvider.$allTransitiveDependencies0,
-            NoticesProvider.$allTransitiveDependencies1,
-            NoticesProvider.$allTransitiveDependencies2,
-          ],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 
@@ -89,5 +82,3 @@ final class NoticesFamily extends $Family
   @override
   String toString() => r'noticesProvider';
 }
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

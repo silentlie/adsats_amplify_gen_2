@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'roles.g.dart';
 
-@Riverpod(dependencies: [AdminFilter])
+@riverpod
 Future<List<Role>> roles(Ref ref) async {
   final filter = ref.watch(adminFilterProvider);
   final service = ref.read(rolesServiceProvider);

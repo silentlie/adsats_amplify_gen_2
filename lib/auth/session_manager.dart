@@ -8,7 +8,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'session_manager.g.dart';
 
-@Riverpod(dependencies: [userDetails])
+@riverpod
 class SessionManager extends _$SessionManager {
   static const heartbeatInterval = Duration(minutes: 1);
   static const idleTimeout = Duration(minutes: 15);
@@ -24,15 +24,16 @@ class SessionManager extends _$SessionManager {
     });
   }
 
-  bool get isActive => _currentSession != null && _heartbeatTimer != null;
+  bool get _isActive => _currentSession != null && _heartbeatTimer != null;
 
   Future<void> _startHeartbeat() async {
-    if (_starting || isActive) return;
+    if (_starting || _isActive) return;
     _starting = true;
     try {
       final user = await ref.read(userDetailsProvider.future);
       final db = ref.read(databaseAPIProvider);
-      final cutoffIso = DateTime.now().toUtc().subtract(idleTimeout).toIso8601String();
+      final cutoffIso =
+          DateTime.now().toUtc().subtract(idleTimeout).toIso8601String();
       final sessions = await db.query(
         document: listSessionsGraphQL,
         variables: {
@@ -75,7 +76,7 @@ class SessionManager extends _$SessionManager {
   }
 
   void markUserActive() {
-    if (!isActive) {
+    if (!_isActive) {
       _startHeartbeat().catchError((_) => _stopHeartbeat());
     }
     _resetIdleTimer();
