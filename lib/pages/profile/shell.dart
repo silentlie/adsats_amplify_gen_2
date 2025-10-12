@@ -5,11 +5,14 @@ import 'package:adsats_amplify_gen_2/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 
 export 'home/page.dart';
 export 'change_password/page.dart';
 export 'records/page.dart';
 
+@Dependencies([listStaff])
 class ProfileShell extends ConsumerWidget {
   const ProfileShell({
     super.key,

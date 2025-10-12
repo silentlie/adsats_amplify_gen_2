@@ -6,6 +6,8 @@ import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 
 class ProfileRecordsPage extends ConsumerWidget {
   const ProfileRecordsPage({super.key});
@@ -30,6 +32,7 @@ class ProfileRecordsPage extends ConsumerWidget {
   }
 }
 
+@Dependencies([SelectedFiles])
 class ProfileDocumentsView extends HookConsumerWidget {
   const ProfileDocumentsView({super.key, required this.roles});
   final Iterable<Role> roles;

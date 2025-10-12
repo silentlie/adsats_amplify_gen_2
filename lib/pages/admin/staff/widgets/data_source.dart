@@ -1,11 +1,14 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/widgets/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/widgets/staff.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
 
+@Dependencies([listAircraft, listRoles, listSubcategories])
 class StaffDataSource extends DataTableSource {
   StaffDataSource({required this.sortedData, required this.context});
   List<Staff> sortedData;

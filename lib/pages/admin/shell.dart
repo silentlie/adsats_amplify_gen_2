@@ -19,7 +19,8 @@ export 'categories/page.dart';
 export 'roles/page.dart';
 export 'staff/page.dart';
 
-@Dependencies([listStaff, listCategories, listRoles])
+@Dependencies(
+    [listStaff, listCategories, listRoles, listAircraft, listSubcategories])
 class AdminShell extends ConsumerWidget {
   const AdminShell({
     super.key,

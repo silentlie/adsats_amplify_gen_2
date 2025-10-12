@@ -9,9 +9,12 @@ import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 
 export 'subcategories/page.dart';
 
+@Dependencies([listCategories, listStaff])
 class CategoriesPage extends ConsumerWidget with CompareMixin {
   const CategoriesPage({super.key});
 

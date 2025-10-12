@@ -6,6 +6,9 @@ import 'package:adsats_amplify_gen_2/widgets/drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 
 export 'home/page.dart';
 export 'documents/page.dart';
@@ -15,6 +18,7 @@ export 'kpi/page.dart';
 export 'sms/page.dart';
 export 'cms/page.dart';
 
+@Dependencies([listStaff, SelectedFiles])
 class MainShell extends ConsumerWidget {
   const MainShell({
     super.key,

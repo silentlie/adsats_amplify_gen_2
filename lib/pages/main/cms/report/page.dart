@@ -5,7 +5,10 @@ import 'package:adsats_amplify_gen_2/pages/main/cms/providers/report.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 
+@Dependencies([SelectedFiles])
 class ViewReportPage extends ConsumerWidget {
   const ViewReportPage({
     super.key,

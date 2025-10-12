@@ -5,7 +5,10 @@ import 'package:adsats_amplify_gen_2/pages/main/sms/providers/filter.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/experimental/scope.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 
+@Dependencies([listAircraft])
 class NoticeHeader extends ConsumerWidget {
   const NoticeHeader({super.key});
 
