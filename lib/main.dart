@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 import 'package:go_router/go_router.dart';
-// TODO: replace with your actual generated file
+//* Important: replace with your actual generated file
 import 'amplify_outputs.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 

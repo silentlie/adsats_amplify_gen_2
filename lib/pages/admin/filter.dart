@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'filter.g.dart';
 part 'filter.freezed.dart';
 
-@Riverpod()
+@riverpod
 class AdminFilter extends _$AdminFilter {
   @override
   AdminFilterState build() {

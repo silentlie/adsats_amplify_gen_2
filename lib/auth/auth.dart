@@ -13,7 +13,7 @@ const admin = "Admin";
 const safetyOfficer = "Safety Officer";
 const complianceManager = "Compliance Manager";
 
-@Riverpod()
+@riverpod
 Future<String> userId(Ref ref) async {
   return await Amplify.Auth.getPlugin(
     AmplifyAuthCognito.pluginKey,

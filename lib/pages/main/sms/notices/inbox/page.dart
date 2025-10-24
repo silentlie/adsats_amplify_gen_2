@@ -23,7 +23,8 @@ class SmsInboxPage extends ConsumerWidget with CompareMixin {
     }
     final dataAsync = ref.watch(noticesProvider(InboxOrSent.inbox));
     final (asc, key, custom) = ref.watch(
-      sortProvider<Notice>().select((s) => (s.sortAscending, s.getField, s.custom)),
+      sortProvider<Notice>()
+          .select((s) => (s.sortAscending, s.getField, s.custom)),
     );
     final sortedAsync = dataAsync.whenData((list) {
       if (list.length < 2) return list;

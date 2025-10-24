@@ -40,7 +40,7 @@ final class UserIdProvider
   }
 }
 
-String _$userIdHash() => r'f7fb8e5548393f5e80b768e4bfd71dc7eb36b93f';
+String _$userIdHash() => r'3ff909554adc1d30addf19392b522ba0839aae7d';
 
 @ProviderFor(userDetails)
 const userDetailsProvider = UserDetailsProvider._();

@@ -12,8 +12,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'notice_form.g.dart';
 
-@Riverpod(
-    dependencies: [SelectedFiles, isSafetyOfficer, userDetails, noticeService])
+@riverpod
 class NoticeForm extends _$NoticeForm {
   NoticeForm();
   factory NoticeForm.withNotice(Notice notice, bool isNew) {

@@ -41,7 +41,7 @@ final class StaffKPIFilterProvider
   }
 }
 
-String _$staffKPIFilterHash() => r'8823d6557f30281e174a93a1729b8319cd5bc4c3';
+String _$staffKPIFilterHash() => r'20c802124e39e26310d4eb2ae34400e47743eaef';
 
 abstract class _$StaffKPIFilter extends $Notifier<StaffKPIFilterState> {
   StaffKPIFilterState build();

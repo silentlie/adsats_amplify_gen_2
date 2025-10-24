@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'read_check.g.dart';
 
-@Riverpod(dependencies: [NoticeForm])
+@riverpod
 FutureOr<List<NoticeStaff>> readCheck(Ref ref) async {
   final userId = ref.watch(userIdProvider).value!;
   final notice = ref.watch(

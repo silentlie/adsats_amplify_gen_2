@@ -62,7 +62,7 @@ final class SortProvider<T> extends $NotifierProvider<Sort<T>, SortState<T>> {
   }
 }
 
-String _$sortHash() => r'd7f3e0677dba50931445453fc734b04596fd9439';
+String _$sortHash() => r'1d3324a12d43890f8a4dfc2d3a9df55ff36f89fd';
 
 final class SortFamily extends $Family {
   const SortFamily._()

@@ -62,7 +62,7 @@ final class ListStaffProvider extends $FunctionalProvider<
   }
 }
 
-String _$listStaffHash() => r'6269ce3e05ac16293962bdc8302f8d5f2e8f6a9a';
+String _$listStaffHash() => r'c3efd2a70862e1d6cc8d0c032e72de50c640bb39';
 
 final class ListStaffFamily extends $Family
     with
@@ -72,8 +72,8 @@ final class ListStaffFamily extends $Family
       : super(
           retry: null,
           name: r'listStaffProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 
@@ -139,7 +139,7 @@ final class ListAircraftProvider extends $FunctionalProvider<
   }
 }
 
-String _$listAircraftHash() => r'e9e2a962b7c0b316834b5cb3c0e9b5e45cb56e7e';
+String _$listAircraftHash() => r'af35941b421af3cdb46f39b5948e759f0d3e6ef1';
 
 final class ListAircraftFamily extends $Family
     with
@@ -149,8 +149,8 @@ final class ListAircraftFamily extends $Family
       : super(
           retry: null,
           name: r'listAircraftProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 
@@ -215,7 +215,7 @@ final class ListRolesProvider extends $FunctionalProvider<
   }
 }
 
-String _$listRolesHash() => r'61544f5ded5fbb6d8e0affac00c36b5909b969ac';
+String _$listRolesHash() => r'b741ef3e8389aa3b5a70b78a5d4bd98fc154d9ea';
 
 final class ListRolesFamily extends $Family
     with
@@ -225,8 +225,8 @@ final class ListRolesFamily extends $Family
       : super(
           retry: null,
           name: r'listRolesProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 
@@ -292,7 +292,7 @@ final class ListCategoriesProvider extends $FunctionalProvider<
   }
 }
 
-String _$listCategoriesHash() => r'862168f45f6078ab26c10df0e495f3dc7c9a278a';
+String _$listCategoriesHash() => r'004a813c9a0ffc8887f7a3077eb0c1fe2d50ba52';
 
 final class ListCategoriesFamily extends $Family
     with
@@ -302,8 +302,8 @@ final class ListCategoriesFamily extends $Family
       : super(
           retry: null,
           name: r'listCategoriesProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 
@@ -373,7 +373,7 @@ final class ListSubcategoriesProvider extends $FunctionalProvider<
   }
 }
 
-String _$listSubcategoriesHash() => r'47c1dcfeb0e4f0836010d5bacf2b9164c46d324b';
+String _$listSubcategoriesHash() => r'35b874e68d5a150141c7b98b61c930ef4f1cc77b';
 
 final class ListSubcategoriesFamily extends $Family
     with
@@ -383,8 +383,8 @@ final class ListSubcategoriesFamily extends $Family
       : super(
           retry: null,
           name: r'listSubcategoriesProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 
@@ -454,7 +454,7 @@ final class ListNoticeStaffProvider extends $FunctionalProvider<
   }
 }
 
-String _$listNoticeStaffHash() => r'a02e5240c4f7bac5e556248d137a3be5e5747877';
+String _$listNoticeStaffHash() => r'a065c903b8e951bbfacb7b3b1a312d79d9028baa';
 
 final class ListNoticeStaffFamily extends $Family
     with
@@ -464,8 +464,8 @@ final class ListNoticeStaffFamily extends $Family
       : super(
           retry: null,
           name: r'listNoticeStaffProvider',
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
           isAutoDispose: true,
         );
 

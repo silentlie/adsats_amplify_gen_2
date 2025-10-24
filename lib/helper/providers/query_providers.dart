@@ -6,7 +6,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'query_providers.g.dart';
 
 //TODO: transform to databaseAPIProvider then delete
-@Riverpod(dependencies: [])
+@riverpod
 FutureOr<List<Staff>> listStaff(
   Ref ref, [
   QueryPredicate? where,
@@ -26,7 +26,7 @@ FutureOr<List<Staff>> listStaff(
   return response.data!.items.cast<Staff>();
 }
 
-@Riverpod(dependencies: [])
+@riverpod
 FutureOr<List<Aircraft>> listAircraft(
   Ref ref, [
   QueryPredicate? where,
@@ -46,7 +46,7 @@ FutureOr<List<Aircraft>> listAircraft(
   return response.data!.items.cast<Aircraft>();
 }
 
-@Riverpod(dependencies: [])
+@riverpod
 FutureOr<List<Role>> listRoles(
   Ref ref, [
   QueryPredicate? where,
@@ -66,7 +66,7 @@ FutureOr<List<Role>> listRoles(
   return response.data!.items.cast<Role>();
 }
 
-@Riverpod(dependencies: [])
+@riverpod
 FutureOr<List<Category>> listCategories(
   Ref ref, [
   QueryPredicate? where,
@@ -86,7 +86,7 @@ FutureOr<List<Category>> listCategories(
   return response.data!.items.cast<Category>();
 }
 
-@Riverpod(dependencies: [])
+@riverpod
 FutureOr<List<Subcategory>> listSubcategories(
   Ref ref, [
   QueryPredicate? where,
@@ -106,7 +106,7 @@ FutureOr<List<Subcategory>> listSubcategories(
   return response.data!.items.cast<Subcategory>();
 }
 
-@Riverpod(dependencies: [])
+@riverpod
 FutureOr<List<NoticeStaff>> listNoticeStaff(
   Ref ref, [
   QueryPredicate? where,

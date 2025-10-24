@@ -9,12 +9,9 @@ import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 
 export 'flight_crew_record_categories/page.dart';
 
-@Dependencies([listRoles, listStaff])
 class RolesPage extends ConsumerWidget with CompareMixin {
   const RolesPage({super.key});
 

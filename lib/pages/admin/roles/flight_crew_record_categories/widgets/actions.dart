@@ -1,14 +1,11 @@
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/providers/records.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/providers/service.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/flight_crew_record_categories/widgets/crew_document_category_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([listRoles])
 class FlightCrewRecordsCategoryActions extends ConsumerWidget
     with ConfirmDialogMixin {
   const FlightCrewRecordsCategoryActions({super.key, required this.category});

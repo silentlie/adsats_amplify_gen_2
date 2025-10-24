@@ -10,11 +10,7 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 
-@Dependencies([listStaff, SelectedFiles])
 class DocumentsView extends ConsumerWidget with CompareMixin {
   const DocumentsView({
     super.key,

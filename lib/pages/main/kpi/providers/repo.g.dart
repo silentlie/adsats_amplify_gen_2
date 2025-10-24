@@ -62,7 +62,7 @@ final class StaffKPIRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$staffKPIRepoHash() => r'54882e35c7a14d1a26785aa406b15025988f288b';
+String _$staffKPIRepoHash() => r'a87580fc0f2407262a95002fe3fce132a1c27291';
 
 final class StaffKPIRepoFamily extends $Family
     with

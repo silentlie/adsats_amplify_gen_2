@@ -60,7 +60,7 @@ final class ReportProvider
   }
 }
 
-String _$reportHash() => r'717f74015ee7d9018a6e0e5afb10931e16830691';
+String _$reportHash() => r'c85c43273839933f3391c96284081a4b7061908a';
 
 final class ReportFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Report>, String> {

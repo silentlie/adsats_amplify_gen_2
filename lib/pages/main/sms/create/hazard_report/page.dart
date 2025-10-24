@@ -12,9 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([SelectedFiles])
 class HazardReportPage extends HookConsumerWidget {
   const HazardReportPage({
     super.key,
@@ -83,7 +81,6 @@ class HazardReportForm extends ConsumerWidget {
   }
 }
 
-@Dependencies([NoticeForm])
 class HazardReportBody extends ConsumerWidget {
   const HazardReportBody({super.key});
 

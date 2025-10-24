@@ -23,13 +23,13 @@ Future<List<FlightCrewRecord>> records(
   );
 }
 
-@Riverpod()
+@riverpod
 Future<(Iterable<Aircraft>, Iterable<Role>)> recordMeta(Ref ref) async {
   final service = ref.read(recordsServiceProvider);
   return await service.meta();
 }
 
-@Riverpod()
+@riverpod
 Future<Iterable<Staff>> joinStaff(Ref ref, Aircraft aircraft, Role role) async {
   final service = ref.read(recordsServiceProvider);
   return await service.listJoinStaff(aircraft: aircraft, role: role);

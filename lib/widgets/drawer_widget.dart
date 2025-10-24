@@ -7,10 +7,7 @@ import 'package:amplify_authenticator/amplify_authenticator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 
-@Dependencies([listStaff])
 class DrawerWidget extends ConsumerWidget {
   const DrawerWidget({super.key});
 

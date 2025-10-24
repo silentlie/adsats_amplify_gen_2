@@ -61,7 +61,7 @@ final class SessionsRepoProvider extends $FunctionalProvider<
   }
 }
 
-String _$sessionsRepoHash() => r'4d0a5a55d84ee55eba7a2976ab320809893270d7';
+String _$sessionsRepoHash() => r'231cde923405f6235e3f74dd59504bd11cc2cdaa';
 
 final class SessionsRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Session>>, Staff> {

@@ -6,10 +6,7 @@ import 'package:adsats_amplify_gen_2/pages/main/documents/providers/service.dart
 import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/document.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 
-@Dependencies([listStaff])
 class DocumentActions extends ConsumerWidget with ConfirmDialogMixin {
   const DocumentActions({
     super.key,

@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'report.g.dart';
 
-@Riverpod()
+@riverpod
 Future<Report> report(Ref ref, String id) async {
   final service = ref.read(reportServiceProvider);
   return await service.getById(id);

@@ -3,7 +3,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'filter.g.dart';
 
-@Riverpod()
+@riverpod
 class SubcategoryFilter extends _$SubcategoryFilter {
   @override
   SubcategoryFilterState build(String categoryId) {

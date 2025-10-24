@@ -8,9 +8,7 @@ import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([ReportForm])
 class DiscrepanciesWidget extends ConsumerWidget {
   const DiscrepanciesWidget({super.key});
 
@@ -94,7 +92,6 @@ class DiscrepanciesWidget extends ConsumerWidget {
   }
 }
 
-@Dependencies([ReportForm, listStaff])
 class ComplianceManagerSection extends ConsumerWidget {
   const ComplianceManagerSection({super.key});
 

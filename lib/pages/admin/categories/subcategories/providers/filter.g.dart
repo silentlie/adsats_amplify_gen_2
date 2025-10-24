@@ -58,7 +58,7 @@ final class SubcategoryFilterProvider
   }
 }
 
-String _$subcategoryFilterHash() => r'80821d90c94eaa3227b51404a3a0933094035273';
+String _$subcategoryFilterHash() => r'39b61f4e4ccdbde4a6837ac512720cb828f08036';
 
 final class SubcategoryFilterFamily extends $Family
     with

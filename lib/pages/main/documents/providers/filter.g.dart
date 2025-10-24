@@ -58,7 +58,7 @@ final class DocumentFilterProvider
   }
 }
 
-String _$documentFilterHash() => r'5b445578467b69c5a31f9f66d1769d6f044b456a';
+String _$documentFilterHash() => r'9076fa4ed8347c1a5b7b805a290c92fbaec0a08a';
 
 final class DocumentFilterFamily extends $Family
     with

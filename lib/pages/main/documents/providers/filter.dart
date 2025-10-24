@@ -4,7 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'filter.g.dart';
 
-@Riverpod()
+@riverpod
 class DocumentFilter extends _$DocumentFilter {
   @override
   DocumentFilterState build(Subcategory subcategory) {

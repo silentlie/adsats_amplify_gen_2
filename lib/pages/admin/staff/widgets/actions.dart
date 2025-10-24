@@ -1,6 +1,5 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/providers/service.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/providers/staff.dart';
@@ -8,9 +7,7 @@ import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/sessions_view.da
 import 'package:adsats_amplify_gen_2/pages/admin/staff/widgets/staff.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([listAircraft, listRoles, listSubcategories])
 class StaffActions extends ConsumerWidget with ConfirmDialogMixin {
   const StaffActions({super.key, required this.staff});
 

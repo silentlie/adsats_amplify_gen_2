@@ -21,8 +21,8 @@ final class SelectedFilesProvider
           retry: null,
           name: r'selectedFilesProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[],
-          $allTransitiveDependencies: const <ProviderOrFamily>[],
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
 
   @override
@@ -41,7 +41,7 @@ final class SelectedFilesProvider
   }
 }
 
-String _$selectedFilesHash() => r'45a39146ba4e200235ef7649ced84df839d07455';
+String _$selectedFilesHash() => r'0dc6f88e1342910e4d3cd9d6356a46166d16d4c0';
 
 abstract class _$SelectedFiles extends $Notifier<List<PlatformFile>> {
   List<PlatformFile> build();

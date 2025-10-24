@@ -21,24 +21,9 @@ final class ReportFormProvider
           retry: null,
           name: r'reportFormProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[
-            selectedFilesProvider,
-            isComplianceManagerProvider,
-            userDetailsProvider,
-            reportServiceProvider
-          ],
-          $allTransitiveDependencies: const <ProviderOrFamily>{
-            ReportFormProvider.$allTransitiveDependencies0,
-            ReportFormProvider.$allTransitiveDependencies1,
-            ReportFormProvider.$allTransitiveDependencies2,
-            ReportFormProvider.$allTransitiveDependencies3,
-          },
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = selectedFilesProvider;
-  static const $allTransitiveDependencies1 = isComplianceManagerProvider;
-  static const $allTransitiveDependencies2 = userDetailsProvider;
-  static const $allTransitiveDependencies3 = reportServiceProvider;
 
   @override
   String debugGetCreateSourceHash() => _$reportFormHash();
@@ -56,7 +41,7 @@ final class ReportFormProvider
   }
 }
 
-String _$reportFormHash() => r'c5ab5b22fae2b3e7e0194327c27555bade568f6f';
+String _$reportFormHash() => r'aae5a21884e35aca67df2bd057270f2055d79ad8';
 
 abstract class _$ReportForm extends $Notifier<ReportFormState> {
   ReportFormState build();

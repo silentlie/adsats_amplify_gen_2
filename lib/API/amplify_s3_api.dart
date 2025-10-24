@@ -44,7 +44,7 @@ class AmplifyS3API {
       source: StoragePath.fromString(s3Path),
       destination: StoragePath.fromString(destinationS3Path),
     ).result;
-    
+
     await Amplify.Storage.remove(
       path: StoragePath.fromString(s3Path),
     ).result;

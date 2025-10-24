@@ -23,7 +23,8 @@ class CmsInboxPage extends ConsumerWidget with CompareMixin {
     }
     final dataAsync = ref.watch(reportsProvider(InboxOrSent.inbox));
     final (asc, key, custom) = ref.watch(
-      sortProvider<Report>().select((s) => (s.sortAscending, s.getField, s.custom)),
+      sortProvider<Report>()
+          .select((s) => (s.sortAscending, s.getField, s.custom)),
     );
     final sortedAsync = dataAsync.whenData((list) {
       if (list.length < 2) return list;

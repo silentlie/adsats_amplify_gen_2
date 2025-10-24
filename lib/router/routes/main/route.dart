@@ -2,9 +2,6 @@ import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 
 export 'home/route.dart';
 export 'help/route.dart';
@@ -14,7 +11,6 @@ export 'cms/route.dart';
 export 'flight_crew_records/route.dart';
 export 'kpi/route.dart';
 
-@Dependencies([listStaff, SelectedFiles])
 class MainShellRouteData extends StatefulShellRouteData {
   const MainShellRouteData();
   static const route = TypedStatefulShellRoute<MainShellRouteData>(

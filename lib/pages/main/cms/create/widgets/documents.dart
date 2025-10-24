@@ -3,9 +3,7 @@ import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/providers/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([SelectedFiles, ReportForm])
 class ReportDocuments extends ConsumerWidget {
   const ReportDocuments({super.key});
 

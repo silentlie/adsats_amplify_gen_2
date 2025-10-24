@@ -41,7 +41,7 @@ final class AdminFilterProvider
   }
 }
 
-String _$adminFilterHash() => r'9c19f325f4fabd0463fe48c9ac30c1e759bfa471';
+String _$adminFilterHash() => r'b0dbf8e76a54b1d5412e156e5b25e1cd00523f82';
 
 abstract class _$AdminFilter extends $Notifier<AdminFilterState> {
   AdminFilterState build();

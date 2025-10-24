@@ -1,14 +1,11 @@
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/providers/aircraft.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/providers/service.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/widgets/aircraft.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
 
-@Dependencies([listStaff])
 class AircraftActions extends ConsumerWidget with ConfirmDialogMixin {
   const AircraftActions({super.key, required this.aircraft});
 
@@ -63,7 +60,8 @@ class AircraftActions extends ConsumerWidget with ConfirmDialogMixin {
             final result = await showConfirmDialog(
               context: context,
               title: Text("Are you sure?"),
-              content: Text("Do you want to delete this aircraft ${aircraft.name}?"),
+              content:
+                  Text("Do you want to delete this aircraft ${aircraft.name}?"),
             );
             if (result) {
               final service = ref.read(aircraftServiceProvider);

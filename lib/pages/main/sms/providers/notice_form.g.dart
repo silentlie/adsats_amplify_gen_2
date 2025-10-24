@@ -21,24 +21,9 @@ final class NoticeFormProvider
           retry: null,
           name: r'noticeFormProvider',
           isAutoDispose: true,
-          dependencies: const <ProviderOrFamily>[
-            selectedFilesProvider,
-            isSafetyOfficerProvider,
-            userDetailsProvider,
-            noticeServiceProvider
-          ],
-          $allTransitiveDependencies: const <ProviderOrFamily>{
-            NoticeFormProvider.$allTransitiveDependencies0,
-            NoticeFormProvider.$allTransitiveDependencies1,
-            NoticeFormProvider.$allTransitiveDependencies2,
-            NoticeFormProvider.$allTransitiveDependencies3,
-          },
+          dependencies: null,
+          $allTransitiveDependencies: null,
         );
-
-  static const $allTransitiveDependencies0 = selectedFilesProvider;
-  static const $allTransitiveDependencies1 = isSafetyOfficerProvider;
-  static const $allTransitiveDependencies2 = userDetailsProvider;
-  static const $allTransitiveDependencies3 = noticeServiceProvider;
 
   @override
   String debugGetCreateSourceHash() => _$noticeFormHash();
@@ -56,7 +41,7 @@ final class NoticeFormProvider
   }
 }
 
-String _$noticeFormHash() => r'f0b16bf1cbd7ec22a050feb0d8245a515560957c';
+String _$noticeFormHash() => r'c9f3bc246330210002a6a5d6063754d3f255071b';
 
 abstract class _$NoticeForm extends $Notifier<NoticeFormState> {
   NoticeFormState build();

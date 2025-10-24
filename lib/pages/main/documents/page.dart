@@ -4,11 +4,7 @@ import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/documents.dart
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:riverpod_annotation/experimental/scope.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 
-@Dependencies([listStaff, SelectedFiles])
 class DocumentsPage extends ConsumerWidget {
   const DocumentsPage({super.key});
 

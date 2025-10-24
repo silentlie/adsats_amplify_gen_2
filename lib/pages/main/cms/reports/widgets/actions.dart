@@ -62,7 +62,8 @@ class ReportActions extends ConsumerWidget with ConfirmDialogMixin {
               final result = await showConfirmDialog(
                 context: context,
                 title: Text("Are you sure?"),
-                content: Text("Do you want to delete this report?\n${report.subject}"),
+                content: Text(
+                    "Do you want to delete this report?\n${report.subject}"),
               );
               if (result) {
                 await service.delete(report);

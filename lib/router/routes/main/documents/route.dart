@@ -1,4 +1,3 @@
-
 import 'package:adsats_amplify_gen_2/pages/root_shell.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';

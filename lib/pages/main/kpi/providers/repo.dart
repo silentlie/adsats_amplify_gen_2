@@ -9,7 +9,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'repo.g.dart';
 
-@Riverpod()
+@riverpod
 FutureOr<List<StaffKPI>> staffKPIRepo(
   Ref ref,
   StaffKPIFilterState filter,

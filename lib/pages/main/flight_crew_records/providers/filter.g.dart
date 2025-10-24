@@ -64,7 +64,7 @@ final class FlightCrewRecordFilterProvider extends $NotifierProvider<
 }
 
 String _$flightCrewRecordFilterHash() =>
-    r'9e3af7e1a884f0a2e8541774d6bf63eef5c195f0';
+    r'577d85f752c89b9acacb5fe2aa67719a9e0fecab';
 
 final class FlightCrewRecordFilterFamily extends $Family
     with

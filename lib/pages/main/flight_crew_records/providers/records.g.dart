@@ -169,7 +169,7 @@ final class RecordMetaProvider extends $FunctionalProvider<
   }
 }
 
-String _$recordMetaHash() => r'9eef6d0cb3dc2cc52d02270f18ffe1da7760333f';
+String _$recordMetaHash() => r'73981f373462367fbc8a1283b2c4da119c68496c';
 
 @ProviderFor(joinStaff)
 const joinStaffProvider = JoinStaffFamily._();
@@ -232,7 +232,7 @@ final class JoinStaffProvider extends $FunctionalProvider<
   }
 }
 
-String _$joinStaffHash() => r'3e3a9dd119fae4ebb94f84d5015c5e6beb9839d7';
+String _$joinStaffHash() => r'6e400962bb0bb78003e90caed9192946872f1fdc';
 
 final class JoinStaffFamily extends $Family
     with

@@ -59,7 +59,8 @@ class NoticeActions extends ConsumerWidget with ConfirmDialogMixin {
               final result = await showConfirmDialog(
                 context: context,
                 title: Text("Are you sure?"),
-                content: Text("Do you want to delete this notice?\n${notice.subject}"),
+                content: Text(
+                    "Do you want to delete this notice?\n${notice.subject}"),
               );
               if (result) {
                 await service.delete(notice);
