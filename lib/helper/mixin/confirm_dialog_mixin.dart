@@ -12,7 +12,7 @@ mixin ConfirmDialogMixin {
     return await showDialog<bool>(
           context: context,
           barrierDismissible: barrierDismissible,
-          useRootNavigator: false,
+          useRootNavigator: true,
           builder: (dialogContext) => AlertDialog(
             title: title,
             content: content,

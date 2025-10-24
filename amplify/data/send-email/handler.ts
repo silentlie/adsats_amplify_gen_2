@@ -2,7 +2,7 @@ import { SESv2Client, SendEmailCommand } from "@aws-sdk/client-sesv2";
 import type { Schema } from "../resource";
 
 type Handler = Schema["sendEmail"]["functionHandler"];
-const client = new SESv2Client();
+const client = new SESv2Client({ region: "us-west-2" });
 
 export const handler: Handler = async (event) => {
   const {
@@ -14,7 +14,7 @@ export const handler: Handler = async (event) => {
 
   const command = new SendEmailCommand({
     FromEmailAddressIdentityArn:
-      "arn:aws:ses:ap-southeast-2:891377389351:identity/adsats.com",
+      "arn:aws:ses:us-west-2:891377389351:identity/adsats.com",
     FromEmailAddress: `${author} <noreply@adsats.com>`,
     Destination: {
       ToAddresses: recipients,
