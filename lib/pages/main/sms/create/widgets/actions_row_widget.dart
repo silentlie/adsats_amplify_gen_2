@@ -177,8 +177,10 @@ class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
   }
 
   Widget readButton(WidgetRef ref, BuildContext context) {
+    final notice =
+        ref.watch(noticeFormProvider.select((value) => value.notice));
     return AsyncValueWidget(
-      value: ref.watch(readCheckProvider),
+      value: ref.watch(readCheckProvider(notice)),
       data: (value) {
         if (value.isEmpty) {
           return ElevatedButton.icon(
@@ -195,7 +197,7 @@ class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
                   return service.read(e);
                 },
               ));
-              ref.invalidate(readCheckProvider);
+              ref.invalidate(readCheckProvider(notice));
               if (!context.mounted) return;
               if (context.canPop()) {
                 context.pop();

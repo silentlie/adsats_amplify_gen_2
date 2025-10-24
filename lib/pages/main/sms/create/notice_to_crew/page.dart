@@ -42,7 +42,6 @@ class NoticeToCrewPage extends HookConsumerWidget {
           );
       final form = NoticeForm.withNotice(initial, notice == null);
       final override = noticeFormProvider.overrideWith(() => form);
-
       return <Override>[
         override,
         selectedFilesProvider,

@@ -44,10 +44,8 @@ class SafetyNoticePage extends HookConsumerWidget {
           );
       final form = NoticeForm.withNotice(initial, notice == null);
       final noticeFormOverride = noticeFormProvider.overrideWith(() => form);
-
       return <Override>[
         noticeFormOverride,
-        // if this one is also an Override; otherwise do overrideWithValue/overrideWith
         selectedFilesProvider,
       ];
     }, [userDetails, notice]);
