@@ -78,7 +78,7 @@ class DrawerWidget extends ConsumerWidget {
                 context: context,
                 applicationIcon: const DefaultLogoWidget(),
                 applicationName: "ADSATS App",
-                applicationVersion: "1.2.0",
+                applicationVersion: "1.3.0",
               );
               _close(context);
             },
