@@ -101,6 +101,7 @@ query ListReports(\$filter: ModelReportFilterInput) {
             email
             archived
           }
+          isRead
         }
       }
       documents {
@@ -151,6 +152,7 @@ query GetReportDetails(\$id: ID!) {
           email
           archived
         }
+        isRead
       }
     }
     documents {
@@ -394,6 +396,7 @@ query GetNoticeDetails(\$id: ID!) {
           archived
         }
         readAt
+        isRead
       }
     }
   }
@@ -650,7 +653,7 @@ query GetStaff(\$id: ID!) {
         }
       }
     }
-    notifications(filter: {readAt: {eq: null}}) {
+    notifications(filter: {isRead: {eq: false}}) {
       items {
         id
         notice {

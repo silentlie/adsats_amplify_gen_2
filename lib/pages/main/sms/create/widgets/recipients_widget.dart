@@ -94,9 +94,7 @@ class NoticeRecipientsWidget extends HookConsumerWidget {
                                 child: Chip(
                                   label: Text(e.staff!.fullName),
                                   color: WidgetStateProperty.all(
-                                    e.readAt != null
-                                        ? Colors.green
-                                        : Colors.red,
+                                    e.isRead ? Colors.green : Colors.red,
                                   ),
                                 ),
                               ),
