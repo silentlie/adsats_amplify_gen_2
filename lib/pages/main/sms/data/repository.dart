@@ -171,9 +171,11 @@ class NoticeRepository {
     for (final s in newRecipients) {
       final old = oldMap.remove(s.id);
       if (old == null) {
-        ops.add(_db.create(NoticeStaff(notice: notice, staff: s)));
+        ops.add(
+            _db.create(NoticeStaff(notice: notice, staff: s, isRead: false)));
       } else if (resetReadOnSend) {
-        ops.add(_db.update(NoticeStaff(id: old.id, notice: notice, staff: s)));
+        ops.add(_db.update(
+            NoticeStaff(id: old.id, notice: notice, staff: s, isRead: false)));
       }
     }
     ops.addAll(oldMap.values.map((old) => _db.delete(old)));

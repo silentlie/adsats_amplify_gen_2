@@ -68,7 +68,7 @@ export 'Subcategory.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "594ff37be101a3e8f7284c0adbcff06d";
+  String version = "806b28e878817784b729c5685b605ee5";
   @override
   List<amplify_core.ModelSchema> modelSchemas = [
     Aircraft.schema,

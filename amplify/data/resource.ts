@@ -208,6 +208,7 @@ const schema = a
     }),
     ReportStaff: a
       .model({
+        isRead: a.boolean().required().default(false),
         readAt: a.datetime(),
         reportId: a.id().required(),
         staffId: a.id().required(),

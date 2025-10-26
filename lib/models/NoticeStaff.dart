@@ -29,6 +29,7 @@ class NoticeStaff extends amplify_core.Model {
   final amplify_core.TemporalDateTime? _readAt;
   final Notice? _notice;
   final Staff? _staff;
+  final bool? _isRead;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -56,6 +57,19 @@ class NoticeStaff extends amplify_core.Model {
     return _staff;
   }
 
+  bool get isRead {
+    try {
+      return _isRead!;
+    } catch (e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -65,10 +79,17 @@ class NoticeStaff extends amplify_core.Model {
   }
 
   const NoticeStaff._internal(
-      {required this.id, readAt, notice, staff, createdAt, updatedAt})
+      {required this.id,
+      readAt,
+      notice,
+      staff,
+      required isRead,
+      createdAt,
+      updatedAt})
       : _readAt = readAt,
         _notice = notice,
         _staff = staff,
+        _isRead = isRead,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
@@ -76,12 +97,14 @@ class NoticeStaff extends amplify_core.Model {
       {String? id,
       amplify_core.TemporalDateTime? readAt,
       Notice? notice,
-      Staff? staff}) {
+      Staff? staff,
+      required bool isRead}) {
     return NoticeStaff._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
         readAt: readAt,
         notice: notice,
-        staff: staff);
+        staff: staff,
+        isRead: isRead);
   }
 
   bool equals(Object other) {
@@ -95,7 +118,8 @@ class NoticeStaff extends amplify_core.Model {
         id == other.id &&
         _readAt == other._readAt &&
         _notice == other._notice &&
-        _staff == other._staff;
+        _staff == other._staff &&
+        _isRead == other._isRead;
   }
 
   @override
@@ -113,6 +137,8 @@ class NoticeStaff extends amplify_core.Model {
         "notice=" + (_notice != null ? _notice.toString() : "null") + ", ");
     buffer
         .write("staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
+    buffer.write(
+        "isRead=" + (_isRead != null ? _isRead.toString() : "null") + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt.format() : "null") +
         ", ");
@@ -124,23 +150,29 @@ class NoticeStaff extends amplify_core.Model {
   }
 
   NoticeStaff copyWith(
-      {amplify_core.TemporalDateTime? readAt, Notice? notice, Staff? staff}) {
+      {amplify_core.TemporalDateTime? readAt,
+      Notice? notice,
+      Staff? staff,
+      bool? isRead}) {
     return NoticeStaff._internal(
         id: id,
         readAt: readAt ?? this.readAt,
         notice: notice ?? this.notice,
-        staff: staff ?? this.staff);
+        staff: staff ?? this.staff,
+        isRead: isRead ?? this.isRead);
   }
 
   NoticeStaff copyWithModelFieldValues(
       {ModelFieldValue<amplify_core.TemporalDateTime?>? readAt,
       ModelFieldValue<Notice?>? notice,
-      ModelFieldValue<Staff?>? staff}) {
+      ModelFieldValue<Staff?>? staff,
+      ModelFieldValue<bool>? isRead}) {
     return NoticeStaff._internal(
         id: id,
         readAt: readAt == null ? this.readAt : readAt.value,
         notice: notice == null ? this.notice : notice.value,
-        staff: staff == null ? this.staff : staff.value);
+        staff: staff == null ? this.staff : staff.value,
+        isRead: isRead == null ? this.isRead : isRead.value);
   }
 
   NoticeStaff.fromJson(Map<String, dynamic> json)
@@ -160,6 +192,7 @@ class NoticeStaff extends amplify_core.Model {
                     json['staff']['serializedData']))
                 : Staff.fromJson(new Map<String, dynamic>.from(json['staff']))
             : null,
+        _isRead = json['isRead'],
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -172,6 +205,7 @@ class NoticeStaff extends amplify_core.Model {
         'readAt': _readAt?.format(),
         'notice': _notice?.toJson(),
         'staff': _staff?.toJson(),
+        'isRead': _isRead,
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
@@ -181,6 +215,7 @@ class NoticeStaff extends amplify_core.Model {
         'readAt': _readAt,
         'notice': _notice,
         'staff': _staff,
+        'isRead': _isRead,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
@@ -200,6 +235,7 @@ class NoticeStaff extends amplify_core.Model {
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
           ofModelName: 'Staff'));
+  static final ISREAD = amplify_core.QueryField(fieldName: "isRead");
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "NoticeStaff";
@@ -235,6 +271,12 @@ class NoticeStaff extends amplify_core.Model {
         isRequired: false,
         targetNames: ['staffId'],
         ofModelName: 'Staff'));
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+        key: NoticeStaff.ISREAD,
+        isRequired: true,
+        ofType:
+            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)));
 
     modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(

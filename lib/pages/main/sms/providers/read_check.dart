@@ -11,8 +11,8 @@ FutureOr<List<NoticeStaff>> readCheck(Ref ref, Notice notice) async {
   final db = ref.read(databaseAPIProvider);
   return await db.listAll(
     modelType: NoticeStaff.classType,
-    where: NoticeStaff.READAT
-        .eq(null)
+    where: NoticeStaff.ISREAD
+        .eq(false)
         .and(NoticeStaff.STAFF.eq(userId))
         .and(NoticeStaff.NOTICE.eq(notice.id)),
   );
