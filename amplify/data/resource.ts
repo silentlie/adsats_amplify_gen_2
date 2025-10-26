@@ -160,6 +160,7 @@ const schema = a
       staffId: a.id().required(),
       notice: a.belongsTo("Notice", "noticeId"),
       staff: a.belongsTo("Staff", "staffId"),
+      isRead: a.boolean().required().default(false),
     }),
     NoticeDocument: a.model({
       noticeId: a.id().required(),

@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/file_compare_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/service.dart';
@@ -12,11 +13,14 @@ class NoticeDocumentsWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
     final newFiles = ref.watch(selectedFilesProvider);
-    final uploadedFiles = ref.watch(
-      noticeFormProvider.select(
-        (value) => value.notice.documents ?? [],
-      ),
-    );
+    final uploadedFiles = ref
+        .watch(
+          noticeFormProvider.select(
+            (value) => value.notice.documents ?? [],
+          ),
+        )
+        .toList()
+      ..sort((a, b) => a.name.naturalCompareTo(b.name));
     final notifier = ref.read(noticeFormProvider.notifier);
     final isEditMode = ref.watch(noticeFormProvider.select(
       (value) => value.editMode,

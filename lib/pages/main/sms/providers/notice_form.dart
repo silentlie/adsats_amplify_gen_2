@@ -20,7 +20,6 @@ class NoticeForm extends _$NoticeForm {
     n._draftNotice = notice;
     n._initialNotice = isNew ? null : notice;
     n._seeded = true;
-    print(n._seeded);
     return n;
   }
 

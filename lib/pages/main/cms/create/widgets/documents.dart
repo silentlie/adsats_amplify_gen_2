@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/file_compare_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/providers/service.dart';
@@ -11,11 +12,14 @@ class ReportDocuments extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
     final newFiles = ref.watch(selectedFilesProvider);
-    final uploadedFiles = ref.watch(
-      reportFormProvider.select(
-        (value) => value.report.documents ?? [],
-      ),
-    );
+    final uploadedFiles = ref
+        .watch(
+          reportFormProvider.select(
+            (value) => value.report.documents ?? [],
+          ),
+        )
+        .toList()
+      ..sort((a, b) => a.name.naturalCompareTo(b.name));
     final notifier = ref.read(reportFormProvider.notifier);
     final isEditMode = ref.watch(reportFormProvider.select(
       (value) => value.editMode,

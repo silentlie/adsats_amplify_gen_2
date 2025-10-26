@@ -3,14 +3,14 @@ import 'package:intl/intl.dart';
 
 extension CompactDateString on DateTime {
   String get toCompactDateString {
-    return DateFormat('ddMMMyyyy', 'en_US').format(this).toUpperCase();
+    return DateFormat('ddMMMyyyy', 'en_US').format(toLocal()).toUpperCase();
   }
 }
 
 extension TemporalDateTimeFormatX on TemporalDateTime {
   String get toCompactDateString {
     return DateFormat('ddMMMyyyy', 'en_US')
-        .format(getDateTimeInUtc())
+        .format(getDateTimeInUtc().toLocal())
         .toUpperCase();
   }
 }
