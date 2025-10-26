@@ -59,7 +59,10 @@ class NoticeRepository {
   }
 
   Future<NoticeStaff> read(NoticeStaff noticeStaff) async {
-    return _db.update(noticeStaff.copyWith(readAt: TemporalDateTime.now()));
+    return _db.update(noticeStaff.copyWith(
+      readAt: TemporalDateTime.now(),
+      isRead: true,
+    ));
   }
 
   Future<Notice> delete(Notice notice) async {

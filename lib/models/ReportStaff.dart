@@ -26,6 +26,7 @@ import 'package:amplify_core/amplify_core.dart' as amplify_core;
 class ReportStaff extends amplify_core.Model {
   static const classType = const _ReportStaffModelType();
   final String id;
+  final bool? _isRead;
   final amplify_core.TemporalDateTime? _readAt;
   final Report? _report;
   final Staff? _staff;
@@ -42,6 +43,19 @@ class ReportStaff extends amplify_core.Model {
 
   ReportStaffModelIdentifier get modelIdentifier {
     return ReportStaffModelIdentifier(id: id);
+  }
+
+  bool get isRead {
+    try {
+      return _isRead!;
+    } catch (e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
   amplify_core.TemporalDateTime? get readAt {
@@ -65,8 +79,15 @@ class ReportStaff extends amplify_core.Model {
   }
 
   const ReportStaff._internal(
-      {required this.id, readAt, report, staff, createdAt, updatedAt})
-      : _readAt = readAt,
+      {required this.id,
+      required isRead,
+      readAt,
+      report,
+      staff,
+      createdAt,
+      updatedAt})
+      : _isRead = isRead,
+        _readAt = readAt,
         _report = report,
         _staff = staff,
         _createdAt = createdAt,
@@ -74,11 +95,13 @@ class ReportStaff extends amplify_core.Model {
 
   factory ReportStaff(
       {String? id,
+      required bool isRead,
       amplify_core.TemporalDateTime? readAt,
       Report? report,
       Staff? staff}) {
     return ReportStaff._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
+        isRead: isRead,
         readAt: readAt,
         report: report,
         staff: staff);
@@ -93,6 +116,7 @@ class ReportStaff extends amplify_core.Model {
     if (identical(other, this)) return true;
     return other is ReportStaff &&
         id == other.id &&
+        _isRead == other._isRead &&
         _readAt == other._readAt &&
         _report == other._report &&
         _staff == other._staff;
@@ -107,6 +131,8 @@ class ReportStaff extends amplify_core.Model {
 
     buffer.write("ReportStaff {");
     buffer.write("id=" + "$id" + ", ");
+    buffer.write(
+        "isRead=" + (_isRead != null ? _isRead.toString() : "null") + ", ");
     buffer.write(
         "readAt=" + (_readAt != null ? _readAt.format() : "null") + ", ");
     buffer.write(
@@ -124,20 +150,26 @@ class ReportStaff extends amplify_core.Model {
   }
 
   ReportStaff copyWith(
-      {amplify_core.TemporalDateTime? readAt, Report? report, Staff? staff}) {
+      {bool? isRead,
+      amplify_core.TemporalDateTime? readAt,
+      Report? report,
+      Staff? staff}) {
     return ReportStaff._internal(
         id: id,
+        isRead: isRead ?? this.isRead,
         readAt: readAt ?? this.readAt,
         report: report ?? this.report,
         staff: staff ?? this.staff);
   }
 
   ReportStaff copyWithModelFieldValues(
-      {ModelFieldValue<amplify_core.TemporalDateTime?>? readAt,
+      {ModelFieldValue<bool>? isRead,
+      ModelFieldValue<amplify_core.TemporalDateTime?>? readAt,
       ModelFieldValue<Report?>? report,
       ModelFieldValue<Staff?>? staff}) {
     return ReportStaff._internal(
         id: id,
+        isRead: isRead == null ? this.isRead : isRead.value,
         readAt: readAt == null ? this.readAt : readAt.value,
         report: report == null ? this.report : report.value,
         staff: staff == null ? this.staff : staff.value);
@@ -145,6 +177,7 @@ class ReportStaff extends amplify_core.Model {
 
   ReportStaff.fromJson(Map<String, dynamic> json)
       : id = json['id'],
+        _isRead = json['isRead'],
         _readAt = json['readAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['readAt'])
             : null,
@@ -169,6 +202,7 @@ class ReportStaff extends amplify_core.Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
+        'isRead': _isRead,
         'readAt': _readAt?.format(),
         'report': _report?.toJson(),
         'staff': _staff?.toJson(),
@@ -178,6 +212,7 @@ class ReportStaff extends amplify_core.Model {
 
   Map<String, Object?> toMap() => {
         'id': id,
+        'isRead': _isRead,
         'readAt': _readAt,
         'report': _report,
         'staff': _staff,
@@ -189,6 +224,7 @@ class ReportStaff extends amplify_core.Model {
       MODEL_IDENTIFIER =
       amplify_core.QueryModelIdentifier<ReportStaffModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
+  static final ISREAD = amplify_core.QueryField(fieldName: "isRead");
   static final READAT = amplify_core.QueryField(fieldName: "readAt");
   static final REPORT = amplify_core.QueryField(
       fieldName: "report",
@@ -217,6 +253,12 @@ class ReportStaff extends amplify_core.Model {
     ];
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+        key: ReportStaff.ISREAD,
+        isRequired: true,
+        ofType:
+            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
         key: ReportStaff.READAT,
