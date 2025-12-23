@@ -50,13 +50,15 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
                 // TODO: FutureWidget
                 value: ref.watch(listStaffProvider()),
                 data: (value) {
-                  final initialSelection = value.firstWhere(
-                    (e) => e.id == notice.author!.id,
-                  );
+                  final initialSelection = notice.author == null
+                      ? null
+                      : value.firstWhere(
+                          (e) => e.id == notice.author!.id,
+                        );
                   return GlobalDropdownMenu<Staff>(
                     entries: value.map(
                       (e) {
-                        return DropdownMenuEntry(
+                        return DropdownMenuEntry<Staff>(
                           value: e,
                           label: e.fullName,
                         );

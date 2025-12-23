@@ -65,7 +65,7 @@ final class ReadCheckProvider extends $FunctionalProvider<
   }
 }
 
-String _$readCheckHash() => r'0f2307f53779e726134ff4d193343ca4e00f05de';
+String _$readCheckHash() => r'3ca45f1479a888baa479bb406708558d7ebe64c9';
 
 final class ReadCheckFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<NoticeStaff>>, Notice> {

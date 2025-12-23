@@ -2,6 +2,7 @@ import 'package:adsats_amplify_gen_2/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+export 'all/page.dart';
 export 'inbox/page.dart';
 export 'sent/page.dart';
 
@@ -20,6 +21,7 @@ class SmsShell extends StatelessWidget {
   }
 
   final List<RouteInfoBase> routes = const [
+    SmsAllRoute(),
     SmsInboxRoute(),
     SmsSentRoute(),
   ];

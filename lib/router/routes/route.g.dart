@@ -49,6 +49,15 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                         StatefulShellBranchData.$branch(
                           routes: [
                             GoRouteData.$route(
+                              path: 'all',
+                              name: 'SMS All',
+                              factory: $SmsAllRoute._fromState,
+                            ),
+                          ],
+                        ),
+                        StatefulShellBranchData.$branch(
+                          routes: [
+                            GoRouteData.$route(
                               path: 'inbox',
                               name: 'SMS Inbox',
                               factory: $SmsInboxRoute._fromState,
@@ -371,6 +380,28 @@ mixin $SMSRoute on GoRouteData {
 extension $SmsShellRouteDataExtension on SmsShellRouteData {
   static SmsShellRouteData _fromState(GoRouterState state) =>
       const SmsShellRouteData();
+}
+
+mixin $SmsAllRoute on GoRouteData {
+  static SmsAllRoute _fromState(GoRouterState state) => const SmsAllRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/sms/all',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
 }
 
 mixin $SmsInboxRoute on GoRouteData {
