@@ -10,12 +10,12 @@ part of 'subcategories.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(subcategories)
-const subcategoriesProvider = SubcategoriesFamily._();
+final subcategoriesProvider = SubcategoriesFamily._();
 
 final class SubcategoriesProvider extends $FunctionalProvider<
         AsyncValue<Category>, Category, FutureOr<Category>>
     with $FutureModifier<Category>, $FutureProvider<Category> {
-  const SubcategoriesProvider._(
+  SubcategoriesProvider._(
       {required SubcategoriesFamily super.from, required String super.argument})
       : super(
           retry: null,
@@ -64,7 +64,7 @@ String _$subcategoriesHash() => r'00b098398364f2606d0db16ae9fd9fb3d4044563';
 
 final class SubcategoriesFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Category>, String> {
-  const SubcategoriesFamily._()
+  SubcategoriesFamily._()
       : super(
           retry: null,
           name: r'subcategoriesProvider',

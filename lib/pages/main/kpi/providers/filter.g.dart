@@ -10,11 +10,11 @@ part of 'filter.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(StaffKPIFilter)
-const staffKPIFilterProvider = StaffKPIFilterProvider._();
+final staffKPIFilterProvider = StaffKPIFilterProvider._();
 
 final class StaffKPIFilterProvider
     extends $NotifierProvider<StaffKPIFilter, StaffKPIFilterState> {
-  const StaffKPIFilterProvider._()
+  StaffKPIFilterProvider._()
       : super(
           from: null,
           argument: null,
@@ -48,13 +48,12 @@ abstract class _$StaffKPIFilter extends $Notifier<StaffKPIFilterState> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<StaffKPIFilterState, StaffKPIFilterState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<StaffKPIFilterState, StaffKPIFilterState>,
         StaffKPIFilterState,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

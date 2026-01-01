@@ -87,7 +87,7 @@ class HomePage extends ConsumerWidget with NotificationBuilderMixin {
                     NavigateIconButton(
                       icon: CmsShellRouteData().icon.icon!,
                       name: CmsShellRouteData().label,
-                      onPressed: () => CmsSentRoute().go(context),
+                      onPressed: () => CmsAllRoute().go(context),
                     ),
                     NavigateIconButton(
                       icon: FlightCrewRecordsRoute().icon.icon!,

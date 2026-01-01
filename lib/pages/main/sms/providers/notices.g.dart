@@ -10,12 +10,12 @@ part of 'notices.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(notices)
-const noticesProvider = NoticesFamily._();
+final noticesProvider = NoticesFamily._();
 
 final class NoticesProvider extends $FunctionalProvider<
         AsyncValue<List<Notice>>, List<Notice>, FutureOr<List<Notice>>>
     with $FutureModifier<List<Notice>>, $FutureProvider<List<Notice>> {
-  const NoticesProvider._(
+  NoticesProvider._(
       {required NoticesFamily super.from, required InboxOrSent super.argument})
       : super(
           retry: null,
@@ -65,7 +65,7 @@ String _$noticesHash() => r'9a393942e328be297efc0410e6a3bb624be0a5f1';
 
 final class NoticesFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Notice>>, InboxOrSent> {
-  const NoticesFamily._()
+  NoticesFamily._()
       : super(
           retry: null,
           name: r'noticesProvider',

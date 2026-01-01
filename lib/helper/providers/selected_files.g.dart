@@ -10,11 +10,11 @@ part of 'selected_files.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(SelectedFiles)
-const selectedFilesProvider = SelectedFilesProvider._();
+final selectedFilesProvider = SelectedFilesProvider._();
 
 final class SelectedFilesProvider
     extends $NotifierProvider<SelectedFiles, List<PlatformFile>> {
-  const SelectedFilesProvider._()
+  SelectedFilesProvider._()
       : super(
           from: null,
           argument: null,
@@ -48,13 +48,12 @@ abstract class _$SelectedFiles extends $Notifier<List<PlatformFile>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<List<PlatformFile>, List<PlatformFile>>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<List<PlatformFile>, List<PlatformFile>>,
         List<PlatformFile>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

@@ -10,12 +10,12 @@ part of 'aircraft.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(aircraft)
-const aircraftProvider = AircraftProvider._();
+final aircraftProvider = AircraftProvider._();
 
 final class AircraftProvider extends $FunctionalProvider<
         AsyncValue<List<Aircraft>>, List<Aircraft>, FutureOr<List<Aircraft>>>
     with $FutureModifier<List<Aircraft>>, $FutureProvider<List<Aircraft>> {
-  const AircraftProvider._()
+  AircraftProvider._()
       : super(
           from: null,
           argument: null,

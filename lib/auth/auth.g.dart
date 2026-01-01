@@ -10,12 +10,12 @@ part of 'auth.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(userId)
-const userIdProvider = UserIdProvider._();
+final userIdProvider = UserIdProvider._();
 
 final class UserIdProvider
     extends $FunctionalProvider<AsyncValue<String>, String, FutureOr<String>>
     with $FutureModifier<String>, $FutureProvider<String> {
-  const UserIdProvider._()
+  UserIdProvider._()
       : super(
           from: null,
           argument: null,
@@ -43,12 +43,12 @@ final class UserIdProvider
 String _$userIdHash() => r'3ff909554adc1d30addf19392b522ba0839aae7d';
 
 @ProviderFor(userDetails)
-const userDetailsProvider = UserDetailsProvider._();
+final userDetailsProvider = UserDetailsProvider._();
 
 final class UserDetailsProvider
     extends $FunctionalProvider<AsyncValue<Staff>, Staff, FutureOr<Staff>>
     with $FutureModifier<Staff>, $FutureProvider<Staff> {
-  const UserDetailsProvider._()
+  UserDetailsProvider._()
       : super(
           from: null,
           argument: null,
@@ -76,11 +76,11 @@ final class UserDetailsProvider
 String _$userDetailsHash() => r'7ca7ed495d3886a33e9b5d4ea8951b1577732e71';
 
 @ProviderFor(isAdmin)
-const isAdminProvider = IsAdminProvider._();
+final isAdminProvider = IsAdminProvider._();
 
 final class IsAdminProvider extends $FunctionalProvider<bool, bool, bool>
     with $Provider<bool> {
-  const IsAdminProvider._()
+  IsAdminProvider._()
       : super(
           from: null,
           argument: null,
@@ -116,11 +116,11 @@ final class IsAdminProvider extends $FunctionalProvider<bool, bool, bool>
 String _$isAdminHash() => r'9d62708d04eeb867cead8bcf38595b96d003829e';
 
 @ProviderFor(isSafetyOfficer)
-const isSafetyOfficerProvider = IsSafetyOfficerProvider._();
+final isSafetyOfficerProvider = IsSafetyOfficerProvider._();
 
 final class IsSafetyOfficerProvider
     extends $FunctionalProvider<bool, bool, bool> with $Provider<bool> {
-  const IsSafetyOfficerProvider._()
+  IsSafetyOfficerProvider._()
       : super(
           from: null,
           argument: null,
@@ -156,11 +156,11 @@ final class IsSafetyOfficerProvider
 String _$isSafetyOfficerHash() => r'74863d8356890c93f76c1abd45e4f80ae01eb534';
 
 @ProviderFor(isComplianceManager)
-const isComplianceManagerProvider = IsComplianceManagerProvider._();
+final isComplianceManagerProvider = IsComplianceManagerProvider._();
 
 final class IsComplianceManagerProvider
     extends $FunctionalProvider<bool, bool, bool> with $Provider<bool> {
-  const IsComplianceManagerProvider._()
+  IsComplianceManagerProvider._()
       : super(
           from: null,
           argument: null,

@@ -10,12 +10,12 @@ part of 'repo.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(staffKPIRepo)
-const staffKPIRepoProvider = StaffKPIRepoFamily._();
+final staffKPIRepoProvider = StaffKPIRepoFamily._();
 
 final class StaffKPIRepoProvider extends $FunctionalProvider<
         AsyncValue<List<StaffKPI>>, List<StaffKPI>, FutureOr<List<StaffKPI>>>
     with $FutureModifier<List<StaffKPI>>, $FutureProvider<List<StaffKPI>> {
-  const StaffKPIRepoProvider._(
+  StaffKPIRepoProvider._(
       {required StaffKPIRepoFamily super.from,
       required StaffKPIFilterState super.argument})
       : super(
@@ -68,7 +68,7 @@ final class StaffKPIRepoFamily extends $Family
     with
         $FunctionalFamilyOverride<FutureOr<List<StaffKPI>>,
             StaffKPIFilterState> {
-  const StaffKPIRepoFamily._()
+  StaffKPIRepoFamily._()
       : super(
           retry: null,
           name: r'staffKPIRepoProvider',

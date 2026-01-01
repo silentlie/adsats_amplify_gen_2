@@ -131,6 +131,15 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                         StatefulShellBranchData.$branch(
                           routes: [
                             GoRouteData.$route(
+                              path: 'all',
+                              name: 'CMS All',
+                              factory: $CmsAllRoute._fromState,
+                            ),
+                          ],
+                        ),
+                        StatefulShellBranchData.$branch(
+                          routes: [
+                            GoRouteData.$route(
                               path: 'inbox',
                               name: 'CMS Inbox',
                               factory: $CmsInboxRoute._fromState,
@@ -573,6 +582,28 @@ mixin $CmsRoute on GoRouteData {
 extension $CmsShellRouteDataExtension on CmsShellRouteData {
   static CmsShellRouteData _fromState(GoRouterState state) =>
       const CmsShellRouteData();
+}
+
+mixin $CmsAllRoute on GoRouteData {
+  static CmsAllRoute _fromState(GoRouterState state) => const CmsAllRoute();
+
+  @override
+  String get location => GoRouteData.$location(
+        '/cms/all',
+      );
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
 }
 
 mixin $CmsInboxRoute on GoRouteData {

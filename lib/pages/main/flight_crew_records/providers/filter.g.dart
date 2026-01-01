@@ -10,11 +10,11 @@ part of 'filter.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(FlightCrewRecordFilter)
-const flightCrewRecordFilterProvider = FlightCrewRecordFilterFamily._();
+final flightCrewRecordFilterProvider = FlightCrewRecordFilterFamily._();
 
 final class FlightCrewRecordFilterProvider extends $NotifierProvider<
     FlightCrewRecordFilter, FlightCrewRecordFilterState> {
-  const FlightCrewRecordFilterProvider._(
+  FlightCrewRecordFilterProvider._(
       {required FlightCrewRecordFilterFamily super.from,
       required (
         Staff,
@@ -77,7 +77,7 @@ final class FlightCrewRecordFilterFamily extends $Family
               Staff,
               FlightCrewRecordCategory,
             )> {
-  const FlightCrewRecordFilterFamily._()
+  FlightCrewRecordFilterFamily._()
       : super(
           retry: null,
           name: r'flightCrewRecordFilterProvider',
@@ -115,10 +115,6 @@ abstract class _$FlightCrewRecordFilter
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(
-      _$args.$1,
-      _$args.$2,
-    );
     final ref = this.ref
         as $Ref<FlightCrewRecordFilterState, FlightCrewRecordFilterState>;
     final element = ref.element as $ClassProviderElement<
@@ -126,6 +122,11 @@ abstract class _$FlightCrewRecordFilter
         FlightCrewRecordFilterState,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(
+        ref,
+        () => build(
+              _$args.$1,
+              _$args.$2,
+            ));
   }
 }

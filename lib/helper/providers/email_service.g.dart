@@ -10,13 +10,13 @@ part of 'email_service.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(emailService)
-const emailServiceProvider = EmailServiceProvider._();
+final emailServiceProvider = EmailServiceProvider._();
 
 final class EmailServiceProvider extends $FunctionalProvider<
     AmplifyEmailRepository,
     AmplifyEmailRepository,
     AmplifyEmailRepository> with $Provider<AmplifyEmailRepository> {
-  const EmailServiceProvider._()
+  EmailServiceProvider._()
       : super(
           from: null,
           argument: null,

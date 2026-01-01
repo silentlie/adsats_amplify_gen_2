@@ -10,12 +10,12 @@ part of 'report.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(report)
-const reportProvider = ReportFamily._();
+final reportProvider = ReportFamily._();
 
 final class ReportProvider
     extends $FunctionalProvider<AsyncValue<Report>, Report, FutureOr<Report>>
     with $FutureModifier<Report>, $FutureProvider<Report> {
-  const ReportProvider._(
+  ReportProvider._(
       {required ReportFamily super.from, required String super.argument})
       : super(
           retry: null,
@@ -64,7 +64,7 @@ String _$reportHash() => r'c85c43273839933f3391c96284081a4b7061908a';
 
 final class ReportFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Report>, String> {
-  const ReportFamily._()
+  ReportFamily._()
       : super(
           retry: null,
           name: r'reportProvider',

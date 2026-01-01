@@ -10,10 +10,10 @@ part of 'sort.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(Sort)
-const sortProvider = SortFamily._();
+final sortProvider = SortFamily._();
 
 final class SortProvider<T> extends $NotifierProvider<Sort<T>, SortState<T>> {
-  const SortProvider._({required SortFamily super.from})
+  SortProvider._({required SortFamily super.from})
       : super(
           argument: null,
           retry: null,
@@ -65,7 +65,7 @@ final class SortProvider<T> extends $NotifierProvider<Sort<T>, SortState<T>> {
 String _$sortHash() => r'1d3324a12d43890f8a4dfc2d3a9df55ff36f89fd';
 
 final class SortFamily extends $Family {
-  const SortFamily._()
+  SortFamily._()
       : super(
           retry: null,
           name: r'sortProvider',
@@ -111,13 +111,12 @@ abstract class _$Sort<T> extends $Notifier<SortState<T>> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<SortState<T>, SortState<T>>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<SortState<T>, SortState<T>>,
         SortState<T>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

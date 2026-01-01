@@ -10,11 +10,11 @@ part of 'notifications.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(notifications)
-const notificationsProvider = NotificationsProvider._();
+final notificationsProvider = NotificationsProvider._();
 
 final class NotificationsProvider extends $FunctionalProvider<List<NoticeStaff>,
     List<NoticeStaff>, List<NoticeStaff>> with $Provider<List<NoticeStaff>> {
-  const NotificationsProvider._()
+  NotificationsProvider._()
       : super(
           from: null,
           argument: null,

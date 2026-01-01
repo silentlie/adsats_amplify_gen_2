@@ -24,7 +24,7 @@ class CmsSentRoute extends RouteInfo with $CmsSentRoute {
   @override
   Icon get selectedIcon => const Icon(Icons.outbox);
   @override
-  String get label => 'Sent';
+  String get label => 'My Sent Items';
 
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {

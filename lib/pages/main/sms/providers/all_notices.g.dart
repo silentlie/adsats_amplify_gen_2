@@ -10,12 +10,12 @@ part of 'all_notices.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(allNotices)
-const allNoticesProvider = AllNoticesProvider._();
+final allNoticesProvider = AllNoticesProvider._();
 
 final class AllNoticesProvider extends $FunctionalProvider<
         AsyncValue<List<Notice>>, List<Notice>, FutureOr<List<Notice>>>
     with $FutureModifier<List<Notice>>, $FutureProvider<List<Notice>> {
-  const AllNoticesProvider._()
+  AllNoticesProvider._()
       : super(
           from: null,
           argument: null,

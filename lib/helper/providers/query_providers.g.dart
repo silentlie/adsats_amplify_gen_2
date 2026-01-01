@@ -10,12 +10,12 @@ part of 'query_providers.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(listStaff)
-const listStaffProvider = ListStaffFamily._();
+final listStaffProvider = ListStaffFamily._();
 
 final class ListStaffProvider extends $FunctionalProvider<
         AsyncValue<List<Staff>>, List<Staff>, FutureOr<List<Staff>>>
     with $FutureModifier<List<Staff>>, $FutureProvider<List<Staff>> {
-  const ListStaffProvider._(
+  ListStaffProvider._(
       {required ListStaffFamily super.from,
       required QueryPredicate<Model>? super.argument})
       : super(
@@ -68,7 +68,7 @@ final class ListStaffFamily extends $Family
     with
         $FunctionalFamilyOverride<FutureOr<List<Staff>>,
             QueryPredicate<Model>?> {
-  const ListStaffFamily._()
+  ListStaffFamily._()
       : super(
           retry: null,
           name: r'listStaffProvider',
@@ -87,12 +87,12 @@ final class ListStaffFamily extends $Family
 }
 
 @ProviderFor(listAircraft)
-const listAircraftProvider = ListAircraftFamily._();
+final listAircraftProvider = ListAircraftFamily._();
 
 final class ListAircraftProvider extends $FunctionalProvider<
         AsyncValue<List<Aircraft>>, List<Aircraft>, FutureOr<List<Aircraft>>>
     with $FutureModifier<List<Aircraft>>, $FutureProvider<List<Aircraft>> {
-  const ListAircraftProvider._(
+  ListAircraftProvider._(
       {required ListAircraftFamily super.from,
       required QueryPredicate<Model>? super.argument})
       : super(
@@ -145,7 +145,7 @@ final class ListAircraftFamily extends $Family
     with
         $FunctionalFamilyOverride<FutureOr<List<Aircraft>>,
             QueryPredicate<Model>?> {
-  const ListAircraftFamily._()
+  ListAircraftFamily._()
       : super(
           retry: null,
           name: r'listAircraftProvider',
@@ -164,12 +164,12 @@ final class ListAircraftFamily extends $Family
 }
 
 @ProviderFor(listRoles)
-const listRolesProvider = ListRolesFamily._();
+final listRolesProvider = ListRolesFamily._();
 
 final class ListRolesProvider extends $FunctionalProvider<
         AsyncValue<List<Role>>, List<Role>, FutureOr<List<Role>>>
     with $FutureModifier<List<Role>>, $FutureProvider<List<Role>> {
-  const ListRolesProvider._(
+  ListRolesProvider._(
       {required ListRolesFamily super.from,
       required QueryPredicate<Model>? super.argument})
       : super(
@@ -221,7 +221,7 @@ final class ListRolesFamily extends $Family
     with
         $FunctionalFamilyOverride<FutureOr<List<Role>>,
             QueryPredicate<Model>?> {
-  const ListRolesFamily._()
+  ListRolesFamily._()
       : super(
           retry: null,
           name: r'listRolesProvider',
@@ -240,12 +240,12 @@ final class ListRolesFamily extends $Family
 }
 
 @ProviderFor(listCategories)
-const listCategoriesProvider = ListCategoriesFamily._();
+final listCategoriesProvider = ListCategoriesFamily._();
 
 final class ListCategoriesProvider extends $FunctionalProvider<
         AsyncValue<List<Category>>, List<Category>, FutureOr<List<Category>>>
     with $FutureModifier<List<Category>>, $FutureProvider<List<Category>> {
-  const ListCategoriesProvider._(
+  ListCategoriesProvider._(
       {required ListCategoriesFamily super.from,
       required QueryPredicate<Model>? super.argument})
       : super(
@@ -298,7 +298,7 @@ final class ListCategoriesFamily extends $Family
     with
         $FunctionalFamilyOverride<FutureOr<List<Category>>,
             QueryPredicate<Model>?> {
-  const ListCategoriesFamily._()
+  ListCategoriesFamily._()
       : super(
           retry: null,
           name: r'listCategoriesProvider',
@@ -317,7 +317,7 @@ final class ListCategoriesFamily extends $Family
 }
 
 @ProviderFor(listSubcategories)
-const listSubcategoriesProvider = ListSubcategoriesFamily._();
+final listSubcategoriesProvider = ListSubcategoriesFamily._();
 
 final class ListSubcategoriesProvider extends $FunctionalProvider<
         AsyncValue<List<Subcategory>>,
@@ -326,7 +326,7 @@ final class ListSubcategoriesProvider extends $FunctionalProvider<
     with
         $FutureModifier<List<Subcategory>>,
         $FutureProvider<List<Subcategory>> {
-  const ListSubcategoriesProvider._(
+  ListSubcategoriesProvider._(
       {required ListSubcategoriesFamily super.from,
       required QueryPredicate<Model>? super.argument})
       : super(
@@ -379,7 +379,7 @@ final class ListSubcategoriesFamily extends $Family
     with
         $FunctionalFamilyOverride<FutureOr<List<Subcategory>>,
             QueryPredicate<Model>?> {
-  const ListSubcategoriesFamily._()
+  ListSubcategoriesFamily._()
       : super(
           retry: null,
           name: r'listSubcategoriesProvider',
@@ -398,7 +398,7 @@ final class ListSubcategoriesFamily extends $Family
 }
 
 @ProviderFor(listNoticeStaff)
-const listNoticeStaffProvider = ListNoticeStaffFamily._();
+final listNoticeStaffProvider = ListNoticeStaffFamily._();
 
 final class ListNoticeStaffProvider extends $FunctionalProvider<
         AsyncValue<List<NoticeStaff>>,
@@ -407,7 +407,7 @@ final class ListNoticeStaffProvider extends $FunctionalProvider<
     with
         $FutureModifier<List<NoticeStaff>>,
         $FutureProvider<List<NoticeStaff>> {
-  const ListNoticeStaffProvider._(
+  ListNoticeStaffProvider._(
       {required ListNoticeStaffFamily super.from,
       required QueryPredicate<Model>? super.argument})
       : super(
@@ -460,7 +460,7 @@ final class ListNoticeStaffFamily extends $Family
     with
         $FunctionalFamilyOverride<FutureOr<List<NoticeStaff>>,
             QueryPredicate<Model>?> {
-  const ListNoticeStaffFamily._()
+  ListNoticeStaffFamily._()
       : super(
           retry: null,
           name: r'listNoticeStaffProvider',

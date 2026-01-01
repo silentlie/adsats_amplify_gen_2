@@ -10,11 +10,11 @@ part of 'database_api.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(databaseAPI)
-const databaseAPIProvider = DatabaseAPIProvider._();
+final databaseAPIProvider = DatabaseAPIProvider._();
 
 final class DatabaseAPIProvider extends $FunctionalProvider<AmplifyAppSyncAPI,
     AmplifyAppSyncAPI, AmplifyAppSyncAPI> with $Provider<AmplifyAppSyncAPI> {
-  const DatabaseAPIProvider._()
+  DatabaseAPIProvider._()
       : super(
           from: null,
           argument: null,

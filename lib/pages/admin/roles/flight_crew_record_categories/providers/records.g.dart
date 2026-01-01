@@ -10,12 +10,12 @@ part of 'records.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(flightCrewRecordCategories)
-const flightCrewRecordCategoriesProvider = FlightCrewRecordCategoriesFamily._();
+final flightCrewRecordCategoriesProvider = FlightCrewRecordCategoriesFamily._();
 
 final class FlightCrewRecordCategoriesProvider
     extends $FunctionalProvider<AsyncValue<Role>, Role, FutureOr<Role>>
     with $FutureModifier<Role>, $FutureProvider<Role> {
-  const FlightCrewRecordCategoriesProvider._(
+  FlightCrewRecordCategoriesProvider._(
       {required FlightCrewRecordCategoriesFamily super.from,
       required String super.argument})
       : super(
@@ -67,7 +67,7 @@ String _$flightCrewRecordCategoriesHash() =>
 
 final class FlightCrewRecordCategoriesFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<Role>, String> {
-  const FlightCrewRecordCategoriesFamily._()
+  FlightCrewRecordCategoriesFamily._()
       : super(
           retry: null,
           name: r'flightCrewRecordCategoriesProvider',

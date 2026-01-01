@@ -10,11 +10,11 @@ part of 'shared_preferences.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(SharedPreferences)
-const sharedPreferencesProvider = SharedPreferencesProvider._();
+final sharedPreferencesProvider = SharedPreferencesProvider._();
 
 final class SharedPreferencesProvider extends $AsyncNotifierProvider<
     SharedPreferences, SharedPreferencesWithCache> {
-  const SharedPreferencesProvider._()
+  SharedPreferencesProvider._()
       : super(
           from: null,
           argument: null,
@@ -41,7 +41,6 @@ abstract class _$SharedPreferences
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AsyncValue<SharedPreferencesWithCache>,
         SharedPreferencesWithCache>;
     final element = ref.element as $ClassProviderElement<
@@ -50,6 +49,6 @@ abstract class _$SharedPreferences
         AsyncValue<SharedPreferencesWithCache>,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

@@ -10,7 +10,7 @@ part of 'service.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(flightCrewRecordCategoriesService)
-const flightCrewRecordCategoriesServiceProvider =
+final flightCrewRecordCategoriesServiceProvider =
     FlightCrewRecordCategoriesServiceProvider._();
 
 final class FlightCrewRecordCategoriesServiceProvider
@@ -19,7 +19,7 @@ final class FlightCrewRecordCategoriesServiceProvider
         FlightCrewRecordCategoriesRepository,
         FlightCrewRecordCategoriesRepository>
     with $Provider<FlightCrewRecordCategoriesRepository> {
-  const FlightCrewRecordCategoriesServiceProvider._()
+  FlightCrewRecordCategoriesServiceProvider._()
       : super(
           from: null,
           argument: null,

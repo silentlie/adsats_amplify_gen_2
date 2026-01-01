@@ -10,11 +10,11 @@ part of 'service.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(noticeService)
-const noticeServiceProvider = NoticeServiceProvider._();
+final noticeServiceProvider = NoticeServiceProvider._();
 
 final class NoticeServiceProvider extends $FunctionalProvider<NoticeRepository,
     NoticeRepository, NoticeRepository> with $Provider<NoticeRepository> {
-  const NoticeServiceProvider._()
+  NoticeServiceProvider._()
       : super(
           from: null,
           argument: null,

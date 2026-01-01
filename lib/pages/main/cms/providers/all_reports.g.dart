@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'categories.dart';
+part of 'all_reports.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,36 +9,36 @@ part of 'categories.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(categories)
-final categoriesProvider = CategoriesProvider._();
+@ProviderFor(allReports)
+final allReportsProvider = AllReportsProvider._();
 
-final class CategoriesProvider extends $FunctionalProvider<
-        AsyncValue<List<Category>>, List<Category>, FutureOr<List<Category>>>
-    with $FutureModifier<List<Category>>, $FutureProvider<List<Category>> {
-  CategoriesProvider._()
+final class AllReportsProvider extends $FunctionalProvider<
+        AsyncValue<List<Report>>, List<Report>, FutureOr<List<Report>>>
+    with $FutureModifier<List<Report>>, $FutureProvider<List<Report>> {
+  AllReportsProvider._()
       : super(
           from: null,
           argument: null,
           retry: null,
-          name: r'categoriesProvider',
+          name: r'allReportsProvider',
           isAutoDispose: true,
           dependencies: null,
           $allTransitiveDependencies: null,
         );
 
   @override
-  String debugGetCreateSourceHash() => _$categoriesHash();
+  String debugGetCreateSourceHash() => _$allReportsHash();
 
   @$internal
   @override
-  $FutureProviderElement<List<Category>> $createElement(
+  $FutureProviderElement<List<Report>> $createElement(
           $ProviderPointer pointer) =>
       $FutureProviderElement(pointer);
 
   @override
-  FutureOr<List<Category>> create(Ref ref) {
-    return categories(ref);
+  FutureOr<List<Report>> create(Ref ref) {
+    return allReports(ref);
   }
 }
 
-String _$categoriesHash() => r'b6040433ffd13ab213500aec70cc60c394689e17';
+String _$allReportsHash() => r'7b3537582fa2c4acfc4e0ef2d7bdde6c5bca01a3';

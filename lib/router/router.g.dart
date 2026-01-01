@@ -10,10 +10,10 @@ part of 'router.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(Router)
-const routerProvider = RouterProvider._();
+final routerProvider = RouterProvider._();
 
 final class RouterProvider extends $NotifierProvider<Router, GoRouter> {
-  const RouterProvider._()
+  RouterProvider._()
       : super(
           from: null,
           argument: null,
@@ -47,10 +47,9 @@ abstract class _$Router extends $Notifier<GoRouter> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<GoRouter, GoRouter>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<GoRouter, GoRouter>, GoRouter, Object?, Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

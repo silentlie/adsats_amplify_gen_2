@@ -10,11 +10,11 @@ part of 'filter.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(ReportFilter)
-const reportFilterProvider = ReportFilterProvider._();
+final reportFilterProvider = ReportFilterProvider._();
 
 final class ReportFilterProvider
     extends $NotifierProvider<ReportFilter, ReportFilterState> {
-  const ReportFilterProvider._()
+  ReportFilterProvider._()
       : super(
           from: null,
           argument: null,
@@ -48,13 +48,12 @@ abstract class _$ReportFilter extends $Notifier<ReportFilterState> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<ReportFilterState, ReportFilterState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<ReportFilterState, ReportFilterState>,
         ReportFilterState,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

@@ -10,13 +10,13 @@ part of 'service.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(categoriesService)
-const categoriesServiceProvider = CategoriesServiceProvider._();
+final categoriesServiceProvider = CategoriesServiceProvider._();
 
 final class CategoriesServiceProvider extends $FunctionalProvider<
     CategoriesRepository,
     CategoriesRepository,
     CategoriesRepository> with $Provider<CategoriesRepository> {
-  const CategoriesServiceProvider._()
+  CategoriesServiceProvider._()
       : super(
           from: null,
           argument: null,

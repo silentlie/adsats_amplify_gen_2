@@ -10,11 +10,11 @@ part of 'service.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(reportService)
-const reportServiceProvider = ReportServiceProvider._();
+final reportServiceProvider = ReportServiceProvider._();
 
 final class ReportServiceProvider extends $FunctionalProvider<ReportRepository,
     ReportRepository, ReportRepository> with $Provider<ReportRepository> {
-  const ReportServiceProvider._()
+  ReportServiceProvider._()
       : super(
           from: null,
           argument: null,

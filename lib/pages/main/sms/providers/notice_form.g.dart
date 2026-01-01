@@ -10,11 +10,11 @@ part of 'notice_form.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(NoticeForm)
-const noticeFormProvider = NoticeFormProvider._();
+final noticeFormProvider = NoticeFormProvider._();
 
 final class NoticeFormProvider
     extends $NotifierProvider<NoticeForm, NoticeFormState> {
-  const NoticeFormProvider._()
+  NoticeFormProvider._()
       : super(
           from: null,
           argument: null,
@@ -48,13 +48,12 @@ abstract class _$NoticeForm extends $Notifier<NoticeFormState> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<NoticeFormState, NoticeFormState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<NoticeFormState, NoticeFormState>,
         NoticeFormState,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

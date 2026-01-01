@@ -10,11 +10,11 @@ part of 'filter.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(AdminFilter)
-const adminFilterProvider = AdminFilterProvider._();
+final adminFilterProvider = AdminFilterProvider._();
 
 final class AdminFilterProvider
     extends $NotifierProvider<AdminFilter, AdminFilterState> {
-  const AdminFilterProvider._()
+  AdminFilterProvider._()
       : super(
           from: null,
           argument: null,
@@ -48,13 +48,12 @@ abstract class _$AdminFilter extends $Notifier<AdminFilterState> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build();
     final ref = this.ref as $Ref<AdminFilterState, AdminFilterState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<AdminFilterState, AdminFilterState>,
         AdminFilterState,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(ref, build);
   }
 }

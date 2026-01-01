@@ -28,6 +28,11 @@ class CmsPage extends StatelessWidget {
               Wrap(
                 children: [
                   NavigateIconButton(
+                    icon: CmsAllRoute().icon.icon!,
+                    name: CmsAllRoute().label,
+                    onPressed: () => CmsAllRoute().go(context),
+                  ),
+                  NavigateIconButton(
                     icon: CmsInboxRoute().icon.icon!,
                     name: CmsInboxRoute().label,
                     onPressed: () => CmsInboxRoute().go(context),

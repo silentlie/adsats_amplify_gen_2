@@ -10,11 +10,11 @@ part of 'filter.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(SubcategoryFilter)
-const subcategoryFilterProvider = SubcategoryFilterFamily._();
+final subcategoryFilterProvider = SubcategoryFilterFamily._();
 
 final class SubcategoryFilterProvider
     extends $NotifierProvider<SubcategoryFilter, SubcategoryFilterState> {
-  const SubcategoryFilterProvider._(
+  SubcategoryFilterProvider._(
       {required SubcategoryFilterFamily super.from,
       required String super.argument})
       : super(
@@ -64,7 +64,7 @@ final class SubcategoryFilterFamily extends $Family
     with
         $ClassFamilyOverride<SubcategoryFilter, SubcategoryFilterState,
             SubcategoryFilterState, SubcategoryFilterState, String> {
-  const SubcategoryFilterFamily._()
+  SubcategoryFilterFamily._()
       : super(
           retry: null,
           name: r'subcategoryFilterProvider',
@@ -92,9 +92,6 @@ abstract class _$SubcategoryFilter extends $Notifier<SubcategoryFilterState> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(
-      _$args,
-    );
     final ref =
         this.ref as $Ref<SubcategoryFilterState, SubcategoryFilterState>;
     final element = ref.element as $ClassProviderElement<
@@ -102,6 +99,10 @@ abstract class _$SubcategoryFilter extends $Notifier<SubcategoryFilterState> {
         SubcategoryFilterState,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(
+        ref,
+        () => build(
+              _$args,
+            ));
   }
 }

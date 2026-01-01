@@ -10,12 +10,12 @@ part of 'roles.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(roles)
-const rolesProvider = RolesProvider._();
+final rolesProvider = RolesProvider._();
 
 final class RolesProvider extends $FunctionalProvider<AsyncValue<List<Role>>,
         List<Role>, FutureOr<List<Role>>>
     with $FutureModifier<List<Role>>, $FutureProvider<List<Role>> {
-  const RolesProvider._()
+  RolesProvider._()
       : super(
           from: null,
           argument: null,

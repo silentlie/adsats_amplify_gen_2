@@ -10,7 +10,7 @@ part of 'records.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(records)
-const recordsProvider = RecordsFamily._();
+final recordsProvider = RecordsFamily._();
 
 final class RecordsProvider extends $FunctionalProvider<
         AsyncValue<List<FlightCrewRecord>>,
@@ -19,7 +19,7 @@ final class RecordsProvider extends $FunctionalProvider<
     with
         $FutureModifier<List<FlightCrewRecord>>,
         $FutureProvider<List<FlightCrewRecord>> {
-  const RecordsProvider._(
+  RecordsProvider._(
       {required RecordsFamily super.from,
       required (
         Staff,
@@ -84,7 +84,7 @@ final class RecordsFamily extends $Family
               Staff,
               FlightCrewRecordCategory,
             )> {
-  const RecordsFamily._()
+  RecordsFamily._()
       : super(
           retry: null,
           name: r'recordsProvider',
@@ -107,7 +107,7 @@ final class RecordsFamily extends $Family
 }
 
 @ProviderFor(recordMeta)
-const recordMetaProvider = RecordMetaProvider._();
+final recordMetaProvider = RecordMetaProvider._();
 
 final class RecordMetaProvider extends $FunctionalProvider<
         AsyncValue<
@@ -135,7 +135,7 @@ final class RecordMetaProvider extends $FunctionalProvider<
               Iterable<Aircraft>,
               Iterable<Role>,
             )> {
-  const RecordMetaProvider._()
+  RecordMetaProvider._()
       : super(
           from: null,
           argument: null,
@@ -172,12 +172,12 @@ final class RecordMetaProvider extends $FunctionalProvider<
 String _$recordMetaHash() => r'73981f373462367fbc8a1283b2c4da119c68496c';
 
 @ProviderFor(joinStaff)
-const joinStaffProvider = JoinStaffFamily._();
+final joinStaffProvider = JoinStaffFamily._();
 
 final class JoinStaffProvider extends $FunctionalProvider<
         AsyncValue<Iterable<Staff>>, Iterable<Staff>, FutureOr<Iterable<Staff>>>
     with $FutureModifier<Iterable<Staff>>, $FutureProvider<Iterable<Staff>> {
-  const JoinStaffProvider._(
+  JoinStaffProvider._(
       {required JoinStaffFamily super.from,
       required (
         Aircraft,
@@ -242,7 +242,7 @@ final class JoinStaffFamily extends $Family
               Aircraft,
               Role,
             )> {
-  const JoinStaffFamily._()
+  JoinStaffFamily._()
       : super(
           retry: null,
           name: r'joinStaffProvider',

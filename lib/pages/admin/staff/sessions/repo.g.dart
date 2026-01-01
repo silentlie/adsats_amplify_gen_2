@@ -10,12 +10,12 @@ part of 'repo.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(sessionsRepo)
-const sessionsRepoProvider = SessionsRepoFamily._();
+final sessionsRepoProvider = SessionsRepoFamily._();
 
 final class SessionsRepoProvider extends $FunctionalProvider<
         AsyncValue<List<Session>>, List<Session>, FutureOr<List<Session>>>
     with $FutureModifier<List<Session>>, $FutureProvider<List<Session>> {
-  const SessionsRepoProvider._(
+  SessionsRepoProvider._(
       {required SessionsRepoFamily super.from, required Staff super.argument})
       : super(
           retry: null,
@@ -65,7 +65,7 @@ String _$sessionsRepoHash() => r'231cde923405f6235e3f74dd59504bd11cc2cdaa';
 
 final class SessionsRepoFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Session>>, Staff> {
-  const SessionsRepoFamily._()
+  SessionsRepoFamily._()
       : super(
           retry: null,
           name: r'sessionsRepoProvider',

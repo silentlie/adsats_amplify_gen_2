@@ -10,12 +10,12 @@ part of 'storage_api.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(storageAPI)
-const storageAPIProvider = StorageAPIProvider._();
+final storageAPIProvider = StorageAPIProvider._();
 
 final class StorageAPIProvider
     extends $FunctionalProvider<AmplifyS3API, AmplifyS3API, AmplifyS3API>
     with $Provider<AmplifyS3API> {
-  const StorageAPIProvider._()
+  StorageAPIProvider._()
       : super(
           from: null,
           argument: null,

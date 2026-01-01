@@ -10,12 +10,12 @@ part of 'documents.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(documents)
-const documentsProvider = DocumentsFamily._();
+final documentsProvider = DocumentsFamily._();
 
 final class DocumentsProvider extends $FunctionalProvider<
         AsyncValue<List<Document>>, List<Document>, FutureOr<List<Document>>>
     with $FutureModifier<List<Document>>, $FutureProvider<List<Document>> {
-  const DocumentsProvider._(
+  DocumentsProvider._(
       {required DocumentsFamily super.from,
       required Subcategory super.argument})
       : super(
@@ -66,7 +66,7 @@ String _$documentsHash() => r'b53379f21cf2f5c61925dfbf302db60c49e8e47a';
 
 final class DocumentsFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Document>>, Subcategory> {
-  const DocumentsFamily._()
+  DocumentsFamily._()
       : super(
           retry: null,
           name: r'documentsProvider',

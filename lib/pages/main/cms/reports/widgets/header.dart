@@ -14,7 +14,7 @@ class ReportHeader extends ConsumerWidget {
     return ListTile(
       contentPadding: const EdgeInsets.only(),
       leading: const Text(
-        "Inbox",
+        "CMS",
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,

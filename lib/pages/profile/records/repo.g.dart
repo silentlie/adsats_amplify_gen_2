@@ -10,12 +10,12 @@ part of 'repo.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(profileRepo)
-const profileRepoProvider = ProfileRepoProvider._();
+final profileRepoProvider = ProfileRepoProvider._();
 
 final class ProfileRepoProvider extends $FunctionalProvider<
         AsyncValue<Iterable<Role>>, Iterable<Role>, FutureOr<Iterable<Role>>>
     with $FutureModifier<Iterable<Role>>, $FutureProvider<Iterable<Role>> {
-  const ProfileRepoProvider._()
+  ProfileRepoProvider._()
       : super(
           from: null,
           argument: null,

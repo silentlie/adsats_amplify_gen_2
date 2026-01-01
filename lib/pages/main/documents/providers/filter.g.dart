@@ -10,11 +10,11 @@ part of 'filter.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(DocumentFilter)
-const documentFilterProvider = DocumentFilterFamily._();
+final documentFilterProvider = DocumentFilterFamily._();
 
 final class DocumentFilterProvider
     extends $NotifierProvider<DocumentFilter, DocumentFilterState> {
-  const DocumentFilterProvider._(
+  DocumentFilterProvider._(
       {required DocumentFilterFamily super.from,
       required Subcategory super.argument})
       : super(
@@ -64,7 +64,7 @@ final class DocumentFilterFamily extends $Family
     with
         $ClassFamilyOverride<DocumentFilter, DocumentFilterState,
             DocumentFilterState, DocumentFilterState, Subcategory> {
-  const DocumentFilterFamily._()
+  DocumentFilterFamily._()
       : super(
           retry: null,
           name: r'documentFilterProvider',
@@ -92,15 +92,16 @@ abstract class _$DocumentFilter extends $Notifier<DocumentFilterState> {
   @$mustCallSuper
   @override
   void runBuild() {
-    final created = build(
-      _$args,
-    );
     final ref = this.ref as $Ref<DocumentFilterState, DocumentFilterState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<DocumentFilterState, DocumentFilterState>,
         DocumentFilterState,
         Object?,
         Object?>;
-    element.handleValue(ref, created);
+    element.handleCreate(
+        ref,
+        () => build(
+              _$args,
+            ));
   }
 }

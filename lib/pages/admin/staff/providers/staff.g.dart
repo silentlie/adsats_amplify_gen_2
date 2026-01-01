@@ -10,12 +10,12 @@ part of 'staff.dart';
 // ignore_for_file: type=lint, type=warning
 
 @ProviderFor(staff)
-const staffProvider = StaffProvider._();
+final staffProvider = StaffProvider._();
 
 final class StaffProvider extends $FunctionalProvider<AsyncValue<List<Staff>>,
         List<Staff>, FutureOr<List<Staff>>>
     with $FutureModifier<List<Staff>>, $FutureProvider<List<Staff>> {
-  const StaffProvider._()
+  StaffProvider._()
       : super(
           from: null,
           argument: null,
