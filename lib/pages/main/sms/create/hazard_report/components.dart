@@ -7,6 +7,7 @@ import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'risk_mixin.dart';
 
 class MitigateCommentWidget extends ConsumerWidget {
   const MitigateCommentWidget({super.key});
@@ -68,7 +69,7 @@ class MitigateCommentWidget extends ConsumerWidget {
   }
 }
 
-class RiskWidget extends ConsumerWidget {
+class RiskWidget extends ConsumerWidget with RiskMixin {
   const RiskWidget({super.key});
 
   final List<Map<String, dynamic>> likelihoodOfOccurrence = const [
@@ -334,32 +335,6 @@ class RiskWidget extends ConsumerWidget {
       ],
     );
   }
-
-  Color getRiskColor(int likelihood, int severity) {
-    final risk = likelihood + severity;
-    if (likelihood == 0 && likelihood == 3) {
-      return Colors.green;
-    } else if (risk < 3) {
-      return Colors.green;
-    } else if (risk < 6) {
-      return Colors.amber;
-    } else {
-      return Colors.red;
-    }
-  }
-
-  String getRiskText(int likelihood, int severity) {
-    final risk = likelihood + severity;
-    if (likelihood == 0 && severity == 3) {
-      return "Acceptable";
-    } else if (risk < 3) {
-      return "Acceptable";
-    } else if (risk < 6) {
-      return "Review";
-    } else {
-      return "Unacceptable";
-    }
-  }
 }
 
 class SafetyOfficersSection extends ConsumerWidget {
@@ -383,10 +358,9 @@ class SafetyOfficersSection extends ConsumerWidget {
     final details = ref.read(noticeFormProvider.select(
       (value) => value.details,
     ));
-    details.putIfAbsent(
-      "isConfidential",
-      () => false,
-    );
+    if (!details.containsKey("isConfidential")) {
+      notifier.updateDetails({"isConfidential": false});
+    }
     final recipients = ref.read(noticeFormProvider.select(
       (value) => value.recipients,
     ));
@@ -466,7 +440,7 @@ class SafetyOfficersSection extends ConsumerWidget {
                   ),
                   enabled: isEditMode,
                   requestFocusOnTap: false,
-                  initialSelection: details["review_likelihood"] ?? 0,
+                  initialSelection: details["reviewed_likelihood"] ?? 0,
                   expandedInsets: EdgeInsets.zero,
                   label: const Text("Reviewed likelihood"),
                   onSelected: (value) {
@@ -490,7 +464,7 @@ class SafetyOfficersSection extends ConsumerWidget {
                   ),
                   enabled: isEditMode,
                   requestFocusOnTap: false,
-                  initialSelection: details["review_severity"] ?? 0,
+                  initialSelection: details["reviewed_severity"] ?? 0,
                   expandedInsets: EdgeInsets.zero,
                   label: const Text("Reviewed severity"),
                   onSelected: (value) {

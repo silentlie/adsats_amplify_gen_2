@@ -16,7 +16,7 @@ final class ReportsProvider extends $FunctionalProvider<
         AsyncValue<List<Report>>, List<Report>, FutureOr<List<Report>>>
     with $FutureModifier<List<Report>>, $FutureProvider<List<Report>> {
   ReportsProvider._(
-      {required ReportsFamily super.from, required InboxOrSent super.argument})
+      {required ReportsFamily super.from, required Scope super.argument})
       : super(
           retry: null,
           name: r'reportsProvider',
@@ -43,7 +43,7 @@ final class ReportsProvider extends $FunctionalProvider<
 
   @override
   FutureOr<List<Report>> create(Ref ref) {
-    final argument = this.argument as InboxOrSent;
+    final argument = this.argument as Scope;
     return reports(
       ref,
       argument,
@@ -64,7 +64,7 @@ final class ReportsProvider extends $FunctionalProvider<
 String _$reportsHash() => r'7c8424734495868a1e42ebc5cb4e55930af9eb66';
 
 final class ReportsFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<List<Report>>, InboxOrSent> {
+    with $FunctionalFamilyOverride<FutureOr<List<Report>>, Scope> {
   ReportsFamily._()
       : super(
           retry: null,
@@ -75,7 +75,7 @@ final class ReportsFamily extends $Family
         );
 
   ReportsProvider call(
-    InboxOrSent type,
+    Scope type,
   ) =>
       ReportsProvider._(argument: type, from: this);
 

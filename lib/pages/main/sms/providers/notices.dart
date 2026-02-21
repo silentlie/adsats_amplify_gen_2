@@ -1,4 +1,4 @@
-import 'package:adsats_amplify_gen_2/helper/enum/inbox_or_sent.dart';
+import 'package:adsats_amplify_gen_2/helper/enum/scope.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/service.dart';
@@ -7,12 +7,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'notices.g.dart';
 
 @riverpod
-Future<List<Notice>> notices(Ref ref, InboxOrSent type) async {
+Future<List<Notice>> notices(Ref ref, Scope type) async {
   final filter = ref.watch(noticeFilterProvider);
   final filterJson = filter.toJson();
   final service = ref.read(noticeServiceProvider);
   switch (type) {
-    case InboxOrSent.inbox:
+    case Scope.inbox:
       final noticeIds = await service.listIdsForInbox(filter.user.id);
       if (noticeIds.isEmpty) return <Notice>[];
       filterJson['or'] = noticeIds
@@ -21,8 +21,11 @@ Future<List<Notice>> notices(Ref ref, InboxOrSent type) async {
               })
           .toList();
       break;
-    case InboxOrSent.sent:
+    case Scope.sent:
       filterJson['staffId'] = {'eq': filter.user.id};
+      break;
+    case Scope.all:
+      // no additional filter - return all notices matching base filter
       break;
   }
   final variables = {

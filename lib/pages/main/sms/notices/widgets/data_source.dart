@@ -1,13 +1,15 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/notice_details_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/widgets/actions.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:adsats_amplify_gen_2/pages/main/sms/create/hazard_report/risk_mixin.dart';
 
-class NoticeDataSource extends DataTableSource {
+class NoticeDataSource extends DataTableSource with RiskMixin {
   NoticeDataSource({
     required this.sortedData,
     required this.context,
@@ -23,6 +25,23 @@ class NoticeDataSource extends DataTableSource {
 
   @override
   int get selectedRowCount => 0;
+
+  Widget getRisk(Notice notice) {
+    if (notice.type != NoticeType.Hazard_report) return SizedBox();
+    final likelihood = notice.likelihood!;
+    final severity = notice.severity!;
+    return Container(
+      width: 100,
+      height: 20,
+      decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.circular(20),
+          color: getRiskColor(likelihood, severity)),
+      child: Center(
+        child: Text(getRiskText(likelihood, severity)),
+      ),
+    );
+  }
 
   @override
   DataRow2 getRow(int index) {
@@ -53,6 +72,11 @@ class NoticeDataSource extends DataTableSource {
                       .join(', ') ??
                   "")
               .centeredTextWidget(),
+        ),
+        DataCell(
+          Center(
+            child: getRisk(notice),
+          ),
         ),
         DataCell(
           Center(

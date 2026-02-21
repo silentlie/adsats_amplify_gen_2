@@ -16,7 +16,7 @@ final class NoticesProvider extends $FunctionalProvider<
         AsyncValue<List<Notice>>, List<Notice>, FutureOr<List<Notice>>>
     with $FutureModifier<List<Notice>>, $FutureProvider<List<Notice>> {
   NoticesProvider._(
-      {required NoticesFamily super.from, required InboxOrSent super.argument})
+      {required NoticesFamily super.from, required Scope super.argument})
       : super(
           retry: null,
           name: r'noticesProvider',
@@ -43,7 +43,7 @@ final class NoticesProvider extends $FunctionalProvider<
 
   @override
   FutureOr<List<Notice>> create(Ref ref) {
-    final argument = this.argument as InboxOrSent;
+    final argument = this.argument as Scope;
     return notices(
       ref,
       argument,
@@ -64,7 +64,7 @@ final class NoticesProvider extends $FunctionalProvider<
 String _$noticesHash() => r'9a393942e328be297efc0410e6a3bb624be0a5f1';
 
 final class NoticesFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<List<Notice>>, InboxOrSent> {
+    with $FunctionalFamilyOverride<FutureOr<List<Notice>>, Scope> {
   NoticesFamily._()
       : super(
           retry: null,
@@ -75,7 +75,7 @@ final class NoticesFamily extends $Family
         );
 
   NoticesProvider call(
-    InboxOrSent type,
+    Scope type,
   ) =>
       NoticesProvider._(argument: type, from: this);
 

@@ -26,7 +26,7 @@ class ReportActions extends ConsumerWidget with ConfirmDialogMixin {
       menuChildren: [
         IconButton(
           onPressed: () async {
-            ViewReportRoute(id: report.id).go(context);
+            ViewReportRoute(id: report.id).push(context);
           },
           icon: const Icon(Icons.remove_red_eye_outlined),
           tooltip: "View this notice",

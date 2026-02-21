@@ -1,6 +1,7 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/notice_details_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/sort.dart';
-import 'package:adsats_amplify_gen_2/models/Notice.dart';
+import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/widgets/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/widgets/header.dart';
 import 'package:collection/collection.dart';
@@ -77,6 +78,19 @@ class NoticeDataTable extends ConsumerWidget {
                   if (names.isEmpty) return null;
                   final count = names.length.toString().padLeft(6, '0');
                   return '$count\u0001${names.sorted().join('\u0001')}';
+                },
+              );
+            },
+          ),
+          DataColumn2(
+            label: "Risk".centeredTextWidget(),
+            fixedWidth: 100,
+            onSort: (columnIndex, ascending) {
+              sortNotifier.apply(
+                columnIndex: columnIndex,
+                sortAscending: ascending,
+                getField: (notice) {
+                  return notice.risk;
                 },
               );
             },

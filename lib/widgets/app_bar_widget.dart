@@ -32,26 +32,6 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _AppBarWidgetState extends State<AppBarWidget> {
-  late StreamController<DateTime> _timeController;
-  late Timer _timer;
-
-  @override
-  void initState() {
-    super.initState();
-    _timeController = StreamController<DateTime>.broadcast();
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_timeController.isClosed) return;
-      _timeController.add(DateTime.now().toUtc());
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer.cancel();
-    _timeController.close();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -72,7 +52,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             icon: const Icon(Icons.menu),
             onPressed: () {
               Scaffold.of(context).openEndDrawer();
-            },
+            }, 
           )
       ],
       primary: true,
@@ -82,41 +62,62 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   Widget title(BuildContext context) {
     final orientation = MediaQuery.orientationOf(context);
     final isLandscape = orientation == Orientation.landscape;
+    final titleText = isLandscape
+        ? "ADSATS - Aviation Document Storage and Tracking System"
+        : "ADSATS";
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          isLandscape
-              ? "ADSATS - Aviation Document Storage and Tracking System"
-              : "ADSATS",
-          style: const TextStyle(fontSize: 16),
-        ),
-        StreamBuilder<DateTime>(
-          stream: _timeController.stream,
-          initialData: DateTime.now().toUtc(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const SizedBox.shrink();
-            }
+    return StreamBuilder<DateTime>(
+      stream: Stream<DateTime>.periodic(
+        const Duration(seconds: 1),
+        (_) => DateTime.now().toUtc(),
+      ),
+      initialData: DateTime.now().toUtc(),
+      builder: (context, snapshot) {
+        final currentTime = snapshot.data ?? DateTime.now().toUtc();
 
-            final currentTime = snapshot.data!;
-            // Format: 15 MAY 2025 14:25:30 UTC
-            final day = currentTime.day.toString().padLeft(2, '0');
-            final month = _kMonths[currentTime.month - 1];
-            final year = currentTime.year;
-            final hour = currentTime.hour.toString().padLeft(2, '0');
-            final minute = currentTime.minute.toString().padLeft(2, '0');
-            final second = currentTime.second.toString().padLeft(2, '0');
-            final timeString = '$day $month $year $hour:$minute:$second UTC';
+        final day = currentTime.day.toString().padLeft(2, '0');
+        final month = _kMonths[currentTime.month - 1];
+        final year = currentTime.year;
+        final hour = currentTime.hour.toString().padLeft(2, '0');
+        final minute = currentTime.minute.toString().padLeft(2, '0');
+        final second = currentTime.second.toString().padLeft(2, '0');
 
-            return Text(
-              timeString,
-              style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w300),
-            );
-          },
-        ),
-      ],
+        final dateString = '$day $month $year';
+        final timeString = '$hour:$minute:$second UTC';
+
+        if (isLandscape) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(dateString),
+              ),
+              Expanded(
+                child: Center(
+                  child: Text(
+                    titleText,
+                    style: const TextStyle(fontSize: 16),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text(timeString),
+              ),
+            ],
+          );
+        }
+
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(titleText, style: const TextStyle(fontSize: 16)),
+            Text('$dateString $timeString'),
+          ],
+        );
+      },
     );
   }
 }

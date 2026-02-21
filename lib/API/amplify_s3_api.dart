@@ -34,16 +34,17 @@ class AmplifyS3API {
   }
 
   /// Moves the file to a 'delete' folder and sets a 30-day expiration instead of deleting immediately.
+  /// Not implement anymore, since we are using versioning now.
   Future<void> deleteFile(String s3Path) async {
-    final deleteFolder = 'delete/';
-    final fileName = s3Path.split('/').last;
-    final destinationS3Path = '$deleteFolder$fileName';
+    // final deleteFolder = 'delete/';
+    // final fileName = s3Path.split('/').last;
+    // final destinationS3Path = '$deleteFolder$fileName';
 
     // Move file to delete folder
-    await Amplify.Storage.copy(
-      source: StoragePath.fromString(s3Path),
-      destination: StoragePath.fromString(destinationS3Path),
-    ).result;
+    // await Amplify.Storage.copy(
+    //   source: StoragePath.fromString(s3Path),
+    //   destination: StoragePath.fromString(destinationS3Path),
+    // ).result;
 
     await Amplify.Storage.remove(
       path: StoragePath.fromString(s3Path),
