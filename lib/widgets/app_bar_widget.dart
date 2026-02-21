@@ -52,7 +52,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             icon: const Icon(Icons.menu),
             onPressed: () {
               Scaffold.of(context).openEndDrawer();
-            }, 
+            },
           )
       ],
       primary: true,
