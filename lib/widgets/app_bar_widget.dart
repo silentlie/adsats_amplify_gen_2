@@ -97,7 +97,6 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                 child: Center(
                   child: Text(
                     titleText,
-                    style: const TextStyle(fontSize: 16),
                     textAlign: TextAlign.center,
                   ),
                 ),
