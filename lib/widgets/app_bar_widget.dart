@@ -91,7 +91,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(dateString),
+                child: Text(dateString, style: const TextStyle(fontSize: 16)),
               ),
               Expanded(
                 child: Center(
@@ -103,7 +103,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text(timeString),
+                child: Text(timeString, style: const TextStyle(fontSize: 16)),
               ),
             ],
           );
@@ -112,8 +112,8 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(titleText, style: const TextStyle(fontSize: 16)),
-            Text('$dateString $timeString'),
+            Text(titleText),
+            Text('$dateString $timeString', style: const TextStyle(fontSize: 16)),
           ],
         );
       },
