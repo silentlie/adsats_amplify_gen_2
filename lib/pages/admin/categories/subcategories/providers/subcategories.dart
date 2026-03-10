@@ -11,5 +11,6 @@ Future<Category> subcategories(Ref ref, String categoryId) async {
   final service = ref.read(subcategoriesServiceProvider);
   return service.list(variables: {
     'filter': filter,
+    'id': categoryId,
   });
 }

@@ -18,44 +18,46 @@ class ProfileHomePage extends ConsumerWidget {
       child: Container(
         constraints: BoxConstraints(maxWidth: 1536),
         child: Card(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                child: const Text(
-                  'Profile',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  child: const Text(
+                    'Profile',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
                 ),
-              ),
-              ListTile(
-                title: const Text('User ID'),
-                subtitle: Text(userDetails.id),
-              ),
-              ListTile(
-                title: const Text('First Name'),
-                subtitle: Text(userDetails.firstName),
-              ),
-              ListTile(
-                title: const Text('Last Name'),
-                subtitle: Text(userDetails.lastName),
-              ),
-              ListTile(
-                title: const Text('Email'),
-                subtitle: Text(userDetails.email),
-              ),
-              ListTile(
-                title: const Text('Aircraft'),
-                subtitle:
-                    Text(userDetails.aircraft?.joinAircraftNames() ?? 'Nil'),
-              ),
-              for (final subcategory
-                  in userDetails.subcategories ?? <StaffSubcategory>[])
                 ListTile(
-                  title: Text('Folder ${subcategory.subcategory!.name}'),
-                  subtitle: Text(accessLevel(subcategory.accessLevel)),
+                  title: const Text('User ID'),
+                  subtitle: Text(userDetails.id),
                 ),
-            ],
+                ListTile(
+                  title: const Text('First Name'),
+                  subtitle: Text(userDetails.firstName),
+                ),
+                ListTile(
+                  title: const Text('Last Name'),
+                  subtitle: Text(userDetails.lastName),
+                ),
+                ListTile(
+                  title: const Text('Email'),
+                  subtitle: Text(userDetails.email),
+                ),
+                ListTile(
+                  title: const Text('Aircraft'),
+                  subtitle:
+                      Text(userDetails.aircraft?.joinAircraftNames() ?? 'Nil'),
+                ),
+                for (final subcategory
+                    in userDetails.subcategories ?? <StaffSubcategory>[])
+                  ListTile(
+                    title: Text('Folder ${subcategory.subcategory!.name}'),
+                    subtitle: Text(accessLevel(subcategory.accessLevel)),
+                  ),
+              ],
+            ),
           ),
         ),
       ),
