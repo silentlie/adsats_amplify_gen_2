@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/constants/durations.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
@@ -72,9 +73,7 @@ class ReportBasicDetails extends ConsumerWidget {
           },
           enabled: isEditMode,
           initialValue: report.reportedAt,
-          firstDate: DateTime.now().subtract(
-            const Duration(days: 365 * 10),
-          ),
+          firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
           lastDate: DateTime.now(),
         ),
         Row(

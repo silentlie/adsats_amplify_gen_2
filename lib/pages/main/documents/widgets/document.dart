@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/constants/durations.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
@@ -98,12 +99,8 @@ class EditDocumentView extends ConsumerWidget with ConfirmDialogMixin {
             ),
             DatePickerWidget(
               text: "Issue Date",
-              firstDate: DateTime.now().subtract(
-                const Duration(days: 365 * 10),
-              ),
-              lastDate: DateTime.now().add(
-                const Duration(days: 365 * 10),
-              ),
+              firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
+              lastDate: DateTime.now().add(kTwentyFiveYearDuration),
               onSelected: (value) {
                 document = document.copyWith(issuedAt: value);
               },
@@ -111,12 +108,8 @@ class EditDocumentView extends ConsumerWidget with ConfirmDialogMixin {
             ),
             DatePickerWidget(
               text: "Expired date",
-              firstDate: DateTime.now().subtract(
-                const Duration(days: 365 * 10),
-              ),
-              lastDate: DateTime.now().add(
-                const Duration(days: 365 * 10),
-              ),
+              firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
+              lastDate: DateTime.now().add(kTwentyFiveYearDuration),
               onSelected: (value) {
                 document = document.copyWith(expiredAt: value);
               },

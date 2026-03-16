@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/constants/durations.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/filter.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_range_picker.dart';
@@ -52,12 +53,8 @@ class FlightCrewRecordFilterView extends ConsumerWidget {
                 filter = filter.copyWith(issuedAt: value);
               },
               initialDateRange: filter.issuedAt,
-              firstDate: DateTime.now().subtract(
-                const Duration(days: 365 * 10),
-              ),
-              lastDate: DateTime.now().add(
-                const Duration(days: 365 * 10),
-              ),
+              firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
+              lastDate: DateTime.now().add(kTwentyFiveYearDuration),
             ),
           ),
           Container(
@@ -68,12 +65,8 @@ class FlightCrewRecordFilterView extends ConsumerWidget {
                 filter = filter.copyWith(expiredAt: value);
               },
               initialDateRange: filter.expiredAt,
-              firstDate: DateTime.now().subtract(
-                const Duration(days: 365 * 10),
-              ),
-              lastDate: DateTime.now().add(
-                const Duration(days: 365 * 10),
-              ),
+              firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
+              lastDate: DateTime.now().add(kTwentyFiveYearDuration),
             ),
           ),
         ],

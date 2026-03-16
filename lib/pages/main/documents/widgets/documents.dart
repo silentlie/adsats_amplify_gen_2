@@ -93,7 +93,7 @@ class DocumentsView extends ConsumerWidget with CompareMixin {
                     columnIndex: columnIndex,
                     sortAscending: ascending,
                     getField: (document) {
-                      return document.updatedAt;
+                      return document.expiredAt;
                     },
                   );
                 },

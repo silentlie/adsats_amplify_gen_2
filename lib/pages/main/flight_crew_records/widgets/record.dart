@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/constants/durations.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/records.dart';
@@ -54,12 +55,8 @@ class EditFlightCrewRecordView extends ConsumerWidget with ConfirmDialogMixin {
             ),
             DatePickerWidget(
               text: "Issue Date",
-              firstDate: DateTime.now().subtract(
-                const Duration(days: 365 * 10),
-              ),
-              lastDate: DateTime.now().add(
-                const Duration(days: 365 * 10),
-              ),
+              firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
+              lastDate: DateTime.now().add(kTwentyFiveYearDuration),
               onSelected: (value) {
                 record = record.copyWith(issuedAt: value);
               },
@@ -67,12 +64,8 @@ class EditFlightCrewRecordView extends ConsumerWidget with ConfirmDialogMixin {
             ),
             DatePickerWidget(
               text: "Expired date",
-              firstDate: DateTime.now().subtract(
-                const Duration(days: 365 * 10),
-              ),
-              lastDate: DateTime.now().add(
-                const Duration(days: 365 * 10),
-              ),
+              firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
+              lastDate: DateTime.now().add(kTwentyFiveYearDuration),
               onSelected: (value) {
                 record = record.copyWith(expiredAt: value);
               },

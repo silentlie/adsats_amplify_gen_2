@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:adsats_amplify_gen_2/constants/durations.dart';
 
 class NewDocumentView extends ConsumerStatefulWidget {
   const NewDocumentView({
@@ -138,24 +139,16 @@ class _NewDocumentViewState extends ConsumerState<NewDocumentView>
                 ),
                 DatePickerWidget(
                   text: "Issue Date",
-                  firstDate: DateTime.now().subtract(
-                    const Duration(days: 365 * 10),
-                  ),
-                  lastDate: DateTime.now().add(
-                    const Duration(days: 365 * 10),
-                  ),
+                  firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
+                  lastDate: DateTime.now().add(kTwentyFiveYearDuration),
                   onSelected: (value) {
                     issuedAt = value;
                   },
                 ),
                 DatePickerWidget(
                   text: "Expired date",
-                  firstDate: DateTime.now().subtract(
-                    const Duration(days: 365 * 10),
-                  ),
-                  lastDate: DateTime.now().add(
-                    const Duration(days: 365 * 10),
-                  ),
+                  firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
+                  lastDate: DateTime.now().add(kTwentyFiveYearDuration),
                   onSelected: (value) {
                     expiredAt = value;
                   },

@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/constants/durations.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
@@ -86,9 +87,7 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
                 },
                 enabled: isEditMode,
                 initialValue: notice.noticedAt,
-                firstDate: DateTime.now().subtract(
-                  const Duration(days: 365 * 10),
-                ),
+                firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
                 lastDate: DateTime.now(),
               ),
             ),
@@ -101,9 +100,7 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
                 enabled: isEditMode,
                 initialValue: notice.deadlineAt,
                 firstDate: DateTime.now(),
-                lastDate: DateTime.now().add(
-                  const Duration(days: 365 * 10),
-                ),
+                lastDate: DateTime.now().add(kTwentyFiveYearDuration),
               ),
             ),
           ],

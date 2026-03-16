@@ -76,6 +76,7 @@ class SessionManager extends _$SessionManager {
   }
 
   void markUserActive() {
+    print(_isActive);
     if (!_isActive) {
       _startHeartbeat().catchError((_) => _stopHeartbeat());
     }

@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/constants/durations.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -143,12 +144,8 @@ class ComplianceManagerSection extends ConsumerWidget {
               Flexible(
                 child: DatePickerWidget(
                   text: "Closed date",
-                  firstDate: DateTime.now().subtract(
-                    const Duration(days: 365 * 10),
-                  ),
-                  lastDate: DateTime.now().add(
-                    const Duration(days: 365 * 10),
-                  ),
+                  firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
+                  lastDate: DateTime.now().add(kTwentyFiveYearDuration),
                   onSelected: (value) {
                     notifier.updateReport(closeDate: value);
                   },

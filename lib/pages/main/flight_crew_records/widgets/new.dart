@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/constants/durations.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -70,24 +71,16 @@ class _NewFlightCrewRecordState extends ConsumerState<NewFlightCrewRecord>
                 ),
                 DatePickerWidget(
                   text: "Issue Date",
-                  firstDate: DateTime.now().subtract(
-                    const Duration(days: 365 * 10),
-                  ),
-                  lastDate: DateTime.now().add(
-                    const Duration(days: 365 * 10),
-                  ),
+                  firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
+                  lastDate: DateTime.now().add(kTwentyFiveYearDuration),
                   onSelected: (value) {
                     issuedAt = value;
                   },
                 ),
                 DatePickerWidget(
                   text: "Expired date",
-                  firstDate: DateTime.now().subtract(
-                    const Duration(days: 365 * 10),
-                  ),
-                  lastDate: DateTime.now().add(
-                    const Duration(days: 365 * 10),
-                  ),
+                  firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
+                  lastDate: DateTime.now().add(kTwentyFiveYearDuration),
                   onSelected: (value) {
                     expiredAt = value;
                   },
