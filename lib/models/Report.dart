@@ -251,28 +251,28 @@ class Report extends amplify_core.Model {
         (_status != null ? amplify_core.enumToString(_status)! : "null") +
         ", ");
     buffer.write("archived=" +
-        (_archived != null ? _archived.toString() : "null") +
+        (_archived != null ? _archived!.toString() : "null") +
         ", ");
     buffer.write("details=" + "$_details" + ", ");
     buffer.write(
-        "auditor=" + (_auditor != null ? _auditor.toString() : "null") + ", ");
+        "auditor=" + (_auditor != null ? _auditor!.toString() : "null") + ", ");
     buffer.write("reportedAt=" +
-        (_reportedAt != null ? _reportedAt.format() : "null") +
+        (_reportedAt != null ? _reportedAt!.format() : "null") +
         ", ");
     buffer.write("discrepanciesFound=" +
         (_discrepanciesFound != null
-            ? _discrepanciesFound.toString()
+            ? _discrepanciesFound!.toString()
             : "null") +
         ", ");
     buffer.write(
-        "closer=" + (_closer != null ? _closer.toString() : "null") + ", ");
+        "closer=" + (_closer != null ? _closer!.toString() : "null") + ", ");
     buffer.write(
-        "closeAt=" + (_closeAt != null ? _closeAt.format() : "null") + ", ");
+        "closeAt=" + (_closeAt != null ? _closeAt!.format() : "null") + ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();

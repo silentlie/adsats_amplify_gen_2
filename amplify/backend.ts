@@ -2,11 +2,13 @@ import { defineBackend } from "@aws-amplify/backend";
 import { auth } from "./auth/resource";
 import { data } from "./data/resource";
 import { storage } from "./storage/resource";
+import { runReminderDispatch } from "./data/run-reminder-dispatch/resource";
 
 const backend = defineBackend({
   auth,
   data,
   storage,
+  runReminderDispatch,
 });
 
 // extract L1 CfnUserPool resources

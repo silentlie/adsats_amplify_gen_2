@@ -22,11 +22,12 @@
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-/** This is an auto generated class representing the AircraftDocument type in your schema. */
-class AircraftDocument extends amplify_core.Model {
-  static const classType = const _AircraftDocumentModelType();
-  final String id;
-  final Aircraft? _aircraft;
+/** This is an auto generated class representing the ReminderDocument type in your schema. */
+class ReminderDocument extends amplify_core.Model {
+  static const classType = const _ReminderDocumentModelType();
+  final String? _reminderId;
+  final String? _documentId;
+  final Reminder? _reminder;
   final Document? _document;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
@@ -37,14 +38,50 @@ class AircraftDocument extends amplify_core.Model {
   @Deprecated(
       '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() => id;
+  String getId() => modelIdentifier.serializeAsString();
 
-  AircraftDocumentModelIdentifier get modelIdentifier {
-    return AircraftDocumentModelIdentifier(id: id);
+  ReminderDocumentModelIdentifier get modelIdentifier {
+    try {
+      return ReminderDocumentModelIdentifier(
+          reminderId: _reminderId!, documentId: _documentId!);
+    } catch (e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
-  Aircraft? get aircraft {
-    return _aircraft;
+  String get reminderId {
+    try {
+      return _reminderId!;
+    } catch (e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  String get documentId {
+    try {
+      return _documentId!;
+    } catch (e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  Reminder? get reminder {
+    return _reminder;
   }
 
   Document? get document {
@@ -59,18 +96,29 @@ class AircraftDocument extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const AircraftDocument._internal(
-      {required this.id, aircraft, document, createdAt, updatedAt})
-      : _aircraft = aircraft,
+  const ReminderDocument._internal(
+      {required reminderId,
+      required documentId,
+      reminder,
+      document,
+      createdAt,
+      updatedAt})
+      : _reminderId = reminderId,
+        _documentId = documentId,
+        _reminder = reminder,
         _document = document,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory AircraftDocument(
-      {String? id, Aircraft? aircraft, Document? document}) {
-    return AircraftDocument._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        aircraft: aircraft,
+  factory ReminderDocument(
+      {required String reminderId,
+      required String documentId,
+      Reminder? reminder,
+      Document? document}) {
+    return ReminderDocument._internal(
+        reminderId: reminderId,
+        documentId: documentId,
+        reminder: reminder,
         document: document);
   }
 
@@ -81,9 +129,10 @@ class AircraftDocument extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is AircraftDocument &&
-        id == other.id &&
-        _aircraft == other._aircraft &&
+    return other is ReminderDocument &&
+        _reminderId == other._reminderId &&
+        _documentId == other._documentId &&
+        _reminder == other._reminder &&
         _document == other._document;
   }
 
@@ -94,10 +143,11 @@ class AircraftDocument extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("AircraftDocument {");
-    buffer.write("id=" + "$id" + ", ");
-    buffer.write("aircraft=" +
-        (_aircraft != null ? _aircraft!.toString() : "null") +
+    buffer.write("ReminderDocument {");
+    buffer.write("reminderId=" + "$_reminderId" + ", ");
+    buffer.write("documentId=" + "$_documentId" + ", ");
+    buffer.write("reminder=" +
+        (_reminder != null ? _reminder!.toString() : "null") +
         ", ");
     buffer.write("document=" +
         (_document != null ? _document!.toString() : "null") +
@@ -112,30 +162,33 @@ class AircraftDocument extends amplify_core.Model {
     return buffer.toString();
   }
 
-  AircraftDocument copyWith({Aircraft? aircraft, Document? document}) {
-    return AircraftDocument._internal(
-        id: id,
-        aircraft: aircraft ?? this.aircraft,
+  ReminderDocument copyWith({Reminder? reminder, Document? document}) {
+    return ReminderDocument._internal(
+        reminderId: reminderId,
+        documentId: documentId,
+        reminder: reminder ?? this.reminder,
         document: document ?? this.document);
   }
 
-  AircraftDocument copyWithModelFieldValues(
-      {ModelFieldValue<Aircraft?>? aircraft,
+  ReminderDocument copyWithModelFieldValues(
+      {ModelFieldValue<Reminder?>? reminder,
       ModelFieldValue<Document?>? document}) {
-    return AircraftDocument._internal(
-        id: id,
-        aircraft: aircraft == null ? this.aircraft : aircraft.value,
+    return ReminderDocument._internal(
+        reminderId: reminderId,
+        documentId: documentId,
+        reminder: reminder == null ? this.reminder : reminder.value,
         document: document == null ? this.document : document.value);
   }
 
-  AircraftDocument.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _aircraft = json['aircraft'] != null
-            ? json['aircraft']['serializedData'] != null
-                ? Aircraft.fromJson(new Map<String, dynamic>.from(
-                    json['aircraft']['serializedData']))
-                : Aircraft.fromJson(
-                    new Map<String, dynamic>.from(json['aircraft']))
+  ReminderDocument.fromJson(Map<String, dynamic> json)
+      : _reminderId = json['reminderId'],
+        _documentId = json['documentId'],
+        _reminder = json['reminder'] != null
+            ? json['reminder']['serializedData'] != null
+                ? Reminder.fromJson(new Map<String, dynamic>.from(
+                    json['reminder']['serializedData']))
+                : Reminder.fromJson(
+                    new Map<String, dynamic>.from(json['reminder']))
             : null,
         _document = json['document'] != null
             ? json['document']['serializedData'] != null
@@ -152,30 +205,33 @@ class AircraftDocument extends amplify_core.Model {
             : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'aircraft': _aircraft?.toJson(),
+        'reminderId': _reminderId,
+        'documentId': _documentId,
+        'reminder': _reminder?.toJson(),
         'document': _document?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'aircraft': _aircraft,
+        'reminderId': _reminderId,
+        'documentId': _documentId,
+        'reminder': _reminder,
         'document': _document,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
 
   static final amplify_core
-      .QueryModelIdentifier<AircraftDocumentModelIdentifier> MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<AircraftDocumentModelIdentifier>();
-  static final ID = amplify_core.QueryField(fieldName: "id");
-  static final AIRCRAFT = amplify_core.QueryField(
-      fieldName: "aircraft",
+      .QueryModelIdentifier<ReminderDocumentModelIdentifier> MODEL_IDENTIFIER =
+      amplify_core.QueryModelIdentifier<ReminderDocumentModelIdentifier>();
+  static final REMINDERID = amplify_core.QueryField(fieldName: "reminderId");
+  static final DOCUMENTID = amplify_core.QueryField(fieldName: "documentId");
+  static final REMINDER = amplify_core.QueryField(
+      fieldName: "reminder",
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Aircraft'));
+          ofModelName: 'Reminder'));
   static final DOCUMENT = amplify_core.QueryField(
       fieldName: "document",
       fieldType: amplify_core.ModelFieldType(
@@ -183,8 +239,8 @@ class AircraftDocument extends amplify_core.Model {
           ofModelName: 'Document'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "AircraftDocument";
-    modelSchemaDefinition.pluralName = "AircraftDocuments";
+    modelSchemaDefinition.name = "ReminderDocument";
+    modelSchemaDefinition.pluralName = "ReminderDocuments";
 
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
@@ -197,16 +253,31 @@ class AircraftDocument extends amplify_core.Model {
           ])
     ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+    modelSchemaDefinition.indexes = [
+      amplify_core.ModelIndex(
+          fields: const ["reminderId", "documentId"], name: null)
+    ];
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+        key: ReminderDocument.REMINDERID,
+        isRequired: true,
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+        key: ReminderDocument.DOCUMENTID,
+        isRequired: true,
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: AircraftDocument.AIRCRAFT,
+        key: ReminderDocument.REMINDER,
         isRequired: false,
-        targetNames: ['aircraftId'],
-        ofModelName: 'Aircraft'));
+        targetNames: ['reminderId'],
+        ofModelName: 'Reminder'));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: AircraftDocument.DOCUMENT,
+        key: ReminderDocument.DOCUMENT,
         isRequired: false,
         targetNames: ['documentId'],
         ofModelName: 'Document'));
@@ -229,34 +300,40 @@ class AircraftDocument extends amplify_core.Model {
   });
 }
 
-class _AircraftDocumentModelType
-    extends amplify_core.ModelType<AircraftDocument> {
-  const _AircraftDocumentModelType();
+class _ReminderDocumentModelType
+    extends amplify_core.ModelType<ReminderDocument> {
+  const _ReminderDocumentModelType();
 
   @override
-  AircraftDocument fromJson(Map<String, dynamic> jsonData) {
-    return AircraftDocument.fromJson(jsonData);
+  ReminderDocument fromJson(Map<String, dynamic> jsonData) {
+    return ReminderDocument.fromJson(jsonData);
   }
 
   @override
   String modelName() {
-    return 'AircraftDocument';
+    return 'ReminderDocument';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [AircraftDocument] in your schema.
+ * of [ReminderDocument] in your schema.
  */
-class AircraftDocumentModelIdentifier
-    implements amplify_core.ModelIdentifier<AircraftDocument> {
-  final String id;
+class ReminderDocumentModelIdentifier
+    implements amplify_core.ModelIdentifier<ReminderDocument> {
+  final String reminderId;
+  final String documentId;
 
-  /** Create an instance of AircraftDocumentModelIdentifier using [id] the primary key. */
-  const AircraftDocumentModelIdentifier({required this.id});
+  /**
+   * Create an instance of ReminderDocumentModelIdentifier using [reminderId] the primary key.
+   * And [documentId] the sort key.
+   */
+  const ReminderDocumentModelIdentifier(
+      {required this.reminderId, required this.documentId});
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'reminderId': reminderId, 'documentId': documentId});
 
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
@@ -268,7 +345,8 @@ class AircraftDocumentModelIdentifier
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'AircraftDocumentModelIdentifier(id: $id)';
+  String toString() =>
+      'ReminderDocumentModelIdentifier(reminderId: $reminderId, documentId: $documentId)';
 
   @override
   bool operator ==(Object other) {
@@ -276,9 +354,11 @@ class AircraftDocumentModelIdentifier
       return true;
     }
 
-    return other is AircraftDocumentModelIdentifier && id == other.id;
+    return other is ReminderDocumentModelIdentifier &&
+        reminderId == other.reminderId &&
+        documentId == other.documentId;
   }
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => reminderId.hashCode ^ documentId.hashCode;
 }

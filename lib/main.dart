@@ -11,6 +11,7 @@ import 'package:go_router/go_router.dart';
 //* npx ampx generate outputs --branch dev --app-id <app-id> --format dart --out-dir lib
 import 'amplify_outputs.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+
 //* npx ampx generate graphql-client-code --format modelgen --model-target dart --out lib/models --branch dev --app-id <app-id>
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

@@ -234,22 +234,22 @@ class Notice extends amplify_core.Model {
         (_status != null ? amplify_core.enumToString(_status)! : "null") +
         ", ");
     buffer.write("archived=" +
-        (_archived != null ? _archived.toString() : "null") +
+        (_archived != null ? _archived!.toString() : "null") +
         ", ");
     buffer.write("details=" + "$_details" + ", ");
     buffer.write("noticedAt=" +
-        (_noticedAt != null ? _noticedAt.format() : "null") +
+        (_noticedAt != null ? _noticedAt!.format() : "null") +
         ", ");
     buffer.write("deadlineAt=" +
-        (_deadlineAt != null ? _deadlineAt.format() : "null") +
+        (_deadlineAt != null ? _deadlineAt!.format() : "null") +
         ", ");
     buffer.write(
-        "author=" + (_author != null ? _author.toString() : "null") + ", ");
+        "author=" + (_author != null ? _author!.toString() : "null") + ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();

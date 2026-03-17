@@ -21,15 +21,15 @@
 
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
+import 'package:collection/collection.dart';
 
-/** This is an auto generated class representing the NoticeStaff type in your schema. */
-class NoticeStaff extends amplify_core.Model {
-  static const classType = const _NoticeStaffModelType();
+/** This is an auto generated class representing the Reminder type in your schema. */
+class Reminder extends amplify_core.Model {
+  static const classType = const _ReminderModelType();
   final String id;
-  final amplify_core.TemporalDateTime? _readAt;
-  final Notice? _notice;
-  final Staff? _staff;
-  final bool? _isRead;
+  final amplify_core.TemporalDateTime? _date;
+  final List<ReminderStaff>? _staff;
+  final List<ReminderDocument>? _documents;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -41,25 +41,13 @@ class NoticeStaff extends amplify_core.Model {
   @override
   String getId() => id;
 
-  NoticeStaffModelIdentifier get modelIdentifier {
-    return NoticeStaffModelIdentifier(id: id);
+  ReminderModelIdentifier get modelIdentifier {
+    return ReminderModelIdentifier(id: id);
   }
 
-  amplify_core.TemporalDateTime? get readAt {
-    return _readAt;
-  }
-
-  Notice? get notice {
-    return _notice;
-  }
-
-  Staff? get staff {
-    return _staff;
-  }
-
-  bool get isRead {
+  amplify_core.TemporalDateTime get date {
     try {
-      return _isRead!;
+      return _date!;
     } catch (e) {
       throw amplify_core.AmplifyCodeGenModelException(
           amplify_core.AmplifyExceptionMessages
@@ -70,6 +58,14 @@ class NoticeStaff extends amplify_core.Model {
     }
   }
 
+  List<ReminderStaff>? get staff {
+    return _staff;
+  }
+
+  List<ReminderDocument>? get documents {
+    return _documents;
+  }
+
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -78,33 +74,26 @@ class NoticeStaff extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const NoticeStaff._internal(
-      {required this.id,
-      readAt,
-      notice,
-      staff,
-      required isRead,
-      createdAt,
-      updatedAt})
-      : _readAt = readAt,
-        _notice = notice,
+  const Reminder._internal(
+      {required this.id, required date, staff, documents, createdAt, updatedAt})
+      : _date = date,
         _staff = staff,
-        _isRead = isRead,
+        _documents = documents,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory NoticeStaff(
+  factory Reminder(
       {String? id,
-      amplify_core.TemporalDateTime? readAt,
-      Notice? notice,
-      Staff? staff,
-      required bool isRead}) {
-    return NoticeStaff._internal(
+      required amplify_core.TemporalDateTime date,
+      List<ReminderStaff>? staff,
+      List<ReminderDocument>? documents}) {
+    return Reminder._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
-        readAt: readAt,
-        notice: notice,
-        staff: staff,
-        isRead: isRead);
+        date: date,
+        staff: staff != null ? List<ReminderStaff>.unmodifiable(staff) : staff,
+        documents: documents != null
+            ? List<ReminderDocument>.unmodifiable(documents)
+            : documents);
   }
 
   bool equals(Object other) {
@@ -114,12 +103,11 @@ class NoticeStaff extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is NoticeStaff &&
+    return other is Reminder &&
         id == other.id &&
-        _readAt == other._readAt &&
-        _notice == other._notice &&
-        _staff == other._staff &&
-        _isRead == other._isRead;
+        _date == other._date &&
+        DeepCollectionEquality().equals(_staff, other._staff) &&
+        DeepCollectionEquality().equals(_documents, other._documents);
   }
 
   @override
@@ -129,16 +117,9 @@ class NoticeStaff extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("NoticeStaff {");
+    buffer.write("Reminder {");
     buffer.write("id=" + "$id" + ", ");
-    buffer.write(
-        "readAt=" + (_readAt != null ? _readAt!.format() : "null") + ", ");
-    buffer.write(
-        "notice=" + (_notice != null ? _notice!.toString() : "null") + ", ");
-    buffer.write(
-        "staff=" + (_staff != null ? _staff!.toString() : "null") + ", ");
-    buffer.write(
-        "isRead=" + (_isRead != null ? _isRead!.toString() : "null") + ", ");
+    buffer.write("date=" + (_date != null ? _date!.format() : "null") + ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -149,50 +130,63 @@ class NoticeStaff extends amplify_core.Model {
     return buffer.toString();
   }
 
-  NoticeStaff copyWith(
-      {amplify_core.TemporalDateTime? readAt,
-      Notice? notice,
-      Staff? staff,
-      bool? isRead}) {
-    return NoticeStaff._internal(
+  Reminder copyWith(
+      {amplify_core.TemporalDateTime? date,
+      List<ReminderStaff>? staff,
+      List<ReminderDocument>? documents}) {
+    return Reminder._internal(
         id: id,
-        readAt: readAt ?? this.readAt,
-        notice: notice ?? this.notice,
+        date: date ?? this.date,
         staff: staff ?? this.staff,
-        isRead: isRead ?? this.isRead);
+        documents: documents ?? this.documents);
   }
 
-  NoticeStaff copyWithModelFieldValues(
-      {ModelFieldValue<amplify_core.TemporalDateTime?>? readAt,
-      ModelFieldValue<Notice?>? notice,
-      ModelFieldValue<Staff?>? staff,
-      ModelFieldValue<bool>? isRead}) {
-    return NoticeStaff._internal(
+  Reminder copyWithModelFieldValues(
+      {ModelFieldValue<amplify_core.TemporalDateTime>? date,
+      ModelFieldValue<List<ReminderStaff>?>? staff,
+      ModelFieldValue<List<ReminderDocument>?>? documents}) {
+    return Reminder._internal(
         id: id,
-        readAt: readAt == null ? this.readAt : readAt.value,
-        notice: notice == null ? this.notice : notice.value,
+        date: date == null ? this.date : date.value,
         staff: staff == null ? this.staff : staff.value,
-        isRead: isRead == null ? this.isRead : isRead.value);
+        documents: documents == null ? this.documents : documents.value);
   }
 
-  NoticeStaff.fromJson(Map<String, dynamic> json)
+  Reminder.fromJson(Map<String, dynamic> json)
       : id = json['id'],
-        _readAt = json['readAt'] != null
-            ? amplify_core.TemporalDateTime.fromString(json['readAt'])
+        _date = json['date'] != null
+            ? amplify_core.TemporalDateTime.fromString(json['date'])
             : null,
-        _notice = json['notice'] != null
-            ? json['notice']['serializedData'] != null
-                ? Notice.fromJson(new Map<String, dynamic>.from(
-                    json['notice']['serializedData']))
-                : Notice.fromJson(new Map<String, dynamic>.from(json['notice']))
-            : null,
-        _staff = json['staff'] != null
-            ? json['staff']['serializedData'] != null
-                ? Staff.fromJson(new Map<String, dynamic>.from(
-                    json['staff']['serializedData']))
-                : Staff.fromJson(new Map<String, dynamic>.from(json['staff']))
-            : null,
-        _isRead = json['isRead'],
+        _staff = json['staff'] is Map
+            ? (json['staff']['items'] is List
+                ? (json['staff']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => ReminderStaff.fromJson(
+                        new Map<String, dynamic>.from(e)))
+                    .toList()
+                : null)
+            : (json['staff'] is List
+                ? (json['staff'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => ReminderStaff.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
+                : null),
+        _documents = json['documents'] is Map
+            ? (json['documents']['items'] is List
+                ? (json['documents']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => ReminderDocument.fromJson(
+                        new Map<String, dynamic>.from(e)))
+                    .toList()
+                : null)
+            : (json['documents'] is List
+                ? (json['documents'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => ReminderDocument.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
+                : null),
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -202,44 +196,42 @@ class NoticeStaff extends amplify_core.Model {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'readAt': _readAt?.format(),
-        'notice': _notice?.toJson(),
-        'staff': _staff?.toJson(),
-        'isRead': _isRead,
+        'date': _date?.format(),
+        'staff': _staff?.map((ReminderStaff? e) => e?.toJson()).toList(),
+        'documents':
+            _documents?.map((ReminderDocument? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
   Map<String, Object?> toMap() => {
         'id': id,
-        'readAt': _readAt,
-        'notice': _notice,
+        'date': _date,
         'staff': _staff,
-        'isRead': _isRead,
+        'documents': _documents,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
 
-  static final amplify_core.QueryModelIdentifier<NoticeStaffModelIdentifier>
+  static final amplify_core.QueryModelIdentifier<ReminderModelIdentifier>
       MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<NoticeStaffModelIdentifier>();
+      amplify_core.QueryModelIdentifier<ReminderModelIdentifier>();
   static final ID = amplify_core.QueryField(fieldName: "id");
-  static final READAT = amplify_core.QueryField(fieldName: "readAt");
-  static final NOTICE = amplify_core.QueryField(
-      fieldName: "notice",
-      fieldType: amplify_core.ModelFieldType(
-          amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Notice'));
+  static final DATE = amplify_core.QueryField(fieldName: "date");
   static final STAFF = amplify_core.QueryField(
       fieldName: "staff",
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Staff'));
-  static final ISREAD = amplify_core.QueryField(fieldName: "isRead");
+          ofModelName: 'ReminderStaff'));
+  static final DOCUMENTS = amplify_core.QueryField(
+      fieldName: "documents",
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'ReminderDocument'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "NoticeStaff";
-    modelSchemaDefinition.pluralName = "NoticeStaffs";
+    modelSchemaDefinition.name = "Reminder";
+    modelSchemaDefinition.pluralName = "Reminders";
 
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
@@ -255,28 +247,22 @@ class NoticeStaff extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: NoticeStaff.READAT,
-        isRequired: false,
+        key: Reminder.DATE,
+        isRequired: true,
         ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.dateTime)));
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: NoticeStaff.NOTICE,
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
+        key: Reminder.STAFF,
         isRequired: false,
-        targetNames: ['noticeId'],
-        ofModelName: 'Notice'));
+        ofModelName: 'ReminderStaff',
+        associatedKey: ReminderStaff.REMINDER));
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: NoticeStaff.STAFF,
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
+        key: Reminder.DOCUMENTS,
         isRequired: false,
-        targetNames: ['staffId'],
-        ofModelName: 'Staff'));
-
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
-        key: NoticeStaff.ISREAD,
-        isRequired: true,
-        ofType:
-            amplify_core.ModelFieldType(amplify_core.ModelFieldTypeEnum.bool)));
+        ofModelName: 'ReminderDocument',
+        associatedKey: ReminderDocument.REMINDER));
 
     modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
@@ -296,30 +282,30 @@ class NoticeStaff extends amplify_core.Model {
   });
 }
 
-class _NoticeStaffModelType extends amplify_core.ModelType<NoticeStaff> {
-  const _NoticeStaffModelType();
+class _ReminderModelType extends amplify_core.ModelType<Reminder> {
+  const _ReminderModelType();
 
   @override
-  NoticeStaff fromJson(Map<String, dynamic> jsonData) {
-    return NoticeStaff.fromJson(jsonData);
+  Reminder fromJson(Map<String, dynamic> jsonData) {
+    return Reminder.fromJson(jsonData);
   }
 
   @override
   String modelName() {
-    return 'NoticeStaff';
+    return 'Reminder';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [NoticeStaff] in your schema.
+ * of [Reminder] in your schema.
  */
-class NoticeStaffModelIdentifier
-    implements amplify_core.ModelIdentifier<NoticeStaff> {
+class ReminderModelIdentifier
+    implements amplify_core.ModelIdentifier<Reminder> {
   final String id;
 
-  /** Create an instance of NoticeStaffModelIdentifier using [id] the primary key. */
-  const NoticeStaffModelIdentifier({required this.id});
+  /** Create an instance of ReminderModelIdentifier using [id] the primary key. */
+  const ReminderModelIdentifier({required this.id});
 
   @override
   Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
@@ -334,7 +320,7 @@ class NoticeStaffModelIdentifier
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'NoticeStaffModelIdentifier(id: $id)';
+  String toString() => 'ReminderModelIdentifier(id: $id)';
 
   @override
   bool operator ==(Object other) {
@@ -342,7 +328,7 @@ class NoticeStaffModelIdentifier
       return true;
     }
 
-    return other is NoticeStaffModelIdentifier && id == other.id;
+    return other is ReminderModelIdentifier && id == other.id;
   }
 
   @override

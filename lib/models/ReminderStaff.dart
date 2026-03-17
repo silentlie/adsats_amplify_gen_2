@@ -22,11 +22,12 @@
 import 'ModelProvider.dart';
 import 'package:amplify_core/amplify_core.dart' as amplify_core;
 
-/** This is an auto generated class representing the RoleStaff type in your schema. */
-class RoleStaff extends amplify_core.Model {
-  static const classType = const _RoleStaffModelType();
-  final String id;
-  final Role? _role;
+/** This is an auto generated class representing the ReminderStaff type in your schema. */
+class ReminderStaff extends amplify_core.Model {
+  static const classType = const _ReminderStaffModelType();
+  final String? _reminderId;
+  final String? _staffId;
+  final Reminder? _reminder;
   final Staff? _staff;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
@@ -37,14 +38,50 @@ class RoleStaff extends amplify_core.Model {
   @Deprecated(
       '[getId] is being deprecated in favor of custom primary key feature. Use getter [modelIdentifier] to get model identifier.')
   @override
-  String getId() => id;
+  String getId() => modelIdentifier.serializeAsString();
 
-  RoleStaffModelIdentifier get modelIdentifier {
-    return RoleStaffModelIdentifier(id: id);
+  ReminderStaffModelIdentifier get modelIdentifier {
+    try {
+      return ReminderStaffModelIdentifier(
+          reminderId: _reminderId!, staffId: _staffId!);
+    } catch (e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
   }
 
-  Role? get role {
-    return _role;
+  String get reminderId {
+    try {
+      return _reminderId!;
+    } catch (e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  String get staffId {
+    try {
+      return _staffId!;
+    } catch (e) {
+      throw amplify_core.AmplifyCodeGenModelException(
+          amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastExceptionMessage,
+          recoverySuggestion: amplify_core.AmplifyExceptionMessages
+              .codeGenRequiredFieldForceCastRecoverySuggestion,
+          underlyingException: e.toString());
+    }
+  }
+
+  Reminder? get reminder {
+    return _reminder;
   }
 
   Staff? get staff {
@@ -59,17 +96,29 @@ class RoleStaff extends amplify_core.Model {
     return _updatedAt;
   }
 
-  const RoleStaff._internal(
-      {required this.id, role, staff, createdAt, updatedAt})
-      : _role = role,
+  const ReminderStaff._internal(
+      {required reminderId,
+      required staffId,
+      reminder,
+      staff,
+      createdAt,
+      updatedAt})
+      : _reminderId = reminderId,
+        _staffId = staffId,
+        _reminder = reminder,
         _staff = staff,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
-  factory RoleStaff({String? id, Role? role, Staff? staff}) {
-    return RoleStaff._internal(
-        id: id == null ? amplify_core.UUID.getUUID() : id,
-        role: role,
+  factory ReminderStaff(
+      {required String reminderId,
+      required String staffId,
+      Reminder? reminder,
+      Staff? staff}) {
+    return ReminderStaff._internal(
+        reminderId: reminderId,
+        staffId: staffId,
+        reminder: reminder,
         staff: staff);
   }
 
@@ -80,9 +129,10 @@ class RoleStaff extends amplify_core.Model {
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is RoleStaff &&
-        id == other.id &&
-        _role == other._role &&
+    return other is ReminderStaff &&
+        _reminderId == other._reminderId &&
+        _staffId == other._staffId &&
+        _reminder == other._reminder &&
         _staff == other._staff;
   }
 
@@ -93,9 +143,12 @@ class RoleStaff extends amplify_core.Model {
   String toString() {
     var buffer = new StringBuffer();
 
-    buffer.write("RoleStaff {");
-    buffer.write("id=" + "$id" + ", ");
-    buffer.write("role=" + (_role != null ? _role!.toString() : "null") + ", ");
+    buffer.write("ReminderStaff {");
+    buffer.write("reminderId=" + "$_reminderId" + ", ");
+    buffer.write("staffId=" + "$_staffId" + ", ");
+    buffer.write("reminder=" +
+        (_reminder != null ? _reminder!.toString() : "null") +
+        ", ");
     buffer.write(
         "staff=" + (_staff != null ? _staff!.toString() : "null") + ", ");
     buffer.write("createdAt=" +
@@ -108,26 +161,32 @@ class RoleStaff extends amplify_core.Model {
     return buffer.toString();
   }
 
-  RoleStaff copyWith({Role? role, Staff? staff}) {
-    return RoleStaff._internal(
-        id: id, role: role ?? this.role, staff: staff ?? this.staff);
+  ReminderStaff copyWith({Reminder? reminder, Staff? staff}) {
+    return ReminderStaff._internal(
+        reminderId: reminderId,
+        staffId: staffId,
+        reminder: reminder ?? this.reminder,
+        staff: staff ?? this.staff);
   }
 
-  RoleStaff copyWithModelFieldValues(
-      {ModelFieldValue<Role?>? role, ModelFieldValue<Staff?>? staff}) {
-    return RoleStaff._internal(
-        id: id,
-        role: role == null ? this.role : role.value,
+  ReminderStaff copyWithModelFieldValues(
+      {ModelFieldValue<Reminder?>? reminder, ModelFieldValue<Staff?>? staff}) {
+    return ReminderStaff._internal(
+        reminderId: reminderId,
+        staffId: staffId,
+        reminder: reminder == null ? this.reminder : reminder.value,
         staff: staff == null ? this.staff : staff.value);
   }
 
-  RoleStaff.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        _role = json['role'] != null
-            ? json['role']['serializedData'] != null
-                ? Role.fromJson(new Map<String, dynamic>.from(
-                    json['role']['serializedData']))
-                : Role.fromJson(new Map<String, dynamic>.from(json['role']))
+  ReminderStaff.fromJson(Map<String, dynamic> json)
+      : _reminderId = json['reminderId'],
+        _staffId = json['staffId'],
+        _reminder = json['reminder'] != null
+            ? json['reminder']['serializedData'] != null
+                ? Reminder.fromJson(new Map<String, dynamic>.from(
+                    json['reminder']['serializedData']))
+                : Reminder.fromJson(
+                    new Map<String, dynamic>.from(json['reminder']))
             : null,
         _staff = json['staff'] != null
             ? json['staff']['serializedData'] != null
@@ -143,30 +202,33 @@ class RoleStaff extends amplify_core.Model {
             : null;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'role': _role?.toJson(),
+        'reminderId': _reminderId,
+        'staffId': _staffId,
+        'reminder': _reminder?.toJson(),
         'staff': _staff?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'role': _role,
+        'reminderId': _reminderId,
+        'staffId': _staffId,
+        'reminder': _reminder,
         'staff': _staff,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
 
-  static final amplify_core.QueryModelIdentifier<RoleStaffModelIdentifier>
+  static final amplify_core.QueryModelIdentifier<ReminderStaffModelIdentifier>
       MODEL_IDENTIFIER =
-      amplify_core.QueryModelIdentifier<RoleStaffModelIdentifier>();
-  static final ID = amplify_core.QueryField(fieldName: "id");
-  static final ROLE = amplify_core.QueryField(
-      fieldName: "role",
+      amplify_core.QueryModelIdentifier<ReminderStaffModelIdentifier>();
+  static final REMINDERID = amplify_core.QueryField(fieldName: "reminderId");
+  static final STAFFID = amplify_core.QueryField(fieldName: "staffId");
+  static final REMINDER = amplify_core.QueryField(
+      fieldName: "reminder",
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'Role'));
+          ofModelName: 'Reminder'));
   static final STAFF = amplify_core.QueryField(
       fieldName: "staff",
       fieldType: amplify_core.ModelFieldType(
@@ -174,8 +236,8 @@ class RoleStaff extends amplify_core.Model {
           ofModelName: 'Staff'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
-    modelSchemaDefinition.name = "RoleStaff";
-    modelSchemaDefinition.pluralName = "RoleStaffs";
+    modelSchemaDefinition.name = "ReminderStaff";
+    modelSchemaDefinition.pluralName = "ReminderStaffs";
 
     modelSchemaDefinition.authRules = [
       amplify_core.AuthRule(
@@ -188,16 +250,31 @@ class RoleStaff extends amplify_core.Model {
           ])
     ];
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.id());
+    modelSchemaDefinition.indexes = [
+      amplify_core.ModelIndex(
+          fields: const ["reminderId", "staffId"], name: null)
+    ];
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+        key: ReminderStaff.REMINDERID,
+        isRequired: true,
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.field(
+        key: ReminderStaff.STAFFID,
+        isRequired: true,
+        ofType: amplify_core.ModelFieldType(
+            amplify_core.ModelFieldTypeEnum.string)));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: RoleStaff.ROLE,
+        key: ReminderStaff.REMINDER,
         isRequired: false,
-        targetNames: ['roleId'],
-        ofModelName: 'Role'));
+        targetNames: ['reminderId'],
+        ofModelName: 'Reminder'));
 
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
-        key: RoleStaff.STAFF,
+        key: ReminderStaff.STAFF,
         isRequired: false,
         targetNames: ['staffId'],
         ofModelName: 'Staff'));
@@ -220,33 +297,39 @@ class RoleStaff extends amplify_core.Model {
   });
 }
 
-class _RoleStaffModelType extends amplify_core.ModelType<RoleStaff> {
-  const _RoleStaffModelType();
+class _ReminderStaffModelType extends amplify_core.ModelType<ReminderStaff> {
+  const _ReminderStaffModelType();
 
   @override
-  RoleStaff fromJson(Map<String, dynamic> jsonData) {
-    return RoleStaff.fromJson(jsonData);
+  ReminderStaff fromJson(Map<String, dynamic> jsonData) {
+    return ReminderStaff.fromJson(jsonData);
   }
 
   @override
   String modelName() {
-    return 'RoleStaff';
+    return 'ReminderStaff';
   }
 }
 
 /**
  * This is an auto generated class representing the model identifier
- * of [RoleStaff] in your schema.
+ * of [ReminderStaff] in your schema.
  */
-class RoleStaffModelIdentifier
-    implements amplify_core.ModelIdentifier<RoleStaff> {
-  final String id;
+class ReminderStaffModelIdentifier
+    implements amplify_core.ModelIdentifier<ReminderStaff> {
+  final String reminderId;
+  final String staffId;
 
-  /** Create an instance of RoleStaffModelIdentifier using [id] the primary key. */
-  const RoleStaffModelIdentifier({required this.id});
+  /**
+   * Create an instance of ReminderStaffModelIdentifier using [reminderId] the primary key.
+   * And [staffId] the sort key.
+   */
+  const ReminderStaffModelIdentifier(
+      {required this.reminderId, required this.staffId});
 
   @override
-  Map<String, dynamic> serializeAsMap() => (<String, dynamic>{'id': id});
+  Map<String, dynamic> serializeAsMap() =>
+      (<String, dynamic>{'reminderId': reminderId, 'staffId': staffId});
 
   @override
   List<Map<String, dynamic>> serializeAsList() => serializeAsMap()
@@ -258,7 +341,8 @@ class RoleStaffModelIdentifier
   String serializeAsString() => serializeAsMap().values.join('#');
 
   @override
-  String toString() => 'RoleStaffModelIdentifier(id: $id)';
+  String toString() =>
+      'ReminderStaffModelIdentifier(reminderId: $reminderId, staffId: $staffId)';
 
   @override
   bool operator ==(Object other) {
@@ -266,9 +350,11 @@ class RoleStaffModelIdentifier
       return true;
     }
 
-    return other is RoleStaffModelIdentifier && id == other.id;
+    return other is ReminderStaffModelIdentifier &&
+        reminderId == other.reminderId &&
+        staffId == other.staffId;
   }
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode => reminderId.hashCode ^ staffId.hashCode;
 }

@@ -162,23 +162,24 @@ class FlightCrewRecord extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("archived=" +
-        (_archived != null ? _archived.toString() : "null") +
+        (_archived != null ? _archived!.toString() : "null") +
         ", ");
     buffer.write("category=" +
-        (_category != null ? _category.toString() : "null") +
+        (_category != null ? _category!.toString() : "null") +
         ", ");
-    buffer
-        .write("staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
+    buffer.write(
+        "staff=" + (_staff != null ? _staff!.toString() : "null") + ", ");
     buffer.write("expiredAt=" +
-        (_expiredAt != null ? _expiredAt.format() : "null") +
+        (_expiredAt != null ? _expiredAt!.format() : "null") +
         ", ");
-    buffer.write(
-        "issuedAt=" + (_issuedAt != null ? _issuedAt.format() : "null") + ", ");
+    buffer.write("issuedAt=" +
+        (_issuedAt != null ? _issuedAt!.format() : "null") +
+        ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();

@@ -132,18 +132,18 @@ class ReportStaff extends amplify_core.Model {
     buffer.write("ReportStaff {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write(
-        "isRead=" + (_isRead != null ? _isRead.toString() : "null") + ", ");
+        "isRead=" + (_isRead != null ? _isRead!.toString() : "null") + ", ");
     buffer.write(
-        "readAt=" + (_readAt != null ? _readAt.format() : "null") + ", ");
+        "readAt=" + (_readAt != null ? _readAt!.format() : "null") + ", ");
     buffer.write(
-        "report=" + (_report != null ? _report.toString() : "null") + ", ");
-    buffer
-        .write("staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
+        "report=" + (_report != null ? _report!.toString() : "null") + ", ");
+    buffer.write(
+        "staff=" + (_staff != null ? _staff!.toString() : "null") + ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();

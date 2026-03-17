@@ -166,17 +166,17 @@ class Subcategory extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("archived=" +
-        (_archived != null ? _archived.toString() : "null") +
+        (_archived != null ? _archived!.toString() : "null") +
         ", ");
     buffer.write("description=" + "$_description" + ", ");
     buffer.write("category=" +
-        (_category != null ? _category.toString() : "null") +
+        (_category != null ? _category!.toString() : "null") +
         ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();

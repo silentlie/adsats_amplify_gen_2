@@ -34,6 +34,7 @@ class Document extends amplify_core.Model {
   final List<AircraftDocument>? _aircraft;
   final amplify_core.TemporalDateTime? _expiredAt;
   final amplify_core.TemporalDateTime? _issuedAt;
+  final List<ReminderDocument>? _reminders;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -95,6 +96,10 @@ class Document extends amplify_core.Model {
     return _issuedAt;
   }
 
+  List<ReminderDocument>? get reminders {
+    return _reminders;
+  }
+
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -112,6 +117,7 @@ class Document extends amplify_core.Model {
       aircraft,
       expiredAt,
       issuedAt,
+      reminders,
       createdAt,
       updatedAt})
       : _name = name,
@@ -121,6 +127,7 @@ class Document extends amplify_core.Model {
         _aircraft = aircraft,
         _expiredAt = expiredAt,
         _issuedAt = issuedAt,
+        _reminders = reminders,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
@@ -132,7 +139,8 @@ class Document extends amplify_core.Model {
       Staff? staff,
       List<AircraftDocument>? aircraft,
       amplify_core.TemporalDateTime? expiredAt,
-      amplify_core.TemporalDateTime? issuedAt}) {
+      amplify_core.TemporalDateTime? issuedAt,
+      List<ReminderDocument>? reminders}) {
     return Document._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
         name: name,
@@ -143,7 +151,10 @@ class Document extends amplify_core.Model {
             ? List<AircraftDocument>.unmodifiable(aircraft)
             : aircraft,
         expiredAt: expiredAt,
-        issuedAt: issuedAt);
+        issuedAt: issuedAt,
+        reminders: reminders != null
+            ? List<ReminderDocument>.unmodifiable(reminders)
+            : reminders);
   }
 
   bool equals(Object other) {
@@ -161,7 +172,8 @@ class Document extends amplify_core.Model {
         _staff == other._staff &&
         DeepCollectionEquality().equals(_aircraft, other._aircraft) &&
         _expiredAt == other._expiredAt &&
-        _issuedAt == other._issuedAt;
+        _issuedAt == other._issuedAt &&
+        DeepCollectionEquality().equals(_reminders, other._reminders);
   }
 
   @override
@@ -175,23 +187,24 @@ class Document extends amplify_core.Model {
     buffer.write("id=" + "$id" + ", ");
     buffer.write("name=" + "$_name" + ", ");
     buffer.write("archived=" +
-        (_archived != null ? _archived.toString() : "null") +
+        (_archived != null ? _archived!.toString() : "null") +
         ", ");
     buffer.write("subcategory=" +
-        (_subcategory != null ? _subcategory.toString() : "null") +
+        (_subcategory != null ? _subcategory!.toString() : "null") +
         ", ");
-    buffer
-        .write("staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
+    buffer.write(
+        "staff=" + (_staff != null ? _staff!.toString() : "null") + ", ");
     buffer.write("expiredAt=" +
-        (_expiredAt != null ? _expiredAt.format() : "null") +
+        (_expiredAt != null ? _expiredAt!.format() : "null") +
         ", ");
-    buffer.write(
-        "issuedAt=" + (_issuedAt != null ? _issuedAt.format() : "null") + ", ");
+    buffer.write("issuedAt=" +
+        (_issuedAt != null ? _issuedAt!.format() : "null") +
+        ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -204,7 +217,8 @@ class Document extends amplify_core.Model {
       Staff? staff,
       List<AircraftDocument>? aircraft,
       amplify_core.TemporalDateTime? expiredAt,
-      amplify_core.TemporalDateTime? issuedAt}) {
+      amplify_core.TemporalDateTime? issuedAt,
+      List<ReminderDocument>? reminders}) {
     return Document._internal(
         id: id,
         name: name ?? this.name,
@@ -213,7 +227,8 @@ class Document extends amplify_core.Model {
         staff: staff ?? this.staff,
         aircraft: aircraft ?? this.aircraft,
         expiredAt: expiredAt ?? this.expiredAt,
-        issuedAt: issuedAt ?? this.issuedAt);
+        issuedAt: issuedAt ?? this.issuedAt,
+        reminders: reminders ?? this.reminders);
   }
 
   Document copyWithModelFieldValues(
@@ -223,7 +238,8 @@ class Document extends amplify_core.Model {
       ModelFieldValue<Staff?>? staff,
       ModelFieldValue<List<AircraftDocument>?>? aircraft,
       ModelFieldValue<amplify_core.TemporalDateTime?>? expiredAt,
-      ModelFieldValue<amplify_core.TemporalDateTime?>? issuedAt}) {
+      ModelFieldValue<amplify_core.TemporalDateTime?>? issuedAt,
+      ModelFieldValue<List<ReminderDocument>?>? reminders}) {
     return Document._internal(
         id: id,
         name: name == null ? this.name : name.value,
@@ -232,7 +248,8 @@ class Document extends amplify_core.Model {
         staff: staff == null ? this.staff : staff.value,
         aircraft: aircraft == null ? this.aircraft : aircraft.value,
         expiredAt: expiredAt == null ? this.expiredAt : expiredAt.value,
-        issuedAt: issuedAt == null ? this.issuedAt : issuedAt.value);
+        issuedAt: issuedAt == null ? this.issuedAt : issuedAt.value,
+        reminders: reminders == null ? this.reminders : reminders.value);
   }
 
   Document.fromJson(Map<String, dynamic> json)
@@ -273,6 +290,21 @@ class Document extends amplify_core.Model {
         _issuedAt = json['issuedAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['issuedAt'])
             : null,
+        _reminders = json['reminders'] is Map
+            ? (json['reminders']['items'] is List
+                ? (json['reminders']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => ReminderDocument.fromJson(
+                        new Map<String, dynamic>.from(e)))
+                    .toList()
+                : null)
+            : (json['reminders'] is List
+                ? (json['reminders'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => ReminderDocument.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
+                : null),
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -290,6 +322,8 @@ class Document extends amplify_core.Model {
             _aircraft?.map((AircraftDocument? e) => e?.toJson()).toList(),
         'expiredAt': _expiredAt?.format(),
         'issuedAt': _issuedAt?.format(),
+        'reminders':
+            _reminders?.map((ReminderDocument? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
@@ -303,6 +337,7 @@ class Document extends amplify_core.Model {
         'aircraft': _aircraft,
         'expiredAt': _expiredAt,
         'issuedAt': _issuedAt,
+        'reminders': _reminders,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
@@ -330,6 +365,11 @@ class Document extends amplify_core.Model {
           ofModelName: 'AircraftDocument'));
   static final EXPIREDAT = amplify_core.QueryField(fieldName: "expiredAt");
   static final ISSUEDAT = amplify_core.QueryField(fieldName: "issuedAt");
+  static final REMINDERS = amplify_core.QueryField(
+      fieldName: "reminders",
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'ReminderDocument'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Document";
@@ -389,6 +429,12 @@ class Document extends amplify_core.Model {
         isRequired: false,
         ofType: amplify_core.ModelFieldType(
             amplify_core.ModelFieldTypeEnum.dateTime)));
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
+        key: Document.REMINDERS,
+        isRequired: false,
+        ofModelName: 'ReminderDocument',
+        associatedKey: ReminderDocument.DOCUMENT));
 
     modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(

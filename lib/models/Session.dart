@@ -83,13 +83,13 @@ class Session extends amplify_core.Model {
 
     buffer.write("Session {");
     buffer.write("id=" + "$id" + ", ");
-    buffer
-        .write("staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
+    buffer.write(
+        "staff=" + (_staff != null ? _staff!.toString() : "null") + ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();

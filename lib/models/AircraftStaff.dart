@@ -96,15 +96,15 @@ class AircraftStaff extends amplify_core.Model {
     buffer.write("AircraftStaff {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("aircraft=" +
-        (_aircraft != null ? _aircraft.toString() : "null") +
-        ", ");
-    buffer
-        .write("staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_aircraft != null ? _aircraft!.toString() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "staff=" + (_staff != null ? _staff!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();

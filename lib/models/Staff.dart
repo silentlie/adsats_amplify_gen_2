@@ -42,6 +42,7 @@ class Staff extends amplify_core.Model {
   final List<ReportStaff>? _reportNotifications;
   final List<Report>? _closedReport;
   final List<Session>? _sessions;
+  final List<ReminderStaff>? _reminders;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -153,6 +154,10 @@ class Staff extends amplify_core.Model {
     return _sessions;
   }
 
+  List<ReminderStaff>? get reminders {
+    return _reminders;
+  }
+
   amplify_core.TemporalDateTime? get createdAt {
     return _createdAt;
   }
@@ -178,6 +183,7 @@ class Staff extends amplify_core.Model {
       reportNotifications,
       closedReport,
       sessions,
+      reminders,
       createdAt,
       updatedAt})
       : _firstName = firstName,
@@ -195,6 +201,7 @@ class Staff extends amplify_core.Model {
         _reportNotifications = reportNotifications,
         _closedReport = closedReport,
         _sessions = sessions,
+        _reminders = reminders,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
@@ -214,7 +221,8 @@ class Staff extends amplify_core.Model {
       List<Report>? reports,
       List<ReportStaff>? reportNotifications,
       List<Report>? closedReport,
-      List<Session>? sessions}) {
+      List<Session>? sessions,
+      List<ReminderStaff>? reminders}) {
     return Staff._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
         firstName: firstName,
@@ -246,7 +254,10 @@ class Staff extends amplify_core.Model {
             ? List<Report>.unmodifiable(closedReport)
             : closedReport,
         sessions:
-            sessions != null ? List<Session>.unmodifiable(sessions) : sessions);
+            sessions != null ? List<Session>.unmodifiable(sessions) : sessions,
+        reminders: reminders != null
+            ? List<ReminderStaff>.unmodifiable(reminders)
+            : reminders);
   }
 
   bool equals(Object other) {
@@ -274,7 +285,8 @@ class Staff extends amplify_core.Model {
         DeepCollectionEquality()
             .equals(_reportNotifications, other._reportNotifications) &&
         DeepCollectionEquality().equals(_closedReport, other._closedReport) &&
-        DeepCollectionEquality().equals(_sessions, other._sessions);
+        DeepCollectionEquality().equals(_sessions, other._sessions) &&
+        DeepCollectionEquality().equals(_reminders, other._reminders);
   }
 
   @override
@@ -290,13 +302,13 @@ class Staff extends amplify_core.Model {
     buffer.write("lastName=" + "$_lastName" + ", ");
     buffer.write("email=" + "$_email" + ", ");
     buffer.write("archived=" +
-        (_archived != null ? _archived.toString() : "null") +
+        (_archived != null ? _archived!.toString() : "null") +
         ", ");
     buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();
@@ -317,7 +329,8 @@ class Staff extends amplify_core.Model {
       List<Report>? reports,
       List<ReportStaff>? reportNotifications,
       List<Report>? closedReport,
-      List<Session>? sessions}) {
+      List<Session>? sessions,
+      List<ReminderStaff>? reminders}) {
     return Staff._internal(
         id: id,
         firstName: firstName ?? this.firstName,
@@ -334,7 +347,8 @@ class Staff extends amplify_core.Model {
         reports: reports ?? this.reports,
         reportNotifications: reportNotifications ?? this.reportNotifications,
         closedReport: closedReport ?? this.closedReport,
-        sessions: sessions ?? this.sessions);
+        sessions: sessions ?? this.sessions,
+        reminders: reminders ?? this.reminders);
   }
 
   Staff copyWithModelFieldValues(
@@ -352,7 +366,8 @@ class Staff extends amplify_core.Model {
       ModelFieldValue<List<Report>?>? reports,
       ModelFieldValue<List<ReportStaff>?>? reportNotifications,
       ModelFieldValue<List<Report>?>? closedReport,
-      ModelFieldValue<List<Session>?>? sessions}) {
+      ModelFieldValue<List<Session>?>? sessions,
+      ModelFieldValue<List<ReminderStaff>?>? reminders}) {
     return Staff._internal(
         id: id,
         firstName: firstName == null ? this.firstName : firstName.value,
@@ -376,7 +391,8 @@ class Staff extends amplify_core.Model {
             : reportNotifications.value,
         closedReport:
             closedReport == null ? this.closedReport : closedReport.value,
-        sessions: sessions == null ? this.sessions : sessions.value);
+        sessions: sessions == null ? this.sessions : sessions.value,
+        reminders: reminders == null ? this.reminders : reminders.value);
   }
 
   Staff.fromJson(Map<String, dynamic> json)
@@ -550,6 +566,21 @@ class Staff extends amplify_core.Model {
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
                 : null),
+        _reminders = json['reminders'] is Map
+            ? (json['reminders']['items'] is List
+                ? (json['reminders']['items'] as List)
+                    .where((e) => e != null)
+                    .map((e) => ReminderStaff.fromJson(
+                        new Map<String, dynamic>.from(e)))
+                    .toList()
+                : null)
+            : (json['reminders'] is List
+                ? (json['reminders'] as List)
+                    .where((e) => e?['serializedData'] != null)
+                    .map((e) => ReminderStaff.fromJson(
+                        new Map<String, dynamic>.from(e?['serializedData'])))
+                    .toList()
+                : null),
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -579,6 +610,8 @@ class Staff extends amplify_core.Model {
             _reportNotifications?.map((ReportStaff? e) => e?.toJson()).toList(),
         'closedReport': _closedReport?.map((Report? e) => e?.toJson()).toList(),
         'sessions': _sessions?.map((Session? e) => e?.toJson()).toList(),
+        'reminders':
+            _reminders?.map((ReminderStaff? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
@@ -600,6 +633,7 @@ class Staff extends amplify_core.Model {
         'reportNotifications': _reportNotifications,
         'closedReport': _closedReport,
         'sessions': _sessions,
+        'reminders': _reminders,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
@@ -667,6 +701,11 @@ class Staff extends amplify_core.Model {
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
           ofModelName: 'Session'));
+  static final REMINDERS = amplify_core.QueryField(
+      fieldName: "reminders",
+      fieldType: amplify_core.ModelFieldType(
+          amplify_core.ModelFieldTypeEnum.model,
+          ofModelName: 'ReminderStaff'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Staff";
@@ -778,6 +817,12 @@ class Staff extends amplify_core.Model {
         isRequired: false,
         ofModelName: 'Session',
         associatedKey: Session.STAFF));
+
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
+        key: Staff.REMINDERS,
+        isRequired: false,
+        ofModelName: 'ReminderStaff',
+        associatedKey: ReminderStaff.STAFF));
 
     modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(

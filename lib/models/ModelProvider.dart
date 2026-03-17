@@ -31,6 +31,9 @@ import 'FlightCrewRecordCategory.dart';
 import 'Notice.dart';
 import 'NoticeDocument.dart';
 import 'NoticeStaff.dart';
+import 'Reminder.dart';
+import 'ReminderDocument.dart';
+import 'ReminderStaff.dart';
 import 'Report.dart';
 import 'ReportDocument.dart';
 import 'ReportStaff.dart';
@@ -54,6 +57,9 @@ export 'NoticeDocument.dart';
 export 'NoticeStaff.dart';
 export 'NoticeStatus.dart';
 export 'NoticeType.dart';
+export 'Reminder.dart';
+export 'ReminderDocument.dart';
+export 'ReminderStaff.dart';
 export 'Report.dart';
 export 'ReportDocument.dart';
 export 'ReportStaff.dart';
@@ -68,7 +74,7 @@ export 'Subcategory.dart';
 
 class ModelProvider implements amplify_core.ModelProviderInterface {
   @override
-  String version = "8218d40d54ea57c870703664968966d1";
+  String version = "2b7bc4323a9aa4c8d849040b159937d6";
   @override
   List<amplify_core.ModelSchema> modelSchemas = [
     Aircraft.schema,
@@ -82,6 +88,9 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
     Notice.schema,
     NoticeDocument.schema,
     NoticeStaff.schema,
+    Reminder.schema,
+    ReminderDocument.schema,
+    ReminderStaff.schema,
     Report.schema,
     ReportDocument.schema,
     ReportStaff.schema,
@@ -122,6 +131,12 @@ class ModelProvider implements amplify_core.ModelProviderInterface {
         return NoticeDocument.classType;
       case "NoticeStaff":
         return NoticeStaff.classType;
+      case "Reminder":
+        return Reminder.classType;
+      case "ReminderDocument":
+        return ReminderDocument.classType;
+      case "ReminderStaff":
+        return ReminderStaff.classType;
       case "Report":
         return Report.classType;
       case "ReportDocument":

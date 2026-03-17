@@ -1,6 +1,7 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 import { createUser, deleteUser, enableUser, disableUser } from "./cognito-admin/index";
 import { sendmail } from "./send-email/resource";
+import { runReminderDispatch } from "./run-reminder-dispatch/resource";
 
 const schema = a
   .schema({
@@ -232,8 +233,10 @@ const schema = a
       documents: a.hasMany("ReminderDocument", "reminderId"),
     }),
   })
-  .authorization((allow) => [allow.authenticated()])
-  ;
+  .authorization((allow) => [
+    allow.authenticated(),
+    allow.resource(runReminderDispatch),
+  ]);
 
 export type Schema = ClientSchema<typeof schema>;
 

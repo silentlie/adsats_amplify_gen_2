@@ -122,18 +122,18 @@ class StaffSubcategory extends amplify_core.Model {
     buffer.write("StaffSubcategory {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("accessLevel=" +
-        (_accessLevel != null ? _accessLevel.toString() : "null") +
+        (_accessLevel != null ? _accessLevel!.toString() : "null") +
         ", ");
     buffer.write("subcategory=" +
-        (_subcategory != null ? _subcategory.toString() : "null") +
-        ", ");
-    buffer
-        .write("staff=" + (_staff != null ? _staff.toString() : "null") + ", ");
-    buffer.write("createdAt=" +
-        (_createdAt != null ? _createdAt.format() : "null") +
+        (_subcategory != null ? _subcategory!.toString() : "null") +
         ", ");
     buffer.write(
-        "updatedAt=" + (_updatedAt != null ? _updatedAt.format() : "null"));
+        "staff=" + (_staff != null ? _staff!.toString() : "null") + ", ");
+    buffer.write("createdAt=" +
+        (_createdAt != null ? _createdAt!.format() : "null") +
+        ", ");
+    buffer.write(
+        "updatedAt=" + (_updatedAt != null ? _updatedAt!.format() : "null"));
     buffer.write("}");
 
     return buffer.toString();

@@ -113,7 +113,10 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(titleText),
-            Text('$dateString $timeString', style: const TextStyle(fontSize: 16)),
+            Text(
+              '$dateString $timeString',
+              style: const TextStyle(fontSize: 16),
+            ),
           ],
         );
       },
