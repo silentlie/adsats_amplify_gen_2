@@ -92,7 +92,7 @@ const schema = a
       aircraft: a.hasMany("AircraftDocument", "documentId"),
       expiredAt: a.datetime(),
       issuedAt: a.datetime(),
-      reminders: a.hasMany("ReminderDocument", "documentId"),
+      reminders: a.hasMany("Reminder", "documentId"),
     }),
     Role: a.model({
       name: a.string().required(),
@@ -221,16 +221,11 @@ const schema = a
       reminder: a.belongsTo("Reminder", "reminderId"),
       staff: a.belongsTo("Staff", "staffId"),
     }).identifier(["reminderId", "staffId"]),
-    ReminderDocument: a.model({
-      reminderId: a.id().required(),
-      documentId: a.id().required(),
-      reminder: a.belongsTo("Reminder", "reminderId"),
-      document: a.belongsTo("Document", "documentId"),
-    }).identifier(["reminderId", "documentId"]),
     Reminder: a.model({
       date: a.datetime().required(),
       staff: a.hasMany("ReminderStaff", "reminderId"),
-      documents: a.hasMany("ReminderDocument", "reminderId"),
+      documentId: a.id().required(),
+      document: a.belongsTo("Document", "documentId"),
     }),
   })
   .authorization((allow) => [
