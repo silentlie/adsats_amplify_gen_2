@@ -1,8 +1,5 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
-import { createUser } from "./cognito-admin/create-user/resource";
-import { deleteUser } from "./cognito-admin/delete-user/resource";
-import { enableUser } from "./cognito-admin/enable-user/resource";
-import { disableUser } from "./cognito-admin/disable-user/resource";
+import { createUser, deleteUser, enableUser, disableUser } from "./cognito-admin/index";
 import { sendmail } from "./send-email/resource";
 
 const schema = a
@@ -63,6 +60,7 @@ const schema = a
       reportNotifications: a.hasMany("ReportStaff", "staffId"),
       closedReport: a.hasMany("Report", "closerId"),
       sessions: a.hasMany("Session", "staffId"),
+      reminders: a.hasMany("ReminderStaff", "staffId"),
     }),
     Session: a.model({
       staffId: a.id().required(),
@@ -93,6 +91,7 @@ const schema = a
       aircraft: a.hasMany("AircraftDocument", "documentId"),
       expiredAt: a.datetime(),
       issuedAt: a.datetime(),
+      reminders: a.hasMany("ReminderDocument", "documentId"),
     }),
     Role: a.model({
       name: a.string().required(),
@@ -215,8 +214,26 @@ const schema = a
         report: a.belongsTo("Report", "reportId"),
         staff: a.belongsTo("Staff", "staffId"),
       }),
+    ReminderStaff: a.model({
+      reminderId: a.id().required(),
+      staffId: a.id().required(),
+      reminder: a.belongsTo("Reminder", "reminderId"),
+      staff: a.belongsTo("Staff", "staffId"),
+    }).identifier(["reminderId", "staffId"]),
+    ReminderDocument: a.model({
+      reminderId: a.id().required(),
+      documentId: a.id().required(),
+      reminder: a.belongsTo("Reminder", "reminderId"),
+      document: a.belongsTo("Document", "documentId"),
+    }).identifier(["reminderId", "documentId"]),
+    Reminder: a.model({
+      date: a.datetime().required(),
+      staff: a.hasMany("ReminderStaff", "reminderId"),
+      documents: a.hasMany("ReminderDocument", "reminderId"),
+    }),
   })
-  .authorization((allow) => [allow.authenticated()]);
+  .authorization((allow) => [allow.authenticated()])
+  ;
 
 export type Schema = ClientSchema<typeof schema>;
 

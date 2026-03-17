@@ -5,12 +5,14 @@ type Handler = Schema["sendEmail"]["functionHandler"];
 const client = new SESv2Client({ region: "us-west-2" });
 
 export const handler: Handler = async (event) => {
+  const input = event.arguments ?? event;
+
   const {
     subject,
     htmlBody,
     author,
     recipients,
-  } = event.arguments;
+  } = input;
 
   const command = new SendEmailCommand({
     FromEmailAddressIdentityArn:
