@@ -4,6 +4,7 @@ import 'package:adsats_amplify_gen_2/models/Document.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/providers/documents.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/providers/service.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/document.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/reminders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -44,6 +45,19 @@ class DocumentActions extends ConsumerWidget with ConfirmDialogMixin {
             },
             icon: const Icon(Icons.edit_outlined),
           ),
+        IconButton(
+          onPressed: () async {
+            controller.close();
+            showDialog(
+              context: context,
+              builder: (context) {
+                return Reminders(document: document);
+              },
+            );
+          },
+          icon: const Icon(Icons.notifications_active_outlined),
+          tooltip: "Reminders",
+        ),
         if (isAdmin)
           IconButton(
             onPressed: () async {

@@ -6,6 +6,7 @@ import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/providers/documents.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/providers/service.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/reminders.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
@@ -139,6 +140,19 @@ class EditDocumentView extends ConsumerWidget with ConfirmDialogMixin {
           },
           label: const Text('Cancel'),
           icon: Icon(Icons.cancel_outlined),
+        ),
+        // reminders
+        ElevatedButton.icon(
+          onPressed: () {
+            showDialog<bool>(
+              context: context,
+              builder: (context) {
+                return Reminders(document: document);
+              },
+            );
+          },
+          label: const Text('Reminders'),
+          icon: const Icon(Icons.notifications_active_outlined),
         ),
         // apply
         ElevatedButton.icon(
