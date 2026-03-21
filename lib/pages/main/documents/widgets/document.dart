@@ -142,6 +142,7 @@ class EditDocumentView extends ConsumerWidget with ConfirmDialogMixin {
           icon: Icon(Icons.cancel_outlined),
         ),
         // reminders
+        if (document.expiredAt != null)
         ElevatedButton.icon(
           onPressed: () {
             showDialog<bool>(
