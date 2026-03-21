@@ -32,13 +32,15 @@ const htmlTemplate = `
     <div style="margin:0; padding:24px 12px; background-color:#f4f6f8;">
       <div style="max-width:600px; margin:0 auto; background-color:#ffffff; border:1px solid #e5e7eb; border-radius:8px; overflow:hidden;">
 
-        <div style="padding:24px 24px 12px 24px; background-color:#ffffff;">
-          <h1 style="margin:0; font-size:20px; line-height:28px; font-weight:700; color:#111827;">
+        <div style="padding:24px; background-color:#1f2937;">
+          <h1 style="margin:0; font-size:20px; line-height:28px; font-weight:700; color:#ffffff;">
             Document Reminder
           </h1>
         </div>
 
-        <div style="padding:0 24px 24px 24px;">
+        <div style="height:1px; background-color:#e5e7eb;"></div>
+
+        <div style="padding:24px;">
           <p style="margin:0 0 16px 0; font-size:16px; line-height:24px;">
             Dear {{firstName}} {{lastName}},
           </p>

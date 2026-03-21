@@ -72,7 +72,6 @@ export const handler: EventBridgeHandler<
             categoryName,
             subcategoryName,
             expiredAt: reminder.document.expiredAt!,
-            reminderId: reminder.id,
           });
 
           await sendEmail({
