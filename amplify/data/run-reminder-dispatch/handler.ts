@@ -12,10 +12,35 @@ Amplify.configure(resourceConfig, libraryOptions);
 const client = generateClient<Schema>();
 
 export const handler: EventBridgeHandler<"Scheduled Event", null, void> = async (event) => {
-  const { errors: listErrors, data: reminders } = await client.models.Reminder.list();
+  const nowIso = new Date().toISOString();
+
+  const { errors: listErrors, data: reminders } = await client.models.Reminder.list({
+    filter: {
+      date: {
+        lt: nowIso,
+      },
+    },
+    selectionSet: [
+      "id",
+      "date",
+      "document.*",
+      "staff.*",
+      "staff.staff.id",
+      "staff.staff.email",
+      "staff.staff.firstName",
+      "staff.staff.lastName",
+    ],
+  });
   if (listErrors) {
     console.error("Error listing reminders", listErrors);
     return;
   }
-  console.log("event", JSON.stringify(reminders, null, 2))
+
+  const detailed = reminders.map((reminder) => ({
+    id: reminder.id,
+    date: reminder.date,
+    document: reminder.document,
+    recipients: reminder.staff?.map((join) => join.staff).filter(Boolean) ?? [],
+  }));
+  console.log("reminders", JSON.stringify(detailed, null, 2));
 }
