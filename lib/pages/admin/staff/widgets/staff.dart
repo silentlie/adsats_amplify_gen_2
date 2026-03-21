@@ -108,7 +108,6 @@ class StaffView extends ConsumerWidget with ConfirmDialogMixin {
               initialSelection: staff.archived,
             ),
             AsyncValueWidget(
-              // TODO: FutureWidget
               value: ref.watch(listAircraftProvider()),
               data: (value) {
                 return MultiSelectFormField<Aircraft>(
@@ -128,7 +127,6 @@ class StaffView extends ConsumerWidget with ConfirmDialogMixin {
               },
             ),
             AsyncValueWidget(
-              // TODO: FutureWidget
               value: ref.watch(listRolesProvider()),
               data: (value) {
                 return MultiSelectFormField<Role>(
@@ -148,7 +146,6 @@ class StaffView extends ConsumerWidget with ConfirmDialogMixin {
               },
             ),
             AsyncValueWidget(
-              // TODO: FutureWidget
               value: ref.watch(listSubcategoriesProvider()),
               data: (value) {
                 return StatefulBuilder(

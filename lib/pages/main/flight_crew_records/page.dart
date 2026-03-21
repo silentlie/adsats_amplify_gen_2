@@ -20,7 +20,6 @@ class FlightCrewRecordsPage extends ConsumerWidget {
         constraints: BoxConstraints(maxWidth: 1536),
         child: Card(
           child: AsyncValueWidget(
-            // TODO: FutureWidget
             value: ref.watch(recordMetaProvider),
             data: (value) {
               final (aircraft, roles) = value;
@@ -245,7 +244,6 @@ class CrewsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AsyncValueWidget(
-      // TODO: FutureWidget
       value: ref.watch(joinStaffProvider(aircraft, role)),
       data: (value) {
         return ListView(

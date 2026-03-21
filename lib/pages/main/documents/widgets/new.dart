@@ -67,7 +67,6 @@ class _NewDocumentViewState extends ConsumerState<NewDocumentView>
               mainAxisSize: MainAxisSize.min,
               children: [
                 AsyncValueWidget(
-                  // TODO: FutureWidget
                   value: ref.watch(listStaffProvider()),
                   data: (data) {
                     return GlobalDropdownMenu<Staff>(

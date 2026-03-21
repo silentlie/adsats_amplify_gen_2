@@ -115,7 +115,6 @@ class NoticeRecipientsWidget extends HookConsumerWidget {
       children: [
         Expanded(
           child: AsyncValueWidget(
-            // TODO: FutureWidget
             value: ref.watch(listAircraftProvider()),
             data: (value) {
               return MultiSelectFormField<Aircraft>(
@@ -138,7 +137,6 @@ class NoticeRecipientsWidget extends HookConsumerWidget {
         if (!isDraft)
           Expanded(
             child: AsyncValueWidget(
-              // TODO: FutureWidget
               value: ref.watch(listRolesProvider()),
               data: (value) {
                 if (!isSafetyOfficer) {
@@ -169,7 +167,6 @@ class NoticeRecipientsWidget extends HookConsumerWidget {
         if (!isDraft && isSafetyOfficer)
           Expanded(
             child: AsyncValueWidget(
-              // TODO: FutureWidget
               value: ref.watch(listStaffProvider()),
               data: (value) {
                 return MultiSelectFormField<Staff>(

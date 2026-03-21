@@ -75,7 +75,6 @@ class NoticesFilterView extends ConsumerWidget {
             text: "Archived",
           ),
           AsyncValueWidget(
-            // TODO: FutureWidget
             value: ref.watch(listAircraftProvider()),
             data: (value) {
               return MultiSelectFormField<Aircraft>(

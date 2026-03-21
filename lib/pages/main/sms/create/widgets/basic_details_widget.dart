@@ -48,7 +48,6 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
             ),
             Expanded(
               child: AsyncValueWidget(
-                // TODO: FutureWidget
                 value: ref.watch(listStaffProvider()),
                 data: (value) {
                   final initialSelection = notice.author == null
