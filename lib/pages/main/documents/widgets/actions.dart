@@ -45,6 +45,7 @@ class DocumentActions extends ConsumerWidget with ConfirmDialogMixin {
             },
             icon: const Icon(Icons.edit_outlined),
           ),
+        if (document.expiredAt != null)
         IconButton(
           onPressed: () async {
             controller.close();
