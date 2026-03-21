@@ -611,6 +611,38 @@ query ListDocuments(\$filter: ModelDocumentFilterInput) {
   }
 }
 ''';
+const listRemindersGraphQL = '''
+query listReminders(\$filter: ModelReminderFilterInput) {
+  listReminders(filter: \$filter, limit: 10000) {
+    items {
+      id
+      date
+      createdAt
+      updatedAt
+      document {
+        id
+        name
+        archived
+        issuedAt
+        expiredAt
+      }
+      staff {
+        items {
+          reminderId
+          staffId
+          staff {
+            id
+            firstName
+            lastName
+            email
+            archived
+          }
+        }
+      }
+    }
+  }
+}
+''';
 const getStaffGraphQL = '''
 query GetStaff(\$id: ID!) {
   getStaff(id: \$id) {

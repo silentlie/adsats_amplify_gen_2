@@ -34,7 +34,7 @@ class Document extends amplify_core.Model {
   final List<AircraftDocument>? _aircraft;
   final amplify_core.TemporalDateTime? _expiredAt;
   final amplify_core.TemporalDateTime? _issuedAt;
-  final List<ReminderDocument>? _reminders;
+  final List<Reminder>? _reminders;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -96,7 +96,7 @@ class Document extends amplify_core.Model {
     return _issuedAt;
   }
 
-  List<ReminderDocument>? get reminders {
+  List<Reminder>? get reminders {
     return _reminders;
   }
 
@@ -140,7 +140,7 @@ class Document extends amplify_core.Model {
       List<AircraftDocument>? aircraft,
       amplify_core.TemporalDateTime? expiredAt,
       amplify_core.TemporalDateTime? issuedAt,
-      List<ReminderDocument>? reminders}) {
+      List<Reminder>? reminders}) {
     return Document._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
         name: name,
@@ -153,7 +153,7 @@ class Document extends amplify_core.Model {
         expiredAt: expiredAt,
         issuedAt: issuedAt,
         reminders: reminders != null
-            ? List<ReminderDocument>.unmodifiable(reminders)
+            ? List<Reminder>.unmodifiable(reminders)
             : reminders);
   }
 
@@ -218,7 +218,7 @@ class Document extends amplify_core.Model {
       List<AircraftDocument>? aircraft,
       amplify_core.TemporalDateTime? expiredAt,
       amplify_core.TemporalDateTime? issuedAt,
-      List<ReminderDocument>? reminders}) {
+      List<Reminder>? reminders}) {
     return Document._internal(
         id: id,
         name: name ?? this.name,
@@ -239,7 +239,7 @@ class Document extends amplify_core.Model {
       ModelFieldValue<List<AircraftDocument>?>? aircraft,
       ModelFieldValue<amplify_core.TemporalDateTime?>? expiredAt,
       ModelFieldValue<amplify_core.TemporalDateTime?>? issuedAt,
-      ModelFieldValue<List<ReminderDocument>?>? reminders}) {
+      ModelFieldValue<List<Reminder>?>? reminders}) {
     return Document._internal(
         id: id,
         name: name == null ? this.name : name.value,
@@ -294,14 +294,14 @@ class Document extends amplify_core.Model {
             ? (json['reminders']['items'] is List
                 ? (json['reminders']['items'] as List)
                     .where((e) => e != null)
-                    .map((e) => ReminderDocument.fromJson(
-                        new Map<String, dynamic>.from(e)))
+                    .map((e) =>
+                        Reminder.fromJson(new Map<String, dynamic>.from(e)))
                     .toList()
                 : null)
             : (json['reminders'] is List
                 ? (json['reminders'] as List)
                     .where((e) => e?['serializedData'] != null)
-                    .map((e) => ReminderDocument.fromJson(
+                    .map((e) => Reminder.fromJson(
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
                 : null),
@@ -322,8 +322,7 @@ class Document extends amplify_core.Model {
             _aircraft?.map((AircraftDocument? e) => e?.toJson()).toList(),
         'expiredAt': _expiredAt?.format(),
         'issuedAt': _issuedAt?.format(),
-        'reminders':
-            _reminders?.map((ReminderDocument? e) => e?.toJson()).toList(),
+        'reminders': _reminders?.map((Reminder? e) => e?.toJson()).toList(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
@@ -369,7 +368,7 @@ class Document extends amplify_core.Model {
       fieldName: "reminders",
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'ReminderDocument'));
+          ofModelName: 'Reminder'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Document";
@@ -433,8 +432,8 @@ class Document extends amplify_core.Model {
     modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
         key: Document.REMINDERS,
         isRequired: false,
-        ofModelName: 'ReminderDocument',
-        associatedKey: ReminderDocument.DOCUMENT));
+        ofModelName: 'Reminder',
+        associatedKey: Reminder.DOCUMENT));
 
     modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(

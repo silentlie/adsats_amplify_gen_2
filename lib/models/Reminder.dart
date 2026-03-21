@@ -29,7 +29,7 @@ class Reminder extends amplify_core.Model {
   final String id;
   final amplify_core.TemporalDateTime? _date;
   final List<ReminderStaff>? _staff;
-  final List<ReminderDocument>? _documents;
+  final Document? _document;
   final amplify_core.TemporalDateTime? _createdAt;
   final amplify_core.TemporalDateTime? _updatedAt;
 
@@ -62,8 +62,8 @@ class Reminder extends amplify_core.Model {
     return _staff;
   }
 
-  List<ReminderDocument>? get documents {
-    return _documents;
+  Document? get document {
+    return _document;
   }
 
   amplify_core.TemporalDateTime? get createdAt {
@@ -75,10 +75,10 @@ class Reminder extends amplify_core.Model {
   }
 
   const Reminder._internal(
-      {required this.id, required date, staff, documents, createdAt, updatedAt})
+      {required this.id, required date, staff, document, createdAt, updatedAt})
       : _date = date,
         _staff = staff,
-        _documents = documents,
+        _document = document,
         _createdAt = createdAt,
         _updatedAt = updatedAt;
 
@@ -86,14 +86,12 @@ class Reminder extends amplify_core.Model {
       {String? id,
       required amplify_core.TemporalDateTime date,
       List<ReminderStaff>? staff,
-      List<ReminderDocument>? documents}) {
+      Document? document}) {
     return Reminder._internal(
         id: id == null ? amplify_core.UUID.getUUID() : id,
         date: date,
         staff: staff != null ? List<ReminderStaff>.unmodifiable(staff) : staff,
-        documents: documents != null
-            ? List<ReminderDocument>.unmodifiable(documents)
-            : documents);
+        document: document);
   }
 
   bool equals(Object other) {
@@ -107,7 +105,7 @@ class Reminder extends amplify_core.Model {
         id == other.id &&
         _date == other._date &&
         DeepCollectionEquality().equals(_staff, other._staff) &&
-        DeepCollectionEquality().equals(_documents, other._documents);
+        _document == other._document;
   }
 
   @override
@@ -120,6 +118,9 @@ class Reminder extends amplify_core.Model {
     buffer.write("Reminder {");
     buffer.write("id=" + "$id" + ", ");
     buffer.write("date=" + (_date != null ? _date!.format() : "null") + ", ");
+    buffer.write("document=" +
+        (_document != null ? _document!.toString() : "null") +
+        ", ");
     buffer.write("createdAt=" +
         (_createdAt != null ? _createdAt!.format() : "null") +
         ", ");
@@ -133,23 +134,23 @@ class Reminder extends amplify_core.Model {
   Reminder copyWith(
       {amplify_core.TemporalDateTime? date,
       List<ReminderStaff>? staff,
-      List<ReminderDocument>? documents}) {
+      Document? document}) {
     return Reminder._internal(
         id: id,
         date: date ?? this.date,
         staff: staff ?? this.staff,
-        documents: documents ?? this.documents);
+        document: document ?? this.document);
   }
 
   Reminder copyWithModelFieldValues(
       {ModelFieldValue<amplify_core.TemporalDateTime>? date,
       ModelFieldValue<List<ReminderStaff>?>? staff,
-      ModelFieldValue<List<ReminderDocument>?>? documents}) {
+      ModelFieldValue<Document?>? document}) {
     return Reminder._internal(
         id: id,
         date: date == null ? this.date : date.value,
         staff: staff == null ? this.staff : staff.value,
-        documents: documents == null ? this.documents : documents.value);
+        document: document == null ? this.document : document.value);
   }
 
   Reminder.fromJson(Map<String, dynamic> json)
@@ -172,21 +173,13 @@ class Reminder extends amplify_core.Model {
                         new Map<String, dynamic>.from(e?['serializedData'])))
                     .toList()
                 : null),
-        _documents = json['documents'] is Map
-            ? (json['documents']['items'] is List
-                ? (json['documents']['items'] as List)
-                    .where((e) => e != null)
-                    .map((e) => ReminderDocument.fromJson(
-                        new Map<String, dynamic>.from(e)))
-                    .toList()
-                : null)
-            : (json['documents'] is List
-                ? (json['documents'] as List)
-                    .where((e) => e?['serializedData'] != null)
-                    .map((e) => ReminderDocument.fromJson(
-                        new Map<String, dynamic>.from(e?['serializedData'])))
-                    .toList()
-                : null),
+        _document = json['document'] != null
+            ? json['document']['serializedData'] != null
+                ? Document.fromJson(new Map<String, dynamic>.from(
+                    json['document']['serializedData']))
+                : Document.fromJson(
+                    new Map<String, dynamic>.from(json['document']))
+            : null,
         _createdAt = json['createdAt'] != null
             ? amplify_core.TemporalDateTime.fromString(json['createdAt'])
             : null,
@@ -198,8 +191,7 @@ class Reminder extends amplify_core.Model {
         'id': id,
         'date': _date?.format(),
         'staff': _staff?.map((ReminderStaff? e) => e?.toJson()).toList(),
-        'documents':
-            _documents?.map((ReminderDocument? e) => e?.toJson()).toList(),
+        'document': _document?.toJson(),
         'createdAt': _createdAt?.format(),
         'updatedAt': _updatedAt?.format()
       };
@@ -208,7 +200,7 @@ class Reminder extends amplify_core.Model {
         'id': id,
         'date': _date,
         'staff': _staff,
-        'documents': _documents,
+        'document': _document,
         'createdAt': _createdAt,
         'updatedAt': _updatedAt
       };
@@ -223,11 +215,11 @@ class Reminder extends amplify_core.Model {
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
           ofModelName: 'ReminderStaff'));
-  static final DOCUMENTS = amplify_core.QueryField(
-      fieldName: "documents",
+  static final DOCUMENT = amplify_core.QueryField(
+      fieldName: "document",
       fieldType: amplify_core.ModelFieldType(
           amplify_core.ModelFieldTypeEnum.model,
-          ofModelName: 'ReminderDocument'));
+          ofModelName: 'Document'));
   static var schema = amplify_core.Model.defineSchema(
       define: (amplify_core.ModelSchemaDefinition modelSchemaDefinition) {
     modelSchemaDefinition.name = "Reminder";
@@ -258,11 +250,11 @@ class Reminder extends amplify_core.Model {
         ofModelName: 'ReminderStaff',
         associatedKey: ReminderStaff.REMINDER));
 
-    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.hasMany(
-        key: Reminder.DOCUMENTS,
+    modelSchemaDefinition.addField(amplify_core.ModelFieldDefinition.belongsTo(
+        key: Reminder.DOCUMENT,
         isRequired: false,
-        ofModelName: 'ReminderDocument',
-        associatedKey: ReminderDocument.REMINDER));
+        targetNames: ['documentId'],
+        ofModelName: 'Document'));
 
     modelSchemaDefinition.addField(
         amplify_core.ModelFieldDefinition.nonQueryField(
