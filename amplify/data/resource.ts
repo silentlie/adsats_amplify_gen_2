@@ -1,10 +1,26 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
-import { createUser, deleteUser, enableUser, disableUser } from "./cognito-admin/index";
+import {
+  createUser,
+  deleteUser,
+  enableUser,
+  disableUser,
+} from "./cognito-admin/index";
 import { sendmail } from "./send-email/resource";
 import { runReminderDispatch } from "./run-reminder-dispatch/resource";
+import { sendNotificationEmail } from "./send-notification-email/resource";
 
 const schema = a
   .schema({
+    sendNotificationEmail: a
+      .mutation()
+      .arguments({
+        id: a.id().required(),
+        isNotice: a.boolean().required(),
+        isReport: a.boolean().required(),
+        host: a.string().required(),
+      })
+      .handler(a.handler.function(sendNotificationEmail))
+      .returns(a.json()),
     sendEmail: a
       .mutation()
       .arguments({
@@ -206,21 +222,22 @@ const schema = a
       reports: a.belongsTo("Report", "reportId"),
       name: a.string().required(),
     }),
-    ReportStaff: a
-      .model({
-        isRead: a.boolean().required().default(false),
-        readAt: a.datetime(),
-        reportId: a.id().required(),
-        staffId: a.id().required(),
-        report: a.belongsTo("Report", "reportId"),
-        staff: a.belongsTo("Staff", "staffId"),
-      }),
-    ReminderStaff: a.model({
-      reminderId: a.id().required(),
+    ReportStaff: a.model({
+      isRead: a.boolean().required().default(false),
+      readAt: a.datetime(),
+      reportId: a.id().required(),
       staffId: a.id().required(),
-      reminder: a.belongsTo("Reminder", "reminderId"),
+      report: a.belongsTo("Report", "reportId"),
       staff: a.belongsTo("Staff", "staffId"),
-    }).identifier(["reminderId", "staffId"]),
+    }),
+    ReminderStaff: a
+      .model({
+        reminderId: a.id().required(),
+        staffId: a.id().required(),
+        reminder: a.belongsTo("Reminder", "reminderId"),
+        staff: a.belongsTo("Staff", "staffId"),
+      })
+      .identifier(["reminderId", "staffId"]),
     Reminder: a.model({
       date: a.datetime().required(),
       staff: a.hasMany("ReminderStaff", "reminderId"),
@@ -231,6 +248,7 @@ const schema = a
   .authorization((allow) => [
     allow.authenticated(),
     allow.resource(runReminderDispatch),
+    allow.resource(sendNotificationEmail),
   ]);
 
 export type Schema = ClientSchema<typeof schema>;
