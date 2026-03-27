@@ -39,3 +39,19 @@ mutation DisableUser(\$id: ID!) {
   disableUser(id: \$id)
 }
 ''';
+
+const sendNotificationEmailDocument = '''
+mutation SendNotificationEmail(
+  \$id: ID!,
+  \$isNotice: Boolean!,
+  \$isReport: Boolean!,
+  \$host: String!
+) {
+  sendNotificationEmail(
+    id: \$id
+    isNotice: \$isNotice
+    isReport: \$isReport
+    host: \$host
+  )
+}
+''';

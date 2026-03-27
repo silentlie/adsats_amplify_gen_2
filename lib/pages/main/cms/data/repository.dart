@@ -1,8 +1,7 @@
 import 'package:adsats_amplify_gen_2/API/amplify_appsync_api.dart';
-import 'package:adsats_amplify_gen_2/API/amplify_email_repository.dart';
+import 'package:adsats_amplify_gen_2/API/amplify_notification_email_repository.dart';
 import 'package:adsats_amplify_gen_2/API/amplify_s3_api.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
-import 'package:adsats_amplify_gen_2/helper/extensions/email_content_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/s3_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:file_picker/file_picker.dart';
@@ -11,12 +10,12 @@ import 'package:url_launcher/url_launcher.dart';
 final class ReportRepository {
   final AmplifyAppSyncAPI _db;
   final AmplifyS3API _storage;
-  final AmplifyEmailRepository _email;
+  final AmplifyNotificationEmailRepository _email;
 
   ReportRepository({
     required AmplifyAppSyncAPI db,
     required AmplifyS3API storage,
-    required AmplifyEmailRepository email,
+    required AmplifyNotificationEmailRepository email,
   })  : _email = email,
         _storage = storage,
         _db = db;
@@ -116,10 +115,7 @@ final class ReportRepository {
 
     // Optionally send email
     if (send) {
-      await _email.sendEmail(
-        emailMessage: report.toEmailMessage(),
-        recipients: recipients.map((e) => e.email).toList(),
-      );
+      await _email.sendReportEmail(id: savedReport.id);
     }
   }
 
