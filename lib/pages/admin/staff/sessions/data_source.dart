@@ -31,11 +31,11 @@ class SessionDataSource extends DataTableSource {
           formatDateTimeUTC(startTime).centeredTextWidget(),
         ),
         DataCell(
-          formatDateTimeUTC(endTime).centeredTextWidget(),
-        ),
-        DataCell(
           ("${duration.inHours}h ${duration.inMinutes.remainder(60)}m")
               .centeredTextWidget(),
+        ),
+        DataCell(
+          formatDateTimeUTC(endTime).centeredTextWidget(),
         ),
       ],
     );
