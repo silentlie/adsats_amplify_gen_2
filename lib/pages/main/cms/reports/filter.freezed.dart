@@ -18,6 +18,7 @@ mixin _$ReportFilterState {
   String get search;
   ReportType? get type;
   ReportStatus? get status;
+  bool? get discrepanciesFound;
   bool? get archived;
   DateTimeRange? get reportedAt;
 
@@ -38,6 +39,8 @@ mixin _$ReportFilterState {
             (identical(other.search, search) || other.search == search) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.discrepanciesFound, discrepanciesFound) ||
+                other.discrepanciesFound == discrepanciesFound) &&
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
             (identical(other.reportedAt, reportedAt) ||
@@ -45,12 +48,12 @@ mixin _$ReportFilterState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, user, search, type, status, archived, reportedAt);
+  int get hashCode => Object.hash(runtimeType, user, search, type, status,
+      discrepanciesFound, archived, reportedAt);
 
   @override
   String toString() {
-    return 'ReportFilterState(user: $user, search: $search, type: $type, status: $status, archived: $archived, reportedAt: $reportedAt)';
+    return 'ReportFilterState(user: $user, search: $search, type: $type, status: $status, discrepanciesFound: $discrepanciesFound, archived: $archived, reportedAt: $reportedAt)';
   }
 }
 
@@ -65,6 +68,7 @@ abstract mixin class $ReportFilterStateCopyWith<$Res> {
       String search,
       ReportType? type,
       ReportStatus? status,
+      bool? discrepanciesFound,
       bool? archived,
       DateTimeRange? reportedAt});
 }
@@ -86,6 +90,7 @@ class _$ReportFilterStateCopyWithImpl<$Res>
     Object? search = null,
     Object? type = freezed,
     Object? status = freezed,
+    Object? discrepanciesFound = freezed,
     Object? archived = freezed,
     Object? reportedAt = freezed,
   }) {
@@ -106,6 +111,10 @@ class _$ReportFilterStateCopyWithImpl<$Res>
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as ReportStatus?,
+      discrepanciesFound: freezed == discrepanciesFound
+          ? _self.discrepanciesFound
+          : discrepanciesFound // ignore: cast_nullable_to_non_nullable
+              as bool?,
       archived: freezed == archived
           ? _self.archived
           : archived // ignore: cast_nullable_to_non_nullable
@@ -209,8 +218,14 @@ extension ReportFilterStatePatterns on ReportFilterState {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(Staff user, String search, ReportType? type,
-            ReportStatus? status, bool? archived, DateTimeRange? reportedAt)?
+    TResult Function(
+            Staff user,
+            String search,
+            ReportType? type,
+            ReportStatus? status,
+            bool? discrepanciesFound,
+            bool? archived,
+            DateTimeRange? reportedAt)?
         $default, {
     required TResult orElse(),
   }) {
@@ -218,7 +233,7 @@ extension ReportFilterStatePatterns on ReportFilterState {
     switch (_that) {
       case _ReportFilterState() when $default != null:
         return $default(_that.user, _that.search, _that.type, _that.status,
-            _that.archived, _that.reportedAt);
+            _that.discrepanciesFound, _that.archived, _that.reportedAt);
       case _:
         return orElse();
     }
@@ -239,15 +254,21 @@ extension ReportFilterStatePatterns on ReportFilterState {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(Staff user, String search, ReportType? type,
-            ReportStatus? status, bool? archived, DateTimeRange? reportedAt)
+    TResult Function(
+            Staff user,
+            String search,
+            ReportType? type,
+            ReportStatus? status,
+            bool? discrepanciesFound,
+            bool? archived,
+            DateTimeRange? reportedAt)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ReportFilterState():
         return $default(_that.user, _that.search, _that.type, _that.status,
-            _that.archived, _that.reportedAt);
+            _that.discrepanciesFound, _that.archived, _that.reportedAt);
     }
   }
 
@@ -265,15 +286,21 @@ extension ReportFilterStatePatterns on ReportFilterState {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(Staff user, String search, ReportType? type,
-            ReportStatus? status, bool? archived, DateTimeRange? reportedAt)?
+    TResult? Function(
+            Staff user,
+            String search,
+            ReportType? type,
+            ReportStatus? status,
+            bool? discrepanciesFound,
+            bool? archived,
+            DateTimeRange? reportedAt)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _ReportFilterState() when $default != null:
         return $default(_that.user, _that.search, _that.type, _that.status,
-            _that.archived, _that.reportedAt);
+            _that.discrepanciesFound, _that.archived, _that.reportedAt);
       case _:
         return null;
     }
@@ -288,6 +315,7 @@ class _ReportFilterState extends ReportFilterState {
       this.search = "",
       this.type,
       this.status,
+      this.discrepanciesFound,
       this.archived,
       this.reportedAt})
       : super._();
@@ -301,6 +329,8 @@ class _ReportFilterState extends ReportFilterState {
   final ReportType? type;
   @override
   final ReportStatus? status;
+  @override
+  final bool? discrepanciesFound;
   @override
   final bool? archived;
   @override
@@ -323,6 +353,8 @@ class _ReportFilterState extends ReportFilterState {
             (identical(other.search, search) || other.search == search) &&
             (identical(other.type, type) || other.type == type) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.discrepanciesFound, discrepanciesFound) ||
+                other.discrepanciesFound == discrepanciesFound) &&
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
             (identical(other.reportedAt, reportedAt) ||
@@ -330,12 +362,12 @@ class _ReportFilterState extends ReportFilterState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, user, search, type, status, archived, reportedAt);
+  int get hashCode => Object.hash(runtimeType, user, search, type, status,
+      discrepanciesFound, archived, reportedAt);
 
   @override
   String toString() {
-    return 'ReportFilterState(user: $user, search: $search, type: $type, status: $status, archived: $archived, reportedAt: $reportedAt)';
+    return 'ReportFilterState(user: $user, search: $search, type: $type, status: $status, discrepanciesFound: $discrepanciesFound, archived: $archived, reportedAt: $reportedAt)';
   }
 }
 
@@ -352,6 +384,7 @@ abstract mixin class _$ReportFilterStateCopyWith<$Res>
       String search,
       ReportType? type,
       ReportStatus? status,
+      bool? discrepanciesFound,
       bool? archived,
       DateTimeRange? reportedAt});
 }
@@ -373,6 +406,7 @@ class __$ReportFilterStateCopyWithImpl<$Res>
     Object? search = null,
     Object? type = freezed,
     Object? status = freezed,
+    Object? discrepanciesFound = freezed,
     Object? archived = freezed,
     Object? reportedAt = freezed,
   }) {
@@ -393,6 +427,10 @@ class __$ReportFilterStateCopyWithImpl<$Res>
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as ReportStatus?,
+      discrepanciesFound: freezed == discrepanciesFound
+          ? _self.discrepanciesFound
+          : discrepanciesFound // ignore: cast_nullable_to_non_nullable
+              as bool?,
       archived: freezed == archived
           ? _self.archived
           : archived // ignore: cast_nullable_to_non_nullable

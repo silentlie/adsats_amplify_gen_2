@@ -38,6 +38,7 @@ sealed class ReportFilterState with _$ReportFilterState {
     @Default("") String search,
     ReportType? type,
     ReportStatus? status,
+    bool? discrepanciesFound,
     bool? archived,
     DateTimeRange? reportedAt,
   }) = _ReportFilterState;
@@ -49,6 +50,9 @@ sealed class ReportFilterState with _$ReportFilterState {
     archived != null ? result["archived"] = {"eq": archived} : null;
     type != null ? result["type"] = {"eq": type!.name} : null;
     status != null ? result["status"] = {"eq": status!.name} : null;
+    discrepanciesFound != null
+        ? result["discrepanciesFound"] = {"eq": discrepanciesFound}
+        : null;
     reportedAt != null
         ? result["createdAt"] = {"between": reportedAt!.isoBetween}
         : null;
@@ -91,6 +95,18 @@ class ReportsFilterView extends ConsumerWidget {
             },
             initialSelection: filter.status,
             text: "Report Status",
+          ),
+          GlobalDropdownMenu(
+            entries: const [
+              DropdownMenuEntry(value: true, label: "Yes"),
+              DropdownMenuEntry(value: false, label: "No"),
+              DropdownMenuEntry(value: null, label: "All"),
+            ],
+            onSelected: (value) {
+              filter = filter.copyWith(discrepanciesFound: value);
+            },
+            initialSelection: filter.discrepanciesFound,
+            text: "Discrepancies Found",
           ),
           GlobalDropdownMenu(
             entries: const [
