@@ -203,7 +203,7 @@ class _NewDocumentViewState extends ConsumerState<NewDocumentView>
             ElevatedButton.icon(
               onPressed: () async {
                 FilePickerResult? filePickerResult =
-                    await FilePicker.platform.pickFiles(
+                    await FilePicker.pickFiles(
                   allowMultiple: true,
                   type: FileType.any,
                   withData: false,

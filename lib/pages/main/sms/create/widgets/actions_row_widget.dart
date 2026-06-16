@@ -80,7 +80,7 @@ class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
                 ElevatedButton.icon(
                   onPressed: () async {
                     FilePickerResult? filePickerResult =
-                        await FilePicker.platform.pickFiles(
+                        await FilePicker.pickFiles(
                       allowMultiple: true,
                       type: FileType.any,
                       withData: false,
