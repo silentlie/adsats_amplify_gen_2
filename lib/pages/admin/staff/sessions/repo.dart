@@ -13,6 +13,7 @@ FutureOr<List<Session>> sessionsRepo(
   final request = ModelQueries.list<Session>(
     Session.classType,
     where: Session.STAFF.eq(staff.id),
+    limit: 1000
   );
   final response = await Amplify.API
       .query<PaginatedResult<Session>>(

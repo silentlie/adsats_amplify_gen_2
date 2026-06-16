@@ -4,6 +4,7 @@ import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'session_manager.g.dart';
@@ -43,7 +44,6 @@ class SessionManager extends _$SessionManager {
               'ge': cutoffIso,
             }
           },
-          'limit': 1,
         },
       ).then((res) {
         return (res['listSessions']['items'] as List)
@@ -61,14 +61,21 @@ class SessionManager extends _$SessionManager {
       _heartbeatTimer = Timer.periodic(
         heartbeatInterval,
         (timer) async {
-          if (_currentSession != null) {
-            await db.update(_currentSession!);
+          try {
+            final session = _currentSession;
+            if (session != null) {
+              _currentSession = await db.update(session);
+            }
+          } catch (e, st) {
+            debugPrint('Session heartbeat update failed: $e\n$st');
+            _stopHeartbeat();
           }
         },
       );
 
       _resetIdleTimer();
-    } catch (e) {
+    } catch (e, st) {
+      debugPrint('SessionManager failed to start: $e\n$st');
       _stopHeartbeat();
     } finally {
       _starting = false;

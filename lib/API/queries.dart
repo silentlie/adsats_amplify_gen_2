@@ -1,6 +1,6 @@
 const listSessionsGraphQL = '''
-query ListSessions(\$filter: ModelSessionFilterInput, \$limit: Int = 1) {
-  listSessions(filter: \$filter, limit: \$limit) {
+query ListSessions(\$filter: ModelSessionFilterInput) {
+  listSessions(filter: \$filter) {
     items {
       staff {
         id
