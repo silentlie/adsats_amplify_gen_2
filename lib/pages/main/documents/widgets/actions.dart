@@ -46,19 +46,19 @@ class DocumentActions extends ConsumerWidget with ConfirmDialogMixin {
             icon: const Icon(Icons.edit_outlined),
           ),
         if (document.expiredAt != null)
-        IconButton(
-          onPressed: () async {
-            controller.close();
-            showDialog(
-              context: context,
-              builder: (context) {
-                return Reminders(document: document);
-              },
-            );
-          },
-          icon: const Icon(Icons.notifications_active_outlined),
-          tooltip: "Reminders",
-        ),
+          IconButton(
+            onPressed: () async {
+              controller.close();
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return Reminders(document: document);
+                },
+              );
+            },
+            icon: const Icon(Icons.notifications_active_outlined),
+            tooltip: "Reminders",
+          ),
         if (isAdmin)
           IconButton(
             onPressed: () async {

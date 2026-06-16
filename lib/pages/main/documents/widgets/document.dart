@@ -143,18 +143,18 @@ class EditDocumentView extends ConsumerWidget with ConfirmDialogMixin {
         ),
         // reminders
         if (document.expiredAt != null)
-        ElevatedButton.icon(
-          onPressed: () {
-            showDialog<bool>(
-              context: context,
-              builder: (context) {
-                return Reminders(document: document);
-              },
-            );
-          },
-          label: const Text('Reminders'),
-          icon: const Icon(Icons.notifications_active_outlined),
-        ),
+          ElevatedButton.icon(
+            onPressed: () {
+              showDialog<bool>(
+                context: context,
+                builder: (context) {
+                  return Reminders(document: document);
+                },
+              );
+            },
+            label: const Text('Reminders'),
+            icon: const Icon(Icons.notifications_active_outlined),
+          ),
         // apply
         ElevatedButton.icon(
           onPressed: () async {
