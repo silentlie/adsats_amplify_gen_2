@@ -47,4 +47,4 @@ final class ReportServiceProvider extends $FunctionalProvider<ReportRepository,
   }
 }
 
-String _$reportServiceHash() => r'564dc272a0f6844687e1c5dbc6a27c4725659e07';
+String _$reportServiceHash() => r'1fcb32ef702c5c50e310a2309fd190ebce65f750';

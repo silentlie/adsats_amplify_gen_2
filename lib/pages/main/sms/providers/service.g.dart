@@ -47,4 +47,4 @@ final class NoticeServiceProvider extends $FunctionalProvider<NoticeRepository,
   }
 }
 
-String _$noticeServiceHash() => r'f618c9fe1e0e9872379c5dd05348da9b3ca1ada1';
+String _$noticeServiceHash() => r'e55b5ddaf8a3d106559de54ce73bf881f62f3512';
