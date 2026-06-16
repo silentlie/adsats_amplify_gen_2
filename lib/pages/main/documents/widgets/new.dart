@@ -1,23 +1,18 @@
-import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
-import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
+import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/models/new_documents.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/providers/documents.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/providers/reminder_service.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/providers/service.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/new_documents_details_form.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/reminder_form.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
-import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
-import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
-import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
-import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
-import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:adsats_amplify_gen_2/constants/durations.dart';
 
 class NewDocumentView extends ConsumerStatefulWidget {
   const NewDocumentView({
@@ -34,7 +29,42 @@ class NewDocumentView extends ConsumerStatefulWidget {
 class _NewDocumentViewState extends ConsumerState<NewDocumentView>
     with ConfirmDialogMixin {
   bool _isLoading = false;
+  bool _initSuccess = false;
   final Map<String, double> _fileProgress = {};
+  late NewDocumentsState _state;
+
+  @override
+  void initState() {
+    super.initState();
+    final user = ref.read(userDetailsProvider).value;
+    final subcategory = user == null ? null : _initialSubcategory(user);
+
+    if (subcategory == null) {
+      return;
+    }
+
+    _state = NewDocumentsState(
+      uploader: user,
+      subcategory: subcategory,
+    );
+    _initSuccess = true;
+  }
+
+  Subcategory? _initialSubcategory(Staff user) {
+    if (widget.subcategory != null) {
+      return widget.subcategory;
+    }
+
+    final subcategories = user.subcategories ?? const [];
+    for (final staffSubcategory in subcategories) {
+      final subcategory = staffSubcategory.subcategory;
+      if (subcategory != null) {
+        return subcategory;
+      }
+    }
+
+    return null;
+  }
 
   void _showLoading(bool value) {
     setState(() {
@@ -43,244 +73,258 @@ class _NewDocumentViewState extends ConsumerState<NewDocumentView>
     });
   }
 
+  void _updateState(NewDocumentsState value) {
+    if (_isLoading) {
+      return;
+    }
+
+    setState(() {
+      _state = value;
+    });
+  }
+
+  void _closeDialog() {
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      DocumentsRoute().go(context);
+    }
+  }
+
+  Future<void> _pickFiles() async {
+    final filePickerResult = await FilePicker.pickFiles(
+      allowMultiple: true,
+      type: FileType.any,
+      withData: false,
+      // Ensure to get file stream for better performance
+      withReadStream: true,
+    );
+    if (filePickerResult != null) {
+      ref.read(selectedFilesProvider.notifier).addFiles(filePickerResult.files);
+    }
+  }
+
+  Future<void> _cancel() async {
+    final result = await showConfirmDialog(
+      context: context,
+      title: const Text("Are you sure?"),
+      content: const Text("Do you want to cancel?"),
+    );
+    if (!result) {
+      return;
+    }
+    if (!mounted) return;
+    if (context.canPop()) {
+      context.pop();
+    } else {
+      DocumentsRoute().go(context);
+    }
+  }
+
+  Future<void> _uploadDocuments(NewDocumentsState state) async {
+    final files = ref.read(selectedFilesProvider);
+    final uploader = state.uploader;
+    final subcategory = state.subcategory;
+
+    if (files.isEmpty || uploader == null || subcategory == null) {
+      return;
+    }
+
+    final reminderResult = state.reminderResult;
+    final confirmation = await showConfirmDialog(
+      context: context,
+      title: const Text("Are you sure?"),
+      content: Text(
+        reminderResult == null
+            ? "Do you want to upload these documents?"
+            : "Do you want to upload these documents and create reminders?",
+      ),
+    );
+    if (!confirmation) {
+      return;
+    }
+
+    _showLoading(true);
+    final documentsService = ref.read(documentsServiceProvider);
+    final reminderService = ref.read(reminderServiceProvider);
+    try {
+      final documents = await documentsService.uploadBatch(
+        files,
+        uploader,
+        subcategory,
+        state.aircraft,
+        state.archived,
+        state.issuedAt,
+        state.expiredAt,
+        (fileName, progress) {
+          setState(() {
+            _fileProgress[fileName] = progress;
+          });
+        },
+      );
+
+      if (reminderResult != null) {
+        await Future.wait([
+          for (final document in documents)
+            for (final date in reminderResult.dates)
+              reminderService.createReminder(
+                date: date,
+                document: document,
+                staff: reminderResult.staff,
+              ),
+        ]);
+      }
+
+      ref.invalidate(documentsProvider);
+      ref.read(selectedFilesProvider.notifier).clearFiles();
+      if (!mounted) return;
+      if (context.canPop()) {
+        context.pop();
+      } else {
+        DocumentsRoute().go(context);
+      }
+    } catch (e) {
+      debugPrint('Error uploading files: $e');
+    } finally {
+      if (mounted) {
+        _showLoading(false);
+      }
+    }
+  }
+
+  Widget _buildSelectedFiles(List<PlatformFile> selectedFiles) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: selectedFiles.map((file) {
+          return PlaformFileWidget(
+            file: file,
+            onDelete: () {
+              ref.read(selectedFilesProvider.notifier).removeFile(file);
+              setState(() {
+                _fileProgress.remove(file.name);
+              });
+            },
+            progress: _fileProgress[file.name],
+          );
+        }).toList(),
+      ),
+    );
+  }
+
+  Widget _buildContent(List<PlatformFile> files) {
+    switch (_state.stage) {
+      case NewDocumentsStage.details:
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            NewDocumentsDetailsForm(
+              state: _state,
+              onChanged: _updateState,
+            ),
+            _buildSelectedFiles(files),
+          ],
+        );
+      case NewDocumentsStage.reminders:
+        return ReminderForm(
+          state: _state.reminderState,
+          onChanged: (value) {
+            _updateState(_state.copyWith(reminderState: value));
+          },
+        );
+    }
+  }
+
+  List<Widget> _buildActions() {
+    final colorScheme = Theme.of(context).colorScheme;
+    switch (_state.stage) {
+      case NewDocumentsStage.details:
+        return [
+          ElevatedButton.icon(
+            onPressed: _cancel,
+            label: const Text('Cancel'),
+            icon: const Icon(Icons.cancel_outlined),
+          ),
+          ElevatedButton.icon(
+            onPressed: _pickFiles,
+            label: const Text("Pick file"),
+            icon: const Icon(Icons.note_add_outlined),
+          ),
+          ElevatedButton.icon(
+            onPressed: () {
+              if (_state.isExpiryAvailable) {
+                _updateState(
+                  _state.copyWith(stage: NewDocumentsStage.reminders),
+                );
+                return;
+              }
+              _uploadDocuments(_state);
+            },
+            label: Text(_state.isExpiryAvailable ? 'Next' : 'Upload Files'),
+            icon: Icon(
+              _state.isExpiryAvailable
+                  ? Icons.arrow_forward_outlined
+                  : Icons.upload_file,
+            ),
+          ),
+        ];
+      case NewDocumentsStage.reminders:
+        return [
+          ElevatedButton.icon(
+            onPressed: () {
+              _updateState(
+                _state.copyWith(stage: NewDocumentsStage.details),
+              );
+            },
+            label: const Text('Back'),
+            icon: const Icon(Icons.arrow_back_outlined),
+          ),
+          ElevatedButton.icon(
+            onPressed: () => _uploadDocuments(_state),
+            style: ButtonStyle(
+              backgroundColor:
+                  WidgetStateProperty.all<Color>(colorScheme.secondary),
+            ),
+            label: Text(
+              'Upload Files',
+              style: TextStyle(color: colorScheme.onSecondary),
+            ),
+            icon: Icon(
+              Icons.upload_file,
+              color: colorScheme.onSecondary,
+            ),
+          ),
+        ];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    ThemeData themeData = Theme.of(context);
-    final colorScheme = themeData.colorScheme;
-    final user = ref.watch(userDetailsProvider.select((value) => value.value!));
-    Staff uploader = user;
-    Subcategory? subcategory = widget.subcategory;
-    List<Aircraft> aircraft = [];
-    bool archived = false;
-    TemporalDateTime? issuedAt;
-    TemporalDateTime? expiredAt;
-    final isAdmin = ref.watch(isAdminProvider);
+    if (!_initSuccess) {
+      return AlertDialog.adaptive(
+        title: const Text('Unable to add documents'),
+        content: const Text('No document subcategories are available.'),
+        actions: [
+          ElevatedButton.icon(
+            onPressed: _closeDialog,
+            icon: const Icon(Icons.error_outline),
+            label: const Text('OK'),
+          ),
+        ],
+      );
+    }
+    final selectedFiles = ref.watch(selectedFilesProvider);
     return Stack(
       children: [
         AlertDialog.adaptive(
           title: Text(
             'Add Documents',
-            style: themeData.textTheme.headlineMedium,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           content: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AsyncValueWidget(
-                  value: ref.watch(listStaffProvider()),
-                  data: (data) {
-                    return GlobalDropdownMenu<Staff>(
-                      entries: data.map(
-                        (e) {
-                          return DropdownMenuEntry(
-                            value: e,
-                            label: e.fullName,
-                          );
-                        },
-                      ).toList(),
-                      onSelected: (value) {
-                        uploader = value!;
-                      },
-                      enabled: isAdmin,
-                      initialSelection: data.firstWhere((element) {
-                        return element.id == user.id;
-                      }),
-                      text: "Uploader",
-                    );
-                  },
-                ),
-                GlobalDropdownMenu<Subcategory>(
-                  entries: user.subcategories
-                          ?.map(
-                            (e) => DropdownMenuEntry(
-                              value: e.subcategory!,
-                              label: e.subcategory!.name,
-                            ),
-                          )
-                          .toList() ??
-                      [],
-                  onSelected: (value) {
-                    subcategory = value;
-                  },
-                  enabled: isAdmin,
-                  text: "Choose a subcategory",
-                  initialSelection: subcategory,
-                ),
-                GlobalDropdownMenu(
-                  entries: const [
-                    DropdownMenuEntry(value: false, label: "No"),
-                    DropdownMenuEntry(value: true, label: "Yes"),
-                    DropdownMenuEntry(value: null, label: "All"),
-                  ],
-                  onSelected: (value) {
-                    archived = value!;
-                  },
-                  initialSelection: archived,
-                  text: "Archived",
-                ),
-                MultiSelectFormField<Aircraft>(
-                  title: "Select aircraft",
-                  items: user.aircraft!.map(
-                    (e) {
-                      return e.aircraft!;
-                    },
-                  ).toList(),
-                  toCard: (value) {
-                    return CheckListCard<Aircraft>(
-                      value: value,
-                      title: Text(value.name),
-                      // how to use this based on initial selections
-                      selected: true,
-                    );
-                  },
-                  initialValue: aircraft,
-                  padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
-                ),
-                DatePickerWidget(
-                  text: "Issue Date",
-                  firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
-                  lastDate: DateTime.now().add(kTwentyFiveYearDuration),
-                  onSelected: (value) {
-                    issuedAt = value;
-                  },
-                ),
-                DatePickerWidget(
-                  text: "Expired date",
-                  firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
-                  lastDate: DateTime.now().add(kTwentyFiveYearDuration),
-                  onSelected: (value) {
-                    expiredAt = value;
-                  },
-                ),
-                Consumer(
-                  builder: (context, ref, child) {
-                    final selectedFiles = ref.watch(selectedFilesProvider);
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: selectedFiles.map((file) {
-                          return PlaformFileWidget(
-                              file: file,
-                              onDelete: () {
-                                ref
-                                    .read(selectedFilesProvider.notifier)
-                                    .removeFile(file);
-                                setState(() {
-                                  _fileProgress.remove(file.name);
-                                });
-                              },
-                              progress: _fileProgress[file.name]);
-                        }).toList(),
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
+            child: _buildContent(selectedFiles),
           ),
-          actions: [
-            // cancel
-            ElevatedButton.icon(
-              onPressed: () async {
-                final result = await showConfirmDialog(
-                  context: context,
-                  title: Text("Are you sure?"),
-                  content: Text("Do you want to cancel?"),
-                );
-                if (!result) {
-                  return;
-                }
-                if (!context.mounted) return;
-                if (context.canPop()) {
-                  context.pop();
-                } else {
-                  DocumentsRoute().go(context);
-                }
-              },
-              label: const Text('Cancel'),
-              icon: Icon(Icons.cancel_outlined),
-            ),
-            ElevatedButton.icon(
-              onPressed: () async {
-                FilePickerResult? filePickerResult =
-                    await FilePicker.pickFiles(
-                  allowMultiple: true,
-                  type: FileType.any,
-                  withData: false,
-                  // Ensure to get file stream for better performance
-                  withReadStream: true,
-                );
-                if (filePickerResult != null) {
-                  ref
-                      .read(selectedFilesProvider.notifier)
-                      .addFiles(filePickerResult.files);
-                }
-              },
-              label: const Text("Pick file"),
-              icon: Icon(Icons.note_add_outlined),
-            ),
-            // apply
-            ElevatedButton.icon(
-              onPressed: () async {
-                final files = ref.read(selectedFilesProvider);
-                if (subcategory == null || files.isEmpty) {
-                  return;
-                }
-                final result = await showConfirmDialog(
-                  context: context,
-                  title: Text("Are you sure?"),
-                  content: Text("Do you want to upload these documents?"),
-                );
-                if (!result) {
-                  return;
-                }
-                // Show loading screen
-                _showLoading(true);
-                final service = ref.read(documentsServiceProvider);
-                try {
-                  await service.uploadBatch(
-                    files,
-                    uploader,
-                    subcategory!,
-                    aircraft,
-                    archived,
-                    issuedAt,
-                    expiredAt,
-                    (fileName, progress) {
-                      setState(() {
-                        _fileProgress[fileName] = progress;
-                      });
-                    },
-                  );
-                  ref.invalidate(documentsProvider);
-                  if (!context.mounted) return;
-                  if (context.canPop()) {
-                    context.pop();
-                  } else {
-                    DocumentsRoute().go(context);
-                  }
-                } catch (e) {
-                  debugPrint('Error uploading files: $e');
-                } finally {
-                  // Hide loading screen
-                  _showLoading(false);
-                }
-              },
-              style: ButtonStyle(
-                // Change button background color
-                backgroundColor:
-                    WidgetStateProperty.all<Color>(colorScheme.secondary),
-              ),
-              label: Text(
-                'Upload Files',
-                style: TextStyle(color: colorScheme.onSecondary),
-              ),
-              icon: Icon(
-                Icons.upload_file,
-                color: colorScheme.onSecondary,
-              ),
-            )
-          ],
+          actions: _buildActions(),
         ),
         if (_isLoading)
           ModalBarrier(
