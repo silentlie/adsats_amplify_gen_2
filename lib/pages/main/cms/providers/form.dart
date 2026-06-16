@@ -97,7 +97,10 @@ class ReportForm extends _$ReportForm {
   }
 
   void removeDocument(ReportDocument document) {
-    _documents.remove(document);
+    _documents = [
+      for (final d in _documents)
+        if (d.id != document.id) d,
+    ];
     commit();
   }
 

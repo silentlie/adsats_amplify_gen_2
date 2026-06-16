@@ -112,7 +112,10 @@ class NoticeForm extends _$NoticeForm {
   }
 
   void removeDocument(NoticeDocument document) {
-    _documents.remove(document);
+    _documents = [
+      for (final d in _documents)
+        if (d.id != document.id) d,
+    ];
     commit();
   }
 
