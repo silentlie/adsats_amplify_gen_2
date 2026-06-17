@@ -8,10 +8,13 @@ This repository contains the Flutter client and AWS Amplify Gen 2 backend for AD
 
 - [Application Areas](#application-areas)
 - [Tech Stack](#tech-stack)
+- [Architecture Overview](#architecture-overview)
 - [Project Structure](#project-structure)
+- [Feature Data Flow](#feature-data-flow)
 - [Prerequisites](#prerequisites)
 - [Local Setup](#local-setup)
 - [Amplify Configuration](#amplify-configuration)
+- [Backend Resources](#backend-resources)
 - [Generated Code](#generated-code)
 - [Development Workflow](#development-workflow)
 - [Validation](#validation)
@@ -49,6 +52,32 @@ The admin shell exposes:
 - GoRouter with typed generated routes
 - Freezed and JSON serialization for immutable app models
 
+## Architecture Overview
+
+```mermaid
+flowchart LR
+  user["Authenticated ADSATS user"] --> app["Flutter app"]
+
+  subgraph client["Client"]
+    app --> authUI["Amplify Authenticator"]
+    app --> router["GoRouter typed routes"]
+    app --> state["Riverpod providers"]
+    state --> repos["Feature repositories"]
+    repos --> apiClient["Amplify API client"]
+    repos --> storageClient["Amplify Storage client"]
+  end
+
+  subgraph backend["Amplify Gen 2 backend"]
+    authUI --> cognito["Cognito auth"]
+    apiClient --> data["Amplify Data GraphQL API"]
+    storageClient --> s3["S3 storage prefixes"]
+    data --> models["ADSATS data models"]
+    data --> functions["Lambda functions"]
+    functions --> emails["Email and notification handlers"]
+    functions --> adminOps["Cognito admin actions"]
+  end
+```
+
 ## Project Structure
 
 ```text
@@ -76,6 +105,25 @@ widgets/              UI components for a feature
 providers/            Riverpod providers and services
 models/               Feature-specific Freezed/JSON models
 data/                 Repository layer for API/data access
+```
+
+## Feature Data Flow
+
+Most feature modules follow the same path from screen state to Amplify operations.
+
+```mermaid
+flowchart TD
+  route["Typed route"] --> screen["Feature screen or shell"]
+  screen --> widgets["Feature widgets"]
+  widgets --> providers["Riverpod providers"]
+  filters["Filter or form model"] --> providers
+  providers --> service["Feature service"]
+  service --> repository["Repository"]
+  repository --> api["GraphQL/API wrapper"]
+  repository --> storage["S3/storage wrapper"]
+  api --> amplifyData["Amplify Data models"]
+  storage --> filePrefixes["Storage prefixes"]
+  amplifyData --> providers
 ```
 
 ## Prerequisites
@@ -156,6 +204,28 @@ The backend is defined in `amplify/backend.ts` and includes:
 - `storage`: S3 storage rules for documents, flight crew records, notice documents, and report documents
 - `runReminderDispatch`: scheduled/dispatch function for reminders
 
+```mermaid
+flowchart TD
+  backendTs["amplify/backend.ts"] --> auth["auth/resource.ts"]
+  backendTs --> data["data/resource.ts"]
+  backendTs --> storage["storage/resource.ts"]
+  backendTs --> reminders["run-reminder-dispatch"]
+
+  auth --> cognitoPolicy["Email sign-in and password policy"]
+  auth --> cognitoAdmin["Create, delete, enable, and disable users"]
+
+  data --> schema["ADSATS schema models"]
+  data --> customMutations["Custom mutations"]
+  customMutations --> sendEmail["sendEmail"]
+  customMutations --> sendNotification["sendNotificationEmail"]
+  customMutations --> userAdmin["Cognito admin mutations"]
+
+  storage --> documents["documents/*"]
+  storage --> flightCrewRecords["flightCrewRecords/*"]
+  storage --> noticeDocuments["noticeDocuments/*"]
+  storage --> reportDocuments["reportDocuments/*"]
+```
+
 The data schema includes core ADSATS entities such as:
 
 - Staff and sessions
@@ -176,6 +246,22 @@ Common generated file types:
 - `*.freezed.dart`: Freezed immutable model support
 - `lib/models/*.dart`: Amplify generated GraphQL model classes
 - `lib/amplify_outputs*.dart`: Amplify generated environment configuration
+
+```mermaid
+flowchart LR
+  annotatedDart["Annotated Dart sources"] --> buildRunner["dart run build_runner build"]
+  buildRunner --> generatedDart["*.g.dart and *.freezed.dart"]
+
+  amplifySchema["amplify/data/resource.ts"] --> modelgen["npx ampx generate graphql-client-code"]
+  modelgen --> amplifyModels["lib/models/*.dart"]
+
+  amplifyEnv["Amplify app and branch"] --> outputs["npx ampx generate outputs"]
+  outputs --> amplifyOutputs["lib/amplify_outputs*.dart"]
+
+  generatedDart --> flutterBuild["Flutter build/run"]
+  amplifyModels --> flutterBuild
+  amplifyOutputs --> flutterBuild
+```
 
 Useful command:
 
