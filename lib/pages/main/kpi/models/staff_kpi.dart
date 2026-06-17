@@ -28,6 +28,12 @@ sealed class StaffKPI with _$StaffKPI {
           return element.type == NoticeType.Hazard_report;
         },
       ).length;
+  int get totalKpi =>
+      noticeToCrews +
+      safetyNotices +
+      hazardReports +
+      internalAuditReports +
+      externalAuditReports;
   int get internalAuditReports => staff.reports!.where(
         (element) {
           return element.type == ReportType.Internal_audit_report;

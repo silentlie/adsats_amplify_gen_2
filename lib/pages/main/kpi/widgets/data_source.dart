@@ -53,6 +53,9 @@ class KPIDataSource extends DataTableSource {
         DataCell(
           staff.hazardReports.toString().centeredTextWidget(),
         ),
+        DataCell(
+          staff.totalKpi.toString().centeredTextWidget(),
+        ),
         // DataCell(
         //   getCenterText(
         //     staff.internalAuditReports.toString(),

@@ -101,6 +101,19 @@ class KPIPage extends ConsumerWidget with CompareMixin {
                   );
                 },
               ),
+              DataColumn2(
+                label: "Total KPI".centeredTextWidget(),
+                size: ColumnSize.L,
+                onSort: (columnIndex, ascending) {
+                  sortNotifier.apply(
+                    columnIndex: columnIndex,
+                    sortAscending: ascending,
+                    getField: (staff) {
+                      return staff.totalKpi;
+                    },
+                  );
+                },
+              ),
               // DataColumn2(
               //   label: getCenterText("Internal Audit Reports"),
               //   size: ColumnSize.L,
