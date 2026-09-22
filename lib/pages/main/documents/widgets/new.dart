@@ -92,15 +92,12 @@ class _NewDocumentViewState extends ConsumerState<NewDocumentView>
   }
 
   Future<void> _pickFiles() async {
-    final filePickerResult = await FilePicker.pickFiles(
-      allowMultiple: true,
+    final files = await FilePicker.pickFiles(
       type: FileType.any,
-      withData: false,
-      // Ensure to get file stream for better performance
-      withReadStream: true,
     );
-    if (filePickerResult != null) {
-      ref.read(selectedFilesProvider.notifier).addFiles(filePickerResult.files);
+
+    if (files.isNotEmpty) {
+      ref.read(selectedFilesProvider.notifier).addFiles(files);
     }
   }
 

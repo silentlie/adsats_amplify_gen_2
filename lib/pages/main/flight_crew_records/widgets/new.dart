@@ -130,16 +130,12 @@ class _NewFlightCrewRecordState extends ConsumerState<NewFlightCrewRecord>
             ),
             ElevatedButton.icon(
               onPressed: () async {
-                FilePickerResult? filePickerResult = await FilePicker.pickFiles(
-                  allowMultiple: true,
+                final files = await FilePicker.pickFiles(
                   type: FileType.any,
-                  withData: false,
-                  withReadStream: true,
                 );
-                if (filePickerResult != null) {
-                  ref
-                      .read(selectedFilesProvider.notifier)
-                      .addFiles(filePickerResult.files);
+
+                if (files.isNotEmpty) {
+                  ref.read(selectedFilesProvider.notifier).addFiles(files);
                 }
               },
               label: const Text("Pick file"),

@@ -13,10 +13,16 @@ class AmplifyS3API {
     required String s3Path,
     Function(StorageTransferProgress progress)? onProgress,
   }) async {
+    final size = file.lengthSync() ?? await file.length();
+
+    if (size == null) {
+      throw StateError('Unable to determine file size: ${file.name}');
+    }
+
     return await Amplify.Storage.uploadFile(
       localFile: AWSFile.fromStream(
-        file.readStream!,
-        size: file.size,
+        file.readAsByteStream(),
+        size: size,
       ),
       path: StoragePath.fromString(s3Path),
       onProgress: onProgress,

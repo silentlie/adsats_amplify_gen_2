@@ -9,7 +9,7 @@ import amplify_auth_cognito
 import amplify_secure_storage
 import connectivity_plus
 import device_info_plus
-import file_picker
+import file_picker_darwin
 import package_info_plus
 import shared_preferences_foundation
 import url_launcher_macos

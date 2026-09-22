@@ -61,16 +61,11 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
           if (isEditMode)
             ElevatedButton.icon(
               onPressed: () async {
-                FilePickerResult? filePickerResult = await FilePicker.pickFiles(
-                  allowMultiple: true,
+                final files = await FilePicker.pickFiles(
                   type: FileType.any,
-                  withData: false,
-                  // Ensure to get file stream for better performance
-                  withReadStream: true,
                 );
-                ref
-                    .read(selectedFilesProvider.notifier)
-                    .addFiles(filePickerResult?.files ?? []);
+
+                ref.read(selectedFilesProvider.notifier).addFiles(files);
               },
               label: const Text("Attached Documents"),
               icon: Icon(Icons.description_outlined),

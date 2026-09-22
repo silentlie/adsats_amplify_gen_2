@@ -79,17 +79,13 @@ class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
               if (isEditMode)
                 ElevatedButton.icon(
                   onPressed: () async {
-                    FilePickerResult? filePickerResult =
-                        await FilePicker.pickFiles(
-                      allowMultiple: true,
+                    final files = await FilePicker.pickFiles(
                       type: FileType.any,
-                      withData: false,
-                      // Ensure to get file stream for better performance
-                      withReadStream: true,
                     );
-                    ref
-                        .read(selectedFilesProvider.notifier)
-                        .addFiles(filePickerResult?.files ?? []);
+
+                    if (files.isNotEmpty) {
+                      ref.read(selectedFilesProvider.notifier).addFiles(files);
+                    }
                   },
                   label: const Text("Attachments Documents"),
                   icon: Icon(Icons.description_outlined),
