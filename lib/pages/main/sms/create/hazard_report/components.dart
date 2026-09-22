@@ -145,6 +145,13 @@ class RiskWidget extends ConsumerWidget with RiskMixin {
       final severe = value.details["severity"] as int?;
       return severe ?? 0;
     }));
+    final bool alarp = ref.watch(
+      noticeFormProvider.select(
+        (value) => value.details["alarp"] as bool? ?? false,
+      ),
+    );
+
+    final bool showAlarp = isAlarpEligible(likelihood, severity);
     return Column(
       children: [
         Wrap(
@@ -198,7 +205,11 @@ class RiskWidget extends ConsumerWidget with RiskMixin {
                           onSelectChanged: (value) {
                             if (isEditMode) {
                               notifier.updateDetails(
-                                {"likelihood": index},
+                                {
+                                  "likelihood": index,
+                                  if (!isAlarpEligible(index, severity))
+                                    "alarp": false,
+                                },
                               );
                               notifier.commit();
                             }
@@ -267,7 +278,11 @@ class RiskWidget extends ConsumerWidget with RiskMixin {
                           onSelectChanged: (value) {
                             if (isEditMode) {
                               notifier.updateDetails(
-                                {"severity": index},
+                                {
+                                  "severity": index,
+                                  if (!isAlarpEligible(likelihood, index))
+                                    "alarp": false,
+                                },
                               );
                               notifier.commit();
                             }
@@ -324,12 +339,34 @@ class RiskWidget extends ConsumerWidget with RiskMixin {
                   readOnly: true,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    fillColor: getRiskColor(likelihood, severity),
+                    fillColor: getRiskColor(
+                      likelihood,
+                      severity,
+                      alarp: alarp,
+                    ),
                     filled: true,
                     hintText: getRiskText(likelihood, severity),
                   ),
                 ),
               ),
+              if (showAlarp)
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Checkbox(
+                      value: alarp,
+                      onChanged: isEditMode
+                          ? (value) {
+                              notifier.updateDetails({
+                                "alarp": value ?? false,
+                              });
+                              notifier.commit();
+                            }
+                          : null,
+                    ),
+                    const Text("ALARP"),
+                  ],
+                ),
             ],
           ),
         ),

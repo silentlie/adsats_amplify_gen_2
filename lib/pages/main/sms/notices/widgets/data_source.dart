@@ -36,7 +36,11 @@ class NoticeDataSource extends DataTableSource with RiskMixin {
       decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(20),
-          color: getRiskColor(likelihood, severity)),
+          color: getRiskColor(
+            likelihood,
+            severity,
+            alarp: notice.alarp,
+          )),
       child: Center(
         child: Text(getRiskText(likelihood, severity)),
       ),

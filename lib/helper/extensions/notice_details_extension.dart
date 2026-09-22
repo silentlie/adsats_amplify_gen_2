@@ -49,4 +49,9 @@ extension NoticeDetailsExtension on Notice {
     final s = severity!;
     return l + s;
   }
+
+  bool get alarp {
+    if (type != NoticeType.Hazard_report) return false;
+    return (detailsMap["alarp"] as bool?) ?? false;
+  }
 }
