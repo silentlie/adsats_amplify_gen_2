@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/widgets/app_bar_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class LoadingView extends StatelessWidget {
   const LoadingView({super.key});

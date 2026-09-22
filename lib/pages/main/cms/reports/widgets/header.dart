@@ -2,7 +2,7 @@ import 'package:adsats_amplify_gen_2/pages/main/cms/providers/reports.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/reports/filter.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ReportHeader extends ConsumerWidget {

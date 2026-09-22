@@ -6,7 +6,7 @@ import 'package:adsats_amplify_gen_2/pages/main/documents/models/reminder.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_multi_select.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

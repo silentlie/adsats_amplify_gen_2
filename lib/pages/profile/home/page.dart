@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/iterable_join_string_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ProfileHomePage extends ConsumerWidget {

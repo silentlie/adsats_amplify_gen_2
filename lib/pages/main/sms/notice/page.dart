@@ -4,7 +4,7 @@ import 'package:adsats_amplify_gen_2/pages/main/sms/create/notice_to_crew/page.d
 import 'package:adsats_amplify_gen_2/pages/main/sms/create/safety_notice/page.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ViewNoticePage extends ConsumerWidget {

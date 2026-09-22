@@ -7,7 +7,7 @@ import 'package:adsats_amplify_gen_2/pages/main/sms/notices/widgets/data_source.
 import 'package:adsats_amplify_gen_2/pages/main/sms/notices/widgets/data_table.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notices.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class SmsInboxPage extends ConsumerWidget with CompareMixin {

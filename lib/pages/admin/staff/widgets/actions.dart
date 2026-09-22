@@ -5,7 +5,7 @@ import 'package:adsats_amplify_gen_2/pages/admin/staff/providers/service.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/providers/staff.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/sessions/sessions_view.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/staff/widgets/staff.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class StaffActions extends ConsumerWidget with ConfirmDialogMixin {

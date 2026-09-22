@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
 
 class SessionDataSource extends DataTableSource {

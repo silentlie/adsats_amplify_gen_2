@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/notification/notifications.dart';
 import 'package:adsats_amplify_gen_2/router/router.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 mixin NotificationBuilderMixin {

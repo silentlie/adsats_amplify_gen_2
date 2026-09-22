@@ -5,7 +5,7 @@ import 'package:adsats_amplify_gen_2/pages/main/documents/providers/documents.da
 import 'package:adsats_amplify_gen_2/pages/main/documents/providers/service.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/document.dart';
 import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/reminders.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DocumentActions extends ConsumerWidget with ConfirmDialogMixin {

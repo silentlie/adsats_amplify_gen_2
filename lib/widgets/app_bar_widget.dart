@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:adsats_amplify_gen_2/notification/notifications_widget.dart';
 import 'package:adsats_amplify_gen_2/theme/theme_toggle_button.dart';
 import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 const List<String> _kMonths = [
   'JAN',

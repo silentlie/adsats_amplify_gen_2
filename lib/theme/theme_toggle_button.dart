@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ThemeToggleButton extends ConsumerWidget {

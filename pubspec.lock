@@ -445,10 +445,10 @@ packages:
     dependency: "direct main"
     description:
       name: data_table_2
-      sha256: cb31d465dcf1e1598a662d06d3d2c16c73700ae9e837a3d91588f1dda7519abc
+      sha256: e49d91e7aeabd751336b3981814c2d63c2e935d01ebfb5ad1f4047ab1f8438e5
       url: "https://pub.dev"
     source: hosted
-    version: "2.7.2"
+    version: "3.0.0"
   dbus:
     dependency: transitive
     description:
@@ -846,7 +846,7 @@ packages:
     source: hosted
     version: "0.13.0"
   material_ui:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: material_ui
       sha256: "134ab2f0843545c4e661e4ba2753fe1bcf0753cb690d5a9ee4870638a40411e9"

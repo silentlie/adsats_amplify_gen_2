@@ -8,7 +8,7 @@ import 'package:adsats_amplify_gen_2/pages/main/documents/widgets/header.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class DocumentsView extends ConsumerWidget with CompareMixin {

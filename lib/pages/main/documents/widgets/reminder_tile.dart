@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class ReminderTile extends StatelessWidget {
   const ReminderTile({

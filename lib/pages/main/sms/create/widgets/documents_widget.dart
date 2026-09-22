@@ -2,7 +2,7 @@ import 'package:adsats_amplify_gen_2/helper/extensions/file_compare_extension.da
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/service.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

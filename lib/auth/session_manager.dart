@@ -4,7 +4,7 @@ import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'session_manager.g.dart';

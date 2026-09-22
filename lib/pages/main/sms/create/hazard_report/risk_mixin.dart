@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 mixin RiskMixin {
   bool isAlarpEligible(int likelihood, int severity) {

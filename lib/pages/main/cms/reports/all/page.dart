@@ -7,7 +7,7 @@ import 'package:adsats_amplify_gen_2/pages/main/cms/providers/reports.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/reports/widgets/data_source.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/reports/widgets/data_table.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CmsAllPage extends ConsumerWidget with CompareMixin {

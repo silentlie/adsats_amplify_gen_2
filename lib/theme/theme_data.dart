@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 // https://api.flutter.dev/flutter/material/ColorScheme-class.html
 // try using ColorScheme.dark()/light()/fromseed()/... because everything is refrence from scoloScheme

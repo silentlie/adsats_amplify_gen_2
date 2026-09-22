@@ -5,7 +5,7 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/providers/filter.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/subcategories/widgets/subcategory.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 

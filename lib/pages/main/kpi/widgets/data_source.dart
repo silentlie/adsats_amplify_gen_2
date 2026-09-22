@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/string_widget_extension.dart';
 import 'package:adsats_amplify_gen_2/pages/main/kpi/models/staff_kpi.dart';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class KPIDataSource extends DataTableSource {
   KPIDataSource({

@@ -6,7 +6,7 @@ import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/providers/re
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/widgets/records.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -62,62 +62,59 @@ class FlightCrewRecordsBody extends HookConsumerWidget {
       [aircraft, favourites],
     );
 
-    final aircraftTabCon = useTabController(
-      initialLength: sortedAircraft.length,
-    );
-
-    return Column(
-      children: [
-        TabBar(
-          controller: aircraftTabCon,
-          isScrollable: true,
-          tabAlignment: TabAlignment.center,
-          tabs: [
-            for (final a in sortedAircraft)
-              Tab(
-                icon: Row(
-                  children: [
-                    const Icon(Icons.airplanemode_on_outlined),
-                    IconButton(
-                      onPressed: () {
-                        final next = _toggleAircraftFav(favourites, a.name);
-                        notifier.setFlightCrewRecordFavourites(next);
-                      },
-                      icon: Icon(
-                        favourites.containsKey(a.name)
-                            ? Icons.star
-                            : Icons.star_border,
-                      ),
-                      tooltip: 'Favourite ${a.name}',
-                    ),
-                  ],
-                ),
-                text: a.name,
-              ),
-          ],
-        ),
-        Expanded(
-          child: TabBarView(
-            controller: aircraftTabCon,
-            children: [
+    return DefaultTabController(
+      length: sortedAircraft.length,
+      child: Column(
+        children: [
+          TabBar(
+            isScrollable: true,
+            tabAlignment: TabAlignment.center,
+            tabs: [
               for (final a in sortedAircraft)
-                _RolesPane(
-                  aircraft: a,
-                  allRoles: roles,
-                  favourites: favourites,
-                  onToggleRole: (roleName) {
-                    final updated = _toggleRoleFav(
-                      favourites,
-                      a.name,
-                      roleName,
-                    );
-                    notifier.setFlightCrewRecordFavourites(updated);
-                  },
+                Tab(
+                  icon: Row(
+                    children: [
+                      const Icon(Icons.airplanemode_on_outlined),
+                      IconButton(
+                        onPressed: () {
+                          final next = _toggleAircraftFav(favourites, a.name);
+                          notifier.setFlightCrewRecordFavourites(next);
+                        },
+                        icon: Icon(
+                          favourites.containsKey(a.name)
+                              ? Icons.star
+                              : Icons.star_border,
+                        ),
+                        tooltip: 'Favourite ${a.name}',
+                      ),
+                    ],
+                  ),
+                  text: a.name,
                 ),
             ],
           ),
-        ),
-      ],
+          Expanded(
+            child: TabBarView(
+              children: [
+                for (final a in sortedAircraft)
+                  _RolesPane(
+                    aircraft: a,
+                    allRoles: roles,
+                    favourites: favourites,
+                    onToggleRole: (roleName) {
+                      final updated = _toggleRoleFav(
+                        favourites,
+                        a.name,
+                        roleName,
+                      );
+                      notifier.setFlightCrewRecordFavourites(updated);
+                    },
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -177,50 +174,47 @@ class _RolesPane extends HookWidget {
       [allRoles, rolesFav],
     );
 
-    final rolesTabCon = useTabController(
-      initialLength: sortedRoles.length,
-    );
-
-    return Column(
-      children: [
-        TabBar(
-          controller: rolesTabCon,
-          isScrollable: true,
-          tabAlignment: TabAlignment.center,
-          tabs: [
-            for (final role in sortedRoles)
-              Tab(
-                icon: Row(
-                  children: [
-                    const Icon(Icons.groups_2_outlined),
-                    IconButton(
-                      onPressed: () => onToggleRole(role.name),
-                      icon: Icon(
-                        _isRoleFav(favourites, aircraft.name, role.name)
-                            ? Icons.star
-                            : Icons.star_border,
-                      ),
-                      tooltip: 'Favourite ${role.name}',
-                    ),
-                  ],
-                ),
-                text: role.name,
-              ),
-          ],
-        ),
-        Expanded(
-          child: TabBarView(
-            controller: rolesTabCon,
-            children: [
+    return DefaultTabController(
+      length: sortedRoles.length,
+      child: Column(
+        children: [
+          TabBar(
+            isScrollable: true,
+            tabAlignment: TabAlignment.center,
+            tabs: [
               for (final role in sortedRoles)
-                CrewsView(
-                  aircraft: aircraft,
-                  role: role,
+                Tab(
+                  icon: Row(
+                    children: [
+                      const Icon(Icons.groups_2_outlined),
+                      IconButton(
+                        onPressed: () => onToggleRole(role.name),
+                        icon: Icon(
+                          _isRoleFav(favourites, aircraft.name, role.name)
+                              ? Icons.star
+                              : Icons.star_border,
+                        ),
+                        tooltip: 'Favourite ${role.name}',
+                      ),
+                    ],
+                  ),
+                  text: role.name,
                 ),
             ],
           ),
-        ),
-      ],
+          Expanded(
+            child: TabBarView(
+              children: [
+                for (final role in sortedRoles)
+                  CrewsView(
+                    aircraft: aircraft,
+                    role: role,
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 

@@ -3,7 +3,7 @@ import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notices.dart';
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/filter.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class NoticeHeader extends ConsumerWidget {

@@ -4,7 +4,7 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/widgets/actions.dart';
 import 'package:adsats_amplify_gen_2/pages/main/flight_crew_records/widgets/record.dart';
 import 'package:data_table_2/data_table_2.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class FlightCrewRecordsDataSource extends DataTableSource {
   FlightCrewRecordsDataSource({

@@ -4,7 +4,7 @@ import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/default_logo_widget.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 

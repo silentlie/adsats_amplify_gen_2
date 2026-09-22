@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/router/router.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 export 'internal/page.dart';

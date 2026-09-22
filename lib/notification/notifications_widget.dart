@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/helper/mixin/notification_builder_mixin.dart';
 import 'package:adsats_amplify_gen_2/notification/notifications.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:badges/badges.dart' as badges;
 

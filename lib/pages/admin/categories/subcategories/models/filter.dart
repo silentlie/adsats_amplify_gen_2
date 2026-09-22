@@ -1,5 +1,5 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/iso_between.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'filter.freezed.dart';

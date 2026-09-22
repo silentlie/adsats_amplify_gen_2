@@ -2,7 +2,7 @@ import 'package:adsats_amplify_gen_2/pages/admin/aircraft/providers/aircraft.dar
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/aircraft/widgets/aircraft.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AircraftHeader extends ConsumerWidget {

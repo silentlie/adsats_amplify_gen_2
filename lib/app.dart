@@ -4,7 +4,7 @@ import 'package:adsats_amplify_gen_2/auth/sign_in_widget.dart';
 import 'package:adsats_amplify_gen_2/settings/settings.dart';
 import 'package:adsats_amplify_gen_2/theme/theme_data.dart';
 import 'package:amplify_authenticator/amplify_authenticator.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MyApp extends ConsumerWidget {

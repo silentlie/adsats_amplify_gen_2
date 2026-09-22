@@ -3,7 +3,7 @@ import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/providers/roles.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/providers/service.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/roles/widgets/role.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class RoleActions extends ConsumerWidget with ConfirmDialogMixin {

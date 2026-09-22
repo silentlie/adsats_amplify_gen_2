@@ -1,6 +1,6 @@
 import 'package:adsats_amplify_gen_2/helper/extensions/compact_date_string_extension.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class DatePickerWidget extends StatefulWidget {
   const DatePickerWidget({

@@ -7,7 +7,7 @@ import 'package:adsats_amplify_gen_2/pages/main/sms/create/widgets/documents_wid
 import 'package:adsats_amplify_gen_2/pages/main/sms/create/widgets/recipients_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_text_form_field.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

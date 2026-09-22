@@ -8,7 +8,7 @@ import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/global_dropdown_menu.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class NewFlightCrewRecord extends ConsumerStatefulWidget {

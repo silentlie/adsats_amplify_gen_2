@@ -2,7 +2,7 @@ import 'package:adsats_amplify_gen_2/pages/admin/categories/providers/categories
 import 'package:adsats_amplify_gen_2/widgets/search_bar_widget.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/categories/widgets/category_view.dart';
 import 'package:adsats_amplify_gen_2/pages/admin/filter.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CategoryHeader extends ConsumerWidget {
