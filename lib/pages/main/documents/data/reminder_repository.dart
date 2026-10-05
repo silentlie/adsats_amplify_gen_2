@@ -21,6 +21,10 @@ class ReminderRepository {
       throw StateError(
           'Cannot create reminders for an archived document or category');
     }
+    final activeStaff = staff.where((person) => !person.archived).toList();
+    if (activeStaff.isEmpty) {
+      throw StateError('Choose at least one active recipient.');
+    }
     final reminder = await _db.create(
       Reminder(
         date: date,
@@ -29,12 +33,12 @@ class ReminderRepository {
     );
 
     await Future.wait([
-      ...staff.where((person) => !person.archived).map(
-            (s) => _attachToStaff(
-              reminder: reminder,
-              staff: s,
-            ),
-          ),
+      ...activeStaff.map(
+        (s) => _attachToStaff(
+          reminder: reminder,
+          staff: s,
+        ),
+      ),
     ]);
 
     return reminder;

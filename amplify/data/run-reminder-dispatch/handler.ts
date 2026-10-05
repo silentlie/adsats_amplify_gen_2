@@ -47,6 +47,20 @@ export const handler: EventBridgeHandler<
 
   const reminderResults = await Promise.allSettled(
     reminders.map(async (reminder) => {
+      const activeRecipients = reminder.staff
+        .map((recipient) => recipient.staff)
+        .filter(
+          (person): person is NonNullable<typeof person> =>
+            person != null && person.archived === false,
+        );
+      if (activeRecipients.length === 0) {
+        await deleteReminderCascade(reminder.id);
+        console.log(
+          `Reminder ${reminder.id} deleted: no active recipients remain`,
+        );
+        return;
+      }
+
       const document = reminder.document;
       if (!document?.expiredAt) {
         console.error(
@@ -71,14 +85,9 @@ export const handler: EventBridgeHandler<
         return;
       }
 
-      const recipients = reminder.staff
-        .map((recipient) => recipient.staff)
-        .filter(
-          (person): person is NonNullable<typeof person> =>
-            person != null &&
-            person.archived === false &&
-            Boolean(person.email),
-        );
+      const recipients = activeRecipients.filter((person) =>
+        Boolean(person.email),
+      );
 
       if (recipients.length === 0) {
         console.error(

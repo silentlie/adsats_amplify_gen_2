@@ -23,6 +23,7 @@ mixin _$ReminderFormState {
   List<Staff> get selectedStaff;
   bool get isSubmitting;
   String? get dateValidationError;
+  String? get staffValidationError;
 
   /// Create a copy of ReminderFormState
   /// with the given fields replaced by the non-null parameter values.
@@ -53,7 +54,10 @@ mixin _$ReminderFormState {
             (identical(other.isSubmitting, _this.isSubmitting) ||
                 other.isSubmitting == _this.isSubmitting) &&
             (identical(other.dateValidationError, _this.dateValidationError) ||
-                other.dateValidationError == _this.dateValidationError));
+                other.dateValidationError == _this.dateValidationError) &&
+            (identical(
+                    other.staffValidationError, _this.staffValidationError) ||
+                other.staffValidationError == _this.staffValidationError));
   }
 
   @override
@@ -68,13 +72,14 @@ mixin _$ReminderFormState {
         _this.reminderDate,
         const DeepCollectionEquality().hash(_this.selectedStaff),
         _this.isSubmitting,
-        _this.dateValidationError);
+        _this.dateValidationError,
+        _this.staffValidationError);
   }
 
   @override
   String toString() {
     final _this = this as ReminderFormState;
-    return 'ReminderFormState(expiredAt: ${_this.expiredAt}, ninetyDaysBefore: ${_this.ninetyDaysBefore}, sixtyDaysBefore: ${_this.sixtyDaysBefore}, thirtyDaysBefore: ${_this.thirtyDaysBefore}, reminderDate: ${_this.reminderDate}, selectedStaff: ${_this.selectedStaff}, isSubmitting: ${_this.isSubmitting}, dateValidationError: ${_this.dateValidationError})';
+    return 'ReminderFormState(expiredAt: ${_this.expiredAt}, ninetyDaysBefore: ${_this.ninetyDaysBefore}, sixtyDaysBefore: ${_this.sixtyDaysBefore}, thirtyDaysBefore: ${_this.thirtyDaysBefore}, reminderDate: ${_this.reminderDate}, selectedStaff: ${_this.selectedStaff}, isSubmitting: ${_this.isSubmitting}, dateValidationError: ${_this.dateValidationError}, staffValidationError: ${_this.staffValidationError})';
   }
 }
 
@@ -92,7 +97,8 @@ abstract mixin class $ReminderFormStateCopyWith<$Res> {
       TemporalDateTime? reminderDate,
       List<Staff> selectedStaff,
       bool isSubmitting,
-      String? dateValidationError});
+      String? dateValidationError,
+      String? staffValidationError});
 }
 
 /// @nodoc
@@ -116,6 +122,7 @@ class _$ReminderFormStateCopyWithImpl<$Res>
     Object? selectedStaff = null,
     Object? isSubmitting = null,
     Object? dateValidationError = freezed,
+    Object? staffValidationError = freezed,
   }) {
     return _then(ReminderFormState(
       expiredAt: freezed == expiredAt
@@ -149,6 +156,10 @@ class _$ReminderFormStateCopyWithImpl<$Res>
       dateValidationError: freezed == dateValidationError
           ? _self.dateValidationError
           : dateValidationError // ignore: cast_nullable_to_non_nullable
+              as String?,
+      staffValidationError: freezed == staffValidationError
+          ? _self.staffValidationError
+          : staffValidationError // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -253,7 +264,8 @@ extension ReminderFormStatePatterns on ReminderFormState {
             TemporalDateTime? reminderDate,
             List<Staff> selectedStaff,
             bool isSubmitting,
-            String? dateValidationError)?
+            String? dateValidationError,
+            String? staffValidationError)?
         $default, {
     required TResult orElse(),
   }) {
@@ -268,7 +280,8 @@ extension ReminderFormStatePatterns on ReminderFormState {
             _that.reminderDate,
             _that.selectedStaff,
             _that.isSubmitting,
-            _that.dateValidationError);
+            _that.dateValidationError,
+            _that.staffValidationError);
       case _:
         return orElse();
     }
@@ -297,7 +310,8 @@ extension ReminderFormStatePatterns on ReminderFormState {
             TemporalDateTime? reminderDate,
             List<Staff> selectedStaff,
             bool isSubmitting,
-            String? dateValidationError)
+            String? dateValidationError,
+            String? staffValidationError)
         $default,
   ) {
     final _that = this;
@@ -311,7 +325,8 @@ extension ReminderFormStatePatterns on ReminderFormState {
             _that.reminderDate,
             _that.selectedStaff,
             _that.isSubmitting,
-            _that.dateValidationError);
+            _that.dateValidationError,
+            _that.staffValidationError);
     }
   }
 
@@ -337,7 +352,8 @@ extension ReminderFormStatePatterns on ReminderFormState {
             TemporalDateTime? reminderDate,
             List<Staff> selectedStaff,
             bool isSubmitting,
-            String? dateValidationError)?
+            String? dateValidationError,
+            String? staffValidationError)?
         $default,
   ) {
     final _that = this;
@@ -351,7 +367,8 @@ extension ReminderFormStatePatterns on ReminderFormState {
             _that.reminderDate,
             _that.selectedStaff,
             _that.isSubmitting,
-            _that.dateValidationError);
+            _that.dateValidationError,
+            _that.staffValidationError);
       case _:
         return null;
     }
@@ -369,7 +386,8 @@ class _ReminderFormState extends ReminderFormState {
       this.reminderDate,
       List<Staff> selectedStaff = const [],
       this.isSubmitting = false,
-      this.dateValidationError})
+      this.dateValidationError,
+      this.staffValidationError})
       : _selectedStaff = selectedStaff,
         super._();
 
@@ -400,6 +418,8 @@ class _ReminderFormState extends ReminderFormState {
   final bool isSubmitting;
   @override
   final String? dateValidationError;
+  @override
+  final String? staffValidationError;
 
   /// Create a copy of ReminderFormState
   /// with the given fields replaced by the non-null parameter values.
@@ -429,7 +449,9 @@ class _ReminderFormState extends ReminderFormState {
             (identical(other.isSubmitting, isSubmitting) ||
                 other.isSubmitting == isSubmitting) &&
             (identical(other.dateValidationError, dateValidationError) ||
-                other.dateValidationError == dateValidationError));
+                other.dateValidationError == dateValidationError) &&
+            (identical(other.staffValidationError, staffValidationError) ||
+                other.staffValidationError == staffValidationError));
   }
 
   @override
@@ -443,12 +465,13 @@ class _ReminderFormState extends ReminderFormState {
         reminderDate,
         const DeepCollectionEquality().hash(_selectedStaff),
         isSubmitting,
-        dateValidationError);
+        dateValidationError,
+        staffValidationError);
   }
 
   @override
   String toString() {
-    return 'ReminderFormState(expiredAt: $expiredAt, ninetyDaysBefore: $ninetyDaysBefore, sixtyDaysBefore: $sixtyDaysBefore, thirtyDaysBefore: $thirtyDaysBefore, reminderDate: $reminderDate, selectedStaff: $selectedStaff, isSubmitting: $isSubmitting, dateValidationError: $dateValidationError)';
+    return 'ReminderFormState(expiredAt: $expiredAt, ninetyDaysBefore: $ninetyDaysBefore, sixtyDaysBefore: $sixtyDaysBefore, thirtyDaysBefore: $thirtyDaysBefore, reminderDate: $reminderDate, selectedStaff: $selectedStaff, isSubmitting: $isSubmitting, dateValidationError: $dateValidationError, staffValidationError: $staffValidationError)';
   }
 }
 
@@ -468,7 +491,8 @@ abstract mixin class _$ReminderFormStateCopyWith<$Res>
       TemporalDateTime? reminderDate,
       List<Staff> selectedStaff,
       bool isSubmitting,
-      String? dateValidationError});
+      String? dateValidationError,
+      String? staffValidationError});
 }
 
 /// @nodoc
@@ -492,6 +516,7 @@ class __$ReminderFormStateCopyWithImpl<$Res>
     Object? selectedStaff = null,
     Object? isSubmitting = null,
     Object? dateValidationError = freezed,
+    Object? staffValidationError = freezed,
   }) {
     return _then(_ReminderFormState(
       expiredAt: freezed == expiredAt
@@ -525,6 +550,10 @@ class __$ReminderFormStateCopyWithImpl<$Res>
       dateValidationError: freezed == dateValidationError
           ? _self.dateValidationError
           : dateValidationError // ignore: cast_nullable_to_non_nullable
+              as String?,
+      staffValidationError: freezed == staffValidationError
+          ? _self.staffValidationError
+          : staffValidationError // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }

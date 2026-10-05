@@ -260,9 +260,32 @@ for (const level of ["document", "subcategory", "category"]) {
   });
 }
 
-test("a reminder with only archived recipients is preserved without email", async () => {
+for (const recipients of [
+  [],
+  [{ staff: null }],
+  [{ staff: person("archived", true) }],
+]) {
+  test(`a reminder with no active recipients is deleted without email (${JSON.stringify(recipients)})`, async () => {
+    const record = reminder();
+    record.staff = recipients;
+    const { sent, deleted } = await reminderHandler(record);
+    assert.deepEqual(sent, []);
+    assert.deepEqual(deleted, [record.id]);
+  });
+}
+
+test("a reminder without active recipients is cleaned up even when its document is archived", async () => {
   const record = reminder();
-  record.staff = [{ staff: person("archived", true) }];
+  record.document.archived = true;
+  record.staff = [];
+  const { sent, deleted } = await reminderHandler(record);
+  assert.deepEqual(sent, []);
+  assert.deepEqual(deleted, [record.id]);
+});
+
+test("an active recipient without an email retains the reminder for correction", async () => {
+  const record = reminder();
+  record.staff = [{ staff: { ...person("active"), email: "" } }];
   const { sent, deleted } = await reminderHandler(record);
   assert.deepEqual(sent, []);
   assert.deepEqual(deleted, []);

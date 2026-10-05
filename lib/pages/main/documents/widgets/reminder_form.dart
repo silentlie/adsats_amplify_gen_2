@@ -21,7 +21,8 @@ class ReminderForm extends ConsumerWidget {
   final ValueChanged<ReminderFormState> onChanged;
 
   void _update(ReminderFormState next) {
-    if (state.dateValidationError != null) {
+    if (state.dateValidationError != null ||
+        state.staffValidationError != null) {
       onChanged(next.validate());
       return;
     }
@@ -106,6 +107,17 @@ class ReminderForm extends ConsumerWidget {
             );
           },
         ),
+        if (state.staffValidationError != null)
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                state.staffValidationError!,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
+            ),
+          ),
       ],
     );
   }

@@ -17,9 +17,11 @@ sealed class ReminderFormState with _$ReminderFormState {
     @Default([]) List<Staff> selectedStaff,
     @Default(false) bool isSubmitting,
     String? dateValidationError,
+    String? staffValidationError,
   }) = _ReminderFormState;
 
   static const dateRequiredMessage = 'Please select at least one reminder date';
+  static const staffRequiredMessage = 'Choose at least one active recipient.';
 
   bool isOffsetDateAvailable(int daysBefore, {DateTime? now}) {
     final expiry = expiredAt?.getDateTimeInUtc();
@@ -68,18 +70,21 @@ sealed class ReminderFormState with _$ReminderFormState {
 
   ReminderFormResult? toResult({DateTime? now}) {
     final dates = buildReminderDates(now: now);
-    if (dates.isEmpty) return null;
+    final staff = selectedStaff.where((person) => !person.archived).toList();
+    if (dates.isEmpty || staff.isEmpty) return null;
 
     return ReminderFormResult(
       dates: dates,
-      staff: selectedStaff,
+      staff: staff,
     );
   }
 
   ReminderFormState validate({DateTime? now}) {
     final hasDates = buildReminderDates(now: now).isNotEmpty;
+    final hasStaff = selectedStaff.any((person) => !person.archived);
     return copyWith(
       dateValidationError: hasDates ? null : dateRequiredMessage,
+      staffValidationError: hasStaff ? null : staffRequiredMessage,
     );
   }
 }

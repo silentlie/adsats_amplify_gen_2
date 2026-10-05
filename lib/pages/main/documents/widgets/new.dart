@@ -128,6 +128,12 @@ class _NewDocumentViewState extends ConsumerState<NewDocumentView>
     }
 
     final reminderResult = state.reminderResult;
+    if (state.reminderState.buildReminderDates().isNotEmpty &&
+        reminderResult == null) {
+      _updateState(
+          state.copyWith(reminderState: state.reminderState.validate()));
+      return;
+    }
     final confirmation = await showConfirmDialog(
       context: context,
       title: const Text("Are you sure?"),
