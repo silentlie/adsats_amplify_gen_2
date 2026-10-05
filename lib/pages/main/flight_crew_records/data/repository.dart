@@ -87,14 +87,33 @@ class FlightCrewRecordsRepository {
       issuedAt: issuedAt,
       expiredAt: expiredAt,
     );
-    final result = await _db.create(record);
+
+    final s3Path = record.s3Path;
+
+    // Upload first so the DB never points to a missing file.
     await _storage.uploadFile(
-        file: file,
-        s3Path: result.s3Path,
-        onProgress: (progress) {
-          onProgressUpdate(file.name, progress.fractionCompleted);
-        });
-    return result;
+      file: file,
+      s3Path: s3Path,
+      onProgress: (progress) {
+        onProgressUpdate(
+          file.name,
+          progress.fractionCompleted,
+        );
+      },
+    );
+
+    try {
+      return await _db.create(record);
+    } catch (e) {
+      // Compensating rollback if DB creation fails.
+      try {
+        await _storage.deleteFile(s3Path);
+      } catch (_) {
+        // Log cleanup failure if logging is available.
+      }
+
+      rethrow;
+    }
   }
 
   Future<List<FlightCrewRecord>> uploadBatch(

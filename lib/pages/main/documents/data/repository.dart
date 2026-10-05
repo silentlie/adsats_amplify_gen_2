@@ -49,7 +49,7 @@ class DocumentsRepository {
     TemporalDateTime? expiredAt,
     void Function(String fileName, double progress) onProgressUpdate,
   ) async {
-    var document = Document(
+    final document = Document(
       name: file.name,
       archived: archived,
       staff: staff,
@@ -57,25 +57,63 @@ class DocumentsRepository {
       issuedAt: issuedAt,
       expiredAt: expiredAt,
     );
-    document = await _db.create(document);
-    final fileUploadFuture = _storage.uploadFile(
+
+    final s3Path = document.s3Path;
+
+    await _storage.uploadFile(
       file: file,
-      s3Path: document.s3Path,
+      s3Path: s3Path,
       onProgress: (progress) {
-        onProgressUpdate(file.name, progress.fractionCompleted);
+        onProgressUpdate(
+          file.name,
+          progress.fractionCompleted,
+        );
       },
     );
-    final aircraftDocumentFutures = aircraft.map((aircraft) {
-      return _db.create(
-        AircraftDocument(document: document, aircraft: aircraft),
-      );
-    }).toList();
 
-    await Future.wait([
-      fileUploadFuture,
-      ...aircraftDocumentFutures,
-    ]);
-    return document;
+    Document? createdDocument;
+    final createdAircraftDocuments = <AircraftDocument>[];
+
+    try {
+      createdDocument = await _db.create(document);
+
+      for (final aircraftItem in aircraft) {
+        final aircraftDocument = await _db.create(
+          AircraftDocument(
+            document: createdDocument,
+            aircraft: aircraftItem,
+          ),
+        );
+
+        createdAircraftDocuments.add(aircraftDocument);
+      }
+
+      return createdDocument;
+    } catch (e) {
+      for (final aircraftDocument in createdAircraftDocuments.reversed) {
+        try {
+          await _db.delete(aircraftDocument);
+        } catch (_) {
+          // Log cleanup failure.
+        }
+      }
+
+      if (createdDocument != null) {
+        try {
+          await _db.delete(createdDocument);
+        } catch (_) {
+          // Log cleanup failure.
+        }
+      }
+
+      try {
+        await _storage.deleteFile(s3Path);
+      } catch (_) {
+        // Log cleanup failure.
+      }
+
+      rethrow;
+    }
   }
 
   Future<List<Document>> uploadBatch(
@@ -113,8 +151,26 @@ class DocumentsRepository {
   }
 
   Future<Document> delete(Document document) async {
+    final reminders = document.reminders ?? [];
+    final aircraftDocuments = document.aircraft ?? [];
+
+    for (final reminder in reminders) {
+      for (final reminderStaff in reminder.staff ?? <Staff>[]) {
+        await _db.delete(reminderStaff);
+      }
+
+      await _db.delete(reminder);
+    }
+
+    for (final aircraftDocument in aircraftDocuments) {
+      await _db.delete(aircraftDocument);
+    }
+
+    final deleted = await _db.delete(document);
+
     await _storage.deleteFile(document.s3Path);
-    return await _db.delete(document);
+
+    return deleted;
   }
 
   Future<void> rename(Document document, Document newDocument) async {

@@ -140,19 +140,36 @@ final class ReportRepository {
     required void Function(String fileName, double progress) onProgress,
     required Future<void> Function(ReportDocument doc) createDoc,
   }) async {
-    final uploads = <Future>[];
-    for (final f in files) {
-      final doc = ReportDocument(name: f.name, reports: report);
-      await _db.create(doc);
-      uploads.add(
-        _storage.uploadFile(
+    await Future.wait(
+      files.map((f) async {
+        final doc = ReportDocument(
+          name: f.name,
+          reports: report,
+        );
+
+        final s3Path = doc.s3Path(report);
+
+        // Upload the actual file first.
+        await _storage.uploadFile(
           file: f,
-          s3Path: doc.s3Path(report),
-          onProgress: (p) => onProgress(f.name, p.fractionCompleted),
-        ),
-      );
-    }
-    await Future.wait(uploads);
+          s3Path: s3Path,
+          onProgress: (p) => onProgress(
+            f.name,
+            p.fractionCompleted,
+          ),
+        );
+
+        try {
+          // Only expose the document in the DB after S3 succeeds.
+          await createDoc(doc);
+        } catch (e) {
+          // Compensating rollback: don't leave an orphan S3 object
+          // if creating the DB record fails.
+          await _storage.deleteFile(s3Path);
+          rethrow;
+        }
+      }),
+    );
   }
 
   Future<void> _removeDocuments({
