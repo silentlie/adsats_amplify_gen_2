@@ -134,17 +134,15 @@ class NoticeRepository {
       manual: manualRecipients,
     );
 
-    if (recipients.isNotEmpty) {
-      await _upsertRecipients(
-        notice: saved,
-        initial: initial,
-        newRecipients: recipients,
-        resetReadOnSend: send,
-      );
+    await _upsertRecipients(
+      notice: saved,
+      initial: initial,
+      newRecipients: recipients,
+      resetReadOnSend: send,
+    );
 
-      if (send) {
-        await _email.sendNoticeEmail(id: saved.id);
-      }
+    if (send && recipients.isNotEmpty) {
+      await _email.sendNoticeEmail(id: saved.id);
     }
   }
 
