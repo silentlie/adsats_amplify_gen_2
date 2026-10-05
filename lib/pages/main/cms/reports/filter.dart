@@ -54,7 +54,7 @@ sealed class ReportFilterState with _$ReportFilterState {
         ? result["discrepanciesFound"] = {"eq": discrepanciesFound}
         : null;
     reportedAt != null
-        ? result["createdAt"] = {"between": reportedAt!.isoBetween}
+        ? result["reportedAt"] = {"between": reportedAt!.isoBetween}
         : null;
     return result;
   }

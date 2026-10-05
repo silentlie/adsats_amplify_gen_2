@@ -16,8 +16,18 @@ sealed class StaffKPIFilterState with _$StaffKPIFilterState {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> variables = {};
     if (search.isNotEmpty) {
-      variables["staffFilter"] = {
-        "name": {"contains": search},
+      variables["staffFilter"] = <String, dynamic>{
+        "or": [
+          {
+            "firstName": {"contains": search}
+          },
+          {
+            "lastName": {"contains": search}
+          },
+          {
+            "email": {"contains": search}
+          },
+        ],
       };
     }
     if (archived != null) {
