@@ -149,9 +149,9 @@ class StaffRepository {
   Future<Staff> archive(Staff staff) async {
     final archive = !staff.archived;
     if (archive) {
-      await enableUser(staff);
-    } else {
       await disableUser(staff);
+    } else {
+      await enableUser(staff);
     }
     return await _db.update(staff.copyWith(archived: archive));
   }

@@ -4,7 +4,7 @@ import {
   AdminDisableUserCommandInput,
 } from "@aws-sdk/client-cognito-identity-provider";
 import type { Schema } from "../../resource";
-import { env } from "$amplify/env/enable-user";
+import { env } from "$amplify/env/disable-user";
 
 type Handler = Schema["disableUser"]["functionHandler"];
 const client = new CognitoIdentityProviderClient();
