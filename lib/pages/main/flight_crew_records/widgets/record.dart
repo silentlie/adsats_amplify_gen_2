@@ -110,8 +110,9 @@ class EditFlightCrewRecordView extends ConsumerWidget with ConfirmDialogMixin {
             final service = ref.read(recordsServiceProvider);
             if (this.record.name != record.name) {
               await service.rename(this.record, record);
+            } else {
+              await service.update(record);
             }
-            await service.update(record);
             ref.invalidate(recordsProvider);
             if (!context.mounted) return;
             if (context.canPop()) {

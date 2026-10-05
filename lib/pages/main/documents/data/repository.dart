@@ -2,7 +2,9 @@ import 'package:adsats_amplify_gen_2/API/amplify_appsync_api.dart';
 import 'package:adsats_amplify_gen_2/API/amplify_s3_api.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/s3_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/storage/rename_file.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/documents/data/reminder_repository.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -151,30 +153,35 @@ class DocumentsRepository {
   }
 
   Future<Document> delete(Document document) async {
-    final reminders = document.reminders ?? [];
-    final aircraftDocuments = document.aircraft ?? [];
+    final reminders = await _db.listAll<Reminder>(
+      modelType: Reminder.classType,
+      where: Reminder.DOCUMENT.eq(document.id),
+    );
+    final aircraftDocuments = await _db.listAll<AircraftDocument>(
+      modelType: AircraftDocument.classType,
+      where: AircraftDocument.DOCUMENT.eq(document.id),
+    );
+    final reminderRepository = ReminderRepository(db: _db);
+
+    await _storage.deleteFile(document.s3Path);
 
     for (final reminder in reminders) {
-      for (final reminderStaff in reminder.staff ?? <Staff>[]) {
-        await _db.delete(reminderStaff);
-      }
-
-      await _db.delete(reminder);
+      await reminderRepository.deleteReminderCascade(reminder: reminder);
     }
 
     for (final aircraftDocument in aircraftDocuments) {
       await _db.delete(aircraftDocument);
     }
 
-    final deleted = await _db.delete(document);
-
-    await _storage.deleteFile(document.s3Path);
-
-    return deleted;
+    return _db.delete(document);
   }
 
-  Future<void> rename(Document document, Document newDocument) async {
-    await _storage.copyFile(document.s3Path, newDocument.s3Path);
-    await _storage.deleteFile(document.s3Path);
+  Future<Document> rename(Document document, Document newDocument) {
+    return renameFile(
+      storage: _storage,
+      sourcePath: document.s3Path,
+      destinationPath: newDocument.s3Path,
+      save: () => _db.update(newDocument),
+    );
   }
 }

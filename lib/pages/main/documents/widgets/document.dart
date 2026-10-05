@@ -169,8 +169,9 @@ class EditDocumentView extends ConsumerWidget with ConfirmDialogMixin {
             final service = ref.read(documentsServiceProvider);
             if (this.document.name != document.name) {
               await service.rename(this.document, document);
+            } else {
+              await service.update(document);
             }
-            await service.update(document);
             ref.invalidate(documentsProvider);
             if (!context.mounted) return;
             if (context.canPop()) {

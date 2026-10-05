@@ -2,6 +2,7 @@ import 'package:adsats_amplify_gen_2/API/amplify_appsync_api.dart';
 import 'package:adsats_amplify_gen_2/API/amplify_s3_api.dart';
 import 'package:adsats_amplify_gen_2/API/queries.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/s3_extension.dart';
+import 'package:adsats_amplify_gen_2/helper/storage/rename_file.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:file_picker/file_picker.dart';
@@ -161,9 +162,13 @@ class FlightCrewRecordsRepository {
     return await _db.delete(record);
   }
 
-  Future<void> rename(
-      FlightCrewRecord record, FlightCrewRecord newRecord) async {
-    await _storage.copyFile(record.s3Path, newRecord.s3Path);
-    await _storage.deleteFile(record.s3Path);
+  Future<FlightCrewRecord> rename(
+      FlightCrewRecord record, FlightCrewRecord newRecord) {
+    return renameFile(
+      storage: _storage,
+      sourcePath: record.s3Path,
+      destinationPath: newRecord.s3Path,
+      save: () => _db.update(newRecord),
+    );
   }
 }

@@ -225,19 +225,28 @@ class NoticeRepository {
     required void Function(String fileName, double progress) onProgress,
     required Future<void> Function(NoticeDocument doc) createDoc,
   }) async {
-    final uploads = <Future>[];
-    for (final f in files) {
-      final doc = NoticeDocument(name: f.name, notices: notice);
-      await _db.create(doc);
-      uploads.add(
-        _storage.uploadFile(
-          file: f,
-          s3Path: doc.s3Path(notice),
-          onProgress: (p) => onProgress(f.name, p.fractionCompleted),
-        ),
+    await Future.wait(files.map((file) async {
+      final doc = NoticeDocument(name: file.name, notices: notice);
+      final path = doc.s3Path(notice);
+      await _storage.uploadFile(
+        file: file,
+        s3Path: path,
+        onProgress: (progress) =>
+            onProgress(file.name, progress.fractionCompleted),
       );
-    }
-    await Future.wait(uploads);
+
+      try {
+        await createDoc(doc);
+      } catch (_) {
+        try {
+          await _storage.deleteFile(path);
+        } catch (cleanupError) {
+          safePrint(
+              'Failed to remove the unsaved notice attachment: $cleanupError');
+        }
+        rethrow;
+      }
+    }));
   }
 
   Future<Iterable<Staff>> _findRecipients({
