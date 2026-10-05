@@ -46,11 +46,12 @@ class SubcategoryView extends ConsumerWidget with ConfirmDialogMixin {
               value: ref.watch(listCategoriesProvider()),
               data: (value) {
                 if (!isEditing) {
-                  subcategory = subcategory.copyWith(category: value.firstWhere(
-                    (element) {
-                      return element.id == categoryId;
-                    },
-                  ));
+                  final parent = value
+                      .where((element) => element.id == categoryId)
+                      .firstOrNull;
+                  if (parent != null) {
+                    subcategory = subcategory.copyWith(category: parent);
+                  }
                 }
                 return GlobalDropdownMenu<Category>(
                   entries: value.map(
@@ -207,10 +208,18 @@ class SubcategoryView extends ConsumerWidget with ConfirmDialogMixin {
               title: Text("Are you sure?"),
               content: Text("Do you want to ?"),
             );
-            if (!result) {
+            if (!result || !context.mounted) {
               return;
             }
             final service = ref.read(subcategoriesServiceProvider);
+            if (!isEditing &&
+                (subcategory.category == null ||
+                    subcategory.category!.archived)) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Choose an active category.')),
+              );
+              return;
+            }
             if (isEditing) {
               await Future.wait([
                 if (this.subcategory != subcategory)

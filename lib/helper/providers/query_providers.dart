@@ -1,109 +1,84 @@
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
 import 'package:amplify_api/amplify_api.dart';
 import 'package:amplify_flutter/amplify_flutter.dart' hide Category;
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'query_providers.g.dart';
 
-//TODO: transform to databaseAPIProvider then delete
-@riverpod
-FutureOr<List<Staff>> listStaff(
-  Ref ref, [
+QueryPredicate? _selectionWhere(
   QueryPredicate? where,
-]) async {
-  final request = ModelQueries.list<Staff>(
-    Staff.classType,
-    where: where,
-  );
-  final response = await Amplify.API
-      .query<PaginatedResult<Staff>>(
-        request: request,
-      )
-      .response;
-  if (response.errors.isNotEmpty) {
-    throw response.errors.first;
-  }
-  return response.data!.items.cast<Staff>();
+  QueryPredicate active,
+  bool includeArchived,
+) {
+  if (includeArchived) return where;
+  return where == null
+      ? active
+      : QueryPredicateGroup(QueryPredicateGroupType.and, [where, active]);
 }
 
 @riverpod
-FutureOr<List<Aircraft>> listAircraft(
-  Ref ref, [
+Future<List<Staff>> listStaff(
+  Ref ref, {
   QueryPredicate? where,
-]) async {
-  final request = ModelQueries.list<Aircraft>(
-    Aircraft.classType,
-    where: where,
-  );
-  final response = await Amplify.API
-      .query<PaginatedResult<Aircraft>>(
-        request: request,
-      )
-      .response;
-  if (response.errors.isNotEmpty) {
-    throw response.errors.first;
-  }
-  return response.data!.items.cast<Aircraft>();
+  bool includeArchived = false,
+}) {
+  return ref.watch(databaseAPIProvider).listAll(
+        modelType: Staff.classType,
+        where:
+            _selectionWhere(where, Staff.ARCHIVED.eq(false), includeArchived),
+      );
 }
 
 @riverpod
-FutureOr<List<Role>> listRoles(
-  Ref ref, [
+Future<List<Aircraft>> listAircraft(
+  Ref ref, {
   QueryPredicate? where,
-]) async {
-  final request = ModelQueries.list<Role>(
-    Role.classType,
-    where: where,
-  );
-  final response = await Amplify.API
-      .query<PaginatedResult<Role>>(
-        request: request,
-      )
-      .response;
-  if (response.errors.isNotEmpty) {
-    throw response.errors.first;
-  }
-  return response.data!.items.cast<Role>();
+  bool includeArchived = false,
+}) {
+  return ref.watch(databaseAPIProvider).listAll(
+        modelType: Aircraft.classType,
+        where: _selectionWhere(
+            where, Aircraft.ARCHIVED.eq(false), includeArchived),
+      );
 }
 
 @riverpod
-FutureOr<List<Category>> listCategories(
-  Ref ref, [
+Future<List<Role>> listRoles(
+  Ref ref, {
   QueryPredicate? where,
-]) async {
-  final request = ModelQueries.list<Category>(
-    Category.classType,
-    where: where,
-  );
-  final response = await Amplify.API
-      .query<PaginatedResult<Category>>(
-        request: request,
-      )
-      .response;
-  if (response.errors.isNotEmpty) {
-    throw response.errors.first;
-  }
-  return response.data!.items.cast<Category>();
+  bool includeArchived = false,
+}) {
+  return ref.watch(databaseAPIProvider).listAll(
+        modelType: Role.classType,
+        where: _selectionWhere(where, Role.ARCHIVED.eq(false), includeArchived),
+      );
 }
 
 @riverpod
-FutureOr<List<Subcategory>> listSubcategories(
-  Ref ref, [
+Future<List<Category>> listCategories(
+  Ref ref, {
   QueryPredicate? where,
-]) async {
-  final request = ModelQueries.list<Subcategory>(
-    Subcategory.classType,
-    where: where,
-  );
-  final response = await Amplify.API
-      .query<PaginatedResult<Subcategory>>(
-        request: request,
-      )
-      .response;
-  if (response.errors.isNotEmpty) {
-    throw response.errors.first;
-  }
-  return response.data!.items.cast<Subcategory>();
+  bool includeArchived = false,
+}) {
+  return ref.watch(databaseAPIProvider).listAll(
+        modelType: Category.classType,
+        where: _selectionWhere(
+            where, Category.ARCHIVED.eq(false), includeArchived),
+      );
+}
+
+@riverpod
+Future<List<Subcategory>> listSubcategories(
+  Ref ref, {
+  QueryPredicate? where,
+  bool includeArchived = false,
+}) {
+  return ref.watch(databaseAPIProvider).listAll(
+        modelType: Subcategory.classType,
+        where: _selectionWhere(
+            where, Subcategory.ARCHIVED.eq(false), includeArchived),
+      );
 }
 
 @riverpod

@@ -57,6 +57,7 @@ class FlightCrewRecordsRepository {
     required Role role,
     void Function(void Function())? bindCancel,
   }) async {
+    if (aircraft.archived || role.archived) return const <Staff>[];
     final result = await _db.query(
       document: listFlightCrewRecordsCrewsGraphQL,
       variables: {
@@ -65,9 +66,15 @@ class FlightCrewRecordsRepository {
       },
       bindCancel: bindCancel,
     );
-    return (result["getRole"]["staff"]["items"] as List)
-        .map((e) => Staff.fromJson(e["staff"]))
-        .where((element) => element.aircraft!.isNotEmpty);
+    final selectedRole = result["getRole"];
+    if (selectedRole == null || selectedRole["archived"] != false) {
+      return const <Staff>[];
+    }
+    return (selectedRole["staff"]["items"] as List)
+        .where((item) => item != null && item["staff"] != null)
+        .map((item) => Staff.fromJson(item["staff"]))
+        .where((staff) =>
+            !staff.archived && (staff.aircraft?.isNotEmpty ?? false));
   }
 
   Future<FlightCrewRecord> upload(

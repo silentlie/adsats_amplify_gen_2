@@ -75,10 +75,11 @@ class NoticesFilterView extends ConsumerWidget {
             text: "Archived",
           ),
           AsyncValueWidget(
-            value: ref.watch(listAircraftProvider()),
+            value: ref.watch(listAircraftProvider(includeArchived: true)),
             data: (value) {
               return MultiSelectFormField<Aircraft>(
                 title: "Aircraft",
+                includeArchived: true,
                 items: value,
                 toCard: (value) {
                   return CheckListCard(

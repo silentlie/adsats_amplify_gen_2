@@ -8,6 +8,7 @@ type StaffLike = {
   readonly firstName: string;
   readonly lastName: string;
   readonly email: string;
+  readonly archived: boolean;
 };
 
 type NotificationRecord = {
@@ -47,6 +48,7 @@ export const handler: Handler = async (event) => {
         selectionSet: [
           "id",
           "subject",
+          "archived",
           "type",
           "status",
           "author.*",
@@ -63,6 +65,7 @@ export const handler: Handler = async (event) => {
     if (!data) {
       throw new Error(`Notice with id ${id} not found`);
     }
+    if (data.archived) return [];
 
     return sendNotifications({
       record: {
@@ -109,6 +112,7 @@ export const handler: Handler = async (event) => {
   if (!data) {
     throw new Error(`Report with id ${id} not found`);
   }
+  if (data.archived) return [];
 
   return sendNotifications({
     record: {
@@ -161,7 +165,9 @@ async function sendNotifications({
   const emailSubject = `${notificationType}: ${cleanSubject} [${status}]`;
   const link = `${host}${linkPath}`;
 
-  const recipients = record.recipients.map((recipient) => recipient.staff);
+  const recipients = record.recipients
+    .map((recipient) => recipient.staff)
+    .filter((staff) => !staff || staff.archived === false);
 
   return Promise.all(
     recipients.map(async (staff) => {

@@ -245,21 +245,28 @@ class NoticeRepository {
     required List<Role> roles,
     required List<Staff> manual,
   }) async {
-    if (aircraft.isEmpty || roles.isEmpty) return manual;
+    final recipients = {
+      for (final staff in manual.where((staff) => !staff.archived))
+        staff.id: staff,
+    };
+    final activeAircraft = aircraft.where((item) => !item.archived).toList();
+    final activeRoles = roles.where((item) => !item.archived).toList();
+    if (activeAircraft.isEmpty || activeRoles.isEmpty) {
+      return recipients.values;
+    }
 
-    final recipients = <Staff>[...manual];
     final res = await _db.query(
       document: listJoinRecipientsGraphQL,
       variables: {
         "aircraftFilter": {
-          "or": aircraft
+          "or": activeAircraft
               .map((a) => {
                     "aircraftId": {"eq": a.id}
                   })
               .toList()
         },
         "rolesFilter": {
-          "or": roles
+          "or": activeRoles
               .map((r) => {
                     "roleId": {"eq": r.id}
                   })
@@ -269,14 +276,14 @@ class NoticeRepository {
     );
 
     for (final e in (res["listStaff"]["items"] as List)) {
+      if (e == null) continue;
       final s = Staff.fromJson(e);
-      if ((s.aircraft?.isNotEmpty ?? false) && (s.roles?.isNotEmpty ?? false)) {
-        recipients.add(s);
+      if (!s.archived &&
+          (s.aircraft?.isNotEmpty ?? false) &&
+          (s.roles?.isNotEmpty ?? false)) {
+        recipients.putIfAbsent(s.id, () => s);
       }
     }
-    return recipients.fold<Map<String, Staff>>({}, (m, s) {
-      m.putIfAbsent(s.id, () => s);
-      return m;
-    }).values;
+    return recipients.values;
   }
 }

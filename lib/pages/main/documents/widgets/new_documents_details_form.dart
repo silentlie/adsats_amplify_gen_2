@@ -51,10 +51,7 @@ class NewDocumentsDetailsForm extends ConsumerWidget {
                 onChanged(state.copyWith(uploader: value));
               },
               enabled: isAdmin,
-              initialSelection: staff.firstWhere(
-                (element) => element.id == state.uploader?.id,
-                orElse: () => staff.first,
-              ),
+              initialSelection: state.uploader,
               text: 'Uploader',
             );
           },

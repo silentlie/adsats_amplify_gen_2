@@ -1,3 +1,5 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/model_selection_extension.dart';
+import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:material_ui/material_ui.dart';
 
 class GlobalDropdownMenu<T> extends StatelessWidget {
@@ -22,10 +24,30 @@ class GlobalDropdownMenu<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final availableEntries = entries.where((entry) {
+      final value = entry.value;
+      return value is! Model || !value.isArchivedSelection;
+    }).toList();
+    var selection = initialSelection;
+    if (selection is Model) {
+      final matching = availableEntries
+          .where((entry) => sameSelection(entry.value, selection))
+          .firstOrNull;
+      if (matching != null) {
+        selection = matching.value;
+      } else {
+        availableEntries.add(DropdownMenuEntry<T>(
+          value: selection as T,
+          label: '${selection.selectionLabel} '
+              '(${selection.isArchivedSelection ? 'Archived' : 'Unavailable'})',
+          enabled: false,
+        ));
+      }
+    }
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: DropdownMenu<T>(
-        dropdownMenuEntries: entries,
+        dropdownMenuEntries: availableEntries,
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(),
         ),
@@ -35,7 +57,7 @@ class GlobalDropdownMenu<T> extends StatelessWidget {
         onSelected: onSelected,
         expandedInsets: EdgeInsets.zero,
         enabled: enabled,
-        initialSelection: initialSelection,
+        initialSelection: selection,
         enableSearch: enableSearch,
       ),
     );

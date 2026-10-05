@@ -1,4 +1,5 @@
 import 'package:adsats_amplify_gen_2/API/queries.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_role_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -50,11 +51,7 @@ bool isAdmin(Ref ref) {
   return ref.watch(
         userDetailsProvider.select(
           (user) {
-            return user.value?.roles?.any(
-              (role) {
-                return role.role?.name == admin;
-              },
-            );
+            return user.value?.hasActiveRole(admin);
           },
         ),
       ) ??
@@ -66,12 +63,7 @@ bool isSafetyOfficer(Ref ref) {
   return ref.watch(
         userDetailsProvider.select(
           (user) {
-            return user.value?.roles?.any(
-              (role) {
-                final roleName = role.role?.name;
-                return roleName == safetyOfficer;
-              },
-            );
+            return user.value?.hasActiveRole(safetyOfficer);
           },
         ),
       ) ??
@@ -83,12 +75,7 @@ bool isComplianceManager(Ref ref) {
   return ref.watch(
         userDetailsProvider.select(
           (user) {
-            return user.value?.roles?.any(
-              (role) {
-                final roleName = role.role?.name;
-                return roleName == complianceManager;
-              },
-            );
+            return user.value?.hasActiveRole(complianceManager);
           },
         ),
       ) ??

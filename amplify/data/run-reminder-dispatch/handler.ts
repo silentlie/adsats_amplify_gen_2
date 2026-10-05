@@ -23,16 +23,20 @@ export const handler: EventBridgeHandler<
         "date",
         "document.id",
         "document.name",
+        "document.archived",
         "document.expiredAt",
         "document.subcategory.id",
         "document.subcategory.name",
+        "document.subcategory.archived",
         "document.subcategory.category.id",
         "document.subcategory.category.name",
+        "document.subcategory.category.archived",
         "staff.*",
         "staff.staff.id",
         "staff.staff.email",
         "staff.staff.firstName",
         "staff.staff.lastName",
+        "staff.staff.archived",
       ],
     });
 
@@ -43,14 +47,38 @@ export const handler: EventBridgeHandler<
 
   const reminderResults = await Promise.allSettled(
     reminders.map(async (reminder) => {
-      if (!reminder.document?.expiredAt) {
+      const document = reminder.document;
+      if (!document?.expiredAt) {
         console.error(
           `Reminder ${reminder.id} skipped: document is missing expiredAt`,
         );
         return;
       }
+      if (
+        document.archived ||
+        document.subcategory?.archived ||
+        document.subcategory?.category?.archived
+      ) {
+        console.log(
+          `Reminder ${reminder.id} skipped: document or category is archived`,
+        );
+        return;
+      }
+      if (!document.subcategory?.category) {
+        console.error(
+          `Reminder ${reminder.id} skipped: document category is missing`,
+        );
+        return;
+      }
 
-      const recipients = reminder.staff.map((recipient) => recipient.staff);
+      const recipients = reminder.staff
+        .map((recipient) => recipient.staff)
+        .filter(
+          (person): person is NonNullable<typeof person> =>
+            person != null &&
+            person.archived === false &&
+            Boolean(person.email),
+        );
 
       if (recipients.length === 0) {
         console.error(
@@ -59,9 +87,9 @@ export const handler: EventBridgeHandler<
         return;
       }
 
-      const documentTitle = reminder.document.name;
-      const categoryName = reminder.document.subcategory.category.name;
-      const subcategoryName = reminder.document.subcategory.name;
+      const documentTitle = document.name;
+      const categoryName = document.subcategory.category.name;
+      const subcategoryName = document.subcategory.name;
 
       const sendResults = await Promise.allSettled(
         recipients.map(async (person) => {
@@ -71,7 +99,7 @@ export const handler: EventBridgeHandler<
             documentTitle,
             categoryName,
             subcategoryName,
-            expiredAt: reminder.document.expiredAt!,
+            expiredAt: document.expiredAt!,
           });
 
           await sendEmail({

@@ -15,6 +15,12 @@ class ReminderRepository {
     required Document document,
     List<Staff> staff = const [],
   }) async {
+    if (document.archived ||
+        document.subcategory?.archived == true ||
+        document.subcategory?.category?.archived == true) {
+      throw StateError(
+          'Cannot create reminders for an archived document or category');
+    }
     final reminder = await _db.create(
       Reminder(
         date: date,
@@ -23,12 +29,12 @@ class ReminderRepository {
     );
 
     await Future.wait([
-      ...staff.map(
-        (s) => _attachToStaff(
-          reminder: reminder,
-          staff: s,
-        ),
-      ),
+      ...staff.where((person) => !person.archived).map(
+            (s) => _attachToStaff(
+              reminder: reminder,
+              staff: s,
+            ),
+          ),
     ]);
 
     return reminder;

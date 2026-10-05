@@ -40,11 +40,12 @@ class FlightCrewRecordsCategoryView extends ConsumerWidget
               value: ref.watch(listRolesProvider()),
               data: (value) {
                 if (!isEditing) {
-                  category = category.copyWith(role: value.firstWhere(
-                    (element) {
-                      return element.id == roleId;
-                    },
-                  ));
+                  final parent = value
+                      .where((element) => element.id == roleId)
+                      .firstOrNull;
+                  if (parent != null) {
+                    category = category.copyWith(role: parent);
+                  }
                 }
                 return GlobalDropdownMenu<Role>(
                   entries: value.map(
@@ -123,10 +124,17 @@ class FlightCrewRecordsCategoryView extends ConsumerWidget
               title: Text("Are you sure?"),
               content: Text("Do you want to ?"),
             );
-            if (!result) {
+            if (!result || !context.mounted) {
               return;
             }
             final service = ref.read(flightCrewRecordCategoriesServiceProvider);
+            if (!isEditing &&
+                (category.role == null || category.role!.archived)) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Choose an active role.')),
+              );
+              return;
+            }
             if (isEditing) {
               await service.update(category);
             } else {

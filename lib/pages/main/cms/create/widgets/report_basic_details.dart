@@ -42,12 +42,7 @@ class ReportBasicDetails extends ConsumerWidget {
               child: AsyncValueWidget(
                 value: ref.watch(listStaffProvider()),
                 data: (value) {
-                  final initialSelection = notifier.isNew()
-                      ? value.firstWhere((e) => e.id == report.auditor?.id)
-                      : report.auditor!;
-                  notifier.updateReport(
-                    auditor: initialSelection,
-                  );
+                  final initialSelection = report.auditor;
                   return GlobalDropdownMenu<Staff>(
                     entries: value.map(
                       (e) {

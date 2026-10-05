@@ -17,7 +17,11 @@ final class ListStaffProvider extends $FunctionalProvider<
     with $FutureModifier<List<Staff>>, $FutureProvider<List<Staff>> {
   ListStaffProvider._(
       {required ListStaffFamily super.from,
-      required QueryPredicate<Model>? super.argument})
+      required ({
+        QueryPredicate<Model>? where,
+        bool includeArchived,
+      })
+          super.argument})
       : super(
           retry: null,
           name: r'listStaffProvider',
@@ -33,7 +37,7 @@ final class ListStaffProvider extends $FunctionalProvider<
   String toString() {
     return r'listStaffProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -44,10 +48,14 @@ final class ListStaffProvider extends $FunctionalProvider<
 
   @override
   FutureOr<List<Staff>> create(Ref ref) {
-    final argument = this.argument as QueryPredicate<Model>?;
+    final argument = this.argument as ({
+      QueryPredicate<Model>? where,
+      bool includeArchived,
+    });
     return listStaff(
       ref,
-      argument,
+      where: argument.where,
+      includeArchived: argument.includeArchived,
     );
   }
 
@@ -62,12 +70,16 @@ final class ListStaffProvider extends $FunctionalProvider<
   }
 }
 
-String _$listStaffHash() => r'c3efd2a70862e1d6cc8d0c032e72de50c640bb39';
+String _$listStaffHash() => r'c5442c910950367000345bb52ea75913c77c3573';
 
 final class ListStaffFamily extends $Family
     with
-        $FunctionalFamilyOverride<FutureOr<List<Staff>>,
-            QueryPredicate<Model>?> {
+        $FunctionalFamilyOverride<
+            FutureOr<List<Staff>>,
+            ({
+              QueryPredicate<Model>? where,
+              bool includeArchived,
+            })> {
   ListStaffFamily._()
       : super(
           retry: null,
@@ -77,10 +89,14 @@ final class ListStaffFamily extends $Family
           isAutoDispose: true,
         );
 
-  ListStaffProvider call([
+  ListStaffProvider call({
     QueryPredicate<Model>? where,
-  ]) =>
-      ListStaffProvider._(argument: where, from: this);
+    bool includeArchived = false,
+  }) =>
+      ListStaffProvider._(argument: (
+        where: where,
+        includeArchived: includeArchived,
+      ), from: this);
 
   @override
   String toString() => r'listStaffProvider';
@@ -94,7 +110,11 @@ final class ListAircraftProvider extends $FunctionalProvider<
     with $FutureModifier<List<Aircraft>>, $FutureProvider<List<Aircraft>> {
   ListAircraftProvider._(
       {required ListAircraftFamily super.from,
-      required QueryPredicate<Model>? super.argument})
+      required ({
+        QueryPredicate<Model>? where,
+        bool includeArchived,
+      })
+          super.argument})
       : super(
           retry: null,
           name: r'listAircraftProvider',
@@ -110,7 +130,7 @@ final class ListAircraftProvider extends $FunctionalProvider<
   String toString() {
     return r'listAircraftProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -121,10 +141,14 @@ final class ListAircraftProvider extends $FunctionalProvider<
 
   @override
   FutureOr<List<Aircraft>> create(Ref ref) {
-    final argument = this.argument as QueryPredicate<Model>?;
+    final argument = this.argument as ({
+      QueryPredicate<Model>? where,
+      bool includeArchived,
+    });
     return listAircraft(
       ref,
-      argument,
+      where: argument.where,
+      includeArchived: argument.includeArchived,
     );
   }
 
@@ -139,12 +163,16 @@ final class ListAircraftProvider extends $FunctionalProvider<
   }
 }
 
-String _$listAircraftHash() => r'af35941b421af3cdb46f39b5948e759f0d3e6ef1';
+String _$listAircraftHash() => r'3640913f485c46d636cd84819751a608dc539c3a';
 
 final class ListAircraftFamily extends $Family
     with
-        $FunctionalFamilyOverride<FutureOr<List<Aircraft>>,
-            QueryPredicate<Model>?> {
+        $FunctionalFamilyOverride<
+            FutureOr<List<Aircraft>>,
+            ({
+              QueryPredicate<Model>? where,
+              bool includeArchived,
+            })> {
   ListAircraftFamily._()
       : super(
           retry: null,
@@ -154,10 +182,14 @@ final class ListAircraftFamily extends $Family
           isAutoDispose: true,
         );
 
-  ListAircraftProvider call([
+  ListAircraftProvider call({
     QueryPredicate<Model>? where,
-  ]) =>
-      ListAircraftProvider._(argument: where, from: this);
+    bool includeArchived = false,
+  }) =>
+      ListAircraftProvider._(argument: (
+        where: where,
+        includeArchived: includeArchived,
+      ), from: this);
 
   @override
   String toString() => r'listAircraftProvider';
@@ -171,7 +203,11 @@ final class ListRolesProvider extends $FunctionalProvider<
     with $FutureModifier<List<Role>>, $FutureProvider<List<Role>> {
   ListRolesProvider._(
       {required ListRolesFamily super.from,
-      required QueryPredicate<Model>? super.argument})
+      required ({
+        QueryPredicate<Model>? where,
+        bool includeArchived,
+      })
+          super.argument})
       : super(
           retry: null,
           name: r'listRolesProvider',
@@ -187,7 +223,7 @@ final class ListRolesProvider extends $FunctionalProvider<
   String toString() {
     return r'listRolesProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -197,10 +233,14 @@ final class ListRolesProvider extends $FunctionalProvider<
 
   @override
   FutureOr<List<Role>> create(Ref ref) {
-    final argument = this.argument as QueryPredicate<Model>?;
+    final argument = this.argument as ({
+      QueryPredicate<Model>? where,
+      bool includeArchived,
+    });
     return listRoles(
       ref,
-      argument,
+      where: argument.where,
+      includeArchived: argument.includeArchived,
     );
   }
 
@@ -215,12 +255,16 @@ final class ListRolesProvider extends $FunctionalProvider<
   }
 }
 
-String _$listRolesHash() => r'b741ef3e8389aa3b5a70b78a5d4bd98fc154d9ea';
+String _$listRolesHash() => r'f45723d5bf12eaa3da702cde97a836a48fae7d79';
 
 final class ListRolesFamily extends $Family
     with
-        $FunctionalFamilyOverride<FutureOr<List<Role>>,
-            QueryPredicate<Model>?> {
+        $FunctionalFamilyOverride<
+            FutureOr<List<Role>>,
+            ({
+              QueryPredicate<Model>? where,
+              bool includeArchived,
+            })> {
   ListRolesFamily._()
       : super(
           retry: null,
@@ -230,10 +274,14 @@ final class ListRolesFamily extends $Family
           isAutoDispose: true,
         );
 
-  ListRolesProvider call([
+  ListRolesProvider call({
     QueryPredicate<Model>? where,
-  ]) =>
-      ListRolesProvider._(argument: where, from: this);
+    bool includeArchived = false,
+  }) =>
+      ListRolesProvider._(argument: (
+        where: where,
+        includeArchived: includeArchived,
+      ), from: this);
 
   @override
   String toString() => r'listRolesProvider';
@@ -247,7 +295,11 @@ final class ListCategoriesProvider extends $FunctionalProvider<
     with $FutureModifier<List<Category>>, $FutureProvider<List<Category>> {
   ListCategoriesProvider._(
       {required ListCategoriesFamily super.from,
-      required QueryPredicate<Model>? super.argument})
+      required ({
+        QueryPredicate<Model>? where,
+        bool includeArchived,
+      })
+          super.argument})
       : super(
           retry: null,
           name: r'listCategoriesProvider',
@@ -263,7 +315,7 @@ final class ListCategoriesProvider extends $FunctionalProvider<
   String toString() {
     return r'listCategoriesProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -274,10 +326,14 @@ final class ListCategoriesProvider extends $FunctionalProvider<
 
   @override
   FutureOr<List<Category>> create(Ref ref) {
-    final argument = this.argument as QueryPredicate<Model>?;
+    final argument = this.argument as ({
+      QueryPredicate<Model>? where,
+      bool includeArchived,
+    });
     return listCategories(
       ref,
-      argument,
+      where: argument.where,
+      includeArchived: argument.includeArchived,
     );
   }
 
@@ -292,12 +348,16 @@ final class ListCategoriesProvider extends $FunctionalProvider<
   }
 }
 
-String _$listCategoriesHash() => r'004a813c9a0ffc8887f7a3077eb0c1fe2d50ba52';
+String _$listCategoriesHash() => r'0de1684c0acdace9488b0b8908d807afd314dea1';
 
 final class ListCategoriesFamily extends $Family
     with
-        $FunctionalFamilyOverride<FutureOr<List<Category>>,
-            QueryPredicate<Model>?> {
+        $FunctionalFamilyOverride<
+            FutureOr<List<Category>>,
+            ({
+              QueryPredicate<Model>? where,
+              bool includeArchived,
+            })> {
   ListCategoriesFamily._()
       : super(
           retry: null,
@@ -307,10 +367,14 @@ final class ListCategoriesFamily extends $Family
           isAutoDispose: true,
         );
 
-  ListCategoriesProvider call([
+  ListCategoriesProvider call({
     QueryPredicate<Model>? where,
-  ]) =>
-      ListCategoriesProvider._(argument: where, from: this);
+    bool includeArchived = false,
+  }) =>
+      ListCategoriesProvider._(argument: (
+        where: where,
+        includeArchived: includeArchived,
+      ), from: this);
 
   @override
   String toString() => r'listCategoriesProvider';
@@ -328,7 +392,11 @@ final class ListSubcategoriesProvider extends $FunctionalProvider<
         $FutureProvider<List<Subcategory>> {
   ListSubcategoriesProvider._(
       {required ListSubcategoriesFamily super.from,
-      required QueryPredicate<Model>? super.argument})
+      required ({
+        QueryPredicate<Model>? where,
+        bool includeArchived,
+      })
+          super.argument})
       : super(
           retry: null,
           name: r'listSubcategoriesProvider',
@@ -344,7 +412,7 @@ final class ListSubcategoriesProvider extends $FunctionalProvider<
   String toString() {
     return r'listSubcategoriesProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -355,10 +423,14 @@ final class ListSubcategoriesProvider extends $FunctionalProvider<
 
   @override
   FutureOr<List<Subcategory>> create(Ref ref) {
-    final argument = this.argument as QueryPredicate<Model>?;
+    final argument = this.argument as ({
+      QueryPredicate<Model>? where,
+      bool includeArchived,
+    });
     return listSubcategories(
       ref,
-      argument,
+      where: argument.where,
+      includeArchived: argument.includeArchived,
     );
   }
 
@@ -373,12 +445,16 @@ final class ListSubcategoriesProvider extends $FunctionalProvider<
   }
 }
 
-String _$listSubcategoriesHash() => r'35b874e68d5a150141c7b98b61c930ef4f1cc77b';
+String _$listSubcategoriesHash() => r'91304c6c6c1e1e88f3d7dd6b757c22abf3a859fb';
 
 final class ListSubcategoriesFamily extends $Family
     with
-        $FunctionalFamilyOverride<FutureOr<List<Subcategory>>,
-            QueryPredicate<Model>?> {
+        $FunctionalFamilyOverride<
+            FutureOr<List<Subcategory>>,
+            ({
+              QueryPredicate<Model>? where,
+              bool includeArchived,
+            })> {
   ListSubcategoriesFamily._()
       : super(
           retry: null,
@@ -388,10 +464,14 @@ final class ListSubcategoriesFamily extends $Family
           isAutoDispose: true,
         );
 
-  ListSubcategoriesProvider call([
+  ListSubcategoriesProvider call({
     QueryPredicate<Model>? where,
-  ]) =>
-      ListSubcategoriesProvider._(argument: where, from: this);
+    bool includeArchived = false,
+  }) =>
+      ListSubcategoriesProvider._(argument: (
+        where: where,
+        includeArchived: includeArchived,
+      ), from: this);
 
   @override
   String toString() => r'listSubcategoriesProvider';

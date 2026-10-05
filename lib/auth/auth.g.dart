@@ -113,7 +113,7 @@ final class IsAdminProvider extends $FunctionalProvider<bool, bool, bool>
   }
 }
 
-String _$isAdminHash() => r'9d62708d04eeb867cead8bcf38595b96d003829e';
+String _$isAdminHash() => r'a7b53195377fee45fc51908d5449b24a03fda7e8';
 
 @ProviderFor(isSafetyOfficer)
 final isSafetyOfficerProvider = IsSafetyOfficerProvider._();
@@ -153,7 +153,7 @@ final class IsSafetyOfficerProvider
   }
 }
 
-String _$isSafetyOfficerHash() => r'74863d8356890c93f76c1abd45e4f80ae01eb534';
+String _$isSafetyOfficerHash() => r'6fa95a8dd6a9f4141d29c5e00f58bc1d94d7477e';
 
 @ProviderFor(isComplianceManager)
 final isComplianceManagerProvider = IsComplianceManagerProvider._();
@@ -194,4 +194,4 @@ final class IsComplianceManagerProvider
 }
 
 String _$isComplianceManagerHash() =>
-    r'b0a2468897f5eb767237eaefa6ecd9e454769040';
+    r'f70a7726898b4026aa926b672bb621ece926e80f';

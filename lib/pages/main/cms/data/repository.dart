@@ -129,9 +129,19 @@ final class ReportRepository {
       document: listStaffByRoleGraphQL,
       variables: {"roleName": "Compliance Manager"},
     );
-    return Role.fromJson(
-      (res["listRoles"]["items"] as List).first,
-    ).staff!.map((e) => e.staff!).toList();
+    final recipients = <String, Staff>{};
+    for (final item in res["listRoles"]["items"] as List) {
+      if (item == null) continue;
+      final role = Role.fromJson(item);
+      if (role.archived) continue;
+      for (final link in role.staff ?? const <RoleStaff>[]) {
+        final staff = link.staff;
+        if (staff != null && !staff.archived) {
+          recipients.putIfAbsent(staff.id, () => staff);
+        }
+      }
+    }
+    return recipients.values.toList();
   }
 
   Future<void> _uploadDocuments({

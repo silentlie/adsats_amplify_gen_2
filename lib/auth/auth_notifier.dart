@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:adsats_amplify_gen_2/API/queries.dart';
+import 'package:adsats_amplify_gen_2/helper/extensions/staff_role_extension.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:amplify_auth_cognito/amplify_auth_cognito.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
@@ -64,12 +65,8 @@ class AuthNotifier with ChangeNotifier {
   }
 
   void _validateRoles() {
-    isAdmin = user.roles!.any((role) {
-      return role.role!.name == "Admin";
-    });
-    isSafetyOfficer = user.roles!.any((role) {
-      return role.role!.name == "Safety Officer";
-    });
+    isAdmin = user.hasActiveRole("Admin");
+    isSafetyOfficer = user.hasActiveRole("Safety Officer");
   }
 
   void _validateSubcategories() {

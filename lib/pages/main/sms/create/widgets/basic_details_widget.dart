@@ -54,6 +54,7 @@ class NoticeBasicDetailsWidget extends ConsumerWidget {
                       ? null
                       : value.firstWhere(
                           (e) => e.id == notice.author!.id,
+                          orElse: () => notice.author!,
                         );
                   return GlobalDropdownMenu<Staff>(
                     entries: value.map(

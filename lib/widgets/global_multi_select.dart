@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/helper/extensions/model_selection_extension.dart';
 import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,6 +12,7 @@ class MultiSelectFormField<T extends Model> extends FormField<List<T>> {
     required CheckListCard<T> Function(T value) toCard,
     void Function(List<T> options)? onChange,
     bool enabled = true, // Default value here
+    bool includeArchived = false,
     EdgeInsetsGeometry padding =
         const EdgeInsets.all(8.0), // Default value here
     super.initialValue = const [],
@@ -27,6 +29,7 @@ class MultiSelectFormField<T extends Model> extends FormField<List<T>> {
               toCard: toCard,
               onChange: onChange,
               enabled: enabled,
+              includeArchived: includeArchived,
               padding: padding,
             );
           },
@@ -40,6 +43,7 @@ class _MultiSelectFormFieldContent<T extends Model> extends HookWidget {
   final CheckListCard<T> Function(T value) toCard;
   final void Function(List<T> options)? onChange;
   final bool enabled;
+  final bool includeArchived;
   final EdgeInsetsGeometry padding;
 
   const _MultiSelectFormFieldContent({
@@ -49,6 +53,7 @@ class _MultiSelectFormFieldContent<T extends Model> extends HookWidget {
     required this.toCard,
     this.onChange,
     required this.enabled,
+    required this.includeArchived,
     required this.padding,
   });
 
@@ -70,9 +75,14 @@ class _MultiSelectFormFieldContent<T extends Model> extends HookWidget {
   }
 
   void _updateSelection(List<T> selectedItems) {
-    state.didChange(selectedItems);
+    final previous = state.value ?? <T>[];
+    final selections = selectedItems.map((item) {
+      return previous.where((old) => sameSelection(old, item)).firstOrNull ??
+          item;
+    }).toList();
+    state.didChange(selections);
     if (onChange != null) {
-      onChange!(selectedItems);
+      onChange!(selections);
     }
   }
 
@@ -144,12 +154,19 @@ class _MultiSelectFormFieldContent<T extends Model> extends HookWidget {
               final onDeleted = enabled
                   ? () {
                       final newList = List<T>.from(state.value ?? []);
-                      newList.remove(item);
+                      newList
+                          .removeWhere((value) => sameSelection(value, item));
                       _updateSelection(newList);
                     }
                   : null;
               return Chip(
-                label: toCard(item).title ?? Text(""),
+                label: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    toCard(item).title ?? const Text(''),
+                    if (item.isArchivedSelection) const Text(' (Archived)'),
+                  ],
+                ),
                 backgroundColor: theme.chipTheme.backgroundColor,
                 labelStyle: theme.chipTheme.labelStyle,
                 deleteIcon: Icon(
@@ -169,11 +186,30 @@ class _MultiSelectFormFieldContent<T extends Model> extends HookWidget {
   Future<void> _showSelectionDialog(BuildContext context) async {
     final theme = Theme.of(context);
     final ctr = MultiSelectController<T>();
-    List<CheckListCard<T>> cards = items.map((e) {
+    final available = items
+        .where((item) => includeArchived || !item.isArchivedSelection)
+        .toList();
+    // Keep existing links unless the user removes them explicitly.
+    final preserved = (state.value ?? <T>[])
+        .where((selected) =>
+            !available.any((item) => sameSelection(item, selected)))
+        .toList();
+    final cards = available.map((e) {
       final card = toCard(e);
-      card.selected = state.value?.contains(card.value) ?? false;
+      card.selected =
+          state.value?.any((item) => sameSelection(item, e)) ?? false;
       return card;
-    }).toList();
+    }).toList()
+      ..addAll(preserved.map((item) => CheckListCard<T>(
+            value: item,
+            selected: true,
+            enabled: false,
+            title: Row(children: [
+              toCard(item).title ?? const Text(''),
+              Text(
+                  ' (${item.isArchivedSelection ? 'Archived' : 'Unavailable'})'),
+            ]),
+          )));
 
     await showDialog<List<T>>(
       context: context,
@@ -188,7 +224,11 @@ class _MultiSelectFormFieldContent<T extends Model> extends HookWidget {
             child: MultiSelectCheckList(
               items: cards,
               onChange: (selectedItems, selectedItem) {
-                _updateSelection(selectedItems);
+                _updateSelection([
+                  ...preserved,
+                  ...selectedItems.where((selected) =>
+                      available.any((item) => sameSelection(item, selected))),
+                ]);
               },
               controller: ctr,
             ),
@@ -204,6 +244,7 @@ class _MultiSelectFormFieldContent<T extends Model> extends HookWidget {
             ),
             ElevatedButton.icon(
               onPressed: () {
+                preserved.clear();
                 ctr.deselectAll();
                 _updateSelection([]);
               },
@@ -216,7 +257,7 @@ class _MultiSelectFormFieldContent<T extends Model> extends HookWidget {
             ElevatedButton.icon(
               onPressed: () {
                 ctr.selectAll();
-                _updateSelection(items);
+                _updateSelection([...preserved, ...available]);
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: theme.colorScheme.primary,

@@ -43,10 +43,11 @@ query listStaffKPI(
 ''';
 const listStaffByRoleGraphQL = '''
 query ListStaffByRole(\$roleName: String!) {
-  listRoles(filter: {name: {eq: \$roleName}}, limit: 10000) {
+  listRoles(filter: {name: {eq: \$roleName}, archived: {eq: false}}, limit: 10000) {
     items {
       id
       name
+      archived
       staff {
         items {
           id
@@ -55,6 +56,7 @@ query ListStaffByRole(\$roleName: String!) {
             firstName
             lastName
             email
+            archived
           }
         }
       }
@@ -182,7 +184,7 @@ query GetFlightCrewRecordsCategoryDetails(\$id: ID) {
 ''';
 const listJoinRecipientsGraphQL = '''
 query ListJoinRecipients(\$rolesFilter: ModelRoleStaffFilterInput, \$aircraftFilter: ModelAircraftStaffFilterInput) {
-  listStaff(limit: 10000) {
+  listStaff(filter: {archived: {eq: false}}, limit: 10000) {
     items {
       id
       firstName
@@ -278,12 +280,14 @@ const listFlightCrewRecordsCrewsGraphQL = '''
 query ListFlightCrewRecordsCrews(\$aircraftId: ID!, \$roleId: ID!) {
   getRole(id: \$roleId) {
     id
+    archived
     staff {
       items {
         staff {
           id
           firstName
           lastName
+          archived
           aircraft(filter: {aircraftId: {eq: \$aircraftId}}) {
             items {
               id
@@ -302,6 +306,7 @@ query ListFlightCrewRecordsMeta {
     items {
       id
       name
+      archived
       categories(filter: {archived: {eq: false}}) {
         items {
           id
@@ -314,6 +319,7 @@ query ListFlightCrewRecordsMeta {
     items {
       id
       name
+      archived
     }
   }
 }
@@ -661,6 +667,7 @@ query GetStaff(\$id: ID!) {
         aircraft {
           id
           name
+          archived
         }
       }
     }
@@ -670,6 +677,7 @@ query GetStaff(\$id: ID!) {
         role {
           id
           name
+          archived
         }
       }
     }
