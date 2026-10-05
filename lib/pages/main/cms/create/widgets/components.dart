@@ -1,7 +1,7 @@
 import 'package:adsats_amplify_gen_2/constants/durations.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/staff_name_extension.dart';
-import 'package:adsats_amplify_gen_2/helper/providers/query_providers.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
+import 'package:adsats_amplify_gen_2/pages/main/cms/providers/compliance_managers.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:adsats_amplify_gen_2/widgets/date_picker_widget.dart';
@@ -155,8 +155,7 @@ class ComplianceManagerSection extends ConsumerWidget {
               ),
               Flexible(
                 child: AsyncValueWidget(
-                  // TODO: filter only compliance managers
-                  value: ref.watch(listStaffProvider()),
+                  value: ref.watch(complianceManagersProvider),
                   data: (value) {
                     return GlobalDropdownMenu(
                       entries: value.map(

@@ -61,7 +61,7 @@ final class ReportsProvider extends $FunctionalProvider<
   }
 }
 
-String _$reportsHash() => r'e1945b79c5f1f6dc68878b2ff62049fb95a45ff5';
+String _$reportsHash() => r'1f88275da98bbb22b991da218b347c8c71531992';
 
 final class ReportsFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Report>>, Scope> {

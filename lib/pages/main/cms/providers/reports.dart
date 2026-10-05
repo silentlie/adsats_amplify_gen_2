@@ -11,7 +11,6 @@ Future<List<Report>> reports(Ref ref, Scope type) async {
   final filter = ref.watch(reportFilterProvider);
   final filterJson = filter.toJson();
   final service = ref.read(reportServiceProvider);
-  service.listIdsForUser(filter.user.id);
   switch (type) {
     case Scope.inbox:
       final reportIds = await service.listIdsForUser(filter.user.id);

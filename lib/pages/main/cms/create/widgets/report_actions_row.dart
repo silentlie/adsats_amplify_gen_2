@@ -37,7 +37,7 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
                 if (context.canPop()) {
                   context.pop();
                 } else {
-                  SmsSentRoute().go(context);
+                  CmsSentRoute().go(context);
                 }
               }
             },
@@ -93,7 +93,7 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
                   if (context.canPop()) {
                     context.pop();
                   } else {
-                    SmsSentRoute().go(context);
+                    CmsSentRoute().go(context);
                   }
                 }
               },
