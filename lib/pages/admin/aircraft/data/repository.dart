@@ -38,7 +38,7 @@ class AircraftRepository {
       (aircraftNotice) => futures.add(_db.delete(aircraftNotice)),
     );
     await Future.wait(futures);
-    return aircraft;
+    return await _db.delete(aircraft);
   }
 
   Future<Aircraft> update(Aircraft aircraft) async {
@@ -56,7 +56,7 @@ class AircraftRepository {
   Future<void> upsertAircraftStaff(Aircraft aircraft, List<Staff> staff) async {
     final futures = <Future>[];
     final Map<String, AircraftStaff> oldMap = {
-      for (var old in aircraft.staff ?? <AircraftStaff>[]) old.id: old
+      for (var old in aircraft.staff ?? <AircraftStaff>[]) old.staff!.id: old
     };
     for (final newStaff in staff) {
       final old = oldMap.remove(newStaff.id);

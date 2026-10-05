@@ -59,7 +59,7 @@ class RolesRepository {
   Future<void> upsertRoleStaff(Role role, List<Staff> staff) async {
     final List<Future> futures = [];
     final Map<String, RoleStaff> oldMap = {
-      for (var ole in role.staff ?? []) ole.staff!.id: ole
+      for (var old in role.staff ?? <RoleStaff>[]) old.staff!.id: old
     };
 
     for (var newStaff in staff) {
