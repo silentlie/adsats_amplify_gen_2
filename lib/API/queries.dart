@@ -170,6 +170,10 @@ query GetFlightCrewRecordsCategoryDetails(\$id: ID) {
     flightCrewRecords {
       items {
         id
+        name
+        staff {
+          id
+        }
       }
     }
     id
@@ -777,6 +781,7 @@ query GetSubcategoryDetails(\$id: ID!) {
     documents {
       items {
         id
+        name
       }
     }
   }
