@@ -10,6 +10,6 @@ Future<List<Staff>> staff(Ref ref) async {
   final filter = ref.watch(adminFilterProvider);
   final service = ref.read(staffServiceProvider);
   return await service.list(variables: {
-    'filter': filter.toJson(),
+    'filter': filter.toJson(staffSearch: true),
   });
 }

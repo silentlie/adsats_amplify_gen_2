@@ -41,4 +41,4 @@ final class StaffProvider extends $FunctionalProvider<AsyncValue<List<Staff>>,
   }
 }
 
-String _$staffHash() => r'189e463b3f7e5c498f3a49221f367b598a50567a';
+String _$staffHash() => r'31d4ee3ef2d2ff04c9bf064bce0ccb8af9963430';

@@ -34,9 +34,19 @@ sealed class AdminFilterState with _$AdminFilterState {
     DateTimeRange? createdAt,
   }) = _AdminFilterState;
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toJson({bool staffSearch = false}) {
     final Map<String, dynamic> result = {};
-    search.isNotEmpty ? result["name"] = {"contains": search} : null;
+    if (search.isNotEmpty) {
+      if (staffSearch) {
+        result['or'] = [
+          {'firstName': {'contains': search}},
+          {'lastName': {'contains': search}},
+          {'email': {'contains': search}},
+        ];
+      } else {
+        result["name"] = {"contains": search};
+      }
+    }
     archived != null ? result["archived"] = {"eq": archived} : null;
     createdAt != null
         ? result["createdAt"] = {"between": createdAt!.isoBetween}
