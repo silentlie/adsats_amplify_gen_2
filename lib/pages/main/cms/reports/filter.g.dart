@@ -47,13 +47,13 @@ abstract class _$ReportFilter extends $Notifier<ReportFilterState> {
   ReportFilterState build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<ReportFilterState, ReportFilterState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<ReportFilterState, ReportFilterState>,
         ReportFilterState,
         Object?,
         Object?>;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

@@ -27,14 +27,14 @@ dependencies:
   file_picker: ^13.1.0
   badges: ^3.1.2
   gap: ^3.0.1
-  flutter_riverpod: ^3.1.0
-  riverpod_annotation: ^4.0.0
-  freezed_annotation: ^3.0.0
+  flutter_riverpod: ^3.4.3
+  riverpod_annotation: ^4.0.7
+  freezed_annotation: ^3.1.0
   json_annotation: ^4.9.0
   collection: ^1.19.1
   flutter_hooks: ^0.21.2
-  riverpod: ^3.1.0
-  hooks_riverpod: ^3.1.0
+  riverpod: ^3.4.3
+  hooks_riverpod: ^3.4.3
   flutter_multi_select_items: ^0.4.3
   cupertino_icons: ^1.0.8
 
@@ -44,12 +44,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  riverpod_generator: ^4.0.0+1
-  build_runner: ^2.4.14
-  custom_lint: ^0.8.0
-  riverpod_lint: ^3.1.0
+  riverpod_generator: ^4.0.9
+  build_runner: ^2.16.1
+  riverpod_lint: ^3.1.9
   go_router_builder: ^4.0.1
-  freezed: ^3.0.3
+  freezed: ^4.0.2
   json_serializable: ^6.9.4
 
 flutter:

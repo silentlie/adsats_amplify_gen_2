@@ -91,14 +91,14 @@ abstract class _$DocumentFilter extends $Notifier<DocumentFilterState> {
   );
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<DocumentFilterState, DocumentFilterState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<DocumentFilterState, DocumentFilterState>,
         DocumentFilterState,
         Object?,
         Object?>;
-    element.handleCreate(
+    return element.handleCreate(
         ref,
         () => build(
               _$args,

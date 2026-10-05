@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'notice_form.dart';
@@ -9,6 +9,7 @@ part of 'notice_form.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -27,20 +28,26 @@ mixin _$NoticeFormState {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as NoticeFormState;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is NoticeFormState &&
-            (identical(other.notice, notice) || other.notice == notice) &&
-            (identical(other.editMode, editMode) ||
-                other.editMode == editMode));
+            (identical(other.notice, _this.notice) ||
+                other.notice == _this.notice) &&
+            (identical(other.editMode, _this.editMode) ||
+                other.editMode == _this.editMode));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, notice, editMode);
+  int get hashCode {
+    final _this = this as NoticeFormState;
+    return Object.hash(runtimeType, _this.notice, _this.editMode);
+  }
 
   @override
   String toString() {
-    return 'NoticeFormState(notice: $notice, editMode: $editMode)';
+    final _this = this as NoticeFormState;
+    return 'NoticeFormState(notice: ${_this.notice}, editMode: ${_this.editMode})';
   }
 }
 
@@ -69,7 +76,7 @@ class _$NoticeFormStateCopyWithImpl<$Res>
     Object? notice = null,
     Object? editMode = null,
   }) {
-    return _then(_self.copyWith(
+    return _then(NoticeFormState(
       notice: null == notice
           ? _self.notice
           : notice // ignore: cast_nullable_to_non_nullable
@@ -265,7 +272,9 @@ class _NoticeState extends NoticeFormState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, notice, editMode);
+  int get hashCode {
+    return Object.hash(runtimeType, notice, editMode);
+  }
 
   @override
   String toString() {

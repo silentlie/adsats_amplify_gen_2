@@ -22,6 +22,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/',
                   name: 'Home',
+                  hasOverriddenOnExit: false,
                   factory: $HomeRoute._fromState,
                 ),
               ],
@@ -31,6 +32,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/documents',
                   name: 'Documents',
+                  hasOverriddenOnExit: false,
                   factory: $DocumentsRoute._fromState,
                 ),
               ],
@@ -41,6 +43,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/sms',
                   name: 'SMS',
+                  hasOverriddenOnExit: false,
                   factory: $SMSRoute._fromState,
                   routes: [
                     StatefulShellRouteData.$route(
@@ -51,6 +54,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'all',
                               name: 'SMS All',
+                              hasOverriddenOnExit: false,
                               factory: $SmsAllRoute._fromState,
                             ),
                           ],
@@ -60,6 +64,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'inbox',
                               name: 'SMS Inbox',
+                              hasOverriddenOnExit: false,
                               factory: $SmsInboxRoute._fromState,
                             ),
                           ],
@@ -69,6 +74,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'sent',
                               name: 'SMS Sent',
+                              hasOverriddenOnExit: false,
                               factory: $SmsSentRoute._fromState,
                             ),
                           ],
@@ -83,6 +89,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'safety-notice',
                               name: 'Safety Notice',
+                              hasOverriddenOnExit: false,
                               factory: $SafetyNoticeRoute._fromState,
                             ),
                           ],
@@ -92,6 +99,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'hazard-report',
                               name: 'Hazard Report',
+                              hasOverriddenOnExit: false,
                               factory: $HazardReportRoute._fromState,
                             ),
                           ],
@@ -101,6 +109,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'notice-to-crew',
                               name: 'Notice To Crew',
+                              hasOverriddenOnExit: false,
                               factory: $NoticeToCrewRoute._fromState,
                             ),
                           ],
@@ -110,6 +119,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                     GoRouteData.$route(
                       path: ':id',
                       name: 'View Notice',
+                      hasOverriddenOnExit: false,
                       parentNavigatorKey: ViewNoticeRoute.$parentNavigatorKey,
                       factory: $ViewNoticeRoute._fromState,
                     ),
@@ -123,6 +133,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/cms',
                   name: 'CMS',
+                  hasOverriddenOnExit: false,
                   factory: $CmsRoute._fromState,
                   routes: [
                     StatefulShellRouteData.$route(
@@ -133,6 +144,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'all',
                               name: 'CMS All',
+                              hasOverriddenOnExit: false,
                               factory: $CmsAllRoute._fromState,
                             ),
                           ],
@@ -142,6 +154,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'inbox',
                               name: 'CMS Inbox',
+                              hasOverriddenOnExit: false,
                               factory: $CmsInboxRoute._fromState,
                             ),
                           ],
@@ -151,6 +164,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'sent',
                               name: 'CMS Sent',
+                              hasOverriddenOnExit: false,
                               factory: $CmsSentRoute._fromState,
                             ),
                           ],
@@ -165,6 +179,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'internal-audit-report',
                               name: 'Internal Audit Report',
+                              hasOverriddenOnExit: false,
                               factory: $InternalAuditReportRoute._fromState,
                             ),
                           ],
@@ -174,6 +189,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                             GoRouteData.$route(
                               path: 'external-audit-report',
                               name: 'External Audit Report',
+                              hasOverriddenOnExit: false,
                               factory: $ExternalAuditReportRoute._fromState,
                             ),
                           ],
@@ -183,6 +199,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                     GoRouteData.$route(
                       path: ':id',
                       name: 'View Report',
+                      hasOverriddenOnExit: false,
                       parentNavigatorKey: ViewReportRoute.$parentNavigatorKey,
                       factory: $ViewReportRoute._fromState,
                     ),
@@ -195,6 +212,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/flight-crew-records',
                   name: 'Flight Crew Records',
+                  hasOverriddenOnExit: false,
                   factory: $FlightCrewRecordsRoute._fromState,
                 ),
               ],
@@ -204,6 +222,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/help',
                   name: 'Help',
+                  hasOverriddenOnExit: false,
                   factory: $HelpRoute._fromState,
                 ),
               ],
@@ -213,6 +232,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/kpi',
                   name: 'K.P.I',
+                  hasOverriddenOnExit: false,
                   factory: $KPIRoute._fromState,
                 ),
               ],
@@ -227,6 +247,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/admin/aircraft',
                   name: 'Aircraft',
+                  hasOverriddenOnExit: false,
                   factory: $AircraftRoute._fromState,
                 ),
               ],
@@ -236,11 +257,13 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/admin/roles',
                   name: 'Roles',
+                  hasOverriddenOnExit: false,
                   factory: $RolesRoute._fromState,
                   routes: [
                     GoRouteData.$route(
                       path: ':roleId',
                       name: 'Flight Crew Records Categories',
+                      hasOverriddenOnExit: false,
                       factory: $FlightCrewRecordsCategoriesRoute._fromState,
                     ),
                   ],
@@ -252,6 +275,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/admin/staff',
                   name: 'Staff',
+                  hasOverriddenOnExit: false,
                   factory: $StaffRoute._fromState,
                 ),
               ],
@@ -261,11 +285,13 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/admin/categories',
                   name: 'Categories',
+                  hasOverriddenOnExit: false,
                   factory: $CategoriesRoute._fromState,
                   routes: [
                     GoRouteData.$route(
                       path: ':categoryId',
                       name: 'Subcategories',
+                      hasOverriddenOnExit: false,
                       factory: $SubcategoriesRoute._fromState,
                     ),
                   ],
@@ -282,6 +308,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/profile',
                   name: 'Profile',
+                  hasOverriddenOnExit: false,
                   factory: $ProfileRoute._fromState,
                 ),
               ],
@@ -291,6 +318,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/profile/change-password',
                   name: 'Change Password',
+                  hasOverriddenOnExit: false,
                   factory: $ChangePasswordRoute._fromState,
                 ),
               ],
@@ -300,6 +328,7 @@ RouteBase get $rootShellRouteData => ShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/profile/records',
                   name: 'Profile Records',
+                  hasOverriddenOnExit: false,
                   factory: $ProfileRecordsRoute._fromState,
                 ),
               ],

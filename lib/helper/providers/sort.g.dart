@@ -110,13 +110,13 @@ abstract class _$Sort<T> extends $Notifier<SortState<T>> {
   SortState<T> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<SortState<T>, SortState<T>>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<SortState<T>, SortState<T>>,
         SortState<T>,
         Object?,
         Object?>;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

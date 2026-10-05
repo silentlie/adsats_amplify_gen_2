@@ -47,13 +47,13 @@ abstract class _$NoticeForm extends $Notifier<NoticeFormState> {
   NoticeFormState build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<NoticeFormState, NoticeFormState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<NoticeFormState, NoticeFormState>,
         NoticeFormState,
         Object?,
         Object?>;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

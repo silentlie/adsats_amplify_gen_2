@@ -91,7 +91,7 @@ abstract class _$SubcategoryFilter extends $Notifier<SubcategoryFilterState> {
   );
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref =
         this.ref as $Ref<SubcategoryFilterState, SubcategoryFilterState>;
     final element = ref.element as $ClassProviderElement<
@@ -99,7 +99,7 @@ abstract class _$SubcategoryFilter extends $Notifier<SubcategoryFilterState> {
         SubcategoryFilterState,
         Object?,
         Object?>;
-    element.handleCreate(
+    return element.handleCreate(
         ref,
         () => build(
               _$args,

@@ -39,13 +39,13 @@ abstract class _$SettingsNotifier extends $AsyncNotifier<Settings> {
   FutureOr<Settings> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<Settings>, Settings>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<AsyncValue<Settings>, Settings>,
         AsyncValue<Settings>,
         Object?,
         Object?>;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

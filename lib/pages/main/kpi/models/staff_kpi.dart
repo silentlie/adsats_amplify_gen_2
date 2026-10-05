@@ -8,7 +8,7 @@ part 'staff_kpi.freezed.dart';
 sealed class StaffKPI with _$StaffKPI {
   StaffKPI._();
   factory StaffKPI({
-    required final Staff staff,
+    required Staff staff,
   }) = _StaffKPI;
 
   String get name => staff.fullName;

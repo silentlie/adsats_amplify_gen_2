@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'settings.dart';
@@ -9,6 +9,7 @@ part of 'settings.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -27,28 +28,35 @@ mixin _$Settings {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as Settings;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is Settings &&
-            (identical(other.themeMode, themeMode) ||
-                other.themeMode == themeMode) &&
-            (identical(
-                    other.isNavigationRailExtended, isNavigationRailExtended) ||
-                other.isNavigationRailExtended == isNavigationRailExtended) &&
+            (identical(other.themeMode, _this.themeMode) ||
+                other.themeMode == _this.themeMode) &&
+            (identical(other.isNavigationRailExtended,
+                    _this.isNavigationRailExtended) ||
+                other.isNavigationRailExtended ==
+                    _this.isNavigationRailExtended) &&
             const DeepCollectionEquality().equals(
-                other.flightCrewRecordFavourites, flightCrewRecordFavourites));
+                other.flightCrewRecordFavourites,
+                _this.flightCrewRecordFavourites));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      themeMode,
-      isNavigationRailExtended,
-      const DeepCollectionEquality().hash(flightCrewRecordFavourites));
+  int get hashCode {
+    final _this = this as Settings;
+    return Object.hash(
+        runtimeType,
+        _this.themeMode,
+        _this.isNavigationRailExtended,
+        const DeepCollectionEquality().hash(_this.flightCrewRecordFavourites));
+  }
 
   @override
   String toString() {
-    return 'Settings(themeMode: $themeMode, isNavigationRailExtended: $isNavigationRailExtended, flightCrewRecordFavourites: $flightCrewRecordFavourites)';
+    final _this = this as Settings;
+    return 'Settings(themeMode: ${_this.themeMode}, isNavigationRailExtended: ${_this.isNavigationRailExtended}, flightCrewRecordFavourites: ${_this.flightCrewRecordFavourites})';
   }
 }
 
@@ -79,7 +87,7 @@ class _$SettingsCopyWithImpl<$Res> implements $SettingsCopyWith<$Res> {
     Object? isNavigationRailExtended = null,
     Object? flightCrewRecordFavourites = null,
   }) {
-    return _then(_self.copyWith(
+    return _then(Settings(
       themeMode: null == themeMode
           ? _self.themeMode
           : themeMode // ignore: cast_nullable_to_non_nullable
@@ -264,7 +272,7 @@ class _Settings extends Settings {
   _Settings(
       {this.themeMode = ThemeMode.system,
       this.isNavigationRailExtended = true,
-      final Map<String, List<String>> flightCrewRecordFavourites = const {}})
+      Map<String, List<String>> flightCrewRecordFavourites = const {}})
       : _flightCrewRecordFavourites = flightCrewRecordFavourites,
         super._();
 
@@ -303,16 +311,14 @@ class _Settings extends Settings {
                     other.isNavigationRailExtended, isNavigationRailExtended) ||
                 other.isNavigationRailExtended == isNavigationRailExtended) &&
             const DeepCollectionEquality().equals(
-                other._flightCrewRecordFavourites,
-                _flightCrewRecordFavourites));
+                other.flightCrewRecordFavourites, _flightCrewRecordFavourites));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      themeMode,
-      isNavigationRailExtended,
-      const DeepCollectionEquality().hash(_flightCrewRecordFavourites));
+  int get hashCode {
+    return Object.hash(runtimeType, themeMode, isNavigationRailExtended,
+        const DeepCollectionEquality().hash(_flightCrewRecordFavourites));
+  }
 
   @override
   String toString() {

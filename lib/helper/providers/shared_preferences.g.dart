@@ -40,7 +40,7 @@ abstract class _$SharedPreferences
   FutureOr<SharedPreferencesWithCache> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AsyncValue<SharedPreferencesWithCache>,
         SharedPreferencesWithCache>;
     final element = ref.element as $ClassProviderElement<
@@ -49,6 +49,6 @@ abstract class _$SharedPreferences
         AsyncValue<SharedPreferencesWithCache>,
         Object?,
         Object?>;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

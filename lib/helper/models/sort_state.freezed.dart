@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'sort_state.dart';
@@ -9,6 +9,7 @@ part of 'sort_state.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -16,7 +17,7 @@ T _$identity<T>(T value) => value;
 mixin _$SortState<T> {
   bool get sortAscending;
   int get sortColumnIndex;
-  Comparable? Function(T notice) get getField;
+  Comparable<dynamic>? Function(T notice) get getField;
   int Function(T a, T b, bool sortAscending)? get custom;
   int get rowsPerPage;
 
@@ -30,27 +31,33 @@ mixin _$SortState<T> {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as SortState<T>;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SortState<T> &&
-            (identical(other.sortAscending, sortAscending) ||
-                other.sortAscending == sortAscending) &&
-            (identical(other.sortColumnIndex, sortColumnIndex) ||
-                other.sortColumnIndex == sortColumnIndex) &&
-            (identical(other.getField, getField) ||
-                other.getField == getField) &&
-            (identical(other.custom, custom) || other.custom == custom) &&
-            (identical(other.rowsPerPage, rowsPerPage) ||
-                other.rowsPerPage == rowsPerPage));
+            (identical(other.sortAscending, _this.sortAscending) ||
+                other.sortAscending == _this.sortAscending) &&
+            (identical(other.sortColumnIndex, _this.sortColumnIndex) ||
+                other.sortColumnIndex == _this.sortColumnIndex) &&
+            (identical(other.getField, _this.getField) ||
+                other.getField == _this.getField) &&
+            (identical(other.custom, _this.custom) ||
+                other.custom == _this.custom) &&
+            (identical(other.rowsPerPage, _this.rowsPerPage) ||
+                other.rowsPerPage == _this.rowsPerPage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, sortAscending, sortColumnIndex,
-      getField, custom, rowsPerPage);
+  int get hashCode {
+    final _this = this as SortState<T>;
+    return Object.hash(runtimeType, _this.sortAscending, _this.sortColumnIndex,
+        _this.getField, _this.custom, _this.rowsPerPage);
+  }
 
   @override
   String toString() {
-    return 'SortState<$T>(sortAscending: $sortAscending, sortColumnIndex: $sortColumnIndex, getField: $getField, custom: $custom, rowsPerPage: $rowsPerPage)';
+    final _this = this as SortState<T>;
+    return 'SortState<$T>(sortAscending: ${_this.sortAscending}, sortColumnIndex: ${_this.sortColumnIndex}, getField: ${_this.getField}, custom: ${_this.custom}, rowsPerPage: ${_this.rowsPerPage})';
   }
 }
 
@@ -63,7 +70,7 @@ abstract mixin class $SortStateCopyWith<T, $Res> {
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable? Function(T notice) getField,
+      Comparable<dynamic>? Function(T notice) getField,
       int Function(T a, T b, bool sortAscending)? custom,
       int rowsPerPage});
 }
@@ -86,7 +93,7 @@ class _$SortStateCopyWithImpl<T, $Res> implements $SortStateCopyWith<T, $Res> {
     Object? custom = freezed,
     Object? rowsPerPage = null,
   }) {
-    return _then(_self.copyWith(
+    return _then(SortState(
       sortAscending: null == sortAscending
           ? _self.sortAscending
           : sortAscending // ignore: cast_nullable_to_non_nullable
@@ -98,7 +105,7 @@ class _$SortStateCopyWithImpl<T, $Res> implements $SortStateCopyWith<T, $Res> {
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable? Function(T notice),
+              as Comparable<dynamic>? Function(T notice),
       custom: freezed == custom
           ? _self.custom
           : custom // ignore: cast_nullable_to_non_nullable
@@ -205,7 +212,7 @@ extension SortStatePatterns<T> on SortState<T> {
     TResult Function(
             bool sortAscending,
             int sortColumnIndex,
-            Comparable? Function(T notice) getField,
+            Comparable<dynamic>? Function(T notice) getField,
             int Function(T a, T b, bool sortAscending)? custom,
             int rowsPerPage)?
         $default, {
@@ -239,7 +246,7 @@ extension SortStatePatterns<T> on SortState<T> {
     TResult Function(
             bool sortAscending,
             int sortColumnIndex,
-            Comparable? Function(T notice) getField,
+            Comparable<dynamic>? Function(T notice) getField,
             int Function(T a, T b, bool sortAscending)? custom,
             int rowsPerPage)
         $default,
@@ -269,7 +276,7 @@ extension SortStatePatterns<T> on SortState<T> {
     TResult? Function(
             bool sortAscending,
             int sortColumnIndex,
-            Comparable? Function(T notice) getField,
+            Comparable<dynamic>? Function(T notice) getField,
             int Function(T a, T b, bool sortAscending)? custom,
             int rowsPerPage)?
         $default,
@@ -302,7 +309,7 @@ class _SortState<T> implements SortState<T> {
   @JsonKey()
   final int sortColumnIndex;
   @override
-  final Comparable? Function(T notice) getField;
+  final Comparable<dynamic>? Function(T notice) getField;
   @override
   @JsonKey()
   final int Function(T a, T b, bool sortAscending)? custom;
@@ -335,8 +342,10 @@ class _SortState<T> implements SortState<T> {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, sortAscending, sortColumnIndex,
-      getField, custom, rowsPerPage);
+  int get hashCode {
+    return Object.hash(runtimeType, sortAscending, sortColumnIndex, getField,
+        custom, rowsPerPage);
+  }
 
   @override
   String toString() {
@@ -355,7 +364,7 @@ abstract mixin class _$SortStateCopyWith<T, $Res>
   $Res call(
       {bool sortAscending,
       int sortColumnIndex,
-      Comparable? Function(T notice) getField,
+      Comparable<dynamic>? Function(T notice) getField,
       int Function(T a, T b, bool sortAscending)? custom,
       int rowsPerPage});
 }
@@ -391,7 +400,7 @@ class __$SortStateCopyWithImpl<T, $Res>
       getField: null == getField
           ? _self.getField
           : getField // ignore: cast_nullable_to_non_nullable
-              as Comparable? Function(T notice),
+              as Comparable<dynamic>? Function(T notice),
       custom: freezed == custom
           ? _self.custom
           : custom // ignore: cast_nullable_to_non_nullable

@@ -114,7 +114,7 @@ abstract class _$FlightCrewRecordFilter
   );
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref
         as $Ref<FlightCrewRecordFilterState, FlightCrewRecordFilterState>;
     final element = ref.element as $ClassProviderElement<
@@ -122,7 +122,7 @@ abstract class _$FlightCrewRecordFilter
         FlightCrewRecordFilterState,
         Object?,
         Object?>;
-    element.handleCreate(
+    return element.handleCreate(
         ref,
         () => build(
               _$args.$1,

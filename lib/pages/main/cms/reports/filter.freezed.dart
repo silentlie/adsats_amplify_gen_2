@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'filter.dart';
@@ -9,6 +9,7 @@ part of 'filter.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -20,7 +21,7 @@ mixin _$ReportFilterState {
   ReportStatus? get status;
   bool? get discrepanciesFound;
   bool? get archived;
-  DateTimeRange? get reportedAt;
+  DateTimeRange<DateTime>? get reportedAt;
 
   /// Create a copy of ReportFilterState
   /// with the given fields replaced by the non-null parameter values.
@@ -32,28 +33,42 @@ mixin _$ReportFilterState {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as ReportFilterState;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ReportFilterState &&
-            (identical(other.user, user) || other.user == user) &&
-            (identical(other.search, search) || other.search == search) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.discrepanciesFound, discrepanciesFound) ||
-                other.discrepanciesFound == discrepanciesFound) &&
-            (identical(other.archived, archived) ||
-                other.archived == archived) &&
-            (identical(other.reportedAt, reportedAt) ||
-                other.reportedAt == reportedAt));
+            (identical(other.user, _this.user) || other.user == _this.user) &&
+            (identical(other.search, _this.search) ||
+                other.search == _this.search) &&
+            (identical(other.type, _this.type) || other.type == _this.type) &&
+            (identical(other.status, _this.status) ||
+                other.status == _this.status) &&
+            (identical(other.discrepanciesFound, _this.discrepanciesFound) ||
+                other.discrepanciesFound == _this.discrepanciesFound) &&
+            (identical(other.archived, _this.archived) ||
+                other.archived == _this.archived) &&
+            (identical(other.reportedAt, _this.reportedAt) ||
+                other.reportedAt == _this.reportedAt));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, user, search, type, status,
-      discrepanciesFound, archived, reportedAt);
+  int get hashCode {
+    final _this = this as ReportFilterState;
+    return Object.hash(
+        runtimeType,
+        _this.user,
+        _this.search,
+        _this.type,
+        _this.status,
+        _this.discrepanciesFound,
+        _this.archived,
+        _this.reportedAt);
+  }
 
   @override
   String toString() {
-    return 'ReportFilterState(user: $user, search: $search, type: $type, status: $status, discrepanciesFound: $discrepanciesFound, archived: $archived, reportedAt: $reportedAt)';
+    final _this = this as ReportFilterState;
+    return 'ReportFilterState(user: ${_this.user}, search: ${_this.search}, type: ${_this.type}, status: ${_this.status}, discrepanciesFound: ${_this.discrepanciesFound}, archived: ${_this.archived}, reportedAt: ${_this.reportedAt})';
   }
 }
 
@@ -70,7 +85,7 @@ abstract mixin class $ReportFilterStateCopyWith<$Res> {
       ReportStatus? status,
       bool? discrepanciesFound,
       bool? archived,
-      DateTimeRange? reportedAt});
+      DateTimeRange<DateTime>? reportedAt});
 }
 
 /// @nodoc
@@ -94,7 +109,7 @@ class _$ReportFilterStateCopyWithImpl<$Res>
     Object? archived = freezed,
     Object? reportedAt = freezed,
   }) {
-    return _then(_self.copyWith(
+    return _then(ReportFilterState(
       user: null == user
           ? _self.user
           : user // ignore: cast_nullable_to_non_nullable
@@ -122,7 +137,7 @@ class _$ReportFilterStateCopyWithImpl<$Res>
       reportedAt: freezed == reportedAt
           ? _self.reportedAt
           : reportedAt // ignore: cast_nullable_to_non_nullable
-              as DateTimeRange?,
+              as DateTimeRange<DateTime>?,
     ));
   }
 }
@@ -225,7 +240,7 @@ extension ReportFilterStatePatterns on ReportFilterState {
             ReportStatus? status,
             bool? discrepanciesFound,
             bool? archived,
-            DateTimeRange? reportedAt)?
+            DateTimeRange<DateTime>? reportedAt)?
         $default, {
     required TResult orElse(),
   }) {
@@ -261,7 +276,7 @@ extension ReportFilterStatePatterns on ReportFilterState {
             ReportStatus? status,
             bool? discrepanciesFound,
             bool? archived,
-            DateTimeRange? reportedAt)
+            DateTimeRange<DateTime>? reportedAt)
         $default,
   ) {
     final _that = this;
@@ -293,7 +308,7 @@ extension ReportFilterStatePatterns on ReportFilterState {
             ReportStatus? status,
             bool? discrepanciesFound,
             bool? archived,
-            DateTimeRange? reportedAt)?
+            DateTimeRange<DateTime>? reportedAt)?
         $default,
   ) {
     final _that = this;
@@ -334,7 +349,7 @@ class _ReportFilterState extends ReportFilterState {
   @override
   final bool? archived;
   @override
-  final DateTimeRange? reportedAt;
+  final DateTimeRange<DateTime>? reportedAt;
 
   /// Create a copy of ReportFilterState
   /// with the given fields replaced by the non-null parameter values.
@@ -362,8 +377,10 @@ class _ReportFilterState extends ReportFilterState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, user, search, type, status,
-      discrepanciesFound, archived, reportedAt);
+  int get hashCode {
+    return Object.hash(runtimeType, user, search, type, status,
+        discrepanciesFound, archived, reportedAt);
+  }
 
   @override
   String toString() {
@@ -386,7 +403,7 @@ abstract mixin class _$ReportFilterStateCopyWith<$Res>
       ReportStatus? status,
       bool? discrepanciesFound,
       bool? archived,
-      DateTimeRange? reportedAt});
+      DateTimeRange<DateTime>? reportedAt});
 }
 
 /// @nodoc
@@ -438,7 +455,7 @@ class __$ReportFilterStateCopyWithImpl<$Res>
       reportedAt: freezed == reportedAt
           ? _self.reportedAt
           : reportedAt // ignore: cast_nullable_to_non_nullable
-              as DateTimeRange?,
+              as DateTimeRange<DateTime>?,
     ));
   }
 }

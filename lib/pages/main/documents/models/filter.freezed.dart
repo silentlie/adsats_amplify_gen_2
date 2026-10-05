@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'filter.dart';
@@ -9,6 +9,7 @@ part of 'filter.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -17,9 +18,9 @@ mixin _$DocumentFilterState {
   Subcategory get subcategory;
   String get search;
   bool? get archived;
-  DateTimeRange? get createdAt;
-  DateTimeRange? get issuedAt;
-  DateTimeRange? get expiredAt;
+  DateTimeRange<DateTime>? get createdAt;
+  DateTimeRange<DateTime>? get issuedAt;
+  DateTimeRange<DateTime>? get expiredAt;
 
   /// Create a copy of DocumentFilterState
   /// with the given fields replaced by the non-null parameter values.
@@ -31,29 +32,35 @@ mixin _$DocumentFilterState {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as DocumentFilterState;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is DocumentFilterState &&
-            (identical(other.subcategory, subcategory) ||
-                other.subcategory == subcategory) &&
-            (identical(other.search, search) || other.search == search) &&
-            (identical(other.archived, archived) ||
-                other.archived == archived) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.issuedAt, issuedAt) ||
-                other.issuedAt == issuedAt) &&
-            (identical(other.expiredAt, expiredAt) ||
-                other.expiredAt == expiredAt));
+            (identical(other.subcategory, _this.subcategory) ||
+                other.subcategory == _this.subcategory) &&
+            (identical(other.search, _this.search) ||
+                other.search == _this.search) &&
+            (identical(other.archived, _this.archived) ||
+                other.archived == _this.archived) &&
+            (identical(other.createdAt, _this.createdAt) ||
+                other.createdAt == _this.createdAt) &&
+            (identical(other.issuedAt, _this.issuedAt) ||
+                other.issuedAt == _this.issuedAt) &&
+            (identical(other.expiredAt, _this.expiredAt) ||
+                other.expiredAt == _this.expiredAt));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, subcategory, search, archived,
-      createdAt, issuedAt, expiredAt);
+  int get hashCode {
+    final _this = this as DocumentFilterState;
+    return Object.hash(runtimeType, _this.subcategory, _this.search,
+        _this.archived, _this.createdAt, _this.issuedAt, _this.expiredAt);
+  }
 
   @override
   String toString() {
-    return 'DocumentFilterState(subcategory: $subcategory, search: $search, archived: $archived, createdAt: $createdAt, issuedAt: $issuedAt, expiredAt: $expiredAt)';
+    final _this = this as DocumentFilterState;
+    return 'DocumentFilterState(subcategory: ${_this.subcategory}, search: ${_this.search}, archived: ${_this.archived}, createdAt: ${_this.createdAt}, issuedAt: ${_this.issuedAt}, expiredAt: ${_this.expiredAt})';
   }
 }
 
@@ -67,9 +74,9 @@ abstract mixin class $DocumentFilterStateCopyWith<$Res> {
       {Subcategory subcategory,
       String search,
       bool? archived,
-      DateTimeRange? createdAt,
-      DateTimeRange? issuedAt,
-      DateTimeRange? expiredAt});
+      DateTimeRange<DateTime>? createdAt,
+      DateTimeRange<DateTime>? issuedAt,
+      DateTimeRange<DateTime>? expiredAt});
 }
 
 /// @nodoc
@@ -92,7 +99,7 @@ class _$DocumentFilterStateCopyWithImpl<$Res>
     Object? issuedAt = freezed,
     Object? expiredAt = freezed,
   }) {
-    return _then(_self.copyWith(
+    return _then(DocumentFilterState(
       subcategory: null == subcategory
           ? _self.subcategory
           : subcategory // ignore: cast_nullable_to_non_nullable
@@ -108,15 +115,15 @@ class _$DocumentFilterStateCopyWithImpl<$Res>
       createdAt: freezed == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTimeRange?,
+              as DateTimeRange<DateTime>?,
       issuedAt: freezed == issuedAt
           ? _self.issuedAt
           : issuedAt // ignore: cast_nullable_to_non_nullable
-              as DateTimeRange?,
+              as DateTimeRange<DateTime>?,
       expiredAt: freezed == expiredAt
           ? _self.expiredAt
           : expiredAt // ignore: cast_nullable_to_non_nullable
-              as DateTimeRange?,
+              as DateTimeRange<DateTime>?,
     ));
   }
 }
@@ -216,9 +223,9 @@ extension DocumentFilterStatePatterns on DocumentFilterState {
             Subcategory subcategory,
             String search,
             bool? archived,
-            DateTimeRange? createdAt,
-            DateTimeRange? issuedAt,
-            DateTimeRange? expiredAt)?
+            DateTimeRange<DateTime>? createdAt,
+            DateTimeRange<DateTime>? issuedAt,
+            DateTimeRange<DateTime>? expiredAt)?
         $default, {
     required TResult orElse(),
   }) {
@@ -251,9 +258,9 @@ extension DocumentFilterStatePatterns on DocumentFilterState {
             Subcategory subcategory,
             String search,
             bool? archived,
-            DateTimeRange? createdAt,
-            DateTimeRange? issuedAt,
-            DateTimeRange? expiredAt)
+            DateTimeRange<DateTime>? createdAt,
+            DateTimeRange<DateTime>? issuedAt,
+            DateTimeRange<DateTime>? expiredAt)
         $default,
   ) {
     final _that = this;
@@ -282,9 +289,9 @@ extension DocumentFilterStatePatterns on DocumentFilterState {
             Subcategory subcategory,
             String search,
             bool? archived,
-            DateTimeRange? createdAt,
-            DateTimeRange? issuedAt,
-            DateTimeRange? expiredAt)?
+            DateTimeRange<DateTime>? createdAt,
+            DateTimeRange<DateTime>? issuedAt,
+            DateTimeRange<DateTime>? expiredAt)?
         $default,
   ) {
     final _that = this;
@@ -319,11 +326,11 @@ class _DocumentFilterState extends DocumentFilterState {
   @JsonKey()
   final bool? archived;
   @override
-  final DateTimeRange? createdAt;
+  final DateTimeRange<DateTime>? createdAt;
   @override
-  final DateTimeRange? issuedAt;
+  final DateTimeRange<DateTime>? issuedAt;
   @override
-  final DateTimeRange? expiredAt;
+  final DateTimeRange<DateTime>? expiredAt;
 
   /// Create a copy of DocumentFilterState
   /// with the given fields replaced by the non-null parameter values.
@@ -353,8 +360,10 @@ class _DocumentFilterState extends DocumentFilterState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, subcategory, search, archived,
-      createdAt, issuedAt, expiredAt);
+  int get hashCode {
+    return Object.hash(runtimeType, subcategory, search, archived, createdAt,
+        issuedAt, expiredAt);
+  }
 
   @override
   String toString() {
@@ -374,9 +383,9 @@ abstract mixin class _$DocumentFilterStateCopyWith<$Res>
       {Subcategory subcategory,
       String search,
       bool? archived,
-      DateTimeRange? createdAt,
-      DateTimeRange? issuedAt,
-      DateTimeRange? expiredAt});
+      DateTimeRange<DateTime>? createdAt,
+      DateTimeRange<DateTime>? issuedAt,
+      DateTimeRange<DateTime>? expiredAt});
 }
 
 /// @nodoc
@@ -415,15 +424,15 @@ class __$DocumentFilterStateCopyWithImpl<$Res>
       createdAt: freezed == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTimeRange?,
+              as DateTimeRange<DateTime>?,
       issuedAt: freezed == issuedAt
           ? _self.issuedAt
           : issuedAt // ignore: cast_nullable_to_non_nullable
-              as DateTimeRange?,
+              as DateTimeRange<DateTime>?,
       expiredAt: freezed == expiredAt
           ? _self.expiredAt
           : expiredAt // ignore: cast_nullable_to_non_nullable
-              as DateTimeRange?,
+              as DateTimeRange<DateTime>?,
     ));
   }
 }

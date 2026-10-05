@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'filter.dart';
@@ -9,6 +9,7 @@ part of 'filter.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -16,7 +17,7 @@ T _$identity<T>(T value) => value;
 mixin _$SubcategoryFilterState {
   String get search;
   bool? get archived;
-  DateTimeRange? get createdAt;
+  DateTimeRange<DateTime>? get createdAt;
   String get categoryId;
 
   /// Create a copy of SubcategoryFilterState
@@ -29,25 +30,31 @@ mixin _$SubcategoryFilterState {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as SubcategoryFilterState;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SubcategoryFilterState &&
-            (identical(other.search, search) || other.search == search) &&
-            (identical(other.archived, archived) ||
-                other.archived == archived) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId));
+            (identical(other.search, _this.search) ||
+                other.search == _this.search) &&
+            (identical(other.archived, _this.archived) ||
+                other.archived == _this.archived) &&
+            (identical(other.createdAt, _this.createdAt) ||
+                other.createdAt == _this.createdAt) &&
+            (identical(other.categoryId, _this.categoryId) ||
+                other.categoryId == _this.categoryId));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, search, archived, createdAt, categoryId);
+  int get hashCode {
+    final _this = this as SubcategoryFilterState;
+    return Object.hash(runtimeType, _this.search, _this.archived,
+        _this.createdAt, _this.categoryId);
+  }
 
   @override
   String toString() {
-    return 'SubcategoryFilterState(search: $search, archived: $archived, createdAt: $createdAt, categoryId: $categoryId)';
+    final _this = this as SubcategoryFilterState;
+    return 'SubcategoryFilterState(search: ${_this.search}, archived: ${_this.archived}, createdAt: ${_this.createdAt}, categoryId: ${_this.categoryId})';
   }
 }
 
@@ -60,7 +67,7 @@ abstract mixin class $SubcategoryFilterStateCopyWith<$Res> {
   $Res call(
       {String search,
       bool? archived,
-      DateTimeRange? createdAt,
+      DateTimeRange<DateTime>? createdAt,
       String categoryId});
 }
 
@@ -82,7 +89,7 @@ class _$SubcategoryFilterStateCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? categoryId = null,
   }) {
-    return _then(_self.copyWith(
+    return _then(SubcategoryFilterState(
       search: null == search
           ? _self.search
           : search // ignore: cast_nullable_to_non_nullable
@@ -94,7 +101,7 @@ class _$SubcategoryFilterStateCopyWithImpl<$Res>
       createdAt: freezed == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTimeRange?,
+              as DateTimeRange<DateTime>?,
       categoryId: null == categoryId
           ? _self.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
@@ -194,8 +201,8 @@ extension SubcategoryFilterStatePatterns on SubcategoryFilterState {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String search, bool? archived, DateTimeRange? createdAt,
-            String categoryId)?
+    TResult Function(String search, bool? archived,
+            DateTimeRange<DateTime>? createdAt, String categoryId)?
         $default, {
     required TResult orElse(),
   }) {
@@ -224,8 +231,8 @@ extension SubcategoryFilterStatePatterns on SubcategoryFilterState {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String search, bool? archived, DateTimeRange? createdAt,
-            String categoryId)
+    TResult Function(String search, bool? archived,
+            DateTimeRange<DateTime>? createdAt, String categoryId)
         $default,
   ) {
     final _that = this;
@@ -250,8 +257,8 @@ extension SubcategoryFilterStatePatterns on SubcategoryFilterState {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String search, bool? archived, DateTimeRange? createdAt,
-            String categoryId)?
+    TResult? Function(String search, bool? archived,
+            DateTimeRange<DateTime>? createdAt, String categoryId)?
         $default,
   ) {
     final _that = this;
@@ -282,7 +289,7 @@ class _SubcategoryFilterState extends SubcategoryFilterState {
   @JsonKey()
   final bool? archived;
   @override
-  final DateTimeRange? createdAt;
+  final DateTimeRange<DateTime>? createdAt;
   @override
   final String categoryId;
 
@@ -310,8 +317,9 @@ class _SubcategoryFilterState extends SubcategoryFilterState {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, search, archived, createdAt, categoryId);
+  int get hashCode {
+    return Object.hash(runtimeType, search, archived, createdAt, categoryId);
+  }
 
   @override
   String toString() {
@@ -330,7 +338,7 @@ abstract mixin class _$SubcategoryFilterStateCopyWith<$Res>
   $Res call(
       {String search,
       bool? archived,
-      DateTimeRange? createdAt,
+      DateTimeRange<DateTime>? createdAt,
       String categoryId});
 }
 
@@ -364,7 +372,7 @@ class __$SubcategoryFilterStateCopyWithImpl<$Res>
       createdAt: freezed == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTimeRange?,
+              as DateTimeRange<DateTime>?,
       categoryId: null == categoryId
           ? _self.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable

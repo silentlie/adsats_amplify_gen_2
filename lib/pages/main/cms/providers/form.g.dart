@@ -47,13 +47,13 @@ abstract class _$ReportForm extends $Notifier<ReportFormState> {
   ReportFormState build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<ReportFormState, ReportFormState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<ReportFormState, ReportFormState>,
         ReportFormState,
         Object?,
         Object?>;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

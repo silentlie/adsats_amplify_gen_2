@@ -46,10 +46,10 @@ abstract class _$Router extends $Notifier<GoRouter> {
   GoRouter build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<GoRouter, GoRouter>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<GoRouter, GoRouter>, GoRouter, Object?, Object?>;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

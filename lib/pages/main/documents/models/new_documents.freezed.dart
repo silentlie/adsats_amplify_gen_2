@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'new_documents.dart';
@@ -9,6 +9,7 @@ part of 'new_documents.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -33,40 +34,47 @@ mixin _$NewDocumentsState {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as NewDocumentsState;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is NewDocumentsState &&
-            (identical(other.uploader, uploader) ||
-                other.uploader == uploader) &&
-            (identical(other.subcategory, subcategory) ||
-                other.subcategory == subcategory) &&
-            const DeepCollectionEquality().equals(other.aircraft, aircraft) &&
-            (identical(other.archived, archived) ||
-                other.archived == archived) &&
-            (identical(other.issuedAt, issuedAt) ||
-                other.issuedAt == issuedAt) &&
-            (identical(other.expiredAt, expiredAt) ||
-                other.expiredAt == expiredAt) &&
-            (identical(other.stage, stage) || other.stage == stage) &&
-            (identical(other.reminderState, reminderState) ||
-                other.reminderState == reminderState));
+            (identical(other.uploader, _this.uploader) ||
+                other.uploader == _this.uploader) &&
+            (identical(other.subcategory, _this.subcategory) ||
+                other.subcategory == _this.subcategory) &&
+            const DeepCollectionEquality()
+                .equals(other.aircraft, _this.aircraft) &&
+            (identical(other.archived, _this.archived) ||
+                other.archived == _this.archived) &&
+            (identical(other.issuedAt, _this.issuedAt) ||
+                other.issuedAt == _this.issuedAt) &&
+            (identical(other.expiredAt, _this.expiredAt) ||
+                other.expiredAt == _this.expiredAt) &&
+            (identical(other.stage, _this.stage) ||
+                other.stage == _this.stage) &&
+            (identical(other.reminderState, _this.reminderState) ||
+                other.reminderState == _this.reminderState));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      uploader,
-      subcategory,
-      const DeepCollectionEquality().hash(aircraft),
-      archived,
-      issuedAt,
-      expiredAt,
-      stage,
-      reminderState);
+  int get hashCode {
+    final _this = this as NewDocumentsState;
+    return Object.hash(
+        runtimeType,
+        _this.uploader,
+        _this.subcategory,
+        const DeepCollectionEquality().hash(_this.aircraft),
+        _this.archived,
+        _this.issuedAt,
+        _this.expiredAt,
+        _this.stage,
+        _this.reminderState);
+  }
 
   @override
   String toString() {
-    return 'NewDocumentsState(uploader: $uploader, subcategory: $subcategory, aircraft: $aircraft, archived: $archived, issuedAt: $issuedAt, expiredAt: $expiredAt, stage: $stage, reminderState: $reminderState)';
+    final _this = this as NewDocumentsState;
+    return 'NewDocumentsState(uploader: ${_this.uploader}, subcategory: ${_this.subcategory}, aircraft: ${_this.aircraft}, archived: ${_this.archived}, issuedAt: ${_this.issuedAt}, expiredAt: ${_this.expiredAt}, stage: ${_this.stage}, reminderState: ${_this.reminderState})';
   }
 }
 
@@ -111,7 +119,7 @@ class _$NewDocumentsStateCopyWithImpl<$Res>
     Object? stage = null,
     Object? reminderState = null,
   }) {
-    return _then(_self.copyWith(
+    return _then(NewDocumentsState(
       uploader: freezed == uploader
           ? _self.uploader
           : uploader // ignore: cast_nullable_to_non_nullable
@@ -368,7 +376,7 @@ class _NewDocumentsState extends NewDocumentsState {
   const _NewDocumentsState(
       {this.uploader,
       this.subcategory,
-      final List<Aircraft> aircraft = const [],
+      List<Aircraft> aircraft = const [],
       this.archived = false,
       this.issuedAt,
       this.expiredAt,
@@ -421,7 +429,7 @@ class _NewDocumentsState extends NewDocumentsState {
                 other.uploader == uploader) &&
             (identical(other.subcategory, subcategory) ||
                 other.subcategory == subcategory) &&
-            const DeepCollectionEquality().equals(other._aircraft, _aircraft) &&
+            const DeepCollectionEquality().equals(other.aircraft, _aircraft) &&
             (identical(other.archived, archived) ||
                 other.archived == archived) &&
             (identical(other.issuedAt, issuedAt) ||
@@ -434,16 +442,18 @@ class _NewDocumentsState extends NewDocumentsState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      uploader,
-      subcategory,
-      const DeepCollectionEquality().hash(_aircraft),
-      archived,
-      issuedAt,
-      expiredAt,
-      stage,
-      reminderState);
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        uploader,
+        subcategory,
+        const DeepCollectionEquality().hash(_aircraft),
+        archived,
+        issuedAt,
+        expiredAt,
+        stage,
+        reminderState);
+  }
 
   @override
   String toString() {

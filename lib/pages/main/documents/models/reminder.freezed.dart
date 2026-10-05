@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'reminder.dart';
@@ -9,6 +9,7 @@ part of 'reminder.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -33,42 +34,47 @@ mixin _$ReminderFormState {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as ReminderFormState;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ReminderFormState &&
-            (identical(other.expiredAt, expiredAt) ||
-                other.expiredAt == expiredAt) &&
-            (identical(other.ninetyDaysBefore, ninetyDaysBefore) ||
-                other.ninetyDaysBefore == ninetyDaysBefore) &&
-            (identical(other.sixtyDaysBefore, sixtyDaysBefore) ||
-                other.sixtyDaysBefore == sixtyDaysBefore) &&
-            (identical(other.thirtyDaysBefore, thirtyDaysBefore) ||
-                other.thirtyDaysBefore == thirtyDaysBefore) &&
-            (identical(other.reminderDate, reminderDate) ||
-                other.reminderDate == reminderDate) &&
+            (identical(other.expiredAt, _this.expiredAt) ||
+                other.expiredAt == _this.expiredAt) &&
+            (identical(other.ninetyDaysBefore, _this.ninetyDaysBefore) ||
+                other.ninetyDaysBefore == _this.ninetyDaysBefore) &&
+            (identical(other.sixtyDaysBefore, _this.sixtyDaysBefore) ||
+                other.sixtyDaysBefore == _this.sixtyDaysBefore) &&
+            (identical(other.thirtyDaysBefore, _this.thirtyDaysBefore) ||
+                other.thirtyDaysBefore == _this.thirtyDaysBefore) &&
+            (identical(other.reminderDate, _this.reminderDate) ||
+                other.reminderDate == _this.reminderDate) &&
             const DeepCollectionEquality()
-                .equals(other.selectedStaff, selectedStaff) &&
-            (identical(other.isSubmitting, isSubmitting) ||
-                other.isSubmitting == isSubmitting) &&
-            (identical(other.dateValidationError, dateValidationError) ||
-                other.dateValidationError == dateValidationError));
+                .equals(other.selectedStaff, _this.selectedStaff) &&
+            (identical(other.isSubmitting, _this.isSubmitting) ||
+                other.isSubmitting == _this.isSubmitting) &&
+            (identical(other.dateValidationError, _this.dateValidationError) ||
+                other.dateValidationError == _this.dateValidationError));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      expiredAt,
-      ninetyDaysBefore,
-      sixtyDaysBefore,
-      thirtyDaysBefore,
-      reminderDate,
-      const DeepCollectionEquality().hash(selectedStaff),
-      isSubmitting,
-      dateValidationError);
+  int get hashCode {
+    final _this = this as ReminderFormState;
+    return Object.hash(
+        runtimeType,
+        _this.expiredAt,
+        _this.ninetyDaysBefore,
+        _this.sixtyDaysBefore,
+        _this.thirtyDaysBefore,
+        _this.reminderDate,
+        const DeepCollectionEquality().hash(_this.selectedStaff),
+        _this.isSubmitting,
+        _this.dateValidationError);
+  }
 
   @override
   String toString() {
-    return 'ReminderFormState(expiredAt: $expiredAt, ninetyDaysBefore: $ninetyDaysBefore, sixtyDaysBefore: $sixtyDaysBefore, thirtyDaysBefore: $thirtyDaysBefore, reminderDate: $reminderDate, selectedStaff: $selectedStaff, isSubmitting: $isSubmitting, dateValidationError: $dateValidationError)';
+    final _this = this as ReminderFormState;
+    return 'ReminderFormState(expiredAt: ${_this.expiredAt}, ninetyDaysBefore: ${_this.ninetyDaysBefore}, sixtyDaysBefore: ${_this.sixtyDaysBefore}, thirtyDaysBefore: ${_this.thirtyDaysBefore}, reminderDate: ${_this.reminderDate}, selectedStaff: ${_this.selectedStaff}, isSubmitting: ${_this.isSubmitting}, dateValidationError: ${_this.dateValidationError})';
   }
 }
 
@@ -111,7 +117,7 @@ class _$ReminderFormStateCopyWithImpl<$Res>
     Object? isSubmitting = null,
     Object? dateValidationError = freezed,
   }) {
-    return _then(_self.copyWith(
+    return _then(ReminderFormState(
       expiredAt: freezed == expiredAt
           ? _self.expiredAt
           : expiredAt // ignore: cast_nullable_to_non_nullable
@@ -361,7 +367,7 @@ class _ReminderFormState extends ReminderFormState {
       this.sixtyDaysBefore = false,
       this.thirtyDaysBefore = false,
       this.reminderDate,
-      final List<Staff> selectedStaff = const [],
+      List<Staff> selectedStaff = const [],
       this.isSubmitting = false,
       this.dateValidationError})
       : _selectedStaff = selectedStaff,
@@ -419,7 +425,7 @@ class _ReminderFormState extends ReminderFormState {
             (identical(other.reminderDate, reminderDate) ||
                 other.reminderDate == reminderDate) &&
             const DeepCollectionEquality()
-                .equals(other._selectedStaff, _selectedStaff) &&
+                .equals(other.selectedStaff, _selectedStaff) &&
             (identical(other.isSubmitting, isSubmitting) ||
                 other.isSubmitting == isSubmitting) &&
             (identical(other.dateValidationError, dateValidationError) ||
@@ -427,16 +433,18 @@ class _ReminderFormState extends ReminderFormState {
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      expiredAt,
-      ninetyDaysBefore,
-      sixtyDaysBefore,
-      thirtyDaysBefore,
-      reminderDate,
-      const DeepCollectionEquality().hash(_selectedStaff),
-      isSubmitting,
-      dateValidationError);
+  int get hashCode {
+    return Object.hash(
+        runtimeType,
+        expiredAt,
+        ninetyDaysBefore,
+        sixtyDaysBefore,
+        thirtyDaysBefore,
+        reminderDate,
+        const DeepCollectionEquality().hash(_selectedStaff),
+        isSubmitting,
+        dateValidationError);
+  }
 
   @override
   String toString() {
@@ -537,22 +545,27 @@ mixin _$ReminderFormResult {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as ReminderFormResult;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ReminderFormResult &&
-            const DeepCollectionEquality().equals(other.dates, dates) &&
-            const DeepCollectionEquality().equals(other.staff, staff));
+            const DeepCollectionEquality().equals(other.dates, _this.dates) &&
+            const DeepCollectionEquality().equals(other.staff, _this.staff));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(dates),
-      const DeepCollectionEquality().hash(staff));
+  int get hashCode {
+    final _this = this as ReminderFormResult;
+    return Object.hash(
+        runtimeType,
+        const DeepCollectionEquality().hash(_this.dates),
+        const DeepCollectionEquality().hash(_this.staff));
+  }
 
   @override
   String toString() {
-    return 'ReminderFormResult(dates: $dates, staff: $staff)';
+    final _this = this as ReminderFormResult;
+    return 'ReminderFormResult(dates: ${_this.dates}, staff: ${_this.staff})';
   }
 }
 
@@ -581,7 +594,7 @@ class _$ReminderFormResultCopyWithImpl<$Res>
     Object? dates = null,
     Object? staff = null,
   }) {
-    return _then(_self.copyWith(
+    return _then(ReminderFormResult(
       dates: null == dates
           ? _self.dates
           : dates // ignore: cast_nullable_to_non_nullable
@@ -753,8 +766,7 @@ extension ReminderFormResultPatterns on ReminderFormResult {
 
 class _ReminderFormResult implements ReminderFormResult {
   const _ReminderFormResult(
-      {required final List<TemporalDateTime> dates,
-      final List<Staff> staff = const []})
+      {required List<TemporalDateTime> dates, List<Staff> staff = const []})
       : _dates = dates,
         _staff = staff;
 
@@ -788,15 +800,15 @@ class _ReminderFormResult implements ReminderFormResult {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _ReminderFormResult &&
-            const DeepCollectionEquality().equals(other._dates, _dates) &&
-            const DeepCollectionEquality().equals(other._staff, _staff));
+            const DeepCollectionEquality().equals(other.dates, _dates) &&
+            const DeepCollectionEquality().equals(other.staff, _staff));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_dates),
-      const DeepCollectionEquality().hash(_staff));
+  int get hashCode {
+    return Object.hash(runtimeType, const DeepCollectionEquality().hash(_dates),
+        const DeepCollectionEquality().hash(_staff));
+  }
 
   @override
   String toString() {

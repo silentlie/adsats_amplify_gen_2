@@ -47,13 +47,13 @@ abstract class _$SelectedFiles extends $Notifier<List<PlatformFile>> {
   List<PlatformFile> build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<List<PlatformFile>, List<PlatformFile>>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<List<PlatformFile>, List<PlatformFile>>,
         List<PlatformFile>,
         Object?,
         Object?>;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

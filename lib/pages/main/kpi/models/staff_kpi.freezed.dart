@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'staff_kpi.dart';
@@ -9,6 +9,7 @@ part of 'staff_kpi.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 
@@ -25,18 +26,24 @@ mixin _$StaffKPI {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as StaffKPI;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is StaffKPI &&
-            (identical(other.staff, staff) || other.staff == staff));
+            (identical(other.staff, _this.staff) ||
+                other.staff == _this.staff));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, staff);
+  int get hashCode {
+    final _this = this as StaffKPI;
+    return Object.hash(runtimeType, _this.staff);
+  }
 
   @override
   String toString() {
-    return 'StaffKPI(staff: $staff)';
+    final _this = this as StaffKPI;
+    return 'StaffKPI(staff: ${_this.staff})';
   }
 }
 
@@ -62,7 +69,7 @@ class _$StaffKPICopyWithImpl<$Res> implements $StaffKPICopyWith<$Res> {
   $Res call({
     Object? staff = null,
   }) {
-    return _then(_self.copyWith(
+    return _then(StaffKPI(
       staff: null == staff
           ? _self.staff
           : staff // ignore: cast_nullable_to_non_nullable
@@ -249,7 +256,9 @@ class _StaffKPI extends StaffKPI {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, staff);
+  int get hashCode {
+    return Object.hash(runtimeType, staff);
+  }
 
   @override
   String toString() {

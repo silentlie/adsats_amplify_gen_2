@@ -9,8 +9,8 @@ part 'filter.freezed.dart';
 sealed class FlightCrewRecordFilterState with _$FlightCrewRecordFilterState {
   FlightCrewRecordFilterState._();
   factory FlightCrewRecordFilterState({
-    required final Staff staff,
-    required final FlightCrewRecordCategory category,
+    required Staff staff,
+    required FlightCrewRecordCategory category,
     @Default("") String search,
     @Default(false) bool? archived,
     DateTimeRange? createdAt,

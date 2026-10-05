@@ -47,13 +47,13 @@ abstract class _$AdminFilter extends $Notifier<AdminFilterState> {
   AdminFilterState build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<AdminFilterState, AdminFilterState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<AdminFilterState, AdminFilterState>,
         AdminFilterState,
         Object?,
         Object?>;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }

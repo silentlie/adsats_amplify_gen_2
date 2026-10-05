@@ -47,13 +47,13 @@ abstract class _$StaffKPIFilter extends $Notifier<StaffKPIFilterState> {
   StaffKPIFilterState build();
   @$mustCallSuper
   @override
-  void runBuild() {
+  WhenComplete runBuild() {
     final ref = this.ref as $Ref<StaffKPIFilterState, StaffKPIFilterState>;
     final element = ref.element as $ClassProviderElement<
         AnyNotifier<StaffKPIFilterState, StaffKPIFilterState>,
         StaffKPIFilterState,
         Object?,
         Object?>;
-    element.handleCreate(ref, build);
+    return element.handleCreate(ref, build);
   }
 }
