@@ -18,6 +18,7 @@ This repository contains the Flutter client and AWS Amplify Gen 2 backend for AD
 - [Generated Code](#generated-code)
 - [Development Workflow](#development-workflow)
 - [Validation](#validation)
+- [Known Issues](#known-issues)
 - [Troubleshooting](#troubleshooting)
 
 ## Application Areas
@@ -319,6 +320,12 @@ dart run build_runner build --delete-conflicting-outputs
 ```
 
 The repository currently has a basic Flutter widget test under `test/widget_test.dart`. Replace or expand it with ADSATS-specific smoke tests as real workflows are covered.
+
+## Known Issues
+
+The [known issue register](docs/known-issues.md) tracks reported findings using stable
+issue IDs, priorities, status, owners, remediation actions, and verification criteria.
+Update the register when an issue is assigned, confirmed, fixed, or closed.
 
 ## Troubleshooting
 
