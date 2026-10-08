@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:adsats_amplify_gen_2/API/amplify_notification_email_repository.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
@@ -136,17 +137,22 @@ class NoticeForm extends _$NoticeForm {
   ) async {
     commit();
     final service = ref.read(noticeServiceProvider);
-    await service.saveAndOptionallySend(
-      draft: state.notice,
-      initial: _initialNotice,
-      aircraft: _aircraft,
-      roles: _roles,
-      manualRecipients: _recipients,
-      newDocuments: ref.read(selectedFilesProvider),
-      keepDocuments: _documents,
-      send: send,
-      onProgress: onProgressUpdate,
-    );
+    try {
+      await service.saveAndOptionallySend(
+        draft: state.notice,
+        initial: _initialNotice,
+        aircraft: _aircraft,
+        roles: _roles,
+        manualRecipients: _recipients,
+        newDocuments: ref.read(selectedFilesProvider),
+        keepDocuments: _documents,
+        send: send,
+        onProgress: onProgressUpdate,
+      );
+    } on NotificationEmailException {
+      ref.invalidate(noticesProvider);
+      rethrow;
+    }
     ref.invalidate(noticesProvider);
   }
 }

@@ -25,7 +25,7 @@ type NotificationRecord = {
 type SendEmailResult = {
   recipient: string;
   ok: boolean;
-  error?: unknown;
+  error?: string;
 };
 
 export const handler: Handler = async (event) => {
@@ -175,7 +175,7 @@ async function sendNotifications({
         return {
           recipient: "Unknown recipient",
           ok: false,
-          error: new Error("Recipient staff information is missing"),
+          error: "Recipient staff information is missing",
         };
       }
 
@@ -202,10 +202,18 @@ async function sendNotifications({
         await sendEmail(authorName, staff.email, emailSubject, htmlBody);
         return { recipient: staff.email, ok: true };
       } catch (error) {
+        const message = error instanceof Error
+          ? `${error.name}: ${error.message}`
+          : String(error);
+        console.error("Failed to send notification email", {
+          recordId: record.id,
+          recipient: staff.email,
+          error: message,
+        });
         return {
           recipient: staff.email,
           ok: false,
-          error,
+          error: message,
         };
       }
     }),

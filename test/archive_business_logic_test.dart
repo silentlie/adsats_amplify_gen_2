@@ -452,6 +452,10 @@ class _FakeDatabase extends AmplifyAppSyncAPI {
     required Map<String, dynamic> variables,
   }) async {
     emails.add(variables);
-    return {};
+    return {
+      'sendNotificationEmail': [
+        {'recipient': 'active@example.com', 'ok': true},
+      ],
+    };
   }
 }

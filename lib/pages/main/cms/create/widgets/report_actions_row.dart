@@ -1,8 +1,10 @@
+import 'package:adsats_amplify_gen_2/API/amplify_notification_email_repository.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -124,12 +126,26 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
                   content: Text("Do you want to submit and send?"),
                 );
                 if (result) {
-                  await notifier.submit(
-                    true,
-                    (fileName, progress) {
-                      // TODO update upload status
-                    },
-                  );
+                  try {
+                    await notifier.submit(
+                      true,
+                      (fileName, progress) {
+                        // TODO update upload status
+                      },
+                    );
+                  } on NotificationEmailException catch (error) {
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(error.message,
+                          maxLines: 6, overflow: TextOverflow.ellipsis),
+                      action: SnackBarAction(
+                        label: 'Copy details',
+                        onPressed: () => Clipboard.setData(
+                            ClipboardData(text: error.message)),
+                      ),
+                      duration: const Duration(seconds: 12),
+                    ));
+                  }
                   if (!context.mounted) return;
                   if (context.canPop()) {
                     context.pop();

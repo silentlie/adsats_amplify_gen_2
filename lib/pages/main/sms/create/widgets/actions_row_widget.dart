@@ -1,3 +1,4 @@
+import 'package:adsats_amplify_gen_2/API/amplify_notification_email_repository.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/extensions/enum_label_extension.dart';
 import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
@@ -8,6 +9,7 @@ import 'package:adsats_amplify_gen_2/pages/main/sms/providers/service.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -140,9 +142,23 @@ class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
                       content: Text("Do you want to submit and send?"),
                     );
                     if (result) {
-                      await notifier.submit(true, (fileName, progress) {
-                        // TODO: update file upload progress
-                      });
+                      try {
+                        await notifier.submit(true, (fileName, progress) {
+                          // TODO: update file upload progress
+                        });
+                      } on NotificationEmailException catch (error) {
+                        if (!context.mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text(error.message,
+                              maxLines: 6, overflow: TextOverflow.ellipsis),
+                          action: SnackBarAction(
+                            label: 'Copy details',
+                            onPressed: () => Clipboard.setData(
+                                ClipboardData(text: error.message)),
+                          ),
+                          duration: const Duration(seconds: 12),
+                        ));
+                      }
                       if (!context.mounted) return;
                       if (context.canPop()) {
                         context.pop();

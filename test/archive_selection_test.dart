@@ -1,3 +1,5 @@
+import 'dart:ui' show PointerDeviceKind;
+
 import 'package:adsats_amplify_gen_2/API/amplify_appsync_api.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/database_api.dart';
@@ -265,6 +267,41 @@ void main() {
     await tester.tap(find.text('Former Staff').last);
     await tester.pumpAndSettle();
     expect(changed!.map((staff) => staff.id), ['Former']);
+  });
+
+  testWidgets('recipient chips support hover, removal and reselection',
+      (tester) async {
+    final active = _staff('Active');
+    List<Staff>? changed;
+    await tester.pumpWidget(_multiSelect(
+      items: [active],
+      selected: const [],
+      onChange: (value) => changed = value,
+    ));
+
+    final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
+    await mouse.addPointer(location: Offset.zero);
+    addTearDown(mouse.removePointer);
+
+    for (var attempt = 0; attempt < 2; attempt++) {
+      await tester.tap(find.text('Tap to select'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Active Staff').last);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Back'));
+      await tester.pumpAndSettle();
+      expect(changed, [active]);
+
+      await mouse.moveTo(tester.getCenter(find.byIcon(Icons.cancel)));
+      await tester.pump(const Duration(seconds: 1));
+      expect(tester.takeException(), isNull);
+      await tester.tap(find.byIcon(Icons.cancel));
+      await tester.pumpAndSettle();
+      expect(changed, isEmpty);
+      expect(find.text('Tap to select'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+      await mouse.moveTo(Offset.zero);
+    }
   });
 
   testWidgets('an old notice with an archived author still opens',

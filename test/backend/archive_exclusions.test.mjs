@@ -175,6 +175,53 @@ for (const isNotice of [true, false]) {
     });
     assert.deepEqual(await handler(event), []);
   });
+
+  test(`${kind} exposes serializable SES errors without losing successful sends`, async () => {
+    const handler = await loadHandler("send-notification-email", {
+      client: {
+        models: {
+          [modelName]: {
+            async get() {
+              return {
+                data: {
+                  id: kind,
+                  subject: "Notification",
+                  archived: false,
+                  recipients: [
+                    { staff: person("sent") },
+                    { staff: person("failed") },
+                    { staff: null },
+                  ],
+                },
+              };
+            },
+          },
+        },
+      },
+      async sendEmail(_, recipient) {
+        if (recipient === "failed@example.com") {
+          const error = new Error("ses:SendEmail is not authorized");
+          error.name = "AccessDeniedException";
+          throw error;
+        }
+      },
+    });
+
+    const results = JSON.parse(JSON.stringify(await handler(event)));
+    assert.deepEqual(results, [
+      { recipient: "sent@example.com", ok: true },
+      {
+        recipient: "failed@example.com",
+        ok: false,
+        error: "AccessDeniedException: ses:SendEmail is not authorized",
+      },
+      {
+        recipient: "Unknown recipient",
+        ok: false,
+        error: "Recipient staff information is missing",
+      },
+    ]);
+  });
 }
 
 function reminder() {
