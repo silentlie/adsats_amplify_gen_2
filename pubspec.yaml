@@ -1,7 +1,7 @@
 name: adsats_amplify_gen_2
 description: "ADSATS - Aviation Document Storage and Tracking System"
 publish_to: 'none'
-version: 1.5.1+3
+version: 1.5.2+4
 
 environment:
   sdk: '>=3.4.3 <4.0.0'
