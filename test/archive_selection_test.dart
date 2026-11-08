@@ -304,6 +304,64 @@ void main() {
     }
   });
 
+  for (final isSafetyOfficer in [false, true]) {
+    testWidgets(
+        'SMS status choices respect Safety Officer access: $isSafetyOfficer',
+        (tester) async {
+      tester.view.physicalSize = const Size(1400, 1000);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      final author = _staff('Active');
+      final notice = Notice(
+        id: 'notice',
+        subject: 'Status choices',
+        type: NoticeType.Safety_notice,
+        status: NoticeStatus.Draft,
+        archived: false,
+        details: '{}',
+        author: author,
+      );
+      await tester.pumpWidget(ProviderScope(
+        overrides: [
+          isSafetyOfficerProvider.overrideWithValue(isSafetyOfficer),
+          listStaffProvider().overrideWith((ref) async => [author]),
+          noticeFormProvider
+              .overrideWith(() => NoticeForm.withNotice(notice, true)),
+        ],
+        child:
+            const MaterialApp(home: Scaffold(body: NoticeBasicDetailsWidget())),
+      ));
+      await tester.pumpAndSettle();
+      final expectedStatuses = isSafetyOfficer
+          ? NoticeStatus.values
+          : [NoticeStatus.Draft, NoticeStatus.Open];
+      final statusDropdown = find.byType(DropdownMenu<NoticeStatus>);
+      final dropdown =
+          tester.widget<DropdownMenu<NoticeStatus>>(statusDropdown);
+      expect(dropdown.dropdownMenuEntries.map((entry) => entry.value),
+          expectedStatuses);
+      final container = ProviderScope.containerOf(
+          tester.element(find.byType(NoticeBasicDetailsWidget)));
+
+      for (final status in expectedStatuses) {
+        await tester.tap(find.descendant(
+          of: statusDropdown,
+          matching: find.byIcon(Icons.arrow_drop_down),
+        ));
+        await tester.pumpAndSettle();
+        for (final restricted in ['Pending', 'Resolved']) {
+          expect(find.text(restricted),
+              isSafetyOfficer ? findsWidgets : findsNothing);
+        }
+        await tester.tap(find.text(status.name).last);
+        await tester.pumpAndSettle();
+        expect(container.read(noticeFormProvider).notice.status, status);
+        expect(tester.takeException(), isNull);
+      }
+    });
+  }
+
   testWidgets('an old notice with an archived author still opens',
       (tester) async {
     tester.view.physicalSize = const Size(1400, 1000);

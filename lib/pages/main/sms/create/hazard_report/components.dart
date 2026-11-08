@@ -9,6 +9,7 @@ import 'package:amplify_flutter/amplify_flutter.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'risk_mixin.dart';
+import 'signature.dart';
 
 class MitigateCommentWidget extends ConsumerWidget {
   const MitigateCommentWidget({super.key});
@@ -402,6 +403,12 @@ class SafetyOfficersSection extends ConsumerWidget {
     final recipients = ref.read(noticeFormProvider.select(
       (value) => value.recipients,
     ));
+    final selectedStaffId = signatureStaffId(details["signature"]);
+    final selectedOfficer = recipients
+        .map((recipient) => recipient.staff)
+        .whereType<Staff>()
+        .where((staff) => staff.id == selectedStaffId)
+        .firstOrNull;
     return Column(
       children: [
         const Divider(),
@@ -449,7 +456,7 @@ class SafetyOfficersSection extends ConsumerWidget {
                 firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
                 lastDate: DateTime.now().add(kTwentyFiveYearDuration),
                 onSelected: (value) {
-                  notifier.updateDetails({"reviewedAt": value});
+                  notifier.updateDetails({"reviewedAt": value?.format()});
                 },
                 enabled: isEditMode,
                 initialValue: details["reviewedAt"] == null
@@ -526,7 +533,7 @@ class SafetyOfficersSection extends ConsumerWidget {
                 firstDate: DateTime.now().subtract(kTwentyFiveYearDuration),
                 lastDate: DateTime.now().add(kTwentyFiveYearDuration),
                 onSelected: (value) {
-                  notifier.updateDetails({"closedAt": value});
+                  notifier.updateDetails({"closedAt": value?.format()});
                 },
                 enabled: isEditMode,
                 initialValue: details["closedAt"] == null
@@ -537,20 +544,20 @@ class SafetyOfficersSection extends ConsumerWidget {
               ),
             ),
             Flexible(
-              child: GlobalDropdownMenu(
-                entries: recipients.map(
-                  (e) {
-                    return DropdownMenuEntry(
-                        value: e, label: e.staff!.fullName);
-                  },
-                ).toList(),
+              child: GlobalDropdownMenu<Staff>(
+                entries: recipients
+                    .map((recipient) => recipient.staff)
+                    .whereType<Staff>()
+                    .map((staff) => DropdownMenuEntry<Staff>(
+                          value: staff,
+                          label: staff.fullName,
+                        ))
+                    .toList(),
                 onSelected: (value) {
-                  notifier.updateDetails({"signature": value});
+                  notifier.updateDetails({"signature": value?.id});
                 },
                 enabled: isEditMode,
-                initialSelection: details["signature"] == null
-                    ? null
-                    : Staff.fromJson(details["signature"]),
+                initialSelection: selectedOfficer,
                 text: "Safety officer closed this notice",
               ),
             ),

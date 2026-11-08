@@ -3,6 +3,7 @@ import 'package:adsats_amplify_gen_2/helper/mixin/confirm_dialog_mixin.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/providers/form.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
+import 'package:adsats_amplify_gen_2/widgets/submission_error.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
@@ -77,13 +78,14 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
               onPressed: () async {
                 final formState = Form.maybeOf(context);
                 if (formState == null) return;
-                formState.save();
-                final result = await showConfirmDialog(
-                  context: context,
-                  title: Text("Are you sure?"),
-                  content: Text("Do you want to save?"),
-                );
-                if (result) {
+                try {
+                  formState.save();
+                  final result = await showConfirmDialog(
+                    context: context,
+                    title: Text("Are you sure?"),
+                    content: Text("Do you want to save?"),
+                  );
+                  if (!result) return;
                   await notifier.submit(
                     false,
                     (fileName, progress) {
@@ -97,6 +99,9 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
                   } else {
                     CmsSentRoute().go(context);
                   }
+                } catch (error) {
+                  if (!context.mounted) return;
+                  showSubmissionError(context, error);
                 }
               },
               style: ButtonStyle(
@@ -118,7 +123,13 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
               onPressed: () async {
                 final formState = Form.maybeOf(context);
                 if (formState == null) return;
-                formState.save();
+                try {
+                  formState.save();
+                } catch (error) {
+                  if (!context.mounted) return;
+                  showSubmissionError(context, error);
+                  return;
+                }
                 if (!formState.validate()) return;
                 final result = await showConfirmDialog(
                   context: context,
@@ -145,6 +156,10 @@ class ReportActionsRow extends ConsumerWidget with ConfirmDialogMixin {
                       ),
                       duration: const Duration(seconds: 12),
                     ));
+                  } catch (error) {
+                    if (!context.mounted) return;
+                    showSubmissionError(context, error);
+                    return;
                   }
                   if (!context.mounted) return;
                   if (context.canPop()) {

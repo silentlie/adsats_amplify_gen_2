@@ -8,6 +8,7 @@ import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notice_form.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/service.dart';
 import 'package:adsats_amplify_gen_2/router/routes/route.dart';
 import 'package:adsats_amplify_gen_2/widgets/async_value_widget.dart';
+import 'package:adsats_amplify_gen_2/widgets/submission_error.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:material_ui/material_ui.dart';
@@ -97,13 +98,14 @@ class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
                   onPressed: () async {
                     final formState = Form.maybeOf(context);
                     if (formState == null) return;
-                    formState.save();
-                    final result = await showConfirmDialog(
-                      context: context,
-                      title: Text("Are you sure?"),
-                      content: Text("Do you want to save?"),
-                    );
-                    if (result) {
+                    try {
+                      formState.save();
+                      final result = await showConfirmDialog(
+                        context: context,
+                        title: Text("Are you sure?"),
+                        content: Text("Do you want to save?"),
+                      );
+                      if (!result) return;
                       await notifier.submit(false, (fileName, progress) {
                         // TODO: update file upload progress
                       });
@@ -113,6 +115,9 @@ class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
                       } else {
                         SmsSentRoute().go(context);
                       }
+                    } catch (error) {
+                      if (!context.mounted) return;
+                      showSubmissionError(context, error);
                     }
                   },
                   style: ButtonStyle(
@@ -134,7 +139,13 @@ class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
                   onPressed: () async {
                     final formState = Form.maybeOf(context);
                     if (formState == null) return;
-                    formState.save();
+                    try {
+                      formState.save();
+                    } catch (error) {
+                      if (!context.mounted) return;
+                      showSubmissionError(context, error);
+                      return;
+                    }
                     if (!(formState.validate())) return;
                     final result = await showConfirmDialog(
                       context: context,
@@ -158,6 +169,10 @@ class ActionsRowWidget extends HookConsumerWidget with ConfirmDialogMixin {
                           ),
                           duration: const Duration(seconds: 12),
                         ));
+                      } catch (error) {
+                        if (!context.mounted) return;
+                        showSubmissionError(context, error);
+                        return;
                       }
                       if (!context.mounted) return;
                       if (context.canPop()) {

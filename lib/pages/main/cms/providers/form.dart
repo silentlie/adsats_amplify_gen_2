@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:adsats_amplify_gen_2/API/amplify_notification_email_repository.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
+import 'package:adsats_amplify_gen_2/helper/serialization/form_details.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/models/form.dart';
 import 'package:adsats_amplify_gen_2/pages/main/cms/providers/reports.dart';
@@ -93,8 +94,10 @@ class ReportForm extends _$ReportForm {
   }
 
   void updateDetails(Map<String, dynamic> details) {
-    _draftDetails = {..._draftDetails, ...details}
+    final nextDetails = {..._draftDetails, ...details}
       ..removeWhere((k, v) => v == null);
+    encodeFormDetails(nextDetails);
+    _draftDetails = nextDetails;
   }
 
   void removeDocument(ReportDocument document) {
@@ -107,7 +110,7 @@ class ReportForm extends _$ReportForm {
 
   void commit() {
     _draftReport = _draftReport.copyWith(
-      details: json.encode(_draftDetails),
+      details: encodeFormDetails(_draftDetails),
       documents: _documents,
     );
     state = state.copyWith(report: _draftReport);
