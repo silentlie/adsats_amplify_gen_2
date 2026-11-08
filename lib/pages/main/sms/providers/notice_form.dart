@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:adsats_amplify_gen_2/API/amplify_notification_email_repository.dart';
 import 'package:adsats_amplify_gen_2/auth/auth.dart';
 import 'package:adsats_amplify_gen_2/helper/providers/selected_files.dart';
+import 'package:adsats_amplify_gen_2/helper/serialization/form_details.dart';
 import 'package:adsats_amplify_gen_2/models/ModelProvider.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/models/notice_form.dart';
 import 'package:adsats_amplify_gen_2/pages/main/sms/providers/notices.dart';
@@ -108,8 +109,10 @@ class NoticeForm extends _$NoticeForm {
   }
 
   void updateDetails(Map<String, dynamic> details) {
-    _draftDetails = {..._draftDetails, ...details}
+    final nextDetails = {..._draftDetails, ...details}
       ..removeWhere((k, v) => v == null);
+    encodeFormDetails(nextDetails);
+    _draftDetails = nextDetails;
   }
 
   void removeDocument(NoticeDocument document) {
@@ -122,7 +125,7 @@ class NoticeForm extends _$NoticeForm {
 
   void commit() {
     _draftNotice = _draftNotice.copyWith(
-      details: jsonEncode(_draftDetails),
+      details: encodeFormDetails(_draftDetails),
       documents: _documents,
     );
     state = state.copyWith(
